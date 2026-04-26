@@ -116,6 +116,54 @@
             width: 100%;
         }
 
+        /* ===== LANGUAGE SWITCHER ===== */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(245, 166, 35, 0.15);
+            border-radius: 10px;
+            padding: 4px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            padding: 5px 9px;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .lang-btn:hover {
+            color: var(--gold-light);
+            background: rgba(245, 166, 35, 0.08);
+        }
+
+        .lang-btn.active {
+            background: var(--gradient-gold);
+            color: #000;
+            box-shadow: 0 2px 10px rgba(245, 166, 35, 0.35);
+        }
+
+        .lang-btn.active:hover {
+            color: #000;
+        }
+
         .hamburger {
             display: none;
             flex-direction: column;
@@ -804,7 +852,6 @@
             text-decoration: none;
             color: var(--text-primary);
             transition: all 0.3s ease;
-            group: true;
         }
 
         .contact-link:hover {
@@ -1035,6 +1082,18 @@
             cursor: pointer;
         }
 
+        /* Mobile lang switcher */
+        .mobile-lang {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .mobile-lang .lang-btn {
+            font-size: 0.8rem;
+            padding: 7px 12px;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
             .about-grid {
@@ -1078,6 +1137,10 @@
             }
 
             .nav-links {
+                display: none;
+            }
+
+            .lang-switcher {
                 display: none;
             }
 
@@ -1125,25 +1188,39 @@
     <nav id="navbar">
         <div class="nav-logo">Adil's Tech Studio</div>
         <ul class="nav-links">
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#videos">Videos</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#hero" data-i18n="nav_home">Home</a></li>
+            <li><a href="#about" data-i18n="nav_about">About</a></li>
+            <li><a href="#videos" data-i18n="nav_videos">Videos</a></li>
+            <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
         </ul>
-        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="nav-right">
+            <div class="lang-switcher" id="langSwitcher">
+                <button class="lang-btn active" onclick="setLang('en')">EN</button>
+                <button class="lang-btn" onclick="setLang('ru')">RU</button>
+                <button class="lang-btn" onclick="setLang('kz')">KZ</button>
+                <button class="lang-btn" onclick="setLang('es')">ES</button>
+            </div>
+            <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </nav>
 
     <!-- MOBILE MENU -->
     <div class="mobile-menu" id="mobileMenu">
         <button class="mobile-close" onclick="toggleMenu()">✕</button>
-        <a href="#hero" onclick="toggleMenu()">Home</a>
-        <a href="#about" onclick="toggleMenu()">About</a>
-        <a href="#videos" onclick="toggleMenu()">Videos</a>
-        <a href="#contact" onclick="toggleMenu()">Contact</a>
+        <a href="#hero" onclick="toggleMenu()" data-i18n="nav_home">Home</a>
+        <a href="#about" onclick="toggleMenu()" data-i18n="nav_about">About</a>
+        <a href="#videos" onclick="toggleMenu()" data-i18n="nav_videos">Videos</a>
+        <a href="#contact" onclick="toggleMenu()" data-i18n="nav_contact">Contact</a>
+        <div class="mobile-lang">
+            <button class="lang-btn active" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" onclick="setLang('ru')">RU</button>
+            <button class="lang-btn" onclick="setLang('kz')">KZ</button>
+            <button class="lang-btn" onclick="setLang('es')">ES</button>
+        </div>
     </div>
 
     <!-- HERO -->
@@ -1151,33 +1228,33 @@
         <div class="hero-bg"></div>
         <div class="hero-grid"></div>
         <div class="hero-content">
-            <div class="hero-badge">🎙️ Tech Reviews &amp; Hi-Fi Audio</div>
+            <div class="hero-badge" data-i18n="hero_badge">🎙️ Tech Reviews &amp; Hi-Fi Audio</div>
             <h1 class="hero-title">
                 <span class="line1">Adil's Tech Studio</span>
                 <span class="line2">Burabay</span>
             </h1>
-            <p class="hero-subtitle">Audio Engineering · Tech Reviews · DIY Hi-Fi</p>
-            <p class="hero-location">📍 Based in <span>Burabay, Kazakhstan</span></p>
+            <p class="hero-subtitle" data-i18n="hero_subtitle">Audio Engineering · Tech Reviews · DIY Hi-Fi</p>
+            <p class="hero-location">📍 <span data-i18n="hero_location">Based in <b>Burabay, Kazakhstan</b></span></p>
             <div class="hero-tags">
                 <span class="tag">Mac mini M4</span>
                 <span class="tag">Audient EVO 4</span>
-                <span class="tag">Microphones</span>
-                <span class="tag">Audio Gear</span>
-                <span class="tag">DIY Hi-Fi</span>
-                <span class="tag">Studio Setup</span>
+                <span class="tag" data-i18n="tag_microphones">Microphones</span>
+                <span class="tag" data-i18n="tag_audio_gear">Audio Gear</span>
+                <span class="tag" data-i18n="tag_diy_hifi">DIY Hi-Fi</span>
+                <span class="tag" data-i18n="tag_studio_setup">Studio Setup</span>
             </div>
             <div class="hero-cta">
-                <a href="https://youtube.com/@AdilsTechStudio" target="_blank" class="btn-primary">
+                <a href="https://youtube.com/@AdilsTechStudio" target="_blank" class="btn-primary" data-i18n="hero_btn_watch">
                     ▶ Watch on YouTube
                 </a>
-                <a href="#about" class="btn-secondary">
+                <a href="#about" class="btn-secondary" data-i18n="hero_btn_learn">
                     Learn More →
                 </a>
             </div>
         </div>
         <div class="hero-scroll">
             <div class="scroll-line"></div>
-            <span>Scroll</span>
+            <span data-i18n="scroll_label">Scroll</span>
         </div>
     </section>
 
@@ -1186,15 +1263,15 @@
         <div class="stats-grid">
             <div class="stat-item reveal">
                 <div class="stat-number">50+</div>
-                <div class="stat-label">Videos Published</div>
+                <div class="stat-label" data-i18n="stat_videos">Videos Published</div>
             </div>
             <div class="stat-item reveal">
                 <div class="stat-number">5+</div>
-                <div class="stat-label">Years Experience</div>
+                <div class="stat-label" data-i18n="stat_experience">Years Experience</div>
             </div>
             <div class="stat-item reveal">
                 <div class="stat-number">∞</div>
-                <div class="stat-label">Passion for Audio</div>
+                <div class="stat-label" data-i18n="stat_passion">Passion for Audio</div>
             </div>
         </div>
     </div>
@@ -1203,45 +1280,43 @@
     <section id="about">
         <div class="about-container">
             <div class="section-header reveal">
-                <span class="section-label">About Me</span>
-                <h2 class="section-title">Audio Engineer &amp; <span>Tech Enthusiast</span></h2>
+                <span class="section-label" data-i18n="about_label">About Me</span>
+                <h2 class="section-title" data-i18n="about_title">Audio Engineer &amp; <span>Tech Enthusiast</span></h2>
                 <div class="section-divider"></div>
             </div>
             <div class="about-grid">
                 <div class="about-visual reveal">
                     <div class="about-avatar">
                         <span class="avatar-icon">🎧</span>
-                        <div class="about-badge-float">
-                            Audio<br>Engineer
-                        </div>
+                        <div class="about-badge-float" data-i18n="about_badge_float">Audio<br>Engineer</div>
                     </div>
                 </div>
                 <div class="about-content reveal">
-                    <h3>Hi, I'm Adil</h3>
-                    <div class="about-role">Audio Engineer &amp; Content Creator</div>
-                    <p class="about-text">
+                    <h3 data-i18n="about_greeting">Hi, I'm Adil</h3>
+                    <div class="about-role" data-i18n="about_role">Audio Engineer &amp; Content Creator</div>
+                    <p class="about-text" data-i18n="about_text1">
                         Welcome to Adil's Tech Studio — a channel dedicated to honest, in-depth reviews of audio equipment, studio gear, and tech products. Based in the beautiful Burabay region of Kazakhstan, I bring you real-world testing and hands-on experience.
                     </p>
-                    <p class="about-text">
+                    <p class="about-text" data-i18n="about_text2">
                         From professional interfaces like the Audient EVO 4 to Apple's powerful Mac mini M4, I cover the tools that matter to creators, musicians, and audio enthusiasts. I also share DIY Hi-Fi projects for those who love building their own audio systems.
                     </p>
                     <div class="about-skills">
-                        <span class="skill-tag">Audio Engineering</span>
-                        <span class="skill-tag">Studio Recording</span>
-                        <span class="skill-tag">Tech Reviews</span>
-                        <span class="skill-tag">DIY Hi-Fi</span>
-                        <span class="skill-tag">Signal Processing</span>
-                        <span class="skill-tag">Acoustic Treatment</span>
+                        <span class="skill-tag" data-i18n="skill_audio_eng">Audio Engineering</span>
+                        <span class="skill-tag" data-i18n="skill_studio_rec">Studio Recording</span>
+                        <span class="skill-tag" data-i18n="skill_tech_reviews">Tech Reviews</span>
+                        <span class="skill-tag" data-i18n="skill_diy_hifi">DIY Hi-Fi</span>
+                        <span class="skill-tag" data-i18n="skill_signal">Signal Processing</span>
+                        <span class="skill-tag" data-i18n="skill_acoustic">Acoustic Treatment</span>
                     </div>
                     <div class="about-gear">
-                        <h4>🔧 Current Setup</h4>
+                        <h4 data-i18n="gear_title">🔧 Current Setup</h4>
                         <div class="gear-list">
                             <div class="gear-item">Mac mini M4</div>
                             <div class="gear-item">Audient EVO 4</div>
-                            <div class="gear-item">Condenser Mic</div>
-                            <div class="gear-item">Studio Monitors</div>
-                            <div class="gear-item">DIY Hi-Fi Amp</div>
-                            <div class="gear-item">Acoustic Panels</div>
+                            <div class="gear-item" data-i18n="gear_mic">Condenser Mic</div>
+                            <div class="gear-item" data-i18n="gear_monitors">Studio Monitors</div>
+                            <div class="gear-item" data-i18n="gear_amp">DIY Hi-Fi Amp</div>
+                            <div class="gear-item" data-i18n="gear_panels">Acoustic Panels</div>
                         </div>
                     </div>
                 </div>
@@ -1253,8 +1328,8 @@
     <section id="videos">
         <div class="videos-container">
             <div class="section-header reveal">
-                <span class="section-label">Latest Content</span>
-                <h2 class="section-title">Recent <span>Videos</span></h2>
+                <span class="section-label" data-i18n="videos_label">Latest Content</span>
+                <h2 class="section-title" data-i18n="videos_title">Recent <span>Videos</span></h2>
                 <div class="section-divider"></div>
             </div>
             <div class="videos-grid">
@@ -1269,15 +1344,15 @@
                         <div class="play-btn">
                             <div class="play-btn-inner">▶</div>
                         </div>
-                        <span class="video-category">Review</span>
+                        <span class="video-category" data-i18n="video_cat_review">Review</span>
                         <span class="video-duration">18:42</span>
                     </div>
                     <div class="video-info">
-                        <h3 class="video-title">Mac mini M4 — Full Review for Audio Production</h3>
-                        <p class="video-desc">Is Apple's M4 chip a game-changer for music producers and audio engineers? Real-world DAW performance tests.</p>
+                        <h3 class="video-title" data-i18n="video1_title">Mac mini M4 — Full Review for Audio Production</h3>
+                        <p class="video-desc" data-i18n="video1_desc">Is Apple's M4 chip a game-changer for music producers and audio engineers? Real-world DAW performance tests.</p>
                         <div class="video-meta">
-                            <span class="video-views">👁 12.4K views</span>
-                            <span class="video-date">2 weeks ago</span>
+                            <span class="video-views">👁 12.4K <span data-i18n="views_label">views</span></span>
+                            <span class="video-date" data-i18n="video1_date">2 weeks ago</span>
                         </div>
                     </div>
                 </div>
@@ -1292,15 +1367,15 @@
                         <div class="play-btn">
                             <div class="play-btn-inner">▶</div>
                         </div>
-                        <span class="video-category">Review</span>
+                        <span class="video-category" data-i18n="video_cat_review">Review</span>
                         <span class="video-duration">22:15</span>
                     </div>
                     <div class="video-info">
-                        <h3 class="video-title">Audient EVO 4 — Best Budget Interface in 2024?</h3>
-                        <p class="video-desc">Deep dive into the Audient EVO 4 audio interface. Preamp quality, latency tests, and who it's really for.</p>
+                        <h3 class="video-title" data-i18n="video2_title">Audient EVO 4 — Best Budget Interface in 2024?</h3>
+                        <p class="video-desc" data-i18n="video2_desc">Deep dive into the Audient EVO 4 audio interface. Preamp quality, latency tests, and who it's really for.</p>
                         <div class="video-meta">
-                            <span class="video-views">👁 8.7K views</span>
-                            <span class="video-date">1 month ago</span>
+                            <span class="video-views">👁 8.7K <span data-i18n="views_label">views</span></span>
+                            <span class="video-date" data-i18n="video2_date">1 month ago</span>
                         </div>
                     </div>
                 </div>
@@ -1315,22 +1390,22 @@
                         <div class="play-btn">
                             <div class="play-btn-inner">▶</div>
                         </div>
-                        <span class="video-category">DIY Hi-Fi</span>
+                        <span class="video-category" data-i18n="video_cat_diy">DIY Hi-Fi</span>
                         <span class="video-duration">35:08</span>
                     </div>
                     <div class="video-info">
-                        <h3 class="video-title">Building a DIY Hi-Fi Amplifier from Scratch</h3>
-                        <p class="video-desc">Step-by-step guide to building a high-quality tube amplifier at home. Parts list, schematic, and sound test included.</p>
+                        <h3 class="video-title" data-i18n="video3_title">Building a DIY Hi-Fi Amplifier from Scratch</h3>
+                        <p class="video-desc" data-i18n="video3_desc">Step-by-step guide to building a high-quality tube amplifier at home. Parts list, schematic, and sound test included.</p>
                         <div class="video-meta">
-                            <span class="video-views">👁 15.2K views</span>
-                            <span class="video-date">6 weeks ago</span>
+                            <span class="video-views">👁 15.2K <span data-i18n="views_label">views</span></span>
+                            <span class="video-date" data-i18n="video3_date">6 weeks ago</span>
                         </div>
                     </div>
                 </div>
 
             </div>
             <div class="videos-cta reveal">
-                <a href="https://youtube.com/@AdilsTechStudio" target="_blank" class="btn-primary">
+                <a href="https://youtube.com/@AdilsTechStudio" target="_blank" class="btn-primary" data-i18n="videos_btn">
                     ▶ View All Videos on YouTube
                 </a>
             </div>
@@ -1341,14 +1416,14 @@
     <section id="contact">
         <div class="contact-container">
             <div class="section-header reveal">
-                <span class="section-label">Get In Touch</span>
-                <h2 class="section-title">Let's <span>Connect</span></h2>
+                <span class="section-label" data-i18n="contact_label">Get In Touch</span>
+                <h2 class="section-title" data-i18n="contact_title">Let's <span>Connect</span></h2>
                 <div class="section-divider"></div>
             </div>
             <div class="contact-grid">
                 <div class="contact-info reveal">
-                    <h3>Say Hello 👋</h3>
-                    <p>Have a question about audio gear, want to collaborate, or just want to talk tech? I'd love to hear from you. Reach out through any of the channels below.</p>
+                    <h3 data-i18n="contact_hello">Say Hello 👋</h3>
+                    <p data-i18n="contact_desc">Have a question about audio gear, want to collaborate, or just want to talk tech? I'd love to hear from you. Reach out through any of the channels below.</p>
                     <div class="contact-links">
                         <a href="https://youtube.com/@AdilsTechStudio" target="_blank" class="contact-link">
                             <div class="contact-link-icon icon-youtube">📺</div>
@@ -1369,7 +1444,7 @@
                         <a href="mailto:adil@techstudio.kz" class="contact-link">
                             <div class="contact-link-icon icon-email">📧</div>
                             <div class="contact-link-text">
-                                <div class="contact-link-label">Email</div>
+                                <div class="contact-link-label" data-i18n="contact_email_label">Email</div>
                                 <div class="contact-link-value">adil@techstudio.kz</div>
                             </div>
                             <span class="contact-link-arrow">→</span>
@@ -1377,21 +1452,21 @@
                     </div>
                 </div>
                 <div class="contact-form-side reveal">
-                    <h3>Send a Message</h3>
+                    <h3 data-i18n="form_title">Send a Message</h3>
                     <form onsubmit="handleSubmit(event)">
                         <div class="form-group">
-                            <label>Your Name</label>
-                            <input type="text" placeholder="John Doe" required>
+                            <label data-i18n="form_name_label">Your Name</label>
+                            <input type="text" data-i18n-placeholder="form_name_placeholder" placeholder="John Doe" required>
                         </div>
                         <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" placeholder="john@example.com" required>
+                            <label data-i18n="form_email_label">Email Address</label>
+                            <input type="email" data-i18n-placeholder="form_email_placeholder" placeholder="john@example.com" required>
                         </div>
                         <div class="form-group">
-                            <label>Message</label>
-                            <textarea placeholder="Tell me about your project or question..." required></textarea>
+                            <label data-i18n="form_message_label">Message</label>
+                            <textarea data-i18n-placeholder="form_message_placeholder" placeholder="Tell me about your project or question..." required></textarea>
                         </div>
-                        <button type="submit" class="btn-submit">Send Message ✉️</button>
+                        <button type="submit" class="btn-submit" data-i18n="form_submit">Send Message ✉️</button>
                     </form>
                 </div>
             </div>
@@ -1401,10 +1476,353 @@
     <!-- FOOTER -->
     <footer>
         <div class="footer-logo">Adil's Tech Studio | Burabay</div>
-        <p class="footer-text">Made with <span>♥</span> in Burabay, Kazakhstan · © 2024 All rights reserved</p>
+        <p class="footer-text" data-i18n="footer_text">Made with <span>♥</span> in Burabay, Kazakhstan · © 2024 All rights reserved</p>
     </footer>
 
     <script>
+        // ===== TRANSLATIONS =====
+        const translations = {
+            en: {
+                nav_home: 'Home',
+                nav_about: 'About',
+                nav_videos: 'Videos',
+                nav_contact: 'Contact',
+
+                hero_badge: '🎙️ Tech Reviews & Hi-Fi Audio',
+                hero_subtitle: 'Audio Engineering · Tech Reviews · DIY Hi-Fi',
+                hero_location: 'Based in <b>Burabay, Kazakhstan</b>',
+                tag_microphones: 'Microphones',
+                tag_audio_gear: 'Audio Gear',
+                tag_diy_hifi: 'DIY Hi-Fi',
+                tag_studio_setup: 'Studio Setup',
+                hero_btn_watch: '▶ Watch on YouTube',
+                hero_btn_learn: 'Learn More →',
+                scroll_label: 'Scroll',
+
+                stat_videos: 'Videos Published',
+                stat_experience: 'Years Experience',
+                stat_passion: 'Passion for Audio',
+
+                about_label: 'About Me',
+                about_title: 'Audio Engineer & <span>Tech Enthusiast</span>',
+                about_badge_float: 'Audio<br>Engineer',
+                about_greeting: "Hi, I'm Adil",
+                about_role: 'Audio Engineer & Content Creator',
+                about_text1: "Welcome to Adil's Tech Studio — a channel dedicated to honest, in-depth reviews of audio equipment, studio gear, and tech products. Based in the beautiful Burabay region of Kazakhstan, I bring you real-world testing and hands-on experience.",
+                about_text2: "From professional interfaces like the Audient EVO 4 to Apple's powerful Mac mini M4, I cover the tools that matter to creators, musicians, and audio enthusiasts. I also share DIY Hi-Fi projects for those who love building their own audio systems.",
+                skill_audio_eng: 'Audio Engineering',
+                skill_studio_rec: 'Studio Recording',
+                skill_tech_reviews: 'Tech Reviews',
+                skill_diy_hifi: 'DIY Hi-Fi',
+                skill_signal: 'Signal Processing',
+                skill_acoustic: 'Acoustic Treatment',
+                gear_title: '🔧 Current Setup',
+                gear_mic: 'Condenser Mic',
+                gear_monitors: 'Studio Monitors',
+                gear_amp: 'DIY Hi-Fi Amp',
+                gear_panels: 'Acoustic Panels',
+
+                videos_label: 'Latest Content',
+                videos_title: 'Recent <span>Videos</span>',
+                video_cat_review: 'Review',
+                video_cat_diy: 'DIY Hi-Fi',
+                video1_title: 'Mac mini M4 — Full Review for Audio Production',
+                video1_desc: "Is Apple's M4 chip a game-changer for music producers and audio engineers? Real-world DAW performance tests.",
+                video1_date: '2 weeks ago',
+                video2_title: 'Audient EVO 4 — Best Budget Interface in 2024?',
+                video2_desc: "Deep dive into the Audient EVO 4 audio interface. Preamp quality, latency tests, and who it's really for.",
+                video2_date: '1 month ago',
+                video3_title: 'Building a DIY Hi-Fi Amplifier from Scratch',
+                video3_desc: 'Step-by-step guide to building a high-quality tube amplifier at home. Parts list, schematic, and sound test included.',
+                video3_date: '6 weeks ago',
+                views_label: 'views',
+                videos_btn: '▶ View All Videos on YouTube',
+
+                contact_label: 'Get In Touch',
+                contact_title: "Let's <span>Connect</span>",
+                contact_hello: 'Say Hello 👋',
+                contact_desc: "Have a question about audio gear, want to collaborate, or just want to talk tech? I'd love to hear from you. Reach out through any of the channels below.",
+                contact_email_label: 'Email',
+                form_title: 'Send a Message',
+                form_name_label: 'Your Name',
+                form_name_placeholder: 'John Doe',
+                form_email_label: 'Email Address',
+                form_email_placeholder: 'john@example.com',
+                form_message_label: 'Message',
+                form_message_placeholder: 'Tell me about your project or question...',
+                form_submit: 'Send Message ✉️',
+                form_success: '✅ Message Sent!',
+
+                footer_text: 'Made with <span>♥</span> in Burabay, Kazakhstan · © 2024 All rights reserved',
+            },
+
+            ru: {
+                nav_home: 'Главная',
+                nav_about: 'Обо мне',
+                nav_videos: 'Видео',
+                nav_contact: 'Контакты',
+
+                hero_badge: '🎙️ Обзоры техники и Hi-Fi аудио',
+                hero_subtitle: 'Аудиоинженерия · Обзоры техники · DIY Hi-Fi',
+                hero_location: 'Из <b>Бурабая, Казахстан</b>',
+                tag_microphones: 'Микрофоны',
+                tag_audio_gear: 'Аудиооборудование',
+                tag_diy_hifi: 'DIY Hi-Fi',
+                tag_studio_setup: 'Студийная установка',
+                hero_btn_watch: '▶ Смотреть на YouTube',
+                hero_btn_learn: 'Узнать больше →',
+                scroll_label: 'Листать',
+
+                stat_videos: 'Опубликовано видео',
+                stat_experience: 'Лет опыта',
+                stat_passion: 'Страсть к аудио',
+
+                about_label: 'Обо мне',
+                about_title: 'Аудиоинженер и <span>Техноэнтузиаст</span>',
+                about_badge_float: 'Аудио-<br>инженер',
+                about_greeting: 'Привет, я Адил',
+                about_role: 'Аудиоинженер и Контент-криэйтор',
+                about_text1: 'Добро пожаловать в Adil\'s Tech Studio — канал, посвящённый честным и глубоким обзорам аудиооборудования, студийного снаряжения и технических продуктов. Из живописного региона Бурабай в Казахстане я делюсь реальными тестами и практическим опытом.',
+                about_text2: 'От профессиональных интерфейсов, таких как Audient EVO 4, до мощного Mac mini M4 от Apple — я рассказываю об инструментах, которые важны для создателей контента, музыкантов и аудиоэнтузиастов. Также делюсь DIY Hi-Fi проектами для тех, кто любит собирать аудиосистемы своими руками.',
+                skill_audio_eng: 'Аудиоинженерия',
+                skill_studio_rec: 'Студийная запись',
+                skill_tech_reviews: 'Обзоры техники',
+                skill_diy_hifi: 'DIY Hi-Fi',
+                skill_signal: 'Обработка сигналов',
+                skill_acoustic: 'Акустическая обработка',
+                gear_title: '🔧 Текущая установка',
+                gear_mic: 'Конденсаторный микрофон',
+                gear_monitors: 'Студийные мониторы',
+                gear_amp: 'DIY Hi-Fi усилитель',
+                gear_panels: 'Акустические панели',
+
+                videos_label: 'Последние материалы',
+                videos_title: 'Свежие <span>Видео</span>',
+                video_cat_review: 'Обзор',
+                video_cat_diy: 'DIY Hi-Fi',
+                video1_title: 'Mac mini M4 — Полный обзор для аудиопроизводства',
+                video1_desc: 'Является ли чип M4 от Apple революцией для музыкальных продюсеров и аудиоинженеров? Реальные тесты производительности DAW.',
+                video1_date: '2 недели назад',
+                video2_title: 'Audient EVO 4 — Лучший бюджетный интерфейс 2024?',
+                video2_desc: 'Глубокий анализ аудиоинтерфейса Audient EVO 4. Качество предусилителей, тесты задержки и для кого он действительно подходит.',
+                video2_date: '1 месяц назад',
+                video3_title: 'Сборка DIY Hi-Fi усилителя с нуля',
+                video3_desc: 'Пошаговое руководство по сборке высококачественного лампового усилителя дома. Список деталей, схема и тест звука.',
+                video3_date: '6 недель назад',
+                views_label: 'просмотров',
+                videos_btn: '▶ Все видео на YouTube',
+
+                contact_label: 'Связаться',
+                contact_title: 'Давайте <span>Общаться</span>',
+                contact_hello: 'Привет 👋',
+                contact_desc: 'Есть вопрос об аудиооборудовании, хотите сотрудничать или просто поговорить о технологиях? Буду рад услышать вас. Напишите через любой из каналов ниже.',
+                contact_email_label: 'Эл. почта',
+                form_title: 'Отправить сообщение',
+                form_name_label: 'Ваше имя',
+                form_name_placeholder: 'Иван Иванов',
+                form_email_label: 'Адрес эл. почты',
+                form_email_placeholder: 'ivan@example.com',
+                form_message_label: 'Сообщение',
+                form_message_placeholder: 'Расскажите о вашем проекте или вопросе...',
+                form_submit: 'Отправить ✉️',
+                form_success: '✅ Сообщение отправлено!',
+
+                footer_text: 'Сделано с <span>♥</span> в Бурабае, Казахстан · © 2024 Все права защищены',
+            },
+
+            kz: {
+                nav_home: 'Басты бет',
+                nav_about: 'Мен туралы',
+                nav_videos: 'Бейнелер',
+                nav_contact: 'Байланыс',
+
+                hero_badge: '🎙️ Техника шолулары және Hi-Fi аудио',
+                hero_subtitle: 'Аудио инженерия · Техника шолулары · DIY Hi-Fi',
+                hero_location: '<b>Бурабай, Қазақстан</b> қаласынан',
+                tag_microphones: 'Микрофондар',
+                tag_audio_gear: 'Аудио жабдықтар',
+                tag_diy_hifi: 'DIY Hi-Fi',
+                tag_studio_setup: 'Студия жабдығы',
+                hero_btn_watch: '▶ YouTube-та қарау',
+                hero_btn_learn: 'Толығырақ →',
+                scroll_label: 'Айналдыру',
+
+                stat_videos: 'Жарияланған бейнелер',
+                stat_experience: 'Жылдық тәжірибе',
+                stat_passion: 'Аудиоға деген құштарлық',
+
+                about_label: 'Мен туралы',
+                about_title: 'Аудио инженер және <span>Техника әуесқойы</span>',
+                about_badge_float: 'Аудио<br>инженер',
+                about_greeting: 'Сәлем, мен Әділмін',
+                about_role: 'Аудио инженер және Контент жасаушы',
+                about_text1: 'Adil\'s Tech Studio-ға қош келдіңіз — аудио жабдықтарға, студия техникасына және технологиялық өнімдерге арналған шынайы және терең шолулар жасайтын арна. Қазақстанның әдемі Бурабай өңірінен нақты тестілеу және тәжірибелік нәтижелерді ұсынамын.',
+                about_text2: 'Audient EVO 4 сияқты кәсіби интерфейстерден Apple-дің қуатты Mac mini M4-іне дейін — контент жасаушылар, музыканттар және аудио әуесқойлары үшін маңызды құралдарды қарастырамын. Сондай-ақ өз аудио жүйелерін жасағысы келетіндерге арналған DIY Hi-Fi жобаларымен бөлісемін.',
+                skill_audio_eng: 'Аудио инженерия',
+                skill_studio_rec: 'Студиялық жазу',
+                skill_tech_reviews: 'Техника шолулары',
+                skill_diy_hifi: 'DIY Hi-Fi',
+                skill_signal: 'Сигналды өңдеу',
+                skill_acoustic: 'Акустикалық өңдеу',
+                gear_title: '🔧 Қазіргі жабдық',
+                gear_mic: 'Конденсаторлы микрофон',
+                gear_monitors: 'Студиялық мониторлар',
+                gear_amp: 'DIY Hi-Fi күшейткіш',
+                gear_panels: 'Акустикалық панельдер',
+
+                videos_label: 'Соңғы мазмұн',
+                videos_title: 'Жаңа <span>Бейнелер</span>',
+                video_cat_review: 'Шолу',
+                video_cat_diy: 'DIY Hi-Fi',
+                video1_title: 'Mac mini M4 — Аудио өндіріске толық шолу',
+                video1_desc: 'Apple-дің M4 чипі музыка продюсерлері мен аудио инженерлері үшін революция ма? DAW өнімділігінің нақты тесттері.',
+                video1_date: '2 апта бұрын',
+                video2_title: 'Audient EVO 4 — 2024 жылдың үздік бюджеттік интерфейсі?',
+                video2_desc: 'Audient EVO 4 аудио интерфейсіне терең талдау. Алдын ала күшейткіш сапасы, кідіріс тесттері және ол кімге арналған.',
+                video2_date: '1 ай бұрын',
+                video3_title: 'DIY Hi-Fi күшейткішін нөлден жасау',
+                video3_desc: 'Үйде жоғары сапалы лампалы күшейткіш жасауға арналған қадамдық нұсқаулық. Бөлшектер тізімі, схема және дыбыс тесті.',
+                video3_date: '6 апта бұрын',
+                views_label: 'көрілім',
+                videos_btn: '▶ YouTube-тағы барлық бейнелер',
+
+                contact_label: 'Байланысу',
+                contact_title: '<span>Байланысайық</span>',
+                contact_hello: 'Сәлем 👋',
+                contact_desc: 'Аудио жабдықтар туралы сұрағыңыз бар ма, бірлесіп жұмыс жасағыңыз келе ме, немесе жай ғана технология туралы сөйлескіңіз келе ме? Сізден хабар алғанды қалаймын. Төмендегі арналардың кез келгені арқылы хабарласыңыз.',
+                contact_email_label: 'Эл. пошта',
+                form_title: 'Хабарлама жіберу',
+                form_name_label: 'Атыңыз',
+                form_name_placeholder: 'Айдар Сейітов',
+                form_email_label: 'Эл. пошта мекенжайы',
+                form_email_placeholder: 'aidar@example.com',
+                form_message_label: 'Хабарлама',
+                form_message_placeholder: 'Жобаңыз немесе сұрағыңыз туралы айтыңыз...',
+                form_submit: 'Жіберу ✉️',
+                form_success: '✅ Хабарлама жіберілді!',
+
+                footer_text: 'Бурабайда <span>♥</span> жасалды, Қазақстан · © 2024 Барлық құқықтар қорғалған',
+            },
+
+            es: {
+                nav_home: 'Inicio',
+                nav_about: 'Sobre mí',
+                nav_videos: 'Videos',
+                nav_contact: 'Contacto',
+
+                hero_badge: '🎙️ Reseñas de Tecnología y Audio Hi-Fi',
+                hero_subtitle: 'Ingeniería de Audio · Reseñas de Tecnología · DIY Hi-Fi',
+                hero_location: 'Desde <b>Burabay, Kazajistán</b>',
+                tag_microphones: 'Micrófonos',
+                tag_audio_gear: 'Equipo de Audio',
+                tag_diy_hifi: 'DIY Hi-Fi',
+                tag_studio_setup: 'Estudio',
+                hero_btn_watch: '▶ Ver en YouTube',
+                hero_btn_learn: 'Saber más →',
+                scroll_label: 'Desplazar',
+
+                stat_videos: 'Videos Publicados',
+                stat_experience: 'Años de Experiencia',
+                stat_passion: 'Pasión por el Audio',
+
+                about_label: 'Sobre mí',
+                about_title: 'Ingeniero de Audio y <span>Entusiasta Tech</span>',
+                about_badge_float: 'Ingeniero<br>de Audio',
+                about_greeting: 'Hola, soy Adil',
+                about_role: 'Ingeniero de Audio y Creador de Contenido',
+                about_text1: 'Bienvenido a Adil\'s Tech Studio — un canal dedicado a reseñas honestas y detalladas de equipos de audio, material de estudio y productos tecnológicos. Desde la hermosa región de Burabay en Kazajistán, te traigo pruebas del mundo real y experiencia práctica.',
+                about_text2: 'Desde interfaces profesionales como el Audient EVO 4 hasta el potente Mac mini M4 de Apple, cubro las herramientas que importan a creadores, músicos y entusiastas del audio. También comparto proyectos DIY Hi-Fi para quienes disfrutan construir sus propios sistemas de audio.',
+                skill_audio_eng: 'Ingeniería de Audio',
+                skill_studio_rec: 'Grabación en Estudio',
+                skill_tech_reviews: 'Reseñas de Tecnología',
+                skill_diy_hifi: 'DIY Hi-Fi',
+                skill_signal: 'Procesamiento de Señales',
+                skill_acoustic: 'Tratamiento Acústico',
+                gear_title: '🔧 Configuración Actual',
+                gear_mic: 'Micrófono de Condensador',
+                gear_monitors: 'Monitores de Estudio',
+                gear_amp: 'Amplificador DIY Hi-Fi',
+                gear_panels: 'Paneles Acústicos',
+
+                videos_label: 'Contenido Reciente',
+                videos_title: 'Últimos <span>Videos</span>',
+                video_cat_review: 'Reseña',
+                video_cat_diy: 'DIY Hi-Fi',
+                video1_title: 'Mac mini M4 — Reseña Completa para Producción de Audio',
+                video1_desc: '¿Es el chip M4 de Apple un cambio de juego para productores musicales e ingenieros de audio? Pruebas reales de rendimiento en DAW.',
+                video1_date: 'Hace 2 semanas',
+                video2_title: 'Audient EVO 4 — ¿La Mejor Interfaz Económica de 2024?',
+                video2_desc: 'Análisis profundo de la interfaz de audio Audient EVO 4. Calidad de preamplificadores, pruebas de latencia y para quién es realmente.',
+                video2_date: 'Hace 1 mes',
+                video3_title: 'Construyendo un Amplificador DIY Hi-Fi desde Cero',
+                video3_desc: 'Guía paso a paso para construir un amplificador de tubos de alta calidad en casa. Lista de piezas, esquema y prueba de sonido incluidos.',
+                video3_date: 'Hace 6 semanas',
+                views_label: 'vistas',
+                videos_btn: '▶ Ver Todos los Videos en YouTube',
+
+                contact_label: 'Ponte en Contacto',
+                contact_title: 'Vamos a <span>Conectar</span>',
+                contact_hello: 'Di Hola 👋',
+                contact_desc: '¿Tienes una pregunta sobre equipos de audio, quieres colaborar o simplemente hablar de tecnología? Me encantaría saber de ti. Contáctame a través de cualquiera de los canales a continuación.',
+                contact_email_label: 'Correo',
+                form_title: 'Enviar un Mensaje',
+                form_name_label: 'Tu Nombre',
+                form_name_placeholder: 'Juan García',
+                form_email_label: 'Correo Electrónico',
+                form_email_placeholder: 'juan@example.com',
+                form_message_label: 'Mensaje',
+                form_message_placeholder: 'Cuéntame sobre tu proyecto o pregunta...',
+                form_submit: 'Enviar Mensaje ✉️',
+                form_success: '✅ ¡Mensaje Enviado!',
+
+                footer_text: 'Hecho con <span>♥</span> en Burabay, Kazajistán · © 2024 Todos los derechos reservados',
+            }
+        };
+
+        // ===== LANGUAGE SWITCHER LOGIC =====
+        let currentLang = localStorage.getItem('lang') || 'en';
+
+        function setLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            applyTranslations();
+            updateLangButtons();
+        }
+
+        function applyTranslations() {
+            const t = translations[currentLang];
+            document.documentElement.lang = currentLang;
+
+            // Text content
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key] !== undefined) {
+                    el.innerHTML = t[key];
+                }
+            });
+
+            // Placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (t[key] !== undefined) {
+                    el.setAttribute('placeholder', t[key]);
+                }
+            });
+        }
+
+        function updateLangButtons() {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('onclick') === `setLang('${currentLang}')`) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // Init on load
+        applyTranslations();
+        updateLangButtons();
+
         // ===== NAVBAR SCROLL =====
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
@@ -1458,10 +1876,11 @@
         function handleSubmit(e) {
             e.preventDefault();
             const btn = e.target.querySelector('.btn-submit');
-            btn.textContent = '✅ Message Sent!';
+            const t = translations[currentLang];
+            btn.textContent = t.form_success || '✅ Message Sent!';
             btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
             setTimeout(() => {
-                btn.textContent = 'Send Message ✉️';
+                btn.innerHTML = t.form_submit || 'Send Message ✉️';
                 btn.style.background = '';
                 e.target.reset();
             }, 3000);
