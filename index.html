@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Burabay Tech — Бурабай & Щучинск</title>
+<meta name="description" content="Burabay Tech — такси, объявления, рынок и новости для жителей Бурабая и Щучинска">
+<title>Burabay Tech — Бурабай &amp; Щучинск</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -32,7 +33,7 @@ body {
   line-height: 1.6;
 }
 
-/* ─── KAZAKH ORNAMENT PATTERN ─── */
+/* ─── KAZAKH ORNAMENT ─── */
 .kz-border {
   height: 56px;
   overflow: hidden;
@@ -134,6 +135,59 @@ nav {
   color: var(--gold);
 }
 
+/* Hamburger */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: auto;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 2px;
+  transition: transform 0.25s, opacity 0.25s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile nav */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0; right: 0;
+  background: oklch(0.14 0.04 245 / 0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 99;
+  padding: 20px 24px;
+}
+.mobile-nav.open { display: block; }
+.mobile-nav ul { list-style: none; }
+.mobile-nav ul a {
+  display: block;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s;
+}
+.mobile-nav ul li:last-child a { border-bottom: none; }
+.mobile-nav ul a:hover { color: var(--gold); }
+
 /* ─── HERO ─── */
 #hero {
   padding-top: 60px;
@@ -164,8 +218,6 @@ nav {
   gap: 64px;
   align-items: start;
 }
-
-.hero-left {}
 
 .hero-tag {
   display: inline-flex;
@@ -233,6 +285,7 @@ h1.hero-title em {
   transition: all 0.2s;
 }
 .btn-primary:hover { background: var(--gold3); }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
 
 .btn-ghost {
   background: none;
@@ -299,7 +352,6 @@ h1.hero-title em {
   font-size: 13px;
   color: var(--gold3);
 }
-
 .ann-highlight + .ann-highlight { margin-top: 8px; }
 
 /* ─── SECTION TEMPLATE ─── */
@@ -338,7 +390,7 @@ h2.section-title em {
   margin-bottom: 48px;
 }
 
-/* ─── TAXI SECTION ─── */
+/* ─── TAXI ─── */
 #taxi { padding-top: 0; }
 
 .taxi-full {
@@ -454,7 +506,7 @@ h2.section-title em {
   gap: 8px;
 }
 
-/* ─── ADS / CLASSIFIEDS ─── */
+/* ─── ADS ─── */
 .ads-layout {
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -479,9 +531,7 @@ h2.section-title em {
   margin-bottom: 20px;
 }
 
-.form-group {
-  margin-bottom: 14px;
-}
+.form-group { margin-bottom: 14px; }
 .form-label {
   display: block;
   font-size: 11px;
@@ -573,17 +623,10 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   justify-content: space-between;
   align-items: center;
 }
-.ad-price {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--gold);
-}
-.ad-city {
-  font-size: 11px;
-  color: var(--muted);
-}
+.ad-price { font-size: 17px; font-weight: 700; color: var(--gold); }
+.ad-city { font-size: 11px; color: var(--muted); }
 
-/* ─── MARKET WATCH ─── */
+/* ─── MARKET ─── */
 #market { padding-top: 0; }
 
 .market-compact {
@@ -643,11 +686,7 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   font-weight: 700;
   color: var(--cream);
 }
-.mkt-chg {
-  font-size: 12px;
-  font-weight: 600;
-  margin-top: 2px;
-}
+.mkt-chg { font-size: 12px; font-weight: 600; margin-top: 2px; }
 .mkt-chg.up { color: oklch(0.7 0.15 150); }
 .mkt-chg.dn { color: oklch(0.65 0.18 25); }
 
@@ -657,7 +696,6 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   background: oklch(0.22 0.02 250);
   border-radius: 2px;
   overflow: hidden;
-  position: relative;
 }
 .mkt-bar > span {
   display: block;
@@ -665,12 +703,8 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   border-radius: 2px;
   background: linear-gradient(90deg, var(--gold), oklch(0.85 0.12 80));
 }
-.mkt-bar.dn > span {
-  background: linear-gradient(90deg, oklch(0.55 0.18 25), oklch(0.7 0.18 35));
-}
-.mkt-bar.up > span {
-  background: linear-gradient(90deg, oklch(0.55 0.16 150), oklch(0.72 0.16 145));
-}
+.mkt-bar.dn > span { background: linear-gradient(90deg, oklch(0.55 0.18 25), oklch(0.7 0.18 35)); }
+.mkt-bar.up > span { background: linear-gradient(90deg, oklch(0.55 0.16 150), oklch(0.72 0.16 145)); }
 
 .market-footer {
   padding: 10px 20px;
@@ -770,12 +804,7 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   line-height: 1.3;
   margin-bottom: 10px;
 }
-.video-meta {
-  font-size: 11.5px;
-  color: var(--muted);
-  display: flex;
-  gap: 12px;
-}
+.video-meta { font-size: 11.5px; color: var(--muted); display: flex; gap: 12px; }
 
 /* ─── CONTACT ─── */
 #contact { padding-top: 0; }
@@ -803,13 +832,7 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   transition: border-color 0.2s;
 }
 .channel-link:hover { border-color: var(--gold2); }
-.channel-icon {
-  font-size: 22px;
-  width: 40px;
-  text-align: center;
-  flex-shrink: 0;
-}
-.channel-info {}
+.channel-icon { font-size: 22px; width: 40px; text-align: center; flex-shrink: 0; }
 .channel-name {
   font-size: 11px;
   font-weight: 700;
@@ -818,10 +841,7 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   color: var(--gold2);
   margin-bottom: 2px;
 }
-.channel-handle {
-  font-size: 14px;
-  color: var(--cream);
-}
+.channel-handle { font-size: 14px; color: var(--cream); }
 
 .contact-form-panel {
   background: var(--navy2);
@@ -853,26 +873,25 @@ footer {
   gap: 16px;
   flex-wrap: wrap;
 }
-.footer-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--gold);
-}
-.footer-copy {
-  font-size: 12px;
-  color: var(--muted);
-}
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--gold); }
+.footer-copy { font-size: 12px; color: var(--muted); }
 
-/* ─── FORM SUCCESS ─── */
-.success-msg {
+/* ─── FORM STATUS ─── */
+.form-status {
   display: none;
-  background: oklch(0.7 0.15 150 / 0.12);
-  border: 1px solid oklch(0.7 0.15 150 / 0.4);
-  color: oklch(0.7 0.15 150);
   padding: 12px 16px;
   font-size: 13px;
   margin-top: 12px;
+}
+.form-status.success {
+  background: oklch(0.7 0.15 150 / 0.12);
+  border: 1px solid oklch(0.7 0.15 150 / 0.4);
+  color: oklch(0.7 0.15 150);
+}
+.form-status.error {
+  background: oklch(0.55 0.18 25 / 0.12);
+  border: 1px solid oklch(0.55 0.18 25 / 0.4);
+  color: oklch(0.75 0.15 25);
 }
 
 /* ─── FULL-WIDTH WRAPPER ─── */
@@ -893,14 +912,12 @@ footer {
   .taxi-price-block { text-align: left; }
   .market-grid { grid-template-columns: repeat(2, 1fr); }
   section { padding: 60px 24px; }
-  .footer-cols { grid-template-columns: 1fr 1fr; gap: 28px; }
   .ads-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 640px) {
   .nav-links { display: none; }
-  .nav { padding: 14px 18px; }
-  .lang-switcher { gap: 4px; }
-  .lang-btn { padding: 5px 8px; font-size: 11px; }
+  .nav-langs { display: none; }
+  .nav-hamburger { display: flex; }
   .videos-grid { grid-template-columns: 1fr; }
   .hero-ctas { flex-direction: column; align-items: stretch; }
   .hero-ctas a { text-align: center; }
@@ -915,11 +932,9 @@ footer {
   .market-item { padding: 14px 16px; }
   .mkt-val { font-size: 19px; }
   .market-footer { flex-direction: column; gap: 4px; align-items: flex-start; padding: 12px 16px; }
-  .taxi-body { padding: 22px 22px; }
+  .taxi-body { padding: 22px; }
   .ads-form-panel { padding: 22px; }
-  .footer-cols { grid-template-columns: 1fr; gap: 24px; }
   .hero-tag { font-size: 11px; }
-  .video-card .video-thumb { aspect-ratio: 16/9; }
   .kz-border, .kz-divider-band { height: 26px !important; }
 }
 @media (max-width: 380px) {
@@ -934,29 +949,7 @@ footer {
 </head>
 <body>
 
-<div class="kz-border">
-  <svg viewBox="0 0 1440 56" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1440" height="56" fill="#0b1322"/>
-    <defs>
-      <pattern id="kzTop" x="0" y="0" width="80" height="56" patternUnits="userSpaceOnUse">
-        <line x1="0" y1="2" x2="80" y2="2" stroke="#c9a84c" stroke-width="2.5"/>
-        <line x1="0" y1="54" x2="80" y2="54" stroke="#c9a84c" stroke-width="2.5"/>
-        <!-- Классический мотив флага: рога внутрь -->
-        <path d="M 12,28 Q 12,14 22,14 Q 32,14 32,22 Q 32,28 26,28" fill="none" stroke="#c9a84c" stroke-width="2.2" stroke-linecap="round"/>
-        <path d="M 68,28 Q 68,14 58,14 Q 48,14 48,22 Q 48,28 54,28" fill="none" stroke="#c9a84c" stroke-width="2.2" stroke-linecap="round"/>
-        <path d="M 12,28 Q 12,42 22,42 Q 32,42 32,34 Q 32,28 26,28" fill="none" stroke="#c9a84c" stroke-width="2.2" stroke-linecap="round"/>
-        <path d="M 68,28 Q 68,42 58,42 Q 48,42 48,34 Q 48,28 54,28" fill="none" stroke="#c9a84c" stroke-width="2.2" stroke-linecap="round"/>
-        <line x1="26" y1="28" x2="54" y2="28" stroke="#c9a84c" stroke-width="2.2"/>
-        <polygon points="40,21 47,28 40,35 33,28" fill="#c9a84c"/>
-        <polygon points="22,14 26,18 22,22 18,18" fill="#c9a84c"/>
-        <polygon points="58,14 62,18 58,22 54,18" fill="#c9a84c"/>
-        <polygon points="22,42 26,38 22,34 18,38" fill="#c9a84c"/>
-        <polygon points="58,42 62,38 58,34 54,38" fill="#c9a84c"/>
-      </pattern>
-    </defs>
-    <rect width="1440" height="56" fill="url(#kzTop)"/>
-  </svg>
-</div>
+<div class="kz-border" aria-hidden="true"></div>
 
 <!-- NAV -->
 <nav>
@@ -969,33 +962,32 @@ footer {
       <li><a href="#videos">Видео</a></li>
       <li><a href="#contact">Контакты</a></li>
     </ul>
-    <div class="nav-langs">
-      <button class="active">RU</button>
-      <button>KZ</button>
-      <button>EN</button>
-      <button>ES</button>
+    <div class="nav-langs" role="group" aria-label="Язык интерфейса">
+      <button class="active" aria-pressed="true">RU</button>
+      <button aria-pressed="false" title="Скоро доступно">KZ</button>
+      <button aria-pressed="false" title="Скоро доступно">EN</button>
+      <button aria-pressed="false" title="Скоро доступно">ES</button>
     </div>
+    <button class="nav-hamburger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav" aria-hidden="true">
+  <ul>
+    <li><a href="#taxi">Такси</a></li>
+    <li><a href="#ads">Объявления</a></li>
+    <li><a href="#market">Рынок</a></li>
+    <li><a href="#videos">Видео</a></li>
+    <li><a href="#contact">Контакты</a></li>
+  </ul>
+</div>
+
 <!-- HERO -->
 <div id="hero">
-  <div class="hero-ornament">
-  <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <pattern id="heroKz" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
-        <!-- Рога внутрь (мотив флага) -->
-        <path d="M 12,40 Q 12,26 22,26 Q 32,26 32,34 Q 32,40 26,40" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.22" stroke-linecap="round"/>
-        <path d="M 68,40 Q 68,26 58,26 Q 48,26 48,34 Q 48,40 54,40" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.22" stroke-linecap="round"/>
-        <path d="M 12,40 Q 12,54 22,54 Q 32,54 32,46 Q 32,40 26,40" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.22" stroke-linecap="round"/>
-        <path d="M 68,40 Q 68,54 58,54 Q 48,54 48,46 Q 48,40 54,40" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.22" stroke-linecap="round"/>
-        <line x1="26" y1="40" x2="54" y2="40" stroke="#c9a84c" stroke-width="0.8" opacity="0.2"/>
-        <polygon points="40,34 44,40 40,46 36,40" fill="#c9a84c" opacity="0.18"/>
-      </pattern>
-    </defs>
-    <rect width="100%" height="100%" fill="url(#heroKz)"/>
-  </svg>
-</div>
+  <div class="hero-ornament" aria-hidden="true"></div>
   <div class="hero-content">
     <div class="hero-left">
       <div class="hero-tag">Бурабай &amp; Щучинск</div>
@@ -1011,26 +1003,25 @@ footer {
       </div>
     </div>
 
-    <!-- ANNOUNCEMENT -->
     <div class="announcement-card">
       <div class="ann-title">Вниманию жителей и предпринимателей<br>Бурабайского района!</div>
 
       <div class="ann-section">
-        <span class="ann-icon">🏘</span>
+        <span class="ann-icon" aria-hidden="true">🏘</span>
         <div>
           <strong>Недвижимость и транспорт</strong><br>
           Принимаются объявления о продаже движимого и недвижимого имущества по всему Бурабайскому району.
         </div>
       </div>
       <div class="ann-section">
-        <span class="ann-icon">🚖</span>
+        <span class="ann-icon" aria-hidden="true">🚖</span>
         <div>
           <strong>Для водителей</strong><br>
           Внедрена отдельная вкладка «Межгород» для частных перевозчиков и служб такси.
         </div>
       </div>
       <div class="ann-section">
-        <span class="ann-icon">🏢</span>
+        <span class="ann-icon" aria-hidden="true">🏢</span>
         <div>
           <strong>Для бизнеса</strong><br>
           Реклама компаний, включая товары, работы и услуги (ТРУ).
@@ -1047,36 +1038,7 @@ footer {
   </div>
 </div>
 
-<!-- ORNAMENT DIVIDER 1 -->
-<div class="kz-divider-band">
-  <svg viewBox="0 0 1440 56" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1440" height="56" fill="#0b1322"/>
-    <defs>
-      <pattern id="kzDiv1" x="0" y="0" width="80" height="56" patternUnits="userSpaceOnUse">
-        <line x1="0" y1="2" x2="80" y2="2" stroke="#c9a84c" stroke-width="2"/>
-        <line x1="0" y1="54" x2="80" y2="54" stroke="#c9a84c" stroke-width="2"/>
-        <!-- Верхние рога: левый (загибается вправо вверх) -->
-        <path d="M 12,28 Q 12,14 22,14 Q 32,14 32,22 Q 32,28 26,28" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Верхние рога: правый (загибается влево вверх) -->
-        <path d="M 68,28 Q 68,14 58,14 Q 48,14 48,22 Q 48,28 54,28" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Нижние рога: левый (загибается вправо вниз) -->
-        <path d="M 12,28 Q 12,42 22,42 Q 32,42 32,34 Q 32,28 26,28" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Нижние рога: правый (загибается влево вниз) -->
-        <path d="M 68,28 Q 68,42 58,42 Q 48,42 48,34 Q 48,28 54,28" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Горизонтальная перекладина -->
-        <line x1="26" y1="28" x2="54" y2="28" stroke="#c9a84c" stroke-width="2"/>
-        <!-- Центральный ромб -->
-        <polygon points="40,21 47,28 40,35 33,28" fill="#c9a84c"/>
-        <!-- Маленькие ромбы на концах рогов -->
-        <polygon points="22,14 26,18 22,22 18,18" fill="#c9a84c"/>
-        <polygon points="58,14 62,18 58,22 54,18" fill="#c9a84c"/>
-        <polygon points="22,42 26,38 22,34 18,38" fill="#c9a84c"/>
-        <polygon points="58,42 62,38 58,34 54,38" fill="#c9a84c"/>
-      </pattern>
-    </defs>
-    <rect width="1440" height="56" fill="url(#kzDiv1)"/>
-  </svg>
-</div>
+<div class="kz-divider-band" aria-hidden="true"></div>
 
 <!-- TAXI -->
 <div class="fw">
@@ -1099,18 +1061,22 @@ footer {
     </div>
     <div class="taxi-body">
       <div class="taxi-features">
-        <div class="taxi-feature"><span class="feat-icon">◆</span> Только салон — с одного адреса на один</div>
-        <div class="taxi-feature"><span class="feat-icon">◆</span> Просторный кроссовер, большой багажник</div>
-        <div class="taxi-feature"><span class="feat-icon">◆</span> Санатории, дома отдыха и т.п.</div>
-        <div class="taxi-feature"><span class="feat-icon">◆</span> Работаем круглосуточно 24/7</div>
-        <div style="margin-top: 16px; font-size: 13px; color: var(--muted);">Выберите дату поездки:</div>
-        <input type="date" class="form-control" style="max-width: 220px; margin-top: 4px;">
+        <div class="taxi-feature"><span class="feat-icon" aria-hidden="true">◆</span> Только салон — с одного адреса на один</div>
+        <div class="taxi-feature"><span class="feat-icon" aria-hidden="true">◆</span> Просторный кроссовер, большой багажник</div>
+        <div class="taxi-feature"><span class="feat-icon" aria-hidden="true">◆</span> Санатории, дома отдыха и т.п.</div>
+        <div class="taxi-feature"><span class="feat-icon" aria-hidden="true">◆</span> Работаем круглосуточно 24/7</div>
+        <div style="margin-top:16px;">
+          <label for="tripDate" class="form-label">Выберите дату поездки</label>
+          <input type="date" id="tripDate" class="form-control" style="max-width:220px; margin-top:4px;">
+        </div>
       </div>
       <div class="taxi-actions">
-        <a href="https://wa.me/77080802588?text=Хочу заказать трансфер Астана-Бурабай на Haval M6" class="btn-primary" style="text-align:center;">Заказать в WhatsApp</a>
+        <a href="https://wa.me/77080802588?text=Хочу заказать трансфер Астана-Бурабай на Haval M6"
+           class="btn-primary" style="text-align:center;"
+           target="_blank" rel="noopener noreferrer">Заказать в WhatsApp</a>
         <div class="taxi-warning">⚠️ Писать заранее в WhatsApp</div>
-        <div style="margin-top: 8px; border: 1px solid var(--border); padding: 14px; font-size: 13px;">
-          <div style="color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">Тарифы на размещение</div>
+        <div style="margin-top:8px; border:1px solid var(--border); padding:14px; font-size:13px;">
+          <div style="color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;">Тарифы на размещение</div>
           <div style="display:flex; justify-content:space-between; margin-bottom:6px;"><span>7 дней</span><span style="color:var(--gold);">1 000 ₸</span></div>
           <div style="display:flex; justify-content:space-between;"><span>Поднять наверх</span><span style="color:var(--gold);">500 ₸</span></div>
         </div>
@@ -1123,30 +1089,7 @@ footer {
 </section>
 </div>
 
-<!-- ORNAMENT DIVIDER 2 -->
-<div class="kz-divider-band">
-  <svg viewBox="0 0 1440 56" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1440" height="56" fill="#0b1322"/>
-    <defs>
-      <pattern id="kzDiv2" x="0" y="0" width="80" height="56" patternUnits="userSpaceOnUse">
-        <line x1="0" y1="2" x2="80" y2="2" stroke="#c9a84c" stroke-width="2"/>
-        <line x1="0" y1="54" x2="80" y2="54" stroke="#c9a84c" stroke-width="2"/>
-        <!-- Перевёрнутый мотив — рога загибаются наружу -->
-        <path d="M 12,28 Q 4,28 4,18 Q 4,8 14,8 Q 22,8 22,16 Q 22,22 16,24" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
-        <path d="M 68,28 Q 76,28 76,18 Q 76,8 66,8 Q 58,8 58,16 Q 58,22 64,24" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
-        <path d="M 12,28 Q 4,28 4,38 Q 4,48 14,48 Q 22,48 22,40 Q 22,34 16,32" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
-        <path d="M 68,28 Q 76,28 76,38 Q 76,48 66,48 Q 58,48 58,40 Q 58,34 64,32" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
-        <line x1="16" y1="28" x2="64" y2="28" stroke="#c9a84c" stroke-width="2"/>
-        <polygon points="40,21 47,28 40,35 33,28" fill="#c9a84c"/>
-        <polygon points="14,8 18,12 14,16 10,12" fill="#c9a84c"/>
-        <polygon points="66,8 70,12 66,16 62,12" fill="#c9a84c"/>
-        <polygon points="14,48 18,44 14,40 10,44" fill="#c9a84c"/>
-        <polygon points="66,48 70,44 66,40 62,44" fill="#c9a84c"/>
-      </pattern>
-    </defs>
-    <rect width="1440" height="56" fill="url(#kzDiv2)"/>
-  </svg>
-</div>
+<div class="kz-divider-band" aria-hidden="true"></div>
 
 <!-- CLASSIFIEDS -->
 <section id="ads">
@@ -1155,60 +1098,59 @@ footer {
   <p class="section-desc">Купля-продажа, услуги, недвижимость и транспорт для жителей района.</p>
 
   <div class="ads-layout">
-    <!-- FORM -->
     <div class="ads-form-panel">
       <div class="ads-form-title">📝 Подать объявление</div>
-
-      <div class="form-group">
-        <label class="form-label">Категория</label>
-        <select class="form-control">
-          <option>🚕 Такси / Трансфер</option>
-          <option>🚗 Авто</option>
-          <option>🏠 Недвижимость</option>
-          <option>🔧 Услуги</option>
-          <option>💼 Работа</option>
-          <option>📱 Электроника</option>
-          <option>🛋️ Мебель и быт</option>
-          <option>🌿 Туризм</option>
-          <option>🎁 Отдам даром</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Город</label>
-        <select class="form-control">
-          <option>Щучинск</option>
-          <option>Бурабай</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Заголовок</label>
-        <input type="text" class="form-control" placeholder="Краткое описание">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Описание</label>
-        <textarea class="form-control" placeholder="Подробнее..."></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Цена (тенге)</label>
-        <input type="number" class="form-control" placeholder="0">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Имя</label>
-        <input type="text" class="form-control" placeholder="Ваше имя">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Телефон / WhatsApp</label>
-        <input type="tel" class="form-control" placeholder="+7 ...">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Telegram (без @)</label>
-        <input type="text" class="form-control" placeholder="username">
-      </div>
-      <button class="btn-primary" style="width:100%; margin-top:8px;" onclick="document.querySelector('.success-msg').style.display='block'">Отправить объявление</button>
-      <div class="success-msg">✅ Объявление отправлено на модерацию</div>
+      <form id="adForm" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="adCategory">Категория</label>
+          <select id="adCategory" name="category" class="form-control">
+            <option>🚕 Такси / Трансфер</option>
+            <option>🚗 Авто</option>
+            <option>🏠 Недвижимость</option>
+            <option>🔧 Услуги</option>
+            <option>💼 Работа</option>
+            <option>📱 Электроника</option>
+            <option>🛋️ Мебель и быт</option>
+            <option>🌿 Туризм</option>
+            <option>🎁 Отдам даром</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="adCity">Город</label>
+          <select id="adCity" name="city" class="form-control">
+            <option>Щучинск</option>
+            <option>Бурабай</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="adTitle">Заголовок</label>
+          <input type="text" id="adTitle" name="title" class="form-control" placeholder="Краткое описание">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="adDesc">Описание</label>
+          <textarea id="adDesc" name="description" class="form-control" placeholder="Подробнее..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="adPrice">Цена (тенге)</label>
+          <input type="number" id="adPrice" name="price" class="form-control" placeholder="0" min="0">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="adName">Имя</label>
+          <input type="text" id="adName" name="name" class="form-control" placeholder="Ваше имя">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="adPhone">Телефон / WhatsApp</label>
+          <input type="tel" id="adPhone" name="phone" class="form-control" placeholder="+7 ...">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="adTelegram">Telegram (без @)</label>
+          <input type="text" id="adTelegram" name="telegram" class="form-control" placeholder="username">
+        </div>
+        <button type="submit" id="adSubmitBtn" class="btn-primary" style="width:100%; margin-top:8px;">Отправить объявление</button>
+        <div class="form-status" id="adStatus"></div>
+      </form>
     </div>
 
-    <!-- LISTINGS -->
     <div>
       <div class="ads-filter-bar">
         <button class="filter-chip active" onclick="filterAds(this,'all')">Все</button>
@@ -1222,90 +1164,44 @@ footer {
           <div class="ad-cat">🚕 Такси / Трансфер</div>
           <div class="ad-title">Трансфер Щучинск — Астана</div>
           <div class="ad-desc">Комфортный седан, выезд ежедневно в 07:00 и 16:00</div>
-          <div class="ad-footer">
-            <div class="ad-price">8 000 ₸</div>
-            <div class="ad-city">Щучинск</div>
-          </div>
+          <div class="ad-footer"><div class="ad-price">8 000 ₸</div><div class="ad-city">Щучинск</div></div>
         </div>
         <div class="ad-card" data-cat="auto">
           <div class="ad-cat">🚗 Авто</div>
           <div class="ad-title">Toyota Camry 2019, 2.5</div>
           <div class="ad-desc">Идеальное состояние, один хозяин, пробег 68 000 км</div>
-          <div class="ad-footer">
-            <div class="ad-price">9 800 000 ₸</div>
-            <div class="ad-city">Бурабай</div>
-          </div>
+          <div class="ad-footer"><div class="ad-price">9 800 000 ₸</div><div class="ad-city">Бурабай</div></div>
         </div>
         <div class="ad-card" data-cat="realty">
           <div class="ad-cat">🏠 Недвижимость</div>
           <div class="ad-title">Дача у озера Бурабай</div>
           <div class="ad-desc">6 соток, газ, вода, 3 комнаты, отличный вид на горы</div>
-          <div class="ad-footer">
-            <div class="ad-price">18 000 000 ₸</div>
-            <div class="ad-city">Бурабай</div>
-          </div>
+          <div class="ad-footer"><div class="ad-price">18 000 000 ₸</div><div class="ad-city">Бурабай</div></div>
         </div>
         <div class="ad-card" data-cat="services">
           <div class="ad-cat">🔧 Услуги</div>
           <div class="ad-title">Ремонт бытовой техники</div>
           <div class="ad-desc">Холодильники, стиральные машины. Выезд на дом по городу</div>
-          <div class="ad-footer">
-            <div class="ad-price">Договорная</div>
-            <div class="ad-city">Щучинск</div>
-          </div>
+          <div class="ad-footer"><div class="ad-price">Договорная</div><div class="ad-city">Щучинск</div></div>
         </div>
         <div class="ad-card" data-cat="realty">
           <div class="ad-cat">🏠 Недвижимость</div>
           <div class="ad-title">2-комн. квартира ул. Абая</div>
           <div class="ad-desc">52 м², 4/9 эт., свежий ремонт, встроенная кухня</div>
-          <div class="ad-footer">
-            <div class="ad-price">14 500 000 ₸</div>
-            <div class="ad-city">Щучинск</div>
-          </div>
+          <div class="ad-footer"><div class="ad-price">14 500 000 ₸</div><div class="ad-city">Щучинск</div></div>
         </div>
         <div class="ad-card" data-cat="taxi">
           <div class="ad-cat">🚕 Такси / Трансфер</div>
           <div class="ad-title">Минивэн Mercedes Vito</div>
           <div class="ad-desc">До 7 пассажиров. Межгород, аэропорт, свадьбы, туры</div>
-          <div class="ad-footer">
-            <div class="ad-price">6 000 ₸/чел</div>
-            <div class="ad-city">Бурабай</div>
-          </div>
+          <div class="ad-footer"><div class="ad-price">6 000 ₸/чел</div><div class="ad-city">Бурабай</div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ORNAMENT DIVIDER 3 -->
-<div class="kz-divider-band">
-  <svg viewBox="0 0 1440 56" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1440" height="56" fill="#0b1322"/>
-    <defs>
-      <pattern id="kzDiv3" x="0" y="0" width="80" height="56" patternUnits="userSpaceOnUse">
-        <line x1="0" y1="2" x2="80" y2="2" stroke="#c9a84c" stroke-width="2"/>
-        <line x1="0" y1="54" x2="80" y2="54" stroke="#c9a84c" stroke-width="2"/>
-        <!-- Двойные рога — плотная компоновка -->
-        <path d="M 12,28 Q 12,14 22,14 Q 32,14 32,22 Q 32,28 26,28" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
-        <path d="M 68,28 Q 68,14 58,14 Q 48,14 48,22 Q 48,28 54,28" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
-        <path d="M 12,28 Q 12,42 22,42 Q 32,42 32,34 Q 32,28 26,28" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
-        <path d="M 68,28 Q 68,42 58,42 Q 48,42 48,34 Q 48,28 54,28" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
-        <!-- Внутренние малые рога -->
-        <path d="M 26,28 Q 26,22 30,22 Q 34,22 34,26 Q 34,28 32,28" fill="none" stroke="#c9a84c88" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M 54,28 Q 54,22 50,22 Q 46,22 46,26 Q 46,28 48,28" fill="none" stroke="#c9a84c88" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M 26,28 Q 26,34 30,34 Q 34,34 34,30 Q 34,28 32,28" fill="none" stroke="#c9a84c88" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M 54,28 Q 54,34 50,34 Q 46,34 46,30 Q 46,28 48,28" fill="none" stroke="#c9a84c88" stroke-width="1.2" stroke-linecap="round"/>
-        <line x1="26" y1="28" x2="54" y2="28" stroke="#c9a84c" stroke-width="2"/>
-        <polygon points="40,21 47,28 40,35 33,28" fill="#c9a84c"/>
-        <polygon points="22,14 26,18 22,22 18,18" fill="#c9a84c"/>
-        <polygon points="58,14 62,18 58,22 54,18" fill="#c9a84c"/>
-        <polygon points="22,42 26,38 22,34 18,38" fill="#c9a84c"/>
-        <polygon points="58,42 62,38 58,34 54,38" fill="#c9a84c"/>
-      </pattern>
-    </defs>
-    <rect width="1440" height="56" fill="url(#kzDiv3)"/>
-  </svg>
-</div>
+<div class="kz-divider-band" aria-hidden="true"></div>
 
 <!-- MARKET -->
 <div class="fw">
@@ -1315,11 +1211,11 @@ footer {
   <p class="section-desc">Ключевые индикаторы — глобальный рынок и Казахстан.</p>
 
   <div class="market-compact">
-    <div class="market-tabs">
-      <button class="market-tab active" onclick="switchTab(this,'global')">🌐 Global</button>
-      <button class="market-tab" onclick="switchTab(this,'kz')">🇰🇿 Kazakhstan</button>
+    <div class="market-tabs" role="tablist">
+      <button class="market-tab active" role="tab" aria-selected="true" aria-controls="tab-global" onclick="switchTab(this,'global')">🌐 Global</button>
+      <button class="market-tab" role="tab" aria-selected="false" aria-controls="tab-kz" onclick="switchTab(this,'kz')">🇰🇿 Kazakhstan</button>
     </div>
-    <div id="tab-global" class="market-grid">
+    <div id="tab-global" class="market-grid" role="tabpanel">
       <div class="market-item"><div class="mkt-name">AMD</div><div class="mkt-val">$162.40</div><div class="mkt-chg up">▲ +2.14%</div><div class="mkt-bar up"><span style="width:72%"></span></div></div>
       <div class="market-item"><div class="mkt-name">Intel</div><div class="mkt-val">$23.85</div><div class="mkt-chg dn">▼ −1.05%</div><div class="mkt-bar dn"><span style="width:38%"></span></div></div>
       <div class="market-item"><div class="mkt-name">NVIDIA</div><div class="mkt-val">$126.30</div><div class="mkt-chg up">▲ +3.42%</div><div class="mkt-bar up"><span style="width:88%"></span></div></div>
@@ -1329,7 +1225,7 @@ footer {
       <div class="market-item"><div class="mkt-name">Google</div><div class="mkt-val">$165.20</div><div class="mkt-chg up">▲ +0.91%</div><div class="mkt-bar up"><span style="width:58%"></span></div></div>
       <div class="market-item"><div class="mkt-name">Meta</div><div class="mkt-val">$582.40</div><div class="mkt-chg dn">▼ −0.78%</div><div class="mkt-bar dn"><span style="width:42%"></span></div></div>
     </div>
-    <div id="tab-kz" class="market-grid" style="display:none">
+    <div id="tab-kz" class="market-grid" style="display:none" role="tabpanel">
       <div class="market-item"><div class="mkt-name">KASE</div><div class="mkt-val">4 812</div><div class="mkt-chg up">▲ +0.22%</div><div class="mkt-bar up"><span style="width:55%"></span></div></div>
       <div class="market-item"><div class="mkt-name">Kazatomprom</div><div class="mkt-val">₸ 48 200</div><div class="mkt-chg up">▲ +1.45%</div><div class="mkt-bar up"><span style="width:67%"></span></div></div>
       <div class="market-item"><div class="mkt-name">KazMunayGas</div><div class="mkt-val">₸ 13 980</div><div class="mkt-chg dn">▼ −0.62%</div><div class="mkt-bar dn"><span style="width:44%"></span></div></div>
@@ -1341,38 +1237,13 @@ footer {
     </div>
     <div class="market-footer">
       <span>Демо-данные · Не является фин. советом</span>
-      <span>🕐 Jan 15, 2025 · 16:00 EST</span>
+      <span>🕐 Апр 2026 · Актуально</span>
     </div>
   </div>
 </section>
 </div>
 
-<!-- ORNAMENT DIVIDER 4 -->
-<div class="kz-divider-band">
-  <svg viewBox="0 0 1440 56" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1440" height="56" fill="#0b1322"/>
-    <defs>
-      <pattern id="kzDiv4" x="0" y="0" width="80" height="56" patternUnits="userSpaceOnUse">
-        <line x1="0" y1="2" x2="80" y2="2" stroke="#c9a84c" stroke-width="2"/>
-        <line x1="0" y1="54" x2="80" y2="54" stroke="#c9a84c" stroke-width="2"/>
-        <!-- Рога с загибом внутрь (зеркало div1) -->
-        <path d="M 12,28 Q 4,28 4,18 Q 4,8 14,8 Q 22,8 22,16 Q 22,22 16,24" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
-        <path d="M 68,28 Q 76,28 76,18 Q 76,8 66,8 Q 58,8 58,16 Q 58,22 64,24" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
-        <path d="M 12,28 Q 4,28 4,38 Q 4,48 14,48 Q 22,48 22,40 Q 22,34 16,32" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
-        <path d="M 68,28 Q 76,28 76,38 Q 76,48 66,48 Q 58,48 58,40 Q 58,34 64,32" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
-        <line x1="16" y1="28" x2="64" y2="28" stroke="#c9a84c" stroke-width="2"/>
-        <!-- Двойной центральный ромб -->
-        <polygon points="40,18 50,28 40,38 30,28" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
-        <polygon points="40,22 46,28 40,34 34,28" fill="#c9a84c"/>
-        <polygon points="14,8 18,12 14,16 10,12" fill="#c9a84c"/>
-        <polygon points="66,8 70,12 66,16 62,12" fill="#c9a84c"/>
-        <polygon points="14,48 18,44 14,40 10,44" fill="#c9a84c"/>
-        <polygon points="66,48 70,44 66,40 62,44" fill="#c9a84c"/>
-      </pattern>
-    </defs>
-    <rect width="1440" height="56" fill="url(#kzDiv4)"/>
-  </svg>
-</div>
+<div class="kz-divider-band" aria-hidden="true"></div>
 
 <!-- VIDEOS -->
 <section id="videos">
@@ -1381,10 +1252,12 @@ footer {
   <p class="section-desc">Обзоры, аналитика и новости района от канала @Adilveis_life</p>
 
   <div class="videos-grid">
-    <a href="https://youtube.com/@Adilveis_life" target="_blank" class="video-card" style="text-decoration:none;color:inherit;">
+    <a href="https://youtube.com/@Adilveis_life" target="_blank" rel="noopener noreferrer"
+       class="video-card" style="text-decoration:none;color:inherit;"
+       aria-label="Обзор техники в Бурабае — смотреть на YouTube">
       <div class="video-thumb">
-        <div class="video-thumb-bg">📱</div>
-        <div class="play-btn"></div>
+        <div class="video-thumb-bg" aria-hidden="true">📱</div>
+        <div class="play-btn" aria-hidden="true"></div>
         <div class="video-duration">12:30</div>
       </div>
       <div class="video-info">
@@ -1393,10 +1266,12 @@ footer {
         <div class="video-meta"><span>👁 5.1K</span><span>2 недели назад</span></div>
       </div>
     </a>
-    <a href="https://youtube.com/@Adilveis_life" target="_blank" class="video-card" style="text-decoration:none;color:inherit;">
+    <a href="https://youtube.com/@Adilveis_life" target="_blank" rel="noopener noreferrer"
+       class="video-card" style="text-decoration:none;color:inherit;"
+       aria-label="Рынок акций — что происходит? — смотреть на YouTube">
       <div class="video-thumb">
-        <div class="video-thumb-bg">📈</div>
-        <div class="play-btn"></div>
+        <div class="video-thumb-bg" aria-hidden="true">📈</div>
+        <div class="play-btn" aria-hidden="true"></div>
         <div class="video-duration">18:45</div>
       </div>
       <div class="video-info">
@@ -1405,10 +1280,12 @@ footer {
         <div class="video-meta"><span>👁 7.3K</span><span>1 месяц назад</span></div>
       </div>
     </a>
-    <a href="https://youtube.com/@Adilveis_life" target="_blank" class="video-card" style="text-decoration:none;color:inherit;">
+    <a href="https://youtube.com/@Adilveis_life" target="_blank" rel="noopener noreferrer"
+       class="video-card" style="text-decoration:none;color:inherit;"
+       aria-label="Объявления недели в Щучинске — смотреть на YouTube">
       <div class="video-thumb">
-        <div class="video-thumb-bg">📰</div>
-        <div class="play-btn"></div>
+        <div class="video-thumb-bg" aria-hidden="true">📰</div>
+        <div class="play-btn" aria-hidden="true"></div>
         <div class="video-duration">10:22</div>
       </div>
       <div class="video-info">
@@ -1420,37 +1297,11 @@ footer {
   </div>
 
   <div style="margin-top:28px; text-align:center;">
-    <a href="https://youtube.com/@Adilveis_life" target="_blank" class="btn-ghost">▶ Все видео на YouTube</a>
+    <a href="https://youtube.com/@Adilveis_life" target="_blank" rel="noopener noreferrer" class="btn-ghost">▶ Все видео на YouTube</a>
   </div>
 </section>
 
-<!-- ORNAMENT DIVIDER 5 -->
-<div class="kz-divider-band">
-  <svg viewBox="0 0 1440 56" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1440" height="56" fill="#0b1322"/>
-    <defs>
-      <pattern id="kzDiv5" x="0" y="0" width="80" height="56" patternUnits="userSpaceOnUse">
-        <line x1="0" y1="2" x2="80" y2="2" stroke="#c9a84c" stroke-width="2"/>
-        <line x1="0" y1="54" x2="80" y2="54" stroke="#c9a84c" stroke-width="2"/>
-        <!-- Рога внутрь + двойные -->
-        <path d="M 12,28 Q 12,14 22,14 Q 32,14 32,22 Q 32,28 26,28" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
-        <path d="M 68,28 Q 68,14 58,14 Q 48,14 48,22 Q 48,28 54,28" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
-        <path d="M 12,28 Q 12,42 22,42 Q 32,42 32,34 Q 32,28 26,28" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
-        <path d="M 68,28 Q 68,42 58,42 Q 48,42 48,34 Q 48,28 54,28" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
-        <line x1="26" y1="28" x2="54" y2="28" stroke="#c9a84c" stroke-width="2"/>
-        <!-- Тройной центральный ромб -->
-        <polygon points="40,16 52,28 40,40 28,28" fill="none" stroke="#c9a84c" stroke-width="1.2"/>
-        <polygon points="40,20 48,28 40,36 32,28" fill="none" stroke="#c9a84c" stroke-width="1"/>
-        <polygon points="40,23 45,28 40,33 35,28" fill="#c9a84c"/>
-        <polygon points="22,14 26,18 22,22 18,18" fill="#c9a84c"/>
-        <polygon points="58,14 62,18 58,22 54,18" fill="#c9a84c"/>
-        <polygon points="22,42 26,38 22,34 18,38" fill="#c9a84c"/>
-        <polygon points="58,42 62,38 58,34 54,38" fill="#c9a84c"/>
-      </pattern>
-    </defs>
-    <rect width="1440" height="56" fill="url(#kzDiv5)"/>
-  </svg>
-</div>
+<div class="kz-divider-band" aria-hidden="true"></div>
 
 <!-- CONTACT -->
 <div class="fw">
@@ -1461,44 +1312,47 @@ footer {
 
   <div class="contact-grid">
     <div class="contact-channels">
-      <a href="https://youtube.com/@Adilveis_life" target="_blank" class="channel-link">
-        <div class="channel-icon">📺</div>
-        <div class="channel-info">
+      <a href="https://youtube.com/@Adilveis_life" target="_blank" rel="noopener noreferrer" class="channel-link">
+        <div class="channel-icon" aria-hidden="true">📺</div>
+        <div>
           <div class="channel-name">YouTube</div>
           <div class="channel-handle">@Adilveis_life</div>
         </div>
       </a>
-      <a href="https://t.me/burabay_m4_bot" target="_blank" class="channel-link">
-        <div class="channel-icon">✈️</div>
-        <div class="channel-info">
+      <a href="https://t.me/burabay_m4_bot" target="_blank" rel="noopener noreferrer" class="channel-link">
+        <div class="channel-icon" aria-hidden="true">✈️</div>
+        <div>
           <div class="channel-name">Telegram</div>
           <div class="channel-handle">@burabay_m4_bot</div>
         </div>
       </a>
-      <a href="/cdn-cgi/l/email-protection#c1a0a5a8adaab4b3aca0afaeb781b8a0afa5a4b9efaabb" class="channel-link">
-        <div class="channel-icon">📧</div>
-        <div class="channel-info">
+      <a href="mailto:adilkurmanov@yandex.kz" class="channel-link">
+        <div class="channel-icon" aria-hidden="true">📧</div>
+        <div>
           <div class="channel-name">Email</div>
-          <div class="channel-handle"><span class="__cf_email__" data-cfemail="e18085888d8a94938c808f8e97a198808f858499cf8a9b">[email&#160;protected]</span></div>
+          <div class="channel-handle">adilkurmanov@yandex.kz</div>
         </div>
       </a>
     </div>
 
     <div class="contact-form-panel">
       <div class="contact-form-title">Отправить сообщение</div>
-      <div class="form-group">
-        <label class="form-label">Ваше имя</label>
-        <input type="text" class="form-control" placeholder="Имя">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <input type="email" class="form-control" placeholder="email@example.com">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Сообщение</label>
-        <textarea class="form-control" style="min-height:100px;" placeholder="Ваше сообщение..."></textarea>
-      </div>
-      <button class="btn-primary" style="width:100%;" onclick="this.textContent='✅ Отправлено!'">Отправить ✉️</button>
+      <form id="contactForm" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="contactName">Ваше имя</label>
+          <input type="text" id="contactName" name="name" class="form-control" placeholder="Имя" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="contactEmail">Email</label>
+          <input type="email" id="contactEmail" name="email" class="form-control" placeholder="email@example.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="contactMessage">Сообщение</label>
+          <textarea id="contactMessage" name="message" class="form-control" style="min-height:100px;" placeholder="Ваше сообщение..." required></textarea>
+        </div>
+        <button type="submit" id="contactSubmitBtn" class="btn-primary" style="width:100%;">Отправить ✉️</button>
+        <div class="form-status" id="contactStatus"></div>
+      </form>
     </div>
   </div>
 </section>
@@ -1506,36 +1360,40 @@ footer {
 
 <!-- FOOTER -->
 <footer>
-  <div class="kz-border">
-    <svg viewBox="0 0 1440 56" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <rect width="1440" height="56" fill="#0b1322"/>
-      <defs>
-        <pattern id="kzBot" x="0" y="0" width="80" height="56" patternUnits="userSpaceOnUse">
-          <line x1="0" y1="2" x2="80" y2="2" stroke="#c9a84c" stroke-width="2.5"/>
-          <line x1="0" y1="54" x2="80" y2="54" stroke="#c9a84c" stroke-width="2.5"/>
-          <path d="M 12,28 Q 4,28 4,18 Q 4,8 14,8 Q 22,8 22,16 Q 22,22 16,24" fill="none" stroke="#c9a84c" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M 68,28 Q 76,28 76,18 Q 76,8 66,8 Q 58,8 58,16 Q 58,22 64,24" fill="none" stroke="#c9a84c" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M 12,28 Q 4,28 4,38 Q 4,48 14,48 Q 22,48 22,40 Q 22,34 16,32" fill="none" stroke="#c9a84c" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M 68,28 Q 76,28 76,38 Q 76,48 66,48 Q 58,48 58,40 Q 58,34 64,32" fill="none" stroke="#c9a84c" stroke-width="2.2" stroke-linecap="round"/>
-          <line x1="16" y1="28" x2="64" y2="28" stroke="#c9a84c" stroke-width="2.2"/>
-          <polygon points="40,21 47,28 40,35 33,28" fill="#c9a84c"/>
-          <polygon points="14,8 18,12 14,16 10,12" fill="#c9a84c"/>
-          <polygon points="66,8 70,12 66,16 62,12" fill="#c9a84c"/>
-          <polygon points="14,48 18,44 14,40 10,44" fill="#c9a84c"/>
-          <polygon points="66,48 70,44 66,40 62,44" fill="#c9a84c"/>
-        </pattern>
-      </defs>
-      <rect width="1440" height="56" fill="url(#kzBot)"/>
-    </svg>
-  </div>
+  <div class="kz-border" aria-hidden="true"></div>
   <div class="footer-inner">
     <div class="footer-logo">Burabay Tech</div>
     <div class="footer-copy">© 2026 Burabay Tech · Бурабай &amp; Щучинск, Казахстан</div>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// Filter ads
+<script>
+// ─── Ornament bands ───
+(function() {
+  const G = '#c9a84c', BG = '#0b1322', H = 32, W = 48, cy = 16;
+  const tile = `
+    <rect width="${W}" height="${H}" fill="${BG}"/>
+    <line x1="0" y1="4" x2="${W}" y2="4" stroke="${G}" stroke-width="1.2" opacity="0.7"/>
+    <line x1="0" y1="${H-4}" x2="${W}" y2="${H-4}" stroke="${G}" stroke-width="1.2" opacity="0.7"/>
+    <line x1="0" y1="${cy}" x2="${W}" y2="${cy}" stroke="${G}" stroke-width="0.8" opacity="0.35"/>
+    <polygon points="${W/2},${cy-7} ${W/2+7},${cy} ${W/2},${cy+7} ${W/2-7},${cy}" fill="none" stroke="${G}" stroke-width="1.4"/>
+    <polygon points="${W/2},${cy-3} ${W/2+3},${cy} ${W/2},${cy+3} ${W/2-3},${cy}" fill="${G}"/>
+    <circle cx="0" cy="${cy}" r="1.8" fill="${G}"/>
+    <circle cx="${W}" cy="${cy}" r="1.8" fill="${G}"/>
+    <line x1="${W/2-12}" y1="${cy}" x2="${W/2-7}" y2="${cy}" stroke="${G}" stroke-width="1"/>
+    <line x1="${W/2+7}" y1="${cy}" x2="${W/2+12}" y2="${cy}" stroke="${G}" stroke-width="1"/>
+  `;
+  document.querySelectorAll('.kz-border, .kz-divider-band').forEach((el, i) => {
+    const pid = 'kzp' + i;
+    el.style.cssText = `height:${H}px;overflow:hidden;flex-shrink:0`;
+    el.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="${H}" aria-hidden="true">
+      <defs><pattern id="${pid}" x="0" y="0" width="${W}" height="${H}" patternUnits="userSpaceOnUse">${tile}</pattern></defs>
+      <rect width="100%" height="${H}" fill="url(#${pid})"/>
+    </svg>`;
+  });
+})();
+
+// ─── Filter ads ───
 function filterAds(btn, cat) {
   document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
   btn.classList.add('active');
@@ -1544,75 +1402,156 @@ function filterAds(btn, cat) {
   });
 }
 
-// Market tabs
+// ─── Market tabs ───
 function switchTab(btn, id) {
-  document.querySelectorAll('.market-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.market-tab').forEach(t => {
+    t.classList.remove('active');
+    t.setAttribute('aria-selected', 'false');
+  });
   btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
   document.getElementById('tab-global').style.display = id === 'global' ? '' : 'none';
   document.getElementById('tab-kz').style.display = id === 'kz' ? '' : 'none';
 }
 
-// Nav language switcher
+// ─── Language switcher ───
 document.querySelectorAll('.nav-langs button').forEach(b => {
   b.addEventListener('click', () => {
-    document.querySelectorAll('.nav-langs button').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.nav-langs button').forEach(x => {
+      x.classList.remove('active');
+      x.setAttribute('aria-pressed', 'false');
+    });
     b.classList.add('active');
+    b.setAttribute('aria-pressed', 'true');
   });
 });
 
-// ─── Декоративная орнаментальная полоса (изначальная версия) ───
-(function() {
-  const G = '#c9a84c';
-  const BG = '#0b1322';
-  const H = 32, W = 48;
-  const cy = 16;
+// ─── Hamburger menu ───
+const hamburger = document.querySelector('.nav-hamburger');
+const mobileNav = document.getElementById('mobileNav');
 
-  // Простой геометрический ритм: ромб + точки + соединительные линии
-  const tile = `
-    <rect width="${W}" height="${H}" fill="${BG}"/>
-    <line x1="0" y1="4"  x2="${W}" y2="4"  stroke="${G}" stroke-width="1.2" opacity="0.7"/>
-    <line x1="0" y1="${H-4}" x2="${W}" y2="${H-4}" stroke="${G}" stroke-width="1.2" opacity="0.7"/>
-    <line x1="0" y1="${cy}" x2="${W}" y2="${cy}" stroke="${G}" stroke-width="0.8" opacity="0.35"/>
+hamburger.addEventListener('click', () => {
+  const isOpen = mobileNav.classList.toggle('open');
+  hamburger.classList.toggle('open', isOpen);
+  hamburger.setAttribute('aria-expanded', String(isOpen));
+  hamburger.setAttribute('aria-label', isOpen ? 'Закрыть меню' : 'Открыть меню');
+  mobileNav.setAttribute('aria-hidden', String(!isOpen));
+});
 
-    <!-- центральный ромб -->
-    <polygon points="${W/2},${cy-7} ${W/2+7},${cy} ${W/2},${cy+7} ${W/2-7},${cy}"
-             fill="none" stroke="${G}" stroke-width="1.4"/>
-    <polygon points="${W/2},${cy-3} ${W/2+3},${cy} ${W/2},${cy+3} ${W/2-3},${cy}" fill="${G}"/>
-
-    <!-- точки на стыках -->
-    <circle cx="0" cy="${cy}" r="1.8" fill="${G}"/>
-    <circle cx="${W}" cy="${cy}" r="1.8" fill="${G}"/>
-
-    <!-- мелкие штрихи между ромбами -->
-    <line x1="${W/2-12}" y1="${cy}" x2="${W/2-7}" y2="${cy}" stroke="${G}" stroke-width="1"/>
-    <line x1="${W/2+7}" y1="${cy}" x2="${W/2+12}" y2="${cy}" stroke="${G}" stroke-width="1"/>
-  `;
-
-  document.querySelectorAll('.kz-border, .kz-divider-band').forEach((el, i) => {
-    const pid = 'kzp' + i;
-    el.style.cssText = `height:${H}px;overflow:hidden;flex-shrink:0`;
-    el.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="${H}">
-        <defs>
-          <pattern id="${pid}" x="0" y="0" width="${W}" height="${H}" patternUnits="userSpaceOnUse">
-            ${tile}
-          </pattern>
-        </defs>
-        <rect width="100%" height="${H}" fill="url(#${pid})"/>
-      </svg>`;
+mobileNav.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mobileNav.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-label', 'Открыть меню');
+    mobileNav.setAttribute('aria-hidden', 'true');
   });
-})();
+});
 
-// Subtle hero entrance
+// ─── Ad form submit ───
+document.getElementById('adForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('adSubmitBtn');
+  const status = document.getElementById('adStatus');
+  const data = new FormData(this);
+
+  const text = [
+    '📋 Новое объявление',
+    'Категория: ' + data.get('category'),
+    'Город: ' + data.get('city'),
+    'Заголовок: ' + data.get('title'),
+    'Описание: ' + data.get('description'),
+    'Цена: ' + (data.get('price') || 'не указана') + ' ₸',
+    'Имя: ' + data.get('name'),
+    'Телефон: ' + data.get('phone'),
+    'Telegram: ' + (data.get('telegram') || 'не указан'),
+  ].join('\n');
+
+  btn.disabled = true;
+  btn.textContent = 'Отправляем...';
+  status.className = 'form-status';
+  status.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/sendAd', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text }),
+    });
+    const json = await res.json();
+    if (res.ok && json.ok) {
+      status.textContent = '✅ Объявление отправлено на модерацию';
+      status.className = 'form-status success';
+      status.style.display = 'block';
+      this.reset();
+    } else {
+      throw new Error(json.error || 'Ошибка отправки');
+    }
+  } catch (err) {
+    status.textContent = '❌ ' + (err.message || 'Ошибка. Попробуйте позже.');
+    status.className = 'form-status error';
+    status.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Отправить объявление';
+  }
+});
+
+// ─── Contact form submit ───
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('contactSubmitBtn');
+  const status = document.getElementById('contactStatus');
+  const data = new FormData(this);
+
+  btn.disabled = true;
+  btn.textContent = 'Отправляем...';
+  status.className = 'form-status';
+  status.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: data.get('name'),
+        email: data.get('email'),
+        message: data.get('message'),
+      }),
+    });
+    const json = await res.json();
+    if (res.ok && json.ok) {
+      status.textContent = '✅ ' + json.message;
+      status.className = 'form-status success';
+      status.style.display = 'block';
+      this.reset();
+    } else {
+      throw new Error(json.error || 'Ошибка отправки');
+    }
+  } catch (err) {
+    status.textContent = '❌ ' + (err.message || 'Ошибка. Попробуйте позже.');
+    status.className = 'form-status error';
+    status.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Отправить ✉️';
+  }
+});
+
+// ─── Hero entrance animation ───
 document.addEventListener('DOMContentLoaded', () => {
   const els = document.querySelectorAll('.hero-left > *, .announcement-card');
   els.forEach((el, i) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
     el.style.transition = `opacity 0.6s ${i * 0.1 + 0.1}s, transform 0.6s ${i * 0.1 + 0.1}s`;
+  });
+  requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
+      els.forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      });
     });
   });
 });
