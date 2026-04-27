@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adil's Tech Studio | Burabay</title>
+    <title>Burabay Tech</title>
     <style>
         * {
             margin: 0;
@@ -349,6 +349,27 @@
 
         .btn-secondary:hover {
             border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .btn-tertiary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 11px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .btn-tertiary:hover {
+            border-color: rgba(245,166,35,0.4);
             color: var(--gold);
             transform: translateY(-2px);
         }
@@ -1551,7 +1572,7 @@
                 align-items: center;
             }
 
-            .btn-primary, .btn-secondary {
+            .btn-primary, .btn-secondary, .btn-tertiary {
                 width: 100%;
                 justify-content: center;
             }
@@ -1560,17 +1581,1009 @@
                 grid-template-columns: 1fr 1fr;
             }
         }
+        /* ===== ADS SECTION ===== */
+        #ads {
+            padding: 100px 40px;
+            background: var(--dark-bg);
+        }
+
+        .ads-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Submit Form */
+        .ads-form-wrap {
+            background: var(--dark-card);
+            border: 1px solid rgba(245,166,35,0.15);
+            border-radius: 16px;
+            padding: 36px;
+            margin-bottom: 60px;
+        }
+
+        .ads-form-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+
+        .ads-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .ads-form-grid .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .ads-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .ads-field label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+
+        .ads-field input,
+        .ads-field select,
+        .ads-field textarea {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 11px 14px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        .ads-field input:focus,
+        .ads-field select:focus,
+        .ads-field textarea:focus {
+            border-color: var(--gold);
+        }
+
+        .ads-field select option {
+            background: var(--dark-card);
+        }
+
+        .ads-field textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .price-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .price-row input[type="number"] {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .price-check {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .price-check input[type="checkbox"] {
+            accent-color: var(--gold);
+            width: 15px;
+            height: 15px;
+        }
+
+        .btn-submit-ads {
+            margin-top: 8px;
+            background: var(--gradient-gold);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            padding: 13px 32px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(245,166,35,0.3);
+        }
+
+        .btn-submit-ads:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(245,166,35,0.5);
+        }
+
+        .ads-success-msg {
+            display: none;
+            margin-top: 14px;
+            color: var(--green);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Filters */
+        .ads-filters {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .ads-filter-select,
+        .ads-search-input {
+            background: var(--dark-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 9px 14px;
+            color: var(--text-primary);
+            font-size: 0.87rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .ads-filter-select:focus,
+        .ads-search-input:focus {
+            border-color: var(--gold);
+        }
+
+        .ads-filter-select option {
+            background: var(--dark-card);
+        }
+
+        .ads-search-input {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        /* Listings grid */
+        .ads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .ad-card {
+            background: var(--dark-card);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: border-color 0.25s, transform 0.25s;
+        }
+
+        .ad-card:hover {
+            border-color: rgba(245,166,35,0.3);
+            transform: translateY(-3px);
+        }
+
+        .ad-card-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .ad-cat-icon-wrap {
+            flex-shrink: 0;
+            width: 64px;
+            height: 64px;
+            border-radius: 14px;
+            background: rgba(245,166,35,0.07);
+            border: 1px solid rgba(245,166,35,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ad-card-top-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .ad-category-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(245,166,35,0.1);
+            border: 1px solid rgba(245,166,35,0.2);
+            border-radius: 20px;
+            padding: 3px 10px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .ad-city-badge {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            white-space: nowrap;
+        }
+
+        .ad-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .ad-price {
+            font-size: 1.05rem;
+            font-weight: 800;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ad-desc {
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .ad-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ad-contact-btns {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .ad-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            border-radius: 7px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            font-family: inherit;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.2s;
+            white-space: nowrap;
+        }
+
+        .ad-btn:hover {
+            opacity: 0.85;
+            transform: translateY(-1px);
+        }
+
+        .ad-btn-call {
+            background: #22c55e;
+            color: #fff;
+        }
+
+        .ad-btn-wa {
+            background: #25d366;
+            color: #fff;
+        }
+
+        .ad-btn-tg {
+            background: #229ed9;
+            color: #fff;
+        }
+
+        .ad-btn-ig {
+            background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af);
+            color: #fff;
+        }
+
+        .ads-empty {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 60px 20px;
+        }
+
+        .ads-empty-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 360px;
+            line-height: 1.6;
+        }
+
+        .ads-empty-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gradient-gold);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            padding: 11px 26px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(245,166,35,0.25);
+            text-decoration: none;
+        }
+
+        .ads-empty-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(245,166,35,0.45);
+        }
+
+        @media (max-width: 768px) {
+            #ads { padding: 80px 20px; }
+            .ads-form-grid { grid-template-columns: 1fr; }
+            .ads-form-grid .full-width { grid-column: 1; }
+            .ads-form-wrap { padding: 24px 18px; }
+        }
+
+        /* ===== TAXI SECTION ===== */
+        #taxi {
+            padding: 100px 40px;
+            background: var(--dark-secondary);
+            border-top: 1px solid rgba(245,166,35,0.07);
+            border-bottom: 1px solid rgba(245,166,35,0.07);
+        }
+
+        .taxi-container {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .taxi-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: -12px;
+            margin-bottom: 48px;
+        }
+
+        .taxi-card {
+            background: var(--dark-card);
+            border: 1px solid rgba(245,166,35,0.2);
+            border-radius: 18px;
+            padding: 36px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            max-width: 520px;
+            margin: 0 auto 48px;
+            transition: border-color 0.25s, transform 0.25s;
+        }
+
+        .taxi-card:hover {
+            border-color: rgba(245,166,35,0.45);
+            transform: translateY(-3px);
+        }
+
+        .taxi-card-icon {
+            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            background: rgba(245,166,35,0.08);
+            border: 1px solid rgba(245,166,35,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .taxi-card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .taxi-card-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .taxi-card-capacity {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .taxi-card-route {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .taxi-card-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 4px;
+        }
+
+        .taxi-card-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #25d366;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-top: 8px;
+            transition: all 0.25s;
+            width: fit-content;
+            box-shadow: 0 4px 16px rgba(37,211,102,0.25);
+        }
+
+        .taxi-card-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+        }
+
+        .taxi-driver-block {
+            background: rgba(245,166,35,0.05);
+            border: 1px solid rgba(245,166,35,0.15);
+            border-radius: 14px;
+            padding: 28px 32px;
+            text-align: center;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .taxi-driver-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .taxi-driver-desc {
+            font-size: 0.87rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .taxi-driver-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gradient-gold);
+            color: #000;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 10px 24px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: all 0.25s;
+            box-shadow: 0 4px 16px rgba(245,166,35,0.25);
+        }
+
+        .taxi-driver-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(245,166,35,0.45);
+        }
+
+        .taxi-card-desc {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            margin-top: 2px;
+        }
+
+        .taxi-card-exp {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .taxi-card-warn {
+            font-size: 0.78rem;
+            color: #f5a623cc;
+            margin-top: 2px;
+        }
+
+        .ads-price-hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .ads-price-error {
+            display: none;
+            font-size: 0.78rem;
+            color: #ef4444;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 600px) {
+            #taxi { padding: 80px 20px; }
+            .taxi-card { flex-direction: column; text-align: center; align-items: center; }
+            .taxi-card-btn { align-self: center; }
+        }
+
+        /* ===== TAXI CALENDAR ===== */
+        .taxi-calendar-wrap { margin: 32px 0 0; }
+        .taxi-calendar-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        .taxi-cal-strip {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold) transparent;
+        }
+        .taxi-cal-strip::-webkit-scrollbar { height: 4px; }
+        .taxi-cal-strip::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+        .taxi-cal-day {
+            flex: 0 0 60px;
+            background: var(--dark-card);
+            border: 1px solid rgba(245,166,35,0.15);
+            border-radius: 10px;
+            padding: 8px 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .taxi-cal-day:hover { border-color: var(--gold); }
+        .taxi-cal-day.active {
+            border-color: var(--gold);
+            background: rgba(245,166,35,0.12);
+        }
+        .taxi-cal-day.no-trip { opacity: 0.45; cursor: default; }
+        .taxi-cal-weekday {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
+        .taxi-cal-num {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 2px 0;
+        }
+        .taxi-cal-day.active .taxi-cal-num { color: var(--gold); }
+        .taxi-cal-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            margin: 0 auto;
+            background: transparent;
+        }
+        .taxi-cal-dot.has-trip { background: var(--gold); }
+        .taxi-cal-dot.full { background: var(--text-muted); }
+
+        /* ===== TAXI TRIP PANEL ===== */
+        .taxi-trip-panel {
+            background: var(--dark-card);
+            border: 1px solid rgba(245,166,35,0.18);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+        .taxi-trip-panel.visible { display: block; }
+        .taxi-trip-list { display: flex; flex-direction: column; gap: 16px; }
+        .taxi-trip-item {
+            background: var(--dark-secondary);
+            border: 1px solid rgba(245,166,35,0.1);
+            border-radius: 12px;
+            padding: 14px 16px;
+        }
+        .taxi-trip-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .taxi-trip-route {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .taxi-trip-time {
+            font-size: 0.8rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+        .taxi-trip-avail {
+            font-size: 0.72rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .taxi-trip-avail.avail { background: rgba(34,197,94,0.15); color: #22c55e; }
+        .taxi-trip-avail.full  { background: rgba(239,68,68,0.15); color: #ef4444; }
+
+        /* ===== SEATMAP ===== */
+        .seatmap-title {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        .seatmap-shell {
+            background: rgba(10,22,40,0.7);
+            border: 1.5px solid rgba(245,166,35,0.2);
+            border-radius: 18px;
+            padding: 16px 20px 14px;
+            display: inline-block;
+            min-width: 200px;
+        }
+        .seatmap-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        .seatmap-row:last-child { margin-bottom: 0; }
+        .seatmap-aisle { width: 28px; }
+        .seat {
+            width: 44px; height: 40px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            border: 2px solid transparent;
+            user-select: none;
+            position: relative;
+        }
+        .seat-num { font-size: 0.75rem; font-weight: 800; line-height: 1; }
+        .seat-price { font-size: 0.55rem; opacity: 0.85; margin-top: 1px; }
+        .seat.free {
+            background: #F5A623;
+            border-color: #e09618;
+            color: #fff;
+        }
+        .seat.free:hover {
+            background: #ffb733;
+            border-color: #F5A623;
+            transform: translateY(-2px) scale(1.06);
+            box-shadow: 0 4px 14px rgba(245,166,35,0.45);
+        }
+        .seat.occupied {
+            background: #3a3a3a;
+            border-color: #555;
+            color: #777;
+            cursor: not-allowed;
+        }
+        .seat.chosen {
+            background: #0088CC;
+            border-color: #006fa8;
+            color: #fff;
+            box-shadow: 0 0 12px rgba(0,136,204,0.55);
+            animation: seatChosen 0.25s ease;
+        }
+        @keyframes seatChosen {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(1.18); }
+            100% { transform: scale(1); }
+        }
+        .seat.driver-seat {
+            background: #2a2a2a;
+            border-color: #444;
+            color: #555;
+            cursor: default;
+        }
+        .seat-icon { font-size: 0.9rem; line-height: 1; }
+        .seatmap-divider {
+            border: none;
+            border-top: 1px dashed rgba(245,166,35,0.15);
+            margin: 8px 0;
+        }
+        .taxi-seat-info {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold);
+            min-height: 20px;
+            font-weight: 600;
+        }
+        .taxi-book-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #25d366, #1da851);
+            color: white;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            opacity: 0.35;
+            pointer-events: none;
+        }
+        .taxi-book-btn.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .taxi-book-btn.active:hover { transform: translateY(-1px); filter: brightness(1.1); }
+
+        /* ===== PRICING BLOCK ===== */
+        .taxi-pricing-block {
+            background: var(--dark-card);
+            border: 1px solid rgba(245,166,35,0.18);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-top: 24px;
+        }
+        .taxi-pricing-promo {
+            background: linear-gradient(135deg, rgba(245,166,35,0.15), rgba(255,107,53,0.1));
+            border: 1px solid rgba(245,166,35,0.35);
+            border-radius: 10px;
+            padding: 10px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 14px;
+            text-align: center;
+        }
+        .taxi-pricing-title {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        .taxi-pricing-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .taxi-pricing-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+        .taxi-pricing-item-name { color: var(--text-secondary); }
+        .taxi-pricing-item-price {
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        /* ===== ANNOUNCEMENT BANNER ===== */
+        #announcement {
+            padding: 40px 40px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .announce-card {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(13,31,60,0.98) 0%, rgba(10,22,40,0.98) 100%);
+            border: 1px solid rgba(245,166,35,0.35);
+            border-left: 4px solid var(--gold);
+            border-radius: 16px;
+            padding: 28px 32px 24px;
+            box-shadow: 0 4px 40px rgba(245,166,35,0.08), 0 0 0 1px rgba(245,166,35,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .announce-card::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 180px; height: 180px;
+            background: radial-gradient(circle, rgba(245,166,35,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .announce-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .announce-icon {
+            flex-shrink: 0;
+            width: 40px; height: 40px;
+            background: rgba(245,166,35,0.12);
+            border: 1px solid rgba(245,166,35,0.3);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            margin-top: 2px;
+        }
+
+        .announce-heading {
+            flex: 1;
+        }
+
+        .announce-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            background: rgba(245,166,35,0.1);
+            border: 1px solid rgba(245,166,35,0.25);
+            border-radius: 20px;
+            padding: 2px 10px;
+            margin-bottom: 6px;
+        }
+
+        .announce-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .announce-divider {
+            border: none;
+            border-top: 1px solid rgba(245,166,35,0.12);
+            margin: 0 0 16px;
+        }
+
+        .announce-body {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .announce-intro {
+            margin-bottom: 14px;
+            color: var(--text-primary);
+            font-size: 0.88rem;
+        }
+
+        .announce-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .announce-feature {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            padding: 10px 14px;
+        }
+
+        .announce-feature-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .announce-feature-text {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .announce-notes {
+            background: rgba(245,166,35,0.04);
+            border: 1px solid rgba(245,166,35,0.1);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 14px;
+        }
+
+        .announce-note {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .announce-note:last-child { border-bottom: none; }
+
+        .announce-note strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .announce-footer {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .announce-close {
+            position: absolute;
+            top: 14px; right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 4px 6px;
+            border-radius: 6px;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .announce-close:hover {
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.06);
+        }
+
+        @media (max-width: 600px) {
+            #announcement { padding: 24px 16px 0; }
+            .announce-card { padding: 20px 18px 18px; }
+            .announce-features { grid-template-columns: 1fr; }
+            .announce-title { font-size: 0.9rem; }
+        }
     </style>
 </head>
 <body>
 
     <!-- NAVBAR -->
     <nav id="navbar">
-        <div class="nav-logo">Adil's Tech Studio</div>
+        <div class="nav-logo">Burabay Tech</div>
         <ul class="nav-links">
             <li><a href="#hero" data-i18n="nav_home">Home</a></li>
-            <li><a href="#about" data-i18n="nav_about">About</a></li>
+            <li><a href="#taxi" data-i18n="nav_taxi">Taxi</a></li>
             <li><a href="#market" data-i18n="nav_market">Market</a></li>
+            <li><a href="#ads" data-i18n="nav_ads">Ads</a></li>
             <li><a href="#videos" data-i18n="nav_videos">Videos</a></li>
             <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
         </ul>
@@ -1593,8 +2606,9 @@
     <div class="mobile-menu" id="mobileMenu">
         <button class="mobile-close" onclick="toggleMenu()">✕</button>
         <a href="#hero" onclick="toggleMenu()" data-i18n="nav_home">Home</a>
-        <a href="#about" onclick="toggleMenu()" data-i18n="nav_about">About</a>
+        <a href="#taxi" onclick="toggleMenu()" data-i18n="nav_taxi">Taxi</a>
         <a href="#market" onclick="toggleMenu()" data-i18n="nav_market">Market</a>
+        <a href="#ads" onclick="toggleMenu()" data-i18n="nav_ads">Ads</a>
         <a href="#videos" onclick="toggleMenu()" data-i18n="nav_videos">Videos</a>
         <a href="#contact" onclick="toggleMenu()" data-i18n="nav_contact">Contact</a>
         <div class="mobile-lang">
@@ -1610,27 +2624,21 @@
         <div class="hero-bg"></div>
         <div class="hero-grid"></div>
         <div class="hero-content">
-            <div class="hero-badge" data-i18n="hero_badge">🎙️ Tech Reviews &amp; Hi-Fi Audio</div>
             <h1 class="hero-title">
-                <span class="line1">Adil's Tech Studio</span>
-                <span class="line2">Burabay</span>
+                <span class="line1">Burabay</span>
+                <span class="line2">Tech</span>
             </h1>
-            <p class="hero-subtitle" data-i18n="hero_subtitle">Audio Engineering · Tech Reviews · DIY Hi-Fi</p>
-            <p class="hero-location">📍 <span data-i18n="hero_location">Based in <b>Burabay, Kazakhstan</b></span></p>
-            <div class="hero-tags">
-                <span class="tag">Mac mini M4</span>
-                <span class="tag">Audient EVO 4</span>
-                <span class="tag" data-i18n="tag_microphones">Microphones</span>
-                <span class="tag" data-i18n="tag_audio_gear">Audio Gear</span>
-                <span class="tag" data-i18n="tag_diy_hifi">DIY Hi-Fi</span>
-                <span class="tag" data-i18n="tag_studio_setup">Studio Setup</span>
-            </div>
+            <p class="hero-subtitle" data-i18n="hero_subtitle">Technology · Market · Classifieds · Burabay &amp; Schuchinsk</p>
             <div class="hero-cta">
-                <a href="https://youtube.com/@AdilsTechStudio" target="_blank" class="btn-primary" data-i18n="hero_btn_watch">
-                    ▶ Watch on YouTube
+                <a href="#taxi" class="btn-primary" data-i18n="hero_btn_taxi">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="20" height="10" rx="2"/><path d="M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><circle cx="8" cy="18" r="1.5"/><circle cx="16" cy="18" r="1.5"/></svg>
+                    🚖 Заказать такси
                 </a>
-                <a href="#about" class="btn-secondary" data-i18n="hero_btn_learn">
-                    Learn More →
+                <a href="#ads" class="btn-secondary" data-i18n="hero_btn_ads">
+                    📋 Объявления
+                </a>
+                <a href="#market" class="btn-tertiary" data-i18n="hero_btn_market">
+                    📈 Рынок
                 </a>
             </div>
         </div>
@@ -1640,68 +2648,109 @@
         </div>
     </section>
 
-    <!-- STATS -->
-    <div class="stats-bar">
-        <div class="stats-grid">
-            <div class="stat-item reveal">
-                <div class="stat-number">50+</div>
-                <div class="stat-label" data-i18n="stat_videos">Videos Published</div>
+    <!-- ANNOUNCEMENT -->
+    <section id="announcement">
+        <div class="announce-card reveal" id="announceCard">
+            <button class="announce-close" onclick="document.getElementById('announceCard').style.display='none'" title="Закрыть">✕</button>
+            <div class="announce-header">
+                <div class="announce-icon">📢</div>
+                <div class="announce-heading">
+                    <div class="announce-badge">Объявление</div>
+                    <div class="announce-title">Вниманию жителей и предпринимателей Бурабайского района!</div>
+                </div>
             </div>
-            <div class="stat-item reveal">
-                <div class="stat-number">5+</div>
-                <div class="stat-label" data-i18n="stat_experience">Years Experience</div>
-            </div>
-            <div class="stat-item reveal">
-                <div class="stat-number">∞</div>
-                <div class="stat-label" data-i18n="stat_passion">Passion for Audio</div>
+            <hr class="announce-divider">
+            <div class="announce-body">
+                <p class="announce-intro">Мы рады сообщить о запуске нашей новой площадки для размещения объявлений. Теперь купля-продажа и продвижение услуг в нашем регионе стали ещё проще и доступнее.</p>
+
+                <div class="announce-features">
+                    <div class="announce-feature">
+                        <div class="announce-feature-title">🏘 Недвижимость и транспорт</div>
+                        <div class="announce-feature-text">Принимаются объявления о продаже движимого и недвижимого имущества по всему Бурабайскому району.</div>
+                    </div>
+                    <div class="announce-feature">
+                        <div class="announce-feature-title">🚖 Для водителей</div>
+                        <div class="announce-feature-text">Внедрена отдельная вкладка «Межгород» для частных перевозчиков и служб такси.</div>
+                    </div>
+                    <div class="announce-feature">
+                        <div class="announce-feature-title">🏢 Для бизнеса</div>
+                        <div class="announce-feature-text">Разрешена реклама компаний, включая товары, работы и услуги (ТРУ).</div>
+                    </div>
+                </div>
+
+                <div class="announce-notes">
+                    <div class="announce-note"><strong>🎉 Бесплатно:</strong> В связи с запуском сайта и мобильного приложения все объявления размещаются бесплатно. О введении платных сервисов будет сообщено дополнительно.</div>
+                    <div class="announce-note"><strong>🛡 Безопасность:</strong> В ближайшее время платформа будет оснащена системой проверки на базе ИИ для выявления мошеннических действий и соблюдения законодательства.</div>
+                </div>
+
+                <div class="announce-footer">Мы постоянно работаем над совершенствованием сервиса. Желаем всем успехов и плодотворного сотрудничества!</div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- ABOUT -->
-    <section id="about">
-        <div class="about-container">
+    <!-- TAXI -->
+    <section id="taxi">
+        <div class="taxi-container">
             <div class="section-header reveal">
-                <span class="section-label" data-i18n="about_label">About Me</span>
-                <h2 class="section-title" data-i18n="about_title">Audio Engineer &amp; <span>Tech Enthusiast</span></h2>
+                <span class="section-label" data-i18n="taxi_label">Transfer</span>
+                <h2 class="section-title" data-i18n="taxi_title">Такси Бурабай — <span>Щучинск</span></h2>
                 <div class="section-divider"></div>
             </div>
-            <div class="about-grid">
-                <div class="about-visual reveal">
-                    <div class="about-avatar">
-                        <span class="avatar-icon">🎧</span>
-                        <div class="about-badge-float" data-i18n="about_badge_float">Audio<br>Engineer</div>
-                    </div>
+            <p class="taxi-subtitle reveal" data-i18n="taxi_subtitle">Комфортные поездки по городу и межгород</p>
+
+            <!-- Tariff card -->
+            <div class="taxi-card reveal">
+                <div class="taxi-card-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="M14 2v5h5"/></svg>
                 </div>
-                <div class="about-content reveal">
-                    <h3 data-i18n="about_greeting">Hi, I'm Adil</h3>
-                    <div class="about-role" data-i18n="about_role">Audio Engineer &amp; Content Creator</div>
-                    <p class="about-text" data-i18n="about_text1">
-                        Welcome to Adil's Tech Studio — a channel dedicated to honest, in-depth reviews of audio equipment, studio gear, and tech products. Based in the beautiful Burabay region of Kazakhstan, I bring you real-world testing and hands-on experience.
-                    </p>
-                    <p class="about-text" data-i18n="about_text2">
-                        From professional interfaces like the Audient EVO 4 to Apple's powerful Mac mini M4, I cover the tools that matter to creators, musicians, and audio enthusiasts. I also share DIY Hi-Fi projects for those who love building their own audio systems.
-                    </p>
-                    <div class="about-skills">
-                        <span class="skill-tag" data-i18n="skill_audio_eng">Audio Engineering</span>
-                        <span class="skill-tag" data-i18n="skill_studio_rec">Studio Recording</span>
-                        <span class="skill-tag" data-i18n="skill_tech_reviews">Tech Reviews</span>
-                        <span class="skill-tag" data-i18n="skill_diy_hifi">DIY Hi-Fi</span>
-                        <span class="skill-tag" data-i18n="skill_signal">Signal Processing</span>
-                        <span class="skill-tag" data-i18n="skill_acoustic">Acoustic Treatment</span>
-                    </div>
-                    <div class="about-gear">
-                        <h4 data-i18n="gear_title">🔧 Current Setup</h4>
-                        <div class="gear-list">
-                            <div class="gear-item">Mac mini M4</div>
-                            <div class="gear-item">Audient EVO 4</div>
-                            <div class="gear-item" data-i18n="gear_mic">Condenser Mic</div>
-                            <div class="gear-item" data-i18n="gear_monitors">Studio Monitors</div>
-                            <div class="gear-item" data-i18n="gear_amp">DIY Hi-Fi Amp</div>
-                            <div class="gear-item" data-i18n="gear_panels">Acoustic Panels</div>
-                        </div>
-                    </div>
+                <div class="taxi-card-body">
+                    <div class="taxi-card-name" data-i18n="taxi_car_name">Легковой — Haval M6 2024</div>
+                    <div class="taxi-card-capacity" data-i18n="taxi_car_capacity">до 4 пассажиров</div>
+                    <div class="taxi-card-exp" data-i18n="taxi_car_exp">🛡 Стаж вождения 24 года</div>
+                    <div class="taxi-card-desc" data-i18n="taxi_car_desc">Только салон. Новый кроссовер Haval M6. С одного адреса на один. 24/7. Просторный кроссовер, большой багажник. Санатории, дома отдыха и т.п.</div>
+                    <div class="taxi-card-route">Астана ↔ Бурабай</div>
+                    <div class="taxi-card-price">24 000 ₸</div>
+                    <div class="taxi-card-warn" data-i18n="taxi_car_warn">⚠️ Писать заранее в WhatsApp</div>
+                    <a class="taxi-card-btn" href="https://wa.me/77080802588?text=Хочу заказать трансфер Астана-Бурабай на Haval M6" target="_blank" data-i18n="taxi_order_btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        Заказать в WhatsApp
+                    </a>
                 </div>
+            </div>
+
+            <!-- Calendar + Seatmap -->
+            <div class="taxi-calendar-wrap reveal">
+                <div class="taxi-calendar-label" data-i18n="taxi_pick_date">Выберите дату поездки</div>
+                <div class="taxi-cal-strip" id="taxiCalStrip"></div>
+            </div>
+
+            <div class="taxi-trip-panel" id="taxiTripPanel">
+                <div class="taxi-trip-list" id="taxiTripList"></div>
+            </div>
+
+            <!-- Pricing block -->
+            <div class="taxi-pricing-block reveal">
+                <div class="taxi-pricing-promo" data-i18n="taxi_promo">🎉 Акция до 10 июня — размещение объявлений бесплатно!</div>
+                <div class="taxi-pricing-title" data-i18n="taxi_pricing_title">Тарифы на размещение</div>
+                <ul class="taxi-pricing-list">
+                    <li class="taxi-pricing-item">
+                        <span class="taxi-pricing-item-name" data-i18n="taxi_plan_7d">7 дней размещения</span>
+                        <span class="taxi-pricing-item-price">1 000 ₸</span>
+                    </li>
+                    <li class="taxi-pricing-item">
+                        <span class="taxi-pricing-item-name" data-i18n="taxi_plan_bump">Поднять наверх</span>
+                        <span class="taxi-pricing-item-price">500 ₸</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Driver CTA -->
+            <div class="taxi-driver-block reveal">
+                <div class="taxi-driver-title" data-i18n="taxi_driver_title">Вы водитель? Разместите своё объявление бесплатно!</div>
+                <p class="taxi-driver-desc" data-i18n="taxi_driver_desc">Минивэн, микроавтобус или другой транспорт — добавьте свой маршрут в раздел Объявления</p>
+                <a class="taxi-driver-btn" href="#ads" onclick="document.getElementById('adTitle').focus();return false;" data-i18n="taxi_driver_btn">
+                    📋 Подать объявление
+                </a>
             </div>
         </div>
     </section>
@@ -1764,6 +2813,108 @@
         </div>
     </section>
 
+    <!-- ADS -->
+    <section id="ads">
+        <div class="ads-container">
+            <div class="section-header reveal">
+                <span class="section-label" data-i18n="ads_label">Local Classifieds</span>
+                <h2 class="section-title" data-i18n="ads_title">Объявления <span>Бурабая</span></h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <!-- SUBMIT FORM -->
+            <div class="ads-form-wrap reveal">
+                <div class="ads-form-title" data-i18n="ads_form_title">📝 Подать объявление</div>
+                <div class="ads-form-grid">
+                    <div class="ads-field">
+                        <label data-i18n="ads_field_category">Категория</label>
+                        <select id="adCategory" onchange="onCatChange()">
+                            <option value="taxi" data-i18n="ads_cat_taxi">🚕 Такси / Трансфер</option>
+                            <option value="auto" data-i18n="ads_cat_auto">🚗 Авто</option>
+                            <option value="realty" data-i18n="ads_cat_realty">🏠 Недвижимость</option>
+                            <option value="services" data-i18n="ads_cat_services">🔧 Услуги</option>
+                            <option value="jobs" data-i18n="ads_cat_jobs">💼 Работа</option>
+                            <option value="electronics" data-i18n="ads_cat_electronics">📱 Электроника</option>
+                            <option value="furniture" data-i18n="ads_cat_furniture">🛋️ Мебель и быт</option>
+                            <option value="tourism" data-i18n="ads_cat_tourism">🌿 Туризм</option>
+                            <option value="free" data-i18n="ads_cat_free">🎁 Отдам даром</option>
+                        </select>
+                    </div>
+                    <div class="ads-field">
+                        <label data-i18n="ads_field_city">Город</label>
+                        <select id="adCity">
+                            <option value="Щучинск" data-i18n="ads_city_shch">Щучинск</option>
+                            <option value="Бурабай" data-i18n="ads_city_bur">Бурабай</option>
+                        </select>
+                    </div>
+                    <div class="ads-field full-width">
+                        <label data-i18n="ads_field_title">Заголовок</label>
+                        <input type="text" id="adTitle" maxlength="100" data-i18n-placeholder="ads_placeholder_title" placeholder="Кратко опишите...">
+                    </div>
+                    <div class="ads-field full-width">
+                        <label data-i18n="ads_field_desc">Описание</label>
+                        <textarea id="adDesc" maxlength="500" data-i18n-placeholder="ads_placeholder_desc" placeholder="Подробнее об объявлении..."></textarea>
+                    </div>
+                    <div class="ads-field full-width">
+                        <label data-i18n="ads_field_price">Цена (тенге)</label>
+                        <div class="price-row">
+                            <input type="number" id="adPrice" min="0" data-i18n-placeholder="ads_placeholder_price" placeholder="0" oninput="clearPriceError()">
+                            <label class="price-check"><input type="checkbox" id="adNegotiable"> <span data-i18n="ads_negotiable">Договорная</span></label>
+                            <label class="price-check"><input type="checkbox" id="adFree"> <span data-i18n="ads_free_price">Бесплатно</span></label>
+                        </div>
+                        <div class="ads-price-hint" id="adsPriceHint" style="display:none" data-i18n="ads_taxi_price_hint">Минимальная цена: 6 000 ₸ за пассажира</div>
+                        <div class="ads-price-error" id="adsPriceError" data-i18n="ads_taxi_price_err">Минимальная цена 6 000 ₸ за пассажира</div>
+                    </div>
+                    <div class="ads-field">
+                        <label data-i18n="ads_field_name">Имя</label>
+                        <input type="text" id="adName" data-i18n-placeholder="ads_placeholder_name" placeholder="Ваше имя">
+                    </div>
+                    <div class="ads-field">
+                        <label data-i18n="ads_field_phone">Телефон / WhatsApp</label>
+                        <input type="tel" id="adPhone" placeholder="+7 777 000 00 00">
+                    </div>
+                    <div class="ads-field">
+                        <label data-i18n="ads_field_tg">Telegram (без @)</label>
+                        <input type="text" id="adTelegram" placeholder="username">
+                    </div>
+                    <div class="ads-field">
+                        <label data-i18n="ads_field_ig">Instagram (без @)</label>
+                        <input type="text" id="adInstagram" placeholder="username">
+                    </div>
+                    <div class="full-width">
+                        <button class="btn-submit-ads" onclick="submitAd()" data-i18n="ads_btn_submit">Отправить объявление</button>
+                        <div class="ads-success-msg" id="adsSuccessMsg" data-i18n="ads_success">✅ Объявление отправлено на модерацию</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FILTERS -->
+            <div class="ads-filters reveal">
+                <select class="ads-filter-select" id="filterCategory" onchange="renderAds()">
+                    <option value="" data-i18n="ads_filter_all_cat">Все категории</option>
+                    <option value="taxi" data-i18n="ads_cat_taxi">🚕 Такси / Трансфер</option>
+                    <option value="auto" data-i18n="ads_cat_auto">🚗 Авто</option>
+                    <option value="realty" data-i18n="ads_cat_realty">🏠 Недвижимость</option>
+                    <option value="services" data-i18n="ads_cat_services">🔧 Услуги</option>
+                    <option value="jobs" data-i18n="ads_cat_jobs">💼 Работа</option>
+                    <option value="electronics" data-i18n="ads_cat_electronics">📱 Электроника</option>
+                    <option value="furniture" data-i18n="ads_cat_furniture">🛋️ Мебель и быт</option>
+                    <option value="tourism" data-i18n="ads_cat_tourism">🌿 Туризм</option>
+                    <option value="free" data-i18n="ads_cat_free">🎁 Отдам даром</option>
+                </select>
+                <select class="ads-filter-select" id="filterCity" onchange="renderAds()">
+                    <option value="" data-i18n="ads_filter_all_cities">Все города</option>
+                    <option value="Щучинск" data-i18n="ads_city_shch">Щучинск</option>
+                    <option value="Бурабай" data-i18n="ads_city_bur">Бурабай</option>
+                </select>
+                <input type="text" class="ads-search-input" id="filterSearch" oninput="renderAds()" data-i18n-placeholder="ads_search_placeholder" placeholder="Поиск...">
+            </div>
+
+            <!-- LISTINGS -->
+            <div class="ads-grid" id="adsGrid"></div>
+        </div>
+    </section>
+
     <!-- VIDEOS -->
     <section id="videos">
         <div class="videos-container">
@@ -1778,20 +2929,20 @@
                 <div class="video-card reveal">
                     <div class="video-thumbnail">
                         <div class="video-thumbnail-bg">
-                            <span class="thumb-icon">🖥️</span>
+                            <span class="thumb-icon">📱</span>
                         </div>
                         <div class="thumb-gradient"></div>
                         <div class="play-btn">
                             <div class="play-btn-inner">▶</div>
                         </div>
-                        <span class="video-category" data-i18n="video_cat_review">Review</span>
-                        <span class="video-duration">18:42</span>
+                        <span class="video-category" data-i18n="video_cat_review">Обзор</span>
+                        <span class="video-duration">12:30</span>
                     </div>
                     <div class="video-info">
-                        <h3 class="video-title" data-i18n="video1_title">Mac mini M4 — Full Review for Audio Production</h3>
-                        <p class="video-desc" data-i18n="video1_desc">Is Apple's M4 chip a game-changer for music producers and audio engineers? Real-world DAW performance tests.</p>
+                        <h3 class="video-title" data-i18n="video1_title">Обзор техники в Бурабае</h3>
+                        <p class="video-desc" data-i18n="video1_desc">Смотрим, какую технику покупают и продают в Бурабае. Реальные объявления, цены и советы.</p>
                         <div class="video-meta">
-                            <span class="video-views">👁 12.4K <span data-i18n="views_label">views</span></span>
+                            <span class="video-views">👁 5.1K <span data-i18n="views_label">views</span></span>
                             <span class="video-date" data-i18n="video1_date">2 weeks ago</span>
                         </div>
                     </div>
@@ -1801,20 +2952,20 @@
                 <div class="video-card reveal">
                     <div class="video-thumbnail">
                         <div class="video-thumbnail-bg">
-                            <span class="thumb-icon">🎚️</span>
+                            <span class="thumb-icon">📈</span>
                         </div>
                         <div class="thumb-gradient"></div>
                         <div class="play-btn">
                             <div class="play-btn-inner">▶</div>
                         </div>
-                        <span class="video-category" data-i18n="video_cat_review">Review</span>
-                        <span class="video-duration">22:15</span>
+                        <span class="video-category" data-i18n="video_cat_analytics">Аналитика</span>
+                        <span class="video-duration">18:45</span>
                     </div>
                     <div class="video-info">
-                        <h3 class="video-title" data-i18n="video2_title">Audient EVO 4 — Best Budget Interface in 2024?</h3>
-                        <p class="video-desc" data-i18n="video2_desc">Deep dive into the Audient EVO 4 audio interface. Preamp quality, latency tests, and who it's really for.</p>
+                        <h3 class="video-title" data-i18n="video2_title">Рынок акций — что происходит?</h3>
+                        <p class="video-desc" data-i18n="video2_desc">Разбираем текущую ситуацию на рынке акций: KASE, S&P 500 и главные тренды недели.</p>
                         <div class="video-meta">
-                            <span class="video-views">👁 8.7K <span data-i18n="views_label">views</span></span>
+                            <span class="video-views">👁 7.3K <span data-i18n="views_label">views</span></span>
                             <span class="video-date" data-i18n="video2_date">1 month ago</span>
                         </div>
                     </div>
@@ -1824,20 +2975,20 @@
                 <div class="video-card reveal">
                     <div class="video-thumbnail">
                         <div class="video-thumbnail-bg">
-                            <span class="thumb-icon">🔊</span>
+                            <span class="thumb-icon">📰</span>
                         </div>
                         <div class="thumb-gradient"></div>
                         <div class="play-btn">
                             <div class="play-btn-inner">▶</div>
                         </div>
-                        <span class="video-category" data-i18n="video_cat_diy">DIY Hi-Fi</span>
-                        <span class="video-duration">35:08</span>
+                        <span class="video-category" data-i18n="video_cat_news">Новости</span>
+                        <span class="video-duration">10:22</span>
                     </div>
                     <div class="video-info">
-                        <h3 class="video-title" data-i18n="video3_title">Building a DIY Hi-Fi Amplifier from Scratch</h3>
-                        <p class="video-desc" data-i18n="video3_desc">Step-by-step guide to building a high-quality tube amplifier at home. Parts list, schematic, and sound test included.</p>
+                        <h3 class="video-title" data-i18n="video3_title">Объявления недели в Щучинске</h3>
+                        <p class="video-desc" data-i18n="video3_desc">Лучшие объявления недели: авто, недвижимость, услуги. Что интересного появилось в Щучинске.</p>
                         <div class="video-meta">
-                            <span class="video-views">👁 15.2K <span data-i18n="views_label">views</span></span>
+                            <span class="video-views">👁 3.8K <span data-i18n="views_label">views</span></span>
                             <span class="video-date" data-i18n="video3_date">6 weeks ago</span>
                         </div>
                     </div>
@@ -1845,7 +2996,7 @@
 
             </div>
             <div class="videos-cta reveal">
-                <a href="https://youtube.com/@AdilsTechStudio" target="_blank" class="btn-primary" data-i18n="videos_btn">
+                <a href="https://youtube.com/@Adilveis_life" target="_blank" class="btn-primary" data-i18n="videos_btn">
                     ▶ View All Videos on YouTube
                 </a>
             </div>
@@ -1865,27 +3016,27 @@
                     <h3 data-i18n="contact_hello">Say Hello 👋</h3>
                     <p data-i18n="contact_desc">Have a question about audio gear, want to collaborate, or just want to talk tech? I'd love to hear from you. Reach out through any of the channels below.</p>
                     <div class="contact-links">
-                        <a href="https://youtube.com/@AdilsTechStudio" target="_blank" class="contact-link">
+                        <a href="https://youtube.com/@Adilveis_life" target="_blank" class="contact-link">
                             <div class="contact-link-icon icon-youtube">📺</div>
                             <div class="contact-link-text">
                                 <div class="contact-link-label">YouTube</div>
-                                <div class="contact-link-value">@AdilsTechStudio</div>
+                                <div class="contact-link-value">@Adilveis_life</div>
                             </div>
                             <span class="contact-link-arrow">→</span>
                         </a>
-                        <a href="https://t.me/AdilsTechStudio" target="_blank" class="contact-link">
+                        <a href="https://t.me/burabay_m4_bot" target="_blank" class="contact-link">
                             <div class="contact-link-icon icon-telegram">✈️</div>
                             <div class="contact-link-text">
                                 <div class="contact-link-label">Telegram</div>
-                                <div class="contact-link-value">@AdilsTechStudio</div>
+                                <div class="contact-link-value">@burabay_m4_bot</div>
                             </div>
                             <span class="contact-link-arrow">→</span>
                         </a>
-                        <a href="mailto:adil@techstudio.kz" class="contact-link">
+                        <a href="mailto:adilkurmanov@yandex.kz" class="contact-link">
                             <div class="contact-link-icon icon-email">📧</div>
                             <div class="contact-link-text">
                                 <div class="contact-link-label" data-i18n="contact_email_label">Email</div>
-                                <div class="contact-link-value">adil@techstudio.kz</div>
+                                <div class="contact-link-value">adilkurmanov@yandex.kz</div>
                             </div>
                             <span class="contact-link-arrow">→</span>
                         </a>
@@ -1915,8 +3066,8 @@
 
     <!-- FOOTER -->
     <footer>
-        <div class="footer-logo">Adil's Tech Studio | Burabay</div>
-        <p class="footer-text" data-i18n="footer_text">Made with <span>♥</span> in Burabay, Kazakhstan · © 2024 All rights reserved</p>
+        <div class="footer-logo">Burabay Tech</div>
+        <p class="footer-text">© 2026 Burabay Tech</p>
     </footer>
 
     <script>
@@ -2077,20 +3228,16 @@
         const translations = {
             en: {
                 nav_home: 'Home',
-                nav_about: 'About',
+                nav_taxi: 'Taxi',
                 nav_market: 'Market',
+                nav_ads: 'Classifieds',
                 nav_videos: 'Videos',
                 nav_contact: 'Contact',
 
-                hero_badge: '🎙️ Tech Reviews & Hi-Fi Audio',
-                hero_subtitle: 'Audio Engineering · Tech Reviews · DIY Hi-Fi',
-                hero_location: 'Based in <b>Burabay, Kazakhstan</b>',
-                tag_microphones: 'Microphones',
-                tag_audio_gear: 'Audio Gear',
-                tag_diy_hifi: 'DIY Hi-Fi',
-                tag_studio_setup: 'Studio Setup',
-                hero_btn_watch: '▶ Watch on YouTube',
-                hero_btn_learn: 'Learn More →',
+                hero_subtitle: 'Technology · Market · Classifieds · Burabay &amp; Schuchinsk',
+                hero_btn_taxi: '🚖 Book Taxi',
+                hero_btn_ads: '📋 Classifieds',
+                hero_btn_market: '📈 Market',
                 scroll_label: 'Scroll',
 
                 stat_videos: 'Videos Published',
@@ -2116,6 +3263,35 @@
                 gear_amp: 'DIY Hi-Fi Amp',
                 gear_panels: 'Acoustic Panels',
 
+                taxi_label: 'Transfer',
+                taxi_title: 'Taxi Burabay — <span>Schuchinsk</span>',
+                taxi_subtitle: 'Comfortable city and intercity rides',
+                taxi_car_name: 'Sedan — Haval M6 2024',
+                taxi_car_capacity: 'up to 4 passengers',
+                taxi_car_exp: '🛡 24 years driving experience',
+                taxi_car_desc: 'Cabin only. New Haval M6 crossover. Door to door. 24/7. Spacious crossover, large trunk. Sanatoria, resorts, etc.',
+                taxi_car_warn: '⚠️ Message in advance via WhatsApp',
+                taxi_order_btn: 'Book via WhatsApp',
+                taxi_driver_title: 'Are you a driver? Post your ad for free!',
+                taxi_driver_desc: 'Minivan, minibus or other transport — add your route to the Classifieds section',
+                taxi_driver_btn: '📋 Post an Ad',
+                taxi_pick_date: 'Select a trip date',
+                taxi_seats_avail: 'Seats available',
+                taxi_seats_none: 'Full',
+                taxi_no_trip: '—',
+                taxi_seatmap_title: 'Choose a seat',
+                taxi_front: 'Front',
+                taxi_rear: 'Rear',
+                taxi_selected_seat: 'Seat #N selected — PRICE ₸',
+                taxi_seat_front: 'front',
+                taxi_seat_rear: 'rear',
+                taxi_book_btn: 'Book via WhatsApp',
+                taxi_book_select: 'Select a seat to book',
+                taxi_promo: '🎉 Promo until June 10 — free listing!',
+                taxi_pricing_title: 'Listing rates',
+                taxi_plan_7d: '7-day listing',
+                taxi_plan_bump: 'Boost to top',
+
                 market_label: 'Finance',
                 market_title: 'Market <span>Watch</span>',
                 market_tab_global: 'Global',
@@ -2124,26 +3300,72 @@
                 market_as_of: 'Data as of',
                 market_disclaimer: 'Static demo data · Not financial advice',
 
+                ads_label: 'Local Classifieds',
+                ads_title: 'Burabay <span>Classifieds</span>',
+                ads_form_title: '📝 Post an Ad',
+                ads_field_category: 'Category',
+                ads_field_city: 'City',
+                ads_field_title: 'Title',
+                ads_field_desc: 'Description',
+                ads_field_price: 'Price (KZT)',
+                ads_field_name: 'Your Name',
+                ads_field_phone: 'Phone / WhatsApp',
+                ads_field_tg: 'Telegram (without @)',
+                ads_field_ig: 'Instagram (without @)',
+                ads_placeholder_title: 'Brief description...',
+                ads_placeholder_desc: 'More details about your ad...',
+                ads_placeholder_price: '0',
+                ads_placeholder_name: 'Your name',
+                ads_negotiable: 'Negotiable',
+                ads_free_price: 'Free',
+                ads_btn_submit: 'Submit Ad',
+                ads_success: '✅ Ad sent for moderation',
+                ads_filter_all_cat: 'All categories',
+                ads_filter_all_cities: 'All cities',
+                ads_search_placeholder: 'Search...',
+                ads_cat_taxi: '🚕 Taxi / Transfer',
+                ads_cat_auto: '🚗 Cars',
+                ads_cat_realty: '🏠 Real Estate',
+                ads_cat_services: '🔧 Services',
+                ads_cat_jobs: '💼 Jobs',
+                ads_cat_electronics: '📱 Electronics',
+                ads_cat_furniture: '🛋️ Furniture & Home',
+                ads_cat_tourism: '🌿 Tourism',
+                ads_cat_free: '🎁 Free Stuff',
+                ads_city_shch: 'Shchuchinsk',
+                ads_city_bur: 'Burabay',
+                ads_cat_taxi: '🚕 Taxi / Transfer',
+                ads_taxi_price_hint: 'Minimum price: 6,000 ₸ per passenger',
+                ads_taxi_price_err: 'Minimum price is 6,000 ₸ per passenger',
+                ads_empty: 'No ads found',
+                ads_empty_full: 'No listings yet. Be the first to post an ad!',
+                ads_post_btn: 'Post an Ad',
+                ads_contact_call: 'Call',
+                ads_contact_wa: 'WhatsApp',
+                ads_contact_tg: 'Telegram',
+                ads_contact_ig: 'Instagram',
+
                 videos_label: 'Latest Content',
                 videos_title: 'Recent <span>Videos</span>',
                 video_cat_review: 'Review',
-                video_cat_diy: 'DIY Hi-Fi',
-                video1_title: 'Mac mini M4 — Full Review for Audio Production',
-                video1_desc: "Is Apple's M4 chip a game-changer for music producers and audio engineers? Real-world DAW performance tests.",
+                video_cat_analytics: 'Analytics',
+                video_cat_news: 'News',
+                video1_title: 'Tech Review in Burabay',
+                video1_desc: 'What tech is being bought and sold in Burabay? Real listings, prices and tips.',
                 video1_date: '2 weeks ago',
-                video2_title: 'Audient EVO 4 — Best Budget Interface in 2024?',
-                video2_desc: "Deep dive into the Audient EVO 4 audio interface. Preamp quality, latency tests, and who it's really for.",
+                video2_title: 'Stock Market — What\'s happening?',
+                video2_desc: 'Breaking down the current stock market situation: KASE, S&P 500 and the week\'s key trends.',
                 video2_date: '1 month ago',
-                video3_title: 'Building a DIY Hi-Fi Amplifier from Scratch',
-                video3_desc: 'Step-by-step guide to building a high-quality tube amplifier at home. Parts list, schematic, and sound test included.',
+                video3_title: 'Classifieds of the Week in Shchuchinsk',
+                video3_desc: 'Best ads of the week: cars, real estate, services. What\'s new in Shchuchinsk.',
                 video3_date: '6 weeks ago',
                 views_label: 'views',
                 videos_btn: '▶ View All Videos on YouTube',
 
                 contact_label: 'Get In Touch',
                 contact_title: "Let's <span>Connect</span>",
-                contact_hello: 'Say Hello 👋',
-                contact_desc: "Have a question about audio gear, want to collaborate, or just want to talk tech? I'd love to hear from you. Reach out through any of the channels below.",
+                contact_hello: 'Get in Touch',
+                contact_desc: 'Have a question or suggestion? Write to us through any of the channels below.',
                 contact_email_label: 'Email',
                 form_title: 'Send a Message',
                 form_name_label: 'Your Name',
@@ -2155,25 +3377,20 @@
                 form_submit: 'Send Message ✉️',
                 form_success: '✅ Message Sent!',
 
-                footer_text: 'Made with <span>♥</span> in Burabay, Kazakhstan · © 2024 All rights reserved',
             },
 
             ru: {
                 nav_home: 'Главная',
-                nav_about: 'Обо мне',
+                nav_taxi: 'Такси',
                 nav_market: 'Рынок',
+                nav_ads: 'Объявления',
                 nav_videos: 'Видео',
                 nav_contact: 'Контакты',
 
-                hero_badge: '🎙️ Обзоры техники и Hi-Fi аудио',
-                hero_subtitle: 'Аудиоинженерия · Обзоры техники · DIY Hi-Fi',
-                hero_location: 'Из <b>Бурабая, Казахстан</b>',
-                tag_microphones: 'Микрофоны',
-                tag_audio_gear: 'Аудиооборудование',
-                tag_diy_hifi: 'DIY Hi-Fi',
-                tag_studio_setup: 'Студийная установка',
-                hero_btn_watch: '▶ Смотреть на YouTube',
-                hero_btn_learn: 'Узнать больше →',
+                hero_subtitle: 'Технологии · Рынок · Объявления · Бурабай и Щучинск',
+                hero_btn_taxi: '🚖 Заказать такси',
+                hero_btn_ads: '📋 Объявления',
+                hero_btn_market: '📈 Рынок',
                 scroll_label: 'Листать',
 
                 stat_videos: 'Опубликовано видео',
@@ -2199,6 +3416,35 @@
                 gear_amp: 'DIY Hi-Fi усилитель',
                 gear_panels: 'Акустические панели',
 
+                taxi_label: 'Трансфер',
+                taxi_title: 'Такси Бурабай — <span>Щучинск</span>',
+                taxi_subtitle: 'Комфортные поездки по городу и межгород',
+                taxi_car_name: 'Легковой — Haval M6 2024',
+                taxi_car_capacity: 'до 4 пассажиров',
+                taxi_car_exp: '🛡 Стаж вождения 24 года',
+                taxi_car_desc: 'Только салон. Новый кроссовер Haval M6. С одного адреса на один. 24/7. Просторный кроссовер, большой багажник. Санатории, дома отдыха и т.п.',
+                taxi_car_warn: '⚠️ Писать заранее в WhatsApp',
+                taxi_order_btn: 'Заказать в WhatsApp',
+                taxi_driver_title: 'Вы водитель? Разместите своё объявление бесплатно!',
+                taxi_driver_desc: 'Минивэн, микроавтобус или другой транспорт — добавьте свой маршрут в раздел Объявления',
+                taxi_driver_btn: '📋 Подать объявление',
+                taxi_pick_date: 'Выберите дату поездки',
+                taxi_seats_avail: 'Есть места',
+                taxi_seats_none: 'Нет мест',
+                taxi_no_trip: '—',
+                taxi_seatmap_title: 'Выберите место',
+                taxi_front: 'Перед',
+                taxi_rear: 'Зад',
+                taxi_selected_seat: 'Выбрано место №N — PRICE ₸',
+                taxi_seat_front: 'переднее',
+                taxi_seat_rear: 'заднее',
+                taxi_book_btn: 'Забронировать в WhatsApp',
+                taxi_book_select: 'Выберите место для бронирования',
+                taxi_promo: '🎉 Акция до 10 июня — размещение объявлений бесплатно!',
+                taxi_pricing_title: 'Тарифы на размещение',
+                taxi_plan_7d: '7 дней размещения',
+                taxi_plan_bump: 'Поднять наверх',
+
                 market_label: 'Финансы',
                 market_title: 'Обзор <span>Рынка</span>',
                 market_tab_global: 'Глобальный',
@@ -2207,26 +3453,71 @@
                 market_as_of: 'Данные на',
                 market_disclaimer: 'Демо-данные · Не является финансовым советом',
 
+                ads_label: 'Местные объявления',
+                ads_title: 'Объявления <span>Бурабая</span>',
+                ads_form_title: '📝 Подать объявление',
+                ads_field_category: 'Категория',
+                ads_field_city: 'Город',
+                ads_field_title: 'Заголовок',
+                ads_field_desc: 'Описание',
+                ads_field_price: 'Цена (тенге)',
+                ads_field_name: 'Имя',
+                ads_field_phone: 'Телефон / WhatsApp',
+                ads_field_tg: 'Telegram (без @)',
+                ads_field_ig: 'Instagram (без @)',
+                ads_placeholder_title: 'Кратко опишите...',
+                ads_placeholder_desc: 'Подробнее об объявлении...',
+                ads_placeholder_price: '0',
+                ads_placeholder_name: 'Ваше имя',
+                ads_negotiable: 'Договорная',
+                ads_free_price: 'Бесплатно',
+                ads_btn_submit: 'Отправить объявление',
+                ads_success: '✅ Объявление отправлено на модерацию',
+                ads_filter_all_cat: 'Все категории',
+                ads_filter_all_cities: 'Все города',
+                ads_search_placeholder: 'Поиск...',
+                ads_cat_auto: '🚗 Авто',
+                ads_cat_realty: '🏠 Недвижимость',
+                ads_cat_services: '🔧 Услуги',
+                ads_cat_jobs: '💼 Работа',
+                ads_cat_electronics: '📱 Электроника',
+                ads_cat_furniture: '🛋️ Мебель и быт',
+                ads_cat_tourism: '🌿 Туризм',
+                ads_cat_free: '🎁 Отдам даром',
+                ads_city_shch: 'Щучинск',
+                ads_city_bur: 'Бурабай',
+                ads_cat_taxi: '🚕 Такси / Трансфер',
+                ads_taxi_price_hint: 'Минимальная цена: 6 000 ₸ за пассажира',
+                ads_taxi_price_err: 'Минимальная цена 6 000 ₸ за пассажира',
+                ads_empty: 'Объявления не найдены',
+                ads_empty_full: 'Объявлений пока нет. Будьте первым кто разместит объявление!',
+                ads_post_btn: 'Подать объявление',
+                ads_contact_call: 'Позвонить',
+                ads_contact_wa: 'WhatsApp',
+                ads_contact_tg: 'Telegram',
+                ads_contact_ig: 'Instagram',
+
                 videos_label: 'Последние материалы',
                 videos_title: 'Свежие <span>Видео</span>',
                 video_cat_review: 'Обзор',
-                video_cat_diy: 'DIY Hi-Fi',
-                video1_title: 'Mac mini M4 — Полный обзор для аудиопроизводства',
-                video1_desc: 'Является ли чип M4 от Apple революцией для музыкальных продюсеров и аудиоинженеров? Реальные тесты производительности DAW.',
+                video_cat_analytics: 'Аналитика',
+                video_cat_news: 'Новости',
+                video1_title: 'Обзор техники в Бурабае',
+                video1_desc: 'Смотрим, какую технику покупают и продают в Бурабае. Реальные объявления, цены и советы.',
                 video1_date: '2 недели назад',
-                video2_title: 'Audient EVO 4 — Лучший бюджетный интерфейс 2024?',
-                video2_desc: 'Глубокий анализ аудиоинтерфейса Audient EVO 4. Качество предусилителей, тесты задержки и для кого он действительно подходит.',
+                video2_title: 'Рынок акций — что происходит?',
+                video2_desc: 'Разбираем текущую ситуацию на рынке акций: KASE, S&P 500 и главные тренды недели.',
                 video2_date: '1 месяц назад',
-                video3_title: 'Сборка DIY Hi-Fi усилителя с нуля',
-                video3_desc: 'Пошаговое руководство по сборке высококачественного лампового усилителя дома. Список деталей, схема и тест звука.',
+                video3_title: 'Объявления недели в Щучинске',
+                video3_desc: 'Лучшие объявления недели: авто, недвижимость, услуги. Что интересного появилось в Щучинске.',
                 video3_date: '6 недель назад',
                 views_label: 'просмотров',
                 videos_btn: '▶ Все видео на YouTube',
 
                 contact_label: 'Связаться',
                 contact_title: 'Давайте <span>Общаться</span>',
-                contact_hello: 'Привет 👋',
-                contact_desc: 'Есть вопрос об аудиооборудовании, хотите сотрудничать или просто поговорить о технологиях? Буду рад услышать вас. Напишите через любой из каналов ниже.',
+                contact_hello: 'Напишите нам',
+                contact_desc: 'Есть вопрос или предложение? Напишите нам через любой канал.',
                 contact_email_label: 'Эл. почта',
                 form_title: 'Отправить сообщение',
                 form_name_label: 'Ваше имя',
@@ -2238,25 +3529,20 @@
                 form_submit: 'Отправить ✉️',
                 form_success: '✅ Сообщение отправлено!',
 
-                footer_text: 'Сделано с <span>♥</span> в Бурабае, Казахстан · © 2024 Все права защищены',
             },
 
             kz: {
                 nav_home: 'Басты бет',
-                nav_about: 'Мен туралы',
+                nav_taxi: 'Такси',
                 nav_market: 'Нарық',
+                nav_ads: 'Хабарландырулар',
                 nav_videos: 'Бейнелер',
                 nav_contact: 'Байланыс',
 
-                hero_badge: '🎙️ Техника шолулары және Hi-Fi аудио',
-                hero_subtitle: 'Аудио инженерия · Техника шолулары · DIY Hi-Fi',
-                hero_location: '<b>Бурабай, Қазақстан</b> қаласынан',
-                tag_microphones: 'Микрофондар',
-                tag_audio_gear: 'Аудио жабдықтар',
-                tag_diy_hifi: 'DIY Hi-Fi',
-                tag_studio_setup: 'Студия жабдығы',
-                hero_btn_watch: '▶ YouTube-та қарау',
-                hero_btn_learn: 'Толығырақ →',
+                hero_subtitle: 'Технологиялар · Нарық · Хабарландырулар · Бурабай мен Щучинск',
+                hero_btn_taxi: '🚖 Такси заказау',
+                hero_btn_ads: '📋 Хабарландырулар',
+                hero_btn_market: '📈 Нарық',
                 scroll_label: 'Айналдыру',
 
                 stat_videos: 'Жарияланған бейнелер',
@@ -2282,6 +3568,35 @@
                 gear_amp: 'DIY Hi-Fi күшейткіш',
                 gear_panels: 'Акустикалық панельдер',
 
+                taxi_label: 'Трансфер',
+                taxi_title: 'Такси Бурабай — <span>Щучинск</span>',
+                taxi_subtitle: 'Қала ішінде және қалааралық ыңғайлы сапарлар',
+                taxi_car_name: 'Жеңіл — Haval M6 2024',
+                taxi_car_capacity: '4 жолаушыға дейін',
+                taxi_car_exp: '🛡 Жүргізу өтілі 24 жыл',
+                taxi_car_desc: 'Тек салон. Жаңа Haval M6 кроссовері. Бір мекенжайдан бір мекенжайға. 24/7. Кең кроссовер, үлкен дана бөлімі. Санаторийлер, демалыс үйлері және т.б.',
+                taxi_car_warn: '⚠️ WhatsApp-та алдын ала жазыңыз',
+                taxi_order_btn: 'WhatsApp арқылы тапсырыс беру',
+                taxi_driver_title: 'Жүргізуші болсаңыз? Хабарландыруыңызды тегін орналастырыңыз!',
+                taxi_driver_desc: 'Минивэн, микроавтобус немесе басқа көлік — маршрутыңызды Хабарландырулар бөліміне қосыңыз',
+                taxi_driver_btn: '📋 Хабарландыру беру',
+                taxi_pick_date: 'Сапар күнін таңдаңыз',
+                taxi_seats_avail: 'Орын бар',
+                taxi_seats_none: 'Орын жоқ',
+                taxi_no_trip: '—',
+                taxi_seatmap_title: 'Орын таңдаңыз',
+                taxi_front: 'Алдыңғы',
+                taxi_rear: 'Артқы',
+                taxi_selected_seat: '№N орын таңдалды — PRICE ₸',
+                taxi_seat_front: 'алдыңғы',
+                taxi_seat_rear: 'артқы',
+                taxi_book_btn: 'WhatsApp арқылы брондау',
+                taxi_book_select: 'Брондау үшін орын таңдаңыз',
+                taxi_promo: '🎉 Маусымның 10-на дейін — хабарландыру тегін!',
+                taxi_pricing_title: 'Орналастыру тарифтері',
+                taxi_plan_7d: '7 күн орналастыру',
+                taxi_plan_bump: 'Жоғары көтеру',
+
                 market_label: 'Қаржы',
                 market_title: 'Нарық <span>Шолуы</span>',
                 market_tab_global: 'Жаһандық',
@@ -2290,26 +3605,71 @@
                 market_as_of: 'Деректер күні',
                 market_disclaimer: 'Демо деректер · Қаржылық кеңес емес',
 
+                ads_label: 'Жергілікті хабарландырулар',
+                ads_title: 'Бурабай <span>Хабарландырулары</span>',
+                ads_form_title: '📝 Хабарландыру беру',
+                ads_field_category: 'Санат',
+                ads_field_city: 'Қала',
+                ads_field_title: 'Тақырып',
+                ads_field_desc: 'Сипаттама',
+                ads_field_price: 'Баға (теңге)',
+                ads_field_name: 'Атыңыз',
+                ads_field_phone: 'Телефон / WhatsApp',
+                ads_field_tg: 'Telegram (@ жоқ)',
+                ads_field_ig: 'Instagram (@ жоқ)',
+                ads_placeholder_title: 'Қысқаша сипаттаңыз...',
+                ads_placeholder_desc: 'Толығырақ...',
+                ads_placeholder_price: '0',
+                ads_placeholder_name: 'Атыңыз',
+                ads_negotiable: 'Келісімді',
+                ads_free_price: 'Тегін',
+                ads_btn_submit: 'Хабарландыру жіберу',
+                ads_success: '✅ Хабарландыру модерацияға жіберілді',
+                ads_filter_all_cat: 'Барлық санаттар',
+                ads_filter_all_cities: 'Барлық қалалар',
+                ads_search_placeholder: 'Іздеу...',
+                ads_cat_auto: '🚗 Авто',
+                ads_cat_realty: '🏠 Жылжымайтын мүлік',
+                ads_cat_services: '🔧 Қызметтер',
+                ads_cat_jobs: '💼 Жұмыс',
+                ads_cat_electronics: '📱 Электроника',
+                ads_cat_furniture: '🛋️ Жиһаз және тұрмыс',
+                ads_cat_tourism: '🌿 Туризм',
+                ads_cat_free: '🎁 Тегін беремін',
+                ads_city_shch: 'Щучинск',
+                ads_city_bur: 'Бурабай',
+                ads_cat_taxi: '🚕 Такси / Трансфер',
+                ads_taxi_price_hint: 'Минималды баға: жолаушыға 6 000 ₸',
+                ads_taxi_price_err: 'Минималды баға жолаушыға 6 000 ₸',
+                ads_empty: 'Хабарландырулар табылмады',
+                ads_empty_full: 'Хабарландырулар әзірше жоқ. Бірінші болып хабарландыру беріңіз!',
+                ads_post_btn: 'Хабарландыру беру',
+                ads_contact_call: 'Қоңырау',
+                ads_contact_wa: 'WhatsApp',
+                ads_contact_tg: 'Telegram',
+                ads_contact_ig: 'Instagram',
+
                 videos_label: 'Соңғы мазмұн',
                 videos_title: 'Жаңа <span>Бейнелер</span>',
                 video_cat_review: 'Шолу',
-                video_cat_diy: 'DIY Hi-Fi',
-                video1_title: 'Mac mini M4 — Аудио өндіріске толық шолу',
-                video1_desc: 'Apple-дің M4 чипі музыка продюсерлері мен аудио инженерлері үшін революция ма? DAW өнімділігінің нақты тесттері.',
+                video_cat_analytics: 'Талдау',
+                video_cat_news: 'Жаңалықтар',
+                video1_title: 'Бурабайдағы техника шолуы',
+                video1_desc: 'Бурабайда қандай техника сатылып-алынады? Нақты хабарландырулар, бағалар және кеңестер.',
                 video1_date: '2 апта бұрын',
-                video2_title: 'Audient EVO 4 — 2024 жылдың үздік бюджеттік интерфейсі?',
-                video2_desc: 'Audient EVO 4 аудио интерфейсіне терең талдау. Алдын ала күшейткіш сапасы, кідіріс тесттері және ол кімге арналған.',
+                video2_title: 'Қор нарығы — не болып жатыр?',
+                video2_desc: 'KASE, S&P 500 және аптаның негізгі трендтері бойынша қор нарығының ағымдағы жағдайын талдаймыз.',
                 video2_date: '1 ай бұрын',
-                video3_title: 'DIY Hi-Fi күшейткішін нөлден жасау',
-                video3_desc: 'Үйде жоғары сапалы лампалы күшейткіш жасауға арналған қадамдық нұсқаулық. Бөлшектер тізімі, схема және дыбыс тесті.',
+                video3_title: 'Щучинскідегі апта хабарландырулары',
+                video3_desc: 'Аптаның үздік хабарландырулары: авто, жылжымайтын мүлік, қызметтер. Щучинскіде не жаңа пайда болды.',
                 video3_date: '6 апта бұрын',
                 views_label: 'көрілім',
                 videos_btn: '▶ YouTube-тағы барлық бейнелер',
 
                 contact_label: 'Байланысу',
                 contact_title: '<span>Байланысайық</span>',
-                contact_hello: 'Сәлем 👋',
-                contact_desc: 'Аудио жабдықтар туралы сұрағыңыз бар ма, бірлесіп жұмыс жасағыңыз келе ме, немесе жай ғана технология туралы сөйлескіңіз келе ме? Сізден хабар алғанды қалаймын. Төмендегі арналардың кез келгені арқылы хабарласыңыз.',
+                contact_hello: 'Бізге жазыңыз',
+                contact_desc: 'Сұрақ немесе ұсыныс бар ма? Кез келген арна арқылы хабарласыңыз.',
                 contact_email_label: 'Эл. пошта',
                 form_title: 'Хабарлама жіберу',
                 form_name_label: 'Атыңыз',
@@ -2321,25 +3681,20 @@
                 form_submit: 'Жіберу ✉️',
                 form_success: '✅ Хабарлама жіберілді!',
 
-                footer_text: 'Бурабайда <span>♥</span> жасалды, Қазақстан · © 2024 Барлық құқықтар қорғалған',
             },
 
             es: {
                 nav_home: 'Inicio',
-                nav_about: 'Sobre mí',
+                nav_taxi: 'Taxi',
                 nav_market: 'Mercado',
+                nav_ads: 'Anuncios',
                 nav_videos: 'Videos',
                 nav_contact: 'Contacto',
 
-                hero_badge: '🎙️ Reseñas de Tecnología y Audio Hi-Fi',
-                hero_subtitle: 'Ingeniería de Audio · Reseñas de Tecnología · DIY Hi-Fi',
-                hero_location: 'Desde <b>Burabay, Kazajistán</b>',
-                tag_microphones: 'Micrófonos',
-                tag_audio_gear: 'Equipo de Audio',
-                tag_diy_hifi: 'DIY Hi-Fi',
-                tag_studio_setup: 'Estudio',
-                hero_btn_watch: '▶ Ver en YouTube',
-                hero_btn_learn: 'Saber más →',
+                hero_subtitle: 'Tecnología · Mercado · Anuncios · Burabay y Schuchinsk',
+                hero_btn_taxi: '🚖 Pedir Taxi',
+                hero_btn_ads: '📋 Anuncios',
+                hero_btn_market: '📈 Mercado',
                 scroll_label: 'Desplazar',
 
                 stat_videos: 'Videos Publicados',
@@ -2365,6 +3720,35 @@
                 gear_amp: 'Amplificador DIY Hi-Fi',
                 gear_panels: 'Paneles Acústicos',
 
+                taxi_label: 'Transfer',
+                taxi_title: 'Taxi Burabay — <span>Schuchinsk</span>',
+                taxi_subtitle: 'Viajes cómodos por la ciudad e interurbanos',
+                taxi_car_name: 'Sedán — Haval M6 2024',
+                taxi_car_capacity: 'hasta 4 pasajeros',
+                taxi_car_exp: '🛡 24 años de experiencia al volante',
+                taxi_car_desc: 'Solo el salón. Nuevo crossover Haval M6. De dirección a dirección. 24/7. Crossover espacioso, maletero grande. Sanatorios, casas de reposo, etc.',
+                taxi_car_warn: '⚠️ Escribir con antelación por WhatsApp',
+                taxi_order_btn: 'Reservar por WhatsApp',
+                taxi_driver_title: '¿Eres conductor? ¡Publica tu anuncio gratis!',
+                taxi_driver_desc: 'Minivan, minibús u otro transporte — agrega tu ruta en la sección de Anuncios',
+                taxi_driver_btn: '📋 Publicar anuncio',
+                taxi_pick_date: 'Selecciona la fecha del viaje',
+                taxi_seats_avail: 'Hay plazas',
+                taxi_seats_none: 'Completo',
+                taxi_no_trip: '—',
+                taxi_seatmap_title: 'Elige un asiento',
+                taxi_front: 'Delanero',
+                taxi_rear: 'Trasero',
+                taxi_selected_seat: 'Asiento #N seleccionado — PRICE ₸',
+                taxi_seat_front: 'delantero',
+                taxi_seat_rear: 'trasero',
+                taxi_book_btn: 'Reservar por WhatsApp',
+                taxi_book_select: 'Selecciona un asiento para reservar',
+                taxi_promo: '🎉 Promo hasta el 10 de junio — ¡anuncio gratis!',
+                taxi_pricing_title: 'Tarifas de publicación',
+                taxi_plan_7d: '7 días de publicación',
+                taxi_plan_bump: 'Subir al inicio',
+
                 market_label: 'Finanzas',
                 market_title: 'Mercado <span>Watch</span>',
                 market_tab_global: 'Global',
@@ -2373,26 +3757,71 @@
                 market_as_of: 'Datos al',
                 market_disclaimer: 'Datos de demostración · No es asesoramiento financiero',
 
+                ads_label: 'Clasificados Locales',
+                ads_title: 'Anuncios de <span>Burabay</span>',
+                ads_form_title: '📝 Publicar un anuncio',
+                ads_field_category: 'Categoría',
+                ads_field_city: 'Ciudad',
+                ads_field_title: 'Título',
+                ads_field_desc: 'Descripción',
+                ads_field_price: 'Precio (KZT)',
+                ads_field_name: 'Tu nombre',
+                ads_field_phone: 'Teléfono / WhatsApp',
+                ads_field_tg: 'Telegram (sin @)',
+                ads_field_ig: 'Instagram (sin @)',
+                ads_placeholder_title: 'Descripción breve...',
+                ads_placeholder_desc: 'Más detalles...',
+                ads_placeholder_price: '0',
+                ads_placeholder_name: 'Tu nombre',
+                ads_negotiable: 'Negociable',
+                ads_free_price: 'Gratis',
+                ads_btn_submit: 'Publicar anuncio',
+                ads_success: '✅ Anuncio enviado para moderación',
+                ads_filter_all_cat: 'Todas las categorías',
+                ads_filter_all_cities: 'Todas las ciudades',
+                ads_search_placeholder: 'Buscar...',
+                ads_cat_taxi: '🚕 Taxi / Transfer',
+                ads_taxi_price_hint: 'Precio mínimo: 6.000 ₸ por pasajero',
+                ads_taxi_price_err: 'El precio mínimo es 6.000 ₸ por pasajero',
+                ads_cat_auto: '🚗 Autos',
+                ads_cat_realty: '🏠 Inmuebles',
+                ads_cat_services: '🔧 Servicios',
+                ads_cat_jobs: '💼 Trabajo',
+                ads_cat_electronics: '📱 Electrónica',
+                ads_cat_furniture: '🛋️ Muebles y hogar',
+                ads_cat_tourism: '🌿 Turismo',
+                ads_cat_free: '🎁 Lo doy gratis',
+                ads_city_shch: 'Shchuchinsk',
+                ads_city_bur: 'Burabay',
+                ads_empty: 'No se encontraron anuncios',
+                ads_empty_full: 'Aún no hay anuncios. ¡Sé el primero en publicar!',
+                ads_post_btn: 'Publicar anuncio',
+                ads_contact_call: 'Llamar',
+                ads_contact_wa: 'WhatsApp',
+                ads_contact_tg: 'Telegram',
+                ads_contact_ig: 'Instagram',
+
                 videos_label: 'Contenido Reciente',
                 videos_title: 'Últimos <span>Videos</span>',
                 video_cat_review: 'Reseña',
-                video_cat_diy: 'DIY Hi-Fi',
-                video1_title: 'Mac mini M4 — Reseña Completa para Producción de Audio',
-                video1_desc: '¿Es el chip M4 de Apple un cambio de juego para productores musicales e ingenieros de audio? Pruebas reales de rendimiento en DAW.',
+                video_cat_analytics: 'Análisis',
+                video_cat_news: 'Noticias',
+                video1_title: 'Reseña de tecnología en Burabay',
+                video1_desc: '¿Qué tecnología se compra y vende en Burabay? Anuncios reales, precios y consejos.',
                 video1_date: 'Hace 2 semanas',
-                video2_title: 'Audient EVO 4 — ¿La Mejor Interfaz Económica de 2024?',
-                video2_desc: 'Análisis profundo de la interfaz de audio Audient EVO 4. Calidad de preamplificadores, pruebas de latencia y para quién es realmente.',
+                video2_title: 'Mercado de acciones — ¿qué está pasando?',
+                video2_desc: 'Analizamos la situación actual del mercado de acciones: KASE, S&P 500 y las tendencias clave de la semana.',
                 video2_date: 'Hace 1 mes',
-                video3_title: 'Construyendo un Amplificador DIY Hi-Fi desde Cero',
-                video3_desc: 'Guía paso a paso para construir un amplificador de tubos de alta calidad en casa. Lista de piezas, esquema y prueba de sonido incluidos.',
+                video3_title: 'Anuncios de la semana en Shchuchinsk',
+                video3_desc: 'Los mejores anuncios de la semana: autos, inmuebles, servicios. Qué hay de nuevo en Shchuchinsk.',
                 video3_date: 'Hace 6 semanas',
                 views_label: 'vistas',
                 videos_btn: '▶ Ver Todos los Videos en YouTube',
 
                 contact_label: 'Ponte en Contacto',
                 contact_title: 'Vamos a <span>Conectar</span>',
-                contact_hello: 'Di Hola 👋',
-                contact_desc: '¿Tienes una pregunta sobre equipos de audio, quieres colaborar o simplemente hablar de tecnología? Me encantaría saber de ti. Contáctame a través de cualquiera de los canales a continuación.',
+                contact_hello: 'Contáctanos',
+                contact_desc: '¿Tienes una pregunta o sugerencia? Escríbenos por cualquier canal.',
                 contact_email_label: 'Correo',
                 form_title: 'Enviar un Mensaje',
                 form_name_label: 'Tu Nombre',
@@ -2404,7 +3833,6 @@
                 form_submit: 'Enviar Mensaje ✉️',
                 form_success: '✅ ¡Mensaje Enviado!',
 
-                footer_text: 'Hecho con <span>♥</span> en Burabay, Kazajistán · © 2024 Todos los derechos reservados',
             }
         };
 
@@ -2416,6 +3844,8 @@
             localStorage.setItem('lang', lang);
             applyTranslations();
             updateLangButtons();
+            renderAds();
+            renderTaxiCalendar();
         }
 
         function applyTranslations() {
@@ -2446,10 +3876,355 @@
             });
         }
 
+        // ===== ADS DATA =====
+        const CAT_ICONS = {
+            taxi:        `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="M14 2v5h5"/><line x1="9" x2="9" y1="2" y2="5"/></svg>`,
+            auto:        `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="M14 2v5h5"/></svg>`,
+            realty:      `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+            services:    `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+            jobs:        `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`,
+            electronics: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>`,
+            furniture:   `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H6v-2a2 2 0 0 0-4 0z"/><path d="M4 18v2"/><path d="M20 18v2"/><path d="M12 4v9"/></svg>`,
+            tourism:     `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`,
+            free:        `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect width="20" height="5" x="2" y="7"/><line x1="12" x2="12" y1="22" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>`,
+        };
+
+        const CAT_LABELS = {
+            taxi: 'Такси / Трансфер', auto: 'Авто', realty: 'Недвижимость', services: 'Услуги',
+            jobs: 'Работа', electronics: 'Электроника', furniture: 'Мебель и быт',
+            tourism: 'Туризм', free: 'Отдам даром'
+        };
+
+        const SVG_PHONE = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.01z"/></svg>`;
+        const SVG_WA    = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`;
+        const SVG_TG    = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`;
+        const SVG_IG    = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>`;
+
+        const DEMO_ADS = [];
+
+        function renderAds() {
+            const catFilter = document.getElementById('filterCategory').value;
+            const cityFilter = document.getElementById('filterCity').value;
+            const searchVal = (document.getElementById('filterSearch').value || '').toLowerCase();
+            const t = translations[currentLang];
+            const grid = document.getElementById('adsGrid');
+            if (!grid) return;
+
+            const filtered = DEMO_ADS.filter(ad => {
+                if (catFilter && ad.cat !== catFilter) return false;
+                if (cityFilter && ad.city !== cityFilter) return false;
+                if (searchVal && !ad.title.toLowerCase().includes(searchVal) && !ad.desc.toLowerCase().includes(searchVal)) return false;
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                const emptyIcon = `<svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" x2="12" y1="18" y2="12"/><line x1="9" x2="15" y1="15" y2="15"/></svg>`;
+                const emptyText = t.ads_empty_full || 'Объявлений пока нет. Будьте первым кто разместит объявление!';
+                const emptyBtn  = t.ads_post_btn  || 'Подать объявление';
+                grid.innerHTML = `<div class="ads-empty">${emptyIcon}<p class="ads-empty-text">${emptyText}</p><a class="ads-empty-btn" href="#ads" onclick="document.getElementById('adTitle').focus();return false;">${emptyBtn}</a></div>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(ad => {
+                const catIcon = CAT_ICONS[ad.cat] || '';
+                const catName = CAT_LABELS[ad.cat] || ad.cat;
+                let btns = '';
+                if (ad.phone) {
+                    const ph = ad.phone.replace(/\D/g, '');
+                    btns += `<a class="ad-btn ad-btn-call" href="tel:+${ph}" target="_blank">${SVG_PHONE} ${t.ads_contact_call || 'Позвонить'}</a>`;
+                    btns += `<a class="ad-btn ad-btn-wa" href="https://wa.me/${ph}" target="_blank">${SVG_WA} ${t.ads_contact_wa || 'WhatsApp'}</a>`;
+                }
+                if (ad.tg) btns += `<a class="ad-btn ad-btn-tg" href="https://t.me/${ad.tg}" target="_blank">${SVG_TG} ${t.ads_contact_tg || 'Telegram'}</a>`;
+                if (ad.ig) btns += `<a class="ad-btn ad-btn-ig" href="https://instagram.com/${ad.ig}" target="_blank">${SVG_IG} ${t.ads_contact_ig || 'Instagram'}</a>`;
+
+                return `<div class="ad-card">
+                    <div class="ad-card-top">
+                        <div class="ad-cat-icon-wrap">${catIcon}</div>
+                        <div class="ad-card-top-info">
+                            <span class="ad-category-badge">${catName}</span>
+                            <span class="ad-city-badge">📍 ${ad.city}</span>
+                        </div>
+                    </div>
+                    <div class="ad-title">${ad.title}</div>
+                    <div class="ad-price">${ad.price}</div>
+                    <div class="ad-desc">${ad.desc}</div>
+                    <div class="ad-meta">👤 ${ad.name} &nbsp;·&nbsp; 🗓 ${ad.date}</div>
+                    <div class="ad-contact-btns">${btns}</div>
+                </div>`;
+            }).join('');
+        }
+
+        function onCatChange() {
+            const cat = document.getElementById('adCategory').value;
+            const hint = document.getElementById('adsPriceHint');
+            const err  = document.getElementById('adsPriceError');
+            if (hint) hint.style.display = cat === 'taxi' ? 'block' : 'none';
+            if (err)  err.style.display  = 'none';
+        }
+
+        function clearPriceError() {
+            const err = document.getElementById('adsPriceError');
+            if (err) err.style.display = 'none';
+        }
+
+        async function submitAd() {
+            const title = document.getElementById('adTitle').value.trim();
+            const desc = document.getElementById('adDesc').value.trim();
+            const name = document.getElementById('adName').value.trim();
+            if (!title || !name) return;
+
+            const cat = document.getElementById('adCategory').value;
+            const city = document.getElementById('adCity').value;
+            const price = document.getElementById('adPrice').value;
+            const negotiable = document.getElementById('adNegotiable').checked;
+            const freePrice = document.getElementById('adFree').checked;
+
+            if (cat === 'taxi' && !negotiable && !freePrice && Number(price) < 6000) {
+                const t = translations[currentLang];
+                const err = document.getElementById('adsPriceError');
+                err.textContent = t.ads_taxi_price_err || 'Минимальная цена 6 000 ₸ за пассажира';
+                err.style.display = 'block';
+                document.getElementById('adPrice').focus();
+                return;
+            }
+            const phone = document.getElementById('adPhone').value.trim();
+            const tg = document.getElementById('adTelegram').value.trim();
+            const ig = document.getElementById('adInstagram').value.trim();
+
+            const priceText = freePrice ? 'Бесплатно' : negotiable ? 'Договорная' : (price ? price + ' ₸' : '—');
+            const contactLines = [
+                phone ? `📞 Телефон: ${phone}` : '',
+                tg ? `✈️ Telegram: @${tg}` : '',
+                ig ? `📸 Instagram: @${ig}` : '',
+            ].filter(Boolean).join('\n');
+
+            const text = `📌 *Новое объявление*\n\n🏷 *${title}*\n📂 Категория: ${CAT_LABELS[cat] || cat}\n📍 Город: ${city}\n💰 Цена: ${priceText}\n\n📝 ${desc}\n\n👤 Имя: ${name}\n${contactLines}`;
+
+            try {
+                await fetch('/api/sendAd', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text })
+                });
+            } catch(e) {}
+
+            const t = translations[currentLang];
+            const msg = document.getElementById('adsSuccessMsg');
+            msg.style.display = 'block';
+            msg.textContent = t.ads_success || '✅ Объявление отправлено на модерацию';
+            ['adTitle','adDesc','adName','adPhone','adTelegram','adInstagram','adPrice'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            document.getElementById('adNegotiable').checked = false;
+            document.getElementById('adFree').checked = false;
+            setTimeout(() => { msg.style.display = 'none'; }, 5000);
+        }
+
+        // ===== TAXI CALENDAR & SEATMAP =====
+        const WEEKDAYS = {
+            en: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+            ru: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+            kz: ['Жк','Дс','Сс','Ср','Бс','Жм','Сн'],
+            es: ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb']
+        };
+
+        const VEHICLE_LABELS = {
+            sedan:   { ru:'🚗 Легковой/Кроссовер', en:'🚗 Sedan/SUV',    kz:'🚗 Жеңіл/Кроссовер', es:'🚗 Sedán/SUV' },
+            minivan: { ru:'🚐 Минивэн',             en:'🚐 Minivan',       kz:'🚐 Минивэн',          es:'🚐 Monovolumen' },
+            minibus: { ru:'🚌 Микроавтобус',         en:'🚌 Minibus',       kz:'🚌 Микроавтобус',     es:'🚌 Microbús' }
+        };
+
+        function buildTaxiTrips() {
+            const y = new Date().getFullYear();
+            const jun = (d) => new Date(y, 5, d);
+            return [
+                {
+                    date: jun(10), time:'08:00', from:'Астана', to:'Бурабай', type:'sedan',
+                    seats:[{id:1,price:7000,row:'front'},{id:2,price:6000,row:'rear'},{id:3,price:6000,row:'rear'},{id:4,price:6000,row:'rear'}],
+                    occupied:[2,3]
+                },
+                {
+                    date: jun(12), time:'10:00', from:'Астана', to:'Бурабай', type:'minivan',
+                    seats:[{id:1,price:7000,row:'front'},{id:2,price:6000,row:'mid'},{id:3,price:6000,row:'mid'},{id:4,price:6000,row:'rear'},{id:5,price:6000,row:'rear'},{id:6,price:6000,row:'rear'}],
+                    occupied:[]
+                },
+                {
+                    date: jun(14), time:'09:00', from:'Бурабай', to:'Астана', type:'minibus',
+                    seats:[{id:1,price:6500,row:'front'},{id:2,price:5500,row:'r2'},{id:3,price:5500,row:'r2'},{id:4,price:5500,row:'r3'},{id:5,price:5500,row:'r3'},{id:6,price:5500,row:'r4'},{id:7,price:5500,row:'r4'},{id:8,price:5500,row:'r4'}],
+                    occupied:[1]
+                }
+            ];
+        }
+
+        let taxiTrips = buildTaxiTrips();
+        let taxiSelectedDay = null;
+        let taxiSelectedSeat = {};
+
+        function renderTaxiCalendar() {
+            const strip = document.getElementById('taxiCalStrip');
+            if (!strip) return;
+            const t = translations[currentLang];
+            const wd = WEEKDAYS[currentLang] || WEEKDAYS.en;
+            const today = new Date(); today.setHours(0,0,0,0);
+            let html = '';
+            for (let i = 0; i < 60; i++) {
+                const dt = new Date(today); dt.setDate(dt.getDate()+i);
+                const dayTrips = taxiTrips.filter(tr => {
+                    const td = new Date(tr.date); td.setHours(0,0,0,0);
+                    return td.getTime() === dt.getTime();
+                });
+                const hasTrip = dayTrips.length > 0;
+                const allFull = hasTrip && dayTrips.every(tr => tr.occupied.length >= tr.seats.length);
+                const isActive = taxiSelectedDay && taxiSelectedDay.getTime() === dt.getTime();
+                const dotClass = !hasTrip ? '' : (allFull ? 'full' : 'has-trip');
+                const dayClass = ['taxi-cal-day', isActive ? 'active' : '', !hasTrip ? 'no-trip' : ''].filter(Boolean).join(' ');
+                const dayKey = dt.toISOString().slice(0,10);
+                html += `<div class="${dayClass}" onclick="taxiOnDayClick('${dayKey}')" data-date="${dayKey}">
+                    <div class="taxi-cal-weekday">${wd[dt.getDay()]}</div>
+                    <div class="taxi-cal-num">${dt.getDate()}</div>
+                    <div class="taxi-cal-dot ${dotClass}"></div>
+                </div>`;
+            }
+            strip.innerHTML = html;
+            // auto-scroll to first trip day
+            const firstActive = strip.querySelector('.taxi-cal-day:not(.no-trip)');
+            if (firstActive && !taxiSelectedDay) {
+                setTimeout(() => firstActive.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'}), 100);
+            }
+            if (taxiSelectedDay) taxiShowTrips(taxiSelectedDay);
+        }
+
+        function taxiOnDayClick(dateKey) {
+            const dt = new Date(dateKey); dt.setHours(0,0,0,0);
+            const trips = taxiTrips.filter(tr => {
+                const td = new Date(tr.date); td.setHours(0,0,0,0);
+                return td.getTime() === dt.getTime();
+            });
+            if (!trips.length) return;
+            if (taxiSelectedDay && taxiSelectedDay.getTime() === dt.getTime()) {
+                taxiSelectedDay = null; taxiSelectedSeat = {};
+                document.getElementById('taxiTripPanel').classList.remove('visible');
+                renderTaxiCalendar(); return;
+            }
+            taxiSelectedDay = dt; taxiSelectedSeat = {};
+            renderTaxiCalendar();
+        }
+
+        function taxiShowTrips(dt) {
+            const panel = document.getElementById('taxiTripPanel');
+            const list  = document.getElementById('taxiTripList');
+            if (!panel || !list) return;
+            const t = translations[currentLang];
+            const trips = taxiTrips.filter(tr => {
+                const td = new Date(tr.date); td.setHours(0,0,0,0);
+                return td.getTime() === dt.getTime();
+            });
+            if (!trips.length) { panel.classList.remove('visible'); return; }
+            panel.classList.add('visible');
+            let html = '';
+            trips.forEach(trip => {
+                const gIdx = taxiTrips.indexOf(trip);
+                const freeCount = trip.seats.filter(s => !trip.occupied.includes(s.id)).length;
+                const isFull = freeCount === 0;
+                const availLabel = isFull
+                    ? (t.taxi_seats_none||'Нет мест')
+                    : `${t.taxi_seats_avail||'Есть места'} (${freeCount})`;
+                const availClass = isFull ? 'full' : 'avail';
+                const vLabel = (VEHICLE_LABELS[trip.type] || {})[currentLang] || trip.type;
+                html += `<div class="taxi-trip-item">
+                    <div class="taxi-trip-header">
+                        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+                            <span class="taxi-trip-route">${trip.from} → ${trip.to}</span>
+                            <span class="taxi-trip-time">${trip.time}</span>
+                            <span style="font-size:0.75rem;color:var(--text-muted)">${vLabel}</span>
+                        </div>
+                        <span class="taxi-trip-avail ${availClass}">${availLabel}</span>
+                    </div>
+                    ${taxiRenderSeatmap(trip, gIdx, t)}
+                </div>`;
+            });
+            list.innerHTML = html;
+        }
+
+        function taxiRenderSeatmap(trip, gIdx, t) {
+            const chosen = taxiSelectedSeat[gIdx];
+
+            const seatEl = (id, price) => {
+                if (id === 0) return `<div class="seat driver-seat" title="Водитель"><span class="seat-icon">⊙</span><span class="seat-price" style="font-size:0.5rem;color:#555">Вод.</span></div>`;
+                const isOcc = trip.occupied.includes(id);
+                const isCh  = chosen === id;
+                const cls   = isOcc ? 'occupied' : (isCh ? 'chosen' : 'free');
+                const lbl   = isOcc ? '✕' : (isCh ? '✓' : id);
+                return `<div class="seat ${cls}" onclick="taxiSelectSeat(${gIdx},${id})">
+                    <span class="seat-num">${lbl}</span>
+                    <span class="seat-price">${isOcc ? '' : price+'₸'}</span>
+                </div>`;
+            };
+            const S   = (id) => { const s = trip.seats.find(x => x.id===id); return s ? seatEl(id, s.price) : ''; };
+            const DRV = seatEl(0, 0);
+            const AIL = `<div class="seatmap-aisle"></div>`;
+            const DIV = `<hr class="seatmap-divider">`;
+
+            let layout = '';
+            if (trip.type === 'minivan') {
+                layout = `
+                    <div class="seatmap-row">${DRV}${AIL}${S(1)}</div>${DIV}
+                    <div class="seatmap-row">${S(2)}${AIL}${S(3)}</div>${DIV}
+                    <div class="seatmap-row">${S(4)}${S(6)}${S(5)}</div>`;
+            } else if (trip.type === 'minibus') {
+                layout = `
+                    <div class="seatmap-row">${DRV}${AIL}${S(1)}</div>${DIV}
+                    <div class="seatmap-row">${S(2)}${AIL}${S(3)}</div>
+                    <div class="seatmap-row">${S(4)}${AIL}${S(5)}</div>${DIV}
+                    <div class="seatmap-row">${S(6)}${S(8)}${S(7)}</div>`;
+            } else {
+                // sedan
+                layout = `
+                    <div class="seatmap-row">${DRV}${AIL}${S(1)}</div>${DIV}
+                    <div class="seatmap-row">${S(2)}${S(4)}${S(3)}</div>`;
+            }
+
+            const chosenSeat = trip.seats.find(s => s.id === chosen);
+            const rowLabel = chosenSeat
+                ? (chosenSeat.row === 'front' ? (t.taxi_seat_front||'переднее') : (t.taxi_seat_rear||'заднее'))
+                : '';
+            const infoText = chosen
+                ? `✅ ${(t.taxi_selected_seat||'Место №N — PRICE ₸').replace('N', chosen).replace('PRICE', chosenSeat?.price||'')}`
+                : (t.taxi_book_select||'Выберите место для бронирования');
+            const d = trip.date;
+            const dateStr = `${d.getDate()}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`;
+            const waText = chosen
+                ? encodeURIComponent(`Хочу забронировать место №${chosen} (${rowLabel}), поездка ${trip.from}→${trip.to}, ${trip.time} ${dateStr}`)
+                : '';
+            const bookHref = chosen ? `https://wa.me/77080802588?text=${waText}` : '#';
+            const bookActive = chosen ? 'active' : '';
+
+            return `<div>
+                <div class="seatmap-title">${t.taxi_seatmap_title||'Выберите место'}</div>
+                <div class="seatmap-shell">${layout}</div>
+                <div class="taxi-seat-info">${infoText}</div>
+                <a class="taxi-book-btn ${bookActive}" href="${bookHref}" target="_blank" ${chosen ? '' : 'onclick="return false"'}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    ${t.taxi_book_btn||'Забронировать в WhatsApp'}
+                </a>
+            </div>`;
+        }
+
+        function taxiSelectSeat(gIdx, seatId) {
+            const trip = taxiTrips[gIdx];
+            if (!trip || trip.occupied.includes(seatId)) return;
+            taxiSelectedSeat[gIdx] = (taxiSelectedSeat[gIdx] === seatId) ? undefined : seatId;
+            if (taxiSelectedSeat[gIdx] === undefined) delete taxiSelectedSeat[gIdx];
+            if (taxiSelectedDay) taxiShowTrips(taxiSelectedDay);
+        }
+
         // ===== INIT =====
         loadStocksFromJSON().then(() => renderStocks());
         applyTranslations();
         updateLangButtons();
+        renderAds();
+        renderTaxiCalendar();
 
         // ===== NAVBAR SCROLL =====
         const navbar = document.getElementById('navbar');
