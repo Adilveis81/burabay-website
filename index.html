@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -372,6 +372,17 @@
             border-color: rgba(245,166,35,0.4);
             color: var(--gold);
             transform: translateY(-2px);
+        }
+
+        /* Focus states for keyboard navigation */
+        button:focus, a:focus, input:focus, select:focus, textarea:focus {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        .btn-primary:focus, .btn-secondary:focus, .btn-tertiary:focus {
+            outline: 2px solid var(--text-primary);
+            outline-offset: 2px;
         }
 
         .hero-scroll {
@@ -2177,6 +2188,10 @@
             user-select: none;
         }
         .taxi-cal-day:hover { border-color: var(--gold); }
+        .taxi-cal-day:focus {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
         .taxi-cal-day.active {
             border-color: var(--gold);
             background: rgba(245,166,35,0.12);
@@ -2827,8 +2842,8 @@
                 <div class="ads-form-title" data-i18n="ads_form_title">📝 Подать объявление</div>
                 <div class="ads-form-grid">
                     <div class="ads-field">
-                        <label data-i18n="ads_field_category">Категория</label>
-                        <select id="adCategory" onchange="onCatChange()">
+                        <label for="adCategory" data-i18n="ads_field_category">Категория</label>
+                        <select id="adCategory" aria-label="Категория объявления" onchange="onCatChange()">
                             <option value="taxi" data-i18n="ads_cat_taxi">🚕 Такси / Трансфер</option>
                             <option value="auto" data-i18n="ads_cat_auto">🚗 Авто</option>
                             <option value="realty" data-i18n="ads_cat_realty">🏠 Недвижимость</option>
@@ -2841,45 +2856,45 @@
                         </select>
                     </div>
                     <div class="ads-field">
-                        <label data-i18n="ads_field_city">Город</label>
-                        <select id="adCity">
+                        <label for="adCity" data-i18n="ads_field_city">Город</label>
+                        <select id="adCity" aria-label="Город">
                             <option value="Щучинск" data-i18n="ads_city_shch">Щучинск</option>
                             <option value="Бурабай" data-i18n="ads_city_bur">Бурабай</option>
                         </select>
                     </div>
                     <div class="ads-field full-width">
-                        <label data-i18n="ads_field_title">Заголовок</label>
-                        <input type="text" id="adTitle" maxlength="100" data-i18n-placeholder="ads_placeholder_title" placeholder="Кратко опишите...">
+                        <label for="adTitle" data-i18n="ads_field_title">Заголовок</label>
+                        <input type="text" id="adTitle" maxlength="100" data-i18n-placeholder="ads_placeholder_title" placeholder="Кратко опишите..." aria-label="Заголовок объявления">
                     </div>
                     <div class="ads-field full-width">
-                        <label data-i18n="ads_field_desc">Описание</label>
-                        <textarea id="adDesc" maxlength="500" data-i18n-placeholder="ads_placeholder_desc" placeholder="Подробнее об объявлении..."></textarea>
+                        <label for="adDesc" data-i18n="ads_field_desc">Описание</label>
+                        <textarea id="adDesc" maxlength="500" data-i18n-placeholder="ads_placeholder_desc" placeholder="Подробнее об объявлении..." aria-label="Описание объявления"></textarea>
                     </div>
                     <div class="ads-field full-width">
-                        <label data-i18n="ads_field_price">Цена (тенге)</label>
+                        <label for="adPrice" data-i18n="ads_field_price">Цена (тенге)</label>
                         <div class="price-row">
-                            <input type="number" id="adPrice" min="0" data-i18n-placeholder="ads_placeholder_price" placeholder="0" oninput="clearPriceError()">
-                            <label class="price-check"><input type="checkbox" id="adNegotiable"> <span data-i18n="ads_negotiable">Договорная</span></label>
-                            <label class="price-check"><input type="checkbox" id="adFree"> <span data-i18n="ads_free_price">Бесплатно</span></label>
+                            <input type="number" id="adPrice" min="0" data-i18n-placeholder="ads_placeholder_price" placeholder="0" oninput="clearPriceError()" aria-label="Цена" aria-describedby="adsPriceHint adsPriceError">
+                            <label class="price-check"><input type="checkbox" id="adNegotiable" aria-label="Договорная цена"> <span data-i18n="ads_negotiable">Договорная</span></label>
+                            <label class="price-check"><input type="checkbox" id="adFree" aria-label="Бесплатно"> <span data-i18n="ads_free_price">Бесплатно</span></label>
                         </div>
                         <div class="ads-price-hint" id="adsPriceHint" style="display:none" data-i18n="ads_taxi_price_hint">Минимальная цена: 6 000 ₸ за пассажира</div>
                         <div class="ads-price-error" id="adsPriceError" data-i18n="ads_taxi_price_err">Минимальная цена 6 000 ₸ за пассажира</div>
                     </div>
                     <div class="ads-field">
-                        <label data-i18n="ads_field_name">Имя</label>
-                        <input type="text" id="adName" data-i18n-placeholder="ads_placeholder_name" placeholder="Ваше имя">
+                        <label for="adName" data-i18n="ads_field_name">Имя</label>
+                        <input type="text" id="adName" data-i18n-placeholder="ads_placeholder_name" placeholder="Ваше имя" aria-label="Ваше имя">
                     </div>
                     <div class="ads-field">
-                        <label data-i18n="ads_field_phone">Телефон / WhatsApp</label>
-                        <input type="tel" id="adPhone" placeholder="+7 777 000 00 00">
+                        <label for="adPhone" data-i18n="ads_field_phone">Телефон / WhatsApp</label>
+                        <input type="tel" id="adPhone" placeholder="+7 777 000 00 00" aria-label="Телефон или WhatsApp">
                     </div>
                     <div class="ads-field">
-                        <label data-i18n="ads_field_tg">Telegram (без @)</label>
-                        <input type="text" id="adTelegram" placeholder="username">
+                        <label for="adTelegram" data-i18n="ads_field_tg">Telegram (без @)</label>
+                        <input type="text" id="adTelegram" placeholder="username" aria-label="Telegram">
                     </div>
                     <div class="ads-field">
-                        <label data-i18n="ads_field_ig">Instagram (без @)</label>
-                        <input type="text" id="adInstagram" placeholder="username">
+                        <label for="adInstagram" data-i18n="ads_field_ig">Instagram (без @)</label>
+                        <input type="text" id="adInstagram" placeholder="username" aria-label="Instagram">
                     </div>
                     <div class="full-width">
                         <button class="btn-submit-ads" onclick="submitAd()" data-i18n="ads_btn_submit">Отправить объявление</button>
@@ -3044,19 +3059,20 @@
                 </div>
                 <div class="contact-form-side reveal">
                     <h3 data-i18n="form_title">Send a Message</h3>
-                    <form onsubmit="handleSubmit(event)">
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)">
                         <div class="form-group">
-                            <label data-i18n="form_name_label">Your Name</label>
-                            <input type="text" data-i18n-placeholder="form_name_placeholder" placeholder="John Doe" required>
+                            <label for="contact-name" data-i18n="form_name_label">Your Name</label>
+                            <input id="contact-name" type="text" name="name" data-i18n-placeholder="form_name_placeholder" placeholder="John Doe" required aria-label="Your Name" aria-describedby="name-help">
                         </div>
                         <div class="form-group">
-                            <label data-i18n="form_email_label">Email Address</label>
-                            <input type="email" data-i18n-placeholder="form_email_placeholder" placeholder="john@example.com" required>
+                            <label for="contact-email" data-i18n="form_email_label">Email Address</label>
+                            <input id="contact-email" type="email" name="email" data-i18n-placeholder="form_email_placeholder" placeholder="john@example.com" required aria-label="Email Address" aria-describedby="email-help">
                         </div>
                         <div class="form-group">
-                            <label data-i18n="form_message_label">Message</label>
-                            <textarea data-i18n-placeholder="form_message_placeholder" placeholder="Tell me about your project or question..." required></textarea>
+                            <label for="contact-message" data-i18n="form_message_label">Message</label>
+                            <textarea id="contact-message" name="message" data-i18n-placeholder="form_message_placeholder" placeholder="Tell me about your project or question..." required aria-label="Message" aria-describedby="message-help"></textarea>
                         </div>
+                        <div id="contact-error" class="form-error" style="display: none; color: var(--red); margin: 10px 0; font-size: 0.85rem;"></div>
                         <button type="submit" class="btn-submit" data-i18n="form_submit">Send Message ✉️</button>
                     </form>
                 </div>
@@ -3837,7 +3853,10 @@
         };
 
         // ===== LANGUAGE SWITCHER LOGIC =====
-        let currentLang = localStorage.getItem('lang') || 'en';
+        let currentLang = localStorage.getItem('lang') || 'ru'; // Default to 'ru' for Russian site
+        
+        // Set HTML lang attribute on init
+        document.getElementById('html-root').lang = currentLang;
 
         function setLang(lang) {
             currentLang = lang;
@@ -4001,24 +4020,40 @@
             const text = `📌 *Новое объявление*\n\n🏷 *${title}*\n📂 Категория: ${CAT_LABELS[cat] || cat}\n📍 Город: ${city}\n💰 Цена: ${priceText}\n\n📝 ${desc}\n\n👤 Имя: ${name}\n${contactLines}`;
 
             try {
-                await fetch('/api/sendAd', {
+                const response = await fetch('/api/sendAd', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ text })
                 });
-            } catch(e) {}
 
-            const t = translations[currentLang];
-            const msg = document.getElementById('adsSuccessMsg');
-            msg.style.display = 'block';
-            msg.textContent = t.ads_success || '✅ Объявление отправлено на модерацию';
-            ['adTitle','adDesc','adName','adPhone','adTelegram','adInstagram','adPrice'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.value = '';
-            });
-            document.getElementById('adNegotiable').checked = false;
-            document.getElementById('adFree').checked = false;
-            setTimeout(() => { msg.style.display = 'none'; }, 5000);
+                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(data.error || 'Неизвестная ошибка');
+                }
+
+                // Success
+                const t = translations[currentLang];
+                const msg = document.getElementById('adsSuccessMsg');
+                msg.style.display = 'block';
+                msg.style.color = 'var(--green)';
+                msg.textContent = t.ads_success || '✅ Объявление отправлено на модерацию';
+                ['adTitle','adDesc','adName','adPhone','adTelegram','adInstagram','adPrice'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.value = '';
+                });
+                document.getElementById('adNegotiable').checked = false;
+                document.getElementById('adFree').checked = false;
+                setTimeout(() => { msg.style.display = 'none'; }, 5000);
+            } catch(err) {
+                // Error handling
+                console.error('submitAd error:', err);
+                const t = translations[currentLang];
+                const msg = document.getElementById('adsSuccessMsg');
+                msg.style.display = 'block';
+                msg.style.color = 'var(--red)';
+                msg.textContent = '❌ Ошибка: ' + (err.message || 'Не удалось отправить объявление. Попробуйте позже.');
+                setTimeout(() => { msg.style.display = 'none'; }, 7000);
+            }
         }
 
         // ===== TAXI CALENDAR & SEATMAP =====
@@ -4080,13 +4115,28 @@
                 const dotClass = !hasTrip ? '' : (allFull ? 'full' : 'has-trip');
                 const dayClass = ['taxi-cal-day', isActive ? 'active' : '', !hasTrip ? 'no-trip' : ''].filter(Boolean).join(' ');
                 const dayKey = dt.toISOString().slice(0,10);
-                html += `<div class="${dayClass}" onclick="taxiOnDayClick('${dayKey}')" data-date="${dayKey}">
+                const ariaLabel = `${wd[dt.getDay()]}, ${dt.getDate()}${hasTrip ? ' - есть рейсы' : ''}`;
+                html += `<div class="${dayClass}" data-date="${dayKey}" tabindex="${hasTrip ? '0' : '-1'}" role="button" aria-label="${ariaLabel}" aria-pressed="${isActive}">
                     <div class="taxi-cal-weekday">${wd[dt.getDay()]}</div>
                     <div class="taxi-cal-num">${dt.getDate()}</div>
                     <div class="taxi-cal-dot ${dotClass}"></div>
                 </div>`;
             }
             strip.innerHTML = html;
+            
+            // Add keyboard event listeners
+            strip.querySelectorAll('.taxi-cal-day').forEach(dayEl => {
+                dayEl.addEventListener('click', function() {
+                    taxiOnDayClick(this.getAttribute('data-date'));
+                });
+                dayEl.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        taxiOnDayClick(this.getAttribute('data-date'));
+                    }
+                });
+            });
+            
             // auto-scroll to first trip day
             const firstActive = strip.querySelector('.taxi-cal-day:not(.no-trip)');
             if (firstActive && !taxiSelectedDay) {
@@ -4263,7 +4313,65 @@
             });
         });
 
-        // ===== FORM SUBMIT =====
+        // ===== FORM SUBMIT - CONTACT FORM =====
+        async function handleContactSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const btn = form.querySelector('.btn-submit');
+            const errorDiv = document.getElementById('contact-error');
+            const nameInput = document.getElementById('contact-name');
+            const emailInput = document.getElementById('contact-email');
+            const messageInput = document.getElementById('contact-message');
+
+            // Clear previous errors
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
+
+            // Validate
+            if (!nameInput.value.trim() || !emailInput.value.trim() || !messageInput.value.trim()) {
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = '❌ Пожалуйста, заполните все поля';
+                return;
+            }
+
+            try {
+                btn.disabled = true;
+                const t = translations[currentLang];
+                btn.textContent = '⏳ Отправляем...';
+
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: nameInput.value.trim(),
+                        email: emailInput.value.trim(),
+                        message: messageInput.value.trim()
+                    })
+                });
+
+                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(data.error || 'Ошибка отправки');
+                }
+
+                // Success
+                btn.textContent = t.form_success || '✅ Сообщение отправлено!';
+                btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+                form.reset();
+                setTimeout(() => {
+                    btn.innerHTML = t.form_submit || 'Send Message ✉️';
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 3000);
+            } catch (err) {
+                console.error('Contact form error:', err);
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = '❌ ' + (err.message || 'Не удалось отправить сообщение. Попробуйте позже.');
+                btn.disabled = false;
+            }
+        }
+
+        // Legacy function for backward compatibility
         function handleSubmit(e) {
             e.preventDefault();
             const btn = e.target.querySelector('.btn-submit');
