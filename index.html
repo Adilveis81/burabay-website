@@ -1178,11 +1178,11 @@ footer {
 
     <div>
       <div class="ads-filter-bar">
-        <button class="filter-chip active" onclick="filterAds(this,'all')" data-i18n="filter.all">Все</button>
-        <button class="filter-chip" onclick="filterAds(this,'taxi')">🚕 <span data-i18n="nav.taxi">Такси</span></button>
-        <button class="filter-chip" onclick="filterAds(this,'auto')">🚗 <span data-i18n="filter.auto">Авто</span></button>
-        <button class="filter-chip" onclick="filterAds(this,'realty')">🏠 <span data-i18n="filter.realty">Недвижимость</span></button>
-        <button class="filter-chip" onclick="filterAds(this,'services')">🔧 <span data-i18n="filter.services">Услуги</span></button>
+        <button class="filter-chip active" data-cat="all" data-i18n="filter.all">Все</button>
+        <button class="filter-chip" data-cat="taxi">🚕 <span data-i18n="nav.taxi">Такси</span></button>
+        <button class="filter-chip" data-cat="auto">🚗 <span data-i18n="filter.auto">Авто</span></button>
+        <button class="filter-chip" data-cat="realty">🏠 <span data-i18n="filter.realty">Недвижимость</span></button>
+        <button class="filter-chip" data-cat="services">🔧 <span data-i18n="filter.services">Услуги</span></button>
       </div>
       <div class="ads-grid" id="adsGrid">
         <div class="ad-card" data-cat="taxi">
@@ -1234,7 +1234,7 @@ footer {
   <div class="section-label" data-i18n="market.label">Финансы</div>
   <div class="market-title-row">
     <h2 class="section-title" data-i18n-html="market.title">Market <em>Watch</em></h2>
-    <button id="marketRefreshBtn" class="market-refresh-btn" onclick="refreshMarket()" aria-label="Обновить данные">
+    <button id="marketRefreshBtn" class="market-refresh-btn" aria-label="Обновить данные">
       <span class="refresh-icon">↻</span>
       <span data-i18n="market.refresh">Обновить</span>
     </button>
@@ -1243,28 +1243,28 @@ footer {
 
   <div class="market-compact">
     <div class="market-tabs" role="tablist">
-      <button class="market-tab active" role="tab" aria-selected="true" aria-controls="tab-global" onclick="switchTab(this,'global')">🌐 Global</button>
-      <button class="market-tab" role="tab" aria-selected="false" aria-controls="tab-kz" onclick="switchTab(this,'kz')">🇰🇿 Kazakhstan</button>
+      <button class="market-tab active" role="tab" aria-selected="true" aria-controls="tab-global" data-tab-id="global">🌐 Global</button>
+      <button class="market-tab" role="tab" aria-selected="false" aria-controls="tab-kz" data-tab-id="kz">🇰🇿 Kazakhstan</button>
     </div>
     <div id="tab-global" class="market-grid" role="tabpanel">
-      <div class="market-item" data-symbol="AMD" data-tab="global" onclick="refreshItem(this)"><div class="mkt-name">AMD</div><div class="mkt-val">$162.40</div><div class="mkt-chg up">▲ +2.14%</div><div class="mkt-bar up"><span style="width:72%"></span></div></div>
-      <div class="market-item" data-symbol="Intel" data-tab="global" onclick="refreshItem(this)"><div class="mkt-name">Intel</div><div class="mkt-val">$23.85</div><div class="mkt-chg dn">▼ −1.05%</div><div class="mkt-bar dn"><span style="width:38%"></span></div></div>
-      <div class="market-item" data-symbol="NVIDIA" data-tab="global" onclick="refreshItem(this)"><div class="mkt-name">NVIDIA</div><div class="mkt-val">$126.30</div><div class="mkt-chg up">▲ +3.42%</div><div class="mkt-bar up"><span style="width:88%"></span></div></div>
-      <div class="market-item" data-symbol="Apple" data-tab="global" onclick="refreshItem(this)"><div class="mkt-name">Apple</div><div class="mkt-val">$229.10</div><div class="mkt-chg up">▲ +0.62%</div><div class="mkt-bar up"><span style="width:64%"></span></div></div>
-      <div class="market-item" data-symbol="Microsoft" data-tab="global" onclick="refreshItem(this)"><div class="mkt-name">Microsoft</div><div class="mkt-val">$418.50</div><div class="mkt-chg dn">▼ −0.34%</div><div class="mkt-bar dn"><span style="width:46%"></span></div></div>
-      <div class="market-item" data-symbol="Tesla" data-tab="global" onclick="refreshItem(this)"><div class="mkt-name">Tesla</div><div class="mkt-val">$248.70</div><div class="mkt-chg up">▲ +1.78%</div><div class="mkt-bar up"><span style="width:68%"></span></div></div>
-      <div class="market-item" data-symbol="Google" data-tab="global" onclick="refreshItem(this)"><div class="mkt-name">Google</div><div class="mkt-val">$165.20</div><div class="mkt-chg up">▲ +0.91%</div><div class="mkt-bar up"><span style="width:58%"></span></div></div>
-      <div class="market-item" data-symbol="Meta" data-tab="global" onclick="refreshItem(this)"><div class="mkt-name">Meta</div><div class="mkt-val">$582.40</div><div class="mkt-chg dn">▼ −0.78%</div><div class="mkt-bar dn"><span style="width:42%"></span></div></div>
+      <div class="market-item" data-symbol="AMD"><div class="mkt-name">AMD</div><div class="mkt-val">$162.40</div><div class="mkt-chg up">▲ +2.14%</div><div class="mkt-bar up"><span style="width:72%"></span></div></div>
+      <div class="market-item" data-symbol="Intel"><div class="mkt-name">Intel</div><div class="mkt-val">$23.85</div><div class="mkt-chg dn">▼ −1.05%</div><div class="mkt-bar dn"><span style="width:38%"></span></div></div>
+      <div class="market-item" data-symbol="NVIDIA"><div class="mkt-name">NVIDIA</div><div class="mkt-val">$126.30</div><div class="mkt-chg up">▲ +3.42%</div><div class="mkt-bar up"><span style="width:88%"></span></div></div>
+      <div class="market-item" data-symbol="Apple"><div class="mkt-name">Apple</div><div class="mkt-val">$229.10</div><div class="mkt-chg up">▲ +0.62%</div><div class="mkt-bar up"><span style="width:64%"></span></div></div>
+      <div class="market-item" data-symbol="Microsoft"><div class="mkt-name">Microsoft</div><div class="mkt-val">$418.50</div><div class="mkt-chg dn">▼ −0.34%</div><div class="mkt-bar dn"><span style="width:46%"></span></div></div>
+      <div class="market-item" data-symbol="Tesla"><div class="mkt-name">Tesla</div><div class="mkt-val">$248.70</div><div class="mkt-chg up">▲ +1.78%</div><div class="mkt-bar up"><span style="width:68%"></span></div></div>
+      <div class="market-item" data-symbol="Google"><div class="mkt-name">Google</div><div class="mkt-val">$165.20</div><div class="mkt-chg up">▲ +0.91%</div><div class="mkt-bar up"><span style="width:58%"></span></div></div>
+      <div class="market-item" data-symbol="Meta"><div class="mkt-name">Meta</div><div class="mkt-val">$582.40</div><div class="mkt-chg dn">▼ −0.78%</div><div class="mkt-bar dn"><span style="width:42%"></span></div></div>
     </div>
     <div id="tab-kz" class="market-grid" style="display:none" role="tabpanel">
-      <div class="market-item" data-symbol="KASE" data-tab="kz" onclick="refreshItem(this)"><div class="mkt-name">KASE</div><div class="mkt-val">4 812</div><div class="mkt-chg up">▲ +0.22%</div><div class="mkt-bar up"><span style="width:55%"></span></div></div>
-      <div class="market-item" data-symbol="Kazatomprom" data-tab="kz" onclick="refreshItem(this)"><div class="mkt-name">Kazatomprom</div><div class="mkt-val">₸ 48 200</div><div class="mkt-chg up">▲ +1.45%</div><div class="mkt-bar up"><span style="width:67%"></span></div></div>
-      <div class="market-item" data-symbol="KazMunayGas" data-tab="kz" onclick="refreshItem(this)"><div class="mkt-name">KazMunayGas</div><div class="mkt-val">₸ 13 980</div><div class="mkt-chg dn">▼ −0.62%</div><div class="mkt-bar dn"><span style="width:44%"></span></div></div>
-      <div class="market-item" data-symbol="HalykBank" data-tab="kz" onclick="refreshItem(this)"><div class="mkt-name">Halyk Bank</div><div class="mkt-val">₸ 198.40</div><div class="mkt-chg up">▲ +0.84%</div><div class="mkt-bar up"><span style="width:60%"></span></div></div>
-      <div class="market-item" data-symbol="Kaspi" data-tab="kz" onclick="refreshItem(this)"><div class="mkt-name">Kaspi.kz</div><div class="mkt-val">$118.20</div><div class="mkt-chg up">▲ +1.92%</div><div class="mkt-bar up"><span style="width:74%"></span></div></div>
-      <div class="market-item" data-symbol="USDKZT" data-tab="kz" onclick="refreshItem(this)"><div class="mkt-name">USD/KZT</div><div class="mkt-val">453.4</div><div class="mkt-chg dn">▼ −0.30%</div><div class="mkt-bar dn"><span style="width:40%"></span></div></div>
-      <div class="market-item" data-symbol="EURKZT" data-tab="kz" onclick="refreshItem(this)"><div class="mkt-name">EUR/KZT</div><div class="mkt-val">491.2</div><div class="mkt-chg up">▲ +0.10%</div><div class="mkt-bar up"><span style="width:52%"></span></div></div>
-      <div class="market-item" data-symbol="Brent" data-tab="kz" onclick="refreshItem(this)"><div class="mkt-name">Brent</div><div class="mkt-val">$84.2</div><div class="mkt-chg dn">▼ −0.55%</div><div class="mkt-bar dn"><span style="width:46%"></span></div></div>
+      <div class="market-item" data-symbol="KASE"><div class="mkt-name">KASE</div><div class="mkt-val">4 812</div><div class="mkt-chg up">▲ +0.22%</div><div class="mkt-bar up"><span style="width:55%"></span></div></div>
+      <div class="market-item" data-symbol="Kazatomprom"><div class="mkt-name">Kazatomprom</div><div class="mkt-val">₸ 48 200</div><div class="mkt-chg up">▲ +1.45%</div><div class="mkt-bar up"><span style="width:67%"></span></div></div>
+      <div class="market-item" data-symbol="KazMunayGas"><div class="mkt-name">KazMunayGas</div><div class="mkt-val">₸ 13 980</div><div class="mkt-chg dn">▼ −0.62%</div><div class="mkt-bar dn"><span style="width:44%"></span></div></div>
+      <div class="market-item" data-symbol="HalykBank"><div class="mkt-name">Halyk Bank</div><div class="mkt-val">₸ 198.40</div><div class="mkt-chg up">▲ +0.84%</div><div class="mkt-bar up"><span style="width:60%"></span></div></div>
+      <div class="market-item" data-symbol="Kaspi"><div class="mkt-name">Kaspi.kz</div><div class="mkt-val">$118.20</div><div class="mkt-chg up">▲ +1.92%</div><div class="mkt-bar up"><span style="width:74%"></span></div></div>
+      <div class="market-item" data-symbol="USDKZT"><div class="mkt-name">USD/KZT</div><div class="mkt-val">453.4</div><div class="mkt-chg dn">▼ −0.30%</div><div class="mkt-bar dn"><span style="width:40%"></span></div></div>
+      <div class="market-item" data-symbol="EURKZT"><div class="mkt-name">EUR/KZT</div><div class="mkt-val">491.2</div><div class="mkt-chg up">▲ +0.10%</div><div class="mkt-bar up"><span style="width:52%"></span></div></div>
+      <div class="market-item" data-symbol="Brent"><div class="mkt-name">Brent</div><div class="mkt-val">$84.2</div><div class="mkt-chg dn">▼ −0.55%</div><div class="mkt-bar dn"><span style="width:46%"></span></div></div>
     </div>
     <div class="market-footer">
       <span data-i18n="market.demo">Демо-данные · Не является фин. советом</span>
@@ -1591,6 +1591,10 @@ function filterAds(btn, cat) {
   });
 }
 
+document.querySelectorAll('.filter-chip').forEach(btn => {
+  btn.addEventListener('click', () => filterAds(btn, btn.dataset.cat));
+});
+
 // ─── Market tabs ───
 let mktActiveTab = 'global';
 function switchTab(btn, id) {
@@ -1692,6 +1696,17 @@ function mktUpdateTime() {
   const now = new Date();
   ts.textContent = '🕐 ' + now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) + ' · Обновлено';
 }
+
+// ─── Market event listeners ───
+document.getElementById('marketRefreshBtn').addEventListener('click', refreshMarket);
+
+document.querySelectorAll('.market-tab').forEach(btn => {
+  btn.addEventListener('click', () => switchTab(btn, btn.dataset.tabId));
+});
+
+document.querySelectorAll('.market-item').forEach(el => {
+  el.addEventListener('click', () => refreshItem(el));
+});
 
 // ─── Language switcher ───
 document.querySelectorAll('.nav-langs button[data-lang]').forEach(b => {
