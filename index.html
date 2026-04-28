@@ -956,17 +956,17 @@ footer {
   <div class="nav-inner">
     <a href="#hero" class="nav-logo">Burabay <span>Tech</span></a>
     <ul class="nav-links">
-      <li><a href="#taxi">Такси</a></li>
-      <li><a href="#ads">Объявления</a></li>
-      <li><a href="#market">Рынок</a></li>
-      <li><a href="#videos">Видео</a></li>
-      <li><a href="#contact">Контакты</a></li>
+      <li><a href="#taxi" data-i18n="nav.taxi">Такси</a></li>
+      <li><a href="#ads" data-i18n="nav.ads">Объявления</a></li>
+      <li><a href="#market" data-i18n="nav.market">Рынок</a></li>
+      <li><a href="#videos" data-i18n="nav.videos">Видео</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Контакты</a></li>
     </ul>
     <div class="nav-langs" role="group" aria-label="Язык интерфейса">
-      <button class="active" aria-pressed="true">RU</button>
-      <button aria-pressed="false" title="Скоро доступно">KZ</button>
-      <button aria-pressed="false" title="Скоро доступно">EN</button>
-      <button aria-pressed="false" title="Скоро доступно">ES</button>
+      <button class="active" aria-pressed="true" data-lang="ru">RU</button>
+      <button aria-pressed="false" data-lang="kz">KZ</button>
+      <button aria-pressed="false" data-lang="en">EN</button>
+      <button aria-pressed="false" data-lang="es">ES</button>
     </div>
     <button class="nav-hamburger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileNav">
       <span></span><span></span><span></span>
@@ -977,11 +977,11 @@ footer {
 <!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobileNav" aria-hidden="true">
   <ul>
-    <li><a href="#taxi">Такси</a></li>
-    <li><a href="#ads">Объявления</a></li>
-    <li><a href="#market">Рынок</a></li>
-    <li><a href="#videos">Видео</a></li>
-    <li><a href="#contact">Контакты</a></li>
+    <li><a href="#taxi" data-i18n="nav.taxi">Такси</a></li>
+    <li><a href="#ads" data-i18n="nav.ads">Объявления</a></li>
+    <li><a href="#market" data-i18n="nav.market">Рынок</a></li>
+    <li><a href="#videos" data-i18n="nav.videos">Видео</a></li>
+    <li><a href="#contact" data-i18n="nav.contact">Контакты</a></li>
   </ul>
 </div>
 
@@ -990,50 +990,31 @@ footer {
   <div class="hero-ornament" aria-hidden="true"></div>
   <div class="hero-content">
     <div class="hero-left">
-      <div class="hero-tag">Бурабай &amp; Щучинск</div>
-      <h1 class="hero-title">
-        Технологии<br>
-        для <em>нашего</em><br>
-        района
-      </h1>
-      <p class="hero-subtitle">Такси · Объявления · Рынок · Видео</p>
+      <div class="hero-tag" data-i18n="hero.tag">Бурабай &amp; Щучинск</div>
+      <h1 class="hero-title" data-i18n-html="hero.title">Технологии<br>для <em>нашего</em><br>района</h1>
+      <p class="hero-subtitle" data-i18n="hero.subtitle">Такси · Объявления · Рынок · Видео</p>
       <div class="hero-ctas">
-        <a href="#taxi" class="btn-primary">🚖 Заказать такси</a>
-        <a href="#ads" class="btn-ghost">📋 Подать объявление</a>
+        <a href="#taxi" class="btn-primary" data-i18n="hero.cta.taxi">🚖 Заказать такси</a>
+        <a href="#ads" class="btn-ghost" data-i18n="hero.cta.ads">📋 Подать объявление</a>
       </div>
     </div>
 
     <div class="announcement-card">
-      <div class="ann-title">Вниманию жителей и предпринимателей<br>Бурабайского района!</div>
-
+      <div class="ann-title" data-i18n-html="ann.title">Вниманию жителей и предпринимателей<br>Бурабайского района!</div>
       <div class="ann-section">
         <span class="ann-icon" aria-hidden="true">🏘</span>
-        <div>
-          <strong>Недвижимость и транспорт</strong><br>
-          Принимаются объявления о продаже движимого и недвижимого имущества по всему Бурабайскому району.
-        </div>
+        <div data-i18n-html="ann.realty"><strong>Недвижимость и транспорт</strong><br>Принимаются объявления о продаже движимого и недвижимого имущества по всему Бурабайскому району.</div>
       </div>
       <div class="ann-section">
         <span class="ann-icon" aria-hidden="true">🚖</span>
-        <div>
-          <strong>Для водителей</strong><br>
-          Внедрена отдельная вкладка «Межгород» для частных перевозчиков и служб такси.
-        </div>
+        <div data-i18n-html="ann.drivers"><strong>Для водителей</strong><br>Внедрена отдельная вкладка «Межгород» для частных перевозчиков и служб такси.</div>
       </div>
       <div class="ann-section">
         <span class="ann-icon" aria-hidden="true">🏢</span>
-        <div>
-          <strong>Для бизнеса</strong><br>
-          Реклама компаний, включая товары, работы и услуги (ТРУ).
-        </div>
+        <div data-i18n-html="ann.biz"><strong>Для бизнеса</strong><br>Реклама компаний, включая товары, работы и услуги (ТРУ).</div>
       </div>
-
-      <div class="ann-highlight">
-        🎉 <strong>Бесплатно:</strong> В связи с запуском — все объявления размещаются бесплатно.
-      </div>
-      <div class="ann-highlight">
-        🛡 <strong>Безопасность:</strong> Платформа будет оснащена ИИ-системой проверки на мошенничество.
-      </div>
+      <div class="ann-highlight" data-i18n-html="ann.free">🎉 <strong>Бесплатно:</strong> В связи с запуском — все объявления размещаются бесплатно.</div>
+      <div class="ann-highlight" data-i18n-html="ann.security">🛡 <strong>Безопасность:</strong> Платформа будет оснащена ИИ-системой проверки на мошенничество.</div>
     </div>
   </div>
 </div>
@@ -1043,48 +1024,46 @@ footer {
 <!-- TAXI -->
 <div class="fw">
 <section id="taxi">
-  <div class="section-label">Трансфер</div>
-  <h2 class="section-title">Такси Бурабай — <em>Щучинск</em></h2>
-  <p class="section-desc">Комфортные поездки по городу и межгород. 24/7.</p>
+  <div class="section-label" data-i18n="taxi.label">Трансфер</div>
+  <h2 class="section-title" data-i18n-html="taxi.title">Такси Бурабай — <em>Щучинск</em></h2>
+  <p class="section-desc" data-i18n="taxi.desc">Комфортные поездки по городу и межгород. 24/7.</p>
 
   <div class="taxi-full">
     <div class="taxi-header">
       <div>
-        <div class="taxi-badge">🛡 Стаж вождения 24 года &nbsp;·&nbsp; до 4 пассажиров</div>
+        <div class="taxi-badge" data-i18n="taxi.badge">🛡 Стаж вождения 24 года &nbsp;·&nbsp; до 4 пассажиров</div>
         <div class="taxi-car-name">Haval M6 2024</div>
-        <div class="taxi-route">Новый кроссовер · Санатории, дома отдыха, трансферы</div>
+        <div class="taxi-route" data-i18n="taxi.route">Новый кроссовер · Санатории, дома отдыха, трансферы</div>
       </div>
       <div class="taxi-price-block">
         <div class="taxi-price">24 000 ₸</div>
-        <div class="taxi-price-label">Астана ↔ Бурабай</div>
+        <div class="taxi-price-label" data-i18n="taxi.price.label">Астана ↔ Бурабай</div>
       </div>
     </div>
     <div class="taxi-body">
       <div class="taxi-features">
-        <div class="taxi-feature"><span class="feat-icon" aria-hidden="true">◆</span> Только салон — с одного адреса на один</div>
-        <div class="taxi-feature"><span class="feat-icon" aria-hidden="true">◆</span> Просторный кроссовер, большой багажник</div>
-        <div class="taxi-feature"><span class="feat-icon" aria-hidden="true">◆</span> Санатории, дома отдыха и т.п.</div>
-        <div class="taxi-feature"><span class="feat-icon" aria-hidden="true">◆</span> Работаем круглосуточно 24/7</div>
+        <div class="taxi-feature"><span class="feat-icon" aria-hidden="true">◆</span><span data-i18n="taxi.f1">Только салон — с одного адреса на один</span></div>
+        <div class="taxi-feature"><span class="feat-icon" aria-hidden="true">◆</span><span data-i18n="taxi.f2">Просторный кроссовер, большой багажник</span></div>
+        <div class="taxi-feature"><span class="feat-icon" aria-hidden="true">◆</span><span data-i18n="taxi.f3">Санатории, дома отдыха и т.п.</span></div>
+        <div class="taxi-feature"><span class="feat-icon" aria-hidden="true">◆</span><span data-i18n="taxi.f4">Работаем круглосуточно 24/7</span></div>
         <div style="margin-top:16px;">
-          <label for="tripDate" class="form-label">Выберите дату поездки</label>
+          <label for="tripDate" class="form-label" data-i18n="taxi.date.label">Выберите дату поездки</label>
           <input type="date" id="tripDate" class="form-control" style="max-width:220px; margin-top:4px;">
         </div>
       </div>
       <div class="taxi-actions">
         <a href="https://wa.me/77080802588?text=Хочу заказать трансфер Астана-Бурабай на Haval M6"
            class="btn-primary" style="text-align:center;"
-           target="_blank" rel="noopener noreferrer">Заказать в WhatsApp</a>
-        <div class="taxi-warning">⚠️ Писать заранее в WhatsApp</div>
+           target="_blank" rel="noopener noreferrer" data-i18n="taxi.order">Заказать в WhatsApp</a>
+        <div class="taxi-warning" data-i18n="taxi.warning">⚠️ Писать заранее в WhatsApp</div>
         <div style="margin-top:8px; border:1px solid var(--border); padding:14px; font-size:13px;">
-          <div style="color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;">Тарифы на размещение</div>
-          <div style="display:flex; justify-content:space-between; margin-bottom:6px;"><span>7 дней</span><span style="color:var(--gold);">1 000 ₸</span></div>
-          <div style="display:flex; justify-content:space-between;"><span>Поднять наверх</span><span style="color:var(--gold);">500 ₸</span></div>
+          <div style="color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;" data-i18n="taxi.tariff.title">Тарифы на размещение</div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px;"><span data-i18n="taxi.7days">7 дней</span><span style="color:var(--gold);">1 000 ₸</span></div>
+          <div style="display:flex; justify-content:space-between;"><span data-i18n="taxi.boost">Поднять наверх</span><span style="color:var(--gold);">500 ₸</span></div>
         </div>
       </div>
     </div>
-    <div class="taxi-promo-bar">
-      🎉 &nbsp; <strong>Акция до 10 июня</strong> — размещение объявлений бесплатно! Вы водитель? <a href="#ads" style="color:var(--gold); margin-left:6px;">Разместите свой маршрут →</a>
-    </div>
+    <div class="taxi-promo-bar" data-i18n-html="taxi.promo">🎉 &nbsp; <strong>Акция до 10 июня</strong> — размещение объявлений бесплатно! Вы водитель? <a href="#ads" style="color:var(--gold); margin-left:6px;">Разместите свой маршрут →</a></div>
   </div>
 </section>
 </div>
@@ -1093,16 +1072,16 @@ footer {
 
 <!-- CLASSIFIEDS -->
 <section id="ads">
-  <div class="section-label">Локальная доска</div>
-  <h2 class="section-title"><em>Объявления</em> Бурабая</h2>
-  <p class="section-desc">Купля-продажа, услуги, недвижимость и транспорт для жителей района.</p>
+  <div class="section-label" data-i18n="ads.label">Локальная доска</div>
+  <h2 class="section-title" data-i18n-html="ads.title"><em>Объявления</em> Бурабая</h2>
+  <p class="section-desc" data-i18n="ads.desc">Купля-продажа, услуги, недвижимость и транспорт для жителей района.</p>
 
   <div class="ads-layout">
     <div class="ads-form-panel">
-      <div class="ads-form-title">📝 Подать объявление</div>
+      <div class="ads-form-title" data-i18n="ads.form.title">📝 Подать объявление</div>
       <form id="adForm" novalidate>
         <div class="form-group">
-          <label class="form-label" for="adCategory">Категория</label>
+          <label class="form-label" for="adCategory" data-i18n="ads.f.category">Категория</label>
           <select id="adCategory" name="category" class="form-control">
             <option>🚕 Такси / Трансфер</option>
             <option>🚗 Авто</option>
@@ -1116,52 +1095,52 @@ footer {
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label" for="adCity">Город</label>
+          <label class="form-label" for="adCity" data-i18n="ads.f.city">Город</label>
           <select id="adCity" name="city" class="form-control">
             <option>Щучинск</option>
             <option>Бурабай</option>
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label" for="adTitle">Заголовок</label>
-          <input type="text" id="adTitle" name="title" class="form-control" placeholder="Краткое описание">
+          <label class="form-label" for="adTitle" data-i18n="ads.f.headline">Заголовок</label>
+          <input type="text" id="adTitle" name="title" class="form-control" placeholder="Краткое описание" data-i18n-ph="ads.f.headline.ph">
         </div>
         <div class="form-group">
-          <label class="form-label" for="adDesc">Описание</label>
-          <textarea id="adDesc" name="description" class="form-control" placeholder="Подробнее..."></textarea>
+          <label class="form-label" for="adDesc" data-i18n="ads.f.desc">Описание</label>
+          <textarea id="adDesc" name="description" class="form-control" placeholder="Подробнее..." data-i18n-ph="ads.f.desc.ph"></textarea>
         </div>
         <div class="form-group">
-          <label class="form-label" for="adPrice">Цена (тенге)</label>
+          <label class="form-label" for="adPrice" data-i18n="ads.f.price">Цена (тенге)</label>
           <input type="number" id="adPrice" name="price" class="form-control" placeholder="0" min="0">
         </div>
         <div class="form-group">
-          <label class="form-label" for="adName">Имя</label>
-          <input type="text" id="adName" name="name" class="form-control" placeholder="Ваше имя">
+          <label class="form-label" for="adName" data-i18n="ads.f.name">Имя</label>
+          <input type="text" id="adName" name="name" class="form-control" placeholder="Ваше имя" data-i18n-ph="ads.f.name.ph">
         </div>
         <div class="form-group">
-          <label class="form-label" for="adPhone">Телефон / WhatsApp</label>
+          <label class="form-label" for="adPhone" data-i18n="ads.f.phone">Телефон / WhatsApp</label>
           <input type="tel" id="adPhone" name="phone" class="form-control" placeholder="+7 ...">
         </div>
         <div class="form-group">
-          <label class="form-label" for="adTelegram">Telegram (без @)</label>
+          <label class="form-label" for="adTelegram" data-i18n="ads.f.telegram">Telegram (без @)</label>
           <input type="text" id="adTelegram" name="telegram" class="form-control" placeholder="username">
         </div>
         <div class="form-group">
-          <label class="form-label" for="adInstagram">Instagram (без @)</label>
+          <label class="form-label" for="adInstagram" data-i18n="ads.f.instagram">Instagram (без @)</label>
           <input type="text" id="adInstagram" name="instagram" class="form-control" placeholder="username">
         </div>
-        <button type="submit" id="adSubmitBtn" class="btn-primary" style="width:100%; margin-top:8px;">Отправить объявление</button>
+        <button type="submit" id="adSubmitBtn" class="btn-primary" style="width:100%; margin-top:8px;" data-i18n="ads.f.submit">Отправить объявление</button>
         <div class="form-status" id="adStatus"></div>
       </form>
     </div>
 
     <div>
       <div class="ads-filter-bar">
-        <button class="filter-chip active" onclick="filterAds(this,'all')">Все</button>
-        <button class="filter-chip" onclick="filterAds(this,'taxi')">🚕 Такси</button>
-        <button class="filter-chip" onclick="filterAds(this,'auto')">🚗 Авто</button>
-        <button class="filter-chip" onclick="filterAds(this,'realty')">🏠 Недвижимость</button>
-        <button class="filter-chip" onclick="filterAds(this,'services')">🔧 Услуги</button>
+        <button class="filter-chip active" onclick="filterAds(this,'all')" data-i18n="filter.all">Все</button>
+        <button class="filter-chip" onclick="filterAds(this,'taxi')">🚕 <span data-i18n="nav.taxi">Такси</span></button>
+        <button class="filter-chip" onclick="filterAds(this,'auto')">🚗 <span data-i18n="filter.auto">Авто</span></button>
+        <button class="filter-chip" onclick="filterAds(this,'realty')">🏠 <span data-i18n="filter.realty">Недвижимость</span></button>
+        <button class="filter-chip" onclick="filterAds(this,'services')">🔧 <span data-i18n="filter.services">Услуги</span></button>
       </div>
       <div class="ads-grid" id="adsGrid">
         <div class="ad-card" data-cat="taxi">
@@ -1210,9 +1189,9 @@ footer {
 <!-- MARKET -->
 <div class="fw">
 <section id="market">
-  <div class="section-label">Финансы</div>
-  <h2 class="section-title">Market <em>Watch</em></h2>
-  <p class="section-desc">Ключевые индикаторы — глобальный рынок и Казахстан.</p>
+  <div class="section-label" data-i18n="market.label">Финансы</div>
+  <h2 class="section-title" data-i18n-html="market.title">Market <em>Watch</em></h2>
+  <p class="section-desc" data-i18n="market.desc">Ключевые индикаторы — глобальный рынок и Казахстан.</p>
 
   <div class="market-compact">
     <div class="market-tabs" role="tablist">
@@ -1240,7 +1219,7 @@ footer {
       <div class="market-item"><div class="mkt-name">Brent</div><div class="mkt-val">$84.2</div><div class="mkt-chg dn">▼ −0.55%</div><div class="mkt-bar dn"><span style="width:46%"></span></div></div>
     </div>
     <div class="market-footer">
-      <span>Демо-данные · Не является фин. советом</span>
+      <span data-i18n="market.demo">Демо-данные · Не является фин. советом</span>
       <span>🕐 Апр 2026 · Актуально</span>
     </div>
   </div>
@@ -1251,57 +1230,54 @@ footer {
 
 <!-- VIDEOS -->
 <section id="videos">
-  <div class="section-label">Последние видео</div>
-  <h2 class="section-title">Смотреть <em>на YouTube</em></h2>
-  <p class="section-desc">Обзоры, аналитика и новости района от канала @Adilveis_life</p>
+  <div class="section-label" data-i18n="videos.label">Последние видео</div>
+  <h2 class="section-title" data-i18n-html="videos.title">Смотреть <em>на YouTube</em></h2>
+  <p class="section-desc" data-i18n="videos.desc">Обзоры, аналитика и новости района от канала @Adilveis_life</p>
 
   <div class="videos-grid">
     <a href="https://youtube.com/@Adilveis_life" target="_blank" rel="noopener noreferrer"
-       class="video-card" style="text-decoration:none;color:inherit;"
-       aria-label="Обзор техники в Бурабае — смотреть на YouTube">
+       class="video-card" style="text-decoration:none;color:inherit;">
       <div class="video-thumb">
         <div class="video-thumb-bg" aria-hidden="true">📱</div>
         <div class="play-btn" aria-hidden="true"></div>
         <div class="video-duration">12:30</div>
       </div>
       <div class="video-info">
-        <div class="video-tag">Обзор</div>
-        <div class="video-title">Обзор техники в Бурабае</div>
-        <div class="video-meta"><span>👁 5.1K</span><span>2 недели назад</span></div>
+        <div class="video-tag" data-i18n="v1.tag">Обзор</div>
+        <div class="video-title" data-i18n="v1.title">Обзор техники в Бурабае</div>
+        <div class="video-meta"><span>👁 5.1K</span><span data-i18n="v1.ago">2 недели назад</span></div>
       </div>
     </a>
     <a href="https://youtube.com/@Adilveis_life" target="_blank" rel="noopener noreferrer"
-       class="video-card" style="text-decoration:none;color:inherit;"
-       aria-label="Рынок акций — что происходит? — смотреть на YouTube">
+       class="video-card" style="text-decoration:none;color:inherit;">
       <div class="video-thumb">
         <div class="video-thumb-bg" aria-hidden="true">📈</div>
         <div class="play-btn" aria-hidden="true"></div>
         <div class="video-duration">18:45</div>
       </div>
       <div class="video-info">
-        <div class="video-tag">Аналитика</div>
-        <div class="video-title">Рынок акций — что происходит?</div>
-        <div class="video-meta"><span>👁 7.3K</span><span>1 месяц назад</span></div>
+        <div class="video-tag" data-i18n="v2.tag">Аналитика</div>
+        <div class="video-title" data-i18n="v2.title">Рынок акций — что происходит?</div>
+        <div class="video-meta"><span>👁 7.3K</span><span data-i18n="v2.ago">1 месяц назад</span></div>
       </div>
     </a>
     <a href="https://youtube.com/@Adilveis_life" target="_blank" rel="noopener noreferrer"
-       class="video-card" style="text-decoration:none;color:inherit;"
-       aria-label="Объявления недели в Щучинске — смотреть на YouTube">
+       class="video-card" style="text-decoration:none;color:inherit;">
       <div class="video-thumb">
         <div class="video-thumb-bg" aria-hidden="true">📰</div>
         <div class="play-btn" aria-hidden="true"></div>
         <div class="video-duration">10:22</div>
       </div>
       <div class="video-info">
-        <div class="video-tag">Новости</div>
-        <div class="video-title">Объявления недели в Щучинске</div>
-        <div class="video-meta"><span>👁 3.8K</span><span>6 недель назад</span></div>
+        <div class="video-tag" data-i18n="v3.tag">Новости</div>
+        <div class="video-title" data-i18n="v3.title">Объявления недели в Щучинске</div>
+        <div class="video-meta"><span>👁 3.8K</span><span data-i18n="v3.ago">6 недель назад</span></div>
       </div>
     </a>
   </div>
 
   <div style="margin-top:28px; text-align:center;">
-    <a href="https://youtube.com/@Adilveis_life" target="_blank" rel="noopener noreferrer" class="btn-ghost">▶ Все видео на YouTube</a>
+    <a href="https://youtube.com/@Adilveis_life" target="_blank" rel="noopener noreferrer" class="btn-ghost" data-i18n="videos.all">▶ Все видео на YouTube</a>
   </div>
 </section>
 
@@ -1310,51 +1286,42 @@ footer {
 <!-- CONTACT -->
 <div class="fw">
 <section id="contact">
-  <div class="section-label">Связь</div>
-  <h2 class="section-title">Написать <em>нам</em></h2>
-  <p class="section-desc">Вопрос, сотрудничество, или просто привет — мы рады любому сообщению.</p>
+  <div class="section-label" data-i18n="contact.label">Связь</div>
+  <h2 class="section-title" data-i18n-html="contact.title">Написать <em>нам</em></h2>
+  <p class="section-desc" data-i18n="contact.desc">Вопрос, сотрудничество, или просто привет — мы рады любому сообщению.</p>
 
   <div class="contact-grid">
     <div class="contact-channels">
       <a href="https://youtube.com/@Adilveis_life" target="_blank" rel="noopener noreferrer" class="channel-link">
         <div class="channel-icon" aria-hidden="true">📺</div>
-        <div>
-          <div class="channel-name">YouTube</div>
-          <div class="channel-handle">@Adilveis_life</div>
-        </div>
+        <div><div class="channel-name">YouTube</div><div class="channel-handle">@Adilveis_life</div></div>
       </a>
       <a href="https://t.me/burabay_m4_bot" target="_blank" rel="noopener noreferrer" class="channel-link">
         <div class="channel-icon" aria-hidden="true">✈️</div>
-        <div>
-          <div class="channel-name">Telegram</div>
-          <div class="channel-handle">@burabay_m4_bot</div>
-        </div>
+        <div><div class="channel-name">Telegram</div><div class="channel-handle">@burabay_m4_bot</div></div>
       </a>
       <a href="mailto:adilkurmanov@yandex.kz" class="channel-link">
         <div class="channel-icon" aria-hidden="true">📧</div>
-        <div>
-          <div class="channel-name">Email</div>
-          <div class="channel-handle">adilkurmanov@yandex.kz</div>
-        </div>
+        <div><div class="channel-name">Email</div><div class="channel-handle">adilkurmanov@yandex.kz</div></div>
       </a>
     </div>
 
     <div class="contact-form-panel">
-      <div class="contact-form-title">Отправить сообщение</div>
+      <div class="contact-form-title" data-i18n="contact.form.title">Отправить сообщение</div>
       <form id="contactForm" novalidate>
         <div class="form-group">
-          <label class="form-label" for="contactName">Ваше имя</label>
-          <input type="text" id="contactName" name="name" class="form-control" placeholder="Имя" required>
+          <label class="form-label" for="contactName" data-i18n="contact.f.name">Ваше имя</label>
+          <input type="text" id="contactName" name="name" class="form-control" placeholder="Имя" data-i18n-ph="contact.f.name.ph" required>
         </div>
         <div class="form-group">
           <label class="form-label" for="contactEmail">Email</label>
           <input type="email" id="contactEmail" name="email" class="form-control" placeholder="email@example.com" required>
         </div>
         <div class="form-group">
-          <label class="form-label" for="contactMessage">Сообщение</label>
-          <textarea id="contactMessage" name="message" class="form-control" style="min-height:100px;" placeholder="Ваше сообщение..." required></textarea>
+          <label class="form-label" for="contactMessage" data-i18n="contact.f.message">Сообщение</label>
+          <textarea id="contactMessage" name="message" class="form-control" style="min-height:100px;" placeholder="Ваше сообщение..." data-i18n-ph="contact.f.message.ph" required></textarea>
         </div>
-        <button type="submit" id="contactSubmitBtn" class="btn-primary" style="width:100%;">Отправить ✉️</button>
+        <button type="submit" id="contactSubmitBtn" class="btn-primary" style="width:100%;" data-i18n="contact.f.submit">Отправить ✉️</button>
         <div class="form-status" id="contactStatus"></div>
       </form>
     </div>
@@ -1367,11 +1334,181 @@ footer {
   <div class="kz-border" aria-hidden="true"></div>
   <div class="footer-inner">
     <div class="footer-logo">Burabay Tech</div>
-    <div class="footer-copy">© 2026 Burabay Tech · Бурабай &amp; Щучинск, Казахстан</div>
+    <div class="footer-copy" data-i18n="footer.copy">© 2026 Burabay Tech · Бурабай &amp; Щучинск, Казахстан</div>
   </div>
 </footer>
 
 <script>
+// ─── Translations ───
+const I18N = {
+  ru: {
+    'nav.taxi':'Такси','nav.ads':'Объявления','nav.market':'Рынок','nav.videos':'Видео','nav.contact':'Контакты',
+    'hero.tag':'Бурабай & Щучинск',
+    'hero.title':'Технологии<br>для <em>нашего</em><br>района',
+    'hero.subtitle':'Такси · Объявления · Рынок · Видео',
+    'hero.cta.taxi':'🚖 Заказать такси','hero.cta.ads':'📋 Подать объявление',
+    'ann.title':'Вниманию жителей и предпринимателей<br>Бурабайского района!',
+    'ann.realty':'<strong>Недвижимость и транспорт</strong><br>Принимаются объявления о продаже движимого и недвижимого имущества по всему Бурабайскому району.',
+    'ann.drivers':'<strong>Для водителей</strong><br>Внедрена отдельная вкладка «Межгород» для частных перевозчиков и служб такси.',
+    'ann.biz':'<strong>Для бизнеса</strong><br>Реклама компаний, включая товары, работы и услуги (ТРУ).',
+    'ann.free':'🎉 <strong>Бесплатно:</strong> В связи с запуском — все объявления размещаются бесплатно.',
+    'ann.security':'🛡 <strong>Безопасность:</strong> Платформа будет оснащена ИИ-системой проверки на мошенничество.',
+    'taxi.label':'Трансфер','taxi.title':'Такси Бурабай — <em>Щучинск</em>','taxi.desc':'Комфортные поездки по городу и межгород. 24/7.',
+    'taxi.badge':'🛡 Стаж вождения 24 года · до 4 пассажиров','taxi.route':'Новый кроссовер · Санатории, дома отдыха, трансферы',
+    'taxi.price.label':'Астана ↔ Бурабай','taxi.date.label':'Выберите дату поездки',
+    'taxi.f1':'Только салон — с одного адреса на один','taxi.f2':'Просторный кроссовер, большой багажник',
+    'taxi.f3':'Санатории, дома отдыха и т.п.','taxi.f4':'Работаем круглосуточно 24/7',
+    'taxi.order':'Заказать в WhatsApp','taxi.warning':'⚠️ Писать заранее в WhatsApp',
+    'taxi.tariff.title':'Тарифы на размещение','taxi.7days':'7 дней','taxi.boost':'Поднять наверх',
+    'taxi.promo':'🎉 &nbsp;<strong>Акция до 10 июня</strong> — размещение бесплатно! Вы водитель? <a href="#ads" style="color:var(--gold);margin-left:6px;">Разместите свой маршрут →</a>',
+    'ads.label':'Локальная доска','ads.title':'<em>Объявления</em> Бурабая','ads.desc':'Купля-продажа, услуги, недвижимость и транспорт для жителей района.',
+    'ads.form.title':'📝 Подать объявление',
+    'ads.f.category':'Категория','ads.f.city':'Город','ads.f.headline':'Заголовок','ads.f.headline.ph':'Краткое описание',
+    'ads.f.desc':'Описание','ads.f.desc.ph':'Подробнее...','ads.f.price':'Цена (тенге)',
+    'ads.f.name':'Имя','ads.f.name.ph':'Ваше имя','ads.f.phone':'Телефон / WhatsApp',
+    'ads.f.telegram':'Telegram (без @)','ads.f.instagram':'Instagram (без @)','ads.f.submit':'Отправить объявление',
+    'filter.all':'Все','filter.auto':'Авто','filter.realty':'Недвижимость','filter.services':'Услуги',
+    'market.label':'Финансы','market.title':'Market <em>Watch</em>','market.desc':'Ключевые индикаторы — глобальный рынок и Казахстан.','market.demo':'Демо-данные · Не является фин. советом',
+    'videos.label':'Последние видео','videos.title':'Смотреть <em>на YouTube</em>','videos.desc':'Обзоры, аналитика и новости района от канала @Adilveis_life','videos.all':'▶ Все видео на YouTube',
+    'v1.tag':'Обзор','v1.title':'Обзор техники в Бурабае','v1.ago':'2 недели назад',
+    'v2.tag':'Аналитика','v2.title':'Рынок акций — что происходит?','v2.ago':'1 месяц назад',
+    'v3.tag':'Новости','v3.title':'Объявления недели в Щучинске','v3.ago':'6 недель назад',
+    'contact.label':'Связь','contact.title':'Написать <em>нам</em>','contact.desc':'Вопрос, сотрудничество, или просто привет — мы рады любому сообщению.',
+    'contact.form.title':'Отправить сообщение','contact.f.name':'Ваше имя','contact.f.name.ph':'Имя',
+    'contact.f.message':'Сообщение','contact.f.message.ph':'Ваше сообщение...','contact.f.submit':'Отправить ✉️',
+    'footer.copy':'© 2026 Burabay Tech · Бурабай & Щучинск, Казахстан',
+  },
+  kz: {
+    'nav.taxi':'Такси','nav.ads':'Хабарландырулар','nav.market':'Нарық','nav.videos':'Бейне','nav.contact':'Байланыс',
+    'hero.tag':'Бурабай & Щучинск',
+    'hero.title':'Технологиялар<br><em>біздің</em><br>ауданға',
+    'hero.subtitle':'Такси · Хабарландырулар · Нарық · Бейне',
+    'hero.cta.taxi':'🚖 Такси тапсырыс беру','hero.cta.ads':'📋 Хабарландыру беру',
+    'ann.title':'Бурабай ауданының тұрғындары мен кәсіпкерлеріне<br>назар аударыңыз!',
+    'ann.realty':'<strong>Жылжымайтын мүлік және көлік</strong><br>Бурабай ауданы бойынша жылжымалы және жылжымайтын мүлікті сатуға хабарландырулар қабылданады.',
+    'ann.drivers':'<strong>Жүргізушілерге арналған</strong><br>Жеке тасымалдаушылар мен такси қызметтері үшін «Қалааралық» бөлімі іске қосылды.',
+    'ann.biz':'<strong>Бизнес үшін</strong><br>Тауарларды, жұмыстарды және қызметтерді (ТЖҚ) қоса алғанда, компаниялардың жарнамасы.',
+    'ann.free':'🎉 <strong>Тегін:</strong> Іске қосуға байланысты — барлық хабарландырулар тегін орналастырылады.',
+    'ann.security':'🛡 <strong>Қауіпсіздік:</strong> Платформа алаяқтықты тексеруге арналған ЖИ жүйесімен жабдықталады.',
+    'taxi.label':'Трансфер','taxi.title':'Такси Бурабай — <em>Щучинск</em>','taxi.desc':'Қала бойынша және қалааралық ыңғайлы сапарлар. 24/7.',
+    'taxi.badge':'🛡 24 жылдық жүргізу тәжірибесі · 4 жолаушыға дейін','taxi.route':'Жаңа кроссовер · Санаторийлер, демалыс үйлері, трансферлер',
+    'taxi.price.label':'Астана ↔ Бурабай','taxi.date.label':'Сапар күнін таңдаңыз',
+    'taxi.f1':'Тек салон — бір мекенжайдан бір мекенжайға','taxi.f2':'Кең кроссовер, үлкен багаж бөлімі',
+    'taxi.f3':'Санаторийлер, демалыс үйлері және т.б.','taxi.f4':'Тәулік бойы 24/7 жұмыс істейміз',
+    'taxi.order':'WhatsApp арқылы тапсырыс беру','taxi.warning':'⚠️ WhatsApp-қа алдын ала жазыңыз',
+    'taxi.tariff.title':'Орналастыру тарифтері','taxi.7days':'7 күн','taxi.boost':'Жоғарыға көтеру',
+    'taxi.promo':'🎉 &nbsp;<strong>10 маусымға дейін акция</strong> — орналастыру тегін! Жүргізуші болсаңыз? <a href="#ads" style="color:var(--gold);margin-left:6px;">Маршрутыңызды орналастырыңыз →</a>',
+    'ads.label':'Жергілікті тақта','ads.title':'Бурабай <em>хабарландырулары</em>','ads.desc':'Аудан тұрғындары үшін сатып алу-сату, қызметтер, жылжымайтын мүлік және көлік.',
+    'ads.form.title':'📝 Хабарландыру беру',
+    'ads.f.category':'Санат','ads.f.city':'Қала','ads.f.headline':'Тақырып','ads.f.headline.ph':'Қысқаша сипаттама',
+    'ads.f.desc':'Сипаттама','ads.f.desc.ph':'Толығырақ...','ads.f.price':'Бағасы (теңге)',
+    'ads.f.name':'Аты','ads.f.name.ph':'Атыңыз','ads.f.phone':'Телефон / WhatsApp',
+    'ads.f.telegram':'Telegram (@-сыз)','ads.f.instagram':'Instagram (@-сыз)','ads.f.submit':'Хабарландыруды жіберу',
+    'filter.all':'Барлығы','filter.auto':'Авто','filter.realty':'Жылжымайтын мүлік','filter.services':'Қызметтер',
+    'market.label':'Қаржы','market.title':'Market <em>Watch</em>','market.desc':'Негізгі көрсеткіштер — жаһандық нарық және Қазақстан.','market.demo':'Демо деректер · Қаржылық кеңес емес',
+    'videos.label':'Соңғы бейнелер','videos.title':'YouTube-та <em>қараңыз</em>','videos.desc':'@Adilveis_life каналынан аудан шолулары, талдау және жаңалықтар','videos.all':'▶ YouTube-тағы барлық бейнелер',
+    'v1.tag':'Шолу','v1.title':'Бурабайдағы техника шолуы','v1.ago':'2 апта бұрын',
+    'v2.tag':'Талдау','v2.title':'Акция нарығы — не болып жатыр?','v2.ago':'1 ай бұрын',
+    'v3.tag':'Жаңалықтар','v3.title':'Щучинскідегі апта хабарландырулары','v3.ago':'6 апта бұрын',
+    'contact.label':'Байланыс','contact.title':'<em>Бізге</em> жазыңыз','contact.desc':'Сұрақ, ынтымақтастық немесе жай сәлем — кез келген хабарламаңызды қабылдаймыз.',
+    'contact.form.title':'Хабарлама жіберу','contact.f.name':'Атыңыз','contact.f.name.ph':'Аты',
+    'contact.f.message':'Хабарлама','contact.f.message.ph':'Хабарламаңыз...','contact.f.submit':'Жіберу ✉️',
+    'footer.copy':'© 2026 Burabay Tech · Бурабай & Щучинск, Қазақстан',
+  },
+  en: {
+    'nav.taxi':'Taxi','nav.ads':'Classifieds','nav.market':'Market','nav.videos':'Videos','nav.contact':'Contact',
+    'hero.tag':'Burabay & Shchuchinsk',
+    'hero.title':'Technology<br>for <em>our</em><br>region',
+    'hero.subtitle':'Taxi · Classifieds · Market · Videos',
+    'hero.cta.taxi':'🚖 Order a taxi','hero.cta.ads':'📋 Post an ad',
+    'ann.title':'Attention residents and entrepreneurs<br>of Burabay district!',
+    'ann.realty':'<strong>Real estate & transport</strong><br>Listings for the sale of movable and immovable property throughout Burabay district are accepted.',
+    'ann.drivers':'<strong>For drivers</strong><br>A separate "Intercity" tab has been introduced for private carriers and taxi services.',
+    'ann.biz':'<strong>For business</strong><br>Company advertising including goods, works and services.',
+    'ann.free':'🎉 <strong>Free:</strong> Due to the launch — all ads are posted for free.',
+    'ann.security':'🛡 <strong>Security:</strong> The platform will be equipped with an AI fraud detection system.',
+    'taxi.label':'Transfer','taxi.title':'Taxi Burabay — <em>Shchuchinsk</em>','taxi.desc':'Comfortable rides in the city and intercity. 24/7.',
+    'taxi.badge':'🛡 24 years driving experience · up to 4 passengers','taxi.route':'New crossover · Sanatoriums, resorts, transfers',
+    'taxi.price.label':'Astana ↔ Burabay','taxi.date.label':'Select trip date',
+    'taxi.f1':'Private hire — from one address to one','taxi.f2':'Spacious crossover, large trunk',
+    'taxi.f3':'Sanatoriums, resorts, etc.','taxi.f4':'We work around the clock 24/7',
+    'taxi.order':'Order via WhatsApp','taxi.warning':'⚠️ Message in advance on WhatsApp',
+    'taxi.tariff.title':'Listing rates','taxi.7days':'7 days','taxi.boost':'Boost to top',
+    'taxi.promo':'🎉 &nbsp;<strong>Promo until June 10</strong> — free listings! Are you a driver? <a href="#ads" style="color:var(--gold);margin-left:6px;">Post your route →</a>',
+    'ads.label':'Local board','ads.title':'<em>Classifieds</em> of Burabay','ads.desc':'Buy & sell, services, real estate and transport for district residents.',
+    'ads.form.title':'📝 Post an ad',
+    'ads.f.category':'Category','ads.f.city':'City','ads.f.headline':'Title','ads.f.headline.ph':'Brief description',
+    'ads.f.desc':'Description','ads.f.desc.ph':'More details...','ads.f.price':'Price (tenge)',
+    'ads.f.name':'Name','ads.f.name.ph':'Your name','ads.f.phone':'Phone / WhatsApp',
+    'ads.f.telegram':'Telegram (no @)','ads.f.instagram':'Instagram (no @)','ads.f.submit':'Submit ad',
+    'filter.all':'All','filter.auto':'Cars','filter.realty':'Real estate','filter.services':'Services',
+    'market.label':'Finance','market.title':'Market <em>Watch</em>','market.desc':'Key indicators — global market and Kazakhstan.','market.demo':'Demo data · Not financial advice',
+    'videos.label':'Latest videos','videos.title':'Watch <em>on YouTube</em>','videos.desc':'Reviews, analysis and district news from @Adilveis_life','videos.all':'▶ All videos on YouTube',
+    'v1.tag':'Review','v1.title':'Tech review in Burabay','v1.ago':'2 weeks ago',
+    'v2.tag':'Analysis','v2.title':'Stock market — what\'s happening?','v2.ago':'1 month ago',
+    'v3.tag':'News','v3.title':'Weekly classifieds in Shchuchinsk','v3.ago':'6 weeks ago',
+    'contact.label':'Contact','contact.title':'Write <em>to us</em>','contact.desc':'Question, collaboration, or just hello — we welcome any message.',
+    'contact.form.title':'Send a message','contact.f.name':'Your name','contact.f.name.ph':'Name',
+    'contact.f.message':'Message','contact.f.message.ph':'Your message...','contact.f.submit':'Send ✉️',
+    'footer.copy':'© 2026 Burabay Tech · Burabay & Shchuchinsk, Kazakhstan',
+  },
+  es: {
+    'nav.taxi':'Taxi','nav.ads':'Anuncios','nav.market':'Mercado','nav.videos':'Videos','nav.contact':'Contacto',
+    'hero.tag':'Burabay & Shchuchinsk',
+    'hero.title':'Tecnología<br>para <em>nuestra</em><br>región',
+    'hero.subtitle':'Taxi · Anuncios · Mercado · Videos',
+    'hero.cta.taxi':'🚖 Pedir taxi','hero.cta.ads':'📋 Publicar anuncio',
+    'ann.title':'¡Atención residentes y empresarios<br>del distrito de Burabay!',
+    'ann.realty':'<strong>Inmuebles y transporte</strong><br>Se aceptan anuncios de venta de bienes muebles e inmuebles en todo el distrito de Burabay.',
+    'ann.drivers':'<strong>Para conductores</strong><br>Se ha introducido una pestaña separada de "Interurbano" para transportistas privados y servicios de taxi.',
+    'ann.biz':'<strong>Para empresas</strong><br>Publicidad de empresas, incluyendo bienes, obras y servicios.',
+    'ann.free':'🎉 <strong>Gratis:</strong> Por el lanzamiento — todos los anuncios se publican gratis.',
+    'ann.security':'🛡 <strong>Seguridad:</strong> La plataforma contará con un sistema de detección de fraude con IA.',
+    'taxi.label':'Transfer','taxi.title':'Taxi Burabay — <em>Shchuchinsk</em>','taxi.desc':'Viajes cómodos por la ciudad e interurbanos. 24/7.',
+    'taxi.badge':'🛡 24 años de experiencia · hasta 4 pasajeros','taxi.route':'Crossover nuevo · Sanatorios, centros de descanso, traslados',
+    'taxi.price.label':'Astana ↔ Burabay','taxi.date.label':'Seleccionar fecha de viaje',
+    'taxi.f1':'Alquiler privado — de una dirección a otra','taxi.f2':'Crossover espacioso, maletero grande',
+    'taxi.f3':'Sanatorios, centros de descanso, etc.','taxi.f4':'Trabajamos las 24 horas los 7 días',
+    'taxi.order':'Pedir por WhatsApp','taxi.warning':'⚠️ Escribir con antelación por WhatsApp',
+    'taxi.tariff.title':'Tarifas de publicación','taxi.7days':'7 días','taxi.boost':'Subir al tope',
+    'taxi.promo':'🎉 &nbsp;<strong>Promo hasta el 10 de junio</strong> — publicación gratuita! ¿Eres conductor? <a href="#ads" style="color:var(--gold);margin-left:6px;">Publica tu ruta →</a>',
+    'ads.label':'Tablón local','ads.title':'<em>Anuncios</em> de Burabay','ads.desc':'Compra-venta, servicios, inmuebles y transporte para residentes del distrito.',
+    'ads.form.title':'📝 Publicar anuncio',
+    'ads.f.category':'Categoría','ads.f.city':'Ciudad','ads.f.headline':'Título','ads.f.headline.ph':'Descripción breve',
+    'ads.f.desc':'Descripción','ads.f.desc.ph':'Más detalles...','ads.f.price':'Precio (tenge)',
+    'ads.f.name':'Nombre','ads.f.name.ph':'Su nombre','ads.f.phone':'Teléfono / WhatsApp',
+    'ads.f.telegram':'Telegram (sin @)','ads.f.instagram':'Instagram (sin @)','ads.f.submit':'Enviar anuncio',
+    'filter.all':'Todos','filter.auto':'Autos','filter.realty':'Inmuebles','filter.services':'Servicios',
+    'market.label':'Finanzas','market.title':'Market <em>Watch</em>','market.desc':'Indicadores clave — mercado global y Kazajistán.','market.demo':'Datos de demo · No es asesoramiento financiero',
+    'videos.label':'Últimos videos','videos.title':'Ver <em>en YouTube</em>','videos.desc':'Reseñas, análisis y noticias del distrito del canal @Adilveis_life','videos.all':'▶ Todos los videos en YouTube',
+    'v1.tag':'Reseña','v1.title':'Reseña de tecnología en Burabay','v1.ago':'hace 2 semanas',
+    'v2.tag':'Análisis','v2.title':'Mercado de acciones — ¿qué pasa?','v2.ago':'hace 1 mes',
+    'v3.tag':'Noticias','v3.title':'Anuncios de la semana en Shchuchinsk','v3.ago':'hace 6 semanas',
+    'contact.label':'Contacto','contact.title':'Escríbenos <em>a nosotros</em>','contact.desc':'Pregunta, colaboración o simplemente hola — agradecemos cualquier mensaje.',
+    'contact.form.title':'Enviar mensaje','contact.f.name':'Su nombre','contact.f.name.ph':'Nombre',
+    'contact.f.message':'Mensaje','contact.f.message.ph':'Su mensaje...','contact.f.submit':'Enviar ✉️',
+    'footer.copy':'© 2026 Burabay Tech · Burabay & Shchuchinsk, Kazajistán',
+  },
+};
+
+function applyLang(lang) {
+  const t = I18N[lang];
+  if (!t) return;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = t[el.getAttribute('data-i18n')];
+    if (v !== undefined) el.textContent = v;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const v = t[el.getAttribute('data-i18n-html')];
+    if (v !== undefined) el.innerHTML = v;
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const v = t[el.getAttribute('data-i18n-ph')];
+    if (v !== undefined) el.placeholder = v;
+  });
+}
+
 // ─── Ornament bands ───
 (function() {
   const G = '#c9a84c', BG = '#0b1322', H = 32, W = 48, cy = 16;
@@ -1419,7 +1556,7 @@ function switchTab(btn, id) {
 }
 
 // ─── Language switcher ───
-document.querySelectorAll('.nav-langs button').forEach(b => {
+document.querySelectorAll('.nav-langs button[data-lang]').forEach(b => {
   b.addEventListener('click', () => {
     document.querySelectorAll('.nav-langs button').forEach(x => {
       x.classList.remove('active');
@@ -1427,6 +1564,7 @@ document.querySelectorAll('.nav-langs button').forEach(b => {
     });
     b.classList.add('active');
     b.setAttribute('aria-pressed', 'true');
+    applyLang(b.dataset.lang);
   });
 });
 
@@ -1498,7 +1636,9 @@ document.getElementById('adForm').addEventListener('submit', async function(e) {
     status.style.display = 'block';
   } finally {
     btn.disabled = false;
-    btn.textContent = 'Отправить объявление';
+    btn.textContent = document.querySelector('#adSubmitBtn').getAttribute('data-i18n')
+      ? (I18N[document.documentElement.lang || 'ru']['ads.f.submit'] || 'Отправить объявление')
+      : 'Отправить объявление';
   }
 });
 
@@ -1539,7 +1679,8 @@ document.getElementById('contactForm').addEventListener('submit', async function
     status.style.display = 'block';
   } finally {
     btn.disabled = false;
-    btn.textContent = 'Отправить ✉️';
+    const lang = document.documentElement.lang || 'ru';
+    btn.textContent = I18N[lang]['contact.f.submit'] || 'Отправить ✉️';
   }
 });
 
