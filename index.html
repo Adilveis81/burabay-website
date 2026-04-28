@@ -706,6 +706,48 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 .mkt-bar.dn > span { background: linear-gradient(90deg, oklch(0.55 0.18 25), oklch(0.7 0.18 35)); }
 .mkt-bar.up > span { background: linear-gradient(90deg, oklch(0.55 0.16 150), oklch(0.72 0.16 145)); }
 
+.market-title-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.market-title-row .section-title { margin-bottom: 0; }
+
+.market-refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--gold);
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  border-radius: 2px;
+}
+.market-refresh-btn:hover { background: oklch(0.22 0.04 250); border-color: var(--gold); }
+.market-refresh-btn:disabled { opacity: 0.5; cursor: default; }
+.refresh-icon { font-size: 14px; display: inline-block; transition: transform 0.05s; }
+.market-refresh-btn.spinning .refresh-icon { animation: spin360 0.65s linear; }
+@keyframes spin360 { to { transform: rotate(360deg); } }
+
+.market-item { cursor: pointer; transition: background 0.15s; }
+.market-item:hover { background: oklch(0.19 0.03 250); }
+.market-item:active { background: oklch(0.22 0.04 250); }
+
+@keyframes valFlash {
+  0%   { color: oklch(0.85 0.16 80); }
+  100% { color: var(--cream); }
+}
+.mkt-val.flash { animation: valFlash 0.55s ease-out forwards; }
+
 .market-footer {
   padding: 10px 20px;
   font-size: 11px;
@@ -1190,7 +1232,13 @@ footer {
 <div class="fw">
 <section id="market">
   <div class="section-label" data-i18n="market.label">Финансы</div>
-  <h2 class="section-title" data-i18n-html="market.title">Market <em>Watch</em></h2>
+  <div class="market-title-row">
+    <h2 class="section-title" data-i18n-html="market.title">Market <em>Watch</em></h2>
+    <button id="marketRefreshBtn" class="market-refresh-btn" onclick="refreshMarket()" aria-label="Обновить данные">
+      <span class="refresh-icon">↻</span>
+      <span data-i18n="market.refresh">Обновить</span>
+    </button>
+  </div>
   <p class="section-desc" data-i18n="market.desc">Ключевые индикаторы — глобальный рынок и Казахстан.</p>
 
   <div class="market-compact">
@@ -1199,28 +1247,28 @@ footer {
       <button class="market-tab" role="tab" aria-selected="false" aria-controls="tab-kz" onclick="switchTab(this,'kz')">🇰🇿 Kazakhstan</button>
     </div>
     <div id="tab-global" class="market-grid" role="tabpanel">
-      <div class="market-item"><div class="mkt-name">AMD</div><div class="mkt-val">$162.40</div><div class="mkt-chg up">▲ +2.14%</div><div class="mkt-bar up"><span style="width:72%"></span></div></div>
-      <div class="market-item"><div class="mkt-name">Intel</div><div class="mkt-val">$23.85</div><div class="mkt-chg dn">▼ −1.05%</div><div class="mkt-bar dn"><span style="width:38%"></span></div></div>
-      <div class="market-item"><div class="mkt-name">NVIDIA</div><div class="mkt-val">$126.30</div><div class="mkt-chg up">▲ +3.42%</div><div class="mkt-bar up"><span style="width:88%"></span></div></div>
-      <div class="market-item"><div class="mkt-name">Apple</div><div class="mkt-val">$229.10</div><div class="mkt-chg up">▲ +0.62%</div><div class="mkt-bar up"><span style="width:64%"></span></div></div>
-      <div class="market-item"><div class="mkt-name">Microsoft</div><div class="mkt-val">$418.50</div><div class="mkt-chg dn">▼ −0.34%</div><div class="mkt-bar dn"><span style="width:46%"></span></div></div>
-      <div class="market-item"><div class="mkt-name">Tesla</div><div class="mkt-val">$248.70</div><div class="mkt-chg up">▲ +1.78%</div><div class="mkt-bar up"><span style="width:68%"></span></div></div>
-      <div class="market-item"><div class="mkt-name">Google</div><div class="mkt-val">$165.20</div><div class="mkt-chg up">▲ +0.91%</div><div class="mkt-bar up"><span style="width:58%"></span></div></div>
-      <div class="market-item"><div class="mkt-name">Meta</div><div class="mkt-val">$582.40</div><div class="mkt-chg dn">▼ −0.78%</div><div class="mkt-bar dn"><span style="width:42%"></span></div></div>
+      <div class="market-item" data-symbol="AMD" data-tab="global" onclick="refreshItem(this)"><div class="mkt-name">AMD</div><div class="mkt-val">$162.40</div><div class="mkt-chg up">▲ +2.14%</div><div class="mkt-bar up"><span style="width:72%"></span></div></div>
+      <div class="market-item" data-symbol="Intel" data-tab="global" onclick="refreshItem(this)"><div class="mkt-name">Intel</div><div class="mkt-val">$23.85</div><div class="mkt-chg dn">▼ −1.05%</div><div class="mkt-bar dn"><span style="width:38%"></span></div></div>
+      <div class="market-item" data-symbol="NVIDIA" data-tab="global" onclick="refreshItem(this)"><div class="mkt-name">NVIDIA</div><div class="mkt-val">$126.30</div><div class="mkt-chg up">▲ +3.42%</div><div class="mkt-bar up"><span style="width:88%"></span></div></div>
+      <div class="market-item" data-symbol="Apple" data-tab="global" onclick="refreshItem(this)"><div class="mkt-name">Apple</div><div class="mkt-val">$229.10</div><div class="mkt-chg up">▲ +0.62%</div><div class="mkt-bar up"><span style="width:64%"></span></div></div>
+      <div class="market-item" data-symbol="Microsoft" data-tab="global" onclick="refreshItem(this)"><div class="mkt-name">Microsoft</div><div class="mkt-val">$418.50</div><div class="mkt-chg dn">▼ −0.34%</div><div class="mkt-bar dn"><span style="width:46%"></span></div></div>
+      <div class="market-item" data-symbol="Tesla" data-tab="global" onclick="refreshItem(this)"><div class="mkt-name">Tesla</div><div class="mkt-val">$248.70</div><div class="mkt-chg up">▲ +1.78%</div><div class="mkt-bar up"><span style="width:68%"></span></div></div>
+      <div class="market-item" data-symbol="Google" data-tab="global" onclick="refreshItem(this)"><div class="mkt-name">Google</div><div class="mkt-val">$165.20</div><div class="mkt-chg up">▲ +0.91%</div><div class="mkt-bar up"><span style="width:58%"></span></div></div>
+      <div class="market-item" data-symbol="Meta" data-tab="global" onclick="refreshItem(this)"><div class="mkt-name">Meta</div><div class="mkt-val">$582.40</div><div class="mkt-chg dn">▼ −0.78%</div><div class="mkt-bar dn"><span style="width:42%"></span></div></div>
     </div>
     <div id="tab-kz" class="market-grid" style="display:none" role="tabpanel">
-      <div class="market-item"><div class="mkt-name">KASE</div><div class="mkt-val">4 812</div><div class="mkt-chg up">▲ +0.22%</div><div class="mkt-bar up"><span style="width:55%"></span></div></div>
-      <div class="market-item"><div class="mkt-name">Kazatomprom</div><div class="mkt-val">₸ 48 200</div><div class="mkt-chg up">▲ +1.45%</div><div class="mkt-bar up"><span style="width:67%"></span></div></div>
-      <div class="market-item"><div class="mkt-name">KazMunayGas</div><div class="mkt-val">₸ 13 980</div><div class="mkt-chg dn">▼ −0.62%</div><div class="mkt-bar dn"><span style="width:44%"></span></div></div>
-      <div class="market-item"><div class="mkt-name">Halyk Bank</div><div class="mkt-val">₸ 198.40</div><div class="mkt-chg up">▲ +0.84%</div><div class="mkt-bar up"><span style="width:60%"></span></div></div>
-      <div class="market-item"><div class="mkt-name">Kaspi.kz</div><div class="mkt-val">$118.20</div><div class="mkt-chg up">▲ +1.92%</div><div class="mkt-bar up"><span style="width:74%"></span></div></div>
-      <div class="market-item"><div class="mkt-name">USD/KZT</div><div class="mkt-val">453.4</div><div class="mkt-chg dn">▼ −0.30%</div><div class="mkt-bar dn"><span style="width:40%"></span></div></div>
-      <div class="market-item"><div class="mkt-name">EUR/KZT</div><div class="mkt-val">491.2</div><div class="mkt-chg up">▲ +0.10%</div><div class="mkt-bar up"><span style="width:52%"></span></div></div>
-      <div class="market-item"><div class="mkt-name">Brent</div><div class="mkt-val">$84.2</div><div class="mkt-chg dn">▼ −0.55%</div><div class="mkt-bar dn"><span style="width:46%"></span></div></div>
+      <div class="market-item" data-symbol="KASE" data-tab="kz" onclick="refreshItem(this)"><div class="mkt-name">KASE</div><div class="mkt-val">4 812</div><div class="mkt-chg up">▲ +0.22%</div><div class="mkt-bar up"><span style="width:55%"></span></div></div>
+      <div class="market-item" data-symbol="Kazatomprom" data-tab="kz" onclick="refreshItem(this)"><div class="mkt-name">Kazatomprom</div><div class="mkt-val">₸ 48 200</div><div class="mkt-chg up">▲ +1.45%</div><div class="mkt-bar up"><span style="width:67%"></span></div></div>
+      <div class="market-item" data-symbol="KazMunayGas" data-tab="kz" onclick="refreshItem(this)"><div class="mkt-name">KazMunayGas</div><div class="mkt-val">₸ 13 980</div><div class="mkt-chg dn">▼ −0.62%</div><div class="mkt-bar dn"><span style="width:44%"></span></div></div>
+      <div class="market-item" data-symbol="HalykBank" data-tab="kz" onclick="refreshItem(this)"><div class="mkt-name">Halyk Bank</div><div class="mkt-val">₸ 198.40</div><div class="mkt-chg up">▲ +0.84%</div><div class="mkt-bar up"><span style="width:60%"></span></div></div>
+      <div class="market-item" data-symbol="Kaspi" data-tab="kz" onclick="refreshItem(this)"><div class="mkt-name">Kaspi.kz</div><div class="mkt-val">$118.20</div><div class="mkt-chg up">▲ +1.92%</div><div class="mkt-bar up"><span style="width:74%"></span></div></div>
+      <div class="market-item" data-symbol="USDKZT" data-tab="kz" onclick="refreshItem(this)"><div class="mkt-name">USD/KZT</div><div class="mkt-val">453.4</div><div class="mkt-chg dn">▼ −0.30%</div><div class="mkt-bar dn"><span style="width:40%"></span></div></div>
+      <div class="market-item" data-symbol="EURKZT" data-tab="kz" onclick="refreshItem(this)"><div class="mkt-name">EUR/KZT</div><div class="mkt-val">491.2</div><div class="mkt-chg up">▲ +0.10%</div><div class="mkt-bar up"><span style="width:52%"></span></div></div>
+      <div class="market-item" data-symbol="Brent" data-tab="kz" onclick="refreshItem(this)"><div class="mkt-name">Brent</div><div class="mkt-val">$84.2</div><div class="mkt-chg dn">▼ −0.55%</div><div class="mkt-bar dn"><span style="width:46%"></span></div></div>
     </div>
     <div class="market-footer">
       <span data-i18n="market.demo">Демо-данные · Не является фин. советом</span>
-      <span>🕐 Апр 2026 · Актуально</span>
+      <span id="marketTimestamp">🕐 Апр 2026 · Актуально</span>
     </div>
   </div>
 </section>
@@ -1368,7 +1416,7 @@ const I18N = {
     'ads.f.name':'Имя','ads.f.name.ph':'Ваше имя','ads.f.phone':'Телефон / WhatsApp',
     'ads.f.telegram':'Telegram (без @)','ads.f.instagram':'Instagram (без @)','ads.f.submit':'Отправить объявление',
     'filter.all':'Все','filter.auto':'Авто','filter.realty':'Недвижимость','filter.services':'Услуги',
-    'market.label':'Финансы','market.title':'Market <em>Watch</em>','market.desc':'Ключевые индикаторы — глобальный рынок и Казахстан.','market.demo':'Демо-данные · Не является фин. советом',
+    'market.label':'Финансы','market.title':'Market <em>Watch</em>','market.desc':'Ключевые индикаторы — глобальный рынок и Казахстан.','market.demo':'Демо-данные · Не является фин. советом','market.refresh':'Обновить',
     'videos.label':'Последние видео','videos.title':'Смотреть <em>на YouTube</em>','videos.desc':'Обзоры, аналитика и новости района от канала @Adilveis_life','videos.all':'▶ Все видео на YouTube',
     'v1.tag':'Обзор','v1.title':'Обзор техники в Бурабае','v1.ago':'2 недели назад',
     'v2.tag':'Аналитика','v2.title':'Рынок акций — что происходит?','v2.ago':'1 месяц назад',
@@ -1405,7 +1453,7 @@ const I18N = {
     'ads.f.name':'Аты','ads.f.name.ph':'Атыңыз','ads.f.phone':'Телефон / WhatsApp',
     'ads.f.telegram':'Telegram (@-сыз)','ads.f.instagram':'Instagram (@-сыз)','ads.f.submit':'Хабарландыруды жіберу',
     'filter.all':'Барлығы','filter.auto':'Авто','filter.realty':'Жылжымайтын мүлік','filter.services':'Қызметтер',
-    'market.label':'Қаржы','market.title':'Market <em>Watch</em>','market.desc':'Негізгі көрсеткіштер — жаһандық нарық және Қазақстан.','market.demo':'Демо деректер · Қаржылық кеңес емес',
+    'market.label':'Қаржы','market.title':'Market <em>Watch</em>','market.desc':'Негізгі көрсеткіштер — жаһандық нарық және Қазақстан.','market.demo':'Демо деректер · Қаржылық кеңес емес','market.refresh':'Жаңарту',
     'videos.label':'Соңғы бейнелер','videos.title':'YouTube-та <em>қараңыз</em>','videos.desc':'@Adilveis_life каналынан аудан шолулары, талдау және жаңалықтар','videos.all':'▶ YouTube-тағы барлық бейнелер',
     'v1.tag':'Шолу','v1.title':'Бурабайдағы техника шолуы','v1.ago':'2 апта бұрын',
     'v2.tag':'Талдау','v2.title':'Акция нарығы — не болып жатыр?','v2.ago':'1 ай бұрын',
@@ -1442,7 +1490,7 @@ const I18N = {
     'ads.f.name':'Name','ads.f.name.ph':'Your name','ads.f.phone':'Phone / WhatsApp',
     'ads.f.telegram':'Telegram (no @)','ads.f.instagram':'Instagram (no @)','ads.f.submit':'Submit ad',
     'filter.all':'All','filter.auto':'Cars','filter.realty':'Real estate','filter.services':'Services',
-    'market.label':'Finance','market.title':'Market <em>Watch</em>','market.desc':'Key indicators — global market and Kazakhstan.','market.demo':'Demo data · Not financial advice',
+    'market.label':'Finance','market.title':'Market <em>Watch</em>','market.desc':'Key indicators — global market and Kazakhstan.','market.demo':'Demo data · Not financial advice','market.refresh':'Refresh',
     'videos.label':'Latest videos','videos.title':'Watch <em>on YouTube</em>','videos.desc':'Reviews, analysis and district news from @Adilveis_life','videos.all':'▶ All videos on YouTube',
     'v1.tag':'Review','v1.title':'Tech review in Burabay','v1.ago':'2 weeks ago',
     'v2.tag':'Analysis','v2.title':'Stock market — what\'s happening?','v2.ago':'1 month ago',
@@ -1479,7 +1527,7 @@ const I18N = {
     'ads.f.name':'Nombre','ads.f.name.ph':'Su nombre','ads.f.phone':'Teléfono / WhatsApp',
     'ads.f.telegram':'Telegram (sin @)','ads.f.instagram':'Instagram (sin @)','ads.f.submit':'Enviar anuncio',
     'filter.all':'Todos','filter.auto':'Autos','filter.realty':'Inmuebles','filter.services':'Servicios',
-    'market.label':'Finanzas','market.title':'Market <em>Watch</em>','market.desc':'Indicadores clave — mercado global y Kazajistán.','market.demo':'Datos de demo · No es asesoramiento financiero',
+    'market.label':'Finanzas','market.title':'Market <em>Watch</em>','market.desc':'Indicadores clave — mercado global y Kazajistán.','market.demo':'Datos de demo · No es asesoramiento financiero','market.refresh':'Actualizar',
     'videos.label':'Últimos videos','videos.title':'Ver <em>en YouTube</em>','videos.desc':'Reseñas, análisis y noticias del distrito del canal @Adilveis_life','videos.all':'▶ Todos los videos en YouTube',
     'v1.tag':'Reseña','v1.title':'Reseña de tecnología en Burabay','v1.ago':'hace 2 semanas',
     'v2.tag':'Análisis','v2.title':'Mercado de acciones — ¿qué pasa?','v2.ago':'hace 1 mes',
@@ -1544,7 +1592,9 @@ function filterAds(btn, cat) {
 }
 
 // ─── Market tabs ───
+let mktActiveTab = 'global';
 function switchTab(btn, id) {
+  mktActiveTab = id;
   document.querySelectorAll('.market-tab').forEach(t => {
     t.classList.remove('active');
     t.setAttribute('aria-selected', 'false');
@@ -1553,6 +1603,94 @@ function switchTab(btn, id) {
   btn.setAttribute('aria-selected', 'true');
   document.getElementById('tab-global').style.display = id === 'global' ? '' : 'none';
   document.getElementById('tab-kz').style.display = id === 'kz' ? '' : 'none';
+}
+
+// ─── Market data & refresh ───
+const mktBase = {
+  AMD:         { val: 162.40, prefix: '$',  fmt: 2 },
+  Intel:       { val: 23.85,  prefix: '$',  fmt: 2 },
+  NVIDIA:      { val: 126.30, prefix: '$',  fmt: 2 },
+  Apple:       { val: 229.10, prefix: '$',  fmt: 2 },
+  Microsoft:   { val: 418.50, prefix: '$',  fmt: 2 },
+  Tesla:       { val: 248.70, prefix: '$',  fmt: 2 },
+  Google:      { val: 165.20, prefix: '$',  fmt: 2 },
+  Meta:        { val: 582.40, prefix: '$',  fmt: 2 },
+  KASE:        { val: 4812,   prefix: '',   fmt: 0 },
+  Kazatomprom: { val: 48200,  prefix: '₸ ', fmt: 0 },
+  KazMunayGas: { val: 13980,  prefix: '₸ ', fmt: 0 },
+  HalykBank:   { val: 198.40, prefix: '₸ ', fmt: 2 },
+  Kaspi:       { val: 118.20, prefix: '$',  fmt: 2 },
+  USDKZT:      { val: 453.4,  prefix: '',   fmt: 1 },
+  EURKZT:      { val: 491.2,  prefix: '',   fmt: 1 },
+  Brent:       { val: 84.2,   prefix: '$',  fmt: 1 },
+};
+// Live state — values drift from base
+const mktLive = {};
+for (const k in mktBase) mktLive[k] = { ...mktBase[k] };
+
+function mktFmtVal(item) {
+  const n = item.val;
+  if (item.fmt === 0) return item.prefix + Math.round(n).toLocaleString('ru-RU');
+  if (item.fmt === 1) return item.prefix + n.toFixed(1);
+  return item.prefix + n.toFixed(2);
+}
+
+function mktSimulate(sym) {
+  const item = mktLive[sym];
+  if (!item) return;
+  const pct = (Math.random() * 3.5 - 1.2) / 100; // −1.2% … +2.3%
+  const prev = item.val;
+  item.val = Math.max(item.val * 0.5, item.val * (1 + pct));
+  item.chg = (item.val - prev) / prev * 100;
+}
+
+function mktRenderEl(el) {
+  const sym = el.dataset.symbol;
+  mktSimulate(sym);
+  const item = mktLive[sym];
+  if (!item) return;
+  const up = item.chg >= 0;
+  const valEl = el.querySelector('.mkt-val');
+  const chgEl = el.querySelector('.mkt-chg');
+  const barEl = el.querySelector('.mkt-bar');
+  const barSpan = el.querySelector('.mkt-bar > span');
+  valEl.textContent = mktFmtVal(item);
+  chgEl.className = 'mkt-chg ' + (up ? 'up' : 'dn');
+  chgEl.textContent = (up ? '▲ +' : '▼ ') + Math.abs(item.chg).toFixed(2) + '%';
+  barEl.className = 'mkt-bar ' + (up ? 'up' : 'dn');
+  barSpan.style.width = Math.min(95, Math.max(18, 50 + item.chg * 9)) + '%';
+  valEl.classList.remove('flash');
+  void valEl.offsetWidth;
+  valEl.classList.add('flash');
+}
+
+function refreshItem(el) {
+  mktRenderEl(el);
+  mktUpdateTime();
+}
+
+function refreshMarket() {
+  const btn = document.getElementById('marketRefreshBtn');
+  btn.classList.add('spinning');
+  btn.disabled = true;
+  const items = document.querySelectorAll('#tab-' + mktActiveTab + ' .market-item');
+  items.forEach((el, i) => {
+    setTimeout(() => {
+      mktRenderEl(el);
+      if (i === items.length - 1) {
+        btn.classList.remove('spinning');
+        btn.disabled = false;
+        mktUpdateTime();
+      }
+    }, i * 70);
+  });
+}
+
+function mktUpdateTime() {
+  const ts = document.getElementById('marketTimestamp');
+  if (!ts) return;
+  const now = new Date();
+  ts.textContent = '🕐 ' + now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) + ' · Обновлено';
 }
 
 // ─── Language switcher ───
