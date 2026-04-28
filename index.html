@@ -1146,6 +1146,10 @@ footer {
           <label class="form-label" for="adTelegram">Telegram (без @)</label>
           <input type="text" id="adTelegram" name="telegram" class="form-control" placeholder="username">
         </div>
+        <div class="form-group">
+          <label class="form-label" for="adInstagram">Instagram (без @)</label>
+          <input type="text" id="adInstagram" name="instagram" class="form-control" placeholder="username">
+        </div>
         <button type="submit" id="adSubmitBtn" class="btn-primary" style="width:100%; margin-top:8px;">Отправить объявление</button>
         <div class="form-status" id="adStatus"></div>
       </form>
@@ -1465,6 +1469,7 @@ document.getElementById('adForm').addEventListener('submit', async function(e) {
     'Имя: ' + data.get('name'),
     'Телефон: ' + data.get('phone'),
     'Telegram: ' + (data.get('telegram') || 'не указан'),
+    'Instagram: ' + (data.get('instagram') || 'не указан'),
   ].join('\n');
 
   btn.disabled = true;
