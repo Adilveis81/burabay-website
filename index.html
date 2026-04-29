@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Burabay Tech — такси, объявления и новости для жителей Бурабая и Щучинска">
-<title>Burabay Tech — Бурабай &amp; Щучинск</title>
+<meta name="description" content="Burabay Tech — такси, объявления и новости для жителей Бурабая, Щучинска, Катарколя и всей Акмолинской области">
+<title>Burabay Tech — Бурабай, Щучинск &amp; Акмолинская область</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -647,6 +647,70 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 .ad-city { font-size: 11px; color: var(--muted); }
 
 
+/* ─── CITIES (Akmola Region) ─── */
+#cities { padding-top: 0; }
+
+.cities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.city-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 22px 14px;
+  background: var(--navy3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+  text-align: center;
+}
+.city-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold2);
+  background: oklch(0.30 0.05 248);
+}
+
+.city-card .city-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+.city-card .city-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--cream);
+}
+.city-card .city-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.city-card-featured {
+  background: linear-gradient(180deg, oklch(0.25 0.07 248), var(--navy3));
+  border-color: var(--gold2);
+}
+.city-card-featured .city-tag {
+  color: var(--gold);
+}
+.city-card-major {
+  border-color: var(--gold2);
+}
+.city-card-major .city-tag {
+  color: var(--gold3);
+}
+
 /* ─── VIDEOS ─── */
 #videos { padding-top: 0; }
 
@@ -862,6 +926,10 @@ footer {
   .section-desc { font-size: 14px; }
   section { padding: 48px 18px; }
   .ads-grid { grid-template-columns: 1fr; }
+  .cities-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .city-card { padding: 18px 10px; }
+  .city-card .city-icon { font-size: 24px; }
+  .city-card .city-name { font-size: 17px; }
   .taxi-body { padding: 22px; }
   .ads-form-panel { padding: 22px; }
   .hero-tag { font-size: 11px; }
@@ -927,10 +995,10 @@ footer {
     </div>
 
     <div class="announcement-card">
-      <div class="ann-title" data-i18n-html="ann.title">Вниманию жителей и предпринимателей<br>Бурабайского района!</div>
+      <div class="ann-title" data-i18n-html="ann.title">Вниманию жителей и предпринимателей<br>Акмолинской области!</div>
       <div class="ann-section">
         <span class="ann-icon" aria-hidden="true">🏘</span>
-        <div data-i18n-html="ann.realty"><strong>Недвижимость и транспорт</strong><br>Принимаются объявления о продаже движимого и недвижимого имущества по всему Бурабайскому району.</div>
+        <div data-i18n-html="ann.realty"><strong>Недвижимость и транспорт</strong><br>Принимаются объявления о продаже движимого и недвижимого имущества по всей Акмолинской области.</div>
       </div>
       <div class="ann-section">
         <span class="ann-icon" aria-hidden="true">🚖</span>
@@ -1024,8 +1092,34 @@ footer {
         <div class="form-group">
           <label class="form-label" for="adCity" data-i18n="ads.f.city">Город</label>
           <select id="adCity" name="city" class="form-control">
-            <option>Щучинск</option>
-            <option>Бурабай</option>
+            <optgroup label="Курортная зона">
+              <option>Бурабай</option>
+              <option>Щучинск</option>
+              <option>Катарколь</option>
+            </optgroup>
+            <optgroup label="Областной центр и крупные города">
+              <option>Кокшетау</option>
+              <option>Степногорск</option>
+              <option>Атбасар</option>
+              <option>Ерейментау</option>
+            </optgroup>
+            <optgroup label="Города и районы">
+              <option>Акколь</option>
+              <option>Аршалы</option>
+              <option>Балкашино</option>
+              <option>Державинск</option>
+              <option>Егиндыколь</option>
+              <option>Есиль</option>
+              <option>Зеренда</option>
+              <option>Коргалжын</option>
+              <option>Макинск</option>
+              <option>Степняк</option>
+              <option>Шортанды</option>
+            </optgroup>
+            <optgroup label="Соседние регионы">
+              <option>Астана</option>
+              <option>Другой город</option>
+            </optgroup>
           </select>
         </div>
         <div class="form-group">
@@ -1125,6 +1219,99 @@ footer {
     </div>
   </div>
 </section>
+
+<div class="kz-divider-band" aria-hidden="true"></div>
+
+<!-- CITIES — Акмолинская область -->
+<div class="fw">
+<section id="cities">
+  <div class="section-label" data-i18n="cities.label">География</div>
+  <h2 class="section-title" data-i18n-html="cities.title">Города <em>Акмолинской области</em></h2>
+  <p class="section-desc" data-i18n="cities.desc">Объявления и услуги для жителей всех городов и районов области. Нажмите на свой город, чтобы найти объявления рядом.</p>
+
+  <div class="cities-grid">
+    <!-- Курортная зона — выделяем -->
+    <a href="#ads" class="city-card city-card-featured" data-city="Бурабай">
+      <div class="city-icon">⛰️</div>
+      <div class="city-name">Бурабай</div>
+      <div class="city-tag" data-i18n="cities.resort">Курорт</div>
+    </a>
+    <a href="#ads" class="city-card city-card-featured" data-city="Щучинск">
+      <div class="city-icon">🏖️</div>
+      <div class="city-name">Щучинск</div>
+      <div class="city-tag" data-i18n="cities.resort">Курорт</div>
+    </a>
+    <a href="#ads" class="city-card city-card-featured" data-city="Катарколь">
+      <div class="city-icon">🌊</div>
+      <div class="city-name">Катарколь</div>
+      <div class="city-tag" data-i18n="cities.resort">Санатории</div>
+    </a>
+    <!-- Областной центр -->
+    <a href="#ads" class="city-card city-card-major" data-city="Кокшетау">
+      <div class="city-icon">🏛️</div>
+      <div class="city-name">Кокшетау</div>
+      <div class="city-tag" data-i18n="cities.capital">Областной центр</div>
+    </a>
+    <!-- Крупные города -->
+    <a href="#ads" class="city-card" data-city="Степногорск">
+      <div class="city-icon">🏭</div>
+      <div class="city-name">Степногорск</div>
+    </a>
+    <a href="#ads" class="city-card" data-city="Атбасар">
+      <div class="city-icon">🚂</div>
+      <div class="city-name">Атбасар</div>
+    </a>
+    <a href="#ads" class="city-card" data-city="Ерейментау">
+      <div class="city-icon">🦅</div>
+      <div class="city-name">Ерейментау</div>
+    </a>
+    <a href="#ads" class="city-card" data-city="Зеренда">
+      <div class="city-icon">🌳</div>
+      <div class="city-name">Зеренда</div>
+    </a>
+    <a href="#ads" class="city-card" data-city="Макинск">
+      <div class="city-icon">🌾</div>
+      <div class="city-name">Макинск</div>
+    </a>
+    <a href="#ads" class="city-card" data-city="Акколь">
+      <div class="city-icon">🏞️</div>
+      <div class="city-name">Акколь</div>
+    </a>
+    <a href="#ads" class="city-card" data-city="Степняк">
+      <div class="city-icon">🪨</div>
+      <div class="city-name">Степняк</div>
+    </a>
+    <a href="#ads" class="city-card" data-city="Шортанды">
+      <div class="city-icon">🌽</div>
+      <div class="city-name">Шортанды</div>
+    </a>
+    <a href="#ads" class="city-card" data-city="Балкашино">
+      <div class="city-icon">🏘️</div>
+      <div class="city-name">Балкашино</div>
+    </a>
+    <a href="#ads" class="city-card" data-city="Есиль">
+      <div class="city-icon">⚓</div>
+      <div class="city-name">Есиль</div>
+    </a>
+    <a href="#ads" class="city-card" data-city="Аршалы">
+      <div class="city-icon">🛤️</div>
+      <div class="city-name">Аршалы</div>
+    </a>
+    <a href="#ads" class="city-card" data-city="Коргалжын">
+      <div class="city-icon">🦩</div>
+      <div class="city-name">Коргалжын</div>
+    </a>
+    <a href="#ads" class="city-card" data-city="Державинск">
+      <div class="city-icon">⛰️</div>
+      <div class="city-name">Державинск</div>
+    </a>
+    <a href="#ads" class="city-card" data-city="Егиндыколь">
+      <div class="city-icon">🌾</div>
+      <div class="city-name">Егиндыколь</div>
+    </a>
+  </div>
+</section>
+</div>
 
 <div class="kz-divider-band" aria-hidden="true"></div>
 
@@ -1270,6 +1457,7 @@ const I18N = {
     'ads.f.name':'Имя','ads.f.name.ph':'Ваше имя','ads.f.phone':'Телефон / WhatsApp',
     'ads.f.telegram':'Telegram (без @)','ads.f.instagram':'Instagram (без @)','ads.f.submit':'Отправить объявление',
     'filter.all':'Все','filter.auto':'Авто','filter.realty':'Недвижимость','filter.services':'Услуги',
+    'cities.label':'География','cities.title':'Города <em>Акмолинской области</em>','cities.desc':'Объявления и услуги для жителей всех городов и районов области. Нажмите на свой город, чтобы найти объявления рядом.','cities.resort':'Курорт','cities.capital':'Областной центр',
     'videos.label':'Последние видео','videos.title':'Смотреть <em>на YouTube</em>','videos.desc':'Обзоры, аналитика и новости района от канала @Adilveis_life','videos.all':'▶ Все видео на YouTube',
     'v1.tag':'Обзор','v1.title':'Обзор техники в Бурабае','v1.ago':'2 недели назад',
     'v2.tag':'Аналитика','v2.title':'Рынок акций — что происходит?','v2.ago':'1 месяц назад',
@@ -1306,6 +1494,7 @@ const I18N = {
     'ads.f.name':'Аты','ads.f.name.ph':'Атыңыз','ads.f.phone':'Телефон / WhatsApp',
     'ads.f.telegram':'Telegram (@-сыз)','ads.f.instagram':'Instagram (@-сыз)','ads.f.submit':'Хабарландыруды жіберу',
     'filter.all':'Барлығы','filter.auto':'Авто','filter.realty':'Жылжымайтын мүлік','filter.services':'Қызметтер',
+    'cities.label':'География','cities.title':'<em>Ақмола облысының</em> қалалары','cities.desc':'Облыстың барлық қалалары мен аудандарының тұрғындарына арналған хабарландырулар мен қызметтер. Жақын маңдағы хабарландыруларды табу үшін қалаңызды басыңыз.','cities.resort':'Курорт','cities.capital':'Облыс орталығы',
     'videos.label':'Соңғы бейнелер','videos.title':'YouTube-та <em>қараңыз</em>','videos.desc':'@Adilveis_life каналынан аудан шолулары, талдау және жаңалықтар','videos.all':'▶ YouTube-тағы барлық бейнелер',
     'v1.tag':'Шолу','v1.title':'Бурабайдағы техника шолуы','v1.ago':'2 апта бұрын',
     'v2.tag':'Талдау','v2.title':'Акция нарығы — не болып жатыр?','v2.ago':'1 ай бұрын',
@@ -1342,6 +1531,7 @@ const I18N = {
     'ads.f.name':'Name','ads.f.name.ph':'Your name','ads.f.phone':'Phone / WhatsApp',
     'ads.f.telegram':'Telegram (no @)','ads.f.instagram':'Instagram (no @)','ads.f.submit':'Submit ad',
     'filter.all':'All','filter.auto':'Cars','filter.realty':'Real estate','filter.services':'Services',
+    'cities.label':'Geography','cities.title':'Cities of <em>Akmola region</em>','cities.desc':'Listings and services for residents of every city and district in the region. Tap your city to find ads nearby.','cities.resort':'Resort','cities.capital':'Regional center',
     'videos.label':'Latest videos','videos.title':'Watch <em>on YouTube</em>','videos.desc':'Reviews, analysis and district news from @Adilveis_life','videos.all':'▶ All videos on YouTube',
     'v1.tag':'Review','v1.title':'Tech review in Burabay','v1.ago':'2 weeks ago',
     'v2.tag':'Analysis','v2.title':'Stock market — what\'s happening?','v2.ago':'1 month ago',
@@ -1378,6 +1568,7 @@ const I18N = {
     'ads.f.name':'Nombre','ads.f.name.ph':'Su nombre','ads.f.phone':'Teléfono / WhatsApp',
     'ads.f.telegram':'Telegram (sin @)','ads.f.instagram':'Instagram (sin @)','ads.f.submit':'Enviar anuncio',
     'filter.all':'Todos','filter.auto':'Autos','filter.realty':'Inmuebles','filter.services':'Servicios',
+    'cities.label':'Geografía','cities.title':'Ciudades de <em>la región de Akmola</em>','cities.desc':'Anuncios y servicios para los residentes de todas las ciudades y distritos de la región. Toque su ciudad para encontrar anuncios cercanos.','cities.resort':'Resort','cities.capital':'Centro regional',
     'videos.label':'Últimos videos','videos.title':'Ver <em>en YouTube</em>','videos.desc':'Reseñas, análisis y noticias del distrito del canal @Adilveis_life','videos.all':'▶ Todos los videos en YouTube',
     'v1.tag':'Reseña','v1.title':'Reseña de tecnología en Burabay','v1.ago':'hace 2 semanas',
     'v2.tag':'Análisis','v2.title':'Mercado de acciones — ¿qué pasa?','v2.ago':'hace 1 mes',
@@ -1422,6 +1613,24 @@ function filterAds(btn, cat) {
 
 document.querySelectorAll('.filter-chip').forEach(btn => {
   btn.addEventListener('click', () => filterAds(btn, btn.dataset.cat));
+});
+
+// ─── City cards: clicking a city pre-fills the city in the ad form ───
+document.querySelectorAll('.city-card[data-city]').forEach(card => {
+  card.addEventListener('click', (e) => {
+    const city = card.dataset.city;
+    const select = document.getElementById('adCity');
+    if (select) {
+      // Find option with matching text and select it
+      for (const opt of select.options) {
+        if (opt.value === city || opt.textContent === city) {
+          select.value = opt.value || opt.textContent;
+          break;
+        }
+      }
+    }
+    // Smooth scroll handled by href="#ads"; pre-fill happens via click before navigate
+  });
 });
 
 // ─── Language switcher ───
