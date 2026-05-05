@@ -1179,42 +1179,7 @@ footer {
         </button>
       </div>
       <div class="ads-grid" id="adsGrid">
-        <div class="ad-card" data-cat="taxi">
-          <div class="ad-cat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-1px;margin-right:5px" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>Такси / Трансфер</div>
-          <div class="ad-title">Трансфер Щучинск — Астана</div>
-          <div class="ad-desc">Комфортный седан, выезд ежедневно в 07:00 и 16:00</div>
-          <div class="ad-footer"><div class="ad-price">8 000 ₸</div><div class="ad-city">Щучинск</div></div>
-        </div>
-        <div class="ad-card" data-cat="auto">
-          <div class="ad-cat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-1px;margin-right:5px" aria-hidden="true"><path d="M19 17H5a2 2 0 0 1-2-2V9a2 2 0 0 1 .9-1.7l3-2A2 2 0 0 1 8 5h8a2 2 0 0 1 1.1.3l3 2A2 2 0 0 1 21 9v6a2 2 0 0 1-2 2Z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>Авто</div>
-          <div class="ad-title">Toyota Camry 2019, 2.5</div>
-          <div class="ad-desc">Идеальное состояние, один хозяин, пробег 68 000 км</div>
-          <div class="ad-footer"><div class="ad-price">9 800 000 ₸</div><div class="ad-city">Бурабай</div></div>
-        </div>
-        <div class="ad-card" data-cat="realty">
-          <div class="ad-cat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-1px;margin-right:5px" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Недвижимость</div>
-          <div class="ad-title">Дача у озера Бурабай</div>
-          <div class="ad-desc">6 соток, газ, вода, 3 комнаты, отличный вид на горы</div>
-          <div class="ad-footer"><div class="ad-price">18 000 000 ₸</div><div class="ad-city">Бурабай</div></div>
-        </div>
-        <div class="ad-card" data-cat="services">
-          <div class="ad-cat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-1px;margin-right:5px" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Услуги</div>
-          <div class="ad-title">Ремонт бытовой техники</div>
-          <div class="ad-desc">Холодильники, стиральные машины. Выезд на дом по городу</div>
-          <div class="ad-footer"><div class="ad-price">Договорная</div><div class="ad-city">Щучинск</div></div>
-        </div>
-        <div class="ad-card" data-cat="realty">
-          <div class="ad-cat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-1px;margin-right:5px" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Недвижимость</div>
-          <div class="ad-title">2-комн. квартира ул. Абая</div>
-          <div class="ad-desc">52 м², 4/9 эт., свежий ремонт, встроенная кухня</div>
-          <div class="ad-footer"><div class="ad-price">14 500 000 ₸</div><div class="ad-city">Щучинск</div></div>
-        </div>
-        <div class="ad-card" data-cat="taxi">
-          <div class="ad-cat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-1px;margin-right:5px" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>Такси / Трансфер</div>
-          <div class="ad-title">Минивэн Mercedes Vito</div>
-          <div class="ad-desc">До 7 пассажиров. Межгород, аэропорт, свадьбы, туры</div>
-          <div class="ad-footer"><div class="ad-price">6 000 ₸/чел</div><div class="ad-city">Бурабай</div></div>
-        </div>
+        <div id="adsLoading" style="color:var(--cream-dim,#9e9e7a);grid-column:1/-1;text-align:center;padding:40px 0;opacity:0.7">Загружаем объявления…</div>
       </div>
     </div>
   </div>
@@ -1603,6 +1568,58 @@ function applyLang(lang) {
 
 
 // ─── Filter ads ───
+// ─── Dynamic ads from Redis ───
+const _CAT_MAP = {
+  '🚕 Такси / Трансфер': 'taxi',
+  '🚗 Авто': 'auto',
+  '🏠 Недвижимость': 'realty',
+  '🔧 Услуги': 'services',
+  '💼 Работа': 'other',
+  '📱 Электроника': 'other',
+  '🛋️ Мебель и быт': 'other',
+  '🌿 Туризм': 'other',
+  '🎁 Отдам даром': 'other',
+};
+
+function _esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderAd(ad) {
+  const cat = _CAT_MAP[ad.category] || 'other';
+  const price = ad.price ? _esc(ad.price) + ' ₸' : 'Договорная';
+  return `<div class="ad-card" data-cat="${cat}">
+    <div class="ad-cat">${_esc(ad.category || 'Объявление')}</div>
+    <div class="ad-title">${_esc(ad.title || 'Объявление')}</div>
+    ${ad.description ? `<div class="ad-desc">${_esc(ad.description)}</div>` : ''}
+    <div class="ad-footer">
+      <div class="ad-price">${price}</div>
+      ${ad.city ? `<div class="ad-city">${_esc(ad.city)}</div>` : ''}
+    </div>
+  </div>`;
+}
+
+async function loadAds() {
+  const grid = document.getElementById('adsGrid');
+  try {
+    const res = await fetch('/api/getAds');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const ads = await res.json();
+    if (!Array.isArray(ads) || ads.length === 0) {
+      grid.innerHTML = '<div style="color:var(--cream-dim,#9e9e7a);grid-column:1/-1;text-align:center;padding:40px 0;opacity:0.7">Объявлений пока нет — будьте первым!</div>';
+      return;
+    }
+    grid.innerHTML = ads.map(renderAd).join('');
+    const activeChip = document.querySelector('.filter-chip.active');
+    if (activeChip) filterAds(activeChip, activeChip.dataset.cat);
+  } catch (e) {
+    console.error('loadAds:', e);
+    grid.innerHTML = '<div style="color:var(--cream-dim,#9e9e7a);grid-column:1/-1;text-align:center;padding:40px 0;opacity:0.7">Не удалось загрузить объявления</div>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadAds);
+
 function filterAds(btn, cat) {
   document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
   btn.classList.add('active');
@@ -1697,7 +1714,17 @@ document.getElementById('adForm').addEventListener('submit', async function(e) {
     const res = await fetch('/api/sendAd', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text }),
+      body: JSON.stringify({
+        text,
+        category: data.get('category'),
+        city: data.get('city'),
+        title: data.get('title'),
+        description: data.get('description'),
+        price: data.get('price'),
+        name: data.get('name'),
+        phone: data.get('phone'),
+        telegram: data.get('telegram'),
+      }),
     });
     const json = await res.json();
     if (res.ok && json.ok) {
@@ -1705,6 +1732,7 @@ document.getElementById('adForm').addEventListener('submit', async function(e) {
       status.className = 'form-status success';
       status.style.display = 'block';
       this.reset();
+      setTimeout(loadAds, 800);
     } else {
       throw new Error(json.error || 'Ошибка отправки');
     }

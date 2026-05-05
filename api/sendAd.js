@@ -45,13 +45,30 @@ async function moderateWithAI(text) {
   return JSON.parse(cleaned);
 }
 
+async function saveToRedis(ad) {
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return;
+
+  const res = await fetch(`${url}/pipeline`, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify([
+      ['LPUSH', 'ads:list', ad.id],
+      ['SET', `ads:${ad.id}`, JSON.stringify(ad)],
+      ['LTRIM', 'ads:list', '0', '499'],
+    ]),
+  });
+  if (!res.ok) console.error('Redis save error:', await res.text());
+}
+
 module.exports = async function handler(req, res) {
   setCors(req, res);
 
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { text } = req.body || {};
+  const { text, category, city, title, description, price, name, phone, telegram } = req.body || {};
 
   if (!text || typeof text !== 'string' || text.trim().length === 0) {
     return res.status(400).json({ error: 'Поле text обязательно' });
@@ -73,7 +90,6 @@ module.exports = async function handler(req, res) {
     moderation = await moderateWithAI(text.trim());
   } catch (err) {
     console.error('Moderation error:', err.message);
-    // Don't block submission if AI is unavailable — fail open
     moderation = { ok: true, reason: 'Модерация недоступна' };
   }
 
@@ -84,25 +100,38 @@ module.exports = async function handler(req, res) {
     });
   }
 
-  // Send to Telegram with AI-approved badge
+  // Send to Telegram
   const message = `✅ Проверено AI\n\n${escapeMd(text.trim())}`;
-
   try {
     const tgRes = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'MarkdownV2' }),
     });
-
     const data = await tgRes.json();
     if (!tgRes.ok || !data.ok) {
       console.error('Telegram API error:', data);
       return res.status(502).json({ error: 'Ошибка при отправке объявления. Попробуйте позже.' });
     }
-
-    return res.json({ ok: true });
   } catch (err) {
     console.error('sendAd error:', err.message);
     return res.status(500).json({ error: 'Внутренняя ошибка сервера. Попробуйте позже.' });
   }
+
+  // Save to Redis (non-blocking — don't fail the response if Redis is down)
+  const ad = {
+    id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    timestamp: new Date().toISOString(),
+    category: category || '',
+    city: city || '',
+    title: title || '',
+    description: description || '',
+    price: price || '',
+    name: name || '',
+    phone: phone || '',
+    telegram: telegram || '',
+  };
+  saveToRedis(ad).catch(err => console.error('Redis async error:', err.message));
+
+  return res.json({ ok: true });
 };
