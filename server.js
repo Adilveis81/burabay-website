@@ -92,7 +92,7 @@ app.post('/api/sendAd',
 // POST /api/contact - submit contact form
 app.post('/api/contact',
   body('name').isString().isLength({ min: 1, max: 100 }).trim().escape(),
-  body('email').isEmail().normalizeEmail(),
+  body('email').optional({ nullable: true, checkFalsy: true }).isEmail().normalizeEmail(),
   body('message').isString().isLength({ min: 1, max: 5000 }).trim().escape(),
   async (req, res) => {
     const errors = validationResult(req);
@@ -122,7 +122,7 @@ app.post('/api/contact',
 
       // Option 2: Log to console in development
       console.log(`[CONTACT FORM] ${new Date().toISOString()}`);
-      console.log(`From: ${name} <${email}>`);
+      console.log(`From: ${name}${email ? ` <${email}>` : ''}`);
       console.log(`Message: ${message}`);
       console.log('---');
 
