@@ -2106,10 +2106,8 @@ if ('serviceWorker' in navigator) {
   let audio = null;
   let playing = false;
 
-  function ensureAudio() {
-    if (audio) return audio;
-    audio = new Audio(STREAM);
-    audio.preload = 'none';
+  function initAudio() {
+    audio = new Audio();
     audio.volume = parseFloat(volumeSl.value);
     audio.addEventListener('playing', () => {
       playing = true;
@@ -2124,13 +2122,14 @@ if ('serviceWorker' in navigator) {
       waves.classList.remove('playing');
     });
     audio.addEventListener('waiting', () => { statusEl.textContent = 'Загрузка...'; });
-    audio.addEventListener('error',   () => {
+    audio.addEventListener('stalled', () => { statusEl.textContent = 'Загрузка...'; });
+    audio.addEventListener('error', () => {
       playing = false;
       playBtn.textContent = '▶';
       statusEl.textContent = 'Нет сигнала';
       waves.classList.remove('playing');
+      audio = null; // reset — next play creates fresh instance
     });
-    return audio;
   }
 
   toggleBtn.addEventListener('click', () => {
@@ -2144,12 +2143,19 @@ if ('serviceWorker' in navigator) {
   });
 
   playBtn.addEventListener('click', () => {
-    const a = ensureAudio();
     if (playing) {
-      a.pause();
-    } else {
-      a.play().catch(() => { statusEl.textContent = 'Нет сигнала'; });
+      audio.pause();
+      return;
     }
+    if (!audio) initAudio();
+    // Always reassign src + load() for live streams — resumes from current live position
+    audio.src = STREAM;
+    audio.load();
+    statusEl.textContent = 'Загрузка...';
+    audio.play().catch((err) => {
+      console.error('Radio play error:', err);
+      statusEl.textContent = 'Нет сигнала';
+    });
   });
 
   volumeSl.addEventListener('input', () => {
