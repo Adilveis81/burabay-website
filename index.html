@@ -916,6 +916,90 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   margin-bottom: 24px;
 }
 
+/* ─── AI CHAT ─── */
+.ai-chat {
+  background: var(--navy2);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gold2);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+}
+.ai-chat-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.ai-chat-messages {
+  flex: 1;
+  min-height: 260px;
+  max-height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.ai-chat-messages::-webkit-scrollbar { width: 4px; }
+.ai-chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.chat-msg {
+  max-width: 86%;
+  padding: 9px 13px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.chat-msg.user {
+  align-self: flex-end;
+  background: oklch(0.76 0.13 83 / 0.1);
+  border: 1px solid var(--gold2);
+  color: var(--cream);
+}
+.chat-msg.ai {
+  align-self: flex-start;
+  background: var(--navy3);
+  border: 1px solid var(--border);
+  color: var(--cream);
+}
+.chat-msg.typing { color: var(--muted); font-style: italic; }
+.ai-chat-row {
+  display: flex;
+  gap: 8px;
+}
+.ai-chat-input {
+  flex: 1;
+  background: var(--navy);
+  border: 1px solid var(--border);
+  color: var(--cream);
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  min-width: 0;
+}
+.ai-chat-input:focus { border-color: var(--gold2); }
+.ai-chat-input::placeholder { color: var(--muted); }
+.ai-chat-send {
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  padding: 10px 16px;
+  font-weight: 700;
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.ai-chat-send:hover { background: var(--gold3); }
+.ai-chat-send:disabled { opacity: 0.55; cursor: not-allowed; }
+
 /* ─── FOOTER ─── */
 footer {
   background: oklch(0.10 0.03 245);
@@ -1579,41 +1663,37 @@ footer {
   <p class="section-desc" data-i18n="contact.desc">Вопрос, сотрудничество, или просто привет — мы рады любому сообщению.</p>
 
   <div class="contact-grid">
-    <div class="contact-channels">
-      <a href="tel:+77080802588" class="channel-link">
-        <div class="channel-icon" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.82 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.72-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        </div>
-        <div><div class="channel-name">Телефон</div><div class="channel-handle">+7 (708) 080-25-88</div></div>
-      </a>
-      <a href="https://wa.me/77080802588" target="_blank" rel="noopener noreferrer" class="channel-link">
-        <div class="channel-icon" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-        </div>
-        <div><div class="channel-name">WhatsApp</div><div class="channel-handle">+7 (708) 080-25-88</div></div>
-      </a>
-      <a href="https://instagram.com/adilveis81" target="_blank" rel="noopener noreferrer" class="channel-link">
-        <div class="channel-icon" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-        </div>
-        <div><div class="channel-name">Instagram</div><div class="channel-handle">@adilveis81</div></div>
-      </a>
-    </div>
-
     <div class="contact-form-panel">
       <div class="contact-form-title" data-i18n="contact.form.title">Отправить сообщение</div>
       <form id="contactForm" novalidate>
         <div class="form-group">
           <label class="form-label" for="contactName" data-i18n="contact.f.name">Ваше имя</label>
-          <input type="text" id="contactName" name="name" class="form-control" placeholder="Имя" data-i18n-ph="contact.f.name.ph" required>
+          <input type="text" id="contactName" name="name" class="form-control" placeholder="Имя" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="contactWhatsapp">WhatsApp *</label>
+          <input type="tel" id="contactWhatsapp" name="whatsapp" class="form-control" placeholder="+7 (___) ___-__-__" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="contactTelegram">Telegram</label>
+          <input type="text" id="contactTelegram" name="telegram" class="form-control" placeholder="@username">
         </div>
         <div class="form-group">
           <label class="form-label" for="contactMessage" data-i18n="contact.f.message">Сообщение</label>
-          <textarea id="contactMessage" name="message" class="form-control" style="min-height:100px;" placeholder="Ваше сообщение..." data-i18n-ph="contact.f.message.ph" required></textarea>
+          <textarea id="contactMessage" name="message" class="form-control" style="min-height:100px;" placeholder="Ваше сообщение..." required></textarea>
         </div>
         <button type="submit" id="contactSubmitBtn" class="btn-primary" style="width:100%;" data-i18n="contact.f.submit">Отправить ✉️</button>
         <div class="form-status" id="contactStatus"></div>
       </form>
+    </div>
+
+    <div class="ai-chat">
+      <div class="ai-chat-title">💬 AI-помощник</div>
+      <div class="ai-chat-messages" id="chatMessages"></div>
+      <div class="ai-chat-row">
+        <input type="text" class="ai-chat-input" id="chatInput" placeholder="Задайте вопрос..." maxlength="500">
+        <button class="ai-chat-send" id="chatSendBtn">Отправить</button>
+      </div>
     </div>
   </div>
 </section>
@@ -2027,6 +2107,8 @@ document.getElementById('contactForm').addEventListener('submit', async function
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: data.get('name'),
+        whatsapp: data.get('whatsapp'),
+        telegram: data.get('telegram'),
         message: data.get('message'),
       }),
     });
@@ -2049,6 +2131,52 @@ document.getElementById('contactForm').addEventListener('submit', async function
     btn.textContent = I18N[lang]['contact.f.submit'] || 'Отправить ✉️';
   }
 });
+
+// ─── AI Chat ───
+(function () {
+  const messagesEl = document.getElementById('chatMessages');
+  const inputEl    = document.getElementById('chatInput');
+  const sendBtn    = document.getElementById('chatSendBtn');
+
+  function addMsg(text, role) {
+    const div = document.createElement('div');
+    div.className = 'chat-msg ' + role;
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return div;
+  }
+
+  async function send() {
+    const msg = inputEl.value.trim();
+    if (!msg || sendBtn.disabled) return;
+    inputEl.value = '';
+    sendBtn.disabled = true;
+    addMsg(msg, 'user');
+    const typing = addMsg('Печатает…', 'ai typing');
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: msg }),
+      });
+      const data = await res.json();
+      typing.remove();
+      addMsg(data.reply || 'Нет ответа', 'ai');
+    } catch {
+      typing.remove();
+      addMsg('Ошибка соединения. Попробуйте позже.', 'ai');
+    } finally {
+      sendBtn.disabled = false;
+      inputEl.focus();
+    }
+  }
+
+  sendBtn.addEventListener('click', send);
+  inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); send(); } });
+
+  addMsg('Привет! Я AI-помощник burabay.su. Помогу составить объявление или отвечу на вопросы о сайте и регионе 🙂', 'ai');
+})();
 
 // ─── Service Worker ───
 if ('serviceWorker' in navigator) {

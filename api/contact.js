@@ -9,10 +9,13 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { name, message } = req.body || {};
+  const { name, whatsapp, telegram, message } = req.body || {};
 
   if (!name || typeof name !== 'string' || name.trim().length === 0) {
     return res.status(400).json({ error: 'Имя обязательно' });
+  }
+  if (!whatsapp || typeof whatsapp !== 'string' || whatsapp.trim().length === 0) {
+    return res.status(400).json({ error: 'WhatsApp обязателен' });
   }
   if (!message || typeof message !== 'string' || message.trim().length === 0) {
     return res.status(400).json({ error: 'Сообщение обязательно' });
@@ -29,7 +32,8 @@ module.exports = async function handler(req, res) {
   }
 
   // Plain text — no MarkdownV2 to avoid escaping issues
-  const text = `✉️ Новое сообщение\n\nОт: ${name.trim()}\n\n${message.trim()}`;
+  const tg = telegram ? `\nTelegram: ${telegram.trim()}` : '';
+  const text = `✉️ Новое сообщение\n\nОт: ${name.trim()}\nWhatsApp: ${whatsapp.trim()}${tg}\n\n${message.trim()}`;
 
   try {
     const tgRes = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
