@@ -111,18 +111,22 @@ module.exports = async function handler(req, res) {
   }
 
   // Spell correction (fail-open — use originals if unavailable)
-  let correctedText = text.trim();
-  let correctedTitle = (title || '').trim();
-  let correctedDescription = (description || '').trim();
+  const originalText = text.trim();
+  const originalTitle = (title || '').trim();
+  const originalDescription = (description || '').trim();
+  let correctedText = originalText;
+  let correctedTitle = originalTitle;
+  let correctedDescription = originalDescription;
   try {
     [correctedText, correctedTitle, correctedDescription] = await Promise.all([
-      correctSpelling(correctedText),
-      correctedTitle ? correctSpelling(correctedTitle) : Promise.resolve(correctedTitle),
-      correctedDescription ? correctSpelling(correctedDescription) : Promise.resolve(correctedDescription),
+      correctSpelling(originalText),
+      originalTitle ? correctSpelling(originalTitle) : Promise.resolve(originalTitle),
+      originalDescription ? correctSpelling(originalDescription) : Promise.resolve(originalDescription),
     ]);
   } catch (err) {
     console.error('Spell correction error:', err.message);
   }
+  const wasCorrected = correctedText !== originalText || correctedTitle !== originalTitle || correctedDescription !== originalDescription;
 
   // AI moderation
   let moderation;
@@ -174,5 +178,5 @@ module.exports = async function handler(req, res) {
   };
   saveToRedis(ad).catch(err => console.error('Redis async error:', err.message));
 
-  return res.json({ ok: true });
+  return res.json({ ok: true, correctedText: wasCorrected });
 };
