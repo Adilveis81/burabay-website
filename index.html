@@ -967,7 +967,8 @@ footer {
 #pwaNavBtn:hover { background: var(--gold3); }
 #pwaNavBtn.hidden { display: none; }
 @media (max-width: 640px) {
-  #pwaNavBtn { display: none; }
+  #pwaNavBtn .pwa-btn-label { display: none; }
+  #pwaNavBtn { padding: 7px 10px; }
   .mobile-nav #pwaNavBtnMobile { display: block; }
 }
 .mobile-nav #pwaNavBtnMobile {
@@ -1054,7 +1055,7 @@ footer {
       <button aria-pressed="false" data-lang="en">EN</button>
       <button aria-pressed="false" data-lang="es">ES</button>
     </div>
-    <button id="pwaNavBtn" aria-label="Скачать приложение">📲 Скачать приложение</button>
+    <button id="pwaNavBtn" aria-label="Скачать приложение">📲 <span class="pwa-btn-label">Скачать приложение</span></button>
     <button class="nav-hamburger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileNav">
       <span></span><span></span><span></span>
     </button>
@@ -1939,14 +1940,13 @@ document.addEventListener('DOMContentLoaded', () => {
     el.style.transform = 'translateY(20px)';
     el.style.transition = `opacity 0.6s ${i * 0.1 + 0.1}s, transform 0.6s ${i * 0.1 + 0.1}s`;
   });
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      els.forEach(el => {
-        el.style.opacity = '1';
-        el.style.transform = 'translateY(0)';
-      });
+  // setTimeout is more reliable than double-rAF on mobile browsers
+  setTimeout(() => {
+    els.forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
     });
-  });
+  }, 60);
 });
 </script>
 </body>
