@@ -110,10 +110,16 @@ module.exports = async function handler(req, res) {
     return res.status(503).json({ error: 'Сервер не сконфигурирован. Попробуйте позже.' });
   }
 
-  // Spell correction (fail-open — use original text if unavailable)
+  // Spell correction (fail-open — use originals if unavailable)
   let correctedText = text.trim();
+  let correctedTitle = (title || '').trim();
+  let correctedDescription = (description || '').trim();
   try {
-    correctedText = await correctSpelling(correctedText);
+    [correctedText, correctedTitle, correctedDescription] = await Promise.all([
+      correctSpelling(correctedText),
+      correctedTitle ? correctSpelling(correctedTitle) : Promise.resolve(correctedTitle),
+      correctedDescription ? correctSpelling(correctedDescription) : Promise.resolve(correctedDescription),
+    ]);
   } catch (err) {
     console.error('Spell correction error:', err.message);
   }
@@ -158,8 +164,8 @@ module.exports = async function handler(req, res) {
     timestamp: new Date().toISOString(),
     category: category || '',
     city: city || '',
-    title: title || '',
-    description: description || '',
+    title: correctedTitle,
+    description: correctedDescription,
     price: price || '',
     name: name || '',
     phone: phone || '',
