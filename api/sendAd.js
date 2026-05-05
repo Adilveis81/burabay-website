@@ -13,6 +13,32 @@ function setCors(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
 
+async function correctSpelling(text) {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) throw new Error('ANTHROPIC_API_KEY not set');
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+    },
+    body: JSON.stringify({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 1024,
+      messages: [{
+        role: 'user',
+        content: `Исправь орфографические и грамматические ошибки в тексте объявления. Сохрани смысл, стиль и структуру. Верни ТОЛЬКО исправленный текст, без пояснений.\n\nТекст: ${text}`,
+      }],
+    }),
+  });
+
+  if (!response.ok) throw new Error(`Anthropic API ${response.status}`);
+  const data = await response.json();
+  return data.content?.find(b => b.type === 'text')?.text?.trim() ?? text;
+}
+
 async function moderateWithAI(text) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) throw new Error('ANTHROPIC_API_KEY not set');
@@ -84,10 +110,18 @@ module.exports = async function handler(req, res) {
     return res.status(503).json({ error: 'Сервер не сконфигурирован. Попробуйте позже.' });
   }
 
+  // Spell correction (fail-open — use original text if unavailable)
+  let correctedText = text.trim();
+  try {
+    correctedText = await correctSpelling(correctedText);
+  } catch (err) {
+    console.error('Spell correction error:', err.message);
+  }
+
   // AI moderation
   let moderation;
   try {
-    moderation = await moderateWithAI(text.trim());
+    moderation = await moderateWithAI(correctedText);
   } catch (err) {
     console.error('Moderation error:', err.message);
     moderation = { ok: true, reason: 'Модерация недоступна' };
@@ -101,7 +135,7 @@ module.exports = async function handler(req, res) {
   }
 
   // Send to Telegram
-  const message = `✅ Проверено AI\n\n${escapeMd(text.trim())}`;
+  const message = `✅ Проверено AI\n\n${escapeMd(correctedText)}`;
   try {
     const tgRes = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       method: 'POST',
