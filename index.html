@@ -7,6 +7,12 @@
 <title>Burabay Tech — Бурабай, Щучинск &amp; Акмолинская область</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#c9a84c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Burabay Tech">
 
 <style>
 :root {
@@ -942,6 +948,53 @@ footer {
   .btn-primary, .btn-ghost { padding: 12px 18px; font-size: 13px; }
   section { padding: 42px 14px; }
 }
+
+#pwaInstallBar {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background: var(--navy2);
+  border: 1px solid var(--gold2);
+  padding: 12px 20px;
+  gap: 14px;
+  align-items: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.45);
+  max-width: 420px;
+  width: calc(100% - 32px);
+}
+#pwaInstallBar.visible { display: flex; }
+#pwaInstallBar span {
+  flex: 1;
+  font-size: 13px;
+  color: var(--cream);
+  line-height: 1.4;
+}
+#pwaInstallBtn {
+  flex-shrink: 0;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+}
+#pwaInstallBtn:hover { background: var(--gold3); }
+#pwaInstallClose {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 0 2px;
+  flex-shrink: 0;
+}
 </style>
 </head>
 <body>
@@ -1789,6 +1842,39 @@ document.getElementById('contactForm').addEventListener('submit', async function
   }
 });
 
+// ─── PWA install prompt ───
+(function () {
+  let deferredPrompt = null;
+  const bar = document.getElementById('pwaInstallBar');
+  const installBtn = document.getElementById('pwaInstallBtn');
+  const closeBtn = document.getElementById('pwaInstallClose');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    bar.classList.add('visible');
+  });
+
+  installBtn.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    bar.classList.remove('visible');
+    if (outcome === 'accepted') console.log('PWA installed');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    bar.classList.remove('visible');
+    deferredPrompt = null;
+  });
+
+  window.addEventListener('appinstalled', () => {
+    bar.classList.remove('visible');
+    deferredPrompt = null;
+  });
+})();
+
 // ─── Hero entrance animation ───
 document.addEventListener('DOMContentLoaded', () => {
   const els = document.querySelectorAll('.hero-left > *, .announcement-card');
@@ -1807,5 +1893,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+<div id="pwaInstallBar" role="complementary" aria-label="Установка приложения">
+  <span>📲 Установите Burabay Tech как приложение — работает без браузера</span>
+  <button id="pwaInstallBtn">Установить</button>
+  <button id="pwaInstallClose" aria-label="Закрыть">×</button>
+</div>
 </body>
 </html>
