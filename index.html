@@ -1842,6 +1842,13 @@ document.getElementById('contactForm').addEventListener('submit', async function
   }
 });
 
+// ─── Service Worker ───
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(err => console.warn('SW:', err));
+  });
+}
+
 // ─── PWA install prompt ───
 (function () {
   let deferredPrompt = null;
