@@ -618,9 +618,59 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   border: 1px solid var(--border);
   padding: 20px;
   transition: border-color 0.2s;
-  cursor: pointer;
 }
 .ad-card:hover { border-color: var(--gold2); }
+.ad-contact-btn {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Manrope', sans-serif;
+  letter-spacing: 0.05em;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.ad-contact-btn:hover { border-color: var(--gold2); background: oklch(0.76 0.13 83 / 0.06); }
+.ad-contacts {
+  display: none;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.ad-card.ad-open .ad-contacts { display: block; }
+.ad-card.ad-open .ad-contact-btn { border-color: var(--gold2); }
+.ad-contact-name {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.ad-contact-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ad-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--navy3);
+  border: 1px solid var(--border);
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 12px;
+  border-radius: 2px;
+  transition: border-color 0.2s;
+}
+.ad-contact-link:hover { border-color: var(--gold2); color: var(--gold); }
+.ad-no-contacts { font-size: 12px; color: var(--muted); }
 
 .ad-cat {
   font-size: 10px;
@@ -1690,6 +1740,28 @@ function _esc(s) {
 function renderAd(ad) {
   const cat = _CAT_MAP[ad.category] || 'other';
   const price = ad.price ? _esc(ad.price) + ' ₸' : 'Договорная';
+
+  const links = [];
+  if (ad.phone) {
+    const digits = ad.phone.replace(/\D/g, '');
+    links.push(`<a href="https://wa.me/${digits}" target="_blank" rel="noopener" class="ad-contact-link">📱 WhatsApp</a>`);
+  }
+  if (ad.telegram) {
+    const tg = ad.telegram.replace(/^@/, '');
+    links.push(`<a href="https://t.me/${encodeURIComponent(tg)}" target="_blank" rel="noopener" class="ad-contact-link">✈️ Telegram</a>`);
+  }
+  if (ad.instagram) {
+    const ig = ad.instagram.replace(/^@/, '');
+    links.push(`<a href="https://instagram.com/${encodeURIComponent(ig)}" target="_blank" rel="noopener" class="ad-contact-link">📸 Instagram</a>`);
+  }
+
+  const contactsHtml = links.length
+    ? `<div class="ad-contacts">
+        ${ad.name ? `<div class="ad-contact-name">${_esc(ad.name)}</div>` : ''}
+        <div class="ad-contact-links">${links.join('')}</div>
+       </div>`
+    : `<div class="ad-contacts"><span class="ad-no-contacts">Контакты не указаны</span></div>`;
+
   return `<div class="ad-card" data-cat="${cat}">
     <div class="ad-cat">${_esc(ad.category || 'Объявление')}</div>
     <div class="ad-title">${_esc(ad.title || 'Объявление')}</div>
@@ -1698,6 +1770,8 @@ function renderAd(ad) {
       <div class="ad-price">${price}</div>
       ${ad.city ? `<div class="ad-city">${_esc(ad.city)}</div>` : ''}
     </div>
+    ${contactsHtml}
+    <button class="ad-contact-btn" onclick="this.closest('.ad-card').classList.toggle('ad-open');this.textContent=this.closest('.ad-card').classList.contains('ad-open')?'✕ Скрыть':'📞 Связаться'">📞 Связаться</button>
   </div>`;
 }
 
@@ -1826,6 +1900,7 @@ document.getElementById('adForm').addEventListener('submit', async function(e) {
         name: data.get('name'),
         phone: data.get('phone'),
         telegram: data.get('telegram'),
+        instagram: data.get('instagram'),
       }),
     });
     const json = await res.json();

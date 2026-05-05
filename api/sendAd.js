@@ -68,7 +68,7 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { text, category, city, title, description, price, name, phone, telegram } = req.body || {};
+  const { text, category, city, title, description, price, name, phone, telegram, instagram } = req.body || {};
 
   if (!text || typeof text !== 'string' || text.trim().length === 0) {
     return res.status(400).json({ error: 'Поле text обязательно' });
@@ -130,6 +130,7 @@ module.exports = async function handler(req, res) {
     name: name || '',
     phone: phone || '',
     telegram: telegram || '',
+    instagram: instagram || '',
   };
   saveToRedis(ad).catch(err => console.error('Redis async error:', err.message));
 
