@@ -1083,6 +1083,90 @@ footer {
   padding: 0;
 }
 .pwa-modal-close:hover { color: var(--cream); }
+
+/* ─── RADIO PLAYER ─── */
+#radioWidget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+#radioToggleBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--navy2);
+  border: 1px solid var(--border);
+  color: var(--gold);
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.45);
+  transition: border-color 0.2s, transform 0.15s;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#radioToggleBtn:hover { border-color: var(--gold2); transform: scale(1.06); }
+#radioToggleBtn.active { border-color: var(--gold); }
+#radioPanel {
+  display: none;
+  background: var(--navy2);
+  border: 1px solid var(--gold2);
+  padding: 16px;
+  width: 224px;
+  box-shadow: 0 8px 36px rgba(0,0,0,0.55);
+}
+#radioPanel.open { display: block; }
+.rp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.rp-info { display: flex; align-items: center; gap: 10px; }
+.rp-name { font-size: 13px; font-weight: 700; color: var(--cream); line-height: 1.2; }
+.rp-status { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+.rp-close {
+  background: none; border: none; color: var(--muted);
+  font-size: 18px; cursor: pointer; line-height: 1; padding: 0 0 0 8px;
+}
+.rp-close:hover { color: var(--cream); }
+.rp-controls { display: flex; align-items: center; gap: 12px; }
+.rp-play {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--gold); color: var(--navy); border: none;
+  cursor: pointer; flex-shrink: 0; transition: background 0.2s;
+  display: flex; align-items: center; justify-content: center; font-size: 13px;
+}
+.rp-play:hover { background: var(--gold3); }
+.rp-volume {
+  flex: 1; -webkit-appearance: none; appearance: none;
+  height: 3px; background: var(--border); border-radius: 2px;
+  outline: none; cursor: pointer; accent-color: var(--gold);
+}
+.rp-volume::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 13px; height: 13px;
+  border-radius: 50%; background: var(--gold); cursor: pointer;
+}
+.rp-volume::-moz-range-thumb {
+  width: 13px; height: 13px; border-radius: 50%;
+  background: var(--gold); border: none; cursor: pointer;
+}
+.rp-waves { display: flex; align-items: flex-end; gap: 2px; height: 18px; width: 18px; flex-shrink: 0; }
+.rp-waves span { display: block; width: 3px; background: var(--gold2); border-radius: 1px; height: 3px; }
+.rp-waves.playing span:nth-child(1) { animation: rpWave 1.0s ease-in-out infinite; }
+.rp-waves.playing span:nth-child(2) { animation: rpWave 0.8s ease-in-out infinite 0.15s; }
+.rp-waves.playing span:nth-child(3) { animation: rpWave 1.2s ease-in-out infinite 0.05s; }
+.rp-waves.playing span:nth-child(4) { animation: rpWave 0.9s ease-in-out infinite 0.2s; }
+@keyframes rpWave {
+  0%, 100% { height: 3px; }
+  50% { height: 16px; }
+}
 </style>
 </head>
 <body>
@@ -2007,6 +2091,72 @@ if ('serviceWorker' in navigator) {
   });
 })();
 
+// ─── Radio Player ───
+(function () {
+  const STREAM = 'https://stream.radiokazakhstan.kz/live';
+
+  const toggleBtn = document.getElementById('radioToggleBtn');
+  const panel     = document.getElementById('radioPanel');
+  const closeBtn  = document.getElementById('rpClose');
+  const playBtn   = document.getElementById('rpPlay');
+  const volumeSl  = document.getElementById('rpVolume');
+  const statusEl  = document.getElementById('rpStatus');
+  const waves     = document.getElementById('rpWaves');
+
+  let audio = null;
+  let playing = false;
+
+  function ensureAudio() {
+    if (audio) return audio;
+    audio = new Audio(STREAM);
+    audio.preload = 'none';
+    audio.volume = parseFloat(volumeSl.value);
+    audio.addEventListener('playing', () => {
+      playing = true;
+      playBtn.textContent = '⏸';
+      statusEl.textContent = 'В эфире';
+      waves.classList.add('playing');
+    });
+    audio.addEventListener('pause', () => {
+      playing = false;
+      playBtn.textContent = '▶';
+      statusEl.textContent = 'Остановлено';
+      waves.classList.remove('playing');
+    });
+    audio.addEventListener('waiting', () => { statusEl.textContent = 'Загрузка...'; });
+    audio.addEventListener('error',   () => {
+      playing = false;
+      playBtn.textContent = '▶';
+      statusEl.textContent = 'Нет сигнала';
+      waves.classList.remove('playing');
+    });
+    return audio;
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    const isOpen = panel.classList.toggle('open');
+    toggleBtn.classList.toggle('active', isOpen);
+  });
+
+  closeBtn.addEventListener('click', () => {
+    panel.classList.remove('open');
+    toggleBtn.classList.remove('active');
+  });
+
+  playBtn.addEventListener('click', () => {
+    const a = ensureAudio();
+    if (playing) {
+      a.pause();
+    } else {
+      a.play().catch(() => { statusEl.textContent = 'Нет сигнала'; });
+    }
+  });
+
+  volumeSl.addEventListener('input', () => {
+    if (audio) audio.volume = parseFloat(volumeSl.value);
+  });
+})();
+
 // ─── Hero entrance animation ───
 document.addEventListener('DOMContentLoaded', () => {
   const els = document.querySelectorAll('.hero-left > *, .announcement-card');
@@ -2024,5 +2174,28 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 60);
 });
 </script>
+<!-- Radio Player Widget -->
+<div id="radioWidget">
+  <div id="radioPanel" role="region" aria-label="Радио плеер">
+    <div class="rp-header">
+      <div class="rp-info">
+        <div class="rp-waves" id="rpWaves" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <div>
+          <div class="rp-name">Радио Казахстан</div>
+          <div class="rp-status" id="rpStatus">Остановлено</div>
+        </div>
+      </div>
+      <button class="rp-close" id="rpClose" aria-label="Закрыть плеер">×</button>
+    </div>
+    <div class="rp-controls">
+      <button class="rp-play" id="rpPlay" aria-label="Воспроизвести / Пауза">▶</button>
+      <input type="range" class="rp-volume" id="rpVolume" min="0" max="1" step="0.05" value="0.8" aria-label="Громкость">
+    </div>
+  </div>
+  <button id="radioToggleBtn" aria-label="Открыть радио">📻</button>
+</div>
+
 </body>
 </html>
