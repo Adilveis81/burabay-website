@@ -1205,14 +1205,18 @@ footer {
   align-items: flex-end;
   gap: 10px;
 }
+@keyframes radioPulse {
+  0%   { box-shadow: 0 4px 20px rgba(0,0,0,0.45), 0 0 0 0   rgba(201,168,76,0.55); }
+  60%  { box-shadow: 0 4px 20px rgba(0,0,0,0.45), 0 0 0 12px rgba(201,168,76,0);   }
+  100% { box-shadow: 0 4px 20px rgba(0,0,0,0.45), 0 0 0 0   rgba(201,168,76,0);   }
+}
 #radioToggleBtn {
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   background: var(--navy2);
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   color: var(--gold);
-  font-size: 22px;
   cursor: pointer;
   box-shadow: 0 4px 20px rgba(0,0,0,0.45);
   transition: border-color 0.2s, transform 0.15s;
@@ -1223,6 +1227,7 @@ footer {
 }
 #radioToggleBtn:hover { border-color: var(--gold2); transform: scale(1.06); }
 #radioToggleBtn.active { border-color: var(--gold); }
+#radioToggleBtn.playing { animation: radioPulse 1.6s ease-out infinite; border-color: var(--gold); }
 #radioPanel {
   display: none;
   background: var(--navy2);
@@ -1341,7 +1346,7 @@ footer {
     </div>
 
     <div class="announcement-card">
-      <div class="ann-title" data-i18n-html="ann.title">Вниманию жителей и предпринимателей<br>Акмолинской области!</div>
+      <div class="ann-title" data-i18n-html="ann.title">Вниманию жителей, гостей и предпринимателей<br>Акмолинской области!</div>
       <div class="ann-section">
         <span class="ann-icon" aria-hidden="true">🏘</span>
         <div data-i18n-html="ann.realty"><strong>Недвижимость и транспорт</strong><br>Принимаются объявления о продаже движимого и недвижимого имущества по всей Акмолинской области.</div>
@@ -1902,7 +1907,7 @@ const I18N = {
     'hero.title':'Объявления<br><em>Акмолинской</em><br>области',
     'hero.subtitle':'Такси · Объявления · Видео',
     'hero.cta.taxi':'🚖 Заказать такси','hero.cta.ads':'📋 Подать объявление',
-    'ann.title':'Вниманию жителей и предпринимателей<br>Бурабайского района!',
+    'ann.title':'Вниманию жителей, гостей и предпринимателей<br>Акмолинской области!',
     'ann.realty':'<strong>Недвижимость и транспорт</strong><br>Принимаются объявления о продаже движимого и недвижимого имущества по всему Бурабайскому району.',
     'ann.drivers':'<strong>Для водителей</strong><br>Внедрена отдельная вкладка «Межгород» для частных перевозчиков и служб такси.',
     'ann.biz':'<strong>Для бизнеса</strong><br>Реклама компаний, включая товары, работы и услуги (ТРУ).',
@@ -2427,20 +2432,25 @@ if ('serviceWorker' in navigator) {
       playBtn.textContent = '⏸';
       statusEl.textContent = 'В эфире';
       waves.classList.add('playing');
+      toggleBtn.classList.add('playing');
+      console.log('Radio: playing', STREAM);
     });
     audio.addEventListener('pause', () => {
       playing = false;
       playBtn.textContent = '▶';
       statusEl.textContent = 'Остановлено';
       waves.classList.remove('playing');
+      toggleBtn.classList.remove('playing');
     });
-    audio.addEventListener('waiting', () => { statusEl.textContent = 'Загрузка...'; });
-    audio.addEventListener('stalled', () => { statusEl.textContent = 'Загрузка...'; });
-    audio.addEventListener('error', () => {
+    audio.addEventListener('waiting', () => { statusEl.textContent = 'Загрузка...'; console.log('Radio: buffering...'); });
+    audio.addEventListener('stalled', () => { statusEl.textContent = 'Загрузка...'; console.log('Radio: stalled'); });
+    audio.addEventListener('error', (e) => {
       playing = false;
       playBtn.textContent = '▶';
       statusEl.textContent = 'Нет сигнала';
       waves.classList.remove('playing');
+      toggleBtn.classList.remove('playing');
+      console.error('Radio: error', e.target.error, 'url:', STREAM);
       audio = null; // reset — next play creates fresh instance
     });
   }
@@ -2465,8 +2475,9 @@ if ('serviceWorker' in navigator) {
     audio.src = STREAM;
     audio.load();
     statusEl.textContent = 'Загрузка...';
+    console.log('Radio: connecting to', STREAM);
     audio.play().catch((err) => {
-      console.error('Radio play error:', err);
+      console.error('Radio: play() rejected:', err.name, err.message);
       statusEl.textContent = 'Нет сигнала';
     });
   });
@@ -2513,7 +2524,17 @@ document.addEventListener('DOMContentLoaded', () => {
       <input type="range" class="rp-volume" id="rpVolume" min="0" max="1" step="0.05" value="0.8" aria-label="Громкость">
     </div>
   </div>
-  <button id="radioToggleBtn" aria-label="Открыть радио">📻</button>
+  <button id="radioToggleBtn" aria-label="Открыть радио">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" aria-hidden="true">
+      <line x1="21" y1="13" x2="28" y2="3" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"/>
+      <rect x="3" y="13" width="26" height="16" rx="2.5" stroke="var(--gold)" stroke-width="1.8"/>
+      <rect x="6" y="16" width="11" height="3" rx="1" fill="var(--gold)" opacity="0.5"/>
+      <circle cx="24" cy="21" r="3" stroke="var(--gold)" stroke-width="1.6"/>
+      <circle cx="10" cy="24" r="1.2" fill="var(--gold)" opacity="0.7"/>
+      <circle cx="14" cy="24" r="1.2" fill="var(--gold)" opacity="0.7"/>
+      <circle cx="18" cy="24" r="1.2" fill="var(--gold)" opacity="0.7"/>
+    </svg>
+  </button>
 </div>
 
 </body>
