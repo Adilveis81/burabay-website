@@ -1195,6 +1195,7 @@ footer {
 .pwa-modal-close:hover { color: var(--cream); }
 
 /* ─── RADIO PLAYER ─── */
+/* ─── Radio Widget ─── */
 #radioWidget {
   position: fixed;
   bottom: 24px;
@@ -1203,13 +1204,28 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 10px;
+  gap: 6px;
 }
 @keyframes radioPulse {
-  0%   { box-shadow: 0 4px 20px rgba(0,0,0,0.45), 0 0 0 0   rgba(201,168,76,0.55); }
-  60%  { box-shadow: 0 4px 20px rgba(0,0,0,0.45), 0 0 0 12px rgba(201,168,76,0);   }
-  100% { box-shadow: 0 4px 20px rgba(0,0,0,0.45), 0 0 0 0   rgba(201,168,76,0);   }
+  0%   { box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 0   rgba(201,168,76,0.6); }
+  60%  { box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 14px rgba(201,168,76,0); }
+  100% { box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 0   rgba(201,168,76,0); }
 }
+#radioToggleName {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--gold);
+  text-align: center;
+  max-width: 72px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  letter-spacing: 0.02em;
+}
+#radioToggleName.visible { opacity: 1; }
 #radioToggleBtn {
   width: 64px;
   height: 64px;
@@ -1218,8 +1234,8 @@ footer {
   border: 2px solid var(--border);
   color: var(--gold);
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.45);
-  transition: border-color 0.2s, transform 0.15s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -1230,35 +1246,147 @@ footer {
 #radioToggleBtn.playing { animation: radioPulse 1.6s ease-out infinite; border-color: var(--gold); }
 #radioPanel {
   display: none;
+  flex-direction: column;
   background: var(--navy2);
   border: 1px solid var(--gold2);
-  padding: 16px;
-  width: 224px;
-  box-shadow: 0 8px 36px rgba(0,0,0,0.55);
+  border-radius: 12px;
+  width: 268px;
+  max-height: 430px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.65);
 }
-#radioPanel.open { display: block; }
-.rp-header {
+#radioPanel.open { display: flex; }
+.rp-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 14px;
+  padding: 11px 14px 10px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
 }
-.rp-info { display: flex; align-items: center; gap: 10px; }
-.rp-name { font-size: 13px; font-weight: 700; color: var(--cream); line-height: 1.2; }
-.rp-status { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+.rp-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold2);
+}
 .rp-close {
-  background: none; border: none; color: var(--muted);
-  font-size: 18px; cursor: pointer; line-height: 1; padding: 0 0 0 8px;
+  background: none; border: none;
+  color: var(--muted); font-size: 20px;
+  cursor: pointer; line-height: 1; padding: 0;
+  transition: color 0.15s;
 }
 .rp-close:hover { color: var(--cream); }
-.rp-controls { display: flex; align-items: center; gap: 12px; }
-.rp-play {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: var(--gold); color: var(--navy); border: none;
-  cursor: pointer; flex-shrink: 0; transition: background 0.2s;
-  display: flex; align-items: center; justify-content: center; font-size: 13px;
+.rp-channels {
+  overflow-y: auto;
+  flex: 1;
+  padding: 4px 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
 }
-.rp-play:hover { background: var(--gold3); }
+.rp-channels::-webkit-scrollbar { width: 4px; }
+.rp-channels::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.rp-ch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.rp-ch:hover { background: rgba(201,168,76,0.07); }
+.rp-ch.active { background: rgba(201,168,76,0.13); }
+.rp-ch-num {
+  font-size: 10px;
+  color: var(--muted);
+  width: 14px;
+  flex-shrink: 0;
+  text-align: right;
+}
+.rp-ch-name {
+  font-size: 13px;
+  color: var(--cream-dim, #c8c8a0);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s;
+}
+.rp-ch.active .rp-ch-name { color: var(--gold); font-weight: 700; }
+.rp-ch-waves {
+  display: none;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+  width: 16px;
+  flex-shrink: 0;
+}
+.rp-ch.active .rp-ch-waves { display: flex; }
+.rp-ch-waves span { display: block; width: 2px; background: var(--gold); border-radius: 1px; height: 2px; }
+.rp-ch.active .rp-ch-waves span:nth-child(1) { animation: rpWave 1.0s ease-in-out infinite; }
+.rp-ch.active .rp-ch-waves span:nth-child(2) { animation: rpWave 0.8s ease-in-out infinite 0.15s; }
+.rp-ch.active .rp-ch-waves span:nth-child(3) { animation: rpWave 1.2s ease-in-out infinite 0.05s; }
+.rp-ch.active .rp-ch-waves span:nth-child(4) { animation: rpWave 0.9s ease-in-out infinite 0.2s; }
+.rp-ch-btn {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--navy);
+  border: 1px solid var(--border);
+  color: var(--gold2);
+  cursor: pointer; flex-shrink: 0;
+  font-size: 9px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.rp-ch.active .rp-ch-btn { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+.rp-ch-btn:hover { border-color: var(--gold2); }
+.rp-footer {
+  border-top: 1px solid var(--border);
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.rp-footer-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rp-waves {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 16px;
+  width: 16px;
+  flex-shrink: 0;
+}
+.rp-waves span { display: block; width: 2px; background: var(--gold2); border-radius: 1px; height: 2px; }
+.rp-waves.playing span:nth-child(1) { animation: rpWave 1.0s ease-in-out infinite; }
+.rp-waves.playing span:nth-child(2) { animation: rpWave 0.8s ease-in-out infinite 0.15s; }
+.rp-waves.playing span:nth-child(3) { animation: rpWave 1.2s ease-in-out infinite 0.05s; }
+.rp-waves.playing span:nth-child(4) { animation: rpWave 0.9s ease-in-out infinite 0.2s; }
+#rpStatus {
+  font-size: 11px;
+  color: var(--muted);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rp-stop {
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  cursor: pointer; flex-shrink: 0;
+  font-size: 11px;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.15s, color 0.15s;
+}
+.rp-stop:hover { border-color: var(--gold2); color: var(--cream); }
 .rp-volume {
   flex: 1; -webkit-appearance: none; appearance: none;
   height: 3px; background: var(--border); border-radius: 2px;
@@ -1272,15 +1400,9 @@ footer {
   width: 13px; height: 13px; border-radius: 50%;
   background: var(--gold); border: none; cursor: pointer;
 }
-.rp-waves { display: flex; align-items: flex-end; gap: 2px; height: 18px; width: 18px; flex-shrink: 0; }
-.rp-waves span { display: block; width: 3px; background: var(--gold2); border-radius: 1px; height: 3px; }
-.rp-waves.playing span:nth-child(1) { animation: rpWave 1.0s ease-in-out infinite; }
-.rp-waves.playing span:nth-child(2) { animation: rpWave 0.8s ease-in-out infinite 0.15s; }
-.rp-waves.playing span:nth-child(3) { animation: rpWave 1.2s ease-in-out infinite 0.05s; }
-.rp-waves.playing span:nth-child(4) { animation: rpWave 0.9s ease-in-out infinite 0.2s; }
 @keyframes rpWave {
-  0%, 100% { height: 3px; }
-  50% { height: 16px; }
+  0%, 100% { height: 2px; }
+  50% { height: 14px; }
 }
 </style>
 </head>
@@ -2411,80 +2533,125 @@ if ('serviceWorker' in navigator) {
 
 // ─── Radio Player ───
 (function () {
-  const STREAM = 'https://radio-streams.kaztrk.kz/qazradio/qazradio/icecast.audio';
+  const CHANNELS = [
+    { name: 'Qazaq Radiosy',         url: 'https://radio-streams.kaztrk.kz/qazradio/qazradio/icecast.audio' },
+    { name: 'Казахское Радио',        url: 'https://radio-streams.kaztrk.kz/kazakhradio/kazakhradio/icecast.audio' },
+    { name: 'Радио NS',               url: 'https://online.radiorecord.ru:8102/ns_320' },
+    { name: 'Европа Плюс KZ',         url: 'https://ep256.hostingradio.ru:8052/ep256.mp3' },
+    { name: 'Русское Радио KZ',       url: 'https://rusradio.hostingradio.ru/rusradio96.aacp' },
+    { name: 'Ретро FM',               url: 'https://retrofm.hostingradio.ru/retrofm96.aacp' },
+    { name: 'Радио Maximum',          url: 'https://maximum.hostingradio.ru/maximum96.aacp' },
+    { name: 'Love Radio',             url: 'https://loveradio.hostingradio.ru/loveradio96.aacp' },
+    { name: 'Хит FM KZ',              url: 'https://hitfm.hostingradio.ru/hitfm96.aacp' },
+    { name: 'Юмор FM',                url: 'https://humor.hostingradio.ru/humor96.aacp' },
+  ];
 
-  const toggleBtn = document.getElementById('radioToggleBtn');
-  const panel     = document.getElementById('radioPanel');
-  const closeBtn  = document.getElementById('rpClose');
-  const playBtn   = document.getElementById('rpPlay');
-  const volumeSl  = document.getElementById('rpVolume');
-  const statusEl  = document.getElementById('rpStatus');
-  const waves     = document.getElementById('rpWaves');
+  const toggleBtn   = document.getElementById('radioToggleBtn');
+  const toggleName  = document.getElementById('radioToggleName');
+  const panel       = document.getElementById('radioPanel');
+  const closeBtn    = document.getElementById('rpClose');
+  const stopBtn     = document.getElementById('rpStop');
+  const volumeSl    = document.getElementById('rpVolume');
+  const statusEl    = document.getElementById('rpStatus');
+  const waves       = document.getElementById('rpWaves');
+  const channelList = document.getElementById('rpChannels');
 
-  let audio = null;
-  let playing = false;
+  let audio    = null;
+  let activeIdx = -1;
 
-  function initAudio() {
+  // Build channel rows
+  CHANNELS.forEach((ch, i) => {
+    const row = document.createElement('div');
+    row.className = 'rp-ch';
+    row.innerHTML =
+      `<span class="rp-ch-num">${i + 1}</span>` +
+      `<div class="rp-ch-waves" aria-hidden="true"><span></span><span></span><span></span><span></span></div>` +
+      `<span class="rp-ch-name">${ch.name}</span>` +
+      `<button class="rp-ch-btn" aria-label="Играть ${ch.name}">▶</button>`;
+    row.querySelector('.rp-ch-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      playChannel(i);
+    });
+    row.addEventListener('click', () => playChannel(i));
+    channelList.appendChild(row);
+  });
+
+  function playChannel(idx) {
+    // Stop previous
+    if (audio) { audio.pause(); audio.src = ''; audio = null; }
+
+    // Deactivate all rows
+    const rows = channelList.querySelectorAll('.rp-ch');
+    rows.forEach(r => {
+      r.classList.remove('active');
+      r.querySelector('.rp-ch-btn').textContent = '▶';
+    });
+
+    activeIdx = idx;
+    const ch  = CHANNELS[idx];
+    const row = rows[idx];
+    row.classList.add('active');
+    row.querySelector('.rp-ch-btn').textContent = '⏸';
+    setStatus('Загрузка...');
+
     audio = new Audio();
     audio.volume = parseFloat(volumeSl.value);
+
     audio.addEventListener('playing', () => {
-      playing = true;
-      playBtn.textContent = '⏸';
-      statusEl.textContent = 'В эфире';
+      setStatus('В эфире · ' + ch.name);
       waves.classList.add('playing');
       toggleBtn.classList.add('playing');
-      console.log('Radio: playing', STREAM);
+      toggleName.textContent = ch.name;
+      toggleName.classList.add('visible');
+      console.log('Radio: playing', ch.name, ch.url);
     });
-    audio.addEventListener('pause', () => {
-      playing = false;
-      playBtn.textContent = '▶';
-      statusEl.textContent = 'Остановлено';
-      waves.classList.remove('playing');
-      toggleBtn.classList.remove('playing');
-    });
-    audio.addEventListener('waiting', () => { statusEl.textContent = 'Загрузка...'; console.log('Radio: buffering...'); });
-    audio.addEventListener('stalled', () => { statusEl.textContent = 'Загрузка...'; console.log('Radio: stalled'); });
+    audio.addEventListener('waiting', () => { setStatus('Загрузка...'); });
+    audio.addEventListener('stalled', () => { setStatus('Загрузка...'); console.log('Radio: stalled', ch.name); });
     audio.addEventListener('error', (e) => {
-      playing = false;
-      playBtn.textContent = '▶';
-      statusEl.textContent = 'Нет сигнала';
+      console.error('Radio: error', ch.name, e.target.error, ch.url);
+      setStatus('Нет сигнала');
       waves.classList.remove('playing');
       toggleBtn.classList.remove('playing');
-      console.error('Radio: error', e.target.error, 'url:', STREAM);
-      audio = null; // reset — next play creates fresh instance
+      row.classList.remove('active');
+      row.querySelector('.rp-ch-btn').textContent = '▶';
+      activeIdx = -1;
+      audio = null;
+    });
+
+    audio.src = ch.url;
+    audio.load();
+    console.log('Radio: connecting to', ch.name, ch.url);
+    audio.play().catch(err => {
+      console.error('Radio: play() rejected:', err.name, err.message, ch.url);
+      setStatus('Нет сигнала');
     });
   }
+
+  function stopAll() {
+    if (audio) { audio.pause(); audio.src = ''; audio = null; }
+    channelList.querySelectorAll('.rp-ch').forEach(r => {
+      r.classList.remove('active');
+      r.querySelector('.rp-ch-btn').textContent = '▶';
+    });
+    activeIdx = -1;
+    setStatus('Выберите канал');
+    waves.classList.remove('playing');
+    toggleBtn.classList.remove('playing');
+    toggleName.classList.remove('visible');
+  }
+
+  function setStatus(text) { statusEl.textContent = text; }
 
   toggleBtn.addEventListener('click', () => {
     const isOpen = panel.classList.toggle('open');
     toggleBtn.classList.toggle('active', isOpen);
   });
-
   closeBtn.addEventListener('click', () => {
     panel.classList.remove('open');
     toggleBtn.classList.remove('active');
   });
-
-  playBtn.addEventListener('click', () => {
-    if (playing) {
-      audio.pause();
-      return;
-    }
-    if (!audio) initAudio();
-    // Always reassign src + load() for live streams — resumes from current live position
-    audio.src = STREAM;
-    audio.load();
-    statusEl.textContent = 'Загрузка...';
-    console.log('Radio: connecting to', STREAM);
-    audio.play().catch((err) => {
-      console.error('Radio: play() rejected:', err.name, err.message);
-      statusEl.textContent = 'Нет сигнала';
-    });
-  });
-
-  volumeSl.addEventListener('input', () => {
-    if (audio) audio.volume = parseFloat(volumeSl.value);
-  });
+  stopBtn.addEventListener('click', stopAll);
+  volumeSl.addEventListener('input', () => { if (audio) audio.volume = parseFloat(volumeSl.value); });
 })();
 
 // ─── Hero entrance animation ───
@@ -2507,23 +2674,27 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- Radio Player Widget -->
 <div id="radioWidget">
   <div id="radioPanel" role="region" aria-label="Радио плеер">
-    <div class="rp-header">
-      <div class="rp-info">
+    <div class="rp-top">
+      <span class="rp-title">🎵 Радио Казахстана</span>
+      <button class="rp-close" id="rpClose" aria-label="Закрыть плеер">×</button>
+    </div>
+    <div class="rp-channels" id="rpChannels"></div>
+    <div class="rp-footer">
+      <div class="rp-footer-row">
         <div class="rp-waves" id="rpWaves" aria-hidden="true">
           <span></span><span></span><span></span><span></span>
         </div>
-        <div>
-          <div class="rp-name">Радио Казахстан</div>
-          <div class="rp-status" id="rpStatus">Остановлено</div>
-        </div>
+        <span id="rpStatus">Выберите канал</span>
+        <button class="rp-stop" id="rpStop" aria-label="Стоп">⏹</button>
       </div>
-      <button class="rp-close" id="rpClose" aria-label="Закрыть плеер">×</button>
-    </div>
-    <div class="rp-controls">
-      <button class="rp-play" id="rpPlay" aria-label="Воспроизвести / Пауза">▶</button>
-      <input type="range" class="rp-volume" id="rpVolume" min="0" max="1" step="0.05" value="0.8" aria-label="Громкость">
+      <div class="rp-footer-row">
+        <span style="font-size:10px;color:var(--muted);flex-shrink:0">🔈</span>
+        <input type="range" class="rp-volume" id="rpVolume" min="0" max="1" step="0.05" value="0.8" aria-label="Громкость">
+        <span style="font-size:10px;color:var(--muted);flex-shrink:0">🔊</span>
+      </div>
     </div>
   </div>
+  <div id="radioToggleName"></div>
   <button id="radioToggleBtn" aria-label="Открыть радио">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" aria-hidden="true">
       <line x1="21" y1="13" x2="28" y2="3" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"/>

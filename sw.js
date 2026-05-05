@@ -1,4 +1,4 @@
-const CACHE = 'burabay-v9';
+const CACHE = 'burabay-v10';
 
 const PRECACHE = [
   '/',
