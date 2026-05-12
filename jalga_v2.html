@@ -223,6 +223,17 @@ html{scroll-behavior:smooth}
 /* ── CORKBOARD WALLPAPER ── */
 body{
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:transparent;
+  color:var(--text);
+  line-height:1.5;
+  position:relative;
+  min-height:100vh;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  z-index:-1;
   background-color:#C09060;
   background-image:
     repeating-linear-gradient(12deg,rgba(80,45,10,0.09) 0px,rgba(80,45,10,0.09) 1px,transparent 1px,transparent 10px),
@@ -230,13 +241,8 @@ body{
     url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='260'><g transform='rotate(-4,91,64)'><rect x='54' y='38' width='76' height='56' rx='2' fill='rgba(0,0,0,0.14)'/><rect x='52' y='36' width='76' height='56' rx='2' fill='%23FDFAF3'/><line x1='60' y1='52' x2='120' y2='52' stroke='%23C8D0BC' stroke-width='0.9'/><line x1='60' y1='60' x2='120' y2='60' stroke='%23C8D0BC' stroke-width='0.9'/><line x1='60' y1='68' x2='108' y2='68' stroke='%23C8D0BC' stroke-width='0.9'/><circle cx='91' cy='38' r='5.5' fill='%23E53935'/><circle cx='90' cy='37' r='2.5' fill='%23FFCDD2' fill-opacity='.62'/></g><g transform='rotate(3,323,62)'><rect x='288' y='38' width='72' height='52' rx='2' fill='rgba(0,0,0,0.13)'/><rect x='286' y='36' width='72' height='52' rx='2' fill='%23FFF9C4'/><line x1='294' y1='50' x2='350' y2='50' stroke='%23E6DC80' stroke-width='0.9'/><line x1='294' y1='58' x2='350' y2='58' stroke='%23E6DC80' stroke-width='0.9'/><line x1='294' y1='66' x2='338' y2='66' stroke='%23E6DC80' stroke-width='0.9'/><circle cx='322' cy='38' r='5.5' fill='%231565C0'/><circle cx='321' cy='37' r='2.5' fill='%2390CAF9' fill-opacity='.62'/></g><g transform='rotate(2,78,188)'><rect x='40' y='163' width='78' height='52' rx='2' fill='rgba(0,0,0,0.13)'/><rect x='38' y='161' width='78' height='52' rx='2' fill='%23F5F0E8'/><line x1='46' y1='175' x2='108' y2='175' stroke='%23C8C0B0' stroke-width='0.9'/><line x1='46' y1='183' x2='108' y2='183' stroke='%23C8C0B0' stroke-width='0.9'/><line x1='46' y1='191' x2='96' y2='191' stroke='%23C8C0B0' stroke-width='0.9'/><circle cx='77' cy='163' r='5.5' fill='%232E7D32'/><circle cx='76' cy='162' r='2.5' fill='%23A5D6A7' fill-opacity='.62'/></g><g transform='rotate(-3,320,192)'><rect x='284' y='167' width='74' height='50' rx='2' fill='rgba(0,0,0,0.12)'/><rect x='282' y='165' width='74' height='50' rx='2' fill='%23E3F2FD'/><line x1='290' y1='179' x2='348' y2='179' stroke='%23B0C8D8' stroke-width='0.9'/><line x1='290' y1='187' x2='348' y2='187' stroke='%23B0C8D8' stroke-width='0.9'/><line x1='290' y1='195' x2='336' y2='195' stroke='%23B0C8D8' stroke-width='0.9'/><circle cx='319' cy='167' r='5.5' fill='%23E65100'/><circle cx='318' cy='166' r='2.5' fill='%23FFCC80' fill-opacity='.62'/></g></svg>");
   background-size:10px 10px,14px 14px,400px 260px;
   background-repeat:repeat,repeat,repeat;
-  background-attachment:fixed,fixed,fixed;
-  color:var(--text);
-  line-height:1.5;
-  position:relative;
-  min-height:100vh;
+  pointer-events:none;
 }
-body::before{content:none}
 body::after{content:none}
 /* body::before disabled */
 body>*{position:relative;z-index:1}
@@ -1190,15 +1196,17 @@ nav{background:rgba(255,255,255,0.56)!important;backdrop-filter:blur(24px) satur
 [data-theme="dark"] .modal-box,[data-theme="dark"] .auth-modal-box,[data-theme="dark"] .post-modal-box{background:rgba(20,21,40,0.88)!important;border:1px solid rgba(255,255,255,0.12)!important}
 [data-theme="dark"] .city-modal-box{background:rgba(20,21,40,0.92)!important}
 [data-theme="dark"] body{
+  background:transparent;
+}
+[data-theme="dark"] body::before{
   background-color:#1E1208;
   background-image:
-    linear-gradient(160deg,rgba(8,4,0,0.80) 0%,rgba(14,8,2,0.78) 100%),
+    linear-gradient(160deg,rgba(8,4,0,0.82) 0%,rgba(14,8,2,0.80) 100%),
     repeating-linear-gradient(12deg,rgba(0,0,0,0.22) 0px,rgba(0,0,0,0.22) 1px,transparent 1px,transparent 10px),
     repeating-linear-gradient(-16deg,rgba(0,0,0,0.16) 0px,rgba(0,0,0,0.16) 1px,transparent 1px,transparent 14px),
     url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='260'><g transform='rotate(-4,91,64)'><rect x='54' y='38' width='76' height='56' rx='2' fill='rgba(0,0,0,0.14)'/><rect x='52' y='36' width='76' height='56' rx='2' fill='%23FDFAF3'/><line x1='60' y1='52' x2='120' y2='52' stroke='%23C8D0BC' stroke-width='0.9'/><line x1='60' y1='60' x2='120' y2='60' stroke='%23C8D0BC' stroke-width='0.9'/><line x1='60' y1='68' x2='108' y2='68' stroke='%23C8D0BC' stroke-width='0.9'/><circle cx='91' cy='38' r='5.5' fill='%23E53935'/><circle cx='90' cy='37' r='2.5' fill='%23FFCDD2' fill-opacity='.62'/></g><g transform='rotate(3,323,62)'><rect x='288' y='38' width='72' height='52' rx='2' fill='rgba(0,0,0,0.13)'/><rect x='286' y='36' width='72' height='52' rx='2' fill='%23FFF9C4'/><line x1='294' y1='50' x2='350' y2='50' stroke='%23E6DC80' stroke-width='0.9'/><line x1='294' y1='58' x2='350' y2='58' stroke='%23E6DC80' stroke-width='0.9'/><line x1='294' y1='66' x2='338' y2='66' stroke='%23E6DC80' stroke-width='0.9'/><circle cx='322' cy='38' r='5.5' fill='%231565C0'/><circle cx='321' cy='37' r='2.5' fill='%2390CAF9' fill-opacity='.62'/></g><g transform='rotate(2,78,188)'><rect x='40' y='163' width='78' height='52' rx='2' fill='rgba(0,0,0,0.13)'/><rect x='38' y='161' width='78' height='52' rx='2' fill='%23F5F0E8'/><line x1='46' y1='175' x2='108' y2='175' stroke='%23C8C0B0' stroke-width='0.9'/><line x1='46' y1='183' x2='108' y2='183' stroke='%23C8C0B0' stroke-width='0.9'/><line x1='46' y1='191' x2='96' y2='191' stroke='%23C8C0B0' stroke-width='0.9'/><circle cx='77' cy='163' r='5.5' fill='%232E7D32'/><circle cx='76' cy='162' r='2.5' fill='%23A5D6A7' fill-opacity='.62'/></g><g transform='rotate(-3,320,192)'><rect x='284' y='167' width='74' height='50' rx='2' fill='rgba(0,0,0,0.12)'/><rect x='282' y='165' width='74' height='50' rx='2' fill='%23E3F2FD'/><line x1='290' y1='179' x2='348' y2='179' stroke='%23B0C8D8' stroke-width='0.9'/><line x1='290' y1='187' x2='348' y2='187' stroke='%23B0C8D8' stroke-width='0.9'/><line x1='290' y1='195' x2='336' y2='195' stroke='%23B0C8D8' stroke-width='0.9'/><circle cx='319' cy='167' r='5.5' fill='%23E65100'/><circle cx='318' cy='166' r='2.5' fill='%23FFCC80' fill-opacity='.62'/></g></svg>");
   background-size:cover,10px 10px,14px 14px,400px 260px;
   background-repeat:no-repeat,repeat,repeat,repeat;
-  background-attachment:fixed,fixed,fixed,fixed;
 }
 /* dark mode keeps SVG wallpaper icons — body::after is disabled globally */
 
