@@ -502,13 +502,13 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
   <div class="nav-i">
     <a href="#" class="logo">Jalga<sup>kz</sup></a>
     <div class="nav-search">
-      <input type="text" placeholder="Поиск по объявлениям...">
+      <input type="text" placeholder="Поиск по объявлениям..." data-i18n-ph="searchPh">
       <button><i class="ti ti-search"></i></button>
     </div>
     <div class="nav-links">
-      <a href="#ads" data-section="ads" class="nav-link-item"><i class="ti ti-layout-grid" style="font-size:14px"></i> Объявления</a>
-      <a href="#taxi-section" data-section="taxi-section" class="nav-link-item taxi-link"><i class="ti ti-car" style="font-size:14px"></i> Такси · Межгород</a>
-      <a href="#services" data-section="services" class="nav-link-item services-link"><i class="ti ti-briefcase" style="font-size:14px"></i> Наши услуги</a>
+      <a href="#ads" data-section="ads" class="nav-link-item"><i class="ti ti-layout-grid" style="font-size:14px"></i> <span data-i18n="navAds">Объявления</span></a>
+      <a href="#taxi-section" data-section="taxi-section" class="nav-link-item taxi-link"><i class="ti ti-car" style="font-size:14px"></i> <span data-i18n="navTaxi">Такси · Межгород</span></a>
+      <a href="#services" data-section="services" class="nav-link-item services-link"><i class="ti ti-briefcase" style="font-size:14px"></i> <span data-i18n="navServices">Наши услуги</span></a>
     </div>
     <div class="nav-right">
       <div class="lang-switcher">
@@ -523,16 +523,16 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
   </div>
   <div class="mob-menu" id="mobmenu">
     <a href="#" onclick="openCityModal();document.getElementById('mobmenu').classList.remove('open');return false"><i class="ti ti-map-pin" style="font-size:14px;margin-right:4px"></i> <span id="selectedCityMob">Выбрать город</span></a>
-    <a href="#ads" data-section="ads" class="mob-nav-item" onclick="closeMobMenu()"><i class="ti ti-layout-grid" style="font-size:14px;margin-right:4px"></i> Объявления</a>
-    <a href="#taxi-section" data-section="taxi-section" class="mob-nav-item intercity-mob" onclick="closeMobMenu()"><i class="ti ti-car" style="font-size:14px;margin-right:4px"></i> Такси · Межгород 🔥</a>
-    <a href="#services" data-section="services" class="mob-nav-item services-mob" onclick="closeMobMenu()"><i class="ti ti-briefcase" style="font-size:14px;margin-right:4px"></i> Наши услуги</a>
-    <a href="#">Помощь</a>
+    <a href="#ads" data-section="ads" class="mob-nav-item" onclick="closeMobMenu()"><i class="ti ti-layout-grid" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navAds">Объявления</span></a>
+    <a href="#taxi-section" data-section="taxi-section" class="mob-nav-item intercity-mob" onclick="closeMobMenu()"><i class="ti ti-car" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navTaxi">Такси · Межгород</span> 🔥</a>
+    <a href="#services" data-section="services" class="mob-nav-item services-mob" onclick="closeMobMenu()"><i class="ti ti-briefcase" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navServices">Наши услуги</span></a>
+    <a href="#" data-i18n="navHelp">Помощь</a>
   </div>
 </nav>
 
 <div class="urgency">
-  <span class="u-free-badge">✨ ВРЕМЕННО БЕСПЛАТНО</span>
-  Период раскачки спроса — размещение бесплатно · Осталось:
+  <span class="u-free-badge" data-i18n="urgencyBadge">✨ ВРЕМЕННО БЕСПЛАТНО</span>
+  <span data-i18n="urgencyText">Период раскачки спроса — размещение бесплатно · Осталось:</span>
   <span class="u-timer" id="utimer">29д 23:59:59</span>
 </div>
 
@@ -545,31 +545,31 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
 
     <div class="hero-main">
       <div>
-        <div class="hero-tag"><i class="ti ti-map-pin" style="font-size:12px"></i> Казахстан · 18+ городов</div>
-        <div class="free-ribbon">🎁 Временно бесплатно — на период запуска</div>
-        <h1>Объявления<br><em>без комиссий</em><br>и посредников</h1>
-        <p>Продавайте быстро. Покупайте выгодно. Всё по-настоящему.</p>
+        <div class="hero-tag"><i class="ti ti-map-pin" style="font-size:12px"></i> <span data-i18n="heroTag">Казахстан · 18+ городов</span></div>
+        <div class="free-ribbon" data-i18n="heroRibbon">🎁 Временно бесплатно — на период запуска</div>
+        <h1 data-i18n-html="heroTitle">Объявления<br><em>без комиссий</em><br>и посредников</h1>
+        <p data-i18n="heroSubtitle">Продавайте быстро. Покупайте выгодно. Всё по-настоящему.</p>
         <div class="hero-btns">
-          <button class="hbtn-o" onclick="openPostModal()"><i class="ti ti-plus"></i> Подать объявление</button>
-          <button class="hbtn-w"><i class="ti ti-search"></i> Смотреть все</button>
+          <button class="hbtn-o" onclick="openPostModal()"><i class="ti ti-plus"></i> <span data-i18n="postAd">Подать объявление</span></button>
+          <button class="hbtn-w"><i class="ti ti-search"></i> <span data-i18n="heroBtnBrowse">Смотреть все</span></button>
         </div>
       </div>
     </div>
 
     <div class="hero-stats-card">
-      <div class="live-pill"><span class="live-dot"></span> <span id="onlineCount">3 847</span> онлайн</div>
+      <div class="live-pill"><span class="live-dot"></span> <span id="onlineCount">3 847</span> <span data-i18n="heroOnline">онлайн</span></div>
       <div>
         <div class="hero-stat-item">
           <div class="n" id="adsCount">12 841</div>
-          <div class="l">объявлений</div>
+          <div class="l" data-i18n="heroAds">объявлений</div>
         </div>
         <div class="hero-stat-item">
           <div class="n">4.9 ★</div>
-          <div class="l">рейтинг</div>
+          <div class="l" data-i18n="heroRating">рейтинг</div>
         </div>
         <div class="hero-stat-item" style="margin-bottom:0">
-          <div class="n">23 сек</div>
-          <div class="l">до первого отклика</div>
+          <div class="n">23 <span data-i18n="heroSec">сек</span></div>
+          <div class="l" data-i18n="heroResponse">до первого отклика</div>
         </div>
       </div>
     </div>
@@ -577,26 +577,26 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
     <!-- TAXI МЕЖГОРОД CARD -->
     <div class="hero-taxi" id="taxiCard" style="scroll-margin-top:70px">
       <div class="taxi-tabs">
-        <div class="taxi-tab active">🚗 Межгород</div>
-        <div class="taxi-tab">🏙️ Город</div>
+        <div class="taxi-tab active" data-i18n="taxiTab1">🚗 Межгород</div>
+        <div class="taxi-tab" data-i18n="taxiTab2">🏙️ Город</div>
       </div>
-      <div class="intercity-badge">🛣️ Межгород · Популярно</div>
-      <div class="hv">Такси Бурабай ↔ Астана</div>
-      <div class="hs">Haval M6 2024 · 24/7 · 24 000 ₸</div>
+      <div class="intercity-badge" data-i18n="taxiBadge">🛣️ Межгород · Популярно</div>
+      <div class="hv" data-i18n="taxiTitle">Такси Бурабай ↔ Астана</div>
+      <div class="hs" data-i18n="taxiSub">Haval M6 2024 · 24/7 · 24 000 ₸</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">
-        <span style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;padding:2px 8px;border-radius:12px;font-weight:600">Стаж 24 года</span>
-        <span style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;padding:2px 8px;border-radius:12px;font-weight:600">До 4 чел</span>
-        <span style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;padding:2px 8px;border-radius:12px;font-weight:600">Кокшетау · Алматы</span>
+        <span style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;padding:2px 8px;border-radius:12px;font-weight:600" data-i18n="taxiExp">Стаж 24 года</span>
+        <span style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;padding:2px 8px;border-radius:12px;font-weight:600" data-i18n="taxiPax">До 4 чел</span>
+        <span style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;padding:2px 8px;border-radius:12px;font-weight:600" data-i18n="taxiRoute">Кокшетау · Алматы</span>
       </div>
-      <a href="https://wa.me/77080802588?text=Такси Бурабай-Астана" target="_blank" class="wa-btn"><i class="ti ti-brand-whatsapp"></i> Заказать в WhatsApp</a>
+      <a href="https://wa.me/77080802588?text=Такси Бурабай-Астана" target="_blank" class="wa-btn"><i class="ti ti-brand-whatsapp"></i> <span data-i18n="taxiWa">Заказать в WhatsApp</span></a>
     </div>
 
     <div class="hero-free">
       <i class="ti ti-gift" style="font-size:28px;color:#fff"></i>
-      <div class="ft">Размещение бесплатно</div>
-      <div class="free-limit-badge">⏳ Ограниченное предложение</div>
-      <div class="fs">Первые 50 объявлений бесплатно для каждого продавца — успей пока действует акция!</div>
-      <div class="fc"><i class="ti ti-arrow-right" style="font-size:14px"></i> Зарегистрироваться</div>
+      <div class="ft" data-i18n="freeTitle">Размещение бесплатно</div>
+      <div class="free-limit-badge" data-i18n="freeBadge">⏳ Ограниченное предложение</div>
+      <div class="fs" data-i18n="freeDesc">Первые 50 объявлений бесплатно для каждого продавца — успей пока действует акция!</div>
+      <div class="fc"><i class="ti ti-arrow-right" style="font-size:14px"></i> <span data-i18n="freeLink">Зарегистрироваться</span></div>
     </div>
 
   </div>
@@ -605,7 +605,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
 <!-- SOCIAL PROOF -->
 <div style="max-width:1280px;margin:14px auto 0;padding:0 20px">
   <div class="proof">
-    <span class="proof-lbl">Только что:</span>
+    <span class="proof-lbl" data-i18n="proofLabel">Только что:</span>
     <div class="proof-item">
       <div class="av" style="background:var(--b-bg);color:var(--b-dark)">АС</div>
       <div class="proof-text"><strong>Асель из Алматы</strong><span>купила iPhone 15 · 1 мин</span></div>
@@ -641,29 +641,29 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
 <!-- CATEGORIES -->
 <div class="section" style="padding-top:24px">
   <div class="sec-head">
-    <h2>Категории</h2>
-    <a href="#" class="sec-more">Все категории <i class="ti ti-chevron-right" style="font-size:13px"></i></a>
+    <h2 data-i18n="catTitle">Категории</h2>
+    <a href="#" class="sec-more"><span data-i18n="catAll">Все категории</span> <i class="ti ti-chevron-right" style="font-size:13px"></i></a>
   </div>
   <div class="cats-grid">
-    <div class="cat-card c-auto"><div class="cat-icon"><i class="ti ti-car"></i></div><div class="cat-name">Авто и мото</div><div class="cat-count">2 840 объявл.</div></div>
-    <div class="cat-card c-realty"><div class="cat-icon"><i class="ti ti-building"></i></div><div class="cat-name">Недвижимость</div><div class="cat-count">1 230 объявл.</div></div>
-    <div class="cat-card c-elec"><div class="cat-icon"><i class="ti ti-device-mobile"></i></div><div class="cat-name">Электроника</div><div class="cat-count">3 100 объявл.</div></div>
-    <div class="cat-card c-work"><div class="cat-icon"><i class="ti ti-briefcase"></i></div><div class="cat-name">Работа</div><div class="cat-count">980 объявл.</div></div>
-    <div class="cat-card c-serv"><div class="cat-icon"><i class="ti ti-tools"></i></div><div class="cat-name">Услуги</div><div class="cat-count">1 650 объявл.</div></div>
-    <div class="cat-card c-taxi" style="border:2px solid var(--y)"><div class="cat-icon"><i class="ti ti-car"></i></div><div class="cat-name">Такси · Межгород</div><div class="cat-count">340 объявл.</div></div>
-    <div class="cat-card c-pet"><div class="cat-icon"><i class="ti ti-paw"></i></div><div class="cat-name">Животные</div><div class="cat-count">420 объявл.</div></div>
-    <div class="cat-card c-kids"><div class="cat-icon"><i class="ti ti-baby-carriage"></i></div><div class="cat-name">Детское</div><div class="cat-count">750 объявл.</div></div>
-    <div class="cat-card c-sport"><div class="cat-icon"><i class="ti ti-ball-basketball"></i></div><div class="cat-name">Спорт</div><div class="cat-count">310 объявл.</div></div>
-    <div class="cat-card c-furn"><div class="cat-icon"><i class="ti ti-sofa"></i></div><div class="cat-name">Мебель</div><div class="cat-count">580 объявл.</div></div>
-    <div class="cat-card c-food"><div class="cat-icon"><i class="ti ti-salad"></i></div><div class="cat-name">Продукты</div><div class="cat-count">190 объявл.</div></div>
-    <div class="cat-card c-free"><div class="cat-icon"><i class="ti ti-gift"></i></div><div class="cat-name">Отдам даром</div><div class="cat-count">220 объявл.</div></div>
+    <div class="cat-card c-auto"><div class="cat-icon"><i class="ti ti-car"></i></div><div class="cat-name" data-i18n="catAuto">Авто и мото</div><div class="cat-count">2 840 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-realty"><div class="cat-icon"><i class="ti ti-building"></i></div><div class="cat-name" data-i18n="catRealty">Недвижимость</div><div class="cat-count">1 230 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-elec"><div class="cat-icon"><i class="ti ti-device-mobile"></i></div><div class="cat-name" data-i18n="catElec">Электроника</div><div class="cat-count">3 100 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-work"><div class="cat-icon"><i class="ti ti-briefcase"></i></div><div class="cat-name" data-i18n="catWork">Работа</div><div class="cat-count">980 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-serv"><div class="cat-icon"><i class="ti ti-tools"></i></div><div class="cat-name" data-i18n="catServ">Услуги</div><div class="cat-count">1 650 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-taxi" style="border:2px solid var(--y)"><div class="cat-icon"><i class="ti ti-car"></i></div><div class="cat-name" data-i18n="catTaxi">Такси · Межгород</div><div class="cat-count">340 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-pet"><div class="cat-icon"><i class="ti ti-paw"></i></div><div class="cat-name" data-i18n="catPet">Животные</div><div class="cat-count">420 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-kids"><div class="cat-icon"><i class="ti ti-baby-carriage"></i></div><div class="cat-name" data-i18n="catKids">Детское</div><div class="cat-count">750 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-sport"><div class="cat-icon"><i class="ti ti-ball-basketball"></i></div><div class="cat-name" data-i18n="catSport">Спорт</div><div class="cat-count">310 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-furn"><div class="cat-icon"><i class="ti ti-sofa"></i></div><div class="cat-name" data-i18n="catFurn">Мебель</div><div class="cat-count">580 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-food"><div class="cat-icon"><i class="ti ti-salad"></i></div><div class="cat-name" data-i18n="catFood">Продукты</div><div class="cat-count">190 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-free"><div class="cat-icon"><i class="ti ti-gift"></i></div><div class="cat-name" data-i18n="catFree">Отдам даром</div><div class="cat-count">220 <span data-i18n="catCount">объявл.</span></div></div>
   </div>
 </div>
 
 <!-- ADS -->
 <div class="section" style="padding-top:24px;scroll-margin-top:64px" id="ads">
   <div class="sec-head">
-    <h2>Свежие <em style="color:var(--o)">объявления</em></h2>
+    <h2><span data-i18n="adsTitle1">Свежие</span> <em style="color:var(--o)"><span data-i18n="adsTitle2">объявления</span></em></h2>
     <div class="view-controls">
       <!-- column count (only in grid mode) -->
       <div class="col-switcher" id="colSwitcher">
@@ -694,19 +694,19 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
 <!-- CITIES & OBLASTS -->
 <div class="section" style="padding-top:28px" id="cities">
   <div class="sec-head">
-    <h2>Регионы <em style="color:var(--b)">Казахстана</em></h2>
-    <a href="#" class="sec-more" onclick="openCityModal();return false">Выбрать город <i class="ti ti-chevron-right" style="font-size:13px"></i></a>
+    <h2><span data-i18n="regTitle1">Регионы</span> <em style="color:var(--b)"><span data-i18n="regTitle2">Казахстана</span></em></h2>
+    <a href="#" class="sec-more" onclick="openCityModal();return false"><span data-i18n="regSelectBtn">Выбрать город</span> <i class="ti ti-chevron-right" style="font-size:13px"></i></a>
   </div>
 
   <!-- Акмолинская область hero card -->
   <div class="oblast-hero">
     <div class="oblast-hero-img">🏔️</div>
     <div class="oblast-hero-text">
-      <h3>Акмолинская область</h3>
-      <p>Бурабай · Щучинск · Кокшетау · Степногорск · Атбасар · Зеренда · Акколь · Макинск</p>
-      <p style="margin-top:4px;font-size:12px;color:rgba(255,255,255,.6)">Жемчужина Казахстана — озёра, сосновые леса, горный воздух</p>
+      <h3 data-i18n="oblastTitle">Акмолинская область</h3>
+      <p data-i18n="oblastCities">Бурабай · Щучинск · Кокшетау · Степногорск · Атбасар · Зеренда · Акколь · Макинск</p>
+      <p style="margin-top:4px;font-size:12px;color:rgba(255,255,255,.6)" data-i18n="oblastSubtitle">Жемчужина Казахстана — озёра, сосновые леса, горный воздух</p>
     </div>
-    <span class="oblast-hero-badge">🏡 Наш регион</span>
+    <span class="oblast-hero-badge" data-i18n="oblastBadge">🏡 Наш регион</span>
   </div>
 
   <div class="cities-grid">
@@ -725,25 +725,25 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
 
 <!-- HOW IT WORKS -->
 <div class="section" style="padding-top:28px">
-  <div class="sec-head"><h2>Как это работает</h2></div>
+  <div class="sec-head"><h2 data-i18n="hiwTitle">Как это работает</h2></div>
   <div class="hiw-grid">
     <div class="hiw-card hiw-1">
-      <div class="hiw-num">Шаг 01</div>
+      <div class="hiw-num" data-i18n="hiwStep1">Шаг 01</div>
       <div class="hiw-icon"><i class="ti ti-camera" style="font-size:24px"></i></div>
-      <div class="hiw-title">Сфотографируй и опиши</div>
-      <div class="hiw-desc">Добавь фото, напиши цену и номер телефона. ИИ-помощник поможет написать продающий текст за 30 секунд.</div>
+      <div class="hiw-title" data-i18n="hiwTitle1">Сфотографируй и опиши</div>
+      <div class="hiw-desc" data-i18n="hiwDesc1">Добавь фото, напиши цену и номер телефона. ИИ-помощник поможет написать продающий текст за 30 секунд.</div>
     </div>
     <div class="hiw-card hiw-2">
-      <div class="hiw-num">Шаг 02</div>
+      <div class="hiw-num" data-i18n="hiwStep2">Шаг 02</div>
       <div class="hiw-icon"><i class="ti ti-check" style="font-size:24px"></i></div>
-      <div class="hiw-title">Автоматическая проверка</div>
-      <div class="hiw-desc">ИИ-модератор проверяет объявление на спам и мошенничество. Публикуется за 1–2 минуты, не нужно ждать часами.</div>
+      <div class="hiw-title" data-i18n="hiwTitle2">Автоматическая проверка</div>
+      <div class="hiw-desc" data-i18n="hiwDesc2">ИИ-модератор проверяет объявление на спам и мошенничество. Публикуется за 1–2 минуты, не нужно ждать часами.</div>
     </div>
     <div class="hiw-card hiw-3">
-      <div class="hiw-num">Шаг 03</div>
+      <div class="hiw-num" data-i18n="hiwStep3">Шаг 03</div>
       <div class="hiw-icon"><i class="ti ti-messages" style="font-size:24px"></i></div>
-      <div class="hiw-title">Получай звонки сразу</div>
-      <div class="hiw-desc">Покупатели видят ваш контакт и пишут напрямую. Никаких посредников, никаких комиссий с продажи.</div>
+      <div class="hiw-title" data-i18n="hiwTitle3">Получай звонки сразу</div>
+      <div class="hiw-desc" data-i18n="hiwDesc3">Покупатели видят ваш контакт и пишут напрямую. Никаких посредников, никаких комиссий с продажи.</div>
     </div>
   </div>
 </div>
@@ -753,11 +753,11 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
   <div class="ai-strip">
     <div class="ai-icon"><i class="ti ti-robot"></i></div>
     <div class="ai-text">
-      <h3>ИИ-помощник работает за вас 24/7</h3>
-      <p>Напишите боту в Telegram — он поможет составить объявление, ответит покупателям, проверит оплату и автоматически опубликует ваш товар. Вам ничего не нужно делать вручную.</p>
+      <h3 data-i18n="aiTitle">ИИ-помощник работает за вас 24/7</h3>
+      <p data-i18n="aiDesc">Напишите боту в Telegram — он поможет составить объявление, ответит покупателям, проверит оплату и автоматически опубликует ваш товар. Вам ничего не нужно делать вручную.</p>
       <div class="ai-btns">
-        <button class="ai-btn"><i class="ti ti-brand-telegram" style="font-size:13px"></i> Открыть бота</button>
-        <button class="ai-btn2">Узнать больше</button>
+        <button class="ai-btn"><i class="ti ti-brand-telegram" style="font-size:13px"></i> <span data-i18n="aiBtnTg">Открыть бота</span></button>
+        <button class="ai-btn2" data-i18n="aiBtnMore">Узнать больше</button>
       </div>
     </div>
   </div>
@@ -768,57 +768,57 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
   <div class="services-header">
     <div class="services-header-icon">🏢</div>
     <div class="services-header-text">
-      <h2>Наши услуги для бизнеса</h2>
-      <p>Комплексные цифровые решения для малого и среднего бизнеса Казахстана — от сайтов до ИИ-автоматизации</p>
+      <h2 data-i18n="servTitle">Наши услуги для бизнеса</h2>
+      <p data-i18n="servDesc">Комплексные цифровые решения для малого и среднего бизнеса Казахстана — от сайтов до ИИ-автоматизации</p>
     </div>
   </div>
   <div class="b2b-grid">
 
     <div class="b2b-card b2b-1">
       <div class="b2b-icon"><i class="ti ti-world-www" style="font-size:22px"></i></div>
-      <div class="b2b-title">Создание сайтов и веб-приложений</div>
-      <div class="b2b-desc">Разработка современных сайтов, лендингов и интернет-магазинов. Быстро, красиво, с нуля до запуска за 7–14 дней. SEO-оптимизация и мобильная адаптация включены.</div>
+      <div class="b2b-title" data-i18n="b2bTitle1">Создание сайтов и веб-приложений</div>
+      <div class="b2b-desc" data-i18n="b2bDesc1">Разработка современных сайтов, лендингов и интернет-магазинов. Быстро, красиво, с нуля до запуска за 7–14 дней. SEO-оптимизация и мобильная адаптация включены.</div>
       <div class="b2b-tags">
         <span class="b2b-tag">Лендинг</span>
         <span class="b2b-tag">Интернет-магазин</span>
         <span class="b2b-tag">CRM интеграция</span>
         <span class="b2b-tag">SEO</span>
       </div>
-      <div class="b2b-cta"><i class="ti ti-arrow-right" style="font-size:14px"></i> Обсудить проект</div>
+      <div class="b2b-cta"><i class="ti ti-arrow-right" style="font-size:14px"></i> <span data-i18n="b2bCta1">Обсудить проект</span></div>
     </div>
 
     <div class="b2b-card b2b-2">
       <div class="b2b-icon"><i class="ti ti-brain" style="font-size:22px"></i></div>
-      <div class="b2b-title">Внедрение ИИ-технологий</div>
-      <div class="b2b-desc">Автоматизация клиентского сервиса с помощью ИИ-чат-ботов, умная модерация контента, ИИ-аналитика данных и автоматические ответы на обращения покупателей.</div>
+      <div class="b2b-title" data-i18n="b2bTitle2">Внедрение ИИ-технологий</div>
+      <div class="b2b-desc" data-i18n="b2bDesc2">Автоматизация клиентского сервиса с помощью ИИ-чат-ботов, умная модерация контента, ИИ-аналитика данных и автоматические ответы на обращения покупателей.</div>
       <div class="b2b-tags">
         <span class="b2b-tag">Чат-бот</span>
         <span class="b2b-tag">GPT интеграция</span>
         <span class="b2b-tag">Автоответы</span>
         <span class="b2b-tag">Аналитика</span>
       </div>
-      <div class="b2b-cta"><i class="ti ti-arrow-right" style="font-size:14px"></i> Узнать подробнее</div>
+      <div class="b2b-cta"><i class="ti ti-arrow-right" style="font-size:14px"></i> <span data-i18n="b2bCta2">Узнать подробнее</span></div>
     </div>
 
     <div class="b2b-card b2b-3">
       <div class="b2b-icon"><i class="ti ti-camera" style="font-size:22px"></i></div>
-      <div class="b2b-title">Автоматизация видеонаблюдения</div>
-      <div class="b2b-desc">Умные системы видеонаблюдения с ИИ-распознаванием: детекция людей и автомобилей, оповещения в Telegram, удалённый доступ и запись в облако. Frigate + Home Assistant.</div>
+      <div class="b2b-title" data-i18n="b2bTitle3">Автоматизация видеонаблюдения</div>
+      <div class="b2b-desc" data-i18n="b2bDesc3">Умные системы видеонаблюдения с ИИ-распознаванием: детекция людей и автомобилей, оповещения в Telegram, удалённый доступ и запись в облако. Frigate + Home Assistant.</div>
       <div class="b2b-tags">
         <span class="b2b-tag">Frigate NVR</span>
         <span class="b2b-tag">Детекция людей</span>
         <span class="b2b-tag">Telegram-боты</span>
         <span class="b2b-tag">IP-камеры</span>
       </div>
-      <div class="b2b-cta"><i class="ti ti-arrow-right" style="font-size:14px"></i> Получить консультацию</div>
+      <div class="b2b-cta"><i class="ti ti-arrow-right" style="font-size:14px"></i> <span data-i18n="b2bCta3">Получить консультацию</span></div>
     </div>
 
   </div>
 
   <div class="b2b-contact-strip">
     <div>
-      <h4>Готовы обсудить ваш проект?</h4>
-      <p>Бесплатная консультация · Ответим в течение 2 часов · Работаем по всему Казахстану</p>
+      <h4 data-i18n="b2bContactTitle">Готовы обсудить ваш проект?</h4>
+      <p data-i18n="b2bContactDesc">Бесплатная консультация · Ответим в течение 2 часов · Работаем по всему Казахстану</p>
     </div>
     <div class="b2b-contact-btns">
       <a href="https://wa.me/77080802588?text=Здравствуйте! Хочу узнать про услуги для бизнеса" target="_blank">
@@ -902,47 +902,47 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
   <div class="auth-modal-box">
     <div class="auth-header">
       <div class="ah-logo">Jalga<sup style="font-size:11px;background:rgba(255,255,255,.3);padding:1px 5px;border-radius:5px;margin-left:2px;vertical-align:super">kz</sup></div>
-      <p>Войдите, чтобы подать объявление</p>
+      <p data-i18n="authSubtitle">Войдите, чтобы подать объявление</p>
     </div>
     <div class="auth-body">
       <div class="auth-tabs">
-        <button class="auth-tab active" onclick="switchAuthTab('phone')">📱 Телефон</button>
-        <button class="auth-tab" onclick="switchAuthTab('email')">✉️ Email</button>
+        <button class="auth-tab active" onclick="switchAuthTab('phone')" data-i18n="authPhoneTab">📱 Телефон</button>
+        <button class="auth-tab" onclick="switchAuthTab('email')" data-i18n="authEmailTabBtn">✉️ Email</button>
       </div>
 
       <!-- Phone step 1: enter number -->
       <div id="authPhoneStep1">
         <div class="auth-field">
-          <label>Номер телефона</label>
+          <label data-i18n="authPhoneLabel">Номер телефона</label>
           <div class="phone-wrap">
             <span class="phone-prefix">+7</span>
             <input type="tel" id="authPhone" placeholder="(___) ___-__-__" maxlength="11">
           </div>
         </div>
-        <button class="auth-submit" onclick="sendOtp()">Получить SMS-код</button>
+        <button class="auth-submit" onclick="sendOtp()" data-i18n="authSendSms">Получить SMS-код</button>
       </div>
 
       <!-- Phone step 2: enter OTP -->
       <div id="authPhoneStep2" style="display:none">
         <div class="auth-field">
-          <label>Код из SMS</label>
+          <label data-i18n="authOtpLabel">Код из SMS</label>
           <input type="text" id="authOtp" placeholder="______" maxlength="6" style="text-align:center;letter-spacing:8px;font-size:22px;font-weight:700">
         </div>
-        <button class="auth-submit" onclick="verifyOtp()">Войти</button>
-        <div class="auth-otp-hint">Не получили код? <a onclick="showPhoneStep1()">Отправить ещё раз</a></div>
+        <button class="auth-submit" onclick="verifyOtp()" data-i18n="authOtpBtn">Войти</button>
+        <div class="auth-otp-hint"><span data-i18n="authNoCode">Не получили код?</span> <a onclick="showPhoneStep1()" data-i18n="authResend">Отправить ещё раз</a></div>
       </div>
 
       <!-- Email tab -->
       <div id="authEmailTab" style="display:none">
         <div class="auth-field">
-          <label>Email</label>
+          <label data-i18n="authEmailLabel">Email</label>
           <input type="email" id="authEmail" placeholder="you@example.com">
         </div>
         <div class="auth-field">
-          <label>Пароль</label>
-          <input type="password" id="authPassword" placeholder="Минимум 6 символов">
+          <label data-i18n="authPassLabel">Пароль</label>
+          <input type="password" id="authPassword" placeholder="Минимум 6 символов" data-i18n-ph="authPassPh">
         </div>
-        <button class="auth-submit" onclick="signInEmail()">Войти / Зарегистрироваться</button>
+        <button class="auth-submit" onclick="signInEmail()" data-i18n="authEmailBtn">Войти / Зарегистрироваться</button>
       </div>
 
     </div>
@@ -954,16 +954,16 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
   <div class="post-modal-box">
     <div class="post-header">
       <i class="ti ti-plus" style="font-size:18px;color:#fff"></i>
-      <h3>Подать объявление</h3>
+      <h3 data-i18n="postModalTitle">Подать объявление</h3>
       <button onclick="closePostModal()"><i class="ti ti-x"></i></button>
     </div>
 
     <!-- Success state -->
     <div id="postSuccess" style="display:none" class="post-success">
       <div class="ps-icon">🎉</div>
-      <h3>Объявление подано!</h3>
-      <p>Ваше объявление уже видно всем пользователям. Ждите откликов — обычно первый приходит в течение нескольких минут!</p>
-      <button class="post-submit" style="margin-top:20px;max-width:220px;margin-left:auto;margin-right:auto" onclick="closePostModal()"><i class="ti ti-check" style="font-size:16px"></i> Отлично!</button>
+      <h3 data-i18n="postSuccessTitle">Объявление подано!</h3>
+      <p data-i18n="postSuccessDesc">Ваше объявление уже видно всем пользователям. Ждите откликов — обычно первый приходит в течение нескольких минут!</p>
+      <button class="post-submit" style="margin-top:20px;max-width:220px;margin-left:auto;margin-right:auto" onclick="closePostModal()"><i class="ti ti-check" style="font-size:16px"></i> <span data-i18n="postSuccessBtn">Отлично!</span></button>
     </div>
 
     <!-- Form -->
@@ -971,7 +971,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
       <div class="post-body">
 
         <div class="post-field">
-          <label>Категория</label>
+          <label data-i18n="postCatLabel">Категория</label>
           <div class="post-cat-grid">
             <div class="post-cat-item" data-cat="auto" data-cat-color="#1565C0" onclick="selectPostCat(this)"><span class="pci">🚗</span>Авто</div>
             <div class="post-cat-item" data-cat="realty" data-cat-color="#FF6B00" onclick="selectPostCat(this)"><span class="pci">🏠</span>Недвижимость</div>
@@ -989,33 +989,33 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
         </div>
 
         <div class="post-field">
-          <label>Заголовок</label>
-          <input type="text" id="postTitle" placeholder="Например: iPhone 15 Pro 256GB">
+          <label data-i18n="postTitleLabel">Заголовок</label>
+          <input type="text" id="postTitle" placeholder="Например: iPhone 15 Pro 256GB" data-i18n-ph="postTitlePh">
         </div>
 
         <div class="post-field">
-          <label>Описание</label>
-          <textarea id="postDesc" rows="3" placeholder="Подробно опишите товар или услугу..."></textarea>
+          <label data-i18n="postDescLabel">Описание</label>
+          <textarea id="postDesc" rows="3" placeholder="Подробно опишите товар или услугу..." data-i18n-ph="postDescPh"></textarea>
         </div>
 
         <div class="post-row">
           <div class="post-field">
-            <label>Цена (₸)</label>
-            <input type="number" id="postPrice" placeholder="0 — договорная">
+            <label data-i18n="postPriceLabel">Цена (₸)</label>
+            <input type="number" id="postPrice" placeholder="0 — договорная" data-i18n-ph="postPricePh">
           </div>
           <div class="post-field">
-            <label>Город</label>
-            <input type="text" id="postCity" placeholder="Бурабай, Астана...">
+            <label data-i18n="postCityLabel">Город</label>
+            <input type="text" id="postCity" placeholder="Бурабай, Астана..." data-i18n-ph="postCityPh">
           </div>
         </div>
 
         <div class="post-field">
-          <label>Телефон</label>
+          <label data-i18n="postPhoneLabel">Телефон</label>
           <input type="tel" id="postPhone" placeholder="+7 (___) ___-__-__">
         </div>
 
         <div class="post-field">
-          <label>Фотографии (до 5)</label>
+          <label data-i18n="postPhotosLabel">Фотографии (до 5)</label>
           <div class="post-photo-grid">
             <div class="post-photo-slot" onclick="this.classList.toggle('filled')"><span style="font-size:24px">📷</span><span class="ps-add">+ фото</span></div>
             <div class="post-photo-slot" onclick="this.classList.toggle('filled')"><span style="font-size:24px">📷</span><span class="ps-add">+ фото</span></div>
@@ -1028,8 +1028,8 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
       </div>
 
       <div class="post-footer">
-        <button class="post-cancel" onclick="closePostModal()">Отмена</button>
-        <button class="post-submit" onclick="submitPostAd()"><i class="ti ti-send" style="font-size:15px"></i> Опубликовать</button>
+        <button class="post-cancel" onclick="closePostModal()" data-i18n="postCancelBtn">Отмена</button>
+        <button class="post-submit" onclick="submitPostAd()"><i class="ti ti-send" style="font-size:15px"></i> <span data-i18n="postSubmitBtn">Опубликовать</span></button>
       </div>
     </div>
 
@@ -1494,45 +1494,162 @@ var observer = new IntersectionObserver(function(entries){
 // ── TRANSLATIONS ──────────────────────────────────────────────
 var currentLang = 'ru';
 var LANGS = {
-  ru:{
-    allCities:'Все города', postAd:'Подать объявление',
-    hot:'Горячее', isNew:'Новое', negotiable:'Договорная',
-    call:'Позвонить', edit:'Редактировать',
-    couldBeYours:'Здесь мог быть ваш товар',
-    yourPrice:'Ваша цена', postFree:'Разместить бесплатно',
-    appTitle:'Приложение Jalga.kz',
-    appDesc:'Продавай и покупай прямо с телефона — фото, публикация и чат в два касания.',
-    notify:'Уведомить меня', emailPlaceholder:'Ваш email — уведомим о запуске',
-    editAd:'Редактировать объявление', title:'Заголовок',
-    description:'Описание', price:'Цена (₸)', photos:'Фотографии',
-    cancel:'Отмена', saveChanges:'💾 Сохранить изменения',
-  },
-  kz:{
-    allCities:'Барлық қалалар', postAd:'Хабарландыру беру',
-    hot:'Ыстық', isNew:'Жаңа', negotiable:'Келісімді',
-    call:'Қоңырау', edit:'Өңдеу',
-    couldBeYours:'Мұнда сіздің тауарыңыз болуы мүмкін',
-    yourPrice:'Сіздің бағаңыз', postFree:'Тегін орналастыру',
-    appTitle:'Jalga.kz қосымшасы',
-    appDesc:'Телефоннан сат және сатып ал — фото, жариялау, чат екі рет тигізумен.',
-    notify:'Хабарлаңыз', emailPlaceholder:'Email — іске қосылғанда хабарлаймыз',
-    editAd:'Хабарландыруды өңдеу', title:'Тақырып',
-    description:'Сипаттама', price:'Бағасы (₸)', photos:'Суреттер',
-    cancel:'Болдырмау', saveChanges:'💾 Өзгерістерді сақтау',
-  },
-  en:{
-    allCities:'All cities', postAd:'Post an ad',
-    hot:'Hot', isNew:'New', negotiable:'Negotiable',
-    call:'Call', edit:'Edit',
-    couldBeYours:'Your item could be here',
-    yourPrice:'Your price', postFree:'Post for free',
-    appTitle:'Jalga.kz App',
-    appDesc:'Buy and sell right from your phone — photo, post and chat in two taps.',
-    notify:'Notify me', emailPlaceholder:'Your email — we\'ll notify you at launch',
-    editAd:'Edit listing', title:'Title',
-    description:'Description', price:'Price (₸)', photos:'Photos',
-    cancel:'Cancel', saveChanges:'💾 Save changes',
-  }
+ru:{
+  searchPh:'Поиск по объявлениям...', navAds:'Объявления', navTaxi:'Такси · Межгород', navServices:'Наши услуги', navHelp:'Помощь',
+  allCities:'Все города', postAd:'Подать объявление',
+  urgencyBadge:'✨ ВРЕМЕННО БЕСПЛАТНО', urgencyText:'Период раскачки спроса — размещение бесплатно · Осталось:',
+  heroTag:'Казахстан · 18+ городов', heroRibbon:'🎁 Временно бесплатно — на период запуска',
+  heroTitle:'Объявления<br><em>без комиссий</em><br>и посредников',
+  heroSubtitle:'Продавайте быстро. Покупайте выгодно. Всё по-настоящему.', heroBtnBrowse:'Смотреть все',
+  heroOnline:'онлайн', heroAds:'объявлений', heroRating:'рейтинг', heroResponse:'до первого отклика', heroSec:'сек',
+  taxiTab1:'🚗 Межгород', taxiTab2:'🏙️ Город', taxiBadge:'🛣️ Межгород · Популярно',
+  taxiTitle:'Такси Бурабай ↔ Астана', taxiSub:'Haval M6 2024 · 24/7 · 24 000 ₸',
+  taxiExp:'Стаж 24 года', taxiPax:'До 4 чел', taxiRoute:'Кокшетау · Алматы', taxiWa:'Заказать в WhatsApp',
+  freeTitle:'Размещение бесплатно', freeBadge:'⏳ Ограниченное предложение',
+  freeDesc:'Первые 50 объявлений бесплатно для каждого продавца — успей пока действует акция!', freeLink:'Зарегистрироваться',
+  proofLabel:'Только что:',
+  catTitle:'Категории', catAll:'Все категории', catCount:'объявл.',
+  catAuto:'Авто и мото', catRealty:'Недвижимость', catElec:'Электроника', catWork:'Работа',
+  catServ:'Услуги', catTaxi:'Такси · Межгород', catPet:'Животные', catKids:'Детское',
+  catSport:'Спорт', catFurn:'Мебель', catFood:'Продукты', catFree:'Отдам даром',
+  adsTitle1:'Свежие', adsTitle2:'объявления',
+  regTitle1:'Регионы', regTitle2:'Казахстана', regSelectBtn:'Выбрать город',
+  oblastTitle:'Акмолинская область', oblastBadge:'🏡 Наш регион',
+  oblastCities:'Бурабай · Щучинск · Кокшетау · Степногорск · Атбасар · Зеренда · Акколь · Макинск',
+  oblastSubtitle:'Жемчужина Казахстана — озёра, сосновые леса, горный воздух',
+  hiwTitle:'Как это работает',
+  hiwStep1:'Шаг 01', hiwTitle1:'Сфотографируй и опиши', hiwDesc1:'Добавь фото, напиши цену и номер телефона. ИИ-помощник поможет написать продающий текст за 30 секунд.',
+  hiwStep2:'Шаг 02', hiwTitle2:'Автоматическая проверка', hiwDesc2:'ИИ-модератор проверяет объявление на спам и мошенничество. Публикуется за 1–2 минуты, не нужно ждать часами.',
+  hiwStep3:'Шаг 03', hiwTitle3:'Получай звонки сразу', hiwDesc3:'Покупатели видят ваш контакт и пишут напрямую. Никаких посредников, никаких комиссий с продажи.',
+  aiTitle:'ИИ-помощник работает за вас 24/7', aiBtnTg:'Открыть бота', aiBtnMore:'Узнать больше',
+  aiDesc:'Напишите боту в Telegram — он поможет составить объявление, ответит покупателям, проверит оплату и автоматически опубликует ваш товар. Вам ничего не нужно делать вручную.',
+  servTitle:'Наши услуги для бизнеса', servDesc:'Комплексные цифровые решения для малого и среднего бизнеса Казахстана — от сайтов до ИИ-автоматизации',
+  b2bTitle1:'Создание сайтов и веб-приложений', b2bDesc1:'Разработка современных сайтов, лендингов и интернет-магазинов. Быстро, красиво, с нуля до запуска за 7–14 дней. SEO и мобильная адаптация включены.', b2bCta1:'Обсудить проект',
+  b2bTitle2:'Внедрение ИИ-технологий', b2bDesc2:'Автоматизация клиентского сервиса с помощью ИИ-чат-ботов, умная модерация контента, ИИ-аналитика данных и автоответы покупателям.', b2bCta2:'Узнать подробнее',
+  b2bTitle3:'Автоматизация видеонаблюдения', b2bDesc3:'Умные системы видеонаблюдения с ИИ-распознаванием: детекция людей и авто, оповещения в Telegram, удалённый доступ и запись в облако.', b2bCta3:'Получить консультацию',
+  b2bContactTitle:'Готовы обсудить ваш проект?', b2bContactDesc:'Бесплатная консультация · Ответим в течение 2 часов · Работаем по всему Казахстану',
+  appTitle:'Приложение Jalga.kz', appDesc:'Продавай и покупай прямо с телефона — фото, публикация и чат с покупателем в два касания. Уведомления о новых предложениях мгновенно.',
+  notify:'Уведомить меня', emailPlaceholder:'Ваш email — уведомим о запуске',
+  hot:'Горячее', isNew:'Новое', negotiable:'Договорная', call:'Позвонить', edit:'Редактировать',
+  couldBeYours:'Здесь мог быть ваш товар', yourPrice:'Ваша цена', postFree:'Разместить бесплатно',
+  editAd:'Редактировать объявление', title:'Заголовок', description:'Описание', price:'Цена (₸)', photos:'Фотографии', cancel:'Отмена', saveChanges:'💾 Сохранить изменения',
+  authSubtitle:'Войдите, чтобы подать объявление', authPhoneTab:'📱 Телефон', authEmailTabBtn:'✉️ Email',
+  authPhoneLabel:'Номер телефона', authSendSms:'Получить SMS-код', authOtpLabel:'Код из SMS', authOtpBtn:'Войти',
+  authNoCode:'Не получили код?', authResend:'Отправить ещё раз',
+  authEmailLabel:'Email', authPassLabel:'Пароль', authPassPh:'Минимум 6 символов', authEmailBtn:'Войти / Зарегистрироваться',
+  postModalTitle:'Подать объявление', postCatLabel:'Категория',
+  postTitleLabel:'Заголовок', postTitlePh:'Например: iPhone 15 Pro 256GB',
+  postDescLabel:'Описание', postDescPh:'Подробно опишите товар или услугу...',
+  postPriceLabel:'Цена (₸)', postPricePh:'0 — договорная',
+  postCityLabel:'Город', postCityPh:'Бурабай, Астана...',
+  postPhoneLabel:'Телефон', postPhotosLabel:'Фотографии (до 5)',
+  postCancelBtn:'Отмена', postSubmitBtn:'Опубликовать',
+  postSuccessTitle:'Объявление подано!', postSuccessDesc:'Ваше объявление уже видно всем пользователям. Ждите откликов — обычно первый приходит в течение нескольких минут!', postSuccessBtn:'Отлично!',
+},
+kz:{
+  searchPh:'Хабарландырулар бойынша іздеу...', navAds:'Хабарландырулар', navTaxi:'Такси · Қалааралық', navServices:'Біздің қызметтер', navHelp:'Көмек',
+  allCities:'Барлық қалалар', postAd:'Хабарландыру беру',
+  urgencyBadge:'✨ УАҚЫТША ТЕГІН', urgencyText:'Сұранысты дамыту кезеңі — орналастыру тегін · Қалды:',
+  heroTag:'Қазақстан · 18+ қала', heroRibbon:'🎁 Іске қосу кезеңінде уақытша тегін',
+  heroTitle:'Хабарландырулар<br><em>комиссиясыз</em><br>делдалдарсыз',
+  heroSubtitle:'Тез сатыңыз. Тиімді сатып алыңыз. Бәрі шын.', heroBtnBrowse:'Барлығын қарау',
+  heroOnline:'онлайн', heroAds:'хабарландыру', heroRating:'рейтинг', heroResponse:'бірінші жауапқа дейін', heroSec:'сек',
+  taxiTab1:'🚗 Қалааралық', taxiTab2:'🏙️ Қала', taxiBadge:'🛣️ Қалааралық · Танымал',
+  taxiTitle:'Такси Бурабай ↔ Астана', taxiSub:'Haval M6 2024 · 24/7 · 24 000 ₸',
+  taxiExp:'Тәжірибе 24 жыл', taxiPax:'4 адамға дейін', taxiRoute:'Көкшетау · Алматы', taxiWa:'WhatsApp-та тапсырыс беру',
+  freeTitle:'Орналастыру тегін', freeBadge:'⏳ Шектеулі ұсыныс',
+  freeDesc:'Әр сатушыға алғашқы 50 хабарландыру тегін — акция аяқталмай үлгіріңіз!', freeLink:'Тіркелу',
+  proofLabel:'Жаңа ғана:',
+  catTitle:'Санаттар', catAll:'Барлық санаттар', catCount:'хаб.',
+  catAuto:'Авто және мото', catRealty:'Жылжымайтын мүлік', catElec:'Электроника', catWork:'Жұмыс',
+  catServ:'Қызметтер', catTaxi:'Такси · Қалааралық', catPet:'Жануарлар', catKids:'Балаларға',
+  catSport:'Спорт', catFurn:'Жиhаз', catFood:'Өнімдер', catFree:'Тегін беремін',
+  adsTitle1:'Жаңа', adsTitle2:'хабарландырулар',
+  regTitle1:'Қазақстанның', regTitle2:'аймақтары', regSelectBtn:'Қала таңдау',
+  oblastTitle:'Ақмола облысы', oblastBadge:'🏡 Біздің аймақ',
+  oblastCities:'Бурабай · Щучинск · Көкшетау · Степногорск · Атбасар · Зеренда · Ақкөл · Мақынш',
+  oblastSubtitle:'Қазақстан інжу-маржаны — көлдер, қарағай ормандары, тау ауасы',
+  hiwTitle:'Бұл қалай жұмыс істейді',
+  hiwStep1:'01-қадам', hiwTitle1:'Суретке түсіріп, сипатта', hiwDesc1:'Фото қос, баға мен телефон нөмірін жаз. ЖИ-көмекші 30 секундта сататын мәтін жазуға көмектеседі.',
+  hiwStep2:'02-қадам', hiwTitle2:'Автоматты тексеру', hiwDesc2:'ЖИ-модератор хабарландыруды спам пен алаяқтыққа тексереді. 1–2 минутта жарияланады.',
+  hiwStep3:'03-қадам', hiwTitle3:'Қоңырауларды бірден қабылда', hiwDesc3:'Сатып алушылар контактіңізді көреді және тікелей жазады. Делдал жоқ, сатудан комиссия жоқ.',
+  aiTitle:'ЖИ-көмекші сізге 24/7 жұмыс істейді', aiBtnTg:'Ботты ашу', aiBtnMore:'Толығырақ білу',
+  aiDesc:'Telegram-боттан жазыңыз — ол хабарландыру жасауға, сатып алушыларға жауап беруге, төлемді тексеруге және тауарыңызды автоматты жариялауға көмектеседі.',
+  servTitle:'Бизнеске арналған қызметтеріміз', servDesc:'Қазақстан шағын және орта бизнесіне арналған кешенді цифрлық шешімдер — сайттардан ЖИ-автоматтандыруға дейін',
+  b2bTitle1:'Сайттар мен веб-қосымшалар жасау', b2bDesc1:'Заманауи сайттар, лендингтер мен интернет-дүкендерді әзірлеу. Тез, сұлу, нолдан бастап 7–14 күнде іске қосу.', b2bCta1:'Жобаны талқылау',
+  b2bTitle2:'ЖИ-технологияларды енгізу', b2bDesc2:'ЖИ-чат-боттарымен клиенттік қызметті автоматтандыру, смарт модерация, ЖИ-деректер аналитикасы.', b2bCta2:'Толығырақ білу',
+  b2bTitle3:'Бейнебақылауды автоматтандыру', b2bDesc3:'ЖИ-тануы бар смарт бейнебақылау: адамдар мен авто анықтау, Telegram хабарламалары, бұлтқа жазу.', b2bCta3:'Кеңес алу',
+  b2bContactTitle:'Жобаңызды талқылауға дайынсыз ба?', b2bContactDesc:'Тегін кеңес · 2 сағат ішінде жауап береміз · Бүкіл Қазақстан бойынша',
+  appTitle:'Jalga.kz қосымшасы', appDesc:'Телефоннан сат және сатып ал — фото, жариялау, чат екі рет тигізумен. Жаңа ұсыныстар туралы хабарламалар лезде.',
+  notify:'Хабарлаңыз', emailPlaceholder:'Email — іске қосылғанда хабарлаймыз',
+  hot:'Ыстық', isNew:'Жаңа', negotiable:'Келісімді', call:'Қоңырау', edit:'Өңдеу',
+  couldBeYours:'Мұнда сіздің тауарыңыз болуы мүмкін', yourPrice:'Сіздің бағаңыз', postFree:'Тегін орналастыру',
+  editAd:'Хабарландыруды өңдеу', title:'Тақырып', description:'Сипаттама', price:'Бағасы (₸)', photos:'Суреттер', cancel:'Болдырмау', saveChanges:'💾 Өзгерістерді сақтау',
+  authSubtitle:'Хабарландыру беру үшін кіріңіз', authPhoneTab:'📱 Телефон', authEmailTabBtn:'✉️ Email',
+  authPhoneLabel:'Телефон нөмірі', authSendSms:'SMS-код алу', authOtpLabel:'SMS-тен код', authOtpBtn:'Кіру',
+  authNoCode:'Код келмеді ме?', authResend:'Қайта жіберу',
+  authEmailLabel:'Email', authPassLabel:'Құпия сөз', authPassPh:'Кемінде 6 таңба', authEmailBtn:'Кіру / Тіркелу',
+  postModalTitle:'Хабарландыру беру', postCatLabel:'Санат',
+  postTitleLabel:'Тақырып', postTitlePh:'Мысалы: iPhone 15 Pro 256GB',
+  postDescLabel:'Сипаттама', postDescPh:'Тауар немесе қызметті толық сипаттаңыз...',
+  postPriceLabel:'Баға (₸)', postPricePh:'0 — келісімді',
+  postCityLabel:'Қала', postCityPh:'Бурабай, Астана...',
+  postPhoneLabel:'Телефон', postPhotosLabel:'Суреттер (5-ке дейін)',
+  postCancelBtn:'Болдырмау', postSubmitBtn:'Жариялау',
+  postSuccessTitle:'Хабарландыру берілді!', postSuccessDesc:'Хабарландырыңыз барлық пайдаланушыларға қазірдің өзінде көрінеді. Жауаптарды күтіңіз!', postSuccessBtn:'Тамаша!',
+},
+en:{
+  searchPh:'Search listings...', navAds:'Listings', navTaxi:'Taxi · Intercity', navServices:'Our services', navHelp:'Help',
+  allCities:'All cities', postAd:'Post an ad',
+  urgencyBadge:'✨ FREE FOR NOW', urgencyText:'Launch period — posting is free · Time left:',
+  heroTag:'Kazakhstan · 18+ cities', heroRibbon:'🎁 Free during the launch period',
+  heroTitle:'Classifieds<br><em>commission-free</em><br>no middlemen',
+  heroSubtitle:'Sell fast. Buy smart. No nonsense.', heroBtnBrowse:'Browse all',
+  heroOnline:'online', heroAds:'listings', heroRating:'rating', heroResponse:'to first reply', heroSec:'sec',
+  taxiTab1:'🚗 Intercity', taxiTab2:'🏙️ City', taxiBadge:'🛣️ Intercity · Popular',
+  taxiTitle:'Taxi Burabay ↔ Astana', taxiSub:'Haval M6 2024 · 24/7 · 24 000 ₸',
+  taxiExp:'24 yrs experience', taxiPax:'Up to 4 pax', taxiRoute:'Kokshetau · Almaty', taxiWa:'Book on WhatsApp',
+  freeTitle:'Free to post', freeBadge:'⏳ Limited offer',
+  freeDesc:'First 50 listings free per seller — get in before the offer ends!', freeLink:'Sign up',
+  proofLabel:'Just now:',
+  catTitle:'Categories', catAll:'All categories', catCount:'listings',
+  catAuto:'Cars & Moto', catRealty:'Real estate', catElec:'Electronics', catWork:'Jobs',
+  catServ:'Services', catTaxi:'Taxi · Intercity', catPet:'Pets', catKids:'Kids',
+  catSport:'Sports', catFurn:'Furniture', catFood:'Food & Produce', catFree:'Free items',
+  adsTitle1:'Fresh', adsTitle2:'listings',
+  regTitle1:'Regions of', regTitle2:'Kazakhstan', regSelectBtn:'Choose city',
+  oblastTitle:'Akmola Region', oblastBadge:'🏡 Our region',
+  oblastCities:'Burabay · Shchuchinsk · Kokshetau · Stepnogorsk · Atbasar · Zerenda · Akkol · Makinsk',
+  oblastSubtitle:'Pearl of Kazakhstan — lakes, pine forests, mountain air',
+  hiwTitle:'How it works',
+  hiwStep1:'Step 01', hiwTitle1:'Photograph & describe', hiwDesc1:'Add a photo, set a price and phone number. The AI assistant writes a compelling description in 30 seconds.',
+  hiwStep2:'Step 02', hiwTitle2:'Automatic review', hiwDesc2:'The AI moderator checks for spam and fraud. Published in 1–2 minutes — no waiting for hours.',
+  hiwStep3:'Step 03', hiwTitle3:'Receive calls right away', hiwDesc3:'Buyers see your contact and reach out directly. No intermediaries, no sales commission.',
+  aiTitle:'Your AI assistant works 24/7', aiBtnTg:'Open bot', aiBtnMore:'Learn more',
+  aiDesc:'Message the Telegram bot — it will help draft your listing, reply to buyers, verify payments and auto-publish your item. Zero manual work.',
+  servTitle:'Our services for business', servDesc:'Full-stack digital solutions for SMEs in Kazakhstan — from websites to AI automation',
+  b2bTitle1:'Website & web app development', b2bDesc1:'Modern websites, landing pages and online stores. Fast and beautiful — zero to launch in 7–14 days. SEO and mobile-responsive included.', b2bCta1:'Discuss your project',
+  b2bTitle2:'AI technology integration', b2bDesc2:'Automate customer service with AI chatbots, smart content moderation, AI data analytics and automated buyer responses.', b2bCta2:'Learn more',
+  b2bTitle3:'Smart video surveillance', b2bDesc3:'AI-powered CCTV with person & vehicle detection, Telegram alerts, remote access and cloud recording.', b2bCta3:'Get a consultation',
+  b2bContactTitle:'Ready to discuss your project?', b2bContactDesc:'Free consultation · Response within 2 hours · We work across Kazakhstan',
+  appTitle:'Jalga.kz App', appDesc:'Buy and sell right from your phone — photo, post and chat in two taps. Instant notifications on new offers.',
+  notify:'Notify me', emailPlaceholder:'Your email — we\'ll notify you at launch',
+  hot:'Hot', isNew:'New', negotiable:'Negotiable', call:'Call', edit:'Edit',
+  couldBeYours:'Your item could be here', yourPrice:'Your price', postFree:'Post for free',
+  editAd:'Edit listing', title:'Title', description:'Description', price:'Price (₸)', photos:'Photos', cancel:'Cancel', saveChanges:'💾 Save changes',
+  authSubtitle:'Sign in to post an ad', authPhoneTab:'📱 Phone', authEmailTabBtn:'✉️ Email',
+  authPhoneLabel:'Phone number', authSendSms:'Get SMS code', authOtpLabel:'Code from SMS', authOtpBtn:'Sign in',
+  authNoCode:'Didn\'t get the code?', authResend:'Resend',
+  authEmailLabel:'Email', authPassLabel:'Password', authPassPh:'At least 6 characters', authEmailBtn:'Sign in / Register',
+  postModalTitle:'Post an ad', postCatLabel:'Category',
+  postTitleLabel:'Title', postTitlePh:'e.g. iPhone 15 Pro 256GB',
+  postDescLabel:'Description', postDescPh:'Describe your item or service in detail...',
+  postPriceLabel:'Price (₸)', postPricePh:'0 = negotiable',
+  postCityLabel:'City', postCityPh:'Burabay, Astana...',
+  postPhoneLabel:'Phone', postPhotosLabel:'Photos (up to 5)',
+  postCancelBtn:'Cancel', postSubmitBtn:'Publish',
+  postSuccessTitle:'Ad posted!', postSuccessDesc:'Your listing is now visible to all users. Expect replies — the first usually comes within minutes!', postSuccessBtn:'Great!',
+}
 };
 
 function setLang(lang){
@@ -1541,16 +1658,21 @@ function setLang(lang){
     b.classList.toggle('active', b.textContent.toLowerCase()===lang);
   });
   var T = LANGS[lang];
-  // update all data-i18n elements
+  // textContent replacements
   document.querySelectorAll('[data-i18n]').forEach(function(el){
     var key = el.dataset.i18n;
-    if(T[key]) el.textContent = T[key];
+    if(T[key] !== undefined) el.textContent = T[key];
   });
+  // innerHTML replacements (for elements with embedded tags like <em>)
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+    var key = el.dataset.i18nHtml;
+    if(T[key] !== undefined) el.innerHTML = T[key];
+  });
+  // placeholder replacements
   document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
     var key = el.dataset.i18nPh;
-    if(T[key]) el.placeholder = T[key];
+    if(T[key] !== undefined) el.placeholder = T[key];
   });
-  // re-render ads with new language
   renderAds();
 }
 
