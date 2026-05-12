@@ -941,19 +941,19 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
     </div>
 
     <div class="hero-stats-card">
-      <div class="live-pill"><span class="live-dot"></span> <span id="onlineCount">3 847</span> <span data-i18n="heroOnline">онлайн</span></div>
+      <div class="live-pill"><span class="live-dot"></span> <span data-i18n="heroBeta">Бета · Открытый запуск</span></div>
       <div>
         <div class="hero-stat-item">
-          <div class="n" id="adsCount">12 841</div>
+          <div class="n" id="adsCount">—</div>
           <div class="l" data-i18n="heroAds">объявлений</div>
         </div>
         <div class="hero-stat-item">
-          <div class="n">4.9 ★</div>
-          <div class="l" data-i18n="heroRating">рейтинг</div>
+          <div class="n">18+</div>
+          <div class="l" data-i18n="heroCities">городов Казахстана</div>
         </div>
         <div class="hero-stat-item" style="margin-bottom:0">
-          <div class="n">23 <span data-i18n="heroSec">сек</span></div>
-          <div class="l" data-i18n="heroResponse">до первого отклика</div>
+          <div class="n">0%</div>
+          <div class="l" data-i18n="heroFree">комиссия — бесплатно</div>
         </div>
       </div>
     </div>
@@ -2141,7 +2141,7 @@ ru:{
   heroTag:'Казахстан · 18+ городов', heroRibbon:'🎁 Бесплатное размещение в честь открытия',
   heroTitle:'Объявления<br><em>без комиссий</em><br>и посредников',
   heroSubtitle:'Продавайте быстро. Покупайте выгодно. Всё по-настоящему.', heroBtnBrowse:'Смотреть все',
-  heroOnline:'онлайн', heroAds:'объявлений', heroRating:'рейтинг', heroResponse:'до первого отклика', heroSec:'сек',
+  heroBeta:'Бета · Открытый запуск', heroAds:'объявлений', heroCities:'городов Казахстана', heroFree:'комиссия — бесплатно',
   taxiTab1:'🚗 Межгород', taxiTab2:'🏙️ Город', taxiBadge:'🛣️ Межгород · Популярно',
   taxiTitle:'Такси Бурабай ↔ Астана', taxiSub:'Haval M6 2024 · 24/7 · 24 000 ₸',
   taxiExp:'Стаж 24 года', taxiPax:'До 4 чел', taxiRoute:'Кокшетау · Алматы', taxiWa:'Заказать в WhatsApp',
@@ -2193,7 +2193,7 @@ kz:{
   heroTag:'Қазақстан · 18+ қала', heroRibbon:'🎁 Ашылу құрметіне тегін орналастыру',
   heroTitle:'Хабарландырулар<br><em>комиссиясыз</em><br>делдалдарсыз',
   heroSubtitle:'Тез сатыңыз. Тиімді сатып алыңыз. Бәрі шын.', heroBtnBrowse:'Барлығын қарау',
-  heroOnline:'онлайн', heroAds:'хабарландыру', heroRating:'рейтинг', heroResponse:'бірінші жауапқа дейін', heroSec:'сек',
+  heroBeta:'Бета · Ашық іске қосу', heroAds:'хабарландыру', heroCities:'Қазақстан қалалары', heroFree:'комиссия — тегін',
   taxiTab1:'🚗 Қалааралық', taxiTab2:'🏙️ Қала', taxiBadge:'🛣️ Қалааралық · Танымал',
   taxiTitle:'Такси Бурабай ↔ Астана', taxiSub:'Haval M6 2024 · 24/7 · 24 000 ₸',
   taxiExp:'Тәжірибе 24 жыл', taxiPax:'4 адамға дейін', taxiRoute:'Көкшетау · Алматы', taxiWa:'WhatsApp-та тапсырыс беру',
@@ -2245,7 +2245,7 @@ en:{
   heroTag:'Kazakhstan · 18+ cities', heroRibbon:'🎁 Free posting to celebrate our launch',
   heroTitle:'Classifieds<br><em>commission-free</em><br>no middlemen',
   heroSubtitle:'Sell fast. Buy smart. No nonsense.', heroBtnBrowse:'Browse all',
-  heroOnline:'online', heroAds:'listings', heroRating:'rating', heroResponse:'to first reply', heroSec:'sec',
+  heroBeta:'Beta · Open launch', heroAds:'listings', heroCities:'cities of Kazakhstan', heroFree:'commission — free',
   taxiTab1:'🚗 Intercity', taxiTab2:'🏙️ City', taxiBadge:'🛣️ Intercity · Popular',
   taxiTitle:'Taxi Burabay ↔ Astana', taxiSub:'Haval M6 2024 · 24/7 · 24 000 ₸',
   taxiExp:'24 yrs experience', taxiPax:'Up to 4 pax', taxiRoute:'Kokshetau · Almaty', taxiWa:'Book on WhatsApp',
@@ -2353,17 +2353,21 @@ document.querySelectorAll('.taxi-tab').forEach(function(tab){
 
 renderAds();
 
-// ── REAL STATS FROM ADS ARRAY ─────────────────────────────────
-(function updateStats(){
-  var realAds = ADS.filter(function(a){ return !a.placeholder; });
-  // Base fake stats for launch period (real ads added on top)
-  var BASE_ADS = 12841;
-  var el = document.getElementById('adsCount');
-  if(el) el.textContent = (BASE_ADS + realAds.length).toLocaleString('ru-KZ');
-  var seed = new Date().getHours();
-  var onl = 24 + ((seed * 7 + realAds.length * 3) % 32);
-  var onlEl = document.getElementById('onlineCount');
-  if(onlEl) onlEl.textContent = onl;
+// ── REAL ADS COUNT FROM SUPABASE ──────────────────────────────
+(function fetchRealAdsCount(){
+  var SURL = 'https://duscyiyxfmsriyhwlbqx.supabase.co';
+  var SKEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
+  fetch(SURL + '/rest/v1/ads?select=count', {
+    headers: { 'apikey': SKEY, 'Prefer': 'count=exact' }
+  }).then(function(r){
+    var cr = r.headers.get('content-range');
+    var total = cr ? parseInt(cr.split('/')[1]) : 0;
+    var el = document.getElementById('adsCount');
+    if(el) el.textContent = isNaN(total) ? '0' : total.toLocaleString('ru-KZ');
+  }).catch(function(){
+    var el = document.getElementById('adsCount');
+    if(el) el.textContent = '0';
+  });
 })();
 
 // ── SUPABASE CONFIG ───────────────────────────────────────────────
