@@ -202,6 +202,7 @@ async function sendChat(){
 window.switchTab = switchTab;
 window.toggleFaq = toggleFaq;
 window.renderFaq = renderFaq;
+window.sendChat = sendChat;
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -504,20 +505,20 @@ nav{
 }
 .cat-card:hover{border-color:rgba(255,255,255,0.32);transform:translateY(-2px);box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.95),0 0 0 0.5px rgba(255,255,255,0.40),0 8px 24px rgba(10,20,80,0.26)}
 .cat-icon{font-size:26px;width:52px;height:52px;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center}
-.cat-name{font-size:12px;font-weight:700;line-height:1.2;color:#fff}
-.cat-count{font-size:10px;font-weight:500;opacity:.65;color:#e8eaf0}
-.c-auto{background:linear-gradient(145deg,rgba(21,101,192,0.20) 0%,rgba(13,71,161,0.07) 100%)} .c-auto .cat-icon{background:var(--b);color:#fff}
-.c-realty{background:linear-gradient(145deg,rgba(255,107,0,0.20) 0%,rgba(180,60,0,0.07) 100%)} .c-realty .cat-icon{background:var(--o);color:#fff}
-.c-elec{background:linear-gradient(145deg,rgba(106,27,154,0.20) 0%,rgba(74,20,140,0.07) 100%)} .c-elec .cat-icon{background:var(--pu);color:#fff}
-.c-work{background:linear-gradient(145deg,rgba(46,125,50,0.20) 0%,rgba(27,94,32,0.07) 100%)} .c-work .cat-icon{background:var(--g);color:#fff}
-.c-serv{background:linear-gradient(145deg,rgba(0,121,107,0.20) 0%,rgba(0,77,68,0.07) 100%)} .c-serv .cat-icon{background:var(--t);color:#fff}
-.c-taxi{background:linear-gradient(145deg,rgba(249,168,37,0.20) 0%,rgba(200,120,0,0.07) 100%)} .c-taxi .cat-icon{background:var(--y);color:#fff}
-.c-pet{background:linear-gradient(145deg,rgba(233,30,99,0.20) 0%,rgba(136,14,79,0.07) 100%)} .c-pet .cat-icon{background:#E91E63;color:#fff}
-.c-kids{background:linear-gradient(145deg,rgba(106,27,154,0.20) 0%,rgba(74,20,140,0.07) 100%)} .c-kids .cat-icon{background:var(--pu);color:#fff}
-.c-sport{background:linear-gradient(145deg,rgba(198,40,40,0.20) 0%,rgba(127,0,0,0.07) 100%)} .c-sport .cat-icon{background:var(--r);color:#fff}
-.c-furn{background:linear-gradient(145deg,rgba(93,64,55,0.20) 0%,rgba(62,39,35,0.07) 100%)} .c-furn .cat-icon{background:#5D4037;color:#fff}
-.c-food{background:linear-gradient(145deg,rgba(67,160,71,0.20) 0%,rgba(27,94,32,0.07) 100%)} .c-food .cat-icon{background:#43A047;color:#fff}
-.c-free{background:linear-gradient(145deg,rgba(0,172,193,0.20) 0%,rgba(0,96,100,0.07) 100%)} .c-free .cat-icon{background:#00ACC1;color:#fff}
+.cat-name{font-size:14px;font-weight:800;line-height:1.2;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.30)}
+.cat-count{font-size:12px;font-weight:700;opacity:.90;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.25)}
+.c-auto{background:linear-gradient(145deg,rgba(21,101,192,0.62) 0%,rgba(13,71,161,0.44) 100%)} .c-auto .cat-icon{background:var(--b);color:#fff}
+.c-realty{background:linear-gradient(145deg,rgba(255,107,0,0.60) 0%,rgba(180,60,0,0.42) 100%)} .c-realty .cat-icon{background:var(--o);color:#fff}
+.c-elec{background:linear-gradient(145deg,rgba(106,27,154,0.60) 0%,rgba(74,20,140,0.42) 100%)} .c-elec .cat-icon{background:var(--pu);color:#fff}
+.c-work{background:linear-gradient(145deg,rgba(46,125,50,0.60) 0%,rgba(27,94,32,0.42) 100%)} .c-work .cat-icon{background:var(--g);color:#fff}
+.c-serv{background:linear-gradient(145deg,rgba(0,121,107,0.60) 0%,rgba(0,77,68,0.42) 100%)} .c-serv .cat-icon{background:var(--t);color:#fff}
+.c-taxi{background:linear-gradient(145deg,rgba(249,168,37,0.62) 0%,rgba(200,120,0,0.44) 100%)} .c-taxi .cat-icon{background:var(--y);color:#fff}
+.c-pet{background:linear-gradient(145deg,rgba(233,30,99,0.60) 0%,rgba(136,14,79,0.42) 100%)} .c-pet .cat-icon{background:#E91E63;color:#fff}
+.c-kids{background:linear-gradient(145deg,rgba(130,50,180,0.60) 0%,rgba(100,20,160,0.42) 100%)} .c-kids .cat-icon{background:var(--pu);color:#fff}
+.c-sport{background:linear-gradient(145deg,rgba(198,40,40,0.60) 0%,rgba(127,0,0,0.42) 100%)} .c-sport .cat-icon{background:var(--r);color:#fff}
+.c-furn{background:linear-gradient(145deg,rgba(93,64,55,0.62) 0%,rgba(62,39,35,0.44) 100%)} .c-furn .cat-icon{background:#5D4037;color:#fff}
+.c-food{background:linear-gradient(145deg,rgba(56,142,60,0.60) 0%,rgba(27,94,32,0.42) 100%)} .c-food .cat-icon{background:#43A047;color:#fff}
+.c-free{background:linear-gradient(145deg,rgba(0,172,193,0.60) 0%,rgba(0,96,100,0.42) 100%)} .c-free .cat-icon{background:#00ACC1;color:#fff}
 
 /* LAYOUT BAR (top-right controls) */
 .layout-bar{max-width:1280px;margin:0 auto;padding:8px 20px 0;display:flex;justify-content:flex-end;align-items:center;gap:8px}
@@ -1999,8 +2000,8 @@ nav{background:rgba(255,255,255,0.56)!important;backdrop-filter:blur(24px) satur
             <div class="ai-msg bot">Привет! Я помощник Алсат. Задайте любой вопрос о сайте — отвечу быстро 😊</div>
           </div>
           <div class="ai-chat-inp">
-            <input type="text" id="chatInput" placeholder="Напишите вопрос..." data-i18n-ph="chatPlaceholder" onkeydown="if(event.key==='Enter')sendChat()">
-            <button onclick="sendChat()" id="chatSendBtn">➤</button>
+            <input type="text" id="chatInput" placeholder="Напишите вопрос..." data-i18n-ph="chatPlaceholder" onkeydown="if(event.key==='Enter'){event.preventDefault();window.sendChat();}">
+            <button type="button" onclick="event.preventDefault();window.sendChat();" id="chatSendBtn">➤</button>
           </div>
         </div>
       </div>
