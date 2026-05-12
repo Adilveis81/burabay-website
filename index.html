@@ -650,6 +650,50 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .tab-panel{display:none}
 .tab-panel.active{display:block}
 
+
+/* ===== THEMES ===== */
+[data-theme="dark"]{
+  --white:#1e2030; --bg:#141520; --card:#1e2030;
+  --text:#e8eaf0; --text2:#a0a4b8; --text3:#606480;
+  --border:rgba(255,255,255,0.08); --border2:rgba(255,255,255,0.14);
+  --o:#FF8C33; --o2:#FFA040; --o-bg:#2a1f12; --o-dark:#FFB366;
+  --b:#4d8ef0; --b2:#5a9bf5; --b-bg:#0d1a2e; --b-dark:#7ab0ff;
+  --g:#4caf6e; --g2:#56c07a; --g-bg:#0d1f14; --g-dark:#7dd99a;
+  --y:#ffca4a; --y2:#ffd060; --y-bg:#231c08; --y-dark:#ffe085;
+  --r:#e05555; --r2:#e86666; --r-bg:#1f0d0d; --r-dark:#ff9090;
+  --pu:#b07aff; --pu2:#bf8fff; --pu-bg:#180d2e;
+}
+[data-theme="ocean"]{
+  --o:#0891b2; --o2:#06b6d4; --o-bg:#e0f7fa; --o-dark:#006080;
+  --bg:#f0f9ff; --card:#fff;
+  --text:#0c2340; --text2:#2c5282; --text3:#5a87b8;
+  --b:#0552b5; --b2:#0369a1; --b-bg:#dbeafe;
+}
+[data-theme="forest"]{
+  --o:#2e7d32; --o2:#388e3c; --o-bg:#e8f5e9; --o-dark:#1b5e20;
+  --bg:#f1f8f2; --card:#fff;
+  --text:#1a2e1b; --text2:#2e5c30; --text3:#5a8c5c;
+  --b:#1b5e20; --b2:#2e7d32; --b-bg:#c8e6c9;
+}
+[data-theme="sunset"]{
+  --o:#c2185b; --o2:#e91e63; --o-bg:#fce4ec; --o-dark:#880e4f;
+  --bg:#fff5f8; --card:#fff;
+  --text:#2d1020; --text2:#6d2f4a; --text3:#a06070;
+  --b:#6a1b9a; --b2:#7b1fa2; --b-bg:#f3e5f5;
+  --y:#ff9800; --y2:#ffb300; --y-bg:#fff3e0;
+}
+
+/* Theme picker */
+.theme-picker{position:relative;display:flex;align-items:center}
+.theme-btn{background:none;border:1.5px solid var(--border2);border-radius:8px;padding:5px 9px;cursor:pointer;font-size:16px;color:var(--text2);transition:.15s;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.theme-btn:hover{border-color:var(--o);color:var(--o)}
+.theme-dropdown{display:none;position:absolute;top:calc(100% + 6px);right:0;background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:8px;box-shadow:0 8px 28px rgba(0,0,0,.15);z-index:300;min-width:180px}
+.theme-dropdown.open{display:block}
+.theme-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text);transition:.1s}
+.theme-opt:hover{background:var(--o-bg)}
+.theme-opt.active{background:var(--o-bg);color:var(--o-dark);font-weight:700}
+.theme-swatch{width:18px;height:18px;border-radius:50%;border:2px solid rgba(0,0,0,.1);flex-shrink:0}
+
 /* FOOTER */
 footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
 .foot-i{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
@@ -745,10 +789,21 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
       <a href="#services" data-section="services" class="nav-link-item services-link"><i class="ti ti-briefcase" style="font-size:14px"></i> <span data-i18n="navServices">Наши услуги</span></a>
     </div>
     <div class="nav-right">
+      <div class="theme-picker" id="themePicker">
+        <button class="theme-btn" onclick="toggleThemeDropdown()" id="themeMainBtn" title="Тема оформления">🌙</button>
+        <div class="theme-dropdown" id="themeDropdown">
+          <div class="theme-opt active" onclick="setTheme('light')"   id="topt-light"><span class="theme-swatch" style="background:linear-gradient(135deg,#fff 50%,#FF6B00 50%)"></span> <span data-i18n="themeLight">Светлая</span></div>
+          <div class="theme-opt"        onclick="setTheme('dark')"    id="topt-dark"><span class="theme-swatch" style="background:linear-gradient(135deg,#1e2030 50%,#FF8C33 50%)"></span> <span data-i18n="themeDark">Тёмная</span></div>
+          <div class="theme-opt"        onclick="setTheme('ocean')"   id="topt-ocean"><span class="theme-swatch" style="background:linear-gradient(135deg,#e0f7fa 50%,#0891b2 50%)"></span> <span data-i18n="themeOcean">Океан</span></div>
+          <div class="theme-opt"        onclick="setTheme('forest')"  id="topt-forest"><span class="theme-swatch" style="background:linear-gradient(135deg,#e8f5e9 50%,#2e7d32 50%)"></span> <span data-i18n="themeForest">Лес</span></div>
+          <div class="theme-opt"        onclick="setTheme('sunset')"  id="topt-sunset"><span class="theme-swatch" style="background:linear-gradient(135deg,#fce4ec 50%,#e91e63 50%)"></span> <span data-i18n="themeSunset">Закат</span></div>
+        </div>
+      </div>
       <div class="lang-switcher">
         <button class="lang-btn" onclick="setLang('kz')">KZ</button>
         <button class="lang-btn active" onclick="setLang('ru')">RU</button>
         <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
       </div>
       <div class="nav-city" onclick="openCityModal()"><i class="ti ti-map-pin" style="font-size:14px"></i> <span id="selectedCity" data-i18n="allCities">Все города</span> <i class="ti ti-chevron-down" style="font-size:12px"></i></div>
       <button class="nav-post" onclick="openPostModal()" data-i18n-btn="postAd"><i class="ti ti-plus"></i> <span data-i18n="postAd">Подать объявление</span></button>
@@ -1866,6 +1921,41 @@ tick();
 setInterval(tick,1000);
 renderFaq();
 
+// ===== THEME SYSTEM =====
+var THEME_ICONS = {light:'☀️', dark:'🌙', ocean:'🌊', forest:'🌿', sunset:'🌅'};
+function setTheme(name){
+  var root = document.documentElement;
+  if(name==='light'){ root.removeAttribute('data-theme'); }
+  else { root.setAttribute('data-theme', name); }
+  localStorage.setItem('alsat_theme', name);
+  // update button icon
+  var btn = document.getElementById('themeMainBtn');
+  if(btn) btn.textContent = THEME_ICONS[name]||'🎨';
+  // update active state
+  ['light','dark','ocean','forest','sunset'].forEach(function(t){
+    var el = document.getElementById('topt-'+t);
+    if(el) el.classList.toggle('active', t===name);
+  });
+  closeThemeDropdown();
+}
+function toggleThemeDropdown(){
+  document.getElementById('themeDropdown').classList.toggle('open');
+}
+function closeThemeDropdown(){
+  var d = document.getElementById('themeDropdown');
+  if(d) d.classList.remove('open');
+}
+document.addEventListener('click', function(e){
+  var picker = document.getElementById('themePicker');
+  if(picker && !picker.contains(e.target)) closeThemeDropdown();
+});
+// Restore saved theme
+(function(){
+  var saved = localStorage.getItem('alsat_theme')||'light';
+  if(saved!=='light') setTheme(saved);
+})();
+
+
 // LIVE COUNTERS
 setInterval(function(){
   var el=document.getElementById('onlineCount');
@@ -1986,7 +2076,7 @@ ru:{
   appTitle:'Приложение Алсат', appDesc:'Продавай и покупай прямо с телефона — фото, публикация и чат с покупателем в два касания. Уведомления о новых предложениях мгновенно.',
   notify:'Уведомить меня', emailPlaceholder:'Ваш email — уведомим о запуске',
   hot:'Горячее', isNew:'Новое', negotiable:'Договорная', call:'Позвонить', edit:'Редактировать',
-  chooseCity:'Выберите город', popularCities:'Популярные', helpTitle:'Помощь и поддержка', helpSub:'Задайте вопрос ИИ-помощнику или поддержите развитие сайта', faqTab:'❓ Вопросы и ответы', supportTab:'💚 Поддержать проект', faqHeading:'Не нашли ответ? Спросите ИИ-помощника', chatPlaceholder:'Напишите вопрос...', couldBeYours:'Здесь могло быть ваше объявление', yourPrice:'Ваша цена', postFree:'Создать объявление', noResults:'Ничего не найдено — попробуйте другой запрос',
+  chooseCity:'Выберите город', popularCities:'Популярные', themeLight:'☀️ Светлая', themeDark:'🌙 Тёмная', themeOcean:'🌊 Океан', themeForest:'🌿 Лес', themeSunset:'🌅 Закат', helpTitle:'Помощь и поддержка', helpSub:'Задайте вопрос ИИ-помощнику или поддержите развитие сайта', faqTab:'❓ Вопросы и ответы', supportTab:'💚 Поддержать проект', faqHeading:'Не нашли ответ? Спросите ИИ-помощника', chatPlaceholder:'Напишите вопрос...', couldBeYours:'Здесь могло быть ваше объявление', yourPrice:'Ваша цена', postFree:'Создать объявление', noResults:'Ничего не найдено — попробуйте другой запрос',
   editAd:'Редактировать объявление', title:'Заголовок', description:'Описание', price:'Цена (₸)', photos:'Фотографии', cancel:'Отмена', saveChanges:'💾 Сохранить изменения',
   authSubtitle:'Войдите, чтобы подать объявление', authPhoneTab:'📱 Телефон', authEmailTabBtn:'✉️ Email',
   authPhoneLabel:'Номер телефона', authSendSms:'Получить SMS-код', authOtpLabel:'Код из SMS', authOtpBtn:'Войти',
@@ -2038,7 +2128,7 @@ kz:{
   appTitle:'Алсат қосымшасы', appDesc:'Телефоннан сат және сатып ал — фото, жариялау, чат екі рет тигізумен. Жаңа ұсыныстар туралы хабарламалар лезде.',
   notify:'Хабарлаңыз', emailPlaceholder:'Email — іске қосылғанда хабарлаймыз',
   hot:'Ыстық', isNew:'Жаңа', negotiable:'Келісімді', call:'Қоңырау', edit:'Өңдеу',
-  chooseCity:'Қала таңдаңыз', popularCities:'Танымал', helpTitle:'Көмек және қолдау', helpSub:'ЖИ-көмекшіге сұрақ қойыңыз немесе сайтты дамытуды қолдаңыз', faqTab:'❓ Сұрақтар мен жауаптар', supportTab:'💚 Жобаны қолдау', faqHeading:'Жауап таппадыңыз ба? ЖИ-көмекшіден сұраңыз', chatPlaceholder:'Сұрақ жазыңыз...', couldBeYours:'Мұнда сіздің хабарландыруыңыз болуы мүмкін', yourPrice:'Сіздің бағаңыз', postFree:'Хабарландыру жасау', noResults:'Ештеңе табылмады — басқа сұраныс көріңіз',
+  chooseCity:'Қала таңдаңыз', popularCities:'Танымал', themeLight:'☀️ Жарық', themeDark:'🌙 Қараңғы', themeOcean:'🌊 Мұхит', themeForest:'🌿 Орман', themeSunset:'🌅 Батыс', helpTitle:'Көмек және қолдау', helpSub:'ЖИ-көмекшіге сұрақ қойыңыз немесе сайтты дамытуды қолдаңыз', faqTab:'❓ Сұрақтар мен жауаптар', supportTab:'💚 Жобаны қолдау', faqHeading:'Жауап таппадыңыз ба? ЖИ-көмекшіден сұраңыз', chatPlaceholder:'Сұрақ жазыңыз...', couldBeYours:'Мұнда сіздің хабарландыруыңыз болуы мүмкін', yourPrice:'Сіздің бағаңыз', postFree:'Хабарландыру жасау', noResults:'Ештеңе табылмады — басқа сұраныс көріңіз',
   editAd:'Хабарландыруды өңдеу', title:'Тақырып', description:'Сипаттама', price:'Бағасы (₸)', photos:'Суреттер', cancel:'Болдырмау', saveChanges:'💾 Өзгерістерді сақтау',
   authSubtitle:'Хабарландыру беру үшін кіріңіз', authPhoneTab:'📱 Телефон', authEmailTabBtn:'✉️ Email',
   authPhoneLabel:'Телефон нөмірі', authSendSms:'SMS-код алу', authOtpLabel:'SMS-тен код', authOtpBtn:'Кіру',
@@ -2090,7 +2180,7 @@ en:{
   appTitle:'Алсат App', appDesc:'Buy and sell right from your phone — photo, post and chat in two taps. Instant notifications on new offers.',
   notify:'Notify me', emailPlaceholder:'Your email — we\'ll notify you at launch',
   hot:'Hot', isNew:'New', negotiable:'Negotiable', call:'Call', edit:'Edit',
-  chooseCity:'Choose a city', popularCities:'Popular', helpTitle:'Help & Support', helpSub:'Ask our AI assistant or support the site\'s development', faqTab:'❓ FAQ', supportTab:'💚 Support Project', faqHeading:'Didn\'t find an answer? Ask AI', chatPlaceholder:'Type your question...', couldBeYours:'Your ad could be here', yourPrice:'Your price', postFree:'Create ad', noResults:'Nothing found — try a different search',
+  chooseCity:'Choose a city', popularCities:'Popular', themeLight:'☀️ Light', themeDark:'🌙 Dark', themeOcean:'🌊 Ocean', themeForest:'🌿 Forest', themeSunset:'🌅 Sunset', helpTitle:'Help & Support', helpSub:'Ask our AI assistant or support the site\'s development', faqTab:'❓ FAQ', supportTab:'💚 Support Project', faqHeading:'Didn\'t find an answer? Ask AI', chatPlaceholder:'Type your question...', couldBeYours:'Your ad could be here', yourPrice:'Your price', postFree:'Create ad', noResults:'Nothing found — try a different search',
   editAd:'Edit listing', title:'Title', description:'Description', price:'Price (₸)', photos:'Photos', cancel:'Cancel', saveChanges:'💾 Save changes',
   authSubtitle:'Sign in to post an ad', authPhoneTab:'📱 Phone', authEmailTabBtn:'✉️ Email',
   authPhoneLabel:'Phone number', authSendSms:'Get SMS code', authOtpLabel:'Code from SMS', authOtpBtn:'Sign in',
