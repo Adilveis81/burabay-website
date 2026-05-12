@@ -170,6 +170,8 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .auth-field input:focus{border-color:var(--o)}
 .auth-field .phone-wrap{display:flex;gap:8px}
 .auth-field .phone-prefix{border:1.5px solid var(--border2);border-radius:var(--radius);padding:11px 12px;font-size:15px;color:var(--text2);background:var(--bg);font-weight:600;white-space:nowrap}
+.auth-google-btn{width:100%;background:#fff;color:#3c4043;border:1.5px solid #dadce0;border-radius:var(--radius);padding:11px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:.15s;margin-bottom:4px}
+.auth-google-btn:hover{background:#f8f9fa;border-color:#c6c9ce}
 .auth-submit{width:100%;background:var(--o);color:#fff;border:none;border-radius:var(--radius);padding:13px;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px;transition:.15s}
 .auth-submit:hover{background:var(--o2)}
 .auth-submit:disabled{opacity:.6;cursor:not-allowed}
@@ -942,6 +944,12 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
       <p data-i18n="authSubtitle">Войдите, чтобы подать объявление</p>
     </div>
     <div class="auth-body">
+      <!-- Google one-tap -->
+      <button class="auth-google-btn" onclick="signInGoogle()">
+        <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+        Войти через Google
+      </button>
+      <div class="auth-divider"><span>или</span></div>
       <div class="auth-tabs">
         <button class="auth-tab" onclick="switchAuthTab('phone')" data-i18n="authPhoneTab">📱 Телефон</button>
         <button class="auth-tab active" onclick="switchAuthTab('email')" data-i18n="authEmailTabBtn">✉️ Email</button>
@@ -1934,6 +1942,14 @@ function verifyOtp() {
     if (res.error) { alert('Неверный код: ' + res.error.message); return; }
     closeAuthModal();
     if (_pendingPostAfterAuth) openPostModal();
+  });
+}
+
+function signInGoogle() {
+  if (!_sb) { alert('База данных не подключена'); return; }
+  _sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.href }
   });
 }
 
