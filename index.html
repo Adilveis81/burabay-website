@@ -896,24 +896,28 @@ nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) satur
 .ad-card{
   background:linear-gradient(145deg,rgba(255,255,255,0.38) 0%,rgba(255,255,255,0.12) 100%)!important;
   backdrop-filter:blur(22px) saturate(180%)!important;-webkit-backdrop-filter:blur(22px) saturate(180%)!important;
-  border:none!important;
+  border:1.5px solid rgba(230,232,240,0.85)!important;
   box-shadow:
-    inset 0 1.5px 0 rgba(255,255,255,0.9),
-    inset 1.5px 0 0 rgba(255,255,255,0.6),
-    inset -1.5px 0 0 rgba(0,0,0,0.04),
-    inset 0 -1.5px 0 rgba(0,0,0,0.07),
-    0 4px 20px rgba(0,0,0,0.09),
-    0 2px 6px rgba(0,0,0,0.06)!important;
+    inset 0 2px 0 rgba(255,255,255,0.92),
+    inset 0 -2px 0 rgba(0,0,0,0.08),
+    inset 2px 0 0 rgba(255,255,255,0.70),
+    inset -2px 0 0 rgba(160,165,180,0.18),
+    0 0 0 1px rgba(255,255,255,0.88),
+    0 0 0 3px rgba(175,180,200,0.42),
+    0 6px 24px rgba(0,0,0,0.10),
+    0 2px 6px rgba(0,0,0,0.07)!important;
 }
 .ad-card:hover{
   transform:translateY(-3px)!important;
   box-shadow:
-    inset 0 1.5px 0 rgba(255,255,255,0.95),
-    inset 1.5px 0 0 rgba(255,255,255,0.65),
-    inset -1.5px 0 0 rgba(0,0,0,0.04),
-    inset 0 -1.5px 0 rgba(0,0,0,0.08),
-    0 10px 36px rgba(0,0,0,0.14),
-    0 4px 12px rgba(0,0,0,0.09)!important;
+    inset 0 2px 0 rgba(255,255,255,0.96),
+    inset 0 -2px 0 rgba(0,0,0,0.09),
+    inset 2px 0 0 rgba(255,255,255,0.75),
+    inset -2px 0 0 rgba(160,165,180,0.18),
+    0 0 0 1px rgba(255,255,255,0.92),
+    0 0 0 3px rgba(175,180,200,0.50),
+    0 12px 40px rgba(0,0,0,0.16),
+    0 4px 12px rgba(0,0,0,0.10)!important;
 }
 /* City cards — colored liquid glass */
 .city-card{
@@ -1129,9 +1133,20 @@ nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) satur
 }
 /* Icon and text sit above the gloss */
 .btn-call i,.btn-call span{position:relative!important;z-index:2!important;}
-/* Equal icon/text layout */
-.btn-call i{flex-shrink:0!important;width:22px!important;display:flex!important;align-items:center!important;justify-content:center!important;font-size:13px!important;opacity:0.92;}
-.btn-call span{flex:1!important;text-align:center!important;overflow:hidden!important;text-overflow:ellipsis!important;}
+/* 40% icon / 60% text split */
+.btn-call i{
+  width:40%!important;flex-shrink:0!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  font-size:15px!important;
+  border-right:1px solid rgba(255,255,255,0.35)!important;
+  align-self:stretch!important;
+}
+.btn-call span{
+  width:60%!important;flex:none!important;
+  text-align:center!important;
+  overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;
+  padding:0 4px!important;
+}
 .btn-call:active{transform:translateY(3px)!important;box-shadow:inset 0 2px 4px rgba(0,0,0,0.22),0 0 0 1.5px rgba(160,165,180,0.45),0 1px 0 rgba(0,0,0,0.30),0 2px 5px rgba(0,0,0,0.15)!important}
 .btn-wa-s{
   border:1.5px solid rgba(255,255,255,0.68)!important;
