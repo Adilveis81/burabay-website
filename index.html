@@ -902,70 +902,108 @@ nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) satur
 [data-theme="dark"] body::before{background:radial-gradient(circle,rgba(255,140,50,.09) 0%,transparent 70%)}
 [data-theme="dark"] body::after{background:radial-gradient(circle,rgba(80,120,255,.1) 0%,transparent 70%)}
 
-/* ── macOS Tahoe Liquid Glass Buttons ───────────────── */
-.nav-post{
-  background:linear-gradient(160deg,rgba(255,155,75,0.94) 0%,rgba(190,60,0,0.98) 100%)!important;
-  border:1px solid rgba(255,210,140,0.6)!important;
-  box-shadow:
-    inset 0 2px 0 rgba(255,255,255,0.6),
-    inset 0 -3px 0 rgba(0,0,0,0.3),
-    inset 1px 0 0 rgba(255,255,255,0.25),
-    inset -1px 0 0 rgba(0,0,0,0.12),
-    0 4px 0 rgba(140,40,0,0.6),
-    0 5px 12px rgba(0,0,0,0.25)!important;
-  backdrop-filter:blur(16px) saturate(160%)!important;-webkit-backdrop-filter:blur(16px) saturate(160%)!important;
-  text-shadow:0 1px 2px rgba(0,0,0,0.25)!important}
-.nav-post:hover{
-  background:linear-gradient(160deg,rgba(255,175,95,0.97) 0%,rgba(210,75,5,1) 100%)!important;
-  box-shadow:inset 0 2px 0 rgba(255,255,255,0.65),inset 0 -3px 0 rgba(0,0,0,0.3),0 5px 0 rgba(130,35,0,0.65),0 6px 16px rgba(0,0,0,0.3)!important;
-  transform:translateY(-1px)}
-.nav-post:active{transform:translateY(2px)!important;box-shadow:inset 0 2px 0 rgba(255,255,255,0.5),inset 0 -1px 0 rgba(0,0,0,0.25),0 2px 0 rgba(140,40,0,0.5),0 3px 6px rgba(0,0,0,0.2)!important}
-.nav-support{
-  background:linear-gradient(160deg,rgba(55,220,125,0.88) 0%,rgba(10,130,50,0.94) 100%)!important;
-  color:#fff!important;border:1px solid rgba(150,255,190,0.55)!important;
-  box-shadow:
-    inset 0 2px 0 rgba(255,255,255,0.55),
-    inset 0 -3px 0 rgba(0,0,0,0.22),
-    inset 1px 0 0 rgba(255,255,255,0.22),
-    0 4px 0 rgba(5,90,30,0.55),
-    0 5px 12px rgba(0,0,0,0.2)!important;
-  backdrop-filter:blur(16px) saturate(160%)!important;-webkit-backdrop-filter:blur(16px) saturate(160%)!important;
-  text-shadow:0 1px 2px rgba(0,0,0,0.2)!important}
-.nav-support:hover{
-  background:linear-gradient(160deg,rgba(75,235,145,0.92) 0%,rgba(18,148,62,0.97) 100%)!important;
-  box-shadow:inset 0 2px 0 rgba(255,255,255,0.6),inset 0 -3px 0 rgba(0,0,0,0.22),0 5px 0 rgba(5,95,32,0.6),0 6px 16px rgba(0,0,0,0.24)!important;
-  transform:translateY(-1px)}
-.nav-support:active{transform:translateY(2px)!important;box-shadow:inset 0 2px 0 rgba(255,255,255,0.45),inset 0 -1px 0 rgba(0,0,0,0.18),0 2px 0 rgba(5,90,28,0.45),0 3px 6px rgba(0,0,0,0.16)!important}
+/* ── Unified 3D Button System ─────────────────────── */
+/* Base: all solid action buttons get taller + 3D edge */
+.nav-post,.nav-support,.auth-submit,.post-submit,.edit-save-btn,.hbtn-o,
+.wa-btn,.btn-call,.btn-wa-s,.btn-wa-b2b,.btn-tg-b2b,.app-waitlist button,
+.ad-ph-cta,.ai-btn,.nav-search button{
+  position:relative;
+  transition:transform .1s ease,box-shadow .1s ease!important;
+}
+.nav-post,.nav-support,.auth-submit,.post-submit,.edit-save-btn,.hbtn-o{
+  padding-top:12px!important;padding-bottom:12px!important;
+  font-size:14px!important;
+}
+.wa-btn,.btn-wa-b2b,.btn-tg-b2b{padding:11px 18px!important}
+.btn-call{padding:9px 0!important}
+
+/* Orange buttons */
+.nav-post,.auth-submit,.edit-save-btn,.ad-ph-cta,.hbtn-o,.nav-search button{
+  background:linear-gradient(160deg,var(--o2) 0%,var(--o) 100%)!important;
+  border:1px solid rgba(255,200,130,0.5)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.4),0 4px 0 var(--o-dark),0 5px 10px rgba(0,0,0,0.18)!important;
+  color:#fff!important;text-shadow:0 1px 1px rgba(0,0,0,0.2)!important;
+}
+.nav-post:hover,.auth-submit:hover,.edit-save-btn:hover,.hbtn-o:hover{filter:brightness(1.08)!important;transform:translateY(-1px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,0.45),0 5px 0 var(--o-dark),0 6px 14px rgba(0,0,0,0.22)!important}
+.nav-post:active,.auth-submit:active,.edit-save-btn:active,.hbtn-o:active{transform:translateY(3px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 1px 0 var(--o-dark),0 2px 5px rgba(0,0,0,0.12)!important}
+
+/* Green buttons */
+.nav-support,.post-submit,.wa-btn,.btn-wa-b2b{
+  background:linear-gradient(160deg,var(--g2) 0%,var(--g) 100%)!important;
+  border:1px solid rgba(120,220,150,0.4)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.38),0 4px 0 var(--g-dark),0 5px 10px rgba(0,0,0,0.16)!important;
+  color:#fff!important;text-shadow:0 1px 1px rgba(0,0,0,0.18)!important;
+}
+.nav-support:hover,.post-submit:hover,.wa-btn:hover,.btn-wa-b2b:hover{filter:brightness(1.08)!important;transform:translateY(-1px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,0.42),0 5px 0 var(--g-dark),0 6px 12px rgba(0,0,0,0.2)!important}
+.nav-support:active,.post-submit:active,.wa-btn:active{transform:translateY(3px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 1px 0 var(--g-dark),0 2px 4px rgba(0,0,0,0.12)!important}
+
+/* Telegram blue */
+.btn-tg-b2b{
+  background:linear-gradient(160deg,#38b8f2 0%,#2CA5E0 100%)!important;
+  border:1px solid rgba(100,200,255,0.4)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.38),0 4px 0 #1a7db8,0 5px 10px rgba(0,0,0,0.16)!important;
+  color:#fff!important;
+}
+.btn-tg-b2b:hover{filter:brightness(1.08)!important;transform:translateY(-1px)!important}
+.btn-tg-b2b:active{transform:translateY(3px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 1px 0 #1a7db8,0 2px 4px rgba(0,0,0,0.12)!important}
+
+/* Call button (dark) */
+.btn-call,.btn-wa-s{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.2),0 3px 0 rgba(0,0,0,0.4),0 4px 8px rgba(0,0,0,0.2)!important;
+}
+.btn-call:active,.btn-wa-s:active{transform:translateY(2px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,0.15),0 1px 0 rgba(0,0,0,0.35)!important}
+
+/* Glass nav buttons (city, theme) */
 .theme-btn{
-  background:linear-gradient(160deg,rgba(255,255,255,0.58) 0%,rgba(220,224,232,0.22) 100%)!important;
-  backdrop-filter:blur(22px) saturate(200%)!important;-webkit-backdrop-filter:blur(22px) saturate(200%)!important;
-  border:1px solid rgba(255,255,255,0.65)!important;
-  box-shadow:
-    inset 0 2px 0 rgba(255,255,255,0.9),
-    inset 0 -3px 0 rgba(0,0,0,0.1),
-    inset 1px 0 0 rgba(255,255,255,0.5),
-    0 4px 0 rgba(160,165,180,0.45),
-    0 5px 10px rgba(0,0,0,0.12)!important}
-.theme-btn:hover{
-  background:linear-gradient(160deg,rgba(255,255,255,0.72) 0%,rgba(230,234,242,0.32) 100%)!important;
-  box-shadow:inset 0 2px 0 rgba(255,255,255,0.95),inset 0 -3px 0 rgba(0,0,0,0.12),0 5px 0 rgba(155,160,175,0.5),0 6px 14px rgba(0,0,0,0.15)!important}
-.theme-btn:active{transform:translateY(2px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,0.8),inset 0 -1px 0 rgba(0,0,0,0.08),0 2px 0 rgba(155,160,175,0.4),0 3px 5px rgba(0,0,0,0.1)!important}
+  background:linear-gradient(160deg,rgba(255,255,255,0.62) 0%,rgba(230,232,240,0.28) 100%)!important;
+  backdrop-filter:blur(20px) saturate(190%)!important;-webkit-backdrop-filter:blur(20px) saturate(190%)!important;
+  border:1px solid rgba(255,255,255,0.65)!important;padding:8px 11px!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.9),0 4px 0 rgba(155,158,172,0.5),0 5px 10px rgba(0,0,0,0.1)!important;
+}
+.theme-btn:hover{filter:brightness(1.05)!important;transform:translateY(-1px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,0.92),0 5px 0 rgba(148,152,168,0.55),0 6px 12px rgba(0,0,0,0.12)!important}
+.theme-btn:active{transform:translateY(3px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,0.7),0 1px 0 rgba(148,152,168,0.45),0 2px 4px rgba(0,0,0,0.08)!important}
 .nav-city{
-  background:linear-gradient(160deg,rgba(255,255,255,0.52) 0%,rgba(220,224,234,0.18) 100%)!important;
-  backdrop-filter:blur(20px) saturate(180%)!important;-webkit-backdrop-filter:blur(20px) saturate(180%)!important;
-  border:1px solid rgba(255,255,255,0.6)!important;
-  box-shadow:
-    inset 0 2px 0 rgba(255,255,255,0.82),
-    inset 0 -3px 0 rgba(0,0,0,0.08),
-    inset 1px 0 0 rgba(255,255,255,0.42),
-    0 4px 0 rgba(160,165,180,0.38),
-    0 5px 9px rgba(0,0,0,0.1)!important}
-.nav-city:hover{background:linear-gradient(160deg,rgba(255,255,255,0.68) 0%,rgba(230,234,244,0.28) 100%)!important;border-color:rgba(255,255,255,0.78)!important}
-/* Dark 3D glass buttons */
-[data-theme="dark"] .nav-post{background:linear-gradient(160deg,rgba(215,105,38,0.9) 0%,rgba(158,52,4,0.95) 100%)!important;border-color:rgba(255,175,95,0.4)!important;box-shadow:inset 0 2px 0 rgba(255,255,255,0.3),inset 0 -3px 0 rgba(0,0,0,0.45),0 4px 0 rgba(90,25,0,0.7),0 5px 14px rgba(0,0,0,0.45)!important}
-[data-theme="dark"] .nav-support{background:linear-gradient(160deg,rgba(38,175,92,0.85) 0%,rgba(8,108,40,0.9) 100%)!important;border-color:rgba(95,215,145,0.35)!important;box-shadow:inset 0 2px 0 rgba(255,255,255,0.25),inset 0 -3px 0 rgba(0,0,0,0.4),0 4px 0 rgba(2,65,20,0.65),0 5px 12px rgba(0,0,0,0.4)!important}
-[data-theme="dark"] .theme-btn{background:linear-gradient(160deg,rgba(255,255,255,0.15) 0%,rgba(255,255,255,0.05) 100%)!important;border-color:rgba(255,255,255,0.2)!important;box-shadow:inset 0 2px 0 rgba(255,255,255,0.25),inset 0 -3px 0 rgba(0,0,0,0.45),0 4px 0 rgba(0,0,0,0.55),0 5px 12px rgba(0,0,0,0.4)!important}
-[data-theme="dark"] .nav-city{background:linear-gradient(160deg,rgba(255,255,255,0.12) 0%,rgba(255,255,255,0.03) 100%)!important;border-color:rgba(255,255,255,0.16)!important;box-shadow:inset 0 2px 0 rgba(255,255,255,0.18),inset 0 -3px 0 rgba(0,0,0,0.4),0 4px 0 rgba(0,0,0,0.5),0 5px 10px rgba(0,0,0,0.35)!important}
+  background:linear-gradient(160deg,rgba(255,255,255,0.55) 0%,rgba(226,228,238,0.2) 100%)!important;
+  backdrop-filter:blur(18px) saturate(170%)!important;-webkit-backdrop-filter:blur(18px) saturate(170%)!important;
+  border:1px solid rgba(255,255,255,0.6)!important;padding:8px 12px!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.85),0 4px 0 rgba(155,158,172,0.42),0 5px 9px rgba(0,0,0,0.09)!important;
+}
+.nav-city:hover{filter:brightness(1.05)!important;transform:translateY(-1px)!important}
+.nav-city:active{transform:translateY(3px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,0.7),0 1px 0 rgba(148,152,168,0.4),0 2px 4px rgba(0,0,0,0.08)!important}
+
+/* Ghost/secondary buttons */
+.edit-cancel-btn,.post-cancel,.hbtn-w,.auth-google-btn{
+  padding-top:11px!important;padding-bottom:11px!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.8),0 3px 0 rgba(0,0,0,0.12),0 4px 8px rgba(0,0,0,0.08)!important;
+  transition:transform .1s,box-shadow .1s!important;
+}
+.edit-cancel-btn:hover,.post-cancel:hover,.hbtn-w:hover,.auth-google-btn:hover{transform:translateY(-1px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,0.85),0 4px 0 rgba(0,0,0,0.14),0 5px 10px rgba(0,0,0,0.1)!important}
+.edit-cancel-btn:active,.post-cancel:active,.hbtn-w:active,.auth-google-btn:active{transform:translateY(2px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,0.6),0 1px 0 rgba(0,0,0,0.1)!important}
+
+/* Dark theme overrides */
+[data-theme="dark"] .nav-post,[data-theme="dark"] .auth-submit,[data-theme="dark"] .edit-save-btn{
+  background:linear-gradient(160deg,#d07030 0%,#a04010 100%)!important;
+  border-color:rgba(255,175,100,0.35)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.25),0 4px 0 rgba(70,20,0,0.8),0 5px 12px rgba(0,0,0,0.4)!important;
+}
+[data-theme="dark"] .nav-support,[data-theme="dark"] .post-submit,[data-theme="dark"] .wa-btn,[data-theme="dark"] .btn-wa-b2b{
+  background:linear-gradient(160deg,#28b060 0%,#0a7030 100%)!important;
+  border-color:rgba(90,220,140,0.3)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.22),0 4px 0 rgba(2,50,15,0.75),0 5px 12px rgba(0,0,0,0.38)!important;
+}
+[data-theme="dark"] .theme-btn{
+  background:linear-gradient(160deg,rgba(255,255,255,0.16) 0%,rgba(255,255,255,0.05) 100%)!important;
+  border-color:rgba(255,255,255,0.2)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.22),0 4px 0 rgba(0,0,0,0.6),0 5px 12px rgba(0,0,0,0.38)!important;
+}
+[data-theme="dark"] .nav-city{
+  background:linear-gradient(160deg,rgba(255,255,255,0.12) 0%,rgba(255,255,255,0.04) 100%)!important;
+  border-color:rgba(255,255,255,0.15)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),0 4px 0 rgba(0,0,0,0.55),0 5px 10px rgba(0,0,0,0.35)!important;
+}
+[data-theme="dark"] .edit-cancel-btn,[data-theme="dark"] .post-cancel{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.1),0 3px 0 rgba(0,0,0,0.5),0 4px 8px rgba(0,0,0,0.3)!important;
+}
 </style>
 </head>
 <body>
