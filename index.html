@@ -205,7 +205,6 @@ window.renderFaq = renderFaq;
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
-  --glass-tex:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='220' height='220' filter='url(%23n)' opacity='0.09'/></svg>");
   --o:#FF6B00; --o2:#FF8C33; --o-bg:#FFF3E0; --o-dark:#BF4E00;
   --b:#1565C0; --b2:#1976D2; --b-bg:#E3F2FD; --b-dark:#0D47A1;
   --t:#00796B; --t2:#00897B; --t-bg:#E0F2F1; --t-dark:#004D40;
@@ -220,33 +219,21 @@ window.renderFaq = renderFaq;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-/* ── ГОЛУБОЙ BASE — fixed wallpaper, glass windows scroll over it ── */
+/* ── ГОЛУБОЙ WALLPAPER — icons tiled directly on body background ── */
 body{
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  background:#1e6eb8;
+  background-color:#1565C0;
+  background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='280'><rect x='8' y='18' width='12' height='36' rx='5' fill='%23FF9F43' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='76' y='18' width='12' height='36' rx='5' fill='%23FF9F43' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='14' y='18' width='68' height='14' rx='5' fill='%23FF9F43' fill-opacity='0.88' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='14' y='30' width='32' height='24' rx='4' fill='%23FF9F43' fill-opacity='0.72'/><rect x='50' y='30' width='32' height='24' rx='4' fill='%23FF9F43' fill-opacity='0.72'/><rect x='12' y='54' width='8' height='10' rx='3' fill='%23FF9F43' fill-opacity='0.70'/><rect x='76' y='54' width='8' height='10' rx='3' fill='%23FF9F43' fill-opacity='0.70'/><rect x='115' y='32' width='84' height='28' rx='6' fill='%23FFC312' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='128' y='14' width='52' height='22' rx='7' fill='%23FFC312' fill-opacity='0.78' stroke='white' stroke-width='1.5' stroke-opacity='0.65'/><circle cx='134' cy='64' r='11' fill='%23FFC312' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><circle cx='178' cy='64' r='11' fill='%23FFC312' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='232' y='12' width='12' height='38' rx='5' fill='%23FF6B35' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='274' y='12' width='12' height='38' rx='5' fill='%23FF6B35' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='228' y='42' width='64' height='20' rx='5' fill='%23FF6B35' fill-opacity='0.88' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='232' y='62' width='10' height='16' rx='3' fill='%23FF6B35' fill-opacity='0.72'/><rect x='276' y='62' width='10' height='16' rx='3' fill='%23FF6B35' fill-opacity='0.72'/><rect x='346' y='6' width='42' height='72' rx='9' fill='%23EE5A24' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='352' y='14' width='30' height='48' rx='4' fill='white' fill-opacity='0.28'/><circle cx='367' cy='69' r='5' fill='white' fill-opacity='0.80'/><rect x='357' y='10' width='20' height='3' rx='1' fill='white' fill-opacity='0.80'/><rect x='2' y='106' width='10' height='54' rx='4' fill='%2312CBC4' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='92' y='106' width='10' height='54' rx='4' fill='%2312CBC4' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='4' y='122' width='96' height='38' rx='5' fill='%2312CBC4' fill-opacity='0.78' stroke='white' stroke-width='2' stroke-opacity='0.68'/><rect x='10' y='107' width='36' height='18' rx='5' fill='%2312CBC4' fill-opacity='0.88'/><rect x='54' y='107' width='36' height='18' rx='5' fill='%2312CBC4' fill-opacity='0.88'/><rect x='113' y='108' width='82' height='50' rx='5' fill='%230652DD' fill-opacity='0.78' stroke='white' stroke-width='2' stroke-opacity='0.68'/><rect x='118' y='113' width='72' height='40' rx='3' fill='white' fill-opacity='0.28'/><rect x='108' y='158' width='92' height='8' rx='4' fill='%230652DD' fill-opacity='0.82' stroke='white' stroke-width='1.5' stroke-opacity='0.65'/><rect x='134' y='159' width='40' height='4' rx='2' fill='white' fill-opacity='0.65'/><rect x='224' y='105' width='76' height='70' rx='5' fill='%239B59B6' fill-opacity='0.78' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='262' y='105' width='2' height='70' fill='white' fill-opacity='0.65'/><circle cx='255' cy='140' r='6' fill='%23FFD700' fill-opacity='0.98'/><circle cx='269' cy='140' r='6' fill='%23FFD700' fill-opacity='0.98'/><rect x='325' y='106' width='84' height='52' rx='6' fill='%231289A7' fill-opacity='0.78' stroke='white' stroke-width='2' stroke-opacity='0.68'/><rect x='331' y='112' width='72' height='40' rx='3' fill='white' fill-opacity='0.28'/><rect x='355' y='158' width='24' height='5' rx='2' fill='%231289A7' fill-opacity='0.82'/><rect x='344' y='163' width='46' height='5' rx='3' fill='%231289A7' fill-opacity='0.78'/><rect x='18' y='196' width='66' height='70' rx='6' fill='%2326de81' fill-opacity='0.78' stroke='white' stroke-width='2' stroke-opacity='0.75'/><circle cx='52' cy='228' r='20' fill='none' stroke='white' stroke-width='2' stroke-opacity='0.70'/><circle cx='52' cy='228' r='11' fill='none' stroke='white' stroke-width='1.5' stroke-opacity='0.55'/><rect x='18' y='196' width='66' height='10' rx='5' fill='white' fill-opacity='0.35'/><rect x='128' y='196' width='58' height='70' rx='29' fill='%23FDA7DF' fill-opacity='0.78' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='135' y='203' width='44' height='56' rx='22' fill='white' fill-opacity='0.22'/><rect x='217' y='215' width='62' height='32' rx='4' fill='%23FFA07A' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='279' y='220' width='30' height='27' rx='4' fill='%23FFA07A' fill-opacity='0.78' stroke='white' stroke-width='2' stroke-opacity='0.68'/><rect x='281' y='225' width='26' height='15' rx='3' fill='white' fill-opacity='0.28'/><circle cx='232' cy='250' r='11' fill='%23FFA07A' fill-opacity='0.85' stroke='white' stroke-width='2' stroke-opacity='0.75'/><circle cx='258' cy='250' r='11' fill='%23FFA07A' fill-opacity='0.85' stroke='white' stroke-width='2' stroke-opacity='0.75'/><circle cx='285' cy='250' r='11' fill='%23FFA07A' fill-opacity='0.85' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='340' y='195' width='54' height='74' rx='6' fill='%2374b9ff' fill-opacity='0.78' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='340' y='232' width='54' height='2' fill='white' fill-opacity='0.70'/><rect x='344' y='202' width='7' height='24' rx='3' fill='%23FFD700' fill-opacity='0.95'/><rect x='344' y='237' width='7' height='28' rx='3' fill='%23FFD700' fill-opacity='0.95'/></svg>");
+  background-size:200px 134px;
+  background-repeat:repeat;
   color:var(--text);
   line-height:1.5;
   position:relative;
   min-height:100vh;
 }
-/* Fixed голубой gradient — stays behind everything */
-body::after{
-  content:'';
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(30,160,255,0.55) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(15,110,240,0.45) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 50% at 50% 40%, rgba(10,80,200,0.28) 0%, transparent 70%),
-    linear-gradient(160deg,#2278c8 0%,#1c68b5 35%,#185aa5 65%,#2070c0 100%);
-}
-/* ── FIXED WALLPAPER ILLUSTRATIONS — furniture, gadgets, auto ── */
-body::before{
-  content:'';
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='280'><text x='10'  y='75'  font-size='64' opacity='0.42'>🛋️</text><text x='115' y='75'  font-size='64' opacity='0.40'>🚗</text><text x='220' y='75'  font-size='64' opacity='0.42'>🪑</text><text x='325' y='75'  font-size='64' opacity='0.40'>📱</text><text x='10'  y='175' font-size='64' opacity='0.40'>🛏️</text><text x='115' y='175' font-size='64' opacity='0.42'>💻</text><text x='220' y='175' font-size='64' opacity='0.40'>🗄️</text><text x='325' y='175' font-size='64' opacity='0.42'>📺</text><text x='10'  y='268' font-size='64' opacity='0.42'>🚿</text><text x='115' y='268' font-size='64' opacity='0.40'>🪞</text><text x='220' y='268' font-size='64' opacity='0.42'>🚚</text><text x='325' y='268' font-size='64' opacity='0.40'>🧊</text></svg>");
-  background-size:420px 280px;
-  opacity:1;
-}
+body::before{content:none}
+body::after{content:none}
+/* body::before disabled — wallpaper moved to body background-image */
 body>*{position:relative;z-index:1}
 a{text-decoration:none;color:inherit}
 
@@ -256,9 +243,15 @@ a{text-decoration:none;color:inherit}
 .ai-strip::after,.city-card::after,.cat-card::after{
   content:'';position:absolute;inset:0;pointer-events:none;
   border-radius:inherit;
-  background:var(--glass-tex) 0 0/220px 220px;
-  mix-blend-mode:overlay;
-  opacity:0.55;
+  background-image:
+    repeating-linear-gradient(-45deg,
+      rgba(255,255,255,0.32) 0px,rgba(255,255,255,0.32) 1.5px,
+      transparent 1.5px,transparent 7px),
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.22) 0px,rgba(255,255,255,0.22) 1px,
+      transparent 1px,transparent 7px);
+  mix-blend-mode:normal;
+  opacity:1;
   z-index:2
 }
 img{display:block;max-width:100%}
@@ -806,7 +799,7 @@ a.b2b-tag:hover{filter:brightness(0.9);transform:translateY(-1px)}
 
 /* ===== DARK THEME OVERRIDES — element-level ===== */
 [data-theme="dark"] body{color:var(--text)}
-[data-theme="dark"] body::before{opacity:.35}
+
 
 /* Nav & menus */
 [data-theme="dark"] nav{background:linear-gradient(180deg,rgba(255,255,255,0.14) 0%,rgba(255,255,255,0.06) 100%);border-bottom-color:rgba(255,255,255,0.14)}
@@ -1158,9 +1151,15 @@ nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) satur
 [data-theme="dark"] .faq-item{background:linear-gradient(145deg,rgba(58,62,90,0.62) 0%,rgba(22,25,42,0.42) 100%)!important;box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.18),inset 1.5px 0 0 rgba(255,255,255,0.1),inset -1.5px 0 0 rgba(0,0,0,0.15),inset 0 -1.5px 0 rgba(0,0,0,0.2),0 2px 12px rgba(0,0,0,0.28)!important}
 [data-theme="dark"] .modal-box,[data-theme="dark"] .auth-modal-box,[data-theme="dark"] .post-modal-box{background:rgba(20,21,40,0.88)!important;border:1px solid rgba(255,255,255,0.12)!important}
 [data-theme="dark"] .city-modal-box{background:rgba(20,21,40,0.92)!important}
-[data-theme="dark"] body{background:linear-gradient(145deg,#0d1024 0%,#160d20 35%,#0d1a18 65%,#1a0d1c 100%)}
-[data-theme="dark"] body::before{background:radial-gradient(circle,rgba(255,140,50,.18) 0%,transparent 70%)}
-[data-theme="dark"] body::after{background:radial-gradient(circle,rgba(80,120,255,.2) 0%,transparent 70%)}
+[data-theme="dark"] body{
+  background-color:#0d1024;
+  background-image:
+    linear-gradient(rgba(10,13,36,0.72),rgba(10,13,36,0.72)),
+    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='280'><rect x='8' y='18' width='12' height='36' rx='5' fill='%23FF9F43' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='76' y='18' width='12' height='36' rx='5' fill='%23FF9F43' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='14' y='18' width='68' height='14' rx='5' fill='%23FF9F43' fill-opacity='0.88' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='14' y='30' width='32' height='24' rx='4' fill='%23FF9F43' fill-opacity='0.72'/><rect x='50' y='30' width='32' height='24' rx='4' fill='%23FF9F43' fill-opacity='0.72'/><rect x='12' y='54' width='8' height='10' rx='3' fill='%23FF9F43' fill-opacity='0.70'/><rect x='76' y='54' width='8' height='10' rx='3' fill='%23FF9F43' fill-opacity='0.70'/><rect x='115' y='32' width='84' height='28' rx='6' fill='%23FFC312' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='128' y='14' width='52' height='22' rx='7' fill='%23FFC312' fill-opacity='0.78' stroke='white' stroke-width='1.5' stroke-opacity='0.65'/><circle cx='134' cy='64' r='11' fill='%23FFC312' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><circle cx='178' cy='64' r='11' fill='%23FFC312' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='232' y='12' width='12' height='38' rx='5' fill='%23FF6B35' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='274' y='12' width='12' height='38' rx='5' fill='%23FF6B35' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='228' y='42' width='64' height='20' rx='5' fill='%23FF6B35' fill-opacity='0.88' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='232' y='62' width='10' height='16' rx='3' fill='%23FF6B35' fill-opacity='0.72'/><rect x='276' y='62' width='10' height='16' rx='3' fill='%23FF6B35' fill-opacity='0.72'/><rect x='346' y='6' width='42' height='72' rx='9' fill='%23EE5A24' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='352' y='14' width='30' height='48' rx='4' fill='white' fill-opacity='0.28'/><circle cx='367' cy='69' r='5' fill='white' fill-opacity='0.80'/><rect x='357' y='10' width='20' height='3' rx='1' fill='white' fill-opacity='0.80'/><rect x='2' y='106' width='10' height='54' rx='4' fill='%2312CBC4' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='92' y='106' width='10' height='54' rx='4' fill='%2312CBC4' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='4' y='122' width='96' height='38' rx='5' fill='%2312CBC4' fill-opacity='0.78' stroke='white' stroke-width='2' stroke-opacity='0.68'/><rect x='10' y='107' width='36' height='18' rx='5' fill='%2312CBC4' fill-opacity='0.88'/><rect x='54' y='107' width='36' height='18' rx='5' fill='%2312CBC4' fill-opacity='0.88'/><rect x='113' y='108' width='82' height='50' rx='5' fill='%230652DD' fill-opacity='0.78' stroke='white' stroke-width='2' stroke-opacity='0.68'/><rect x='118' y='113' width='72' height='40' rx='3' fill='white' fill-opacity='0.28'/><rect x='108' y='158' width='92' height='8' rx='4' fill='%230652DD' fill-opacity='0.82' stroke='white' stroke-width='1.5' stroke-opacity='0.65'/><rect x='134' y='159' width='40' height='4' rx='2' fill='white' fill-opacity='0.65'/><rect x='224' y='105' width='76' height='70' rx='5' fill='%239B59B6' fill-opacity='0.78' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='262' y='105' width='2' height='70' fill='white' fill-opacity='0.65'/><circle cx='255' cy='140' r='6' fill='%23FFD700' fill-opacity='0.98'/><circle cx='269' cy='140' r='6' fill='%23FFD700' fill-opacity='0.98'/><rect x='325' y='106' width='84' height='52' rx='6' fill='%231289A7' fill-opacity='0.78' stroke='white' stroke-width='2' stroke-opacity='0.68'/><rect x='331' y='112' width='72' height='40' rx='3' fill='white' fill-opacity='0.28'/><rect x='355' y='158' width='24' height='5' rx='2' fill='%231289A7' fill-opacity='0.82'/><rect x='344' y='163' width='46' height='5' rx='3' fill='%231289A7' fill-opacity='0.78'/><rect x='18' y='196' width='66' height='70' rx='6' fill='%2326de81' fill-opacity='0.78' stroke='white' stroke-width='2' stroke-opacity='0.75'/><circle cx='52' cy='228' r='20' fill='none' stroke='white' stroke-width='2' stroke-opacity='0.70'/><circle cx='52' cy='228' r='11' fill='none' stroke='white' stroke-width='1.5' stroke-opacity='0.55'/><rect x='18' y='196' width='66' height='10' rx='5' fill='white' fill-opacity='0.35'/><rect x='128' y='196' width='58' height='70' rx='29' fill='%23FDA7DF' fill-opacity='0.78' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='135' y='203' width='44' height='56' rx='22' fill='white' fill-opacity='0.22'/><rect x='217' y='215' width='62' height='32' rx='4' fill='%23FFA07A' fill-opacity='0.82' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='279' y='220' width='30' height='27' rx='4' fill='%23FFA07A' fill-opacity='0.78' stroke='white' stroke-width='2' stroke-opacity='0.68'/><rect x='281' y='225' width='26' height='15' rx='3' fill='white' fill-opacity='0.28'/><circle cx='232' cy='250' r='11' fill='%23FFA07A' fill-opacity='0.85' stroke='white' stroke-width='2' stroke-opacity='0.75'/><circle cx='258' cy='250' r='11' fill='%23FFA07A' fill-opacity='0.85' stroke='white' stroke-width='2' stroke-opacity='0.75'/><circle cx='285' cy='250' r='11' fill='%23FFA07A' fill-opacity='0.85' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='340' y='195' width='54' height='74' rx='6' fill='%2374b9ff' fill-opacity='0.78' stroke='white' stroke-width='2' stroke-opacity='0.75'/><rect x='340' y='232' width='54' height='2' fill='white' fill-opacity='0.70'/><rect x='344' y='202' width='7' height='24' rx='3' fill='%23FFD700' fill-opacity='0.95'/><rect x='344' y='237' width='7' height='28' rx='3' fill='%23FFD700' fill-opacity='0.95'/></svg>");
+  background-size:cover,200px 134px;
+  background-repeat:no-repeat,repeat;
+}
+/* dark mode keeps SVG wallpaper icons — body::after is disabled globally */
 
 /* ── Unified 3D Button System ─────────────────────── */
 /* Base: all solid action buttons get taller + 3D edge */
