@@ -1308,16 +1308,16 @@ function closeCityModal(){
   document.getElementById('cityModal').classList.remove('open');
 }
 
-// ADS DATA  (placeholder:true = бутафорные, показываем как призыв разместить объявление)
+// ADS DATA  (placeholder:true = призыв разместить объявление)
 var ADS=[
-  {id:1,cat:'auto',catColor:'#1565C0',catLabel:'Авто',bg:'#E3F2FD',title:'HAVAL M6 2024, пробег 21 тыс.',price:7888666,city:'Астана',age:'2 ч назад',phone:'77080802588',badge:'hot',emoji:'🚗',own:true},
-  {id:2,cat:'elec',catColor:'#6A1B9A',catLabel:'Электроника',bg:'#F3E5F5',title:'iPhone 15 Pro 256GB Natural Titanium',price:490000,city:'Алматы',age:'5 мин назад',phone:'',badge:'new',emoji:'📱'},
-  {id:3,cat:'elec',catColor:'#6A1B9A',catLabel:'Электроника',bg:'#F3E5F5',title:'MacBook Air M2 8/256 Starlight',price:380000,city:'Астана',age:'40 мин назад',phone:'',badge:'',emoji:'💻'},
-  {id:4,cat:'realty',catColor:'#FF6B00',catLabel:'Недвижимость',bg:'#FFF3E0',title:'Сдам 2-комн квартиру, центр Щучинска',price:80000,city:'Щучинск',age:'1 ч назад',phone:'',badge:'',emoji:'🏠'},
+  {id:1,placeholder:true,catColor:'#1565C0',catLabel:'Авто',emoji:'🚗'},
+  {id:2,placeholder:true,catColor:'#6A1B9A',catLabel:'Электроника',emoji:'📱'},
+  {id:3,placeholder:true,catColor:'#6A1B9A',catLabel:'Электроника',emoji:'💻'},
+  {id:4,placeholder:true,catColor:'#FF6B00',catLabel:'Недвижимость',emoji:'🏠'},
   {id:5,placeholder:true,catColor:'#C62828',catLabel:'Спорт',emoji:'🏋️'},
-  {id:6,cat:'elec',catColor:'#6A1B9A',catLabel:'Электроника',bg:'#F3E5F5',title:'PlayStation 5 + 3 игры, состояние новое',price:165000,city:'Астана',age:'6 ч назад',phone:'',badge:'',emoji:'🎮'},
+  {id:6,placeholder:true,catColor:'#6A1B9A',catLabel:'Электроника',emoji:'🎮'},
   {id:7,placeholder:true,catColor:'#5D4037',catLabel:'Мебель',emoji:'🛋️'},
-  {id:8,cat:'taxi',catColor:'#F9A825',catLabel:'Межгород',bg:'#FFF8E1',title:'Трансфер Астана — Бурабай Haval M6',price:24000,city:'Бурабай',age:'Сегодня',phone:'77080802588',badge:'vip',emoji:'🚖'},
+  {id:8,placeholder:true,catColor:'#F9A825',catLabel:'Межгород',emoji:'🚖'},
 ];
 
 var currentView = 'grid';
