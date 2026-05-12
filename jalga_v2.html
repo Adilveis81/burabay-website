@@ -969,22 +969,33 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
   .hamburger{display:block}
   .nav-city{display:none}
   .nav-links{display:none}
+  /* Hero — full width, single column, no side gaps */
+  .hero{padding:8px 8px 0!important;max-width:100%!important}
+  .hero-grid{grid-template-columns:1fr!important;gap:8px!important}
+  .hero-main{grid-column:1!important;grid-row:auto!important}
+  .hero-stats-card,.hero-taxi,.hero-free{min-height:auto!important;grid-column:auto!important;grid-row:auto!important}
+  [data-cols="2"] .hero-grid,[data-cols="3"] .hero-grid,[data-cols="4"] .hero-grid{grid-template-columns:1fr!important}
+  [data-cols="2"] .hero-main,[data-cols="3"] .hero-main,[data-cols="4"] .hero-main{grid-column:1!important;grid-row:auto!important}
+  [data-cols="2"] .hero-stats-card,[data-cols="3"] .hero-stats-card,[data-cols="4"] .hero-stats-card,
+  [data-cols="2"] .hero-taxi,[data-cols="3"] .hero-taxi,[data-cols="4"] .hero-taxi,
+  [data-cols="2"] .hero-free,[data-cols="3"] .hero-free,[data-cols="4"] .hero-free{grid-column:auto!important;grid-row:auto!important}
   .hero-main h1{font-size:24px}
-  .hero-grid{grid-template-columns:1fr;gap:10px}
-  .hero-main{grid-column:1}
-  .hero-stats-card,.hero-taxi,.hero-free{min-height:auto}
-  .section{padding:20px 14px 0}
+  /* Sections — edge to edge */
+  .section{max-width:100%!important;margin:0 0 6px!important;border-radius:0!important;padding:16px 12px 12px!important}
+  /* Grids */
   .cats-grid{grid-template-columns:repeat(4,1fr)!important}
   .cities-grid{grid-template-columns:repeat(2,1fr)!important}
   .ads-grid{grid-template-columns:repeat(2,1fr)!important}
   [data-cols="2"] .ads-grid,[data-cols="3"] .ads-grid,[data-cols="4"] .ads-grid{grid-template-columns:repeat(2,1fr)!important}
   [data-cols="2"] .cities-grid,[data-cols="3"] .cities-grid,[data-cols="4"] .cities-grid{grid-template-columns:repeat(2,1fr)!important}
   [data-cols="2"] .cats-grid,[data-cols="3"] .cats-grid,[data-cols="4"] .cats-grid{grid-template-columns:repeat(4,1fr)!important}
-  .hiw-grid{grid-template-columns:1fr}
+  .hiw-grid{grid-template-columns:1fr!important}
+  [data-cols="2"] .hiw-grid,[data-cols="3"] .hiw-grid,[data-cols="4"] .hiw-grid{grid-template-columns:1fr!important}
   .ai-strip{flex-direction:column}
-  .b2b-grid{grid-template-columns:1fr}
+  .b2b-grid{grid-template-columns:1fr!important}
+  [data-cols="2"] .b2b-grid,[data-cols="3"] .b2b-grid,[data-cols="4"] .b2b-grid{grid-template-columns:1fr!important}
   .services-header{flex-direction:column;text-align:center}
-  footer{padding:20px 14px}
+  footer{padding:20px 12px;border-radius:0}
   /* Modals — full-width bottom sheet */
   .modal-ov{padding:0!important;align-items:flex-end!important}
   .auth-modal-box,.post-modal-box,.modal-box,.edit-modal-box{
@@ -993,7 +1004,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
     max-height:92vh!important;overflow-y:auto!important;
   }
   .post-modal-box{max-height:95vh!important}
-  /* Post form: stack price+city, keep 4 cat cols */
+  /* Post form */
   .post-row{grid-template-columns:1fr!important}
   .post-cat-grid{grid-template-columns:repeat(4,1fr)!important;gap:5px!important}
   .post-cat-item{padding:7px 2px!important;font-size:10px!important}
@@ -1004,7 +1015,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
   /* Auth modal */
   .auth-body{padding:16px!important}
   .auth-header{padding:18px 16px 14px!important}
-  /* City modal stays full screen */
+  /* City modal full screen */
   .city-modal{padding:0}
   .city-modal-box{max-height:100vh;border-radius:0}
   .city-modal-body{flex-direction:column}
@@ -1012,6 +1023,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
   .city-oblast-item.selected{border-left:none;border-bottom:3px solid var(--o)}
 }
 @media(max-width:400px){
+  .hero{padding:6px 6px 0!important}
   .cats-grid{grid-template-columns:repeat(4,1fr)!important}
   [data-cols="2"] .cats-grid,[data-cols="3"] .cats-grid,[data-cols="4"] .cats-grid{grid-template-columns:repeat(4,1fr)!important}
   .ads-grid,[data-cols="2"] .ads-grid,[data-cols="3"] .ads-grid,[data-cols="4"] .ads-grid{grid-template-columns:1fr!important}
