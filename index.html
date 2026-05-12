@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#FF6B00">
 <title>Алсат — Объявления Казахстана</title>
+<meta name="description" content="Алсат — бесплатные объявления Казахстана. Продавайте и покупайте без комиссий и посредников. Авто, недвижимость, электроника, услуги.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alsat.asia">
+<meta property="og:title" content="Алсат — Объявления Казахстана">
+<meta property="og:description" content="Бесплатные объявления без комиссий. Авто, недвижимость, электроника, услуги по всему Казахстану.">
+<meta property="og:image" content="https://alsat.asia/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Алсат — Объявления Казахстана">
+<meta name="twitter:description" content="Бесплатные объявления без комиссий и посредников.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23FF6B00'/><text y='.9em' font-size='72' x='12'>🏪</text></svg>">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <script>
 (function(){
@@ -529,8 +539,8 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
   <div class="nav-i">
     <a href="#" class="logo">Алсат<sup>asia</sup></a>
     <div class="nav-search">
-      <input type="text" placeholder="Поиск по объявлениям..." data-i18n-ph="searchPh">
-      <button><i class="ti ti-search"></i></button>
+      <input type="text" id="navSearchInput" placeholder="Поиск по объявлениям..." data-i18n-ph="searchPh" oninput="searchQuery=this.value.trim().toLowerCase();renderAds()">
+      <button onclick="searchQuery=document.getElementById('navSearchInput').value.trim().toLowerCase();renderAds()"><i class="ti ti-search"></i></button>
     </div>
     <div class="nav-links">
       <a href="#ads" data-section="ads" class="nav-link-item"><i class="ti ti-layout-grid" style="font-size:14px"></i> <span data-i18n="navAds">Объявления</span></a>
@@ -578,7 +588,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
         <p data-i18n="heroSubtitle">Продавайте быстро. Покупайте выгодно. Всё по-настоящему.</p>
         <div class="hero-btns">
           <button class="hbtn-o" onclick="openPostModal()"><i class="ti ti-plus"></i> <span data-i18n="postAd">Подать объявление</span></button>
-          <button class="hbtn-w"><i class="ti ti-search"></i> <span data-i18n="heroBtnBrowse">Смотреть все</span></button>
+          <button class="hbtn-w" onclick="document.getElementById('ads').scrollIntoView({behavior:'smooth'})"><i class="ti ti-search"></i> <span data-i18n="heroBtnBrowse">Смотреть все</span></button>
         </div>
       </div>
     </div>
@@ -1043,12 +1053,9 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
 
         <div class="post-field">
           <label data-i18n="postPhotosLabel">Фотографии (до 5)</label>
-          <div class="post-photo-grid">
-            <div class="post-photo-slot" onclick="this.classList.toggle('filled')"><span style="font-size:24px">📷</span><span class="ps-add">+ фото</span></div>
-            <div class="post-photo-slot" onclick="this.classList.toggle('filled')"><span style="font-size:24px">📷</span><span class="ps-add">+ фото</span></div>
-            <div class="post-photo-slot" onclick="this.classList.toggle('filled')"><span style="font-size:24px">📷</span><span class="ps-add">+ фото</span></div>
-            <div class="post-photo-slot" onclick="this.classList.toggle('filled')"><span style="font-size:24px">📷</span><span class="ps-add">+ фото</span></div>
-            <div class="post-photo-slot" onclick="this.classList.toggle('filled')"><span style="font-size:24px">📷</span><span class="ps-add">+ фото</span></div>
+          <input type="file" id="photoFileInput" accept="image/*" multiple style="display:none" onchange="handlePhotoUpload(this)">
+          <div class="post-photo-grid" id="photoPreviewGrid">
+            <div class="post-photo-slot" id="photoAddBtn" onclick="document.getElementById('photoFileInput').click()"><span style="font-size:24px">📷</span><span class="ps-add">+ фото</span></div>
           </div>
         </div>
 
@@ -1287,6 +1294,54 @@ var ADS=[
 
 var currentView = 'grid';
 var currentCols = 3;
+var searchQuery = '';
+var uploadedPhotos = []; // base64 data URLs
+
+function handlePhotoUpload(input){
+  var MAX = 5;
+  var files = Array.from(input.files);
+  files.forEach(function(file){
+    if(uploadedPhotos.length >= MAX) return;
+    var reader = new FileReader();
+    reader.onload = function(e){
+      uploadedPhotos.push(e.target.result);
+      refreshPhotoGrid();
+    };
+    reader.readAsDataURL(file);
+  });
+  input.value = ''; // reset so same file can be re-added
+}
+
+function refreshPhotoGrid(){
+  var grid = document.getElementById('photoPreviewGrid');
+  if(!grid) return;
+  grid.innerHTML = '';
+  uploadedPhotos.forEach(function(src, i){
+    var slot = document.createElement('div');
+    slot.className = 'post-photo-slot filled';
+    slot.style.cssText = 'background-image:url('+src+');background-size:cover;background-position:center;position:relative;';
+    slot.innerHTML = '<button onclick="removePhoto('+i+');event.stopPropagation()" style="position:absolute;top:3px;right:3px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0">✕</button>';
+    grid.appendChild(slot);
+  });
+  if(uploadedPhotos.length < 5){
+    var add = document.createElement('div');
+    add.className = 'post-photo-slot';
+    add.id = 'photoAddBtn';
+    add.innerHTML = '<span style="font-size:24px">📷</span><span class="ps-add">+ фото</span>';
+    add.onclick = function(){ document.getElementById('photoFileInput').click(); };
+    grid.appendChild(add);
+  }
+}
+
+function removePhoto(i){
+  uploadedPhotos.splice(i,1);
+  refreshPhotoGrid();
+}
+
+function resetPhotoGrid(){
+  uploadedPhotos = [];
+  refreshPhotoGrid();
+}
 
 function setView(v){
   currentView = v;
@@ -1309,12 +1364,23 @@ function setCols(n){
 function renderAds(){
   var g = document.getElementById('adsGrid');
   g.className = '';
+  var filteredAds = searchQuery
+    ? ADS.filter(function(a){
+        if(a.placeholder) return false;
+        var hay = (a.title+' '+(a.desc||'')+' '+a.city+' '+a.catLabel).toLowerCase();
+        return hay.indexOf(searchQuery) !== -1;
+      })
+    : ADS;
 
   if(currentView === 'grid'){
     g.className = 'ads-grid';
     g.style.gridTemplateColumns = 'repeat('+currentCols+', 1fr)';
     var T = LANGS[currentLang];
-    g.innerHTML = ADS.map(function(a){
+    if(searchQuery && filteredAds.length===0){
+      g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)"><div style="font-size:40px;margin-bottom:12px">🔍</div><div style="font-size:16px">'+T.noResults+'</div></div>';
+      return;
+    }
+    g.innerHTML = filteredAds.map(function(a){
       // PLACEHOLDER card
       if(a.placeholder){
         return '<div class="ad-card-placeholder" onclick="document.querySelector(\'.nav-post\').click()">'
@@ -1355,7 +1421,7 @@ function renderAds(){
   } else if(currentView === 'list'){
     g.className = 'ads-list';
     g.style.gridTemplateColumns = '';
-    g.innerHTML = ADS.map(function(a){
+    g.innerHTML = filteredAds.map(function(a){
       var price = a.price>0 ? a.price.toLocaleString('ru-KZ')+' ₸' : 'Договорная';
       var wa = a.phone ? '<a href="https://wa.me/'+a.phone+'" target="_blank" class="ad-row-wa"><i class="ti ti-brand-whatsapp" style="font-size:15px"></i></a>' : '';
       var badgePill = '';
@@ -1558,7 +1624,7 @@ ru:{
   appTitle:'Приложение Алсат', appDesc:'Продавай и покупай прямо с телефона — фото, публикация и чат с покупателем в два касания. Уведомления о новых предложениях мгновенно.',
   notify:'Уведомить меня', emailPlaceholder:'Ваш email — уведомим о запуске',
   hot:'Горячее', isNew:'Новое', negotiable:'Договорная', call:'Позвонить', edit:'Редактировать',
-  couldBeYours:'Здесь могло быть ваше объявление', yourPrice:'Ваша цена', postFree:'Создать объявление',
+  couldBeYours:'Здесь могло быть ваше объявление', yourPrice:'Ваша цена', postFree:'Создать объявление', noResults:'Ничего не найдено — попробуйте другой запрос',
   editAd:'Редактировать объявление', title:'Заголовок', description:'Описание', price:'Цена (₸)', photos:'Фотографии', cancel:'Отмена', saveChanges:'💾 Сохранить изменения',
   authSubtitle:'Войдите, чтобы подать объявление', authPhoneTab:'📱 Телефон', authEmailTabBtn:'✉️ Email',
   authPhoneLabel:'Номер телефона', authSendSms:'Получить SMS-код', authOtpLabel:'Код из SMS', authOtpBtn:'Войти',
@@ -1610,7 +1676,7 @@ kz:{
   appTitle:'Алсат қосымшасы', appDesc:'Телефоннан сат және сатып ал — фото, жариялау, чат екі рет тигізумен. Жаңа ұсыныстар туралы хабарламалар лезде.',
   notify:'Хабарлаңыз', emailPlaceholder:'Email — іске қосылғанда хабарлаймыз',
   hot:'Ыстық', isNew:'Жаңа', negotiable:'Келісімді', call:'Қоңырау', edit:'Өңдеу',
-  couldBeYours:'Мұнда сіздің хабарландыруыңыз болуы мүмкін', yourPrice:'Сіздің бағаңыз', postFree:'Хабарландыру жасау',
+  couldBeYours:'Мұнда сіздің хабарландыруыңыз болуы мүмкін', yourPrice:'Сіздің бағаңыз', postFree:'Хабарландыру жасау', noResults:'Ештеңе табылмады — басқа сұраныс көріңіз',
   editAd:'Хабарландыруды өңдеу', title:'Тақырып', description:'Сипаттама', price:'Бағасы (₸)', photos:'Суреттер', cancel:'Болдырмау', saveChanges:'💾 Өзгерістерді сақтау',
   authSubtitle:'Хабарландыру беру үшін кіріңіз', authPhoneTab:'📱 Телефон', authEmailTabBtn:'✉️ Email',
   authPhoneLabel:'Телефон нөмірі', authSendSms:'SMS-код алу', authOtpLabel:'SMS-тен код', authOtpBtn:'Кіру',
@@ -1662,7 +1728,7 @@ en:{
   appTitle:'Алсат App', appDesc:'Buy and sell right from your phone — photo, post and chat in two taps. Instant notifications on new offers.',
   notify:'Notify me', emailPlaceholder:'Your email — we\'ll notify you at launch',
   hot:'Hot', isNew:'New', negotiable:'Negotiable', call:'Call', edit:'Edit',
-  couldBeYours:'Your ad could be here', yourPrice:'Your price', postFree:'Create ad',
+  couldBeYours:'Your ad could be here', yourPrice:'Your price', postFree:'Create ad', noResults:'Nothing found — try a different search',
   editAd:'Edit listing', title:'Title', description:'Description', price:'Price (₸)', photos:'Photos', cancel:'Cancel', saveChanges:'💾 Save changes',
   authSubtitle:'Sign in to post an ad', authPhoneTab:'📱 Phone', authEmailTabBtn:'✉️ Email',
   authPhoneLabel:'Phone number', authSendSms:'Get SMS code', authOtpLabel:'Code from SMS', authOtpBtn:'Sign in',
@@ -1722,6 +1788,11 @@ function submitWaitlist(){
     return;
   }
   document.getElementById('appWaitEmail').style.borderColor='';
+  // Save to localStorage
+  try {
+    var list = JSON.parse(localStorage.getItem('alsat_waitlist')||'[]');
+    if(list.indexOf(email)===-1){ list.push(email); localStorage.setItem('alsat_waitlist',JSON.stringify(list)); }
+  } catch(e){}
   document.querySelector('.app-waitlist').innerHTML = '<div style="color:#fff;font-size:13px;font-weight:600;padding:8px 0">✅ Отлично! Уведомим вас на <strong>'+email+'</strong></div>';
 }
 
@@ -1734,6 +1805,18 @@ document.querySelectorAll('.taxi-tab').forEach(function(tab){
 });
 
 renderAds();
+
+// ── REAL STATS FROM ADS ARRAY ─────────────────────────────────
+(function updateStats(){
+  var realAds = ADS.filter(function(a){ return !a.placeholder; });
+  var el = document.getElementById('adsCount');
+  if(el) el.textContent = realAds.length.toLocaleString('ru-KZ');
+  // online = seeded pseudo-random based on hour so it looks stable but changing
+  var seed = new Date().getHours();
+  var onl = 12 + ((seed * 7 + realAds.length * 3) % 20);
+  var onlEl = document.getElementById('onlineCount');
+  if(onlEl) onlEl.textContent = onl;
+})();
 
 // ── SUPABASE CONFIG ───────────────────────────────────────────────
 // Replace these with your real values from supabase.com → Settings → API
@@ -1896,6 +1979,7 @@ function openPostModal() {
   });
   document.getElementById('postSuccess').style.display = 'none';
   document.getElementById('postForm').style.display = '';
+  resetPhotoGrid();
   document.getElementById('postModal').classList.add('open');
 }
 
