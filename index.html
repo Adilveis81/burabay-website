@@ -779,10 +779,10 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 [data-theme="dark"] .foot-copy{color:rgba(255,255,255,.2)}
 
 /* Hero section */
-[data-theme="dark"] .hero-main{background:linear-gradient(135deg,#1c2240 0%,#0d1320 100%)}
-[data-theme="dark"] .hero-stats-card{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
-[data-theme="dark"] .hero-taxi{background:linear-gradient(135deg,#0d1e2e,#071420)}
-[data-theme="dark"] .hero-free{background:linear-gradient(135deg,#0d2010,#071608)}
+[data-theme="dark"] .hero-main{background:linear-gradient(135deg,rgba(40,60,160,0.55) 0%,rgba(15,25,80,0.42) 100%)!important}
+[data-theme="dark"] .hero-stats-card{background:linear-gradient(135deg,rgba(180,80,20,0.52) 0%,rgba(120,50,10,0.38) 100%)!important}
+[data-theme="dark"] .hero-taxi{background:linear-gradient(135deg,rgba(0,90,160,0.52) 0%,rgba(0,55,110,0.38) 100%)!important}
+[data-theme="dark"] .hero-free{background:linear-gradient(135deg,rgba(15,120,60,0.52) 0%,rgba(8,80,38,0.38) 100%)!important}
 
 /* Light colored section backgrounds */
 [data-theme="dark"] .section{background:transparent}
@@ -880,7 +880,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
 /* ── GLASSMORPHISM ──────────────────────────────────── */
 nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) saturate(180%)!important;-webkit-backdrop-filter:blur(24px) saturate(180%)!important;border-bottom:1px solid rgba(255,255,255,0.55)!important}
 .ad-card{
-  background:linear-gradient(145deg,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.25) 100%)!important;
+  background:linear-gradient(145deg,rgba(255,255,255,0.38) 0%,rgba(255,255,255,0.12) 100%)!important;
   backdrop-filter:blur(22px) saturate(180%)!important;-webkit-backdrop-filter:blur(22px) saturate(180%)!important;
   border:none!important;
   box-shadow:
@@ -903,7 +903,7 @@ nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) satur
 }
 /* City cards */
 .city-card{
-  background:linear-gradient(145deg,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.16) 100%)!important;
+  background:linear-gradient(145deg,rgba(255,255,255,0.32) 0%,rgba(255,255,255,0.09) 100%)!important;
   backdrop-filter:blur(24px) saturate(190%)!important;-webkit-backdrop-filter:blur(24px) saturate(190%)!important;
   border:none!important;
   box-shadow:
@@ -927,7 +927,7 @@ nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) satur
 }
 .ad-card-placeholder{background:rgba(255,255,255,0.38)!important;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:2px dashed rgba(200,200,200,0.5)!important}
 .cat-card{
-  background:linear-gradient(145deg,rgba(255,255,255,0.52) 0%,rgba(255,255,255,0.18) 100%)!important;
+  background:linear-gradient(145deg,rgba(255,255,255,0.34) 0%,rgba(255,255,255,0.10) 100%)!important;
   backdrop-filter:blur(28px) saturate(200%)!important;-webkit-backdrop-filter:blur(28px) saturate(200%)!important;
   border:none!important;
   box-shadow:
@@ -952,10 +952,55 @@ nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) satur
 .faq-item{background:rgba(255,255,255,0.65)!important;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.7)!important;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
 .modal-box,.auth-modal-box,.post-modal-box{background:rgba(255,255,255,0.82)!important;backdrop-filter:blur(32px) saturate(200%);-webkit-backdrop-filter:blur(32px) saturate(200%);border:1px solid rgba(255,255,255,0.9)!important;box-shadow:0 24px 80px rgba(0,0,0,0.2)!important}
 .city-modal-box{background:rgba(255,255,255,0.88)!important;backdrop-filter:blur(32px) saturate(200%);-webkit-backdrop-filter:blur(32px) saturate(200%)}
-.hero-stats-card{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.hero-taxi{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.hero-free{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.hero-main{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+/* Hero cards — frosted glass + chrome border treatment */
+.hero-main{
+  background:linear-gradient(135deg,rgba(80,120,255,0.55) 0%,rgba(40,70,200,0.38) 100%)!important;
+  backdrop-filter:blur(28px) saturate(200%)!important;-webkit-backdrop-filter:blur(28px) saturate(200%)!important;
+  border:none!important;
+  box-shadow:
+    inset 0 1.5px 0 rgba(255,255,255,0.72),
+    inset 1.5px 0 0 rgba(255,255,255,0.50),
+    inset -1.5px 0 0 rgba(0,0,0,0.06),
+    inset 0 -1.5px 0 rgba(0,0,0,0.14),
+    0 8px 32px rgba(0,0,0,0.18),
+    0 3px 12px rgba(0,0,0,0.12)!important;
+}
+.hero-stats-card{
+  background:linear-gradient(135deg,rgba(255,140,40,0.58) 0%,rgba(220,90,20,0.40) 100%)!important;
+  backdrop-filter:blur(28px) saturate(200%)!important;-webkit-backdrop-filter:blur(28px) saturate(200%)!important;
+  border:none!important;
+  box-shadow:
+    inset 0 1.5px 0 rgba(255,255,255,0.72),
+    inset 1.5px 0 0 rgba(255,255,255,0.50),
+    inset -1.5px 0 0 rgba(0,0,0,0.06),
+    inset 0 -1.5px 0 rgba(0,0,0,0.14),
+    0 8px 32px rgba(0,0,0,0.18),
+    0 3px 12px rgba(0,0,0,0.12)!important;
+}
+.hero-taxi{
+  background:linear-gradient(135deg,rgba(0,150,220,0.55) 0%,rgba(0,100,180,0.38) 100%)!important;
+  backdrop-filter:blur(28px) saturate(200%)!important;-webkit-backdrop-filter:blur(28px) saturate(200%)!important;
+  border:none!important;
+  box-shadow:
+    inset 0 1.5px 0 rgba(255,255,255,0.72),
+    inset 1.5px 0 0 rgba(255,255,255,0.50),
+    inset -1.5px 0 0 rgba(0,0,0,0.06),
+    inset 0 -1.5px 0 rgba(0,0,0,0.14),
+    0 8px 32px rgba(0,0,0,0.18),
+    0 3px 12px rgba(0,0,0,0.12)!important;
+}
+.hero-free{
+  background:linear-gradient(135deg,rgba(30,180,100,0.55) 0%,rgba(15,130,70,0.38) 100%)!important;
+  backdrop-filter:blur(28px) saturate(200%)!important;-webkit-backdrop-filter:blur(28px) saturate(200%)!important;
+  border:none!important;
+  box-shadow:
+    inset 0 1.5px 0 rgba(255,255,255,0.72),
+    inset 1.5px 0 0 rgba(255,255,255,0.50),
+    inset -1.5px 0 0 rgba(0,0,0,0.06),
+    inset 0 -1.5px 0 rgba(0,0,0,0.14),
+    0 8px 32px rgba(0,0,0,0.18),
+    0 3px 12px rgba(0,0,0,0.12)!important;
+}
 /* Dark theme glass */
 [data-theme] nav,[data-theme="dark"] nav{background:rgba(20,21,32,0.72)!important;backdrop-filter:blur(24px) saturate(180%)!important;-webkit-backdrop-filter:blur(24px) saturate(180%)!important;border-bottom:1px solid rgba(255,255,255,0.08)!important}
 [data-theme="dark"] .ad-card{background:linear-gradient(145deg,rgba(60,65,95,0.65) 0%,rgba(25,28,45,0.45) 100%)!important;box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.22),inset 1.5px 0 0 rgba(255,255,255,0.14),inset -1.5px 0 0 rgba(0,0,0,0.18),inset 0 -1.5px 0 rgba(0,0,0,0.25),0 4px 20px rgba(0,0,0,0.35),0 2px 8px rgba(0,0,0,0.22)!important}
