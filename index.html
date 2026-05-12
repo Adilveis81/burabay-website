@@ -382,7 +382,8 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .nav-city:hover{border-color:var(--b);color:var(--b)}
 .nav-support{background:rgba(37,211,102,0.12);color:#1a9e50;border:1.5px solid rgba(37,211,102,0.35);border-radius:var(--radius);padding:7px 13px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;transition:.15s}
 .nav-support:hover{background:rgba(37,211,102,0.22);border-color:#25D366}
-@media(max-width:768px){.nav-support{display:none}}
+@media(max-width:768px){.nav-support span{display:none}.nav-support{padding:7px 10px;min-width:unset}}
+@media(max-width:480px){.nav-support{display:none}}
 .nav-post{background:var(--o);color:#fff;border:none;border-radius:var(--radius);padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap}
 .nav-post:hover{background:var(--o2)}
 .hamburger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text)}
@@ -903,36 +904,68 @@ nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) satur
 
 /* ── macOS Tahoe Liquid Glass Buttons ───────────────── */
 .nav-post{
-  background:linear-gradient(160deg,rgba(255,150,70,0.92) 0%,rgba(195,65,0,0.96) 100%)!important;
-  border:1px solid rgba(255,200,130,0.55)!important;
-  box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.55),inset 0 -1.5px 0 rgba(0,0,0,0.22),inset 1px 0 0 rgba(255,255,255,0.22),0 2px 10px rgba(200,70,0,0.38),0 1px 3px rgba(0,0,0,0.22)!important;
+  background:linear-gradient(160deg,rgba(255,155,75,0.94) 0%,rgba(190,60,0,0.98) 100%)!important;
+  border:1px solid rgba(255,210,140,0.6)!important;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.6),
+    inset 0 -3px 0 rgba(0,0,0,0.3),
+    inset 1px 0 0 rgba(255,255,255,0.25),
+    inset -1px 0 0 rgba(0,0,0,0.12),
+    0 4px 0 rgba(140,40,0,0.6),
+    0 5px 12px rgba(0,0,0,0.25)!important;
   backdrop-filter:blur(16px) saturate(160%)!important;-webkit-backdrop-filter:blur(16px) saturate(160%)!important;
-  text-shadow:0 1px 2px rgba(0,0,0,0.22)!important}
-.nav-post:hover{background:linear-gradient(160deg,rgba(255,170,90,0.96) 0%,rgba(215,80,5,0.99) 100%)!important;box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.6),inset 0 -1.5px 0 rgba(0,0,0,0.24),0 4px 18px rgba(200,70,0,0.48),0 2px 5px rgba(0,0,0,0.28)!important;transform:translateY(-1px)}
+  text-shadow:0 1px 2px rgba(0,0,0,0.25)!important}
+.nav-post:hover{
+  background:linear-gradient(160deg,rgba(255,175,95,0.97) 0%,rgba(210,75,5,1) 100%)!important;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,0.65),inset 0 -3px 0 rgba(0,0,0,0.3),0 5px 0 rgba(130,35,0,0.65),0 6px 16px rgba(0,0,0,0.3)!important;
+  transform:translateY(-1px)}
+.nav-post:active{transform:translateY(2px)!important;box-shadow:inset 0 2px 0 rgba(255,255,255,0.5),inset 0 -1px 0 rgba(0,0,0,0.25),0 2px 0 rgba(140,40,0,0.5),0 3px 6px rgba(0,0,0,0.2)!important}
 .nav-support{
-  background:linear-gradient(160deg,rgba(50,215,120,0.85) 0%,rgba(12,135,55,0.92) 100%)!important;
-  color:#fff!important;border:1px solid rgba(140,255,185,0.5)!important;
-  box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.5),inset 0 -1.5px 0 rgba(0,0,0,0.18),inset 1px 0 0 rgba(255,255,255,0.2),0 2px 10px rgba(15,130,55,0.32),0 1px 3px rgba(0,0,0,0.18)!important;
+  background:linear-gradient(160deg,rgba(55,220,125,0.88) 0%,rgba(10,130,50,0.94) 100%)!important;
+  color:#fff!important;border:1px solid rgba(150,255,190,0.55)!important;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.55),
+    inset 0 -3px 0 rgba(0,0,0,0.22),
+    inset 1px 0 0 rgba(255,255,255,0.22),
+    0 4px 0 rgba(5,90,30,0.55),
+    0 5px 12px rgba(0,0,0,0.2)!important;
   backdrop-filter:blur(16px) saturate(160%)!important;-webkit-backdrop-filter:blur(16px) saturate(160%)!important;
-  text-shadow:0 1px 2px rgba(0,0,0,0.18)!important}
-.nav-support:hover{background:linear-gradient(160deg,rgba(70,230,140,0.9) 0%,rgba(20,150,65,0.96) 100%)!important;box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.55),inset 0 -1.5px 0 rgba(0,0,0,0.2),0 4px 16px rgba(15,140,60,0.42),0 2px 5px rgba(0,0,0,0.22)!important;transform:translateY(-1px)}
+  text-shadow:0 1px 2px rgba(0,0,0,0.2)!important}
+.nav-support:hover{
+  background:linear-gradient(160deg,rgba(75,235,145,0.92) 0%,rgba(18,148,62,0.97) 100%)!important;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,0.6),inset 0 -3px 0 rgba(0,0,0,0.22),0 5px 0 rgba(5,95,32,0.6),0 6px 16px rgba(0,0,0,0.24)!important;
+  transform:translateY(-1px)}
+.nav-support:active{transform:translateY(2px)!important;box-shadow:inset 0 2px 0 rgba(255,255,255,0.45),inset 0 -1px 0 rgba(0,0,0,0.18),0 2px 0 rgba(5,90,28,0.45),0 3px 6px rgba(0,0,0,0.16)!important}
 .theme-btn{
-  background:linear-gradient(160deg,rgba(255,255,255,0.52) 0%,rgba(255,255,255,0.14) 100%)!important;
+  background:linear-gradient(160deg,rgba(255,255,255,0.58) 0%,rgba(220,224,232,0.22) 100%)!important;
   backdrop-filter:blur(22px) saturate(200%)!important;-webkit-backdrop-filter:blur(22px) saturate(200%)!important;
-  border:1px solid rgba(255,255,255,0.6)!important;
-  box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.85),inset 0 -1.5px 0 rgba(0,0,0,0.08),inset 1px 0 0 rgba(255,255,255,0.45),inset -1px 0 0 rgba(0,0,0,0.04),0 2px 8px rgba(0,0,0,0.1),0 1px 2px rgba(0,0,0,0.08)!important}
-.theme-btn:hover{background:linear-gradient(160deg,rgba(255,255,255,0.68) 0%,rgba(255,255,255,0.28) 100%)!important;box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.9),inset 0 -1.5px 0 rgba(0,0,0,0.1),0 4px 14px rgba(0,0,0,0.14),0 2px 4px rgba(0,0,0,0.1)!important}
+  border:1px solid rgba(255,255,255,0.65)!important;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.9),
+    inset 0 -3px 0 rgba(0,0,0,0.1),
+    inset 1px 0 0 rgba(255,255,255,0.5),
+    0 4px 0 rgba(160,165,180,0.45),
+    0 5px 10px rgba(0,0,0,0.12)!important}
+.theme-btn:hover{
+  background:linear-gradient(160deg,rgba(255,255,255,0.72) 0%,rgba(230,234,242,0.32) 100%)!important;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,0.95),inset 0 -3px 0 rgba(0,0,0,0.12),0 5px 0 rgba(155,160,175,0.5),0 6px 14px rgba(0,0,0,0.15)!important}
+.theme-btn:active{transform:translateY(2px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,0.8),inset 0 -1px 0 rgba(0,0,0,0.08),0 2px 0 rgba(155,160,175,0.4),0 3px 5px rgba(0,0,0,0.1)!important}
 .nav-city{
-  background:linear-gradient(160deg,rgba(255,255,255,0.48) 0%,rgba(255,255,255,0.12) 100%)!important;
+  background:linear-gradient(160deg,rgba(255,255,255,0.52) 0%,rgba(220,224,234,0.18) 100%)!important;
   backdrop-filter:blur(20px) saturate(180%)!important;-webkit-backdrop-filter:blur(20px) saturate(180%)!important;
-  border:1px solid rgba(255,255,255,0.55)!important;
-  box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.78),inset 0 -1.5px 0 rgba(0,0,0,0.07),inset 1px 0 0 rgba(255,255,255,0.38),0 2px 7px rgba(0,0,0,0.09),0 1px 2px rgba(0,0,0,0.07)!important}
-.nav-city:hover{background:linear-gradient(160deg,rgba(255,255,255,0.65) 0%,rgba(255,255,255,0.25) 100%)!important;border-color:rgba(255,255,255,0.75)!important}
-/* Dark glass buttons */
-[data-theme="dark"] .nav-post{background:linear-gradient(160deg,rgba(210,100,35,0.88) 0%,rgba(160,55,5,0.93) 100%)!important;border-color:rgba(255,170,90,0.38)!important;box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.28),inset 0 -1.5px 0 rgba(0,0,0,0.35),0 2px 10px rgba(160,60,0,0.4),0 1px 3px rgba(0,0,0,0.35)!important}
-[data-theme="dark"] .nav-support{background:linear-gradient(160deg,rgba(35,170,90,0.82) 0%,rgba(8,110,42,0.88) 100%)!important;border-color:rgba(90,210,140,0.32)!important;box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.22),inset 0 -1.5px 0 rgba(0,0,0,0.32),0 2px 10px rgba(10,120,45,0.38),0 1px 3px rgba(0,0,0,0.32)!important}
-[data-theme="dark"] .theme-btn{background:linear-gradient(160deg,rgba(255,255,255,0.14) 0%,rgba(255,255,255,0.04) 100%)!important;border-color:rgba(255,255,255,0.18)!important;box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.22),inset 0 -1.5px 0 rgba(0,0,0,0.38),0 2px 8px rgba(0,0,0,0.35),0 1px 2px rgba(0,0,0,0.28)!important}
-[data-theme="dark"] .nav-city{background:linear-gradient(160deg,rgba(255,255,255,0.1) 0%,rgba(255,255,255,0.03) 100%)!important;border-color:rgba(255,255,255,0.14)!important;box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.16),inset 0 -1.5px 0 rgba(0,0,0,0.32),0 2px 7px rgba(0,0,0,0.3)!important}
+  border:1px solid rgba(255,255,255,0.6)!important;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.82),
+    inset 0 -3px 0 rgba(0,0,0,0.08),
+    inset 1px 0 0 rgba(255,255,255,0.42),
+    0 4px 0 rgba(160,165,180,0.38),
+    0 5px 9px rgba(0,0,0,0.1)!important}
+.nav-city:hover{background:linear-gradient(160deg,rgba(255,255,255,0.68) 0%,rgba(230,234,244,0.28) 100%)!important;border-color:rgba(255,255,255,0.78)!important}
+/* Dark 3D glass buttons */
+[data-theme="dark"] .nav-post{background:linear-gradient(160deg,rgba(215,105,38,0.9) 0%,rgba(158,52,4,0.95) 100%)!important;border-color:rgba(255,175,95,0.4)!important;box-shadow:inset 0 2px 0 rgba(255,255,255,0.3),inset 0 -3px 0 rgba(0,0,0,0.45),0 4px 0 rgba(90,25,0,0.7),0 5px 14px rgba(0,0,0,0.45)!important}
+[data-theme="dark"] .nav-support{background:linear-gradient(160deg,rgba(38,175,92,0.85) 0%,rgba(8,108,40,0.9) 100%)!important;border-color:rgba(95,215,145,0.35)!important;box-shadow:inset 0 2px 0 rgba(255,255,255,0.25),inset 0 -3px 0 rgba(0,0,0,0.4),0 4px 0 rgba(2,65,20,0.65),0 5px 12px rgba(0,0,0,0.4)!important}
+[data-theme="dark"] .theme-btn{background:linear-gradient(160deg,rgba(255,255,255,0.15) 0%,rgba(255,255,255,0.05) 100%)!important;border-color:rgba(255,255,255,0.2)!important;box-shadow:inset 0 2px 0 rgba(255,255,255,0.25),inset 0 -3px 0 rgba(0,0,0,0.45),0 4px 0 rgba(0,0,0,0.55),0 5px 12px rgba(0,0,0,0.4)!important}
+[data-theme="dark"] .nav-city{background:linear-gradient(160deg,rgba(255,255,255,0.12) 0%,rgba(255,255,255,0.03) 100%)!important;border-color:rgba(255,255,255,0.16)!important;box-shadow:inset 0 2px 0 rgba(255,255,255,0.18),inset 0 -3px 0 rgba(0,0,0,0.4),0 4px 0 rgba(0,0,0,0.5),0 5px 10px rgba(0,0,0,0.35)!important}
 </style>
 </head>
 <body>
@@ -977,7 +1010,7 @@ nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) satur
     <a href="#ads" data-section="ads" class="mob-nav-item" onclick="closeMobMenu()"><i class="ti ti-layout-grid" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navAds">Объявления</span></a>
     <a href="#taxi-section" data-section="taxi-section" class="mob-nav-item intercity-mob" onclick="closeMobMenu()"><i class="ti ti-car" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navTaxi">Такси · Межгород</span> 🔥</a>
     <a href="#services" data-section="services" class="mob-nav-item services-mob" onclick="closeMobMenu()"><i class="ti ti-briefcase" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navServices">Наши услуги</span></a>
-    <a href="#faq-support" onclick="switchTab('support');closeMobMenu();setTimeout(function(){document.getElementById('faq-support').scrollIntoView({behavior:'smooth'})},80)" style="color:#25D366;font-weight:700"><i class="ti ti-heart" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navSupport">💚 Поддержать проект</span></a>
+    <a href="javascript:void(0)" onclick="switchTab('support');closeMobMenu();setTimeout(function(){document.getElementById('faq-support').scrollIntoView({behavior:'smooth'})},120);return false" style="color:#25D366;font-weight:700"><i class="ti ti-heart" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navSupport">💚 Поддержать проект</span></a>
   </div>
 </nav>
 
