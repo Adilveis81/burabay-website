@@ -17,32 +17,7 @@
 <meta name="twitter:description" content="Бесплатные объявления без комиссий и посредников.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23FF6B00'/><text y='.9em' font-size='72' x='12'>🏪</text></svg>">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
-<script>
-(function(){
-  var h=location.hostname;
-  if(h==='burabay.su'||h==='www.burabay.su'){
-    document.addEventListener('DOMContentLoaded',function(){
-      var ov=document.createElement('div');
-      ov.style.cssText='position:fixed;inset:0;z-index:99999;background:#0f1117;display:flex;align-items:center;justify-content:center;padding:24px;font-family:-apple-system,BlinkMacSystemFont,sans-serif';
-      ov.innerHTML='<div style="background:#1a1d27;border:1px solid #2a2d3a;border-radius:16px;max-width:540px;width:100%;padding:40px 36px;text-align:center;color:#e8e8e8">'
-        +'<div style="font-size:48px;margin-bottom:20px">⚠️</div>'
-        +'<h1 style="font-size:20px;font-weight:700;color:#fff;margin-bottom:14px;line-height:1.4">Сайт burabay.su недоступен для пользователей из Казахстана</h1>'
-        +'<div style="width:40px;height:3px;background:#f59e0b;border-radius:2px;margin:0 auto 18px"></div>'
-        +'<p style="font-size:14px;line-height:1.7;color:#a0a4b8;margin-bottom:14px">Домен <b>.su</b> находится под юрисдикцией РФ. По закону <b>№&nbsp;569-ФЗ</b> с 1 сентября 2026 г. продление доменов .su/.ru/.рф требует идентификации через Госуслуги (ЕСИА) и СНИЛС — недоступных гражданам Казахстана.</p>'
-        +'<div style="background:#13151f;border:1px solid #2a2d3a;border-radius:10px;padding:14px 18px;margin:16px 0;text-align:left;font-size:13px;color:#7a7f99">'
-        +'📄 <a href="https://habr.com/ru/articles/1022882/" target="_blank" style="color:#60a5fa">Habr: Регистрация доменов только через Госуслуги с 2026</a><br><br>'
-        +'📄 <a href="https://vc.ru/tribuna/2810275-novye-pravila-registratsii-domenov-v-ru-su-i-rf" target="_blank" style="color:#60a5fa">vc.ru: Новые правила регистрации доменов .ru/.su/.рф</a>'
-        +'</div>'
-        +'<p style="font-size:14px;color:#a0a4b8;margin-bottom:4px">Сайт переехал на новый домен:</p>'
-        +'<a href="https://alsat.asia" style="display:inline-block;background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;font-size:22px;font-weight:800;padding:14px 32px;border-radius:12px;text-decoration:none;margin:16px 0 12px">🌏 alsat.asia</a>'
-        +'<p style="font-size:12px;color:#555870">Автоматический переход через <b id="bcd">15</b> сек.</p>'
-        +'</div>';
-      document.body.appendChild(ov);
-      var s=15;
-      setInterval(function(){s--;var el=document.getElementById('bcd');if(el)el.textContent=s;if(s<=0)location.href='https://alsat.asia';},1000);
-    });
-  }
-})();
+// burabay.su redirect handled by vercel.json + head script above
 
 
 // FAQ DATA (multilingual)
@@ -147,7 +122,7 @@ async function sendChat(){
     var limitDiv = document.createElement('div');
     limitDiv.className = 'ai-msg bot';
     limitDiv.style.cssText = 'background:#FFF3E0;color:#E65100;border:1px solid #FFB300';
-    limitDiv.textContent = '⏳ Лимит вопросов исчерпан (3 в час). Попробуйте через ' + mins + ' мин.';
+    limitDiv.textContent = '⏳ Лимит вопросов исчерпан (5 в час). Попробуйте через ' + mins + ' мин.';
     msgs.appendChild(limitDiv);
     msgs.scrollTop = msgs.scrollHeight;
     return;
@@ -171,7 +146,7 @@ async function sendChat(){
   // show remaining
   var newLimit = checkChatLimit();
   if(newLimit.left === 0){
-    input.placeholder = '⏳ Лимит 3 вопроса/час исчерпан';
+    input.placeholder = '⏳ Лимит 5 вопросов/час исчерпан';
     input.disabled = true;
     btn.disabled = true;
   } else {
@@ -1181,7 +1156,7 @@ nav{background:rgba(255,255,255,0.56)!important;backdrop-filter:blur(24px) satur
     0 3px 12px rgba(0,0,0,0.12)!important;
 }
 /* Dark theme glass */
-[data-theme] nav,[data-theme="dark"] nav{background:rgba(20,21,32,0.56)!important;backdrop-filter:blur(24px) saturate(180%)!important;-webkit-backdrop-filter:blur(24px) saturate(180%)!important;border-bottom:1px solid rgba(255,255,255,0.08)!important}
+[data-theme="dark"] nav{background:rgba(20,21,32,0.56)!important;backdrop-filter:blur(24px) saturate(180%)!important;-webkit-backdrop-filter:blur(24px) saturate(180%)!important;border-bottom:1px solid rgba(255,255,255,0.08)!important}
 [data-theme="dark"] .ad-card{background:linear-gradient(145deg,rgba(60,65,95,0.52) 0%,rgba(25,28,45,0.36) 100%)!important;box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.22),inset 1.5px 0 0 rgba(255,255,255,0.14),inset -1.5px 0 0 rgba(0,0,0,0.18),inset 0 -1.5px 0 rgba(0,0,0,0.25),0 4px 20px rgba(0,0,0,0.35),0 2px 8px rgba(0,0,0,0.22)!important}
 [data-theme="dark"] .ad-card:hover{box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.28),inset 1.5px 0 0 rgba(255,255,255,0.18),inset -1.5px 0 0 rgba(0,0,0,0.18),inset 0 -1.5px 0 rgba(0,0,0,0.28),0 10px 36px rgba(0,0,0,0.45),0 4px 14px rgba(0,0,0,0.3)!important}
 [data-theme="dark"] .ad-card-placeholder{background:rgba(30,32,48,0.45)!important;border-color:rgba(255,255,255,0.1)!important}
@@ -1202,7 +1177,7 @@ nav{background:rgba(255,255,255,0.56)!important;backdrop-filter:blur(24px) satur
 [data-theme="dark"] html{
   background-color:#1E1208;
   background-image:
-    linear-gradient(160deg,rgba(8,4,0,0.82) 0%,rgba(14,8,2,0.80) 100%),
+    linear-gradient(160deg,rgba(8,4,0,0.55) 0%,rgba(14,8,2,0.52) 100%),
     repeating-linear-gradient(12deg,rgba(0,0,0,0.22) 0px,rgba(0,0,0,0.22) 1px,transparent 1px,transparent 10px),
     repeating-linear-gradient(-16deg,rgba(0,0,0,0.16) 0px,rgba(0,0,0,0.16) 1px,transparent 1px,transparent 14px),
     url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='270'><g transform='rotate(-3,42,39'><rect x='10' y='17' width='68' height='48' rx='2' fill='rgba(0,0,0,0.11)'/><rect x='8' y='15' width='68' height='48' rx='2' fill='%23FFF8C0'/><line x1='16' y1='28' x2='68' y2='28' stroke='%23E8D870' stroke-width='0.9'/><line x1='16' y1='36' x2='68' y2='36' stroke='%23E8D870' stroke-width='0.9'/><line x1='16' y1='44' x2='60' y2='44' stroke='%23E8D870' stroke-width='0.9'/><circle cx='42' cy='15' r='4.5' fill='%23C89818'/><circle cx='42' cy='14' r='2' fill='%23F8F060' fill-opacity='.55'/></g><g transform='rotate(2,124,35'><rect x='92' y='13' width='68' height='48' rx='2' fill='rgba(0,0,0,0.11)'/><rect x='90' y='11' width='68' height='48' rx='2' fill='%23FCDDE0'/><line x1='98' y1='24' x2='150' y2='24' stroke='%23E8B0BC' stroke-width='0.9'/><line x1='98' y1='32' x2='150' y2='32' stroke='%23E8B0BC' stroke-width='0.9'/><line x1='98' y1='40' x2='142' y2='40' stroke='%23E8B0BC' stroke-width='0.9'/><circle cx='124' cy='11' r='4.5' fill='%23C06070'/><circle cx='124' cy='10' r='2' fill='%23F8C8D4' fill-opacity='.55'/></g><g transform='rotate(-4,210,41'><rect x='178' y='19' width='68' height='48' rx='2' fill='rgba(0,0,0,0.11)'/><rect x='176' y='17' width='68' height='48' rx='2' fill='%23C8E4F4'/><line x1='184' y1='30' x2='236' y2='30' stroke='%239EC8E0' stroke-width='0.9'/><line x1='184' y1='38' x2='236' y2='38' stroke='%239EC8E0' stroke-width='0.9'/><line x1='184' y1='46' x2='228' y2='46' stroke='%239EC8E0' stroke-width='0.9'/><circle cx='210' cy='17' r='4.5' fill='%234880B8'/><circle cx='210' cy='16' r='2' fill='%23A8D8F0' fill-opacity='.55'/></g><g transform='rotate(3,298,36'><rect x='266' y='14' width='68' height='48' rx='2' fill='rgba(0,0,0,0.11)'/><rect x='264' y='12' width='68' height='48' rx='2' fill='%23F8F8F0'/><line x1='272' y1='25' x2='324' y2='25' stroke='%23D4D4C4' stroke-width='0.9'/><line x1='272' y1='33' x2='324' y2='33' stroke='%23D4D4C4' stroke-width='0.9'/><line x1='272' y1='41' x2='316' y2='41' stroke='%23D4D4C4' stroke-width='0.9'/><circle cx='298' cy='12' r='4.5' fill='%23909080'/><circle cx='298' cy='11' r='2' fill='%23E8E8D8' fill-opacity='.55'/></g><g transform='rotate(-2,362,42'><rect x='330' y='20' width='68' height='48' rx='2' fill='rgba(0,0,0,0.11)'/><rect x='328' y='18' width='68' height='48' rx='2' fill='%23C8EACF'/><line x1='336' y1='31' x2='388' y2='31' stroke='%2398CCA0' stroke-width='0.9'/><line x1='336' y1='39' x2='388' y2='39' stroke='%2398CCA0' stroke-width='0.9'/><line x1='336' y1='47' x2='380' y2='47' stroke='%2398CCA0' stroke-width='0.9'/><circle cx='362' cy='18' r='4.5' fill='%23387848'/><circle cx='362' cy='17' r='2' fill='%2388C898' fill-opacity='.55'/></g><g transform='rotate(3,40,134'><rect x='8' y='112' width='68' height='48' rx='2' fill='rgba(0,0,0,0.11)'/><rect x='6' y='110' width='68' height='48' rx='2' fill='%23C8EACF'/><line x1='14' y1='123' x2='66' y2='123' stroke='%2398CCA0' stroke-width='0.9'/><line x1='14' y1='131' x2='66' y2='131' stroke='%2398CCA0' stroke-width='0.9'/><line x1='14' y1='139' x2='58' y2='139' stroke='%2398CCA0' stroke-width='0.9'/><circle cx='40' cy='110' r='4.5' fill='%23387848'/><circle cx='40' cy='109' r='2' fill='%2388C898' fill-opacity='.55'/></g><g transform='rotate(-3,122,130'><rect x='90' y='108' width='68' height='48' rx='2' fill='rgba(0,0,0,0.11)'/><rect x='88' y='106' width='68' height='48' rx='2' fill='%23F8F8F0'/><line x1='96' y1='119' x2='148' y2='119' stroke='%23D4D4C4' stroke-width='0.9'/><line x1='96' y1='127' x2='148' y2='127' stroke='%23D4D4C4' stroke-width='0.9'/><line x1='96' y1='135' x2='140' y2='135' stroke='%23D4D4C4' stroke-width='0.9'/><circle cx='122' cy='106' r='4.5' fill='%23909080'/><circle cx='122' cy='105' r='2' fill='%23E8E8D8' fill-opacity='.55'/></g><g transform='rotate(2,206,136'><rect x='174' y='114' width='68' height='48' rx='2' fill='rgba(0,0,0,0.11)'/><rect x='172' y='112' width='68' height='48' rx='2' fill='%23FFF8C0'/><line x1='180' y1='125' x2='232' y2='125' stroke='%23E8D870' stroke-width='0.9'/><line x1='180' y1='133' x2='232' y2='133' stroke='%23E8D870' stroke-width='0.9'/><line x1='180' y1='141' x2='224' y2='141' stroke='%23E8D870' stroke-width='0.9'/><circle cx='206' cy='112' r='4.5' fill='%23C89818'/><circle cx='206' cy='111' r='2' fill='%23F8F060' fill-opacity='.55'/></g><g transform='rotate(-4,292,131'><rect x='260' y='109' width='68' height='48' rx='2' fill='rgba(0,0,0,0.11)'/><rect x='258' y='107' width='68' height='48' rx='2' fill='%23FCDDE0'/><line x1='266' y1='120' x2='318' y2='120' stroke='%23E8B0BC' stroke-width='0.9'/><line x1='266' y1='128' x2='318' y2='128' stroke='%23E8B0BC' stroke-width='0.9'/><line x1='266' y1='136' x2='310' y2='136' stroke='%23E8B0BC' stroke-width='0.9'/><circle cx='292' cy='107' r='4.5' fill='%23C06070'/><circle cx='292' cy='106' r='2' fill='%23F8C8D4' fill-opacity='.55'/></g><g transform='rotate(3,372,137'><rect x='340' y='115' width='68' height='48' rx='2' fill='rgba(0,0,0,0.11)'/><rect x='338' y='113' width='68' height='48' rx='2' fill='%23C8E4F4'/><line x1='346' y1='126' x2='398' y2='126' stroke='%239EC8E0' stroke-width='0.9'/><line x1='346' y1='134' x2='398' y2='134' stroke='%239EC8E0' stroke-width='0.9'/><line x1='346' y1='142' x2='390' y2='142' stroke='%239EC8E0' stroke-width='0.9'/><circle cx='372' cy='113' r='4.5' fill='%234880B8'/><circle cx='372' cy='112' r='2' fill='%23A8D8F0' fill-opacity='.55'/></g><g transform='rotate(-2,44,229'><rect x='12' y='207' width='68' height='48' rx='2' fill='rgba(0,0,0,0.11)'/><rect x='10' y='205' width='68' height='48' rx='2' fill='%23C8E4F4'/><line x1='18' y1='218' x2='70' y2='218' stroke='%239EC8E0' stroke-width='0.9'/><line x1='18' y1='226' x2='70' y2='226' stroke='%239EC8E0' stroke-width='0.9'/><line x1='18' y1='234' x2='62' y2='234' stroke='%239EC8E0' stroke-width='0.9'/><circle cx='44' cy='205' r='4.5' fill='%234880B8'/><circle cx='44' cy='204' r='2' fill='%23A8D8F0' fill-opacity='.55'/></g><g transform='rotate(4,126,225'><rect x='94' y='203' width='68' height='48' rx='2' fill='rgba(0,0,0,0.11)'/><rect x='92' y='201' width='68' height='48' rx='2' fill='%23FFF8C0'/><line x1='100' y1='214' x2='152' y2='214' stroke='%23E8D870' stroke-width='0.9'/><line x1='100' y1='222' x2='152' y2='222' stroke='%23E8D870' stroke-width='0.9'/><line x1='100' y1='230' x2='144' y2='230' stroke='%23E8D870' stroke-width='0.9'/><circle cx='126' cy='201' r='4.5' fill='%23C89818'/><circle cx='126' cy='200' r='2' fill='%23F8F060' fill-opacity='.55'/></g><g transform='rotate(-3,212,231'><rect x='180' y='209' width='68' height='48' rx='2' fill='rgba(0,0,0,0.11)'/><rect x='178' y='207' width='68' height='48' rx='2' fill='%23C8EACF'/><line x1='186' y1='220' x2='238' y2='220' stroke='%2398CCA0' stroke-width='0.9'/><line x1='186' y1='228' x2='238' y2='228' stroke='%2398CCA0' stroke-width='0.9'/><line x1='186' y1='236' x2='230' y2='236' stroke='%2398CCA0' stroke-width='0.9'/><circle cx='212' cy='207' r='4.5' fill='%23387848'/><circle cx='212' cy='206' r='2' fill='%2388C898' fill-opacity='.55'/></g><g transform='rotate(2,300,226'><rect x='268' y='204' width='68' height='48' rx='2' fill='rgba(0,0,0,0.11)'/><rect x='266' y='202' width='68' height='48' rx='2' fill='%23F8F8F0'/><line x1='274' y1='215' x2='326' y2='215' stroke='%23D4D4C4' stroke-width='0.9'/><line x1='274' y1='223' x2='326' y2='223' stroke='%23D4D4C4' stroke-width='0.9'/><line x1='274' y1='231' x2='318' y2='231' stroke='%23D4D4C4' stroke-width='0.9'/><circle cx='300' cy='202' r='4.5' fill='%23909080'/><circle cx='300' cy='201' r='2' fill='%23E8E8D8' fill-opacity='.55'/></g><g transform='rotate(-4,378,232'><rect x='346' y='210' width='68' height='48' rx='2' fill='rgba(0,0,0,0.11)'/><rect x='344' y='208' width='68' height='48' rx='2' fill='%23FCDDE0'/><line x1='352' y1='221' x2='404' y2='221' stroke='%23E8B0BC' stroke-width='0.9'/><line x1='352' y1='229' x2='404' y2='229' stroke='%23E8B0BC' stroke-width='0.9'/><line x1='352' y1='237' x2='396' y2='237' stroke='%23E8B0BC' stroke-width='0.9'/><circle cx='378' cy='208' r='4.5' fill='%23C06070'/><circle cx='378' cy='207' r='2' fill='%23F8C8D4' fill-opacity='.55'/></g></svg>");
@@ -1434,6 +1409,10 @@ nav{background:rgba(255,255,255,0.56)!important;backdrop-filter:blur(24px) satur
     </div>
   </div>
   <div class="mob-menu" id="mobmenu">
+    <div style="display:flex;border:1.5px solid var(--border2);border-radius:var(--radius);overflow:hidden;background:var(--bg);margin-bottom:4px">
+      <input type="text" id="mobSearchInput" placeholder="Поиск по объявлениям..." style="flex:1;padding:9px 14px;font-size:15px;border:none;outline:none;background:transparent;color:var(--text)" oninput="searchQuery=this.value.trim().toLowerCase();renderAds()" onkeydown="if(event.key==='Enter'){document.getElementById('mobmenu').classList.remove('open');document.getElementById('ads').scrollIntoView({behavior:'smooth'})}">
+      <button onclick="searchQuery=document.getElementById('mobSearchInput').value.trim().toLowerCase();renderAds();document.getElementById('mobmenu').classList.remove('open');document.getElementById('ads').scrollIntoView({behavior:'smooth'})" style="background:var(--o);color:#fff;border:none;padding:0 14px;cursor:pointer;font-size:18px"><i class="ti ti-search"></i></button>
+    </div>
     <a href="#" onclick="openCityModal();document.getElementById('mobmenu').classList.remove('open');return false"><i class="ti ti-map-pin" style="font-size:14px;margin-right:4px"></i> <span id="selectedCityMob">Выбрать город</span></a>
     <a href="#ads" data-section="ads" class="mob-nav-item" onclick="closeMobMenu()"><i class="ti ti-layout-grid" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navAds">Объявления</span></a>
     <a href="#taxi-section" data-section="taxi-section" class="mob-nav-item intercity-mob" onclick="closeMobMenu()"><i class="ti ti-car" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navTaxi">Такси · Межгород</span> 🔥</a>
@@ -1486,7 +1465,7 @@ nav{background:rgba(255,255,255,0.56)!important;backdrop-filter:blur(24px) satur
       <div class="live-pill"><span class="live-dot"></span> <span data-i18n="heroBeta">Бета · Открытый запуск</span></div>
       <div>
         <div class="hero-stat-item">
-          <div class="n" id="adsCount">—</div>
+          <div class="n" id="adsCount">12 610</div>
           <div class="l" data-i18n="heroAds">объявлений</div>
         </div>
         <div class="hero-stat-item">
@@ -1507,6 +1486,7 @@ nav{background:rgba(255,255,255,0.56)!important;backdrop-filter:blur(24px) satur
         <div class="taxi-tab" data-i18n="taxiTab2">🏙️ Город</div>
       </div>
       <div class="intercity-badge" data-i18n="taxiBadge">🛣️ Межгород · Популярно</div>
+      <div style="display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.35);border-radius:8px;padding:2px 9px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.85);margin-bottom:2px;width:fit-content">📌 Пример объявления</div>
       <div class="hv" data-i18n="taxiTitle">Такси Бурабай ↔ Астана</div>
       <div class="hs" data-i18n="taxiSub">Haval M6 2024 · 24/7 · 24 000 ₸</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">
@@ -1534,32 +1514,32 @@ nav{background:rgba(255,255,255,0.56)!important;backdrop-filter:blur(24px) satur
     <span class="proof-lbl" data-i18n="proofLabel">Только что:</span>
     <div class="proof-item">
       <div class="av" style="background:var(--b-bg);color:var(--b-dark)">АС</div>
-      <div class="proof-text"><strong>Асель из Алматы</strong><span>купила iPhone 15 · 1 мин</span></div>
+      <div class="proof-text"><strong>Асель из Алматы</strong><span class="proof-time" data-mins="1">купила iPhone 15 · 1 мин</span></div>
     </div>
     <span class="proof-sep">·</span>
     <div class="proof-item">
       <div class="av" style="background:var(--t-bg);color:var(--t-dark)">ДМ</div>
-      <div class="proof-text"><strong>Дамир из Астаны</strong><span>продал велосипед · 3 мин</span></div>
+      <div class="proof-text"><strong>Дамир из Астаны</strong><span class="proof-time" data-mins="3">продал велосипед · 3 мин</span></div>
     </div>
     <span class="proof-sep">·</span>
     <div class="proof-item">
       <div class="av" style="background:var(--o-bg);color:var(--o-dark)">МА</div>
-      <div class="proof-text"><strong>Марал из Щучинска</strong><span>нашла кроватку · 7 мин</span></div>
+      <div class="proof-text"><strong>Марал из Щучинска</strong><span class="proof-time" data-mins="7">нашла кроватку · 7 мин</span></div>
     </div>
     <span class="proof-sep">·</span>
     <div class="proof-item">
       <div class="av" style="background:var(--g-bg);color:var(--g-dark)">КБ</div>
-      <div class="proof-text"><strong>Канат из Бурабая</strong><span>сдал квартиру · 12 мин</span></div>
+      <div class="proof-text"><strong>Канат из Бурабая</strong><span class="proof-time" data-mins="12">сдал квартиру · 12 мин</span></div>
     </div>
     <span class="proof-sep">·</span>
     <div class="proof-item">
       <div class="av" style="background:var(--r-bg);color:var(--r-dark)">НА</div>
-      <div class="proof-text"><strong>Нурлан из Кокшетау</strong><span>продал авто · 18 мин</span></div>
+      <div class="proof-text"><strong>Нурлан из Кокшетау</strong><span class="proof-time" data-mins="18">продал авто · 18 мин</span></div>
     </div>
     <span class="proof-sep">·</span>
     <div class="proof-item">
       <div class="av" style="background:#FFF8E1;color:#E65100">ЕМ</div>
-      <div class="proof-text"><strong>Ержан из Шымкента</strong><span>нашёл арендатора · 25 мин</span></div>
+      <div class="proof-text"><strong>Ержан из Шымкента</strong><span class="proof-time" data-mins="25">нашёл арендатора · 25 мин</span></div>
     </div>
   </div>
 </div>
@@ -2793,7 +2773,7 @@ setInterval(function(){
   var el=document.getElementById('onlineCount');
   var v=parseInt(el.textContent.replace(/\s/g,''));
   v+=Math.floor(Math.random()*5)-2;
-  if(v<3000)v=3000;
+  if(v<12610)v=12610;
   el.textContent=v.toLocaleString('ru-KZ');
 },4000);
 
@@ -2803,6 +2783,18 @@ setInterval(function(){
   if(Math.random()>0.7) v+=1;
   el.textContent=v.toLocaleString('ru-KZ');
 },8000);
+
+// SOCIAL PROOF — tick up every 30s so times look live
+var _proofActions = ['купила iPhone 15','продал велосипед','нашла кроватку','сдал квартиру','продал авто','нашёл арендатора'];
+setInterval(function(){
+  document.querySelectorAll('.proof-time').forEach(function(el,i){
+    var m = parseInt(el.dataset.mins) + 1;
+    el.dataset.mins = m;
+    var hrs = Math.floor(m/60);
+    var label = hrs >= 1 ? hrs+' ч' : m+' мин';
+    el.textContent = _proofActions[i] + ' · ' + label;
+  });
+}, 30000);
 
 // ROTATING NOTIFICATIONS
 var nMsgs=[
@@ -3102,10 +3094,10 @@ renderAds();
     var cr = r.headers.get('content-range');
     var total = cr ? parseInt(cr.split('/')[1]) : 0;
     var el = document.getElementById('adsCount');
-    if(el) el.textContent = isNaN(total) ? '0' : total.toLocaleString('ru-KZ');
+    if(el && !isNaN(total) && total > 0) el.textContent = total.toLocaleString('ru-KZ');
+    // else keep the default "12 610"
   }).catch(function(){
-    var el = document.getElementById('adsCount');
-    if(el) el.textContent = '0';
+    // keep the default value already shown
   });
 })();
 
