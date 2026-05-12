@@ -63,16 +63,51 @@ function switchTab(name){
   if(name==='support' && tabs[1]) tabs[1].classList.add('active');
 }
 
-// AI Chat
+// AI Chat — max 3 questions per hour
 var chatHistory = [];
+var CHAT_LIMIT = 3;
+var CHAT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+
+function getChatTimestamps(){
+  try { return JSON.parse(localStorage.getItem('alsat_chat_ts')||'[]'); } catch(e){ return []; }
+}
+function saveChatTimestamps(arr){
+  try { localStorage.setItem('alsat_chat_ts', JSON.stringify(arr)); } catch(e){}
+}
+function checkChatLimit(){
+  var now = Date.now();
+  var ts = getChatTimestamps().filter(function(t){ return now - t < CHAT_WINDOW_MS; });
+  saveChatTimestamps(ts);
+  return ts.length < CHAT_LIMIT ? {ok:true, left: CHAT_LIMIT - ts.length} : {ok:false, left:0, waitMs: CHAT_WINDOW_MS - (now - ts[0])};
+}
+function recordChatMessage(){
+  var ts = getChatTimestamps();
+  ts.push(Date.now());
+  saveChatTimestamps(ts);
+}
+
 async function sendChat(){
   var input = document.getElementById('chatInput');
   var btn = document.getElementById('chatSendBtn');
   var msgs = document.getElementById('chatMsgs');
   var text = input.value.trim();
   if(!text) return;
+
+  var limit = checkChatLimit();
+  if(!limit.ok){
+    var mins = Math.ceil(limit.waitMs / 60000);
+    var limitDiv = document.createElement('div');
+    limitDiv.className = 'ai-msg bot';
+    limitDiv.style.cssText = 'background:#FFF3E0;color:#E65100;border:1px solid #FFB300';
+    limitDiv.textContent = '⏳ Лимит вопросов исчерпан (3 в час). Попробуйте через ' + mins + ' мин.';
+    msgs.appendChild(limitDiv);
+    msgs.scrollTop = msgs.scrollHeight;
+    return;
+  }
+
   input.value = '';
   btn.disabled = true;
+  recordChatMessage();
 
   var userDiv = document.createElement('div');
   userDiv.className = 'ai-msg user';
@@ -85,6 +120,16 @@ async function sendChat(){
   msgs.appendChild(typingDiv);
   msgs.scrollTop = msgs.scrollHeight;
 
+  // show remaining
+  var newLimit = checkChatLimit();
+  if(newLimit.left === 0){
+    input.placeholder = '⏳ Лимит 3 вопроса/час исчерпан';
+    input.disabled = true;
+    btn.disabled = true;
+  } else {
+    input.placeholder = 'Осталось вопросов: ' + newLimit.left;
+  }
+
   try {
     var res = await fetch('/api/chat', {
       method: 'POST',
@@ -95,15 +140,15 @@ async function sendChat(){
     var reply = data.reply || 'Извините, не удалось получить ответ.';
     chatHistory.push({role:'user',content:text});
     chatHistory.push({role:'assistant',content:reply});
-    if(chatHistory.length > 12) chatHistory = chatHistory.slice(-12);
+    if(chatHistory.length > 6) chatHistory = chatHistory.slice(-6);
     typingDiv.classList.remove('typing');
     typingDiv.textContent = reply;
   } catch(e) {
     typingDiv.textContent = 'Ошибка соединения. Попробуйте позже.';
   }
   msgs.scrollTop = msgs.scrollHeight;
-  btn.disabled = false;
-  input.focus();
+  if(newLimit.left > 0) btn.disabled = false;
+  if(newLimit.left > 0) input.focus();
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
