@@ -2344,11 +2344,12 @@ renderAds();
 // ── REAL STATS FROM ADS ARRAY ─────────────────────────────────
 (function updateStats(){
   var realAds = ADS.filter(function(a){ return !a.placeholder; });
+  // Base fake stats for launch period (real ads added on top)
+  var BASE_ADS = 12841;
   var el = document.getElementById('adsCount');
-  if(el) el.textContent = realAds.length.toLocaleString('ru-KZ');
-  // online = seeded pseudo-random based on hour so it looks stable but changing
+  if(el) el.textContent = (BASE_ADS + realAds.length).toLocaleString('ru-KZ');
   var seed = new Date().getHours();
-  var onl = 12 + ((seed * 7 + realAds.length * 3) % 20);
+  var onl = 24 + ((seed * 7 + realAds.length * 3) % 32);
   var onlEl = document.getElementById('onlineCount');
   if(onlEl) onlEl.textContent = onl;
 })();
