@@ -197,6 +197,10 @@ async function sendChat(){
   if(newLimit.left > 0) btn.disabled = false;
   if(newLimit.left > 0) input.focus();
 }
+// Expose to global scope explicitly
+window.switchTab = switchTab;
+window.toggleFaq = toggleFaq;
+window.renderFaq = renderFaq;
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -376,6 +380,9 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .nav-right{display:flex;gap:8px;margin-left:auto;align-items:center}
 .nav-city{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--text2);padding:6px 10px;border:1px solid var(--border2);border-radius:var(--radius);cursor:pointer;white-space:nowrap;transition:.15s}
 .nav-city:hover{border-color:var(--b);color:var(--b)}
+.nav-support{background:rgba(37,211,102,0.12);color:#1a9e50;border:1.5px solid rgba(37,211,102,0.35);border-radius:var(--radius);padding:7px 13px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;transition:.15s}
+.nav-support:hover{background:rgba(37,211,102,0.22);border-color:#25D366}
+@media(max-width:768px){.nav-support{display:none}}
 .nav-post{background:var(--o);color:#fff;border:none;border-radius:var(--radius);padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap}
 .nav-post:hover{background:var(--o2)}
 .hamburger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text)}
@@ -659,31 +666,31 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
   --white:#1e2030; --bg:#141520; --card:#1e2030;
   --text:#e8eaf0; --text2:#a0a4b8; --text3:#606480;
   --border:rgba(255,255,255,0.08); --border2:rgba(255,255,255,0.14);
-  --o:#FF8C33; --o2:#FFA040; --o-bg:#2a1f12; --o-dark:#FFB366;
+  --o:#C86020; --o2:#D97030; --o-bg:#251810; --o-dark:#E08A48;
   --b:#4d8ef0; --b2:#5a9bf5; --b-bg:#0d1a2e; --b-dark:#7ab0ff;
   --g:#4caf6e; --g2:#56c07a; --g-bg:#0d1f14; --g-dark:#7dd99a;
-  --y:#ffca4a; --y2:#ffd060; --y-bg:#231c08; --y-dark:#ffe085;
-  --r:#e05555; --r2:#e86666; --r-bg:#1f0d0d; --r-dark:#ff9090;
-  --pu:#b07aff; --pu2:#bf8fff; --pu-bg:#180d2e;
+  --y:#B88020; --y2:#CC9030; --y-bg:#201804; --y-dark:#D4A850;
+  --r:#c04040; --r2:#d05050; --r-bg:#1f0d0d; --r-dark:#e07070;
+  --pu:#9060e0; --pu2:#a070f0; --pu-bg:#180d2e;
 }
 [data-theme="ocean"]{
-  --o:#0891b2; --o2:#06b6d4; --o-bg:#e0f7fa; --o-dark:#006080;
-  --bg:#f0f9ff; --card:#fff;
-  --text:#0c2340; --text2:#2c5282; --text3:#5a87b8;
-  --b:#0552b5; --b2:#0369a1; --b-bg:#dbeafe;
+  --o:#0778a0; --o2:#0898c0; --o-bg:#b8e0f0; --o-dark:#005070;
+  --bg:#bce4f5; --card:#d5eefa;
+  --text:#071830; --text2:#1c4070; --text3:#4878a8;
+  --b:#0440a0; --b2:#0258a8; --b-bg:#b0ccf0;
 }
 [data-theme="forest"]{
-  --o:#2e7d32; --o2:#388e3c; --o-bg:#e8f5e9; --o-dark:#1b5e20;
-  --bg:#f1f8f2; --card:#fff;
-  --text:#1a2e1b; --text2:#2e5c30; --text3:#5a8c5c;
-  --b:#1b5e20; --b2:#2e7d32; --b-bg:#c8e6c9;
+  --o:#256828; --o2:#307830; --o-bg:#c0dcc2; --o-dark:#144018;
+  --bg:#c0d8c2; --card:#d5e8d7;
+  --text:#0d1e0e; --text2:#224825; --text3:#486848;
+  --b:#144018; --b2:#226025; --b-bg:#a8d0ac;
 }
 [data-theme="sunset"]{
-  --o:#c2185b; --o2:#e91e63; --o-bg:#fce4ec; --o-dark:#880e4f;
-  --bg:#fff5f8; --card:#fff;
-  --text:#2d1020; --text2:#6d2f4a; --text3:#a06070;
-  --b:#6a1b9a; --b2:#7b1fa2; --b-bg:#f3e5f5;
-  --y:#ff9800; --y2:#ffb300; --y-bg:#fff3e0;
+  --o:#a01050; --o2:#c01860; --o-bg:#f0c0d4; --o-dark:#700840;
+  --bg:#f0c0d4; --card:#f8d5e5;
+  --text:#220a16; --text2:#581830; --text3:#885060;
+  --b:#580890; --b2:#6810a0; --b-bg:#e0b8f0;
+  --y:#d07800; --y2:#e08800; --y-bg:#f8e0b0;
 }
 
 /* ===== DARK THEME OVERRIDES — element-level ===== */
@@ -927,6 +934,7 @@ nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) satur
         <button class="lang-btn" onclick="setLang('en')">EN</button>
       </div>
       <div class="nav-city" onclick="openCityModal()"><i class="ti ti-map-pin" style="font-size:14px"></i> <span id="selectedCity" data-i18n="allCities">Все города</span> <i class="ti ti-chevron-down" style="font-size:12px"></i></div>
+      <button class="nav-support" onclick="switchTab('support');setTimeout(function(){document.getElementById('faq-support').scrollIntoView({behavior:'smooth'})},50)"><i class="ti ti-heart" style="font-size:13px"></i> <span data-i18n="navSupport">Поддержать</span></button>
       <button class="nav-post" onclick="openPostModal()" data-i18n-btn="postAd"><i class="ti ti-plus"></i> <span data-i18n="postAd">Подать объявление</span></button>
       <button class="hamburger" onclick="document.getElementById('mobmenu').classList.toggle('open')"><i class="ti ti-menu-2"></i></button>
     </div>
@@ -936,21 +944,9 @@ nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) satur
     <a href="#ads" data-section="ads" class="mob-nav-item" onclick="closeMobMenu()"><i class="ti ti-layout-grid" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navAds">Объявления</span></a>
     <a href="#taxi-section" data-section="taxi-section" class="mob-nav-item intercity-mob" onclick="closeMobMenu()"><i class="ti ti-car" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navTaxi">Такси · Межгород</span> 🔥</a>
     <a href="#services" data-section="services" class="mob-nav-item services-mob" onclick="closeMobMenu()"><i class="ti ti-briefcase" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navServices">Наши услуги</span></a>
-    <a href="#" data-i18n="navHelp">Помощь</a>
+    <a href="#faq-support" onclick="switchTab('support');closeMobMenu();setTimeout(function(){document.getElementById('faq-support').scrollIntoView({behavior:'smooth'})},80)" style="color:#25D366;font-weight:700"><i class="ti ti-heart" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navSupport">💚 Поддержать проект</span></a>
   </div>
 </nav>
-
-<!-- AKBOTA LOVE BANNER -->
-<div id="akbota-banner" style="background:linear-gradient(135deg,#ff6b9d 0%,#c44dff 50%,#7b2fff 100%);padding:14px 20px;text-align:center;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(196,77,255,0.35)">
-  <div style="position:absolute;left:-30px;top:-30px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,0.07)"></div>
-  <div style="position:absolute;right:-20px;bottom:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.06)"></div>
-  <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap">
-    <span style="font-size:22px">🌸</span>
-    <span style="color:#fff;font-size:15px;font-weight:700;letter-spacing:0.3px">Дорогая <span style="color:#ffe066;font-size:17px">Акбота</span> — пусть сессия пройдёт легко, знания не подводят, а усталость отступит. Ты справишься! 🌟</span>
-    <span style="color:rgba(255,255,255,0.85);font-size:13px;font-style:italic">— Папа верит в тебя и гордится тобой ❤️</span>
-    <span style="font-size:22px">🌸</span>
-  </div>
-</div>
 
 <div class="urgency">
   <span class="u-free-badge" data-i18n="urgencyBadge">✨ ВРЕМЕННО БЕСПЛАТНО</span>
@@ -2144,7 +2140,7 @@ ru:{
   heroTag:'Казахстан · 18+ городов', heroRibbon:'🎁 Бесплатное размещение в честь открытия',
   heroTitle:'Объявления<br><em>без комиссий</em><br>и посредников',
   heroSubtitle:'Продавайте быстро. Покупайте выгодно. Всё по-настоящему.', heroBtnBrowse:'Смотреть все',
-  heroBeta:'Бета · Открытый запуск', heroAds:'объявлений', heroCities:'городов Казахстана', heroFree:'комиссия — бесплатно',
+  navSupport:'Поддержать', heroBeta:'Бета · Открытый запуск', heroAds:'объявлений', heroCities:'городов Казахстана', heroFree:'комиссия — бесплатно',
   taxiTab1:'🚗 Межгород', taxiTab2:'🏙️ Город', taxiBadge:'🛣️ Межгород · Популярно',
   taxiTitle:'Такси Бурабай ↔ Астана', taxiSub:'Haval M6 2024 · 24/7 · 24 000 ₸',
   taxiExp:'Стаж 24 года', taxiPax:'До 4 чел', taxiRoute:'Кокшетау · Алматы', taxiWa:'Заказать в WhatsApp',
@@ -2196,7 +2192,7 @@ kz:{
   heroTag:'Қазақстан · 18+ қала', heroRibbon:'🎁 Ашылу құрметіне тегін орналастыру',
   heroTitle:'Хабарландырулар<br><em>комиссиясыз</em><br>делдалдарсыз',
   heroSubtitle:'Тез сатыңыз. Тиімді сатып алыңыз. Бәрі шын.', heroBtnBrowse:'Барлығын қарау',
-  heroBeta:'Бета · Ашық іске қосу', heroAds:'хабарландыру', heroCities:'Қазақстан қалалары', heroFree:'комиссия — тегін',
+  navSupport:'Қолдау', heroBeta:'Бета · Ашық іске қосу', heroAds:'хабарландыру', heroCities:'Қазақстан қалалары', heroFree:'комиссия — тегін',
   taxiTab1:'🚗 Қалааралық', taxiTab2:'🏙️ Қала', taxiBadge:'🛣️ Қалааралық · Танымал',
   taxiTitle:'Такси Бурабай ↔ Астана', taxiSub:'Haval M6 2024 · 24/7 · 24 000 ₸',
   taxiExp:'Тәжірибе 24 жыл', taxiPax:'4 адамға дейін', taxiRoute:'Көкшетау · Алматы', taxiWa:'WhatsApp-та тапсырыс беру',
