@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#FF6B00">
 <title>Jalga.kz — Объявления Казахстана</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
   --o:#FF6B00; --o2:#FF8C33; --o-bg:#FFF3E0; --o-dark:#BF4E00;
@@ -116,6 +117,65 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .app-waitlist input:focus{background:rgba(255,255,255,.22)}
 .app-waitlist button{background:var(--y);color:#1A1A1A;border:none;border-radius:var(--radius);padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
 .app-waitlist button:hover{background:var(--y2)}
+
+/* AUTH MODAL */
+.auth-modal-box{background:#fff;border-radius:var(--radius-xl);max-width:400px;width:100%;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.3)}
+.auth-header{background:linear-gradient(135deg,var(--o) 0%,var(--o-dark) 100%);padding:24px 24px 20px;text-align:center}
+.auth-header .ah-logo{font-size:28px;font-weight:800;color:#fff;letter-spacing:-.5px}
+.auth-header p{color:rgba(255,255,255,.8);font-size:13px;margin-top:4px}
+.auth-body{padding:24px}
+.auth-tabs{display:flex;background:var(--bg);border-radius:var(--radius);padding:3px;margin-bottom:20px}
+.auth-tab{flex:1;text-align:center;padding:8px;font-size:13px;font-weight:600;border:none;background:transparent;border-radius:8px;cursor:pointer;color:var(--text2);transition:.15s}
+.auth-tab.active{background:#fff;color:var(--o);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.auth-field{margin-bottom:14px}
+.auth-field label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text3);margin-bottom:5px}
+.auth-field input{width:100%;border:1.5px solid var(--border2);border-radius:var(--radius);padding:11px 14px;font-size:15px;color:var(--text);outline:none;transition:.15s;font-family:inherit}
+.auth-field input:focus{border-color:var(--o)}
+.auth-field .phone-wrap{display:flex;gap:8px}
+.auth-field .phone-prefix{border:1.5px solid var(--border2);border-radius:var(--radius);padding:11px 12px;font-size:15px;color:var(--text2);background:var(--bg);font-weight:600;white-space:nowrap}
+.auth-submit{width:100%;background:var(--o);color:#fff;border:none;border-radius:var(--radius);padding:13px;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px;transition:.15s}
+.auth-submit:hover{background:var(--o2)}
+.auth-submit:disabled{opacity:.6;cursor:not-allowed}
+.auth-divider{text-align:center;color:var(--text3);font-size:12px;margin:14px 0;position:relative}
+.auth-divider::before,.auth-divider::after{content:'';position:absolute;top:50%;width:calc(50% - 20px);height:1px;background:var(--border2)}
+.auth-divider::before{left:0} .auth-divider::after{right:0}
+.auth-otp-hint{font-size:12px;color:var(--text3);text-align:center;margin-top:10px}
+.auth-otp-hint a{color:var(--o);cursor:pointer;font-weight:600}
+.auth-user-bar{display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:var(--radius);border:1px solid var(--border2);cursor:pointer;transition:.15s;font-size:13px;color:var(--text2)}
+.auth-user-bar:hover{border-color:var(--o);color:var(--o)}
+.auth-user-bar .au-avatar{width:28px;height:28px;border-radius:50%;background:var(--o);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+
+/* POST AD MODAL */
+.post-modal-box{background:#fff;border-radius:var(--radius-xl);max-width:560px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.3)}
+.post-header{background:linear-gradient(135deg,var(--g) 0%,var(--t) 100%);padding:18px 22px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:10}
+.post-header h3{color:#fff;font-size:16px;font-weight:800;flex:1}
+.post-header button{background:rgba(255,255,255,.2);border:none;color:#fff;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center}
+.post-body{padding:20px}
+.post-field{margin-bottom:16px}
+.post-field label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text3);margin-bottom:5px}
+.post-field input,.post-field textarea,.post-field select{width:100%;border:1.5px solid var(--border2);border-radius:var(--radius);padding:10px 14px;font-size:14px;color:var(--text);outline:none;transition:.15s;font-family:inherit;background:#fff}
+.post-field input:focus,.post-field textarea:focus,.post-field select:focus{border-color:var(--g)}
+.post-field textarea{resize:vertical;min-height:80px}
+.post-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.post-photo-grid{display:flex;gap:8px;flex-wrap:wrap}
+.post-photo-slot{width:76px;height:76px;border-radius:var(--radius);border:2px dashed var(--border2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:.15s;font-size:24px;color:var(--text3);background:var(--bg)}
+.post-photo-slot:hover{border-color:var(--g);background:var(--g-bg);color:var(--g)}
+.post-photo-slot.filled{border-style:solid;border-color:var(--g);background:var(--g-bg)}
+.post-photo-slot .ps-add{font-size:10px;font-weight:700;color:var(--g)}
+.post-cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.post-cat-item{border:1.5px solid var(--border2);border-radius:var(--radius);padding:8px 4px;text-align:center;cursor:pointer;transition:.15s;font-size:11px;font-weight:600;color:var(--text2)}
+.post-cat-item:hover{border-color:var(--g);color:var(--g)}
+.post-cat-item.selected{border-color:var(--g);background:var(--g-bg);color:var(--g-dark);font-weight:700}
+.post-cat-item .pci{font-size:20px;display:block;margin-bottom:3px}
+.post-footer{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:8px;position:sticky;bottom:0;background:#fff}
+.post-submit{flex:1;background:var(--g);color:#fff;border:none;border-radius:var(--radius);padding:12px;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.post-submit:hover{background:var(--g2)}
+.post-submit:disabled{opacity:.6;cursor:not-allowed}
+.post-cancel{background:var(--bg);color:var(--text2);border:1.5px solid var(--border2);border-radius:var(--radius);padding:12px 18px;font-size:13px;font-weight:600;cursor:pointer}
+.post-success{text-align:center;padding:32px 24px}
+.post-success .ps-icon{font-size:56px;margin-bottom:12px}
+.post-success h3{font-size:20px;font-weight:800;color:var(--g-dark);margin-bottom:6px}
+.post-success p{font-size:14px;color:var(--text2);line-height:1.5}
 .nav-right{display:flex;gap:8px;margin-left:auto;align-items:center}
 .nav-city{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--text2);padding:6px 10px;border:1px solid var(--border2);border-radius:var(--radius);cursor:pointer;white-space:nowrap;transition:.15s}
 .nav-city:hover{border-color:var(--b);color:var(--b)}
@@ -457,7 +517,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
         <button class="lang-btn" onclick="setLang('en')">EN</button>
       </div>
       <div class="nav-city" onclick="openCityModal()"><i class="ti ti-map-pin" style="font-size:14px"></i> <span id="selectedCity" data-i18n="allCities">Все города</span> <i class="ti ti-chevron-down" style="font-size:12px"></i></div>
-      <button class="nav-post" data-i18n-btn="postAd"><i class="ti ti-plus"></i> <span data-i18n="postAd">Подать объявление</span></button>
+      <button class="nav-post" onclick="openPostModal()" data-i18n-btn="postAd"><i class="ti ti-plus"></i> <span data-i18n="postAd">Подать объявление</span></button>
       <button class="hamburger" onclick="document.getElementById('mobmenu').classList.toggle('open')"><i class="ti ti-menu-2"></i></button>
     </div>
   </div>
@@ -490,7 +550,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
         <h1>Объявления<br><em>без комиссий</em><br>и посредников</h1>
         <p>Продавайте быстро. Покупайте выгодно. Всё по-настоящему.</p>
         <div class="hero-btns">
-          <button class="hbtn-o"><i class="ti ti-plus"></i> Подать объявление</button>
+          <button class="hbtn-o" onclick="openPostModal()"><i class="ti ti-plus"></i> Подать объявление</button>
           <button class="hbtn-w"><i class="ti ti-search"></i> Смотреть все</button>
         </div>
       </div>
@@ -834,6 +894,145 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
       <button class="edit-cancel-btn" onclick="document.getElementById('editModal').classList.remove('open')" data-i18n="cancel">Отмена</button>
       <button class="edit-save-btn" data-i18n="saveChanges">💾 Сохранить изменения</button>
     </div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="modal-ov" id="authModal" onclick="if(event.target===this)closeAuthModal()">
+  <div class="auth-modal-box">
+    <div class="auth-header">
+      <div class="ah-logo">Jalga<sup style="font-size:11px;background:rgba(255,255,255,.3);padding:1px 5px;border-radius:5px;margin-left:2px;vertical-align:super">kz</sup></div>
+      <p>Войдите, чтобы подать объявление</p>
+    </div>
+    <div class="auth-body">
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchAuthTab('phone')">📱 Телефон</button>
+        <button class="auth-tab" onclick="switchAuthTab('email')">✉️ Email</button>
+      </div>
+
+      <!-- Phone step 1: enter number -->
+      <div id="authPhoneStep1">
+        <div class="auth-field">
+          <label>Номер телефона</label>
+          <div class="phone-wrap">
+            <span class="phone-prefix">+7</span>
+            <input type="tel" id="authPhone" placeholder="(___) ___-__-__" maxlength="11">
+          </div>
+        </div>
+        <button class="auth-submit" onclick="sendOtp()">Получить SMS-код</button>
+      </div>
+
+      <!-- Phone step 2: enter OTP -->
+      <div id="authPhoneStep2" style="display:none">
+        <div class="auth-field">
+          <label>Код из SMS</label>
+          <input type="text" id="authOtp" placeholder="______" maxlength="6" style="text-align:center;letter-spacing:8px;font-size:22px;font-weight:700">
+        </div>
+        <button class="auth-submit" onclick="verifyOtp()">Войти</button>
+        <div class="auth-otp-hint">Не получили код? <a onclick="showPhoneStep1()">Отправить ещё раз</a></div>
+      </div>
+
+      <!-- Email tab -->
+      <div id="authEmailTab" style="display:none">
+        <div class="auth-field">
+          <label>Email</label>
+          <input type="email" id="authEmail" placeholder="you@example.com">
+        </div>
+        <div class="auth-field">
+          <label>Пароль</label>
+          <input type="password" id="authPassword" placeholder="Минимум 6 символов">
+        </div>
+        <button class="auth-submit" onclick="signInEmail()">Войти / Зарегистрироваться</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- POST AD MODAL -->
+<div class="modal-ov" id="postModal" onclick="if(event.target===this)closePostModal()">
+  <div class="post-modal-box">
+    <div class="post-header">
+      <i class="ti ti-plus" style="font-size:18px;color:#fff"></i>
+      <h3>Подать объявление</h3>
+      <button onclick="closePostModal()"><i class="ti ti-x"></i></button>
+    </div>
+
+    <!-- Success state -->
+    <div id="postSuccess" style="display:none" class="post-success">
+      <div class="ps-icon">🎉</div>
+      <h3>Объявление подано!</h3>
+      <p>Ваше объявление уже видно всем пользователям. Ждите откликов — обычно первый приходит в течение нескольких минут!</p>
+      <button class="post-submit" style="margin-top:20px;max-width:220px;margin-left:auto;margin-right:auto" onclick="closePostModal()"><i class="ti ti-check" style="font-size:16px"></i> Отлично!</button>
+    </div>
+
+    <!-- Form -->
+    <div id="postForm">
+      <div class="post-body">
+
+        <div class="post-field">
+          <label>Категория</label>
+          <div class="post-cat-grid">
+            <div class="post-cat-item" data-cat="auto" data-cat-color="#1565C0" onclick="selectPostCat(this)"><span class="pci">🚗</span>Авто</div>
+            <div class="post-cat-item" data-cat="realty" data-cat-color="#FF6B00" onclick="selectPostCat(this)"><span class="pci">🏠</span>Недвижимость</div>
+            <div class="post-cat-item" data-cat="elec" data-cat-color="#6A1B9A" onclick="selectPostCat(this)"><span class="pci">📱</span>Электроника</div>
+            <div class="post-cat-item" data-cat="work" data-cat-color="#2E7D32" onclick="selectPostCat(this)"><span class="pci">💼</span>Работа</div>
+            <div class="post-cat-item" data-cat="serv" data-cat-color="#00796B" onclick="selectPostCat(this)"><span class="pci">🔧</span>Услуги</div>
+            <div class="post-cat-item" data-cat="taxi" data-cat-color="#F9A825" onclick="selectPostCat(this)"><span class="pci">🚖</span>Такси</div>
+            <div class="post-cat-item" data-cat="kids" data-cat-color="#6A1B9A" onclick="selectPostCat(this)"><span class="pci">🧸</span>Детское</div>
+            <div class="post-cat-item" data-cat="sport" data-cat-color="#C62828" onclick="selectPostCat(this)"><span class="pci">🏋️</span>Спорт</div>
+            <div class="post-cat-item" data-cat="furn" data-cat-color="#5D4037" onclick="selectPostCat(this)"><span class="pci">🛋️</span>Мебель</div>
+            <div class="post-cat-item" data-cat="pet" data-cat-color="#E91E63" onclick="selectPostCat(this)"><span class="pci">🐾</span>Животные</div>
+            <div class="post-cat-item" data-cat="food" data-cat-color="#43A047" onclick="selectPostCat(this)"><span class="pci">🌿</span>Продукты</div>
+            <div class="post-cat-item" data-cat="free" data-cat-color="#00ACC1" onclick="selectPostCat(this)"><span class="pci">🎁</span>Отдам даром</div>
+          </div>
+        </div>
+
+        <div class="post-field">
+          <label>Заголовок</label>
+          <input type="text" id="postTitle" placeholder="Например: iPhone 15 Pro 256GB">
+        </div>
+
+        <div class="post-field">
+          <label>Описание</label>
+          <textarea id="postDesc" rows="3" placeholder="Подробно опишите товар или услугу..."></textarea>
+        </div>
+
+        <div class="post-row">
+          <div class="post-field">
+            <label>Цена (₸)</label>
+            <input type="number" id="postPrice" placeholder="0 — договорная">
+          </div>
+          <div class="post-field">
+            <label>Город</label>
+            <input type="text" id="postCity" placeholder="Бурабай, Астана...">
+          </div>
+        </div>
+
+        <div class="post-field">
+          <label>Телефон</label>
+          <input type="tel" id="postPhone" placeholder="+7 (___) ___-__-__">
+        </div>
+
+        <div class="post-field">
+          <label>Фотографии (до 5)</label>
+          <div class="post-photo-grid">
+            <div class="post-photo-slot" onclick="this.classList.toggle('filled')"><span style="font-size:24px">📷</span><span class="ps-add">+ фото</span></div>
+            <div class="post-photo-slot" onclick="this.classList.toggle('filled')"><span style="font-size:24px">📷</span><span class="ps-add">+ фото</span></div>
+            <div class="post-photo-slot" onclick="this.classList.toggle('filled')"><span style="font-size:24px">📷</span><span class="ps-add">+ фото</span></div>
+            <div class="post-photo-slot" onclick="this.classList.toggle('filled')"><span style="font-size:24px">📷</span><span class="ps-add">+ фото</span></div>
+            <div class="post-photo-slot" onclick="this.classList.toggle('filled')"><span style="font-size:24px">📷</span><span class="ps-add">+ фото</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="post-footer">
+        <button class="post-cancel" onclick="closePostModal()">Отмена</button>
+        <button class="post-submit" onclick="submitPostAd()"><i class="ti ti-send" style="font-size:15px"></i> Опубликовать</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -1386,6 +1585,238 @@ document.querySelectorAll('.taxi-tab').forEach(function(tab){
 });
 
 renderAds();
+
+// ── SUPABASE CONFIG ───────────────────────────────────────────────
+// Replace these with your real values from supabase.com → Settings → API
+var SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';   // e.g. https://xxxx.supabase.co
+var SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // eyJhbGciOi...
+
+var _sb = null;
+try {
+  if (SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL' && window.supabase) {
+    _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+} catch(e) { console.warn('Supabase not configured:', e); }
+
+// ── AUTH STATE ────────────────────────────────────────────────────
+var currentUser = null;
+
+if (_sb) {
+  _sb.auth.getSession().then(function(res) {
+    if (res.data && res.data.session) setUser(res.data.session.user);
+  });
+  _sb.auth.onAuthStateChange(function(event, session) {
+    setUser(session ? session.user : null);
+  });
+}
+
+function setUser(user) {
+  currentUser = user;
+  var navRight = document.querySelector('.nav-right');
+  var postBtn = document.querySelector('.nav-post');
+  var oldBar = document.getElementById('navUserBar');
+  if (oldBar) oldBar.remove();
+  if (user) {
+    var display = user.phone || user.email || '';
+    var initials = display.length >= 4 ? display.slice(-4) : display;
+    var bar = document.createElement('div');
+    bar.className = 'auth-user-bar';
+    bar.id = 'navUserBar';
+    bar.innerHTML = '<div class="au-avatar">' + initials + '</div>'
+      + '<span style="max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px">' + display + '</span>';
+    bar.title = 'Нажмите, чтобы выйти';
+    bar.onclick = function() { if (confirm('Выйти из аккаунта?')) signOut(); };
+    navRight.insertBefore(bar, postBtn);
+  }
+}
+
+function signOut() {
+  if (_sb) _sb.auth.signOut();
+  setUser(null);
+}
+
+// ── AUTH MODAL ────────────────────────────────────────────────────
+var _authMode = 'phone';
+var _pendingPostAfterAuth = false;
+
+function openAuthModal(thenPost) {
+  _pendingPostAfterAuth = !!thenPost;
+  document.getElementById('authModal').classList.add('open');
+}
+
+function closeAuthModal() {
+  document.getElementById('authModal').classList.remove('open');
+}
+
+function switchAuthTab(mode) {
+  _authMode = mode;
+  var tabs = document.querySelectorAll('.auth-tab');
+  tabs[0].classList.toggle('active', mode === 'phone');
+  tabs[1].classList.toggle('active', mode === 'email');
+  document.getElementById('authPhoneStep1').style.display = mode === 'phone' ? '' : 'none';
+  document.getElementById('authPhoneStep2').style.display = 'none';
+  document.getElementById('authEmailTab').style.display = mode === 'email' ? '' : 'none';
+}
+
+function showPhoneStep1() {
+  document.getElementById('authPhoneStep1').style.display = '';
+  document.getElementById('authPhoneStep2').style.display = 'none';
+}
+
+function sendOtp() {
+  var raw = document.getElementById('authPhone').value.replace(/\D/g, '');
+  if (raw.length < 10) { alert('Введите корректный номер'); return; }
+  // Normalize to +7XXXXXXXXXX
+  if (raw.length === 11 && (raw[0] === '7' || raw[0] === '8')) raw = raw.slice(1);
+  var fullPhone = '+7' + raw;
+
+  if (!_sb) {
+    // Demo mode — skip real SMS
+    document.getElementById('authPhoneStep1').style.display = 'none';
+    document.getElementById('authPhoneStep2').style.display = '';
+    return;
+  }
+  _sb.auth.signInWithOtp({ phone: fullPhone }).then(function(res) {
+    if (res.error) { alert('Ошибка: ' + res.error.message); return; }
+    document.getElementById('authPhoneStep1').style.display = 'none';
+    document.getElementById('authPhoneStep2').style.display = '';
+  });
+}
+
+function verifyOtp() {
+  var raw = document.getElementById('authPhone').value.replace(/\D/g, '');
+  if (raw.length === 11 && (raw[0] === '7' || raw[0] === '8')) raw = raw.slice(1);
+  var fullPhone = '+7' + raw;
+  var otp = document.getElementById('authOtp').value.trim();
+  if (otp.length < 4) { alert('Введите код из SMS'); return; }
+
+  if (!_sb) {
+    // Demo mode
+    setUser({ phone: fullPhone, id: 'demo-' + Date.now() });
+    closeAuthModal();
+    if (_pendingPostAfterAuth) openPostModal();
+    return;
+  }
+  _sb.auth.verifyOtp({ phone: fullPhone, token: otp, type: 'sms' }).then(function(res) {
+    if (res.error) { alert('Неверный код: ' + res.error.message); return; }
+    closeAuthModal();
+    if (_pendingPostAfterAuth) openPostModal();
+  });
+}
+
+function signInEmail() {
+  var email = document.getElementById('authEmail').value.trim();
+  var pass = document.getElementById('authPassword').value;
+  if (!email || !pass) { alert('Заполните email и пароль'); return; }
+
+  if (!_sb) {
+    setUser({ email: email, id: 'demo-' + Date.now() });
+    closeAuthModal();
+    if (_pendingPostAfterAuth) openPostModal();
+    return;
+  }
+  _sb.auth.signInWithPassword({ email: email, password: pass }).then(function(res) {
+    if (res.error) {
+      // If login failed, try sign-up
+      _sb.auth.signUp({ email: email, password: pass }).then(function(r2) {
+        if (r2.error) { alert('Ошибка: ' + r2.error.message); return; }
+        closeAuthModal();
+        if (_pendingPostAfterAuth) openPostModal();
+      });
+    } else {
+      closeAuthModal();
+      if (_pendingPostAfterAuth) openPostModal();
+    }
+  });
+}
+
+// ── POST AD MODAL ────────────────────────────────────────────────
+var _selectedPostCat = null;
+
+function openPostModal() {
+  if (!currentUser) {
+    openAuthModal(true);
+    return;
+  }
+  // Reset form
+  _selectedPostCat = null;
+  document.querySelectorAll('.post-cat-item').forEach(function(el) { el.classList.remove('selected'); });
+  ['postTitle','postDesc','postPrice','postCity','postPhone'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('postSuccess').style.display = 'none';
+  document.getElementById('postForm').style.display = '';
+  document.getElementById('postModal').classList.add('open');
+}
+
+function closePostModal() {
+  document.getElementById('postModal').classList.remove('open');
+}
+
+function selectPostCat(el) {
+  document.querySelectorAll('.post-cat-item').forEach(function(x) { x.classList.remove('selected'); });
+  el.classList.add('selected');
+  _selectedPostCat = { cat: el.dataset.cat, color: el.dataset.catColor, label: el.querySelector('span.pci').nextSibling.textContent.trim() };
+}
+
+var CAT_EMOJIS = {auto:'🚗',realty:'🏠',elec:'📱',work:'💼',serv:'🔧',taxi:'🚖',kids:'🧸',sport:'🏋️',furn:'🛋️',pet:'🐾',food:'🌿',free:'🎁'};
+var CAT_BG = {auto:'#E3F2FD',realty:'#FFF3E0',elec:'#F3E5F5',work:'#F1F8E9',serv:'#E0F2F1',taxi:'#FFF8E1',kids:'#F3E5F5',sport:'#FFEBEE',furn:'#EFEBE9',pet:'#FCE4EC',food:'#E8F5E9',free:'#E0F7FA'};
+
+function submitPostAd() {
+  var title = document.getElementById('postTitle').value.trim();
+  var desc = document.getElementById('postDesc').value.trim();
+  var price = parseInt(document.getElementById('postPrice').value) || 0;
+  var city = document.getElementById('postCity').value.trim() || 'Казахстан';
+  var phone = document.getElementById('postPhone').value.replace(/\D/g,'');
+
+  if (!_selectedPostCat) { alert('Выберите категорию'); return; }
+  if (!title) { alert('Введите заголовок'); return; }
+
+  // Optimistically add to local list right away
+  addNewAdLocally(title, desc, price, city, phone);
+
+  if (_sb) {
+    _sb.from('ads').insert([{
+      title: title,
+      description: desc,
+      price: price,
+      city: city,
+      phone: phone,
+      category: _selectedPostCat.cat,
+      cat_label: _selectedPostCat.label,
+      cat_color: _selectedPostCat.color,
+      emoji: CAT_EMOJIS[_selectedPostCat.cat] || '📦',
+      owner_id: currentUser.id,
+    }]).then(function(res) {
+      if (res.error) console.warn('Supabase insert error:', res.error.message);
+    });
+  }
+
+  document.getElementById('postForm').style.display = 'none';
+  document.getElementById('postSuccess').style.display = '';
+}
+
+function addNewAdLocally(title, desc, price, city, phone) {
+  var cat = _selectedPostCat;
+  ADS.unshift({
+    id: Date.now(),
+    cat: cat.cat,
+    catColor: cat.color,
+    catLabel: cat.label,
+    bg: CAT_BG[cat.cat] || '#F5F5F5',
+    title: title,
+    description: desc,
+    price: price,
+    city: city,
+    phone: phone,
+    age: 'только что',
+    badge: 'new',
+    emoji: CAT_EMOJIS[cat.cat] || '📦',
+    own: true,
+  });
+  renderAds();
+}
 </script>
 </body>
 </html>
