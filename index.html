@@ -48,10 +48,19 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .nav-search input{flex:1;padding:8px 14px;font-size:14px;border:none;outline:none;background:transparent;color:var(--text)}
 .nav-search button{background:var(--o);color:#fff;border:none;padding:0 16px;cursor:pointer;font-size:16px}
 .nav-links{display:flex;gap:2px;margin-left:8px}
-.nav-links a{font-size:13px;color:var(--text2);padding:6px 10px;border-radius:var(--radius);font-weight:500;white-space:nowrap;display:flex;align-items:center;gap:4px}
+.nav-links a{font-size:13px;color:var(--text2);padding:6px 10px;border-radius:var(--radius);font-weight:500;white-space:nowrap;display:flex;align-items:center;gap:4px;position:relative;transition:.15s}
+.nav-links a::after{content:'';position:absolute;bottom:-1px;left:10px;right:10px;height:2px;border-radius:2px;background:transparent;transition:.2s}
 .nav-links a:hover{background:var(--bg);color:var(--text)}
+.nav-links a.nav-active{color:var(--o);font-weight:700;background:var(--o-bg)}
+.nav-links a.nav-active::after{background:var(--o)}
+.nav-links a.taxi-link.nav-active{color:var(--t);background:var(--t-bg)}
+.nav-links a.taxi-link.nav-active::after{background:var(--t)}
 .nav-links a.services-link{color:var(--pu);font-weight:700}
 .nav-links a.services-link:hover{background:var(--pu-bg)}
+.nav-links a.services-link.nav-active{color:var(--pu);background:var(--pu-bg)}
+.nav-links a.services-link.nav-active::after{background:var(--pu)}
+/* mobile menu active */
+.mob-menu a.mob-active{background:var(--o-bg);color:var(--o-dark);font-weight:700}
 .nav-right{display:flex;gap:8px;margin-left:auto;align-items:center}
 .nav-city{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--text2);padding:6px 10px;border:1px solid var(--border2);border-radius:var(--radius);cursor:pointer;white-space:nowrap;transition:.15s}
 .nav-city:hover{border-color:var(--b);color:var(--b)}
@@ -382,9 +391,9 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
       <button><i class="ti ti-search"></i></button>
     </div>
     <div class="nav-links">
-      <a href="#" onclick="showSection('ads');return false"><i class="ti ti-layout-grid" style="font-size:14px"></i> Объявления</a>
-      <a href="#" onclick="showSection('taxi');return false" style="color:var(--t);font-weight:700"><i class="ti ti-car" style="font-size:14px"></i> Такси · Межгород</a>
-      <a href="#services" class="services-link"><i class="ti ti-briefcase" style="font-size:14px"></i> Наши услуги</a>
+      <a href="#ads" data-section="ads" class="nav-link-item"><i class="ti ti-layout-grid" style="font-size:14px"></i> Объявления</a>
+      <a href="#taxi-section" data-section="taxi-section" class="nav-link-item taxi-link"><i class="ti ti-car" style="font-size:14px"></i> Такси · Межгород</a>
+      <a href="#services" data-section="services" class="nav-link-item services-link"><i class="ti ti-briefcase" style="font-size:14px"></i> Наши услуги</a>
     </div>
     <div class="nav-right">
       <div class="nav-city" onclick="openCityModal()"><i class="ti ti-map-pin" style="font-size:14px"></i> <span id="selectedCity">Все города</span> <i class="ti ti-chevron-down" style="font-size:12px"></i></div>
@@ -394,9 +403,9 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
   </div>
   <div class="mob-menu" id="mobmenu">
     <a href="#" onclick="openCityModal();document.getElementById('mobmenu').classList.remove('open');return false"><i class="ti ti-map-pin" style="font-size:14px;margin-right:4px"></i> <span id="selectedCityMob">Выбрать город</span></a>
-    <a href="#">Объявления</a>
-    <a href="#" class="intercity-mob"><i class="ti ti-car" style="font-size:14px;margin-right:4px"></i> Такси · Межгород 🔥</a>
-    <a href="#services" class="services-mob"><i class="ti ti-briefcase" style="font-size:14px;margin-right:4px"></i> Наши услуги</a>
+    <a href="#ads" data-section="ads" class="mob-nav-item" onclick="closeMobMenu()"><i class="ti ti-layout-grid" style="font-size:14px;margin-right:4px"></i> Объявления</a>
+    <a href="#taxi-section" data-section="taxi-section" class="mob-nav-item intercity-mob" onclick="closeMobMenu()"><i class="ti ti-car" style="font-size:14px;margin-right:4px"></i> Такси · Межгород 🔥</a>
+    <a href="#services" data-section="services" class="mob-nav-item services-mob" onclick="closeMobMenu()"><i class="ti ti-briefcase" style="font-size:14px;margin-right:4px"></i> Наши услуги</a>
     <a href="#">Помощь</a>
   </div>
 </nav>
@@ -407,8 +416,11 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
   <span class="u-timer" id="utimer">29д 23:59:59</span>
 </div>
 
+<!-- TAXI ANCHOR -->
+<div id="taxi-section" style="position:absolute;margin-top:-70px"></div>
+
 <!-- HERO MOSAIC -->
-<div class="section" style="padding-top:20px">
+<div class="section" style="padding-top:20px;position:relative">
   <div class="hero-grid">
 
     <div class="hero-main">
@@ -443,7 +455,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
     </div>
 
     <!-- TAXI МЕЖГОРОД CARD -->
-    <div class="hero-taxi" id="taxiCard">
+    <div class="hero-taxi" id="taxiCard" style="scroll-margin-top:70px">
       <div class="taxi-tabs">
         <div class="taxi-tab active">🚗 Межгород</div>
         <div class="taxi-tab">🏙️ Город</div>
@@ -529,7 +541,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
 </div>
 
 <!-- ADS -->
-<div class="section" style="padding-top:24px" id="ads">
+<div class="section" style="padding-top:24px;scroll-margin-top:64px" id="ads">
   <div class="sec-head">
     <h2>Свежие <em style="color:var(--o)">объявления</em></h2>
     <div class="view-controls">
@@ -632,7 +644,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
 </div>
 
 <!-- B2B SERVICES SECTION -->
-<div class="section" style="padding-top:32px" id="services">
+<div class="section" style="padding-top:32px;scroll-margin-top:64px" id="services">
   <div class="services-header">
     <div class="services-header-icon">🏢</div>
     <div class="services-header-text">
@@ -1092,9 +1104,51 @@ setInterval(function(){
   ni++;
 },5500);
 
-function showSection(id){
-  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+function closeMobMenu(){
+  document.getElementById('mobmenu').classList.remove('open');
 }
+
+// SMOOTH SCROLL for nav links
+document.querySelectorAll('a[data-section]').forEach(function(link){
+  link.addEventListener('click', function(e){
+    var targetId = this.getAttribute('data-section');
+    // taxi-section has its own anchor div, others are real sections
+    var target = document.getElementById(targetId) || document.getElementById('taxiCard');
+    if(target){
+      e.preventDefault();
+      target.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  });
+});
+
+// ACTIVE NAV via IntersectionObserver
+var navSections = ['ads','services'];
+var sectionMap = {ads:'ads', services:'services', 'taxi-section':'taxi-section'};
+
+function setActiveNav(sectionId){
+  document.querySelectorAll('.nav-link-item').forEach(function(a){
+    a.classList.toggle('nav-active', a.dataset.section === sectionId);
+  });
+  document.querySelectorAll('.mob-nav-item').forEach(function(a){
+    a.classList.toggle('mob-active', a.dataset.section === sectionId);
+  });
+}
+
+// map DOM ids → nav data-section values
+var idToNav = {ads:'ads', services:'services', taxiCard:'taxi-section'};
+
+var observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      setActiveNav(idToNav[entry.target.id] || entry.target.id);
+    }
+  });
+}, {rootMargin:'-60px 0px -40% 0px', threshold:0});
+
+['ads','services','taxiCard'].forEach(function(id){
+  var el = document.getElementById(id);
+  if(el) observer.observe(el);
+});
 
 // Taxi tabs toggle
 document.querySelectorAll('.taxi-tab').forEach(function(tab){
