@@ -1,235 +1,327 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="hitech">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#6B21A8">
 <title>Алсат Бизнес — Цифровые решения для бизнеса Казахстана</title>
-<meta name="description" content="Создание сайтов, интернет-магазинов, ИИ-чат-боты, CRM-интеграция, SEO и умное видеонаблюдение для бизнеса Казахстана.">
+<meta name="description" content="Создание сайтов, интернет-магазинов, ИИ-чат-боты, CRM и видеонаблюдение для бизнеса Казахстана.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%236B21A8'/><text y='.9em' font-size='72' x='12'>💼</text></svg>">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+
+/* ── THEME VARIABLES ─────────────────────────────── */
 :root{
-  --pu:#8B5CF6;--pu2:#A78BFA;--pu-dark:#7C3AED;--pu-bg:rgba(124,58,237,0.15);
-  --t:#22D3EE;--t2:#67E8F9;--t-dark:#0891B2;
-  --g:#34D399;--g2:#6EE7B7;--g-dark:#059669;
-  --o:#FB923C;--o2:#FDBA74;
-  --b:#60A5FA;--b2:#93C5FD;
   --radius:12px;--radius-lg:16px;--radius-xl:20px;
-  --text:#E2E8F0;--text2:#94A3B8;--bg:#0A0C14;
-  --card:rgba(255,255,255,0.06);
-  --border:rgba(255,255,255,0.08);
+  /* Hitech defaults */
+  --th-bg:linear-gradient(160deg,#080B14 0%,#0D1022 35%,#0A0E1C 65%,#0C0A18 100%);
+  --th-dot:rgba(139,92,246,.055);
+  --th-orb1:rgba(124,58,237,.22);--th-orb2:rgba(6,182,212,.15);
+  --th-nav:rgba(8,10,20,0.84);--th-nav-b:rgba(139,92,246,0.18);
+  --th-text:#E2E8F0;--th-text2:#94A3B8;--th-text3:#4A5568;
+  --th-acc:#8B5CF6;--th-acc2:#A78BFA;--th-acc-dark:#6D28D9;
+  --th-logo:#E2E8F0;--th-sub-bg:rgba(124,58,237,0.18);--th-sub-c:#C4B5FD;--th-sub-b:rgba(167,139,250,0.25);
+  --th-back-bg:rgba(255,255,255,0.06);--th-back-b:rgba(255,255,255,0.08);--th-back-c:#94A3B8;
+  --th-badge-bg:rgba(139,92,246,0.18);--th-badge-c:#C4B5FD;--th-badge-b:rgba(167,139,250,0.2);
+  --th-hero-c:#F1F5F9;--th-hero-p:#94A3B8;
+  --th-em1:#A78BFA;--th-em2:#67E8F9;
+  --th-snav-bg:rgba(255,255,255,0.04);--th-snav-c:#4A5568;--th-snav-a:rgba(139,92,246,0.18);--th-snav-ac:#C4B5FD;
+  --th-label-c:#A78BFA;--th-h2:#F1F5F9;--th-desc:#64748B;
+  --th-card1:rgba(124,58,237,0.18);--th-card2:rgba(88,28,220,0.07);--th-card-b:rgba(139,92,246,0.22);
+  --th-card-top:rgba(167,139,250,0.32);--th-card-side:rgba(167,139,250,0.16);--th-shadow:rgba(0,0,0,0.45);
+  --th-feat-bg:rgba(139,92,246,0.16);--th-feat-c:#C4B5FD;--th-feat-b:rgba(167,139,250,0.2);
+  --th-icon-pu:linear-gradient(135deg,#A78BFA,#7C3AED);--th-icon-tl:linear-gradient(135deg,#22D3EE,#0891B2);--th-icon-bl:linear-gradient(135deg,#60A5FA,#2563EB);
+  --th-glow-pu:rgba(167,139,250,0.3);--th-glow-tl:rgba(34,211,238,0.25);--th-glow-bl:rgba(96,165,250,0.25);
+  --th-sc-title:#DDD6FE;--th-sc-desc:#94A3B8;
+  --th-btn-wa:linear-gradient(160deg,#25D366,#1ea85a);--th-btn-wa-s:#1a8a48;
+  --th-btn-tg:linear-gradient(160deg,#2CA5E0,#1a8cc4);--th-btn-tg-s:#1676a8;
+  --th-contact:linear-gradient(135deg,#1A1A2E 0%,#2D1B6E 100%);
+  --th-div:rgba(255,255,255,0.06);--th-footer:rgba(255,255,255,0.18);--th-footer-a:#8B5CF6;
 }
+
+/* ── WALNUT (Бежевый + Орех) — тёплый кремово-ореховый ── */
+[data-theme="walnut"]{
+  --th-bg:linear-gradient(160deg,#F2E8D4 0%,#EDE0C0 35%,#F0E6CC 65%,#EDE0C0 100%);
+  --th-dot:rgba(100,65,20,.04);
+  --th-orb1:rgba(140,90,30,.10);--th-orb2:rgba(180,130,60,.07);
+  --th-nav:rgba(245,234,210,0.90);--th-nav-b:rgba(120,80,30,0.15);
+  --th-text:#2A1A06;--th-text2:#6B4420;--th-text3:#9A7040;
+  --th-acc:#8B5A1A;--th-acc2:#B07830;--th-acc-dark:#5C3810;
+  --th-logo:#2A1A06;--th-sub-bg:rgba(120,80,30,0.12);--th-sub-c:#7A5020;--th-sub-b:rgba(140,90,30,0.2);
+  --th-back-bg:rgba(100,65,20,0.07);--th-back-b:rgba(120,80,30,0.12);--th-back-c:#7A5020;
+  --th-badge-bg:rgba(140,90,30,0.10);--th-badge-c:#7A5020;--th-badge-b:rgba(140,90,30,0.18);
+  --th-hero-c:#1A0E04;--th-hero-p:#8B6040;
+  --th-em1:#A07030;--th-em2:#C8A050;
+  --th-snav-bg:rgba(245,234,210,0.95);--th-snav-c:#9A7040;--th-snav-a:rgba(140,90,30,0.12);--th-snav-ac:#7A5020;
+  --th-label-c:#8B5A1A;--th-h2:#1A0E04;--th-desc:#7A5A30;
+  --th-card1:rgba(255,248,232,0.78);--th-card2:rgba(240,220,185,0.50);--th-card-b:rgba(160,110,50,0.18);
+  --th-card-top:rgba(255,255,255,0.90);--th-card-side:rgba(255,255,255,0.65);--th-shadow:rgba(80,50,15,0.12);
+  --th-feat-bg:rgba(160,110,50,0.10);--th-feat-c:#7A5020;--th-feat-b:rgba(140,90,30,0.16);
+  --th-icon-pu:linear-gradient(135deg,#A07030,#6B4010);--th-icon-tl:linear-gradient(135deg,#7A5020,#4A2C08);--th-icon-bl:linear-gradient(135deg,#8B5A1A,#5C3810);
+  --th-glow-pu:rgba(160,110,50,0.2);--th-glow-tl:rgba(120,80,30,0.18);--th-glow-bl:rgba(140,90,30,0.18);
+  --th-sc-title:#2A1A06;--th-sc-desc:#7A5A30;
+  --th-contact:linear-gradient(135deg,#2A1A06 0%,#3D2810 100%);
+  --th-div:rgba(120,80,30,0.12);--th-footer:rgba(100,65,20,0.35);--th-footer-a:#8B5A1A;
+}
+
+/* ── MAHOGANY (Красное дерево) ── */
+[data-theme="mahogany"]{
+  --th-bg:linear-gradient(160deg,#160808 0%,#1E0C0C 35%,#180A0A 65%,#150707 100%);
+  --th-dot:rgba(180,50,30,.04);
+  --th-orb1:rgba(160,40,25,.20);--th-orb2:rgba(120,20,10,.13);
+  --th-nav:rgba(14,5,5,0.88);--th-nav-b:rgba(200,60,30,0.18);
+  --th-text:#F5E0D5;--th-text2:#C09080;--th-text3:#7A5040;
+  --th-acc:#C84020;--th-acc2:#E87050;--th-acc-dark:#901808;
+  --th-logo:#F5E0D5;--th-sub-bg:rgba(180,50,25,0.18);--th-sub-c:#F0A090;--th-sub-b:rgba(200,70,40,0.25);
+  --th-back-bg:rgba(255,255,255,0.06);--th-back-b:rgba(255,200,180,0.08);--th-back-c:#C09080;
+  --th-badge-bg:rgba(160,45,25,0.20);--th-badge-c:#F0A090;--th-badge-b:rgba(200,70,40,0.22);
+  --th-hero-c:#FBF0E8;--th-hero-p:#C09080;
+  --th-em1:#E8705A;--th-em2:#F5C080;
+  --th-snav-bg:rgba(14,5,5,0.82);--th-snav-c:#7A5040;--th-snav-a:rgba(160,45,25,0.20);--th-snav-ac:#F0A090;
+  --th-label-c:#E87050;--th-h2:#FBF0E8;--th-desc:#7A5040;
+  --th-card1:rgba(160,45,25,0.18);--th-card2:rgba(100,20,10,0.08);--th-card-b:rgba(200,65,35,0.22);
+  --th-card-top:rgba(240,120,90,0.30);--th-card-side:rgba(220,100,70,0.15);--th-shadow:rgba(0,0,0,0.50);
+  --th-feat-bg:rgba(160,45,25,0.18);--th-feat-c:#F0A090;--th-feat-b:rgba(200,70,40,0.20);
+  --th-icon-pu:linear-gradient(135deg,#E87050,#C03018);--th-icon-tl:linear-gradient(135deg,#C87050,#902010);--th-icon-bl:linear-gradient(135deg,#D06040,#A02010);
+  --th-glow-pu:rgba(220,80,50,0.28);--th-glow-tl:rgba(180,60,35,0.22);--th-glow-bl:rgba(200,65,40,0.22);
+  --th-sc-title:#F5E0D5;--th-sc-desc:#C09080;
+  --th-contact:linear-gradient(135deg,#0E0404 0%,#2A100A 100%);
+  --th-div:rgba(200,65,35,0.10);--th-footer:rgba(255,255,255,0.15);--th-footer-a:#E87050;
+}
+
+/* ── CHROME (Серый + Хром) ── */
+[data-theme="chrome"]{
+  --th-bg:linear-gradient(160deg,#080809 0%,#0F0F12 35%,#0C0C0F 65%,#0A0A0D 100%);
+  --th-dot:rgba(180,185,200,.04);
+  --th-orb1:rgba(160,165,185,.10);--th-orb2:rgba(100,110,130,.07);
+  --th-nav:rgba(6,6,9,0.92);--th-nav-b:rgba(180,185,205,0.14);
+  --th-text:#E8EAEE;--th-text2:#9CA3AF;--th-text3:#4B5563;
+  --th-acc:#9CA3AF;--th-acc2:#D1D5DB;--th-acc-dark:#6B7280;
+  --th-logo:#E8EAEE;--th-sub-bg:rgba(180,185,205,0.12);--th-sub-c:#D1D5DB;--th-sub-b:rgba(200,205,220,0.18);
+  --th-back-bg:rgba(255,255,255,0.05);--th-back-b:rgba(255,255,255,0.07);--th-back-c:#9CA3AF;
+  --th-badge-bg:rgba(180,185,205,0.12);--th-badge-c:#D1D5DB;--th-badge-b:rgba(200,205,220,0.16);
+  --th-hero-c:#F3F4F6;--th-hero-p:#9CA3AF;
+  --th-em1:#D1D5DB;--th-em2:#9CA3AF;
+  --th-snav-bg:rgba(6,6,9,0.85);--th-snav-c:#4B5563;--th-snav-a:rgba(180,185,205,0.12);--th-snav-ac:#D1D5DB;
+  --th-label-c:#9CA3AF;--th-h2:#F3F4F6;--th-desc:#4B5563;
+  --th-card1:rgba(180,185,205,0.10);--th-card2:rgba(100,110,130,0.04);--th-card-b:rgba(200,205,220,0.14);
+  --th-card-top:rgba(255,255,255,0.22);--th-card-side:rgba(255,255,255,0.10);--th-shadow:rgba(0,0,0,0.55);
+  --th-feat-bg:rgba(180,185,205,0.10);--th-feat-c:#D1D5DB;--th-feat-b:rgba(200,205,220,0.14);
+  --th-icon-pu:linear-gradient(135deg,#D1D5DB,#9CA3AF);--th-icon-tl:linear-gradient(135deg,#B0B8C8,#6B7280);--th-icon-bl:linear-gradient(135deg,#C8D0DC,#7A8290);
+  --th-glow-pu:rgba(220,225,235,0.18);--th-glow-tl:rgba(180,190,210,0.14);--th-glow-bl:rgba(200,208,220,0.15);
+  --th-sc-title:#E8EAEE;--th-sc-desc:#9CA3AF;
+  --th-contact:linear-gradient(135deg,#0A0A0D 0%,#18191F 100%);
+  --th-div:rgba(255,255,255,0.05);--th-footer:rgba(255,255,255,0.15);--th-footer-a:#9CA3AF;
+}
+
+/* ── LEATHER (Кожа — Коньяк) ── */
+[data-theme="leather"]{
+  --th-bg:linear-gradient(160deg,#120A04 0%,#1C1008 35%,#160C06 65%,#110904 100%);
+  --th-dot:rgba(180,130,50,.04);
+  --th-orb1:rgba(180,130,50,.18);--th-orb2:rgba(140,90,25,.12);
+  --th-nav:rgba(10,6,2,0.90);--th-nav-b:rgba(200,145,55,0.18);
+  --th-text:#F5DEB3;--th-text2:#C8A060;--th-text3:#7A5A28;
+  --th-acc:#C8902A;--th-acc2:#E8C060;--th-acc-dark:#9A6810;
+  --th-logo:#F5DEB3;--th-sub-bg:rgba(180,130,45,0.18);--th-sub-c:#E8C060;--th-sub-b:rgba(210,160,60,0.25);
+  --th-back-bg:rgba(255,255,255,0.05);--th-back-b:rgba(220,170,70,0.08);--th-back-c:#C8A060;
+  --th-badge-bg:rgba(180,130,45,0.18);--th-badge-c:#E8C060;--th-badge-b:rgba(210,160,60,0.22);
+  --th-hero-c:#FFF4DC;--th-hero-p:#C8A060;
+  --th-em1:#E8C060;--th-em2:#F5DEB3;
+  --th-snav-bg:rgba(10,6,2,0.85);--th-snav-c:#7A5A28;--th-snav-a:rgba(180,130,45,0.18);--th-snav-ac:#E8C060;
+  --th-label-c:#C8902A;--th-h2:#FFF4DC;--th-desc:#7A5A28;
+  --th-card1:rgba(180,130,45,0.16);--th-card2:rgba(120,80,18,0.07);--th-card-b:rgba(210,155,55,0.22);
+  --th-card-top:rgba(240,190,80,0.28);--th-card-side:rgba(220,165,60,0.14);--th-shadow:rgba(0,0,0,0.55);
+  --th-feat-bg:rgba(180,130,45,0.16);--th-feat-c:#E8C060;--th-feat-b:rgba(210,160,60,0.20);
+  --th-icon-pu:linear-gradient(135deg,#E8C060,#C8902A);--th-icon-tl:linear-gradient(135deg,#D4A840,#9A6818);--th-icon-bl:linear-gradient(135deg,#DDB848,#AA7820);
+  --th-glow-pu:rgba(230,190,80,0.25);--th-glow-tl:rgba(200,160,55,0.20);--th-glow-bl:rgba(215,170,60,0.20);
+  --th-sc-title:#F5DEB3;--th-sc-desc:#C8A060;
+  --th-contact:linear-gradient(135deg,#0A0604 0%,#1C1008 100%);
+  --th-div:rgba(200,145,55,0.10);--th-footer:rgba(255,255,255,0.15);--th-footer-a:#C8902A;
+}
+
+/* ── OBSIDIAN (Обсидиан + Золото) ── */
+[data-theme="obsidian"]{
+  --th-bg:linear-gradient(160deg,#020202 0%,#060508 35%,#040305 65%,#030204 100%);
+  --th-dot:rgba(200,165,0,.025);
+  --th-orb1:rgba(200,160,0,.12);--th-orb2:rgba(150,100,0,.08);
+  --th-nav:rgba(2,1,1,0.94);--th-nav-b:rgba(210,170,10,0.18);
+  --th-text:#F5F0E0;--th-text2:#B8A870;--th-text3:#6A5828;
+  --th-acc:#D4AA00;--th-acc2:#F0CC30;--th-acc-dark:#A07800;
+  --th-logo:#F5F0E0;--th-sub-bg:rgba(200,165,0,0.15);--th-sub-c:#F0CC30;--th-sub-b:rgba(220,180,10,0.22);
+  --th-back-bg:rgba(255,255,255,0.04);--th-back-b:rgba(230,185,15,0.07);--th-back-c:#B8A870;
+  --th-badge-bg:rgba(200,165,0,0.15);--th-badge-c:#F0CC30;--th-badge-b:rgba(220,180,10,0.20);
+  --th-hero-c:#FDFAF0;--th-hero-p:#B8A870;
+  --th-em1:#F0CC30;--th-em2:#FFE070;
+  --th-snav-bg:rgba(2,1,1,0.90);--th-snav-c:#6A5828;--th-snav-a:rgba(200,165,0,0.15);--th-snav-ac:#F0CC30;
+  --th-label-c:#D4AA00;--th-h2:#FDFAF0;--th-desc:#6A5828;
+  --th-card1:rgba(200,165,0,0.10);--th-card2:rgba(140,100,0,0.04);--th-card-b:rgba(220,180,10,0.18);
+  --th-card-top:rgba(240,200,20,0.25);--th-card-side:rgba(220,175,10,0.12);--th-shadow:rgba(0,0,0,0.65);
+  --th-feat-bg:rgba(200,165,0,0.12);--th-feat-c:#F0CC30;--th-feat-b:rgba(220,180,10,0.18);
+  --th-icon-pu:linear-gradient(135deg,#F0CC30,#D4AA00);--th-icon-tl:linear-gradient(135deg,#DDB820,#A87808);--th-icon-bl:linear-gradient(135deg,#E8C428,#C09200);
+  --th-glow-pu:rgba(240,200,20,0.22);--th-glow-tl:rgba(210,170,10,0.18);--th-glow-bl:rgba(220,180,15,0.18);
+  --th-sc-title:#F5F0E0;--th-sc-desc:#B8A870;
+  --th-contact:linear-gradient(135deg,#020202 0%,#0C0906 100%);
+  --th-div:rgba(220,180,10,0.08);--th-footer:rgba(255,255,255,0.12);--th-footer-a:#D4AA00;
+}
+
+/* ── BASE STYLES ─────────────────────────────────── */
 html{scroll-behavior:smooth}
 body{
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;
-  background:linear-gradient(160deg,#080B14 0%,#0D1022 35%,#0A0E1C 65%,#0C0A18 100%);
-  color:var(--text);
-  min-height:100vh;
+  background:var(--th-bg);color:var(--th-text);min-height:100vh;
 }
-/* Dot-grid hi-tech overlay */
 body::before{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:radial-gradient(rgba(139,92,246,.06) 1px,transparent 1px);
-  background-size:32px 32px;
+  background-image:radial-gradient(var(--th-dot) 1px,transparent 1px);
+  background-size:30px 30px;
 }
-/* Glow orbs */
 body::after{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background:
-    radial-gradient(ellipse 55% 45% at 15% 15%, rgba(124,58,237,.22) 0%, transparent 65%),
-    radial-gradient(ellipse 45% 40% at 85% 75%, rgba(6,182,212,.16) 0%, transparent 65%),
-    radial-gradient(ellipse 40% 35% at 55% 50%, rgba(59,130,246,.10) 0%, transparent 60%);
+    radial-gradient(ellipse 55% 45% at 15% 15%, var(--th-orb1) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 40% at 85% 75%, var(--th-orb2) 0%, transparent 65%);
 }
 
-/* NAV */
+/* ── NAV ─────────────────────────────────────────── */
 nav{
   position:sticky;top:0;z-index:100;
-  background:rgba(8,10,20,0.82);
-  backdrop-filter:blur(24px) saturate(180%);
-  -webkit-backdrop-filter:blur(24px) saturate(180%);
-  border-bottom:1px solid rgba(139,92,246,0.18);
-  box-shadow:0 2px 24px rgba(0,0,0,0.4),0 1px 0 rgba(139,92,246,0.12);
-  padding:0 20px;
-  height:60px;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:var(--th-nav);
+  backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid var(--th-nav-b);
+  box-shadow:0 2px 24px rgba(0,0,0,0.35);
+  padding:0 16px;
+  height:60px;display:flex;align-items:center;gap:8px;
 }
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.nav-logo .logo-icon{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--pu2),var(--pu-dark));display:flex;align-items:center;justify-content:center;font-size:18px}
-.nav-logo .logo-text{font-size:16px;font-weight:800;color:#E2E8F0}
-.nav-logo .logo-sub{font-size:11px;font-weight:600;color:#A78BFA;background:rgba(124,58,237,0.18);padding:2px 7px;border-radius:6px;border:1px solid rgba(167,139,250,0.25)}
-.nav-back{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#94A3B8;text-decoration:none;padding:6px 12px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);transition:.15s}
-.nav-back:hover{background:rgba(255,255,255,0.1);color:#E2E8F0}
-.nav-btns{display:flex;gap:8px}
-.nav-wa{background:linear-gradient(160deg,#25D366,#1ea85a);color:#fff;border:none;border-radius:var(--radius);padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;box-shadow:0 3px 0 #1a8a48,0 4px 10px rgba(0,0,0,0.15)}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0}
+.nav-logo .logo-icon{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--th-acc2),var(--th-acc-dark));display:flex;align-items:center;justify-content:center;font-size:17px}
+.nav-logo .logo-text{font-size:15px;font-weight:800;color:var(--th-logo)}
+.nav-logo .logo-sub{font-size:10px;font-weight:700;color:var(--th-sub-c);background:var(--th-sub-bg);padding:2px 6px;border-radius:6px;border:1px solid var(--th-sub-b)}
+.nav-back{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--th-back-c);text-decoration:none;padding:5px 10px;border-radius:9px;background:var(--th-back-bg);border:1px solid var(--th-back-b);transition:.15s;flex-shrink:0}
+.nav-back:hover{opacity:.8}
+.nav-spacer{flex:1}
+
+/* Language switcher */
+.lang-sw{display:flex;gap:2px;flex-shrink:0}
+.lang-btn{font-size:11px;font-weight:800;padding:5px 9px;border-radius:8px;border:1px solid transparent;cursor:pointer;background:transparent;color:var(--th-text3);transition:.12s}
+.lang-btn.active,.lang-btn:hover{background:var(--th-badge-bg);color:var(--th-badge-c);border-color:var(--th-badge-b)}
+
+/* Theme switcher */
+.theme-sw{display:flex;align-items:center;gap:3px;flex-shrink:0}
+.theme-swatch{width:20px;height:20px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.15s;flex-shrink:0}
+.theme-swatch:hover,.theme-swatch.active{border-color:var(--th-text);transform:scale(1.2)}
+.swatch-hitech{background:linear-gradient(135deg,#8B5CF6,#06B6D4)}
+.swatch-walnut{background:linear-gradient(135deg,#D4A056,#7A4A1A)}
+.swatch-mahogany{background:linear-gradient(135deg,#C84020,#F5C080)}
+.swatch-chrome{background:linear-gradient(135deg,#9CA3AF,#374151)}
+.swatch-leather{background:linear-gradient(135deg,#C8902A,#F5DEB3)}
+.swatch-obsidian{background:linear-gradient(135deg,#D4AA00,#020202)}
+
+/* WA / TG nav buttons */
+.nav-wa,.nav-tg{border:none;border-radius:var(--radius);padding:7px 11px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;text-decoration:none;flex-shrink:0;transition:.1s}
+.nav-wa{background:linear-gradient(160deg,#25D366,#1ea85a);color:#fff;box-shadow:0 3px 0 #1a8a48}
 .nav-wa:active{transform:translateY(2px);box-shadow:0 1px 0 #1a8a48}
-.nav-tg{background:linear-gradient(160deg,#2CA5E0,#1a8cc4);color:#fff;border:none;border-radius:var(--radius);padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;box-shadow:0 3px 0 #1676a8,0 4px 10px rgba(0,0,0,0.15)}
+.nav-tg{background:linear-gradient(160deg,#2CA5E0,#1a8cc4);color:#fff;box-shadow:0 3px 0 #1676a8}
 .nav-tg:active{transform:translateY(2px);box-shadow:0 1px 0 #1676a8}
-@media(max-width:540px){.nav-back span{display:none}.nav-wa span,.nav-tg span{display:none}.nav-wa,.nav-tg{padding:8px 10px}}
+@media(max-width:600px){.nav-back span,.nav-wa span,.nav-tg span{display:none}.nav-wa,.nav-tg{padding:7px 9px}}
+@media(max-width:420px){.nav-tg{display:none}}
 
-/* HERO */
-.hero{
-  position:relative;z-index:1;
-  max-width:900px;margin:0 auto;
-  padding:48px 20px 32px;
-  text-align:center;
-}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(139,92,246,0.15);border:1px solid rgba(167,139,250,0.3);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;color:#C4B5FD;margin-bottom:18px}
-.hero h1{font-size:clamp(26px,5vw,44px);font-weight:900;line-height:1.15;margin-bottom:14px;letter-spacing:-0.5px;color:#F1F5F9}
-.hero h1 em{font-style:normal;background:linear-gradient(135deg,#A78BFA,#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{font-size:16px;color:#94A3B8;max-width:560px;margin:0 auto 28px;line-height:1.6}
+/* ── HERO ─────────────────────────────────────────── */
+.hero{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:44px 20px 28px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--th-badge-bg);border:1px solid var(--th-badge-b);border-radius:20px;padding:4px 13px;font-size:11px;font-weight:700;color:var(--th-badge-c);margin-bottom:16px}
+.hero h1{font-size:clamp(24px,5vw,42px);font-weight:900;line-height:1.15;margin-bottom:13px;letter-spacing:-.5px;color:var(--th-hero-c)}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--th-em1),var(--th-em2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:15px;color:var(--th-hero-p);max-width:550px;margin:0 auto 26px;line-height:1.6}
 .hero-cta{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
-.btn-hero-wa{background:linear-gradient(160deg,#25D366,#1ea85a);color:#fff;border:none;border-radius:var(--radius-lg);padding:13px 22px;font-size:15px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;box-shadow:inset 0 1px 0 rgba(255,255,255,0.35),0 4px 0 #1a8a48,0 5px 14px rgba(0,0,0,0.18);transition:.1s}
-.btn-hero-wa:active{transform:translateY(3px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 1px 0 #1a8a48}
-.btn-hero-tg{background:linear-gradient(160deg,#2CA5E0,#1a8cc4);color:#fff;border:none;border-radius:var(--radius-lg);padding:13px 22px;font-size:15px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;box-shadow:inset 0 1px 0 rgba(255,255,255,0.35),0 4px 0 #1676a8,0 5px 14px rgba(0,0,0,0.18);transition:.1s}
-.btn-hero-tg:active{transform:translateY(3px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 1px 0 #1676a8}
+.btn-hero-wa{background:linear-gradient(160deg,#25D366,#1ea85a);color:#fff;border:none;border-radius:var(--radius-lg);padding:12px 20px;font-size:14px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 4px 0 #1a8a48,0 5px 14px rgba(0,0,0,0.2);transition:.1s}
+.btn-hero-wa:active{transform:translateY(3px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.25),0 1px 0 #1a8a48}
+.btn-hero-tg{background:linear-gradient(160deg,#2CA5E0,#1a8cc4);color:#fff;border:none;border-radius:var(--radius-lg);padding:12px 20px;font-size:14px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 4px 0 #1676a8,0 5px 14px rgba(0,0,0,0.2);transition:.1s}
+.btn-hero-tg:active{transform:translateY(3px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.25),0 1px 0 #1676a8}
 
-/* SERVICE NAV */
+/* ── SERVICE NAV ─────────────────────────────────── */
 .service-nav{
   position:sticky;top:60px;z-index:90;
-  background:rgba(8,10,20,0.78);
-  backdrop-filter:blur(20px) saturate(180%);
-  -webkit-backdrop-filter:blur(20px) saturate(180%);
-  border-bottom:1px solid rgba(139,92,246,0.12);
-  padding:0 20px;
-  display:flex;align-items:center;justify-content:center;gap:4px;height:50px;
+  background:var(--th-nav);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--th-div);
+  padding:0 16px;display:flex;align-items:center;justify-content:center;gap:2px;height:48px;
   overflow-x:auto;-webkit-overflow-scrolling:touch;
 }
 .service-nav::-webkit-scrollbar{display:none}
-.snav-btn{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:6px 14px;border-radius:20px;
-  font-size:13px;font-weight:700;
-  color:#64748B;text-decoration:none;
-  background:transparent;border:none;cursor:pointer;
-  white-space:nowrap;transition:.15s;
-}
-.snav-btn:hover,.snav-btn.active{background:rgba(139,92,246,0.18);color:#C4B5FD}
-.snav-btn i{font-size:15px}
+.snav-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;border-radius:18px;font-size:12px;font-weight:700;color:var(--th-snav-c);text-decoration:none;background:transparent;border:none;cursor:pointer;white-space:nowrap;transition:.15s}
+.snav-btn:hover,.snav-btn.active{background:var(--th-snav-a);color:var(--th-snav-ac)}
+.snav-btn i{font-size:14px}
 
-/* SECTIONS */
-.section{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:40px 20px}
-.section-header{margin-bottom:28px}
-.section-label{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
-.section-label .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
-.section h2{font-size:clamp(20px,3.5vw,28px);font-weight:900;line-height:1.2;margin-bottom:8px;color:#F1F5F9}
-.section-desc{font-size:14px;color:#64748B;line-height:1.6;max-width:600px}
+/* ── SECTIONS ────────────────────────────────────── */
+.section{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:38px 20px}
+.section-header{margin-bottom:26px}
+.section-label{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;color:var(--th-label-c)}
+.section-label .dot{width:7px;height:7px;border-radius:50%;display:inline-block;background:var(--th-acc)}
+.section h2{font-size:clamp(19px,3.5vw,26px);font-weight:900;line-height:1.2;margin-bottom:7px;color:var(--th-h2)}
+.section-desc{font-size:13.5px;color:var(--th-desc);line-height:1.6;max-width:580px}
 
-/* SERVICE CARDS GRID */
-.service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-@media(max-width:600px){.service-grid{grid-template-columns:1fr}}
+/* ── CARDS (all themed) ──────────────────────────── */
+.service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}
+@media(max-width:580px){.service-grid{grid-template-columns:1fr}}
+
 .service-card{
-  border-radius:var(--radius-xl);padding:22px;
-  display:flex;flex-direction:column;gap:10px;
-  backdrop-filter:blur(28px) saturate(180%);
-  -webkit-backdrop-filter:blur(28px) saturate(180%);
-  border:none;cursor:default;
-  transition:transform .2s,box-shadow .2s;
+  border-radius:var(--radius-xl);padding:20px;
+  display:flex;flex-direction:column;gap:9px;
+  background:linear-gradient(145deg,var(--th-card1),var(--th-card2));
+  border:1px solid var(--th-card-b);
+  box-shadow:inset 0 1.5px 0 var(--th-card-top),inset 1.5px 0 0 var(--th-card-side),0 6px 24px var(--th-shadow);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  transition:transform .2s;
 }
 .service-card:hover{transform:translateY(-3px)}
-.sc-icon{width:48px;height:48px;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.sc-badge{font-size:10px;font-weight:800;padding:2px 8px;border-radius:8px;width:fit-content}
-.sc-title{font-size:16px;font-weight:800;line-height:1.25}
-.sc-desc{font-size:12.5px;line-height:1.55;opacity:.82;flex:1}
-.sc-price{font-size:13px;font-weight:800;margin-top:4px}
-.sc-btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:7px;
-  padding:10px 16px;border-radius:var(--radius);
-  font-size:13px;font-weight:700;cursor:pointer;
-  text-decoration:none;border:none;margin-top:4px;
-  transition:.1s;
-}
 
-/* Purple cards — websites */
-.sc-pu{background:linear-gradient(145deg,rgba(124,58,237,0.18) 0%,rgba(88,28,220,0.08) 100%);box-shadow:inset 0 1.5px 0 rgba(167,139,250,0.35),inset 1.5px 0 0 rgba(167,139,250,0.2),inset -1.5px 0 0 rgba(0,0,0,0.2),inset 0 -1.5px 0 rgba(0,0,0,0.25),0 6px 24px rgba(0,0,0,0.35),0 2px 8px rgba(124,58,237,0.12);border:1px solid rgba(139,92,246,0.2)}
-.sc-pu .sc-icon{background:linear-gradient(135deg,#A78BFA,#7C3AED);color:#fff;box-shadow:0 0 18px rgba(167,139,250,0.35)}
-.sc-pu .sc-badge{background:rgba(139,92,246,0.2);color:#C4B5FD;border:1px solid rgba(167,139,250,0.25)}
-.sc-pu .sc-title{color:#DDD6FE}
-.sc-pu .sc-desc{color:#94A3B8}
-.sc-pu .sc-price{color:#A78BFA}
-.sc-pu .sc-btn{background:linear-gradient(160deg,#8B5CF6,#6D28D9);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,0.2),0 3px 0 #4c1d95,0 4px 12px rgba(109,40,217,0.4)}
-.sc-pu .sc-btn:active{transform:translateY(2px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.15),0 1px 0 #4c1d95}
-
-/* Teal cards — AI */
-.sc-tl{background:linear-gradient(145deg,rgba(6,182,212,0.15) 0%,rgba(8,145,178,0.07) 100%);box-shadow:inset 0 1.5px 0 rgba(103,232,249,0.3),inset 1.5px 0 0 rgba(103,232,249,0.15),inset -1.5px 0 0 rgba(0,0,0,0.2),inset 0 -1.5px 0 rgba(0,0,0,0.25),0 6px 24px rgba(0,0,0,0.35),0 2px 8px rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.18)}
-.sc-tl .sc-icon{background:linear-gradient(135deg,#22D3EE,#0891B2);color:#fff;box-shadow:0 0 18px rgba(34,211,238,0.3)}
-.sc-tl .sc-badge{background:rgba(6,182,212,0.18);color:#67E8F9;border:1px solid rgba(34,211,238,0.22)}
-.sc-tl .sc-title{color:#A5F3FC}
-.sc-tl .sc-desc{color:#94A3B8}
-.sc-tl .sc-price{color:#22D3EE}
-.sc-tl .sc-btn{background:linear-gradient(160deg,#06B6D4,#0E7490);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,0.2),0 3px 0 #0a5269,0 4px 12px rgba(6,182,212,0.35)}
-.sc-tl .sc-btn:active{transform:translateY(2px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.15),0 1px 0 #0a5269}
-
-/* Blue cards — CCTV */
-.sc-bl{background:linear-gradient(145deg,rgba(37,99,235,0.15) 0%,rgba(29,78,216,0.07) 100%);box-shadow:inset 0 1.5px 0 rgba(147,197,253,0.3),inset 1.5px 0 0 rgba(147,197,253,0.15),inset -1.5px 0 0 rgba(0,0,0,0.2),inset 0 -1.5px 0 rgba(0,0,0,0.25),0 6px 24px rgba(0,0,0,0.35),0 2px 8px rgba(37,99,235,0.1);border:1px solid rgba(59,130,246,0.18)}
-.sc-bl .sc-icon{background:linear-gradient(135deg,#60A5FA,#2563EB);color:#fff;box-shadow:0 0 18px rgba(96,165,250,0.3)}
-.sc-bl .sc-badge{background:rgba(37,99,235,0.18);color:#93C5FD;border:1px solid rgba(96,165,250,0.22)}
-.sc-bl .sc-title{color:#BFDBFE}
-.sc-bl .sc-desc{color:#94A3B8}
-.sc-bl .sc-price{color:#60A5FA}
-.sc-bl .sc-btn{background:linear-gradient(160deg,#3B82F6,#1D4ED8);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,0.2),0 3px 0 #1e40af,0 4px 12px rgba(37,99,235,0.4)}
-.sc-bl .sc-btn:active{transform:translateY(2px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.15),0 1px 0 #1e40af}
-
-/* FULL-WIDTH FEATURE CARD */
 .feature-card{
-  border-radius:var(--radius-xl);padding:28px;
-  display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;
-  backdrop-filter:blur(28px) saturate(180%);
-  -webkit-backdrop-filter:blur(28px) saturate(180%);
-  margin-bottom:14px;
+  border-radius:var(--radius-xl);padding:26px;
+  display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;
+  background:linear-gradient(135deg,var(--th-card1),var(--th-card2));
+  border:1px solid var(--th-card-b);
+  box-shadow:inset 0 1.5px 0 var(--th-card-top),inset 1.5px 0 0 var(--th-card-side),0 8px 32px var(--th-shadow);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  margin-bottom:13px;
 }
-.feature-card.fc-pu{background:linear-gradient(135deg,rgba(124,58,237,0.22) 0%,rgba(88,28,220,0.08) 100%);box-shadow:inset 0 1.5px 0 rgba(167,139,250,0.35),inset 1.5px 0 0 rgba(167,139,250,0.18),inset -1.5px 0 0 rgba(0,0,0,0.22),inset 0 -1.5px 0 rgba(0,0,0,0.28),0 8px 32px rgba(0,0,0,0.4),0 0 40px rgba(124,58,237,0.08);border:1px solid rgba(139,92,246,0.22)}
-.feature-card.fc-tl{background:linear-gradient(135deg,rgba(6,182,212,0.18) 0%,rgba(8,145,178,0.07) 100%);box-shadow:inset 0 1.5px 0 rgba(103,232,249,0.3),inset 1.5px 0 0 rgba(103,232,249,0.15),inset -1.5px 0 0 rgba(0,0,0,0.22),inset 0 -1.5px 0 rgba(0,0,0,0.28),0 8px 32px rgba(0,0,0,0.4),0 0 40px rgba(6,182,212,0.07);border:1px solid rgba(6,182,212,0.2)}
-.feature-card.fc-bl{background:linear-gradient(135deg,rgba(37,99,235,0.18) 0%,rgba(29,78,216,0.07) 100%);box-shadow:inset 0 1.5px 0 rgba(147,197,253,0.3),inset 1.5px 0 0 rgba(147,197,253,0.15),inset -1.5px 0 0 rgba(0,0,0,0.22),inset 0 -1.5px 0 rgba(0,0,0,0.28),0 8px 32px rgba(0,0,0,0.4),0 0 40px rgba(37,99,235,0.07);border:1px solid rgba(59,130,246,0.2)}
-.fc-content{flex:1;min-width:240px}
-.fc-icon{width:60px;height:60px;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
-.fc-icon.pu{background:linear-gradient(135deg,var(--pu2),var(--pu-dark));color:#fff}
-.fc-icon.tl{background:linear-gradient(135deg,var(--t2),var(--t-dark));color:#fff}
-.fc-icon.bl{background:linear-gradient(135deg,var(--b2),var(--b));color:#fff}
-.fc-title{font-size:18px;font-weight:900;margin-bottom:6px;color:#F1F5F9}
-.fc-desc{font-size:13.5px;line-height:1.6;color:#94A3B8;margin-bottom:14px}
-.fc-features{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
-.fc-feat{font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:10px}
-.fc-feat.pu{background:rgba(139,92,246,0.18);color:#C4B5FD;border:1px solid rgba(167,139,250,0.22)}
-.fc-feat.tl{background:rgba(6,182,212,0.15);color:#67E8F9;border:1px solid rgba(34,211,238,0.2)}
-.fc-feat.bl{background:rgba(37,99,235,0.15);color:#93C5FD;border:1px solid rgba(96,165,250,0.2)}
+.fc-content{flex:1;min-width:220px}
+
+/* Service icon - keeps identity color per service */
+.sc-icon,.fc-icon{width:46px;height:46px;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.fc-icon{width:56px;height:56px;font-size:26px}
+.sc-icon.pu,.fc-icon.pu{background:var(--th-icon-pu);color:#fff;box-shadow:0 0 16px var(--th-glow-pu)}
+.sc-icon.tl,.fc-icon.tl{background:var(--th-icon-tl);color:#fff;box-shadow:0 0 16px var(--th-glow-tl)}
+.sc-icon.bl,.fc-icon.bl{background:var(--th-icon-bl);color:#fff;box-shadow:0 0 16px var(--th-glow-bl)}
+
+.sc-badge{font-size:10px;font-weight:800;padding:2px 8px;border-radius:8px;width:fit-content;background:var(--th-badge-bg);color:var(--th-badge-c);border:1px solid var(--th-badge-b)}
+.sc-title{font-size:15px;font-weight:800;line-height:1.25;color:var(--th-sc-title)}
+.sc-desc{font-size:12px;line-height:1.55;flex:1;color:var(--th-sc-desc)}
+.sc-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 14px;border-radius:var(--radius);font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;border:none;margin-top:4px;background:linear-gradient(160deg,#25D366,#1ea85a);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,0.25),0 3px 0 #1a8a48,0 4px 10px rgba(0,0,0,0.2);transition:.1s}
+.sc-btn:active{transform:translateY(2px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.15),0 1px 0 #1a8a48}
+
+.fc-title{font-size:17px;font-weight:900;margin-bottom:5px;color:var(--th-sc-title)}
+.fc-desc{font-size:13px;line-height:1.6;color:var(--th-sc-desc);margin-bottom:13px}
+.fc-features{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.fc-feat{font-size:11px;font-weight:700;padding:3px 9px;border-radius:9px;background:var(--th-feat-bg);color:var(--th-feat-c);border:1px solid var(--th-feat-b)}
 .fc-btns{display:flex;gap:8px;flex-wrap:wrap}
-.fc-btn-wa,.fc-btn-tg{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:var(--radius);font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;border:none;transition:.1s}
-.fc-btn-wa{background:linear-gradient(160deg,#25D366,#1ea85a);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 3px 0 #1a8a48,0 4px 10px rgba(0,0,0,0.15)}
-.fc-btn-wa:active{transform:translateY(2px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.2),0 1px 0 #1a8a48}
-.fc-btn-tg{background:linear-gradient(160deg,#2CA5E0,#1a8cc4);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 3px 0 #1676a8,0 4px 10px rgba(0,0,0,0.15)}
-.fc-btn-tg:active{transform:translateY(2px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.2),0 1px 0 #1676a8}
+.fc-btn-wa,.fc-btn-tg{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:var(--radius);font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;border:none;transition:.1s}
+.fc-btn-wa{background:linear-gradient(160deg,#25D366,#1ea85a);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,0.28),0 3px 0 #1a8a48,0 4px 10px rgba(0,0,0,0.18)}
+.fc-btn-wa:active{transform:translateY(2px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),0 1px 0 #1a8a48}
+.fc-btn-tg{background:linear-gradient(160deg,#2CA5E0,#1a8cc4);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,0.28),0 3px 0 #1676a8,0 4px 10px rgba(0,0,0,0.18)}
+.fc-btn-tg:active{transform:translateY(2px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),0 1px 0 #1676a8}
 
-/* DIVIDER */
-.section-divider{border:none;border-top:1px solid rgba(255,255,255,0.06);max-width:860px;margin:0 auto}
-
-/* CONTACT STRIP */
-.contact-strip{
-  position:relative;z-index:1;
-  max-width:900px;margin:0 auto;padding:0 20px 48px;
-}
-.contact-box{
-  background:linear-gradient(135deg,#1A1A2E 0%,#2D1B6E 100%);
-  border-radius:var(--radius-xl);
-  padding:32px;
-  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
-  box-shadow:0 16px 48px rgba(109,40,217,0.25),inset 0 1px 0 rgba(255,255,255,0.1);
-}
-.contact-text h3{font-size:20px;font-weight:900;color:#fff;margin-bottom:6px}
-.contact-text p{font-size:13px;color:rgba(255,255,255,.6);line-height:1.5}
+/* ── DIVIDER, CONTACT, FOOTER ────────────────────── */
+.section-divider{border:none;border-top:1px solid var(--th-div);max-width:860px;margin:0 auto}
+.contact-strip{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:0 20px 44px}
+.contact-box{background:var(--th-contact);border-radius:var(--radius-xl);padding:28px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;border:1px solid var(--th-card-b);box-shadow:0 16px 48px var(--th-shadow)}
+.contact-text h3{font-size:18px;font-weight:900;color:var(--th-hero-c);margin-bottom:5px}
+.contact-text p{font-size:12px;color:var(--th-hero-p);line-height:1.5}
 .contact-btns{display:flex;gap:8px;flex-wrap:wrap}
+footer{position:relative;z-index:1;text-align:center;padding:20px 20px 28px;font-size:11px;color:var(--th-footer)}
+footer a{color:var(--th-footer-a);text-decoration:none;font-weight:600}
+[id]{scroll-margin-top:114px}
 
-/* FOOTER */
-footer{
-  position:relative;z-index:1;
-  text-align:center;padding:24px 20px 32px;
-  font-size:12px;color:rgba(255,255,255,0.2);
-}
-footer a{color:#8B5CF6;text-decoration:none;font-weight:600}
-footer a:hover{text-decoration:underline}
-
-/* SCROLL ANCHOR OFFSET */
-[id]{scroll-margin-top:116px}
+/* i18n hidden */
+[data-lang]{display:none}
 </style>
 </head>
 <body>
@@ -238,115 +330,125 @@ footer a:hover{text-decoration:underline}
 <nav>
   <a href="/" class="nav-logo">
     <div class="logo-icon">💼</div>
-    <div>
-      <div class="logo-text">АЛСАТ</div>
-    </div>
+    <div><div class="logo-text">АЛСАТ</div></div>
     <div class="logo-sub">Бизнес</div>
   </a>
   <a href="https://alsat.asia" class="nav-back"><i class="ti ti-arrow-left"></i><span>На сайт</span></a>
-  <div class="nav-btns">
-    <a href="https://wa.me/77080802588?text=Здравствуйте! Хочу узнать про услуги для бизнеса" target="_blank" class="nav-wa">
-      <i class="ti ti-brand-whatsapp"></i><span>WhatsApp</span>
-    </a>
-    <a href="https://t.me/alsat_kz" target="_blank" class="nav-tg">
-      <i class="ti ti-brand-telegram"></i><span>Telegram</span>
-    </a>
+  <div class="nav-spacer"></div>
+
+  <!-- Language -->
+  <div class="lang-sw" id="langSw">
+    <button class="lang-btn active" onclick="setLang('ru')">РУ</button>
+    <button class="lang-btn" onclick="setLang('kz')">ҚЗ</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
   </div>
+
+  <!-- Themes -->
+  <div class="theme-sw" id="themeSw">
+    <div class="theme-swatch swatch-hitech active" title="Хайтек" onclick="setTheme('hitech')"></div>
+    <div class="theme-swatch swatch-walnut" title="Орех" onclick="setTheme('walnut')"></div>
+    <div class="theme-swatch swatch-mahogany" title="Красное дерево" onclick="setTheme('mahogany')"></div>
+    <div class="theme-swatch swatch-chrome" title="Хром" onclick="setTheme('chrome')"></div>
+    <div class="theme-swatch swatch-leather" title="Кожа" onclick="setTheme('leather')"></div>
+    <div class="theme-swatch swatch-obsidian" title="Обсидиан" onclick="setTheme('obsidian')"></div>
+  </div>
+
+  <a href="https://wa.me/77080802588?text=Здравствуйте! Хочу узнать про услуги для бизнеса" target="_blank" class="nav-wa">
+    <i class="ti ti-brand-whatsapp"></i><span>WhatsApp</span>
+  </a>
+  <a href="https://t.me/alsat_kz" target="_blank" class="nav-tg">
+    <i class="ti ti-brand-telegram"></i><span>Telegram</span>
+  </a>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-badge"><i class="ti ti-sparkles" style="font-size:14px"></i> Цифровые решения · Казахстан</div>
-  <h1>Развиваем бизнес<br>с помощью <em>цифровых технологий</em></h1>
-  <p>Сайты, интернет-магазины, ИИ-боты, CRM, SEO и умное видеонаблюдение — под ключ для малого и среднего бизнеса</p>
+  <div class="hero-badge"><i class="ti ti-sparkles" style="font-size:13px"></i>
+    <span data-i18n="badge">Цифровые решения · Казахстан</span>
+  </div>
+  <h1 data-i18n="heroH1">Развиваем бизнес<br>с помощью <em>цифровых технологий</em></h1>
+  <p data-i18n="heroP">Сайты, интернет-магазины, ИИ-боты, CRM, SEO и умное видеонаблюдение — под ключ для малого и среднего бизнеса</p>
   <div class="hero-cta">
     <a href="https://wa.me/77080802588?text=Здравствуйте! Хочу узнать про услуги для бизнеса" target="_blank" class="btn-hero-wa">
-      <i class="ti ti-brand-whatsapp"></i> Написать в WhatsApp
+      <i class="ti ti-brand-whatsapp"></i> <span data-i18n="heroWa">Написать в WhatsApp</span>
     </a>
     <a href="https://t.me/alsat_kz" target="_blank" class="btn-hero-tg">
-      <i class="ti ti-brand-telegram"></i> Открыть Telegram
+      <i class="ti ti-brand-telegram"></i> <span data-i18n="heroTg">Открыть Telegram</span>
     </a>
   </div>
 </div>
 
 <!-- SERVICE NAV -->
 <div class="service-nav" role="navigation">
-  <a href="#websites" class="snav-btn"><i class="ti ti-world-www"></i>Сайты</a>
-  <a href="#landing" class="snav-btn"><i class="ti ti-layout-dashboard"></i>Лендинг</a>
-  <a href="#shop" class="snav-btn"><i class="ti ti-shopping-cart"></i>Магазин</a>
-  <a href="#ai" class="snav-btn"><i class="ti ti-brain"></i>ИИ-боты</a>
-  <a href="#cctv" class="snav-btn"><i class="ti ti-camera"></i>Видеонаблюдение</a>
+  <a href="#websites" class="snav-btn"><i class="ti ti-world-www"></i><span data-i18n="nav1">Сайты</span></a>
+  <a href="#landing" class="snav-btn"><i class="ti ti-layout-dashboard"></i><span data-i18n="nav2">Лендинг</span></a>
+  <a href="#shop" class="snav-btn"><i class="ti ti-shopping-cart"></i><span data-i18n="nav3">Магазин</span></a>
+  <a href="#ai" class="snav-btn"><i class="ti ti-brain"></i><span data-i18n="nav4">ИИ-боты</span></a>
+  <a href="#cctv" class="snav-btn"><i class="ti ti-camera"></i><span data-i18n="nav5">Видеонаблюдение</span></a>
 </div>
 
-<!-- SECTION 1: WEBSITES -->
+<!-- SECTION 1 -->
 <section class="section" id="websites">
   <div class="section-header">
-    <div class="section-label" style="color:#6B21A8">
-      <span class="dot" style="background:#7C3AED"></span>
-      Создание сайтов и веб-приложений
-    </div>
-    <h2>Красивый сайт — за 7–14 дней</h2>
-    <div class="section-desc">Разрабатываем современные сайты, лендинги и интернет-магазины с нуля. SEO-оптимизация, мобильная адаптация и быстрая загрузка включены.</div>
+    <div class="section-label"><span class="dot"></span><span data-i18n="s1label">Создание сайтов и веб-приложений</span></div>
+    <h2 data-i18n="s1h2">Красивый сайт — за 7–14 дней</h2>
+    <div class="section-desc" data-i18n="s1desc">Разрабатываем современные сайты, лендинги и интернет-магазины с нуля. SEO-оптимизация, мобильная адаптация и быстрая загрузка включены.</div>
   </div>
 
-  <!-- Landing -->
-  <div id="landing" class="feature-card fc-pu">
+  <div id="landing" class="feature-card">
     <div class="fc-icon pu"><i class="ti ti-layout-dashboard"></i></div>
     <div class="fc-content">
-      <div class="fc-title">Лендинг (Landing Page)</div>
-      <div class="fc-desc">Одностраничный продающий сайт для вашего товара, услуги или мероприятия. Быстрая загрузка, убедительный дизайн и чёткий призыв к действию.</div>
+      <div class="fc-title" data-i18n="f1t">Лендинг (Landing Page)</div>
+      <div class="fc-desc" data-i18n="f1d">Одностраничный продающий сайт для вашего товара, услуги или мероприятия. Быстрая загрузка, убедительный дизайн и чёткий призыв к действию.</div>
       <div class="fc-features">
-        <span class="fc-feat pu">Продающий дизайн</span>
-        <span class="fc-feat pu">Форма заявки</span>
-        <span class="fc-feat pu">WhatsApp / Telegram кнопки</span>
-        <span class="fc-feat pu">SEO-базовая настройка</span>
-        <span class="fc-feat pu">Мобильная адаптация</span>
-        <span class="fc-feat pu">Запуск за 3–5 дней</span>
+        <span class="fc-feat" data-i18n="f1t1">Продающий дизайн</span>
+        <span class="fc-feat" data-i18n="f1t2">Форма заявки</span>
+        <span class="fc-feat" data-i18n="f1t3">WhatsApp / Telegram кнопки</span>
+        <span class="fc-feat" data-i18n="f1t4">SEO-базовая настройка</span>
+        <span class="fc-feat" data-i18n="f1t5">Мобильная адаптация</span>
+        <span class="fc-feat" data-i18n="f1t6">Запуск за 3–5 дней</span>
       </div>
       <div class="fc-btns">
-        <a href="https://wa.me/77080802588?text=Хочу заказать лендинг для бизнеса" target="_blank" class="fc-btn-wa"><i class="ti ti-brand-whatsapp"></i> Заказать лендинг</a>
-        <a href="https://t.me/alsat_kz" target="_blank" class="fc-btn-tg"><i class="ti ti-brand-telegram"></i> Написать</a>
+        <a href="https://wa.me/77080802588?text=Хочу заказать лендинг для бизнеса" target="_blank" class="fc-btn-wa"><i class="ti ti-brand-whatsapp"></i> <span data-i18n="f1btn">Заказать лендинг</span></a>
+        <a href="https://t.me/alsat_kz" target="_blank" class="fc-btn-tg"><i class="ti ti-brand-telegram"></i> <span data-i18n="write">Написать</span></a>
       </div>
     </div>
   </div>
 
-  <!-- Internet Shop -->
-  <div id="shop" class="feature-card fc-pu">
+  <div id="shop" class="feature-card">
     <div class="fc-icon pu"><i class="ti ti-shopping-cart"></i></div>
     <div class="fc-content">
-      <div class="fc-title">Интернет-магазин</div>
-      <div class="fc-desc">Полноценный магазин с каталогом, корзиной, оплатой и управлением заказами. Интеграция с Kaspi Pay, WhatsApp-уведомления о заказах.</div>
+      <div class="fc-title" data-i18n="f2t">Интернет-магазин</div>
+      <div class="fc-desc" data-i18n="f2d">Полноценный магазин с каталогом, корзиной, оплатой и управлением заказами. Интеграция с Kaspi Pay, WhatsApp-уведомления о заказах.</div>
       <div class="fc-features">
-        <span class="fc-feat pu">Каталог товаров</span>
-        <span class="fc-feat pu">Корзина и оформление</span>
-        <span class="fc-feat pu">Kaspi Pay / Онлайн-оплата</span>
-        <span class="fc-feat pu">Панель управления</span>
-        <span class="fc-feat pu">WhatsApp-уведомления</span>
-        <span class="fc-feat pu">Запуск за 7–14 дней</span>
+        <span class="fc-feat" data-i18n="f2t1">Каталог товаров</span>
+        <span class="fc-feat" data-i18n="f2t2">Корзина и оформление</span>
+        <span class="fc-feat" data-i18n="f2t3">Kaspi Pay / Онлайн-оплата</span>
+        <span class="fc-feat" data-i18n="f2t4">Панель управления</span>
+        <span class="fc-feat" data-i18n="f2t5">WhatsApp-уведомления</span>
+        <span class="fc-feat" data-i18n="f2t6">Запуск за 7–14 дней</span>
       </div>
       <div class="fc-btns">
-        <a href="https://wa.me/77080802588?text=Хочу заказать интернет-магазин" target="_blank" class="fc-btn-wa"><i class="ti ti-brand-whatsapp"></i> Заказать магазин</a>
-        <a href="https://t.me/alsat_kz" target="_blank" class="fc-btn-tg"><i class="ti ti-brand-telegram"></i> Написать</a>
+        <a href="https://wa.me/77080802588?text=Хочу заказать интернет-магазин" target="_blank" class="fc-btn-wa"><i class="ti ti-brand-whatsapp"></i> <span data-i18n="f2btn">Заказать магазин</span></a>
+        <a href="https://t.me/alsat_kz" target="_blank" class="fc-btn-tg"><i class="ti ti-brand-telegram"></i> <span data-i18n="write">Написать</span></a>
       </div>
     </div>
   </div>
 
   <div class="service-grid">
-    <!-- CRM -->
-    <div id="crm" class="service-card sc-pu">
-      <div class="sc-icon"><i class="ti ti-users-group"></i></div>
-      <div class="sc-badge">CRM-интеграция</div>
-      <div class="sc-title">CRM и управление клиентами</div>
-      <div class="sc-desc">Подключим Bitrix24, amoCRM или создадим свою простую CRM. Вся история клиентов, заявок и сделок — в одном месте.</div>
-      <a href="https://wa.me/77080802588?text=Хочу CRM-интеграцию для бизнеса" target="_blank" class="sc-btn"><i class="ti ti-brand-whatsapp"></i> Обсудить</a>
+    <div id="crm" class="service-card">
+      <div class="sc-icon pu"><i class="ti ti-users-group"></i></div>
+      <div class="sc-badge" data-i18n="c1b">CRM-интеграция</div>
+      <div class="sc-title" data-i18n="c1t">CRM и управление клиентами</div>
+      <div class="sc-desc" data-i18n="c1d">Подключим Bitrix24, amoCRM или создадим свою CRM. Вся история клиентов и сделок — в одном месте.</div>
+      <a href="https://wa.me/77080802588?text=Хочу CRM-интеграцию для бизнеса" target="_blank" class="sc-btn"><i class="ti ti-brand-whatsapp"></i> <span data-i18n="discuss">Обсудить</span></a>
     </div>
-    <!-- SEO -->
-    <div id="seo" class="service-card sc-pu">
-      <div class="sc-icon"><i class="ti ti-trending-up"></i></div>
-      <div class="sc-badge">SEO-продвижение</div>
-      <div class="sc-title">SEO и продвижение в Google</div>
-      <div class="sc-desc">Техническая SEO-оптимизация, семантическое ядро и работа с контентом. Ваш сайт — в топ поиска по Казахстану.</div>
-      <a href="https://wa.me/77080802588?text=Хочу SEO-продвижение сайта" target="_blank" class="sc-btn"><i class="ti ti-brand-whatsapp"></i> Обсудить</a>
+    <div id="seo" class="service-card">
+      <div class="sc-icon pu"><i class="ti ti-trending-up"></i></div>
+      <div class="sc-badge" data-i18n="c2b">SEO-продвижение</div>
+      <div class="sc-title" data-i18n="c2t">SEO и продвижение в Google</div>
+      <div class="sc-desc" data-i18n="c2d">Техническая оптимизация, семантическое ядро и работа с контентом. Ваш сайт — в топ поиска по Казахстану.</div>
+      <a href="https://wa.me/77080802588?text=Хочу SEO-продвижение сайта" target="_blank" class="sc-btn"><i class="ti ti-brand-whatsapp"></i> <span data-i18n="discuss">Обсудить</span></a>
     </div>
   </div>
 </section>
@@ -356,49 +458,45 @@ footer a:hover{text-decoration:underline}
 <!-- SECTION 2: AI -->
 <section class="section" id="ai">
   <div class="section-header">
-    <div class="section-label" style="color:#0E7490">
-      <span class="dot" style="background:#06B6D4"></span>
-      Внедрение ИИ-технологий
-    </div>
-    <h2>Автоматизация с ИИ — 24/7</h2>
-    <div class="section-desc">Чат-боты и ИИ-ассистенты берут на себя обслуживание клиентов, ответы на частые вопросы и обработку заявок — без выходных.</div>
+    <div class="section-label"><span class="dot"></span><span data-i18n="s2label">Внедрение ИИ-технологий</span></div>
+    <h2 data-i18n="s2h2">Автоматизация с ИИ — 24/7</h2>
+    <div class="section-desc" data-i18n="s2desc">Чат-боты и ИИ-ассистенты берут на себя обслуживание клиентов, ответы на частые вопросы и обработку заявок — без выходных.</div>
   </div>
 
-  <!-- Chatbot -->
-  <div id="chatbot" class="feature-card fc-tl">
+  <div id="chatbot" class="feature-card">
     <div class="fc-icon tl"><i class="ti ti-robot"></i></div>
     <div class="fc-content">
-      <div class="fc-title">ИИ-чат-бот для Telegram / WhatsApp</div>
-      <div class="fc-desc">Умный бот отвечает на вопросы, принимает заявки и публикует объявления в ваш аккаунт на Алсат. Вам ничего не нужно делать вручную.</div>
+      <div class="fc-title" data-i18n="f3t">ИИ-чат-бот для Telegram / WhatsApp</div>
+      <div class="fc-desc" data-i18n="f3d">Умный бот отвечает на вопросы, принимает заявки и публикует объявления в ваш аккаунт на Алсат. Вам ничего не нужно делать вручную.</div>
       <div class="fc-features">
-        <span class="fc-feat tl">Telegram / WhatsApp</span>
-        <span class="fc-feat tl">GPT-интеграция</span>
-        <span class="fc-feat tl">Авто-публикация на Алсат</span>
-        <span class="fc-feat tl">Ответы покупателям</span>
-        <span class="fc-feat tl">Проверка оплаты</span>
-        <span class="fc-feat tl">Аналитика диалогов</span>
+        <span class="fc-feat">Telegram / WhatsApp</span>
+        <span class="fc-feat">GPT-интеграция</span>
+        <span class="fc-feat" data-i18n="f3t3">Авто-публикация на Алсат</span>
+        <span class="fc-feat" data-i18n="f3t4">Ответы покупателям</span>
+        <span class="fc-feat" data-i18n="f3t5">Проверка оплаты</span>
+        <span class="fc-feat" data-i18n="f3t6">Аналитика диалогов</span>
       </div>
       <div class="fc-btns">
-        <a href="https://wa.me/77080802588?text=Хочу заказать ИИ-чат-бот для бизнеса" target="_blank" class="fc-btn-wa"><i class="ti ti-brand-whatsapp"></i> Заказать бота</a>
-        <a href="https://t.me/alsat_kz" target="_blank" class="fc-btn-tg"><i class="ti ti-brand-telegram"></i> Написать</a>
+        <a href="https://wa.me/77080802588?text=Хочу заказать ИИ-чат-бот для бизнеса" target="_blank" class="fc-btn-wa"><i class="ti ti-brand-whatsapp"></i> <span data-i18n="f3btn">Заказать бота</span></a>
+        <a href="https://t.me/alsat_kz" target="_blank" class="fc-btn-tg"><i class="ti ti-brand-telegram"></i> <span data-i18n="write">Написать</span></a>
       </div>
     </div>
   </div>
 
   <div class="service-grid">
-    <div class="service-card sc-tl">
-      <div class="sc-icon"><i class="ti ti-sparkles"></i></div>
+    <div class="service-card">
+      <div class="sc-icon tl"><i class="ti ti-sparkles"></i></div>
       <div class="sc-badge">GPT интеграция</div>
-      <div class="sc-title">GPT / AI в ваши сервисы</div>
-      <div class="sc-desc">Встраиваем ChatGPT или локальные модели в ваш сайт, Telegram-бот или мобильное приложение.</div>
-      <a href="https://wa.me/77080802588?text=Хочу GPT-интеграцию для бизнеса" target="_blank" class="sc-btn"><i class="ti ti-brand-whatsapp"></i> Обсудить</a>
+      <div class="sc-title" data-i18n="c3t">GPT / AI в ваши сервисы</div>
+      <div class="sc-desc" data-i18n="c3d">Встраиваем ChatGPT или локальные модели в ваш сайт, Telegram-бот или мобильное приложение.</div>
+      <a href="https://wa.me/77080802588?text=Хочу GPT-интеграцию для бизнеса" target="_blank" class="sc-btn"><i class="ti ti-brand-whatsapp"></i> <span data-i18n="discuss">Обсудить</span></a>
     </div>
-    <div class="service-card sc-tl">
-      <div class="sc-icon"><i class="ti ti-chart-bar"></i></div>
-      <div class="sc-badge">Аналитика</div>
-      <div class="sc-title">ИИ-аналитика данных</div>
-      <div class="sc-desc">Автоматические отчёты, анализ продаж и поведения клиентов. Принимайте решения на основе данных, а не интуиции.</div>
-      <a href="https://wa.me/77080802588?text=Хочу ИИ-аналитику для бизнеса" target="_blank" class="sc-btn"><i class="ti ti-brand-whatsapp"></i> Обсудить</a>
+    <div class="service-card">
+      <div class="sc-icon tl"><i class="ti ti-chart-bar"></i></div>
+      <div class="sc-badge" data-i18n="c4b">Аналитика</div>
+      <div class="sc-title" data-i18n="c4t">ИИ-аналитика данных</div>
+      <div class="sc-desc" data-i18n="c4d">Автоматические отчёты, анализ продаж и поведения клиентов. Принимайте решения на основе данных.</div>
+      <a href="https://wa.me/77080802588?text=Хочу ИИ-аналитику для бизнеса" target="_blank" class="sc-btn"><i class="ti ti-brand-whatsapp"></i> <span data-i18n="discuss">Обсудить</span></a>
     </div>
   </div>
 </section>
@@ -408,45 +506,42 @@ footer a:hover{text-decoration:underline}
 <!-- SECTION 3: CCTV -->
 <section class="section" id="cctv">
   <div class="section-header">
-    <div class="section-label" style="color:#1E40AF">
-      <span class="dot" style="background:#3B82F6"></span>
-      Автоматизация видеонаблюдения
-    </div>
-    <h2>Умное видеонаблюдение с ИИ</h2>
-    <div class="section-desc">Детекция людей и автомобилей, мгновенные уведомления в Telegram, удалённый доступ и облачная запись — на базе Frigate + Home Assistant.</div>
+    <div class="section-label"><span class="dot"></span><span data-i18n="s3label">Автоматизация видеонаблюдения</span></div>
+    <h2 data-i18n="s3h2">Умное видеонаблюдение с ИИ</h2>
+    <div class="section-desc" data-i18n="s3desc">Детекция людей и автомобилей, мгновенные уведомления в Telegram, удалённый доступ и облачная запись — на базе Frigate + Home Assistant.</div>
   </div>
 
-  <div class="feature-card fc-bl">
+  <div class="feature-card">
     <div class="fc-icon bl"><i class="ti ti-camera"></i></div>
     <div class="fc-content">
-      <div class="fc-title">Система видеонаблюдения под ключ</div>
-      <div class="fc-desc">Установим IP-камеры, настроим Frigate NVR с ИИ-распознаванием, подключим Telegram-уведомления и Home Assistant. Всё под ключ — от монтажа до настройки облака.</div>
+      <div class="fc-title" data-i18n="f4t">Система видеонаблюдения под ключ</div>
+      <div class="fc-desc" data-i18n="f4d">Установим IP-камеры, настроим Frigate NVR с ИИ-распознаванием, подключим Telegram-уведомления и Home Assistant. Всё под ключ — от монтажа до настройки облака.</div>
       <div class="fc-features">
-        <span class="fc-feat bl">Frigate NVR</span>
-        <span class="fc-feat bl">Детекция людей и авто</span>
-        <span class="fc-feat bl">Telegram-уведомления</span>
-        <span class="fc-feat bl">IP-камеры HEVC</span>
-        <span class="fc-feat bl">Home Assistant</span>
-        <span class="fc-feat bl">Запись в облако</span>
+        <span class="fc-feat">Frigate NVR</span>
+        <span class="fc-feat" data-i18n="f4t2">Детекция людей и авто</span>
+        <span class="fc-feat" data-i18n="f4t3">Telegram-уведомления</span>
+        <span class="fc-feat">IP-камеры HEVC</span>
+        <span class="fc-feat">Home Assistant</span>
+        <span class="fc-feat" data-i18n="f4t6">Запись в облако</span>
       </div>
       <div class="fc-btns">
-        <a href="https://wa.me/77080802588?text=Хочу установить умное видеонаблюдение" target="_blank" class="fc-btn-wa"><i class="ti ti-brand-whatsapp"></i> Заказать систему</a>
-        <a href="https://t.me/alsat_kz" target="_blank" class="fc-btn-tg"><i class="ti ti-brand-telegram"></i> Написать</a>
+        <a href="https://wa.me/77080802588?text=Хочу установить умное видеонаблюдение" target="_blank" class="fc-btn-wa"><i class="ti ti-brand-whatsapp"></i> <span data-i18n="f4btn">Заказать систему</span></a>
+        <a href="https://t.me/alsat_kz" target="_blank" class="fc-btn-tg"><i class="ti ti-brand-telegram"></i> <span data-i18n="write">Написать</span></a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT STRIP -->
+<!-- CONTACT -->
 <div class="contact-strip">
   <div class="contact-box">
     <div class="contact-text">
-      <h3>Готовы обсудить ваш проект?</h3>
-      <p>Бесплатная консультация · Ответим в течение 2 часов<br>Работаем по всему Казахстану</p>
+      <h3 data-i18n="ctaH">Готовы обсудить ваш проект?</h3>
+      <p data-i18n="ctaP">Бесплатная консультация · Ответим в течение 2 часов<br>Работаем по всему Казахстану</p>
     </div>
     <div class="contact-btns">
-      <a href="https://wa.me/77080802588?text=Здравствуйте! Хочу узнать про услуги для бизнеса" target="_blank" class="fc-btn-wa" style="font-size:14px;padding:12px 20px"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>
-      <a href="https://t.me/alsat_kz" target="_blank" class="fc-btn-tg" style="font-size:14px;padding:12px 20px"><i class="ti ti-brand-telegram"></i> Telegram</a>
+      <a href="https://wa.me/77080802588?text=Здравствуйте! Хочу узнать про услуги для бизнеса" target="_blank" class="fc-btn-wa" style="padding:11px 18px;font-size:13px"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>
+      <a href="https://t.me/alsat_kz" target="_blank" class="fc-btn-tg" style="padding:11px 18px;font-size:13px"><i class="ti ti-brand-telegram"></i> Telegram</a>
     </div>
   </div>
 </div>
@@ -456,21 +551,143 @@ footer a:hover{text-decoration:underline}
 </footer>
 
 <script>
-// Highlight active nav section on scroll
+// ── THEMES ──────────────────────────────────────────
+function setTheme(name){
+  document.documentElement.setAttribute('data-theme', name);
+  document.querySelectorAll('.theme-swatch').forEach(function(s){
+    s.classList.toggle('active', s.classList.contains('swatch-'+name));
+  });
+  localStorage.setItem('biz-theme', name);
+}
+
+// ── LANGUAGE ────────────────────────────────────────
+var STRINGS = {
+  ru:{
+    badge:'Цифровые решения · Казахстан',
+    heroH1:'Развиваем бизнес<br>с помощью <em>цифровых технологий</em>',
+    heroP:'Сайты, интернет-магазины, ИИ-боты, CRM, SEO и умное видеонаблюдение — под ключ для малого и среднего бизнеса',
+    heroWa:'Написать в WhatsApp',heroTg:'Открыть Telegram',
+    nav1:'Сайты',nav2:'Лендинг',nav3:'Магазин',nav4:'ИИ-боты',nav5:'Видеонаблюдение',
+    s1label:'Создание сайтов и веб-приложений',s1h2:'Красивый сайт — за 7–14 дней',
+    s1desc:'Разрабатываем современные сайты, лендинги и интернет-магазины с нуля. SEO-оптимизация, мобильная адаптация и быстрая загрузка включены.',
+    f1t:'Лендинг (Landing Page)',f1d:'Одностраничный продающий сайт для вашего товара, услуги или мероприятия. Быстрая загрузка и чёткий призыв к действию.',
+    f1t1:'Продающий дизайн',f1t2:'Форма заявки',f1t3:'WhatsApp / Telegram кнопки',f1t4:'SEO-базовая настройка',f1t5:'Мобильная адаптация',f1t6:'Запуск за 3–5 дней',
+    f1btn:'Заказать лендинг',
+    f2t:'Интернет-магазин',f2d:'Полноценный магазин с каталогом, корзиной, оплатой и управлением заказами. Интеграция с Kaspi Pay.',
+    f2t1:'Каталог товаров',f2t2:'Корзина и оформление',f2t3:'Kaspi Pay / Онлайн-оплата',f2t4:'Панель управления',f2t5:'WhatsApp-уведомления',f2t6:'Запуск за 7–14 дней',
+    f2btn:'Заказать магазин',
+    c1b:'CRM-интеграция',c1t:'CRM и управление клиентами',c1d:'Подключим Bitrix24, amoCRM или создадим свою CRM. Вся история клиентов и сделок — в одном месте.',
+    c2b:'SEO-продвижение',c2t:'SEO и продвижение в Google',c2d:'Техническая оптимизация, семантическое ядро и работа с контентом. Ваш сайт — в топ поиска.',
+    s2label:'Внедрение ИИ-технологий',s2h2:'Автоматизация с ИИ — 24/7',
+    s2desc:'Чат-боты и ИИ-ассистенты берут на себя обслуживание клиентов и обработку заявок — без выходных.',
+    f3t:'ИИ-чат-бот для Telegram / WhatsApp',f3d:'Умный бот отвечает на вопросы, принимает заявки и публикует объявления в ваш аккаунт на Алсат. Вам ничего не нужно делать вручную.',
+    f3t3:'Авто-публикация на Алсат',f3t4:'Ответы покупателям',f3t5:'Проверка оплаты',f3t6:'Аналитика диалогов',
+    f3btn:'Заказать бота',
+    c3t:'GPT / AI в ваши сервисы',c3d:'Встраиваем ChatGPT или локальные модели в ваш сайт, Telegram-бот или мобильное приложение.',
+    c4b:'Аналитика',c4t:'ИИ-аналитика данных',c4d:'Автоматические отчёты, анализ продаж и поведения клиентов. Принимайте решения на основе данных.',
+    s3label:'Автоматизация видеонаблюдения',s3h2:'Умное видеонаблюдение с ИИ',
+    s3desc:'Детекция людей и автомобилей, мгновенные уведомления в Telegram, удалённый доступ и облачная запись.',
+    f4t:'Система видеонаблюдения под ключ',f4d:'Установим IP-камеры, настроим Frigate NVR с ИИ-распознаванием, подключим Telegram-уведомления и Home Assistant.',
+    f4t2:'Детекция людей и авто',f4t3:'Telegram-уведомления',f4t6:'Запись в облако',f4btn:'Заказать систему',
+    ctaH:'Готовы обсудить ваш проект?',ctaP:'Бесплатная консультация · Ответим в течение 2 часов<br>Работаем по всему Казахстану',
+    write:'Написать',discuss:'Обсудить'
+  },
+  kz:{
+    badge:'Цифрлық шешімдер · Қазақстан',
+    heroH1:'Бизнесті <em>цифрлық технологиялармен</em><br>дамытамыз',
+    heroP:'Сайттар, интернет-дүкендер, ЖИ-боттар, CRM, SEO және бейнебақылау — шағын және орта бизнеске арналған',
+    heroWa:'WhatsApp-қа жазу',heroTg:'Telegram ашу',
+    nav1:'Сайттар',nav2:'Лендинг',nav3:'Дүкен',nav4:'ЖИ-боттар',nav5:'Бейнебақылау',
+    s1label:'Сайттар мен веб-қосымшалар жасау',s1h2:'Сайт — 7–14 күнде',
+    s1desc:'Заманауи сайттар, лендингтер мен интернет-дүкендерді нолдан бастап жасаймыз. SEO, мобильді бейімделу кіреді.',
+    f1t:'Лендинг (Landing Page)',f1d:'Тауарыңыз, қызметіңіз үшін бір беттік сатушы сайт. Жылдам жүктелу және айқын шақыру.',
+    f1t1:'Сатушы дизайн',f1t2:'Өтінім формасы',f1t3:'WhatsApp / Telegram түймелері',f1t4:'SEO-негізгі баптау',f1t5:'Мобильді бейімделу',f1t6:'3–5 күнде іске қосу',
+    f1btn:'Лендинг тапсырыс беру',
+    f2t:'Интернет-дүкен',f2d:'Каталог, себет, төлем және тапсырыстарды басқарумен толық дүкен. Kaspi Pay интеграциясы.',
+    f2t1:'Тауарлар каталогы',f2t2:'Себет және рәсімдеу',f2t3:'Kaspi Pay / Онлайн-төлем',f2t4:'Басқару тақтасы',f2t5:'WhatsApp-хабарламалар',f2t6:'7–14 күнде іске қосу',
+    f2btn:'Дүкен тапсырыс беру',
+    c1b:'CRM-интеграция',c1t:'CRM және клиенттерді басқару',c1d:'Bitrix24, amoCRM қосамыз немесе жеке CRM жасаймыз. Барлық тарих — бір жерде.',
+    c2b:'SEO-жылжыту',c2t:'Google-де SEO және жылжыту',c2d:'Техникалық оңтайландыру, семантикалық ядро. Сайтыңыз — іздеу жоғарғы жолында.',
+    s2label:'ЖИ-технологияларды енгізу',s2h2:'ЖИ-мен автоматтандыру — 24/7',
+    s2desc:'Чат-боттар мен ЖИ-ассистенттер клиенттерге қызмет көрсетуді өтінімдерді өңдеуді өздері жасайды.',
+    f3t:'Telegram / WhatsApp үшін ЖИ-чат-бот',f3d:'Ақылды бот сұрақтарға жауап береді, өтінімдер қабылдайды және Алсатқа хабарландыру жариялайды.',
+    f3t3:'Алсатқа авто-жариялау',f3t4:'Сатып алушыларға жауап',f3t5:'Төлемді тексеру',f3t6:'Диалог аналитикасы',
+    f3btn:'Бот тапсырыс беру',
+    c3t:'Сервистеріңізге GPT / AI',c3d:'ChatGPT немесе жергілікті үлгілерді сайтқа, Telegram-ботқа немесе мобильді қосымшаға енгіземіз.',
+    c4b:'Аналитика',c4t:'ЖИ деректер аналитикасы',c4d:'Автоматты есептер, сату және клиент тәртібін талдау.',
+    s3label:'Бейнебақылауды автоматтандыру',s3h2:'ЖИ-мен ақылды бейнебақылау',
+    s3desc:'Адамдар мен авто анықтау, Telegram-хабарламалар, қашықтан кіру және бұлтқа жазу.',
+    f4t:'Бейнебақылау жүйесі — бірге',f4d:'IP-камераларды орнатамыз, Frigate NVR-ды баптаймыз, Telegram-хабарламалар мен Home Assistant қосамыз.',
+    f4t2:'Адамдар мен авто анықтау',f4t3:'Telegram-хабарламалар',f4t6:'Бұлтқа жазу',f4btn:'Жүйе тапсырыс беру',
+    ctaH:'Жобаңызды талқылауға дайынсыз ба?',ctaP:'Тегін кеңес · 2 сағат ішінде жауап береміз<br>Бүкіл Қазақстан бойынша жұмыс істейміз',
+    write:'Жазу',discuss:'Талқылау'
+  },
+  en:{
+    badge:'Digital Solutions · Kazakhstan',
+    heroH1:'Grow your business with<br><em>digital technology</em>',
+    heroP:'Websites, online stores, AI bots, CRM, SEO and smart CCTV — turnkey for small and medium businesses',
+    heroWa:'Write on WhatsApp',heroTg:'Open Telegram',
+    nav1:'Websites',nav2:'Landing',nav3:'Shop',nav4:'AI Bots',nav5:'Surveillance',
+    s1label:'Website & Web App Development',s1h2:'A beautiful website in 7–14 days',
+    s1desc:'We build modern websites, landing pages and online stores from scratch. SEO, mobile responsiveness and fast loading included.',
+    f1t:'Landing Page',f1d:'A single-page sales site for your product, service or event. Fast loading and a clear call to action.',
+    f1t1:'Sales-focused design',f1t2:'Lead form',f1t3:'WhatsApp / Telegram buttons',f1t4:'Basic SEO setup',f1t5:'Mobile responsive',f1t6:'Launch in 3–5 days',
+    f1btn:'Order a landing page',
+    f2t:'Online Store',f2d:'Full-featured shop with catalog, cart, payment and order management. Kaspi Pay integration included.',
+    f2t1:'Product catalog',f2t2:'Cart & checkout',f2t3:'Kaspi Pay / Online payment',f2t4:'Admin panel',f2t5:'WhatsApp notifications',f2t6:'Launch in 7–14 days',
+    f2btn:'Order a store',
+    c1b:'CRM Integration',c1t:'CRM & Customer Management',c1d:"We'll connect Bitrix24, amoCRM or build a custom CRM. All client history in one place.",
+    c2b:'SEO',c2t:'SEO & Google Rankings',c2d:'Technical optimization, keyword research and content work. Your site on top of search in Kazakhstan.',
+    s2label:'AI Technology Integration',s2h2:'AI Automation — 24/7',
+    s2desc:'Chatbots and AI assistants handle customer service, FAQ and lead processing — around the clock.',
+    f3t:'AI Chatbot for Telegram / WhatsApp',f3d:'The smart bot answers questions, accepts leads and publishes ads to your Alsat account. Nothing to do manually.',
+    f3t3:'Auto-publish to Alsat',f3t4:'Reply to buyers',f3t5:'Payment verification',f3t6:'Dialog analytics',
+    f3btn:'Order a bot',
+    c3t:'GPT / AI for your services',c3d:'We integrate ChatGPT or local models into your website, Telegram bot or mobile app.',
+    c4b:'Analytics',c4t:'AI Data Analytics',c4d:'Automated reports, sales analysis and customer behavior tracking.',
+    s3label:'Smart Video Surveillance',s3h2:'AI-powered CCTV',
+    s3desc:'Person & vehicle detection, instant Telegram alerts, remote access and cloud recording — on Frigate + Home Assistant.',
+    f4t:'Turnkey Surveillance System',f4d:"We'll install IP cameras, configure Frigate NVR with AI recognition and connect Telegram alerts and Home Assistant.",
+    f4t2:'Person & vehicle detection',f4t3:'Telegram alerts',f4t6:'Cloud recording',f4btn:'Order system',
+    ctaH:'Ready to discuss your project?',ctaP:'Free consultation · Response within 2 hours<br>We work across Kazakhstan',
+    write:'Write',discuss:'Discuss'
+  }
+};
+
+var curLang = 'ru';
+function setLang(l){
+  curLang = l;
+  var s = STRINGS[l] || STRINGS.ru;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k = el.getAttribute('data-i18n');
+    if(s[k] !== undefined) el.innerHTML = s[k];
+  });
+  document.querySelectorAll('.lang-btn').forEach(function(b,i){
+    b.classList.toggle('active', ['ru','kz','en'][i]===l);
+  });
+  document.documentElement.setAttribute('lang', l==='kz'?'kk':l);
+  localStorage.setItem('biz-lang', l);
+}
+
+// ── SCROLL NAV HIGHLIGHT ──────────────────────────
 var sections=['websites','landing','shop','ai','chatbot','cctv'];
 var snavBtns=document.querySelectorAll('.snav-btn');
 window.addEventListener('scroll',function(){
-  var scrollY=window.scrollY+130;
-  var current='';
-  sections.forEach(function(id){
-    var el=document.getElementById(id);
-    if(el && scrollY>=el.offsetTop) current=id;
-  });
+  var y=window.scrollY+130, cur='';
+  sections.forEach(function(id){var el=document.getElementById(id);if(el&&y>=el.offsetTop)cur=id;});
   snavBtns.forEach(function(btn){
     var href=btn.getAttribute('href').slice(1);
-    btn.classList.toggle('active', href===current);
+    btn.classList.toggle('active',href===cur);
   });
 },{passive:true});
+
+// ── RESTORE PREFERENCES ──────────────────────────
+(function(){
+  var t=localStorage.getItem('biz-theme');
+  var l=localStorage.getItem('biz-lang');
+  if(t) setTheme(t);
+  if(l) setLang(l);
+})();
 </script>
 </body>
 </html>
