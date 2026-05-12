@@ -65,7 +65,7 @@ function switchTab(name){
 
 // AI Chat — max 3 questions per hour
 var chatHistory = [];
-var CHAT_LIMIT = 3;
+var CHAT_LIMIT = 5;
 var CHAT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
 
 function getChatTimestamps(){
@@ -694,6 +694,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
     <div class="nav-links">
       <a href="#ads" data-section="ads" class="nav-link-item"><i class="ti ti-layout-grid" style="font-size:14px"></i> <span data-i18n="navAds">Объявления</span></a>
       <a href="#taxi-section" data-section="taxi-section" class="nav-link-item taxi-link"><i class="ti ti-car" style="font-size:14px"></i> <span data-i18n="navTaxi">Такси · Межгород</span></a>
+      <a href="#faq-support" class="nav-link-item" onclick="switchTab('faq');setTimeout(function(){document.getElementById('faq-support').scrollIntoView({behavior:'smooth'})},50)"><i class="ti ti-message-circle" style="font-size:14px"></i> <span>Вопросы и ответы</span></a>
       <a href="#services" data-section="services" class="nav-link-item services-link"><i class="ti ti-briefcase" style="font-size:14px"></i> <span data-i18n="navServices">Наши услуги</span></a>
     </div>
     <div class="nav-right">
@@ -1285,7 +1286,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
             <div class="ai-chat-head-icon">🤖</div>
             <div class="ai-chat-head-info">
               <div class="ai-chat-head-name">Алсат Ассистент</div>
-              <div class="ai-chat-head-sub">На базе Claude Haiku · Отвечает за секунды</div>
+              <div class="ai-chat-head-sub">Отвечает за секунды</div>
             </div>
             <div style="background:rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:11px;color:#fff;font-weight:600">● Онлайн</div>
           </div>
