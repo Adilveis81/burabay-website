@@ -43,6 +43,53 @@
   }
 })();
 
+
+// FAQ DATA (multilingual)
+var FAQ_DATA = {
+  ru:[
+    {q:'Как разместить объявление?', a:'Нажмите кнопку «+ Разместить» в верхнем меню. Заполните название, описание, цену, выберите категорию и город — объявление появится на сайте.'},
+    {q:'Сколько стоит размещение?', a:'До 12 июня 2026 года размещение полностью бесплатно — в честь открытия сайта. После этой даты условия будут объявлены дополнительно.'},
+    {q:'Как связаться с продавцом?', a:'В карточке объявления нажмите «Позвонить» или кнопку WhatsApp. Если кнопки нет — продавец не указал номер.'},
+    {q:'Безопасно ли покупать на Алсат?', a:'Рекомендуем встречаться с продавцом лично и проверять товар перед оплатой. Не переводите деньги заранее незнакомым людям.'},
+    {q:'Как долго действует объявление?', a:'Объявление активно 30 дней с момента публикации. По истечении срока его можно продлить из личного кабинета.'},
+    {q:'Как удалить или отредактировать объявление?', a:'Войдите в аккаунт — ваши объявления отмечены значком карандаша ✏️. Нажмите на него чтобы отредактировать или удалить.'},
+    {q:'В каких городах работает Алсат?', a:'По всему Казахстану — Астана, Алматы, Шымкент, Бурабай, Щучинск, Кокшетау, Костанай, Актобе и многие другие города.'},
+    {q:'Что делать если меня обманули?', a:'Нажмите «Пожаловаться» в объявлении — мы заблокируем мошенника. В серьёзных случаях обратитесь в полицию или на egov.kz.'},
+  ],
+  kz:[
+    {q:'Хабарландыруды қалай орналастыруға болады?', a:'Жоғарғы мәзірдегі «+ Орналастыру» түймесін басыңыз. Атауды, сипаттаманы, бағаны толтырыңыз, санат пен қаланы таңдаңыз.'},
+    {q:'Орналастыру қанша тұрады?', a:'2026 жылдың 12 маусымына дейін орналастыру толығымен тегін — сайттың ашылуына орай. Одан кейін шарттар жеке хабарланады.'},
+    {q:'Сатушымен қалай байланысуға болады?', a:'Хабарландыру картасында «Қоңырау шалу» немесе WhatsApp түймесін басыңыз. Түйме болмаса — сатушы нөмірін көрсетпеген.'},
+    {q:'Алсатта сатып алу қауіпсіз бе?', a:'Сатушымен жеке кездесуді және тауарды төлемге дейін тексеруді ұсынамыз. Бейтаныс адамдарға алдын ала ақша аударманыз.'},
+    {q:'Хабарландыру қанша уақыт жарияланады?', a:'Хабарландыру жарияланған күннен бастап 30 күн белсенді болады. Мерзім өткеннен кейін жеке кабинеттен ұзартуға болады.'},
+    {q:'Хабарландыруды қалай жою немесе өңдеуге болады?', a:'Аккаунтқа кіріңіз — сіздің хабарландыруларыңыз ✏️ белгішесімен белгіленген. Өңдеу немесе жою үшін басыңыз.'},
+    {q:'Алсат қай қалаларда жұмыс істейді?', a:'Бүкіл Қазақстан бойынша — Астана, Алматы, Шымкент, Бурабай, Щучинск, Көкшетау, Қостанай, Ақтөбе және т.б.'},
+    {q:'Алданып қалсам не істеу керек?', a:'Хабарландырудағы «Шағым» түймесін басыңыз — алаяқты бұғаттаймыз. Маңызды жағдайларда полицияға немесе egov.kz порталына хабарласыңыз.'},
+  ],
+  en:[
+    {q:'How do I post an ad?', a:'Click the "+ Post Ad" button in the top menu. Fill in the title, description, price, choose a category and city — your ad will appear on the site.'},
+    {q:'How much does it cost to post?', a:'Posting is completely free until June 12, 2026 — to celebrate the launch. After that, pricing will be announced separately.'},
+    {q:'How do I contact a seller?', a:'On the ad card, click "Call" or the WhatsApp button. If there's no button, the seller hasn't provided a phone number.'},
+    {q:'Is it safe to buy on Alsat?', a:'We recommend meeting sellers in person and inspecting items before payment. Never send money in advance to strangers.'},
+    {q:'How long does an ad stay active?', a:'Ads are active for 30 days from the date of posting. After that, you can renew them from your account.'},
+    {q:'How do I edit or delete my ad?', a:'Log into your account — your ads are marked with a pencil icon ✏️. Click it to edit or delete your listing.'},
+    {q:'Which cities does Alsat cover?', a:'All of Kazakhstan — Astana, Almaty, Shymkent, Burabay, Shchuchinsk, Kokshetau, Kostanay, Aktobe and many more.'},
+    {q:'What if I was scammed?', a:'Click "Report" on the ad — we will block the scammer. For serious fraud, contact the police or the egov.kz portal.'},
+  ]
+};
+
+function renderFaq(){
+  var list = document.getElementById('faqList');
+  if(!list) return;
+  var items = FAQ_DATA[currentLang] || FAQ_DATA.ru;
+  list.innerHTML = items.map(function(item, i){
+    return '<div class="faq-item">'
+      +'<div class="faq-q" onclick="toggleFaq(this)">'+item.q+' <span class="faq-arrow">▼</span></div>'
+      +'<div class="faq-a">'+item.a+'</div>'
+      +'</div>';
+  }).join('');
+}
+
 // FAQ toggle
 function toggleFaq(btn){
   var a = btn.nextElementSibling;
@@ -1231,56 +1278,25 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
 <!-- FAQ + SUPPORT SECTION -->
 <section id="faq-support" style="background:var(--bg);padding:36px 20px 40px;margin-top:0;border-top:1px solid rgba(0,0,0,0.07)">
   <div style="max-width:780px;margin:0 auto 20px;text-align:center">
-    <div style="font-size:22px;font-weight:800;color:var(--text);margin-bottom:6px">Помощь и поддержка</div>
-    <div style="font-size:13px;color:var(--text3)">Задайте вопрос ИИ-помощнику или поддержите развитие сайта</div>
+    <div style="font-size:22px;font-weight:800;color:var(--text);margin-bottom:6px" data-i18n="helpTitle">Помощь и поддержка</div>
+    <div style="font-size:13px;color:var(--text3)" data-i18n="helpSub">Задайте вопрос ИИ-помощнику или поддержите развитие сайта</div>
   </div>
 
   <!-- TABS -->
   <div class="page-tabs" id="helpTabs">
-    <button class="page-tab active" onclick="switchTab('faq')">❓ Вопросы и ответы</button>
-    <button class="page-tab" onclick="switchTab('support')">💚 Поддержать проект</button>
+    <button class="page-tab active" onclick="switchTab('faq')" data-i18n="faqTab">❓ Вопросы и ответы</button>
+    <button class="page-tab" onclick="switchTab('support')" data-i18n="supportTab">💚 Поддержать проект</button>
   </div>
 
   <!-- FAQ PANEL -->
   <div class="tab-panel active" id="tab-faq">
     <div class="faq-wrap">
       <!-- FAQ ITEMS -->
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Как разместить объявление? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">Нажмите кнопку <strong>«+ Разместить»</strong> в верхнем меню или зелёную кнопку на главной странице. Заполните название, описание, цену, выберите категорию и город — и объявление появится на сайте.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Сколько стоит размещение? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">До <strong>12 июня 2026 года</strong> размещение полностью бесплатно — в честь открытия сайта. После этой даты условия будут объявлены дополнительно.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Как связаться с продавцом? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">В карточке объявления нажмите кнопку <strong>«Позвонить»</strong> или <strong>WhatsApp</strong>. Если кнопки нет — продавец не указал номер, напишите ему через форму на странице объявления.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Безопасно ли покупать на Алсат? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">Мы рекомендуем: встречайтесь с продавцом лично, проверяйте товар перед оплатой, не переводите деньги заранее незнакомым людям. Алсат — площадка для размещения объявлений и не несёт ответственности за сделки между пользователями.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Как долго действует объявление? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">Объявление активно <strong>30 дней</strong> с момента публикации. По истечении срока его можно продлить одним кликом из личного кабинета.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Как удалить или отредактировать объявление? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">Войдите в аккаунт — ваши объявления отмечены значком карандаша ✏️. Нажмите на него чтобы отредактировать или удалить объявление.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">В каких городах работает Алсат? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">Алсат работает по всему Казахстану — Астана, Алматы, Шымкент, Бурабай, Щучинск, Кокшетау, Костанай, Актобе и многие другие города. Выберите свой город в шапке сайта.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Что делать если меня обманули? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">Сообщите нам через кнопку «Пожаловаться» в объявлении — мы заблокируем мошенника. В случае серьёзного мошенничества обратитесь в полицию или на портал <strong>egov.kz</strong>.</div>
-      </div>
+      <div id="faqList"></div>
 
       <!-- AI CHAT -->
       <div style="margin-top:28px;margin-bottom:4px">
-        <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;text-align:center">💬 Не нашли ответ? Спросите ИИ-помощника</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;text-align:center" data-i18n="faqHeading">💬 Не нашли ответ? Спросите ИИ-помощника</div>
         <div class="ai-chat-box">
           <div class="ai-chat-head">
             <div class="ai-chat-head-icon">🤖</div>
@@ -1294,7 +1310,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
             <div class="ai-msg bot">Привет! Я помощник Алсат. Задайте любой вопрос о сайте — отвечу быстро 😊</div>
           </div>
           <div class="ai-chat-inp">
-            <input type="text" id="chatInput" placeholder="Напишите вопрос..." onkeydown="if(event.key==='Enter')sendChat()">
+            <input type="text" id="chatInput" placeholder="Напишите вопрос..." data-i18n-ph="chatPlaceholder" onkeydown="if(event.key==='Enter')sendChat()">
             <button onclick="sendChat()" id="chatSendBtn">➤</button>
           </div>
         </div>
@@ -1489,6 +1505,25 @@ var OBLASTS = [
   ]},
 ];
 
+
+
+var CAT_LABEL_TR = {
+  'Авто':         {kz:'Авто',        en:'Cars'},
+  'Электроника':  {kz:'Электроника', en:'Electronics'},
+  'Недвижимость': {kz:'Жылжымайтын мүлік', en:'Real Estate'},
+  'Спорт':        {kz:'Спорт',       en:'Sports'},
+  'Мебель':       {kz:'Жиhаз',       en:'Furniture'},
+  'Межгород':     {kz:'Қалааралық',  en:'Intercity'},
+  'Отдам даром':  {kz:'Тегін беремін', en:'Free items'},
+  'Одежда':       {kz:'Киім',        en:'Clothing'},
+  'Животные':     {kz:'Жануарлар',   en:'Animals'},
+  'Услуги':       {kz:'Қызметтер',   en:'Services'},
+};
+function trCatLabel(label){
+  if(currentLang==='ru') return label;
+  var t = CAT_LABEL_TR[label];
+  return t ? (t[currentLang]||label) : label;
+}
 
 // CITY/OBLAST TRANSLATIONS
 var OBLAST_TR = {
@@ -1829,6 +1864,7 @@ function tick(){
 }
 tick();
 setInterval(tick,1000);
+renderFaq();
 
 // LIVE COUNTERS
 setInterval(function(){
@@ -1950,7 +1986,7 @@ ru:{
   appTitle:'Приложение Алсат', appDesc:'Продавай и покупай прямо с телефона — фото, публикация и чат с покупателем в два касания. Уведомления о новых предложениях мгновенно.',
   notify:'Уведомить меня', emailPlaceholder:'Ваш email — уведомим о запуске',
   hot:'Горячее', isNew:'Новое', negotiable:'Договорная', call:'Позвонить', edit:'Редактировать',
-  chooseCity:'Выберите город', popularCities:'Популярные', couldBeYours:'Здесь могло быть ваше объявление', yourPrice:'Ваша цена', postFree:'Создать объявление', noResults:'Ничего не найдено — попробуйте другой запрос',
+  chooseCity:'Выберите город', popularCities:'Популярные', helpTitle:'Помощь и поддержка', helpSub:'Задайте вопрос ИИ-помощнику или поддержите развитие сайта', faqTab:'❓ Вопросы и ответы', supportTab:'💚 Поддержать проект', faqHeading:'Не нашли ответ? Спросите ИИ-помощника', chatPlaceholder:'Напишите вопрос...', couldBeYours:'Здесь могло быть ваше объявление', yourPrice:'Ваша цена', postFree:'Создать объявление', noResults:'Ничего не найдено — попробуйте другой запрос',
   editAd:'Редактировать объявление', title:'Заголовок', description:'Описание', price:'Цена (₸)', photos:'Фотографии', cancel:'Отмена', saveChanges:'💾 Сохранить изменения',
   authSubtitle:'Войдите, чтобы подать объявление', authPhoneTab:'📱 Телефон', authEmailTabBtn:'✉️ Email',
   authPhoneLabel:'Номер телефона', authSendSms:'Получить SMS-код', authOtpLabel:'Код из SMS', authOtpBtn:'Войти',
@@ -2002,7 +2038,7 @@ kz:{
   appTitle:'Алсат қосымшасы', appDesc:'Телефоннан сат және сатып ал — фото, жариялау, чат екі рет тигізумен. Жаңа ұсыныстар туралы хабарламалар лезде.',
   notify:'Хабарлаңыз', emailPlaceholder:'Email — іске қосылғанда хабарлаймыз',
   hot:'Ыстық', isNew:'Жаңа', negotiable:'Келісімді', call:'Қоңырау', edit:'Өңдеу',
-  chooseCity:'Қала таңдаңыз', popularCities:'Танымал', couldBeYours:'Мұнда сіздің хабарландыруыңыз болуы мүмкін', yourPrice:'Сіздің бағаңыз', postFree:'Хабарландыру жасау', noResults:'Ештеңе табылмады — басқа сұраныс көріңіз',
+  chooseCity:'Қала таңдаңыз', popularCities:'Танымал', helpTitle:'Көмек және қолдау', helpSub:'ЖИ-көмекшіге сұрақ қойыңыз немесе сайтты дамытуды қолдаңыз', faqTab:'❓ Сұрақтар мен жауаптар', supportTab:'💚 Жобаны қолдау', faqHeading:'Жауап таппадыңыз ба? ЖИ-көмекшіден сұраңыз', chatPlaceholder:'Сұрақ жазыңыз...', couldBeYours:'Мұнда сіздің хабарландыруыңыз болуы мүмкін', yourPrice:'Сіздің бағаңыз', postFree:'Хабарландыру жасау', noResults:'Ештеңе табылмады — басқа сұраныс көріңіз',
   editAd:'Хабарландыруды өңдеу', title:'Тақырып', description:'Сипаттама', price:'Бағасы (₸)', photos:'Суреттер', cancel:'Болдырмау', saveChanges:'💾 Өзгерістерді сақтау',
   authSubtitle:'Хабарландыру беру үшін кіріңіз', authPhoneTab:'📱 Телефон', authEmailTabBtn:'✉️ Email',
   authPhoneLabel:'Телефон нөмірі', authSendSms:'SMS-код алу', authOtpLabel:'SMS-тен код', authOtpBtn:'Кіру',
@@ -2054,7 +2090,7 @@ en:{
   appTitle:'Алсат App', appDesc:'Buy and sell right from your phone — photo, post and chat in two taps. Instant notifications on new offers.',
   notify:'Notify me', emailPlaceholder:'Your email — we\'ll notify you at launch',
   hot:'Hot', isNew:'New', negotiable:'Negotiable', call:'Call', edit:'Edit',
-  chooseCity:'Choose a city', popularCities:'Popular', couldBeYours:'Your ad could be here', yourPrice:'Your price', postFree:'Create ad', noResults:'Nothing found — try a different search',
+  chooseCity:'Choose a city', popularCities:'Popular', helpTitle:'Help & Support', helpSub:'Ask our AI assistant or support the site\'s development', faqTab:'❓ FAQ', supportTab:'💚 Support Project', faqHeading:'Didn\'t find an answer? Ask AI', chatPlaceholder:'Type your question...', couldBeYours:'Your ad could be here', yourPrice:'Your price', postFree:'Create ad', noResults:'Nothing found — try a different search',
   editAd:'Edit listing', title:'Title', description:'Description', price:'Price (₸)', photos:'Photos', cancel:'Cancel', saveChanges:'💾 Save changes',
   authSubtitle:'Sign in to post an ad', authPhoneTab:'📱 Phone', authEmailTabBtn:'✉️ Email',
   authPhoneLabel:'Phone number', authSendSms:'Get SMS code', authOtpLabel:'Code from SMS', authOtpBtn:'Sign in',
@@ -2383,6 +2419,7 @@ function addNewAdLocally(title, desc, price, city, phone) {
     own: true,
   });
   renderAds();
+  renderFaq();
   // re-render city modal if open
   if(selectedOblast) selectOblast(selectedOblast);
   // translate popular chips
