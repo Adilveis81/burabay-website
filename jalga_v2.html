@@ -974,17 +974,51 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
   .hero-main{grid-column:1}
   .hero-stats-card,.hero-taxi,.hero-free{min-height:auto}
   .section{padding:20px 14px 0}
-  .cats-grid{grid-template-columns:repeat(4,1fr)}
+  .cats-grid{grid-template-columns:repeat(4,1fr)!important}
+  .cities-grid{grid-template-columns:repeat(2,1fr)!important}
+  .ads-grid{grid-template-columns:repeat(2,1fr)!important}
+  [data-cols="2"] .ads-grid,[data-cols="3"] .ads-grid,[data-cols="4"] .ads-grid{grid-template-columns:repeat(2,1fr)!important}
+  [data-cols="2"] .cities-grid,[data-cols="3"] .cities-grid,[data-cols="4"] .cities-grid{grid-template-columns:repeat(2,1fr)!important}
+  [data-cols="2"] .cats-grid,[data-cols="3"] .cats-grid,[data-cols="4"] .cats-grid{grid-template-columns:repeat(4,1fr)!important}
   .hiw-grid{grid-template-columns:1fr}
   .ai-strip{flex-direction:column}
   .b2b-grid{grid-template-columns:1fr}
   .services-header{flex-direction:column;text-align:center}
   footer{padding:20px 14px}
+  /* Modals — full-width bottom sheet */
+  .modal-ov{padding:0!important;align-items:flex-end!important}
+  .auth-modal-box,.post-modal-box,.modal-box,.edit-modal-box{
+    width:100%!important;max-width:100%!important;
+    border-radius:20px 20px 0 0!important;
+    max-height:92vh!important;overflow-y:auto!important;
+  }
+  .post-modal-box{max-height:95vh!important}
+  /* Post form: stack price+city, keep 4 cat cols */
+  .post-row{grid-template-columns:1fr!important}
+  .post-cat-grid{grid-template-columns:repeat(4,1fr)!important;gap:5px!important}
+  .post-cat-item{padding:7px 2px!important;font-size:10px!important}
+  .post-cat-item .pci{font-size:18px!important}
+  .post-body{padding:14px!important}
+  .post-header{padding:14px 16px!important}
+  .post-footer{padding:10px 14px!important}
+  /* Auth modal */
+  .auth-body{padding:16px!important}
+  .auth-header{padding:18px 16px 14px!important}
+  /* City modal stays full screen */
   .city-modal{padding:0}
   .city-modal-box{max-height:100vh;border-radius:0}
   .city-modal-body{flex-direction:column}
   .city-oblasts{width:100%;max-height:200px;border-right:none;border-bottom:1px solid var(--border)}
   .city-oblast-item.selected{border-left:none;border-bottom:3px solid var(--o)}
+}
+@media(max-width:400px){
+  .cats-grid{grid-template-columns:repeat(4,1fr)!important}
+  [data-cols="2"] .cats-grid,[data-cols="3"] .cats-grid,[data-cols="4"] .cats-grid{grid-template-columns:repeat(4,1fr)!important}
+  .ads-grid,[data-cols="2"] .ads-grid,[data-cols="3"] .ads-grid,[data-cols="4"] .ads-grid{grid-template-columns:1fr!important}
+  .cities-grid,[data-cols="2"] .cities-grid,[data-cols="3"] .cities-grid,[data-cols="4"] .cities-grid{grid-template-columns:repeat(2,1fr)!important}
+  .hero-main h1{font-size:22px}
+  .cat-name{font-size:13px!important}
+  .cat-count{font-size:11px!important}
 }
 /* ── GLASSMORPHISM ──────────────────────────────────── */
 nav{background:rgba(255,255,255,0.56)!important;backdrop-filter:blur(24px) saturate(180%)!important;-webkit-backdrop-filter:blur(24px) saturate(180%)!important;border-bottom:1px solid rgba(255,255,255,0.55)!important}
