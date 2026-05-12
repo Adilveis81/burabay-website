@@ -2,2721 +2,1109 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Burabay Tech — такси, объявления и новости для жителей Бурабая, Щучинска, Катарколя и всей Акмолинской области">
-<title>Burabay Tech — Бурабай, Щучинск &amp; Акмолинская область</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="manifest" href="/manifest.json">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="theme-color" content="#c9a84c">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Burabay Tech">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FF6B00">
+<title>Jalga.kz — Объявления Казахстана</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
-:root {
-  --navy:   oklch(0.19 0.07 248);
-  --navy2:  oklch(0.23 0.065 248);
-  --navy3:  oklch(0.27 0.055 248);
-  --gold:   oklch(0.76 0.13 83);
-  --gold2:  oklch(0.65 0.13 83);
-  --gold3:  oklch(0.88 0.09 83);
-  --cream:  oklch(0.96 0.01 83);
-  --muted:  oklch(0.68 0.025 248);
-  --border: oklch(0.34 0.05 248);
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Manrope', sans-serif;
-  background-color: var(--navy);
-  background-image: url('assets/stars-bg.svg');
-  background-repeat: repeat;
-  background-size: 800px 800px;
-  background-attachment: fixed;
-  color: var(--cream);
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-/* ─── KAZAKH ORNAMENT ─── */
-.kz-border {
-  height: 56px;
-  overflow: hidden;
-  flex-shrink: 0;
-  background-image: url('assets/kz-ornament-tile.png');
-  background-repeat: repeat-x;
-  background-position: center center;
-  background-size: auto 56px;
-  background-color: var(--navy);
-}
-
-.kz-divider-band {
-  height: 56px;
-  overflow: hidden;
-  margin: 0;
-  background-image: url('assets/kz-ornament-tile.png');
-  background-repeat: repeat-x;
-  background-position: center center;
-  background-size: auto 56px;
-  background-color: var(--navy);
-}
-
-.kz-divider {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin: 48px 0;
-}
-.kz-divider::before, .kz-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold2), transparent);
-}
-.kz-diamond {
-  width: 10px;
-  height: 10px;
-  background: var(--gold);
-  transform: rotate(45deg);
-  flex-shrink: 0;
-}
-
-/* ─── NAV ─── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  background: oklch(0.14 0.04 245 / 0.92);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-}
-.nav-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  gap: 32px;
-}
-.nav-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--gold);
-  text-decoration: none;
-  flex-shrink: 0;
-}
-.nav-logo span { color: var(--cream); font-weight: 400; }
-.nav-links {
-  display: flex;
-  gap: 24px;
-  list-style: none;
-  flex: 1;
-}
-.nav-links a {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--gold); }
-.nav-langs {
-  display: flex;
-  gap: 8px;
-}
-.nav-langs button {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  font-family: 'Manrope', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  padding: 3px 8px;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.nav-langs button.active,
-.nav-langs button:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-}
-
-/* Hamburger */
-.nav-hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  margin-left: auto;
-}
-.nav-hamburger span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--gold);
-  border-radius: 2px;
-  transition: transform 0.25s, opacity 0.25s;
-}
-.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.nav-hamburger.open span:nth-child(2) { opacity: 0; }
-.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-/* Mobile nav */
-.mobile-nav {
-  display: none;
-  position: fixed;
-  top: 60px;
-  left: 0; right: 0;
-  background: oklch(0.14 0.04 245 / 0.97);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  z-index: 99;
-  padding: 20px 24px;
-}
-.mobile-nav.open { display: block; }
-.mobile-nav ul { list-style: none; }
-.mobile-nav ul a {
-  display: block;
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border);
-  transition: color 0.2s;
-}
-.mobile-nav ul li:last-child a { border-bottom: none; }
-.mobile-nav ul a:hover { color: var(--gold); }
-
-/* ─── HERO ─── */
-#hero {
-  padding-top: 60px;
-  min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-landscape {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 220px;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.hero-ornament {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.12;
-  background-image:
-    repeating-linear-gradient(45deg, #c9a84c 0, #c9a84c 1px, transparent 0, transparent 50%),
-    repeating-linear-gradient(-45deg, #c9a84c 0, #c9a84c 1px, transparent 0, transparent 50%);
-  background-size: 28px 28px;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 24px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: start;
-}
-
-.hero-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid var(--gold2);
-  color: var(--gold);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 5px 14px;
-  border-radius: 2px;
-  margin-bottom: 28px;
-}
-.hero-tag::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  background: var(--gold);
-  transform: rotate(45deg);
-}
-
-h1.hero-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(42px, 6vw, 80px);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  margin-bottom: 16px;
-  color: var(--cream);
-}
-h1.hero-title em {
-  font-style: italic;
-  color: var(--gold);
-}
-
-.hero-subtitle {
-  color: var(--muted);
-  font-size: 14px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 40px;
-}
-
-.hero-ctas {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.btn-primary {
-  background: var(--gold);
-  color: var(--navy);
-  border: none;
-  padding: 13px 28px;
-  font-family: 'Manrope', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: all 0.2s;
-}
-.btn-primary:hover { background: var(--gold3); }
-.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
-
-.btn-ghost {
-  background: none;
-  color: var(--gold);
-  border: 1px solid var(--gold2);
-  padding: 13px 28px;
-  font-family: 'Manrope', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: all 0.2s;
-}
-.btn-ghost:hover { border-color: var(--gold); background: oklch(0.76 0.13 83 / 0.08); }
-
-/* ─── ANNOUNCEMENT CARD ─── */
-.announcement-card {
-  background: var(--navy2);
-  border: 1px solid var(--border);
-  border-top: 3px solid var(--gold);
-  padding: 32px;
-  position: relative;
-}
-.announcement-card::before {
-  content: '📢';
-  position: absolute;
-  top: -18px;
-  left: 28px;
-  background: var(--navy);
-  padding: 0 8px;
-  font-size: 22px;
-}
-
-.ann-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--gold);
-  margin-bottom: 20px;
-  line-height: 1.3;
-}
-
-.ann-section {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 14px;
-  font-size: 13.5px;
-  line-height: 1.55;
-}
-.ann-section .ann-icon {
-  flex-shrink: 0;
-  font-size: 16px;
-  margin-top: 1px;
-}
-
-.ann-highlight {
-  background: oklch(0.76 0.13 83 / 0.08);
-  border-left: 2px solid var(--gold);
-  padding: 10px 14px;
-  margin-top: 18px;
-  font-size: 13px;
-  color: var(--gold3);
-}
-.ann-highlight + .ann-highlight { margin-top: 8px; }
-
-/* ─── SECTION TEMPLATE ─── */
-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 24px;
-}
-
-.section-label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--gold2);
-  margin-bottom: 8px;
-}
-
-h2.section-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--cream);
-  margin-bottom: 8px;
-}
-h2.section-title em {
-  font-style: italic;
-  color: var(--gold);
-}
-
-.section-desc {
-  color: var(--muted);
-  font-size: 14px;
-  max-width: 480px;
-  margin-bottom: 48px;
-}
-
-/* ─── SECTION LANDSCAPES ─── */
-#taxi, #ads, #cities, #videos, #contact {
-  position: relative;
-  isolation: isolate;
-}
-.section-landscape {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* ─── TAXI ─── */
-#taxi { padding-top: 0; }
-
-.taxi-full {
-  background: var(--navy2);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--gold);
-  overflow: hidden;
-}
-
-.taxi-header {
-  padding: 32px 36px 24px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.taxi-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: oklch(0.76 0.13 83 / 0.12);
-  border: 1px solid var(--gold2);
-  color: var(--gold);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 4px 12px;
-  margin-bottom: 12px;
-}
-
-.taxi-car-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--cream);
-}
-.taxi-route {
-  font-size: 13px;
-  color: var(--muted);
-  margin-top: 4px;
-}
-
-.taxi-price-block { text-align: right; }
-.taxi-price {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 42px;
-  font-weight: 700;
-  color: var(--gold);
-  line-height: 1;
-}
-.taxi-price-label {
-  font-size: 12px;
-  color: var(--muted);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-top: 4px;
-}
-
-.taxi-body {
-  padding: 28px 36px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 32px;
-  align-items: start;
-}
-
-.taxi-features {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.taxi-feature {
-  display: flex;
-  gap: 10px;
-  font-size: 13.5px;
-  align-items: flex-start;
-}
-.taxi-feature .feat-icon {
-  color: var(--gold2);
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-.taxi-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-width: 200px;
-}
-
-.taxi-warning {
-  background: oklch(0.76 0.13 83 / 0.06);
-  border: 1px solid oklch(0.76 0.13 83 / 0.25);
-  padding: 10px 14px;
-  font-size: 12px;
-  color: var(--gold3);
-  margin-top: 4px;
-  text-align: center;
-}
-
-.taxi-promo-bar {
-  background: oklch(0.76 0.13 83 / 0.06);
-  border-top: 1px solid var(--border);
-  padding: 14px 36px;
-  font-size: 13px;
-  color: var(--gold3);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* ─── ADS ─── */
-.ads-layout {
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 32px;
-  align-items: start;
-}
-
-.ads-form-panel {
-  background: var(--navy2);
-  border: 1px solid var(--border);
-  border-top: 3px solid var(--gold);
-  padding: 28px;
-  position: sticky;
-  top: 80px;
-}
-
-.ads-form-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--gold);
-  margin-bottom: 20px;
-}
-
-.form-group { margin-bottom: 14px; }
-.form-label {
-  display: block;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 6px;
-}
-.form-control {
-  width: 100%;
-  background: var(--navy3);
-  border: 1px solid var(--border);
-  color: var(--cream);
-  font-family: 'Manrope', sans-serif;
-  font-size: 13px;
-  padding: 9px 12px;
-  outline: none;
-  transition: border-color 0.2s;
-  -webkit-appearance: none;
-}
-.form-control:focus { border-color: var(--gold2); }
-select.form-control { cursor: pointer; }
-textarea.form-control { resize: vertical; min-height: 80px; }
-
-.ads-filter-bar {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 28px;
-}
-.filter-chip {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  font-family: 'Manrope', sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  padding: 18px 20px 14px;
-  cursor: pointer;
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 11px;
-  min-width: 80px;
-}
-.filter-chip svg { display: block; flex-shrink: 0; }
-.filter-chip.active,
-.filter-chip:hover {
-  border-color: #F5A623;
-  color: #F5A623;
-  background: rgba(245, 166, 35, 0.07);
-}
-
-.ads-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
-}
-
-.ad-card {
-  background: var(--navy2);
-  border: 1px solid var(--border);
-  padding: 20px;
-  transition: border-color 0.2s;
-}
-.ad-card:hover { border-color: var(--gold2); }
-.ad-contact-btn {
-  display: block;
-  width: 100%;
-  margin-top: 14px;
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--gold);
-  font-size: 12px;
-  font-weight: 600;
-  font-family: 'Manrope', sans-serif;
-  letter-spacing: 0.05em;
-  padding: 8px;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: border-color 0.2s, background 0.2s;
-}
-.ad-contact-btn:hover { border-color: var(--gold2); background: oklch(0.76 0.13 83 / 0.06); }
-.ad-contacts {
-  display: none;
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border);
-}
-.ad-card.ad-open .ad-contacts { display: block; }
-.ad-card.ad-open .ad-contact-btn { border-color: var(--gold2); }
-.ad-contact-name {
-  font-size: 12px;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-.ad-contact-links {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.ad-contact-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: var(--navy3);
-  border: 1px solid var(--border);
-  color: var(--cream);
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 7px 12px;
-  border-radius: 2px;
-  transition: border-color 0.2s;
-}
-.ad-contact-link:hover { border-color: var(--gold2); color: var(--gold); }
-.ad-no-contacts { font-size: 12px; color: var(--muted); }
-
-.ad-cat {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--gold2);
-  margin-bottom: 8px;
-}
-.ad-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--cream);
-  margin-bottom: 6px;
-  line-height: 1.3;
-}
-.ad-desc {
-  font-size: 12.5px;
-  color: var(--muted);
-  margin-bottom: 14px;
-  line-height: 1.5;
-}
-.ad-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.ad-price { font-size: 17px; font-weight: 700; color: var(--gold); }
-.ad-city { font-size: 11px; color: var(--muted); }
-
-
-/* ─── CITIES (Akmola Region) ─── */
-#cities { padding-top: 0; }
-
-.cities-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 14px;
-  margin-top: 32px;
-}
-
-.city-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 22px 14px;
-  background: var(--navy3);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-  text-align: center;
-}
-.city-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--gold2);
-  background: oklch(0.30 0.05 248);
-}
-
-.city-card .city-icon {
-  font-size: 28px;
-  line-height: 1;
-}
-.city-card .city-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 19px;
-  font-weight: 600;
-  color: var(--cream);
-}
-.city-card .city-tag {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-top: 2px;
-}
-
-.city-card-featured {
-  background: linear-gradient(180deg, oklch(0.25 0.07 248), var(--navy3));
-  border-color: var(--gold2);
-}
-.city-card-featured .city-tag {
-  color: var(--gold);
-}
-.city-card-major {
-  border-color: var(--gold2);
-}
-.city-card-major .city-tag {
-  color: var(--gold3);
-}
-
-/* ─── VIDEOS ─── */
-#videos { padding-top: 0; }
-
-.videos-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.video-card {
-  background: var(--navy2);
-  border: 1px solid var(--border);
-  overflow: hidden;
-  transition: border-color 0.2s, transform 0.2s;
-  cursor: pointer;
-}
-.video-card:hover {
-  border-color: var(--gold2);
-  transform: translateY(-2px);
-}
-
-.video-thumb {
-  aspect-ratio: 16/9;
-  background: var(--navy3);
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid var(--border);
-}
-.video-thumb-bg {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36px;
-  opacity: 0.15;
-}
-.play-btn {
-  width: 48px;
-  height: 48px;
-  border: 2px solid var(--gold);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-  transition: background 0.2s;
-}
-.play-btn::after {
-  content: '';
-  border-left: 16px solid var(--gold);
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  margin-left: 4px;
-}
-.video-card:hover .play-btn { background: oklch(0.76 0.13 83 / 0.2); }
-
-.video-duration {
-  position: absolute;
-  bottom: 8px;
-  right: 10px;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--cream);
-  background: oklch(0.14 0.04 245 / 0.85);
-  padding: 2px 6px;
-  z-index: 1;
-}
-
-.video-info { padding: 18px; }
-.video-tag {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--gold2);
-  margin-bottom: 6px;
-}
-.video-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--cream);
-  line-height: 1.3;
-  margin-bottom: 10px;
-}
-.video-meta { font-size: 11.5px; color: var(--muted); display: flex; gap: 12px; }
-
-/* ─── CONTACT ─── */
-#contact { padding-top: 0; }
-
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-}
-
-.contact-channels {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.channel-link {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: var(--navy2);
-  border: 1px solid var(--border);
-  padding: 18px 22px;
-  text-decoration: none;
-  transition: border-color 0.2s;
-}
-.channel-link:hover { border-color: #F5A623; }
-.channel-icon {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: #F5A623;
-}
-.channel-name {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--gold2);
-  margin-bottom: 2px;
-}
-.channel-handle { font-size: 14px; color: var(--cream); }
-
-.contact-form-panel {
-  background: var(--navy2);
-  border: 1px solid var(--border);
-  border-top: 3px solid var(--gold);
-  padding: 32px;
-}
-.contact-form-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--gold);
-  margin-bottom: 24px;
-}
-
-/* ─── AI CHAT ─── */
-.ai-chat {
-  background: var(--navy2);
-  border: 1px solid var(--border);
-  border-top: 3px solid var(--gold2);
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-}
-.ai-chat-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--gold);
-  margin-bottom: 20px;
-}
-.ai-chat-messages {
-  flex: 1;
-  min-height: 260px;
-  max-height: 300px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 16px;
-  padding-right: 4px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
-}
-.ai-chat-messages::-webkit-scrollbar { width: 4px; }
-.ai-chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-.chat-msg {
-  max-width: 86%;
-  padding: 9px 13px;
-  font-size: 13px;
-  line-height: 1.55;
-}
-.chat-msg.user {
-  align-self: flex-end;
-  background: oklch(0.76 0.13 83 / 0.1);
-  border: 1px solid var(--gold2);
-  color: var(--cream);
-}
-.chat-msg.ai {
-  align-self: flex-start;
-  background: var(--navy3);
-  border: 1px solid var(--border);
-  color: var(--cream);
-}
-.chat-msg.typing { color: var(--muted); font-style: italic; }
-.ai-chat-row {
-  display: flex;
-  gap: 8px;
-}
-.ai-chat-input {
-  flex: 1;
-  background: var(--navy);
-  border: 1px solid var(--border);
-  color: var(--cream);
-  font-family: 'Manrope', sans-serif;
-  font-size: 13px;
-  padding: 10px 14px;
-  outline: none;
-  transition: border-color 0.2s;
-  min-width: 0;
-}
-.ai-chat-input:focus { border-color: var(--gold2); }
-.ai-chat-input::placeholder { color: var(--muted); }
-.ai-chat-send {
-  background: var(--gold);
-  color: var(--navy);
-  border: none;
-  padding: 10px 16px;
-  font-weight: 700;
-  font-family: 'Manrope', sans-serif;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background 0.2s;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.ai-chat-send:hover { background: var(--gold3); }
-.ai-chat-send:disabled { opacity: 0.55; cursor: not-allowed; }
-
-/* ─── FOOTER ─── */
-footer {
-  background: oklch(0.10 0.03 245);
-  border-top: 1px solid var(--border);
-  margin-top: 80px;
-}
-.footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 32px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--gold); }
-.footer-copy { font-size: 12px; color: var(--muted); }
-
-/* ─── FORM STATUS ─── */
-.form-status {
-  display: none;
-  padding: 12px 16px;
-  font-size: 13px;
-  margin-top: 12px;
-}
-.form-status.success {
-  background: oklch(0.7 0.15 150 / 0.12);
-  border: 1px solid oklch(0.7 0.15 150 / 0.4);
-  color: oklch(0.7 0.15 150);
-}
-.form-status.error {
-  background: oklch(0.55 0.18 25 / 0.12);
-  border: 1px solid oklch(0.55 0.18 25 / 0.4);
-  color: oklch(0.75 0.15 25);
-}
-
-/* ─── FULL-WIDTH WRAPPER ─── */
-.fw { max-width: 100%; background: var(--navy2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.fw > section { padding-top: 64px; padding-bottom: 64px; }
-
-/* ─── RESPONSIVE ─── */
-@media (max-width: 900px) {
-  .hero-content { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px 80px; }
-  .ads-layout { grid-template-columns: 1fr; gap: 28px; }
-  .ads-form-panel { position: static; }
-  .contact-grid { grid-template-columns: 1fr; }
-  .videos-grid { grid-template-columns: 1fr 1fr; }
-  .taxi-body { grid-template-columns: 1fr; gap: 20px; }
-  .taxi-price-block { text-align: left; }
-  section { padding: 60px 24px; }
-  .ads-grid { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 640px) {
-  .nav-links { display: none; }
-  .nav-langs { display: none; }
-  .nav-hamburger { display: flex; }
-  .videos-grid { grid-template-columns: 1fr; }
-  .hero-ctas { flex-direction: column; align-items: stretch; }
-  .hero-ctas a { text-align: center; }
-  h1.hero-title { font-size: clamp(34px, 9vw, 52px); line-height: 1.05; }
-  h2.section-title { font-size: clamp(28px, 7vw, 40px); }
-  .hero-subtitle { font-size: 14px; }
-  .section-desc { font-size: 14px; }
-  section { padding: 48px 18px; }
-  .ads-grid { grid-template-columns: 1fr; }
-  .cities-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .city-card { padding: 18px 10px; }
-  .city-card .city-icon { font-size: 24px; }
-  .city-card .city-name { font-size: 17px; }
-  .taxi-body { padding: 22px; }
-  .ads-form-panel { padding: 22px; }
-  .hero-tag { font-size: 11px; }
-  .kz-border, .kz-divider-band { height: 38px !important; background-size: auto 38px !important; }
-}
-@media (max-width: 380px) {
-  .ads-grid { grid-template-columns: 1fr; }
-  h1.hero-title { font-size: 30px; }
-  h2.section-title { font-size: 26px; }
-  .btn-primary, .btn-ghost { padding: 12px 18px; font-size: 13px; }
-  section { padding: 42px 14px; }
-}
-
-#pwaNavBtn {
-  background: var(--gold);
-  color: var(--navy);
-  border: none;
-  padding: 7px 13px;
-  font-size: 12px;
-  font-weight: 700;
-  font-family: 'Manrope', sans-serif;
-  letter-spacing: 0.03em;
-  cursor: pointer;
-  border-radius: 3px;
-  white-space: nowrap;
-  transition: background 0.2s;
-  flex-shrink: 0;
-}
-#pwaNavBtn:hover { background: var(--gold3); }
-#pwaNavBtn.hidden { display: none; }
-@media (max-width: 640px) {
-  #pwaNavBtn .pwa-btn-label { display: none; }
-  #pwaNavBtn { padding: 7px 10px; }
-  .mobile-nav #pwaNavBtnMobile { display: block; }
-}
-.mobile-nav #pwaNavBtnMobile {
-  display: none;
-  background: var(--gold);
-  color: var(--navy);
-  border: none;
-  padding: 10px 18px;
-  font-size: 13px;
-  font-weight: 700;
-  font-family: 'Manrope', sans-serif;
-  cursor: pointer;
-  border-radius: 3px;
-  width: 100%;
-  text-align: center;
-  margin-top: 8px;
-}
-.mobile-nav #pwaNavBtnMobile:hover { background: var(--gold3); }
-#pwaInstallModal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: rgba(0,0,0,0.6);
-  align-items: center;
-  justify-content: center;
-}
-#pwaInstallModal.visible { display: flex; }
-.pwa-modal-card {
-  background: var(--navy2);
-  border: 1px solid var(--gold2);
-  padding: 32px 24px 24px;
-  max-width: 320px;
-  width: calc(100% - 32px);
-  text-align: center;
-  position: relative;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
-}
-.pwa-modal-card h3 {
-  color: var(--gold);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
-  margin: 0 0 12px;
-  font-weight: 600;
-}
-.pwa-modal-card p {
-  color: var(--cream);
-  font-size: 14px;
-  line-height: 1.6;
-  margin: 0 0 20px;
-}
-.pwa-modal-close {
-  position: absolute;
-  top: 10px;
-  right: 14px;
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-size: 20px;
-  cursor: pointer;
-  line-height: 1;
-  padding: 0;
-}
-.pwa-modal-close:hover { color: var(--cream); }
-
-/* ─── RADIO PLAYER ─── */
-/* ─── Radio Widget ─── */
-#radioWidget {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
-}
-@keyframes radioPulse {
-  0%   { box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 0   rgba(201,168,76,0.6); }
-  60%  { box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 14px rgba(201,168,76,0); }
-  100% { box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 0   rgba(201,168,76,0); }
-}
-#radioToggleName {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--gold);
-  text-align: center;
-  max-width: 72px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
-  letter-spacing: 0.02em;
-}
-#radioToggleName.visible { opacity: 1; }
-#radioToggleBtn {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--navy2);
-  border: 2px solid var(--border);
-  color: var(--gold);
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-#radioToggleBtn:hover { border-color: var(--gold2); transform: scale(1.06); }
-#radioToggleBtn.active { border-color: var(--gold); }
-#radioToggleBtn.playing { animation: radioPulse 1.6s ease-out infinite; border-color: var(--gold); }
-#radioPanel {
-  display: none;
-  flex-direction: column;
-  background: var(--navy2);
-  border: 1px solid var(--gold2);
-  border-radius: 12px;
-  width: 268px;
-  max-height: 430px;
-  overflow: hidden;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.65);
-}
-#radioPanel.open { display: flex; }
-.rp-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 11px 14px 10px;
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-}
-.rp-title {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--gold2);
-}
-.rp-close {
-  background: none; border: none;
-  color: var(--muted); font-size: 20px;
-  cursor: pointer; line-height: 1; padding: 0;
-  transition: color 0.15s;
-}
-.rp-close:hover { color: var(--cream); }
-.rp-channels {
-  overflow-y: auto;
-  flex: 1;
-  padding: 4px 0;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
-}
-.rp-channels::-webkit-scrollbar { width: 4px; }
-.rp-channels::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-.rp-ch {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-.rp-ch:hover { background: rgba(201,168,76,0.07); }
-.rp-ch.active { background: rgba(201,168,76,0.13); }
-.rp-ch-num {
-  font-size: 10px;
-  color: var(--muted);
-  width: 14px;
-  flex-shrink: 0;
-  text-align: right;
-}
-.rp-ch-name {
-  font-size: 13px;
-  color: var(--cream-dim, #c8c8a0);
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: color 0.15s;
-}
-.rp-ch.active .rp-ch-name { color: var(--gold); font-weight: 700; }
-.rp-ch-waves {
-  display: none;
-  align-items: flex-end;
-  gap: 2px;
-  height: 14px;
-  width: 16px;
-  flex-shrink: 0;
-}
-.rp-ch.active .rp-ch-waves { display: flex; }
-.rp-ch-waves span { display: block; width: 2px; background: var(--gold); border-radius: 1px; height: 2px; }
-.rp-ch.active .rp-ch-waves span:nth-child(1) { animation: rpWave 1.0s ease-in-out infinite; }
-.rp-ch.active .rp-ch-waves span:nth-child(2) { animation: rpWave 0.8s ease-in-out infinite 0.15s; }
-.rp-ch.active .rp-ch-waves span:nth-child(3) { animation: rpWave 1.2s ease-in-out infinite 0.05s; }
-.rp-ch.active .rp-ch-waves span:nth-child(4) { animation: rpWave 0.9s ease-in-out infinite 0.2s; }
-.rp-ch-btn {
-  width: 26px; height: 26px;
-  border-radius: 50%;
-  background: var(--navy);
-  border: 1px solid var(--border);
-  color: var(--gold2);
-  cursor: pointer; flex-shrink: 0;
-  font-size: 9px;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
-}
-.rp-ch.active .rp-ch-btn { background: var(--gold); color: var(--navy); border-color: var(--gold); }
-.rp-ch-btn:hover { border-color: var(--gold2); }
-.rp-footer {
-  border-top: 1px solid var(--border);
-  padding: 10px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex-shrink: 0;
-}
-.rp-footer-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.rp-waves {
-  display: flex;
-  align-items: flex-end;
-  gap: 2px;
-  height: 16px;
-  width: 16px;
-  flex-shrink: 0;
-}
-.rp-waves span { display: block; width: 2px; background: var(--gold2); border-radius: 1px; height: 2px; }
-.rp-waves.playing span:nth-child(1) { animation: rpWave 1.0s ease-in-out infinite; }
-.rp-waves.playing span:nth-child(2) { animation: rpWave 0.8s ease-in-out infinite 0.15s; }
-.rp-waves.playing span:nth-child(3) { animation: rpWave 1.2s ease-in-out infinite 0.05s; }
-.rp-waves.playing span:nth-child(4) { animation: rpWave 0.9s ease-in-out infinite 0.2s; }
-#rpStatus {
-  font-size: 11px;
-  color: var(--muted);
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.rp-stop {
-  width: 26px; height: 26px;
-  border-radius: 6px;
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  cursor: pointer; flex-shrink: 0;
-  font-size: 11px;
-  display: flex; align-items: center; justify-content: center;
-  transition: border-color 0.15s, color 0.15s;
-}
-.rp-stop:hover { border-color: var(--gold2); color: var(--cream); }
-.rp-volume {
-  flex: 1; -webkit-appearance: none; appearance: none;
-  height: 3px; background: var(--border); border-radius: 2px;
-  outline: none; cursor: pointer; accent-color: var(--gold);
-}
-.rp-volume::-webkit-slider-thumb {
-  -webkit-appearance: none; width: 13px; height: 13px;
-  border-radius: 50%; background: var(--gold); cursor: pointer;
-}
-.rp-volume::-moz-range-thumb {
-  width: 13px; height: 13px; border-radius: 50%;
-  background: var(--gold); border: none; cursor: pointer;
-}
-@keyframes rpWave {
-  0%, 100% { height: 2px; }
-  50% { height: 14px; }
+:root{
+  --o:#FF6B00; --o2:#FF8C33; --o-bg:#FFF3E0; --o-dark:#BF4E00;
+  --b:#1565C0; --b2:#1976D2; --b-bg:#E3F2FD; --b-dark:#0D47A1;
+  --t:#00796B; --t2:#00897B; --t-bg:#E0F2F1; --t-dark:#004D40;
+  --g:#2E7D32; --g2:#388E3C; --g-bg:#F1F8E9; --g-dark:#1B5E20;
+  --y:#F9A825; --y2:#FFB300; --y-bg:#FFFDE7; --y-dark:#E65100;
+  --r:#C62828; --r2:#D32F2F; --r-bg:#FFEBEE; --r-dark:#7F0000;
+  --pu:#6A1B9A; --pu2:#7B1FA2; --pu-bg:#F3E5F5;
+  --white:#fff; --bg:#F4F4F0; --card:#fff;
+  --text:#1A1A1A; --text2:#555; --text3:#888;
+  --border:rgba(0,0,0,0.09); --border2:rgba(0,0,0,0.16);
+  --radius:10px; --radius-lg:14px; --radius-xl:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;position:relative}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* WATERMARK BACKGROUND — room scene tiles */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='480' height='320'><rect x='0' y='0' width='120' height='107' fill='%23FF6B00' opacity='0.07'/><rect x='120' y='0' width='120' height='107' fill='%231565C0' opacity='0.06'/><rect x='240' y='0' width='120' height='107' fill='%23F9A825' opacity='0.07'/><rect x='360' y='0' width='120' height='107' fill='%236A1B9A' opacity='0.06'/><rect x='0' y='107' width='120' height='107' fill='%2300796B' opacity='0.07'/><rect x='120' y='107' width='120' height='107' fill='%23C62828' opacity='0.05'/><rect x='240' y='107' width='120' height='107' fill='%232E7D32' opacity='0.06'/><rect x='360' y='107' width='120' height='107' fill='%23FF6B00' opacity='0.06'/><rect x='0' y='214' width='120' height='107' fill='%231565C0' opacity='0.06'/><rect x='120' y='214' width='120' height='107' fill='%236A1B9A' opacity='0.06'/><rect x='240' y='214' width='120' height='107' fill='%23F9A825' opacity='0.07'/><rect x='360' y='214' width='120' height='107' fill='%2300796B' opacity='0.06'/><text x='15' y='88' font-size='72' opacity='0.11'>🛋️</text><text x='135' y='88' font-size='72' opacity='0.11'>📺</text><text x='255' y='88' font-size='72' opacity='0.11'>🚗</text><text x='375' y='88' font-size='72' opacity='0.11'>📱</text><text x='15' y='195' font-size='72' opacity='0.11'>🧊</text><text x='135' y='195' font-size='72' opacity='0.11'>🍳</text><text x='255' y='195' font-size='72' opacity='0.11'>💰</text><text x='375' y='195' font-size='72' opacity='0.11'>💻</text><text x='15' y='302' font-size='72' opacity='0.11'>🪴</text><text x='135' y='302' font-size='72' opacity='0.11'>🏠</text><text x='255' y='302' font-size='72' opacity='0.11'>💎</text><text x='375' y='302' font-size='72' opacity='0.11'>🛁</text></svg>");
+  background-size: 480px 320px;
+  opacity: 1;
+}
+body>*{position:relative;z-index:1}
+
+/* NAV */
+nav{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200}
+.nav-i{max-width:1280px;margin:0 auto;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px}
+.logo{font-size:22px;font-weight:800;color:var(--o);letter-spacing:-.5px}
+.logo sup{font-size:10px;background:var(--o);color:#fff;padding:1px 5px;border-radius:6px;margin-left:2px;font-weight:700;vertical-align:super}
+.nav-search{flex:1;max-width:480px;display:flex;border:1.5px solid var(--border2);border-radius:var(--radius);overflow:hidden;background:var(--bg)}
+.nav-search input{flex:1;padding:8px 14px;font-size:14px;border:none;outline:none;background:transparent;color:var(--text)}
+.nav-search button{background:var(--o);color:#fff;border:none;padding:0 16px;cursor:pointer;font-size:16px}
+.nav-links{display:flex;gap:2px;margin-left:8px}
+.nav-links a{font-size:13px;color:var(--text2);padding:6px 10px;border-radius:var(--radius);font-weight:500;white-space:nowrap;display:flex;align-items:center;gap:4px}
+.nav-links a:hover{background:var(--bg);color:var(--text)}
+.nav-links a.services-link{color:var(--pu);font-weight:700}
+.nav-links a.services-link:hover{background:var(--pu-bg)}
+.nav-right{display:flex;gap:8px;margin-left:auto;align-items:center}
+.nav-city{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--text2);padding:6px 10px;border:1px solid var(--border2);border-radius:var(--radius);cursor:pointer;white-space:nowrap;transition:.15s}
+.nav-city:hover{border-color:var(--b);color:var(--b)}
+.nav-post{background:var(--o);color:#fff;border:none;border-radius:var(--radius);padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.nav-post:hover{background:var(--o2)}
+.hamburger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text)}
+.mob-menu{display:none;background:#fff;border-top:1px solid var(--border);padding:12px 20px 16px;flex-direction:column;gap:4px}
+.mob-menu.open{display:flex}
+.mob-menu a{padding:10px 12px;border-radius:var(--radius);font-size:14px;color:var(--text2);display:block;font-weight:500}
+.mob-menu a.intercity-mob{color:var(--o);font-weight:700;background:var(--o-bg)}
+.mob-menu a.services-mob{color:var(--pu);font-weight:700}
+
+/* URGENCY BAR */
+.urgency{background:linear-gradient(135deg,var(--o) 0%,var(--o-dark) 100%);color:#fff;text-align:center;padding:8px 20px;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.u-free-badge{background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.4);border-radius:16px;padding:2px 10px;font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+.u-timer{font-weight:800;font-variant-numeric:tabular-nums;background:rgba(0,0,0,.2);padding:2px 8px;border-radius:6px;font-size:14px}
+
+/* HERO */
+.hero{max-width:1280px;margin:0 auto;padding:24px 20px 0}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto;gap:12px}
+.hero-main{grid-column:1/3;background:var(--b);border-radius:var(--radius-xl);padding:32px;position:relative;overflow:hidden;min-height:220px;display:flex;flex-direction:column;justify-content:space-between}
+.hero-main::before{content:'';position:absolute;right:-40px;top:-40px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.06)}
+.hero-main::after{content:'';position:absolute;right:30px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.05)}
+.hero-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.15);border-radius:20px;padding:3px 12px;font-size:11px;color:rgba(255,255,255,.9);margin-bottom:10px;font-weight:600;width:fit-content}
+.free-ribbon{display:inline-flex;align-items:center;gap:5px;background:rgba(249,168,37,.25);border:1px solid rgba(249,168,37,.5);border-radius:20px;padding:3px 12px;font-size:11px;color:#FFE082;margin-bottom:8px;font-weight:700;width:fit-content}
+.hero-main h1{font-size:32px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px;position:relative;z-index:1}
+.hero-main h1 em{color:var(--y2);font-style:normal}
+.hero-main p{font-size:14px;color:rgba(255,255,255,.75);margin-bottom:20px;position:relative;z-index:1}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+.hbtn-o{background:var(--o);color:#fff;border:none;border-radius:var(--radius);padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px}
+.hbtn-o:hover{background:var(--o2)}
+.hbtn-w{background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.3);border-radius:var(--radius);padding:10px 20px;font-size:14px;font-weight:600;cursor:pointer}
+.hbtn-w:hover{background:rgba(255,255,255,.22)}
+.hero-stats-card{background:var(--o);border-radius:var(--radius-xl);padding:20px;display:flex;flex-direction:column;justify-content:space-between;min-height:220px}
+.hero-stat-item{margin-bottom:14px}
+.hero-stat-item .n{font-size:26px;font-weight:800;color:#fff;line-height:1}
+.hero-stat-item .l{font-size:11px;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.live-pill{display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.15);border-radius:20px;padding:5px 12px;font-size:12px;color:#fff;width:fit-content}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#4CAF50;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* TAXI CARD — МЕЖГОРОД HIGHLIGHTED */
+.hero-taxi{background:var(--t);border-radius:var(--radius-xl);padding:20px;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden}
+.hero-taxi::before{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.07)}
+.taxi-tabs{display:flex;gap:6px;margin-bottom:4px}
+.taxi-tab{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid rgba(255,255,255,.3);color:rgba(255,255,255,.7);background:transparent;transition:.15s}
+.taxi-tab.active{background:var(--y);color:#1A1A1A;border-color:var(--y);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.intercity-badge{display:inline-flex;align-items:center;gap:4px;background:var(--y);color:#1A1A1A;border-radius:16px;padding:3px 10px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;width:fit-content;margin-bottom:4px}
+.hero-taxi .hv{font-size:20px;font-weight:800;color:#fff;line-height:1.2}
+.hero-taxi .hs{font-size:12px;color:rgba(255,255,255,.7)}
+.wa-btn{background:#25D366;color:#fff;border:none;border-radius:var(--radius);padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;width:100%;justify-content:center;margin-top:auto}
+.wa-btn:hover{background:#1EBE5A}
+.hero-free{background:var(--g);border-radius:var(--radius-xl);padding:20px;display:flex;flex-direction:column;gap:8px}
+.hero-free .f-icon{font-size:28px;color:#fff}
+.hero-free .ft{font-size:16px;font-weight:800;color:#fff}
+.hero-free .fs{font-size:12px;color:rgba(255,255,255,.8)}
+.hero-free .fc{font-size:13px;color:#fff;font-weight:600;margin-top:auto;display:flex;align-items:center;gap:5px}
+.free-limit-badge{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700;color:#fff;width:fit-content}
+
+/* SOCIAL PROOF STRIP */
+.proof{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;gap:16px;overflow-x:auto;white-space:nowrap;max-width:100%}
+.proof-lbl{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;flex-shrink:0}
+.proof-item{display:inline-flex;align-items:center;gap:7px;flex-shrink:0}
+.av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.proof-text strong{display:block;font-size:12px;font-weight:600;color:var(--text)}
+.proof-text span{font-size:11px;color:var(--text3)}
+.proof-sep{color:var(--border2);font-size:18px;flex-shrink:0}
+
+/* SECTION */
+.section{max-width:1280px;margin:0 auto;padding:28px 20px 0}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sec-head h2{font-size:18px;font-weight:800;color:var(--text)}
+.sec-head h2 em{font-style:normal}
+.sec-more{font-size:13px;color:var(--b);font-weight:600;display:flex;align-items:center;gap:3px}
+
+/* CATEGORIES GRID */
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.cat-card{border-radius:var(--radius-lg);padding:16px 12px;text-align:center;cursor:pointer;transition:.15s;border:1.5px solid transparent;display:flex;flex-direction:column;align-items:center;gap:8px}
+.cat-card:hover{border-color:rgba(0,0,0,.15);transform:translateY(-2px)}
+.cat-icon{font-size:26px;width:52px;height:52px;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center}
+.cat-name{font-size:12px;font-weight:700;line-height:1.2}
+.cat-count{font-size:10px;font-weight:500;opacity:.7}
+.c-auto{background:var(--b-bg)} .c-auto .cat-icon{background:var(--b);color:#fff} .c-auto .cat-name{color:var(--b-dark)}
+.c-realty{background:var(--o-bg)} .c-realty .cat-icon{background:var(--o);color:#fff} .c-realty .cat-name{color:var(--o-dark)}
+.c-elec{background:var(--pu-bg)} .c-elec .cat-icon{background:var(--pu);color:#fff} .c-elec .cat-name{color:#4A148C}
+.c-work{background:var(--g-bg)} .c-work .cat-icon{background:var(--g);color:#fff} .c-work .cat-name{color:var(--g-dark)}
+.c-serv{background:var(--t-bg)} .c-serv .cat-icon{background:var(--t);color:#fff} .c-serv .cat-name{color:var(--t-dark)}
+.c-taxi{background:#FFF8E1} .c-taxi .cat-icon{background:var(--y);color:#fff} .c-taxi .cat-name{color:#E65100}
+.c-pet{background:#FCE4EC} .c-pet .cat-icon{background:#E91E63;color:#fff} .c-pet .cat-name{color:#880E4F}
+.c-kids{background:#F3E5F5} .c-kids .cat-icon{background:var(--pu);color:#fff} .c-kids .cat-name{color:#4A148C}
+.c-sport{background:var(--r-bg)} .c-sport .cat-icon{background:var(--r);color:#fff} .c-sport .cat-name{color:var(--r-dark)}
+.c-furn{background:#EFEBE9} .c-furn .cat-icon{background:#5D4037;color:#fff} .c-furn .cat-name{color:#3E2723}
+.c-food{background:#E8F5E9} .c-food .cat-icon{background:#43A047;color:#fff} .c-food .cat-name{color:#1B5E20}
+.c-free{background:#E0F7FA} .c-free .cat-icon{background:#00ACC1;color:#fff} .c-free .cat-name{color:#006064}
+
+/* VIEW SWITCHER */
+.view-controls{display:flex;align-items:center;gap:8px}
+.view-switcher{display:flex;gap:3px;background:var(--bg);border:1.5px solid var(--border2);border-radius:var(--radius);padding:3px}
+.view-btn{width:34px;height:30px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;border-radius:7px;cursor:pointer;color:var(--text3);font-size:16px;transition:.15s}
+.view-btn.active{background:#fff;color:var(--o);box-shadow:0 1px 5px rgba(0,0,0,.14)}
+.view-btn:hover:not(.active){background:rgba(0,0,0,.05);color:var(--text)}
+.col-switcher{display:flex;gap:3px;background:var(--bg);border:1.5px solid var(--border2);border-radius:var(--radius);padding:3px}
+.col-btn{min-width:30px;height:30px;padding:0 8px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;border-radius:7px;cursor:pointer;color:var(--text3);font-size:11px;font-weight:800;transition:.15s}
+.col-btn.active{background:#fff;color:var(--b);box-shadow:0 1px 5px rgba(0,0,0,.14)}
+.col-btn:hover:not(.active){background:rgba(0,0,0,.05);color:var(--text)}
+
+/* ADS GRID (tile mode) */
+.ads-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.ad-card{background:var(--card);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;border:1px solid var(--border);transition:.15s;position:relative}
+.ad-card:hover{border-color:rgba(0,0,0,.22);transform:translateY(-2px)}
+.ad-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:40px;position:relative}
+.ad-img.no-img{flex-direction:column;gap:4px}
+.ad-cat-badge{position:absolute;top:8px;left:8px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;color:#fff}
+.ad-fav{position:absolute;top:7px;right:7px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;color:#ccc;border:1px solid var(--border);transition:.15s}
+.ad-fav.on,.ad-fav:hover{color:#E53935}
+.ad-body{padding:10px 12px 12px}
+.ad-price{font-size:17px;font-weight:800;margin-bottom:3px}
+.ad-title{font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ad-foot{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text3);margin-top:6px}
+.ad-actions{display:flex;gap:6px;margin-top:8px}
+.btn-call{flex:1;background:var(--text);color:#fff;border:none;border-radius:var(--radius);padding:7px 0;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px}
+.btn-wa-s{background:#25D366;color:#fff;border:none;border-radius:var(--radius);padding:7px 12px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+
+/* ADS LIST WITH PHOTO (row mode) */
+.ads-list{display:flex;flex-direction:column;gap:8px}
+.ad-row{background:var(--card);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;border:1px solid var(--border);transition:.15s;display:flex;align-items:stretch}
+.ad-row:hover{border-color:rgba(0,0,0,.22);box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.ad-row-img{width:110px;min-width:110px;display:flex;align-items:center;justify-content:center;font-size:42px;min-height:88px;flex-shrink:0;position:relative}
+.ad-row-body{flex:1;padding:10px 12px;display:flex;flex-direction:column;justify-content:space-between;min-width:0;gap:4px}
+.ad-row-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.ad-row-price{font-size:16px;font-weight:800;white-space:nowrap}
+.ad-row-title{font-size:13px;font-weight:600;color:var(--text);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ad-row-meta{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text3);flex-wrap:wrap}
+.ad-row-badge-pill{padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700;color:#fff}
+.ad-row-btns{display:flex;gap:6px;margin-top:2px}
+.ad-row-call{flex:1;border:none;border-radius:8px;padding:6px 0;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;color:#fff}
+.ad-row-wa{background:#25D366;color:#fff;border:none;border-radius:8px;padding:6px 10px;cursor:pointer;font-size:13px;display:flex;align-items:center}
+
+/* ADS TEXT LIST (compact, no photos) */
+.ads-textlist{display:flex;flex-direction:column;background:var(--card);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border)}
+.ad-text-row{border-bottom:1px solid var(--border);padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:.1s}
+.ad-text-row:last-child{border-bottom:none}
+.ad-text-row:hover{background:#FAFAFA}
+.ad-text-dot{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0}
+.ad-text-info{flex:1;min-width:0}
+.ad-text-title{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ad-text-sub{font-size:11px;color:var(--text3);margin-top:1px;display:flex;align-items:center;gap:6px}
+.ad-text-price{font-size:14px;font-weight:800;white-space:nowrap;margin-left:auto;padding-left:10px}
+.ad-text-chevron{color:var(--text3);font-size:14px;flex-shrink:0;margin-left:4px}
+
+/* CITIES / REGIONS */
+.regions-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.region-card{border-radius:var(--radius-lg);padding:14px;cursor:pointer;transition:.15s;border:1.5px solid transparent;display:flex;gap:10px;align-items:center}
+.region-card:hover{border-color:rgba(0,0,0,.15);transform:translateY(-2px)}
+.region-card .ri{font-size:24px;flex-shrink:0}
+.region-card .rn{font-size:13px;font-weight:700}
+.region-card .rt{font-size:10px;font-weight:600;opacity:.7;text-transform:uppercase;letter-spacing:.3px}
+.oblast-hero{border-radius:var(--radius-xl);overflow:hidden;position:relative;background:linear-gradient(135deg,#1565C0 0%,#0D47A1 100%);display:flex;align-items:center;gap:20px;padding:20px 24px;margin-bottom:14px}
+.oblast-hero-img{width:80px;height:80px;border-radius:var(--radius-lg);background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:44px;flex-shrink:0}
+.oblast-hero-text h3{color:#fff;font-size:18px;font-weight:800;margin-bottom:4px}
+.oblast-hero-text p{color:rgba(255,255,255,.75);font-size:13px}
+.oblast-hero-badge{position:absolute;top:12px;right:16px;background:var(--y);color:#1A1A1A;border-radius:16px;padding:3px 12px;font-size:11px;font-weight:800}
+
+.cities-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.city-card{border-radius:var(--radius-lg);padding:14px;text-align:center;cursor:pointer;transition:.15s;border:1.5px solid transparent}
+.city-card:hover{border-color:rgba(0,0,0,.15);transform:translateY(-2px)}
+.city-card .ci{font-size:28px;margin-bottom:6px}
+.city-card .cn{font-size:13px;font-weight:700}
+.city-card .ct{font-size:10px;font-weight:600;opacity:.7;text-transform:uppercase;letter-spacing:.3px}
+.ci-bur{background:var(--b-bg);color:var(--b-dark)}
+.ci-schu{background:var(--t-bg);color:var(--t-dark)}
+.ci-kok{background:var(--o-bg);color:var(--o-dark)}
+.ci-step{background:var(--g-bg);color:var(--g-dark)}
+.ci-asta{background:var(--pu-bg);color:#4A148C}
+.ci-kat{background:#E0F7FA;color:#006064}
+.ci-sm{background:#F5F5F5;color:#424242}
+.ci-alm{background:#FFF3E0;color:#BF4E00}
+
+/* HOW IT WORKS */
+.hiw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.hiw-card{border-radius:var(--radius-xl);padding:24px;display:flex;flex-direction:column;gap:10px}
+.hiw-num{font-size:11px;font-weight:800;opacity:.5;text-transform:uppercase;letter-spacing:.5px}
+.hiw-icon{font-size:28px;width:52px;height:52px;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+.hiw-title{font-size:15px;font-weight:800}
+.hiw-desc{font-size:13px;opacity:.8;line-height:1.45}
+.hiw-1{background:var(--o-bg)} .hiw-1 .hiw-icon{background:var(--o);color:#fff} .hiw-1 .hiw-title,.hiw-1 .hiw-num{color:var(--o-dark)}
+.hiw-2{background:var(--b-bg)} .hiw-2 .hiw-icon{background:var(--b);color:#fff} .hiw-2 .hiw-title,.hiw-2 .hiw-num{color:var(--b-dark)}
+.hiw-3{background:var(--g-bg)} .hiw-3 .hiw-icon{background:var(--g);color:#fff} .hiw-3 .hiw-title,.hiw-3 .hiw-num{color:var(--g-dark)}
+
+/* AI STRIP */
+.ai-strip{border-radius:var(--radius-xl);padding:24px;background:var(--pu-bg);display:flex;align-items:center;gap:24px}
+.ai-icon{width:64px;height:64px;border-radius:var(--radius-xl);background:var(--pu);display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;flex-shrink:0}
+.ai-text h3{font-size:16px;font-weight:800;color:#4A148C;margin-bottom:4px}
+.ai-text p{font-size:13px;color:#6A1B9A;line-height:1.45}
+.ai-btns{display:flex;gap:8px;margin-top:10px}
+.ai-btn{background:var(--pu);color:#fff;border:none;border-radius:var(--radius);padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer}
+.ai-btn2{background:transparent;color:var(--pu);border:1.5px solid var(--pu);border-radius:var(--radius);padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer}
+
+/* B2B SERVICES SECTION */
+.services-header{background:linear-gradient(135deg,#4A148C 0%,#1565C0 100%);border-radius:var(--radius-xl);padding:24px 28px;margin-bottom:16px;display:flex;align-items:center;gap:20px}
+.services-header-icon{width:60px;height:60px;border-radius:var(--radius-xl);background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.services-header-text h2{color:#fff;font-size:20px;font-weight:800;margin-bottom:4px}
+.services-header-text p{color:rgba(255,255,255,.75);font-size:13px}
+.b2b-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.b2b-card{border-radius:var(--radius-xl);padding:24px;display:flex;flex-direction:column;gap:12px;cursor:pointer;transition:.15s;border:1.5px solid transparent}
+.b2b-card:hover{transform:translateY(-3px);border-color:rgba(0,0,0,.12)}
+.b2b-icon{width:56px;height:56px;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:24px}
+.b2b-title{font-size:16px;font-weight:800;line-height:1.2}
+.b2b-desc{font-size:13px;line-height:1.5;opacity:.85}
+.b2b-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.b2b-tag{font-size:10px;font-weight:700;padding:3px 9px;border-radius:12px}
+.b2b-cta{font-size:13px;font-weight:700;display:flex;align-items:center;gap:5px;margin-top:auto;padding-top:8px}
+.b2b-1{background:linear-gradient(135deg,#F3E5F5 0%,#EDE7F6 100%)}
+.b2b-1 .b2b-icon{background:var(--pu);color:#fff}
+.b2b-1 .b2b-title{color:#4A148C}
+.b2b-1 .b2b-tag{background:#E1BEE7;color:#4A148C}
+.b2b-1 .b2b-cta{color:var(--pu)}
+.b2b-2{background:linear-gradient(135deg,#E0F2F1 0%,#E0F7FA 100%)}
+.b2b-2 .b2b-icon{background:var(--t);color:#fff}
+.b2b-2 .b2b-title{color:var(--t-dark)}
+.b2b-2 .b2b-tag{background:#B2EBF2;color:var(--t-dark)}
+.b2b-2 .b2b-cta{color:var(--t)}
+.b2b-3{background:linear-gradient(135deg,#E3F2FD 0%,#E8EAF6 100%)}
+.b2b-3 .b2b-icon{background:var(--b);color:#fff}
+.b2b-3 .b2b-title{color:var(--b-dark)}
+.b2b-3 .b2b-tag{background:#BBDEFB;color:var(--b-dark)}
+.b2b-3 .b2b-cta{color:var(--b)}
+.b2b-contact-strip{background:#1A1A2E;border-radius:var(--radius-xl);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:14px;flex-wrap:wrap}
+.b2b-contact-strip h4{color:#fff;font-size:15px;font-weight:800;margin-bottom:4px}
+.b2b-contact-strip p{color:rgba(255,255,255,.6);font-size:12px}
+.b2b-contact-btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn-wa-b2b{background:#25D366;color:#fff;border:none;border-radius:var(--radius);padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px}
+.btn-tg-b2b{background:#2CA5E0;color:#fff;border:none;border-radius:var(--radius);padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px}
+
+/* NOTIF */
+.notif-wrap{padding:0 20px 0;max-width:1280px;margin:0 auto}
+.notif-box{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:11px 14px;font-size:12px;display:flex;align-items:center;gap:10px;animation:slideR .4s ease}
+@keyframes slideR{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}
+.nd{width:8px;height:8px;border-radius:50%;background:#4CAF50;flex-shrink:0}
+.notif-close{margin-left:auto;cursor:pointer;color:var(--text3);font-size:18px;line-height:1}
+
+/* FOOTER */
+footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
+.foot-i{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.foot-logo{font-size:20px;font-weight:800;color:var(--o)}
+.foot-links{display:flex;gap:16px;flex-wrap:wrap}
+.foot-links a{font-size:12px;color:rgba(255,255,255,.5)}
+.foot-links a:hover{color:#fff}
+.foot-copy{font-size:12px;color:rgba(255,255,255,.3)}
+
+/* CONTACT MODAL */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;align-items:center;justify-content:center;padding:20px}
+.modal-ov.open{display:flex}
+.modal-box{background:#fff;border-radius:var(--radius-xl);padding:24px;max-width:400px;width:100%;position:relative}
+.modal-box button.close{position:absolute;top:14px;right:14px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--text3)}
+.modal-box h3{font-size:17px;font-weight:700;margin-bottom:16px}
+.ct-row{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--border)}
+.ct-row:last-child{border-bottom:none}
+.ct-row i{font-size:20px;flex-shrink:0}
+.ct-lbl{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text3);letter-spacing:.3px}
+.ct-val{font-size:15px;font-weight:600}
+
+/* CITY PICKER MODAL */
+.city-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600;align-items:flex-start;justify-content:center;padding:60px 20px 20px}
+.city-modal.open{display:flex}
+.city-modal-box{background:#fff;border-radius:var(--radius-xl);width:100%;max-width:640px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25);max-height:80vh;display:flex;flex-direction:column}
+.city-modal-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.city-modal-header h3{font-size:16px;font-weight:800;flex:1;color:var(--text)}
+.city-modal-header button{background:none;border:none;font-size:20px;cursor:pointer;color:var(--text3);display:flex;align-items:center}
+.city-modal-body{display:flex;flex:1;overflow:hidden}
+.city-oblasts{width:220px;flex-shrink:0;border-right:1px solid var(--border);overflow-y:auto;background:#FAFAFA}
+.city-oblast-item{padding:11px 16px;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(0,0,0,.04);transition:.1s}
+.city-oblast-item:hover{background:var(--o-bg)}
+.city-oblast-item.selected{background:var(--o-bg);color:var(--o-dark);font-weight:700;border-left:3px solid var(--o)}
+.city-oblast-item .ob-center{font-size:10px;color:var(--text3);font-weight:400;display:block}
+.city-cities-list{flex:1;overflow-y:auto;padding:10px}
+.city-cities-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);padding:6px 8px 10px}
+.city-city-item{padding:10px 12px;border-radius:var(--radius);font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.1s}
+.city-city-item:hover{background:var(--b-bg)}
+.city-city-item .city-emoji{font-size:18px}
+.city-city-item .city-name{font-weight:600;color:var(--text)}
+.city-city-item .city-type{font-size:11px;color:var(--text3);margin-left:auto}
+.city-popular-bar{padding:8px 16px 6px;border-bottom:1px solid var(--border);background:#fff}
+.city-popular-bar span{font-size:11px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px}
+.city-popular-chips{display:flex;flex-wrap:wrap;gap:5px}
+.city-chip{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--border2);color:var(--text2);transition:.1s}
+.city-chip:hover{background:var(--o-bg);border-color:var(--o);color:var(--o-dark)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .hero-main{grid-column:1/3}
+  .hiw-grid{grid-template-columns:1fr}
+  .b2b-grid{grid-template-columns:1fr}
+  .city-oblasts{width:180px}
+}
+@media(max-width:640px){
+  .nav-search{display:none}
+  .hamburger{display:block}
+  .nav-city{display:none}
+  .nav-links{display:none}
+  .hero-main h1{font-size:24px}
+  .hero-grid{grid-template-columns:1fr;gap:10px}
+  .hero-main{grid-column:1}
+  .hero-stats-card,.hero-taxi,.hero-free{min-height:auto}
+  .section{padding:20px 14px 0}
+  .cats-grid{grid-template-columns:repeat(4,1fr)}
+  .hiw-grid{grid-template-columns:1fr}
+  .ai-strip{flex-direction:column}
+  .b2b-grid{grid-template-columns:1fr}
+  .services-header{flex-direction:column;text-align:center}
+  footer{padding:20px 14px}
+  .city-modal{padding:0}
+  .city-modal-box{max-height:100vh;border-radius:0}
+  .city-modal-body{flex-direction:column}
+  .city-oblasts{width:100%;max-height:200px;border-right:none;border-bottom:1px solid var(--border)}
+  .city-oblast-item.selected{border-left:none;border-bottom:3px solid var(--o)}
 }
 </style>
 </head>
 <body>
 
-<div class="kz-border" aria-hidden="true"></div>
-
-<!-- NAV -->
 <nav>
-  <div class="nav-inner">
-    <a href="#hero" class="nav-logo">Burabay <span>Tech</span></a>
-    <ul class="nav-links">
-      <li><a href="#taxi" data-i18n="nav.taxi">Такси</a></li>
-      <li><a href="#ads" data-i18n="nav.ads">Объявления</a></li>
-      <li><a href="#videos" data-i18n="nav.videos">Видео</a></li>
-      <li><a href="#contact" data-i18n="nav.contact">Контакты</a></li>
-    </ul>
-    <div class="nav-langs" role="group" aria-label="Язык интерфейса">
-      <button class="active" aria-pressed="true" data-lang="ru">RU</button>
-      <button aria-pressed="false" data-lang="kz">KZ</button>
-      <button aria-pressed="false" data-lang="en">EN</button>
-      <button aria-pressed="false" data-lang="es">ES</button>
+  <div class="nav-i">
+    <a href="#" class="logo">Jalga<sup>kz</sup></a>
+    <div class="nav-search">
+      <input type="text" placeholder="Поиск по объявлениям...">
+      <button><i class="ti ti-search"></i></button>
     </div>
-    <button id="pwaNavBtn" aria-label="Скачать приложение">📲 <span class="pwa-btn-label">Скачать приложение</span></button>
-    <button class="nav-hamburger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileNav">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-links">
+      <a href="#" onclick="showSection('ads');return false"><i class="ti ti-layout-grid" style="font-size:14px"></i> Объявления</a>
+      <a href="#" onclick="showSection('taxi');return false" style="color:var(--t);font-weight:700"><i class="ti ti-car" style="font-size:14px"></i> Такси · Межгород</a>
+      <a href="#services" class="services-link"><i class="ti ti-briefcase" style="font-size:14px"></i> Наши услуги</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-city" onclick="openCityModal()"><i class="ti ti-map-pin" style="font-size:14px"></i> <span id="selectedCity">Все города</span> <i class="ti ti-chevron-down" style="font-size:12px"></i></div>
+      <button class="nav-post"><i class="ti ti-plus"></i> Подать объявление</button>
+      <button class="hamburger" onclick="document.getElementById('mobmenu').classList.toggle('open')"><i class="ti ti-menu-2"></i></button>
+    </div>
+  </div>
+  <div class="mob-menu" id="mobmenu">
+    <a href="#" onclick="openCityModal();document.getElementById('mobmenu').classList.remove('open');return false"><i class="ti ti-map-pin" style="font-size:14px;margin-right:4px"></i> <span id="selectedCityMob">Выбрать город</span></a>
+    <a href="#">Объявления</a>
+    <a href="#" class="intercity-mob"><i class="ti ti-car" style="font-size:14px;margin-right:4px"></i> Такси · Межгород 🔥</a>
+    <a href="#services" class="services-mob"><i class="ti ti-briefcase" style="font-size:14px;margin-right:4px"></i> Наши услуги</a>
+    <a href="#">Помощь</a>
   </div>
 </nav>
 
-<!-- MOBILE NAV -->
-<div class="mobile-nav" id="mobileNav" aria-hidden="true">
-  <ul>
-    <li><a href="#taxi" data-i18n="nav.taxi">Такси</a></li>
-    <li><a href="#ads" data-i18n="nav.ads">Объявления</a></li>
-    <li><a href="#videos" data-i18n="nav.videos">Видео</a></li>
-    <li><a href="#contact" data-i18n="nav.contact">Контакты</a></li>
-  </ul>
-  <button id="pwaNavBtnMobile" aria-label="Скачать приложение">📲 Скачать приложение</button>
+<div class="urgency">
+  <span class="u-free-badge">✨ ВРЕМЕННО БЕСПЛАТНО</span>
+  Период раскачки спроса — размещение бесплатно · Осталось:
+  <span class="u-timer" id="utimer">29д 23:59:59</span>
 </div>
 
-<!-- PWA install modal -->
-<div id="pwaInstallModal" role="dialog" aria-modal="true" aria-label="Установка приложения">
-  <div class="pwa-modal-card">
-    <button class="pwa-modal-close" id="pwaModalClose" aria-label="Закрыть">×</button>
-    <h3>📲 Установить приложение</h3>
-    <p>Откройте меню браузера и нажмите<br><strong>«Добавить на главный экран»</strong></p>
-  </div>
-</div>
+<!-- HERO MOSAIC -->
+<div class="section" style="padding-top:20px">
+  <div class="hero-grid">
 
-<!-- HERO -->
-<div id="hero">
-  <div class="hero-ornament" aria-hidden="true"></div>
-  <div class="hero-content">
-    <div class="hero-left">
-      <div class="hero-tag" data-i18n="hero.tag">Бурабай &amp; Щучинск</div>
-      <h1 class="hero-title" data-i18n-html="hero.title">Объявления<br><em>Акмолинской</em><br>области</h1>
-      <p class="hero-subtitle" data-i18n="hero.subtitle">Такси · Объявления · Видео</p>
-      <div class="hero-ctas">
-        <a href="#taxi" class="btn-primary" data-i18n="hero.cta.taxi">🚖 Заказать такси</a>
-        <a href="#ads" class="btn-ghost" data-i18n="hero.cta.ads">📋 Подать объявление</a>
-      </div>
-    </div>
-
-    <div class="announcement-card">
-      <div class="ann-title" data-i18n-html="ann.title">Вниманию жителей, гостей и предпринимателей<br>Акмолинской области!</div>
-      <div class="ann-section">
-        <span class="ann-icon" aria-hidden="true">🏘</span>
-        <div data-i18n-html="ann.realty"><strong>Недвижимость и транспорт</strong><br>Принимаются объявления о продаже движимого и недвижимого имущества по всей Акмолинской области.</div>
-      </div>
-      <div class="ann-section">
-        <span class="ann-icon" aria-hidden="true">🚖</span>
-        <div data-i18n-html="ann.drivers"><strong>Для водителей</strong><br>Внедрена отдельная вкладка «Межгород» для частных перевозчиков и служб такси.</div>
-      </div>
-      <div class="ann-section">
-        <span class="ann-icon" aria-hidden="true">🏢</span>
-        <div data-i18n-html="ann.biz"><strong>Для бизнеса</strong><br>Реклама компаний, включая товары, работы и услуги (ТРУ).</div>
-      </div>
-      <div class="ann-highlight" data-i18n-html="ann.free">🎉 <strong>Бесплатно:</strong> В связи с запуском — все объявления размещаются бесплатно.</div>
-      <div class="ann-highlight" data-i18n-html="ann.security">🛡 <strong>Безопасность:</strong> Платформа будет оснащена ИИ-системой проверки на мошенничество.</div>
-    </div>
-  </div>
-  <svg class="hero-landscape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
-    <!-- mountains back -->
-    <polygon points="0,220 0,140 120,60 240,110 380,30 520,90 660,10 800,80 940,25 1080,75 1200,35 1320,85 1440,50 1440,220" fill="#2d6a8a" opacity="0.35"/>
-    <!-- mountains mid -->
-    <polygon points="0,220 0,170 80,120 180,150 300,90 420,140 560,70 680,130 800,85 920,140 1060,90 1180,145 1300,100 1440,130 1440,220" fill="#1e4f6b" opacity="0.3"/>
-    <!-- trees left cluster -->
-    <polygon points="0,220 0,155 12,155 12,130 18,130 18,110 24,110 24,90 30,90 30,70 36,70 36,90 42,90 42,110 48,110 48,130 54,130 54,155 60,155 60,220" fill="#1a5c3a" opacity="0.5"/>
-    <polygon points="55,220 55,160 65,160 65,140 71,140 71,120 77,120 77,100 83,100 83,80 89,80 89,100 95,100 95,120 101,120 101,140 107,140 107,160 117,160 117,220" fill="#1a5c3a" opacity="0.45"/>
-    <polygon points="110,220 110,165 118,165 118,148 124,148 124,130 130,130 130,112 136,112 136,94 142,94 142,112 148,112 148,130 154,130 154,148 160,148 160,165 168,165 168,220" fill="#1a5c3a" opacity="0.5"/>
-    <!-- trees mid-left -->
-    <polygon points="200,220 200,165 210,165 210,145 216,145 216,125 222,125 222,105 228,105 228,85 234,85 234,105 240,105 240,125 246,125 246,145 252,145 252,165 262,165 262,220" fill="#1a5c3a" opacity="0.4"/>
-    <polygon points="250,220 250,175 258,175 258,158 264,158 264,140 270,140 270,122 276,122 276,104 282,104 282,122 288,122 288,140 294,140 294,158 300,158 300,175 308,175 308,220" fill="#1a5c3a" opacity="0.45"/>
-    <!-- trees center -->
-    <polygon points="580,220 580,160 590,160 590,140 596,140 596,118 602,118 602,96 608,96 608,74 614,74 614,96 620,96 620,118 626,118 626,140 632,140 632,160 642,160 642,220" fill="#1a5c3a" opacity="0.45"/>
-    <polygon points="630,220 630,170 638,170 638,152 644,152 644,132 650,132 650,112 656,112 656,92 662,92 662,112 668,112 668,132 674,132 674,152 680,152 680,170 688,170 688,220" fill="#1a5c3a" opacity="0.4"/>
-    <!-- trees right cluster -->
-    <polygon points="1100,220 1100,165 1110,165 1110,145 1116,145 1116,125 1122,125 1122,105 1128,105 1128,85 1134,85 1134,105 1140,105 1140,125 1146,125 1146,145 1152,145 1152,165 1162,165 1162,220" fill="#1a5c3a" opacity="0.4"/>
-    <polygon points="1155,220 1155,170 1163,170 1163,150 1169,150 1169,130 1175,130 1175,110 1181,110 1181,90 1187,90 1187,110 1193,110 1193,130 1199,130 1199,150 1205,150 1205,170 1213,170 1213,220" fill="#1a5c3a" opacity="0.45"/>
-    <polygon points="1210,220 1210,160 1220,160 1220,142 1226,142 1226,122 1232,122 1232,102 1238,102 1238,82 1244,82 1244,102 1250,102 1250,122 1256,122 1256,142 1262,142 1262,160 1272,160 1272,220" fill="#1a5c3a" opacity="0.5"/>
-    <polygon points="1320,220 1320,168 1328,168 1328,150 1334,150 1334,130 1340,130 1340,110 1346,110 1346,90 1352,90 1352,110 1358,110 1358,130 1364,130 1364,150 1370,150 1370,168 1378,168 1378,220" fill="#1a5c3a" opacity="0.45"/>
-    <polygon points="1375,220 1375,158 1385,158 1385,138 1391,138 1391,118 1397,118 1397,98 1403,98 1403,78 1409,78 1409,98 1415,98 1415,118 1421,118 1421,138 1427,138 1427,158 1437,158 1437,220" fill="#1a5c3a" opacity="0.5"/>
-  </svg>
-</div>
-
-<div class="kz-divider-band" aria-hidden="true"></div>
-
-<!-- TAXI -->
-<div class="fw">
-<section id="taxi">
-  <div class="section-label" data-i18n="taxi.label">Трансфер</div>
-  <h2 class="section-title" data-i18n-html="taxi.title">Такси Бурабай — <em>Щучинск</em></h2>
-  <p class="section-desc" data-i18n="taxi.desc">Комфортные поездки по городу и межгород. 24/7.</p>
-
-  <div class="taxi-full">
-    <div class="taxi-header">
+    <div class="hero-main">
       <div>
-        <div class="taxi-badge" data-i18n="taxi.badge">🛡 Стаж вождения 24 года &nbsp;·&nbsp; до 4 пассажиров</div>
-        <div class="taxi-car-name">Haval M6 2024</div>
-        <div class="taxi-route" data-i18n="taxi.route">Новый кроссовер · Санатории, дома отдыха, трансферы</div>
-      </div>
-      <div class="taxi-price-block">
-        <div class="taxi-price">24 000 ₸</div>
-        <div class="taxi-price-label" data-i18n="taxi.price.label">Астана ↔ Бурабай</div>
-      </div>
-    </div>
-    <div class="taxi-body">
-      <div class="taxi-features">
-        <div class="taxi-feature"><span class="feat-icon" aria-hidden="true">◆</span><span data-i18n="taxi.f1">Только салон — с одного адреса на один</span></div>
-        <div class="taxi-feature"><span class="feat-icon" aria-hidden="true">◆</span><span data-i18n="taxi.f2">Просторный кроссовер, большой багажник</span></div>
-        <div class="taxi-feature"><span class="feat-icon" aria-hidden="true">◆</span><span data-i18n="taxi.f3">Санатории, дома отдыха и т.п.</span></div>
-        <div class="taxi-feature"><span class="feat-icon" aria-hidden="true">◆</span><span data-i18n="taxi.f4">Работаем круглосуточно 24/7</span></div>
-        <div style="margin-top:16px;">
-          <label for="tripDate" class="form-label" data-i18n="taxi.date.label">Выберите дату поездки</label>
-          <input type="date" id="tripDate" class="form-control" style="max-width:220px; margin-top:4px;">
-        </div>
-      </div>
-      <div class="taxi-actions">
-        <a href="https://wa.me/77080802588?text=Хочу заказать трансфер Астана-Бурабай на Haval M6"
-           class="btn-primary" style="text-align:center;"
-           target="_blank" rel="noopener noreferrer" data-i18n="taxi.order">Заказать в WhatsApp</a>
-        <div class="taxi-warning" data-i18n="taxi.warning">⚠️ Писать заранее в WhatsApp</div>
-        <div style="margin-top:8px; border:1px solid var(--border); padding:14px; font-size:13px;">
-          <div style="color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;" data-i18n="taxi.tariff.title">Тарифы на размещение</div>
-          <div style="display:flex; justify-content:space-between; margin-bottom:6px;"><span data-i18n="taxi.7days">7 дней</span><span style="color:var(--gold);">1 000 ₸</span></div>
-          <div style="display:flex; justify-content:space-between;"><span data-i18n="taxi.boost">Поднять наверх</span><span style="color:var(--gold);">500 ₸</span></div>
+        <div class="hero-tag"><i class="ti ti-map-pin" style="font-size:12px"></i> Казахстан · 18+ городов</div>
+        <div class="free-ribbon">🎁 Временно бесплатно — на период запуска</div>
+        <h1>Объявления<br><em>без комиссий</em><br>и посредников</h1>
+        <p>Продавайте быстро. Покупайте выгодно. Всё по-настоящему.</p>
+        <div class="hero-btns">
+          <button class="hbtn-o"><i class="ti ti-plus"></i> Подать объявление</button>
+          <button class="hbtn-w"><i class="ti ti-search"></i> Смотреть все</button>
         </div>
       </div>
     </div>
-    <div class="taxi-promo-bar" data-i18n-html="taxi.promo">🎉 &nbsp; <strong>Акция до 10 июня</strong> — размещение объявлений бесплатно! Вы водитель? <a href="#ads" style="color:var(--gold); margin-left:6px;">Разместите свой маршрут →</a></div>
+
+    <div class="hero-stats-card">
+      <div class="live-pill"><span class="live-dot"></span> <span id="onlineCount">3 847</span> онлайн</div>
+      <div>
+        <div class="hero-stat-item">
+          <div class="n" id="adsCount">12 841</div>
+          <div class="l">объявлений</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="n">4.9 ★</div>
+          <div class="l">рейтинг</div>
+        </div>
+        <div class="hero-stat-item" style="margin-bottom:0">
+          <div class="n">23 сек</div>
+          <div class="l">до первого отклика</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAXI МЕЖГОРОД CARD -->
+    <div class="hero-taxi" id="taxiCard">
+      <div class="taxi-tabs">
+        <div class="taxi-tab active">🚗 Межгород</div>
+        <div class="taxi-tab">🏙️ Город</div>
+      </div>
+      <div class="intercity-badge">🛣️ Межгород · Популярно</div>
+      <div class="hv">Такси Бурабай ↔ Астана</div>
+      <div class="hs">Haval M6 2024 · 24/7 · 24 000 ₸</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">
+        <span style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;padding:2px 8px;border-radius:12px;font-weight:600">Стаж 24 года</span>
+        <span style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;padding:2px 8px;border-radius:12px;font-weight:600">До 4 чел</span>
+        <span style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;padding:2px 8px;border-radius:12px;font-weight:600">Кокшетау · Алматы</span>
+      </div>
+      <a href="https://wa.me/77080802588?text=Такси Бурабай-Астана" target="_blank" class="wa-btn"><i class="ti ti-brand-whatsapp"></i> Заказать в WhatsApp</a>
+    </div>
+
+    <div class="hero-free">
+      <i class="ti ti-gift" style="font-size:28px;color:#fff"></i>
+      <div class="ft">Размещение бесплатно</div>
+      <div class="free-limit-badge">⏳ Ограниченное предложение</div>
+      <div class="fs">Первые 50 объявлений бесплатно для каждого продавца — успей пока действует акция!</div>
+      <div class="fc"><i class="ti ti-arrow-right" style="font-size:14px"></i> Зарегистрироваться</div>
+    </div>
+
   </div>
-  <!-- Taxi landscape: казахская степь, пологие холмы, редкие берёзы -->
-  <svg class="section-landscape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,160 Q180,95 360,120 Q540,145 720,80 Q900,30 1080,100 Q1260,145 1440,90 L1440,160 Z" fill="#4a7a4a" opacity="0.3"/>
-    <path d="M0,160 Q120,120 280,135 Q480,152 680,110 Q880,68 1060,128 Q1240,152 1440,118 L1440,160 Z" fill="#2d5c3a" opacity="0.28"/>
-    <!-- sparse birch-like trees left -->
-    <rect x="60" y="108" width="3" height="40" fill="#5a7a4a" opacity="0.45"/>
-    <ellipse cx="61.5" cy="102" rx="9" ry="14" fill="#3d6b2d" opacity="0.4"/>
-    <rect x="90" y="115" width="3" height="33" fill="#5a7a4a" opacity="0.4"/>
-    <ellipse cx="91.5" cy="109" rx="7" ry="11" fill="#3d6b2d" opacity="0.38"/>
-    <rect x="160" y="112" width="3" height="36" fill="#5a7a4a" opacity="0.45"/>
-    <ellipse cx="161.5" cy="106" rx="8" ry="12" fill="#3d6b2d" opacity="0.42"/>
-    <!-- sparse birch-like trees right -->
-    <rect x="1260" y="105" width="3" height="43" fill="#5a7a4a" opacity="0.45"/>
-    <ellipse cx="1261.5" cy="98" rx="9" ry="14" fill="#3d6b2d" opacity="0.4"/>
-    <rect x="1300" y="112" width="3" height="36" fill="#5a7a4a" opacity="0.4"/>
-    <ellipse cx="1301.5" cy="106" rx="8" ry="11" fill="#3d6b2d" opacity="0.38"/>
-    <rect x="1350" y="108" width="3" height="40" fill="#5a7a4a" opacity="0.45"/>
-    <ellipse cx="1351.5" cy="101" rx="9" ry="13" fill="#3d6b2d" opacity="0.42"/>
-    <!-- center sparse trees -->
-    <rect x="680" y="100" width="3" height="48" fill="#5a7a4a" opacity="0.35"/>
-    <ellipse cx="681.5" cy="93" rx="8" ry="12" fill="#3d6b2d" opacity="0.32"/>
-    <rect x="720" y="108" width="3" height="40" fill="#5a7a4a" opacity="0.32"/>
-    <ellipse cx="721.5" cy="102" rx="7" ry="10" fill="#3d6b2d" opacity="0.3"/>
-  </svg>
-</section>
 </div>
 
-<div class="kz-divider-band" aria-hidden="true"></div>
-
-<!-- CLASSIFIEDS -->
-<section id="ads">
-  <div class="section-label" data-i18n="ads.label">Локальная доска</div>
-  <h2 class="section-title" data-i18n-html="ads.title"><em>Объявления</em> Акмолинской области</h2>
-  <p class="section-desc" data-i18n="ads.desc">Купля-продажа, услуги, недвижимость и транспорт для жителей района.</p>
-
-  <div class="ads-layout">
-    <div class="ads-form-panel">
-      <div class="ads-form-title" data-i18n="ads.form.title">📝 Подать объявление</div>
-      <form id="adForm" novalidate>
-        <div class="form-group">
-          <label class="form-label" for="adCategory" data-i18n="ads.f.category">Категория</label>
-          <select id="adCategory" name="category" class="form-control">
-            <option>🚕 Такси / Трансфер</option>
-            <option>🚗 Авто</option>
-            <option>🏠 Недвижимость</option>
-            <option>🔧 Услуги</option>
-            <option>💼 Работа</option>
-            <option>📱 Электроника</option>
-            <option>🛋️ Мебель и быт</option>
-            <option>🌿 Туризм</option>
-            <option>🎁 Отдам даром</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="adCity" data-i18n="ads.f.city">Город</label>
-          <select id="adCity" name="city" class="form-control">
-            <optgroup label="Курортная зона">
-              <option>Бурабай</option>
-              <option>Щучинск</option>
-              <option>Катарколь</option>
-            </optgroup>
-            <optgroup label="Областной центр и крупные города">
-              <option>Кокшетау</option>
-              <option>Степногорск</option>
-              <option>Атбасар</option>
-              <option>Ерейментау</option>
-            </optgroup>
-            <optgroup label="Города и районы">
-              <option>Акколь</option>
-              <option>Аршалы</option>
-              <option>Балкашино</option>
-              <option>Державинск</option>
-              <option>Егиндыколь</option>
-              <option>Есиль</option>
-              <option>Зеренда</option>
-              <option>Коргалжын</option>
-              <option>Макинск</option>
-              <option>Степняк</option>
-              <option>Шортанды</option>
-            </optgroup>
-            <optgroup label="Соседние регионы">
-              <option>Астана</option>
-              <option>Другой город</option>
-            </optgroup>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="adTitle" data-i18n="ads.f.headline">Заголовок</label>
-          <input type="text" id="adTitle" name="title" class="form-control" placeholder="Краткое описание" data-i18n-ph="ads.f.headline.ph">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="adDesc" data-i18n="ads.f.desc">Описание</label>
-          <textarea id="adDesc" name="description" class="form-control" placeholder="Подробнее..." data-i18n-ph="ads.f.desc.ph"></textarea>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="adPrice" data-i18n="ads.f.price">Цена (тенге)</label>
-          <input type="number" id="adPrice" name="price" class="form-control" placeholder="0" min="0">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="adName" data-i18n="ads.f.name">Имя</label>
-          <input type="text" id="adName" name="name" class="form-control" placeholder="Ваше имя" data-i18n-ph="ads.f.name.ph">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="adPhone" data-i18n="ads.f.phone">Телефон / WhatsApp</label>
-          <input type="tel" id="adPhone" name="phone" class="form-control" placeholder="+7 ...">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="adTelegram" data-i18n="ads.f.telegram">Telegram (без @)</label>
-          <input type="text" id="adTelegram" name="telegram" class="form-control" placeholder="username">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="adInstagram" data-i18n="ads.f.instagram">Instagram (без @)</label>
-          <input type="text" id="adInstagram" name="instagram" class="form-control" placeholder="username">
-        </div>
-        <button type="submit" id="adSubmitBtn" class="btn-primary" style="width:100%; margin-top:8px;" data-i18n="ads.f.submit">Отправить объявление</button>
-        <div class="form-status" id="adStatus"></div>
-      </form>
+<!-- SOCIAL PROOF -->
+<div style="max-width:1280px;margin:14px auto 0;padding:0 20px">
+  <div class="proof">
+    <span class="proof-lbl">Только что:</span>
+    <div class="proof-item">
+      <div class="av" style="background:var(--b-bg);color:var(--b-dark)">АС</div>
+      <div class="proof-text"><strong>Асель из Алматы</strong><span>купила iPhone 15 · 1 мин</span></div>
     </div>
+    <span class="proof-sep">·</span>
+    <div class="proof-item">
+      <div class="av" style="background:var(--t-bg);color:var(--t-dark)">ДМ</div>
+      <div class="proof-text"><strong>Дамир из Астаны</strong><span>продал велосипед · 3 мин</span></div>
+    </div>
+    <span class="proof-sep">·</span>
+    <div class="proof-item">
+      <div class="av" style="background:var(--o-bg);color:var(--o-dark)">МА</div>
+      <div class="proof-text"><strong>Марал из Щучинска</strong><span>нашла кроватку · 7 мин</span></div>
+    </div>
+    <span class="proof-sep">·</span>
+    <div class="proof-item">
+      <div class="av" style="background:var(--g-bg);color:var(--g-dark)">КБ</div>
+      <div class="proof-text"><strong>Канат из Бурабая</strong><span>сдал квартиру · 12 мин</span></div>
+    </div>
+    <span class="proof-sep">·</span>
+    <div class="proof-item">
+      <div class="av" style="background:var(--r-bg);color:var(--r-dark)">НА</div>
+      <div class="proof-text"><strong>Нурлан из Кокшетау</strong><span>продал авто · 18 мин</span></div>
+    </div>
+    <span class="proof-sep">·</span>
+    <div class="proof-item">
+      <div class="av" style="background:#FFF8E1;color:#E65100">ЕМ</div>
+      <div class="proof-text"><strong>Ержан из Шымкента</strong><span>нашёл арендатора · 25 мин</span></div>
+    </div>
+  </div>
+</div>
 
-    <div>
-      <div class="ads-filter-bar">
-        <button class="filter-chip active" data-cat="all">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
-          <span data-i18n="filter.all">Все</span>
-        </button>
-        <button class="filter-chip" data-cat="taxi">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-          <span data-i18n="nav.taxi">Такси</span>
-        </button>
-        <button class="filter-chip" data-cat="auto">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 17H5a2 2 0 0 1-2-2V9a2 2 0 0 1 .9-1.7l3-2A2 2 0 0 1 8 5h8a2 2 0 0 1 1.1.3l3 2A2 2 0 0 1 21 9v6a2 2 0 0 1-2 2Z"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
-          <span data-i18n="filter.auto">Авто</span>
-        </button>
-        <button class="filter-chip" data-cat="realty">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          <span data-i18n="filter.realty">Недвижимость</span>
-        </button>
-        <button class="filter-chip" data-cat="services">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-          <span data-i18n="filter.services">Услуги</span>
-        </button>
+<!-- CATEGORIES -->
+<div class="section" style="padding-top:24px">
+  <div class="sec-head">
+    <h2>Категории</h2>
+    <a href="#" class="sec-more">Все категории <i class="ti ti-chevron-right" style="font-size:13px"></i></a>
+  </div>
+  <div class="cats-grid">
+    <div class="cat-card c-auto"><div class="cat-icon"><i class="ti ti-car"></i></div><div class="cat-name">Авто и мото</div><div class="cat-count">2 840 объявл.</div></div>
+    <div class="cat-card c-realty"><div class="cat-icon"><i class="ti ti-building"></i></div><div class="cat-name">Недвижимость</div><div class="cat-count">1 230 объявл.</div></div>
+    <div class="cat-card c-elec"><div class="cat-icon"><i class="ti ti-device-mobile"></i></div><div class="cat-name">Электроника</div><div class="cat-count">3 100 объявл.</div></div>
+    <div class="cat-card c-work"><div class="cat-icon"><i class="ti ti-briefcase"></i></div><div class="cat-name">Работа</div><div class="cat-count">980 объявл.</div></div>
+    <div class="cat-card c-serv"><div class="cat-icon"><i class="ti ti-tools"></i></div><div class="cat-name">Услуги</div><div class="cat-count">1 650 объявл.</div></div>
+    <div class="cat-card c-taxi" style="border:2px solid var(--y)"><div class="cat-icon"><i class="ti ti-car"></i></div><div class="cat-name">Такси · Межгород</div><div class="cat-count">340 объявл.</div></div>
+    <div class="cat-card c-pet"><div class="cat-icon"><i class="ti ti-paw"></i></div><div class="cat-name">Животные</div><div class="cat-count">420 объявл.</div></div>
+    <div class="cat-card c-kids"><div class="cat-icon"><i class="ti ti-baby-carriage"></i></div><div class="cat-name">Детское</div><div class="cat-count">750 объявл.</div></div>
+    <div class="cat-card c-sport"><div class="cat-icon"><i class="ti ti-ball-basketball"></i></div><div class="cat-name">Спорт</div><div class="cat-count">310 объявл.</div></div>
+    <div class="cat-card c-furn"><div class="cat-icon"><i class="ti ti-sofa"></i></div><div class="cat-name">Мебель</div><div class="cat-count">580 объявл.</div></div>
+    <div class="cat-card c-food"><div class="cat-icon"><i class="ti ti-salad"></i></div><div class="cat-name">Продукты</div><div class="cat-count">190 объявл.</div></div>
+    <div class="cat-card c-free"><div class="cat-icon"><i class="ti ti-gift"></i></div><div class="cat-name">Отдам даром</div><div class="cat-count">220 объявл.</div></div>
+  </div>
+</div>
+
+<!-- ADS -->
+<div class="section" style="padding-top:24px" id="ads">
+  <div class="sec-head">
+    <h2>Свежие <em style="color:var(--o)">объявления</em></h2>
+    <div class="view-controls">
+      <!-- column count (only in grid mode) -->
+      <div class="col-switcher" id="colSwitcher">
+        <button class="col-btn" id="col2" onclick="setCols(2)" title="2 колонки">2</button>
+        <button class="col-btn active" id="col3" onclick="setCols(3)" title="3 колонки">3</button>
+        <button class="col-btn" id="col4" onclick="setCols(4)" title="4 колонки">4</button>
       </div>
-      <div class="ads-grid" id="adsGrid">
-        <div id="adsLoading" style="color:var(--cream-dim,#9e9e7a);grid-column:1/-1;text-align:center;padding:40px 0;opacity:0.7">Загружаем объявления…</div>
+      <!-- view mode -->
+      <div class="view-switcher">
+        <button class="view-btn active" id="vbGrid" onclick="setView('grid')" title="Плитки"><i class="ti ti-layout-grid"></i></button>
+        <button class="view-btn" id="vbList" onclick="setView('list')" title="Список с фото"><i class="ti ti-layout-list"></i></button>
+        <button class="view-btn" id="vbText" onclick="setView('text')" title="Компактный список"><i class="ti ti-list"></i></button>
       </div>
     </div>
   </div>
-  <!-- Ads landscape: Бурабайский лес, горы вдали, густые ели -->
-  <svg class="section-landscape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 180" preserveAspectRatio="none" aria-hidden="true">
-    <!-- distant mountains -->
-    <polygon points="0,180 0,120 160,50 300,95 460,40 620,85 780,30 940,70 1100,25 1260,65 1440,35 1440,180" fill="#2d5a7a" opacity="0.25"/>
-    <!-- dense forest — firs packed across full width -->
-    <polygon points="0,180 0,148 10,148 10,128 16,128 16,108 22,108 22,88 28,88 28,108 34,108 34,128 40,128 40,148 50,148 50,180" fill="#0f3d24" opacity="0.5"/>
-    <polygon points="44,180 44,150 54,150 54,130 60,130 60,110 66,110 66,90 72,90 72,70 78,70 78,90 84,90 84,110 90,110 90,130 96,130 96,150 106,150 106,180" fill="#1a5c3a" opacity="0.48"/>
-    <polygon points="98,180 98,148 108,148 108,128 114,128 114,108 120,108 120,88 126,88 126,68 132,68 132,88 138,88 138,108 144,108 144,128 150,128 150,148 160,148 160,180" fill="#0f3d24" opacity="0.5"/>
-    <polygon points="152,180 152,152 162,152 162,134 168,134 168,114 174,114 174,96 180,96 180,78 186,78 186,96 192,96 192,114 198,114 198,134 204,134 204,152 214,152 214,180" fill="#1a5c3a" opacity="0.45"/>
-    <polygon points="206,180 206,148 216,148 216,128 222,128 222,108 228,108 228,88 234,88 234,108 240,108 240,128 246,128 246,148 256,148 256,180" fill="#0f3d24" opacity="0.5"/>
-    <polygon points="250,180 250,155 258,155 258,136 264,136 264,116 270,116 270,96 276,96 276,76 282,76 282,96 288,96 288,116 294,116 294,136 300,136 300,155 308,155 308,180" fill="#1a5c3a" opacity="0.48"/>
-    <polygon points="302,180 302,150 310,150 310,130 316,130 316,110 322,110 322,90 328,90 328,70 334,70 334,90 340,90 340,110 346,110 346,130 352,130 352,150 360,150 360,180" fill="#0f3d24" opacity="0.45"/>
-    <!-- gap / lighter center patch -->
-    <polygon points="360,180 360,155 370,155 370,135 376,135 376,115 382,115 382,95 388,95 388,75 394,75 394,95 400,95 400,115 406,115 406,135 412,135 412,155 420,155 420,180" fill="#1a5c3a" opacity="0.38"/>
-    <polygon points="420,180 420,152 428,152 428,132 434,132 434,112 440,112 440,92 446,92 446,112 452,112 452,132 458,132 458,152 466,152 466,180" fill="#0f3d24" opacity="0.4"/>
-    <!-- right half dense -->
-    <polygon points="780,180 780,148 790,148 790,128 796,128 796,108 802,108 802,88 808,88 808,68 814,68 814,88 820,88 820,108 826,108 826,128 832,128 832,148 842,148 842,180" fill="#0f3d24" opacity="0.5"/>
-    <polygon points="836,180 836,152 844,152 844,132 850,132 850,112 856,112 856,92 862,92 862,72 868,72 868,92 874,92 874,112 880,112 880,132 886,132 886,152 896,152 896,180" fill="#1a5c3a" opacity="0.48"/>
-    <polygon points="890,180 890,148 900,148 900,128 906,128 906,108 912,108 912,88 918,88 918,68 924,68 924,88 930,88 930,108 936,108 936,128 942,128 942,148 952,148 952,180" fill="#0f3d24" opacity="0.5"/>
-    <polygon points="946,180 946,154 954,154 954,134 960,134 960,114 966,114 966,94 972,94 972,74 978,74 978,94 984,94 984,114 990,114 990,134 996,134 996,154 1004,154 1004,180" fill="#1a5c3a" opacity="0.45"/>
-    <polygon points="998,180 998,148 1008,148 1008,128 1014,128 1014,108 1020,108 1020,88 1026,88 1026,108 1032,108 1032,128 1038,128 1038,148 1048,148 1048,180" fill="#0f3d24" opacity="0.5"/>
-    <polygon points="1044,180 1044,152 1052,152 1052,132 1058,132 1058,112 1064,112 1064,92 1070,92 1070,72 1076,72 1076,92 1082,92 1082,112 1088,112 1088,132 1094,132 1094,152 1102,152 1102,180" fill="#1a5c3a" opacity="0.48"/>
-    <polygon points="1096,180 1096,150 1106,150 1106,130 1112,130 1112,110 1118,110 1118,90 1124,90 1124,70 1130,70 1130,90 1136,90 1136,110 1142,110 1142,130 1148,130 1148,150 1156,150 1156,180" fill="#0f3d24" opacity="0.45"/>
-    <polygon points="1150,180 1150,154 1158,154 1158,134 1164,134 1164,114 1170,114 1170,94 1176,94 1176,74 1182,74 1182,94 1188,94 1188,114 1194,114 1194,134 1200,134 1200,154 1208,154 1208,180" fill="#1a5c3a" opacity="0.5"/>
-    <polygon points="1202,180 1202,148 1212,148 1212,128 1218,128 1218,108 1224,108 1224,88 1230,88 1230,68 1236,68 1236,88 1242,88 1242,108 1248,108 1248,128 1254,128 1254,148 1264,148 1264,180" fill="#0f3d24" opacity="0.5"/>
-    <polygon points="1258,180 1258,152 1266,152 1266,132 1272,132 1272,112 1278,112 1278,92 1284,92 1284,72 1290,72 1290,92 1296,92 1296,112 1302,112 1302,132 1308,132 1308,152 1318,152 1318,180" fill="#1a5c3a" opacity="0.48"/>
-    <polygon points="1312,180 1312,148 1322,148 1322,128 1328,128 1328,108 1334,108 1334,88 1340,88 1340,68 1346,68 1346,88 1352,88 1352,108 1358,108 1358,128 1364,128 1364,148 1374,148 1374,180" fill="#0f3d24" opacity="0.5"/>
-    <polygon points="1368,180 1368,150 1378,150 1378,130 1384,130 1384,110 1390,110 1390,90 1396,90 1396,70 1402,70 1402,90 1408,90 1408,110 1414,110 1414,130 1420,130 1420,150 1430,150 1430,180" fill="#1a5c3a" opacity="0.48"/>
-    <polygon points="1424,180 1424,148 1434,148 1434,128 1440,128 1440,180" fill="#0f3d24" opacity="0.5"/>
-  </svg>
-</section>
+  <div id="adsGrid"></div>
+</div>
 
-<div class="kz-divider-band" aria-hidden="true"></div>
+<!-- NOTIFICATION -->
+<div class="notif-wrap" style="padding-top:20px">
+  <div class="notif-box" id="notifBox">
+    <div class="nd"></div>
+    <div><strong style="font-size:12px" id="notifTitle">Новый отклик!</strong><br><span id="notifText" style="color:var(--text2);font-size:11px">Кто-то заинтересовался вашим объявлением</span></div>
+    <button class="notif-close" onclick="document.getElementById('notifBox').style.display='none'">×</button>
+  </div>
+</div>
 
-<!-- CITIES — Акмолинская область -->
-<div class="fw">
-<section id="cities">
-  <div class="section-label" data-i18n="cities.label">География</div>
-  <h2 class="section-title" data-i18n-html="cities.title">Города <em>Акмолинской области</em></h2>
-  <p class="section-desc" data-i18n="cities.desc">Объявления и услуги для жителей всех городов и районов области. Нажмите на свой город, чтобы найти объявления рядом.</p>
+<!-- CITIES & OBLASTS -->
+<div class="section" style="padding-top:28px" id="cities">
+  <div class="sec-head">
+    <h2>Регионы <em style="color:var(--b)">Казахстана</em></h2>
+    <a href="#" class="sec-more" onclick="openCityModal();return false">Выбрать город <i class="ti ti-chevron-right" style="font-size:13px"></i></a>
+  </div>
+
+  <!-- Акмолинская область hero card -->
+  <div class="oblast-hero">
+    <div class="oblast-hero-img">🏔️</div>
+    <div class="oblast-hero-text">
+      <h3>Акмолинская область</h3>
+      <p>Бурабай · Щучинск · Кокшетау · Степногорск · Атбасар · Зеренда · Акколь · Макинск</p>
+      <p style="margin-top:4px;font-size:12px;color:rgba(255,255,255,.6)">Жемчужина Казахстана — озёра, сосновые леса, горный воздух</p>
+    </div>
+    <span class="oblast-hero-badge">🏡 Наш регион</span>
+  </div>
 
   <div class="cities-grid">
-    <!-- Курортная зона — выделяем -->
-    <a href="#ads" class="city-card city-card-featured" data-city="Бурабай">
-      <div class="city-icon">⛰️</div>
-      <div class="city-name">Бурабай</div>
-      <div class="city-tag" data-i18n="cities.resort">Курорт</div>
-    </a>
-    <a href="#ads" class="city-card city-card-featured" data-city="Щучинск">
-      <div class="city-icon">🏖️</div>
-      <div class="city-name">Щучинск</div>
-      <div class="city-tag" data-i18n="cities.resort">Курорт</div>
-    </a>
-    <a href="#ads" class="city-card city-card-featured" data-city="Катарколь">
-      <div class="city-icon">🌊</div>
-      <div class="city-name">Катарколь</div>
-      <div class="city-tag" data-i18n="cities.resort">Санатории</div>
-    </a>
-    <!-- Областной центр -->
-    <a href="#ads" class="city-card city-card-major" data-city="Кокшетау">
-      <div class="city-icon">🏛️</div>
-      <div class="city-name">Кокшетау</div>
-      <div class="city-tag" data-i18n="cities.capital">Областной центр</div>
-    </a>
-    <!-- Крупные города -->
-    <a href="#ads" class="city-card" data-city="Степногорск">
-      <div class="city-icon">🏭</div>
-      <div class="city-name">Степногорск</div>
-    </a>
-    <a href="#ads" class="city-card" data-city="Атбасар">
-      <div class="city-icon">🚂</div>
-      <div class="city-name">Атбасар</div>
-    </a>
-    <a href="#ads" class="city-card" data-city="Ерейментау">
-      <div class="city-icon">🦅</div>
-      <div class="city-name">Ерейментау</div>
-    </a>
-    <a href="#ads" class="city-card" data-city="Зеренда">
-      <div class="city-icon">🌳</div>
-      <div class="city-name">Зеренда</div>
-    </a>
-    <a href="#ads" class="city-card" data-city="Макинск">
-      <div class="city-icon">🌾</div>
-      <div class="city-name">Макинск</div>
-    </a>
-    <a href="#ads" class="city-card" data-city="Акколь">
-      <div class="city-icon">🏞️</div>
-      <div class="city-name">Акколь</div>
-    </a>
-    <a href="#ads" class="city-card" data-city="Степняк">
-      <div class="city-icon">🪨</div>
-      <div class="city-name">Степняк</div>
-    </a>
-    <a href="#ads" class="city-card" data-city="Шортанды">
-      <div class="city-icon">🌽</div>
-      <div class="city-name">Шортанды</div>
-    </a>
-    <a href="#ads" class="city-card" data-city="Балкашино">
-      <div class="city-icon">🏘️</div>
-      <div class="city-name">Балкашино</div>
-    </a>
-    <a href="#ads" class="city-card" data-city="Есиль">
-      <div class="city-icon">⚓</div>
-      <div class="city-name">Есиль</div>
-    </a>
-    <a href="#ads" class="city-card" data-city="Аршалы">
-      <div class="city-icon">🛤️</div>
-      <div class="city-name">Аршалы</div>
-    </a>
-    <a href="#ads" class="city-card" data-city="Коргалжын">
-      <div class="city-icon">🦩</div>
-      <div class="city-name">Коргалжын</div>
-    </a>
-    <a href="#ads" class="city-card" data-city="Державинск">
-      <div class="city-icon">⛰️</div>
-      <div class="city-name">Державинск</div>
-    </a>
-    <a href="#ads" class="city-card" data-city="Егиндыколь">
-      <div class="city-icon">🌾</div>
-      <div class="city-name">Егиндыколь</div>
-    </a>
+    <div class="city-card ci-bur" onclick="openCityModal()"><div class="ci">⛰️</div><div class="cn">Бурабай</div><div class="ct">Курорт</div></div>
+    <div class="city-card ci-schu" onclick="openCityModal()"><div class="ci">🏖️</div><div class="cn">Щучинск</div><div class="ct">Курорт</div></div>
+    <div class="city-card ci-kok" onclick="openCityModal()"><div class="ci">🏛️</div><div class="cn">Кокшетау</div><div class="ct">Облцентр</div></div>
+    <div class="city-card ci-asta" onclick="openCityModal()"><div class="ci">🌆</div><div class="cn">Астана</div><div class="ct">Столица</div></div>
+    <div class="city-card ci-alm" onclick="openCityModal()"><div class="ci">🌇</div><div class="cn">Алматы</div><div class="ct">Мегаполис</div></div>
+    <div class="city-card ci-kat" onclick="openCityModal()"><div class="ci">🌊</div><div class="cn">Катарколь</div><div class="ct">Санатории</div></div>
+    <div class="city-card ci-step" onclick="openCityModal()"><div class="ci">🏭</div><div class="cn">Степногорск</div><div class="ct"></div></div>
+    <div class="city-card ci-sm" onclick="openCityModal()"><div class="ci">🚂</div><div class="cn">Атбасар</div><div class="ct"></div></div>
+    <div class="city-card ci-sm" onclick="openCityModal()"><div class="ci">🌳</div><div class="cn">Зеренда</div><div class="ct"></div></div>
+    <div class="city-card" style="background:#FFF3E0;color:#BF4E00;border:1.5px dashed rgba(0,0,0,.1)" onclick="openCityModal()"><div class="ci">🗺️</div><div class="cn">Другие регионы</div><div class="ct">17 областей</div></div>
   </div>
-  <!-- Cities landscape: казахская степь, широкие пологие холмы, кустарники -->
-  <svg class="section-landscape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true">
-    <!-- wide rolling steppe hills -->
-    <path d="M0,140 Q240,75 480,100 Q720,125 960,65 Q1200,20 1440,80 L1440,140 Z" fill="#7a6a3a" opacity="0.28"/>
-    <path d="M0,140 Q160,105 400,118 Q640,132 880,88 Q1100,52 1300,105 Q1380,122 1440,108 L1440,140 Z" fill="#5c5a2a" opacity="0.25"/>
-    <!-- low shrubs / bushes across steppe -->
-    <ellipse cx="80" cy="120" rx="22" ry="10" fill="#4a6b2d" opacity="0.4"/>
-    <ellipse cx="130" cy="125" rx="16" ry="8" fill="#3a5c22" opacity="0.38"/>
-    <ellipse cx="240" cy="118" rx="20" ry="9" fill="#4a6b2d" opacity="0.35"/>
-    <ellipse cx="400" cy="122" rx="18" ry="8" fill="#3a5c22" opacity="0.38"/>
-    <ellipse cx="520" cy="114" rx="24" ry="10" fill="#4a6b2d" opacity="0.35"/>
-    <ellipse cx="640" cy="120" rx="18" ry="8" fill="#3a5c22" opacity="0.32"/>
-    <ellipse cx="780" cy="108" rx="22" ry="9" fill="#4a6b2d" opacity="0.38"/>
-    <ellipse cx="920" cy="116" rx="20" ry="9" fill="#3a5c22" opacity="0.35"/>
-    <ellipse cx="1060" cy="110" rx="24" ry="10" fill="#4a6b2d" opacity="0.38"/>
-    <ellipse cx="1200" cy="118" rx="20" ry="9" fill="#3a5c22" opacity="0.35"/>
-    <ellipse cx="1340" cy="112" rx="22" ry="9" fill="#4a6b2d" opacity="0.4"/>
-    <!-- occasional lone tree -->
-    <rect x="308" y="100" width="3" height="30" fill="#5a7a3a" opacity="0.38"/>
-    <ellipse cx="309.5" cy="94" rx="10" ry="13" fill="#3d6b2d" opacity="0.35"/>
-    <rect x="860" y="92" width="3" height="35" fill="#5a7a3a" opacity="0.38"/>
-    <ellipse cx="861.5" cy="85" rx="11" ry="14" fill="#3d6b2d" opacity="0.32"/>
-    <rect x="1130" y="96" width="3" height="32" fill="#5a7a3a" opacity="0.38"/>
-    <ellipse cx="1131.5" cy="90" rx="10" ry="12" fill="#3d6b2d" opacity="0.35"/>
-  </svg>
-</section>
 </div>
 
-<div class="kz-divider-band" aria-hidden="true"></div>
-
-<!-- VIDEOS -->
-<section id="videos">
-  <div class="section-label" data-i18n="videos.label">Последние видео</div>
-  <h2 class="section-title" data-i18n-html="videos.title">Смотреть <em>на YouTube</em></h2>
-  <p class="section-desc" data-i18n="videos.desc">Обзоры, аналитика и новости района от канала @Adilveis_life</p>
-
-  <div class="videos-grid">
-    <a href="https://youtube.com/@Adilveis_life" target="_blank" rel="noopener noreferrer"
-       class="video-card" style="text-decoration:none;color:inherit;">
-      <div class="video-thumb">
-        <div class="video-thumb-bg" aria-hidden="true">📱</div>
-        <div class="play-btn" aria-hidden="true"></div>
-        <div class="video-duration">12:30</div>
-      </div>
-      <div class="video-info">
-        <div class="video-tag" data-i18n="v1.tag">Обзор</div>
-        <div class="video-title" data-i18n="v1.title">Обзор техники в Бурабае</div>
-        <div class="video-meta"><span>👁 5.1K</span><span data-i18n="v1.ago">2 недели назад</span></div>
-      </div>
-    </a>
-    <a href="https://youtube.com/@Adilveis_life" target="_blank" rel="noopener noreferrer"
-       class="video-card" style="text-decoration:none;color:inherit;">
-      <div class="video-thumb">
-        <div class="video-thumb-bg" aria-hidden="true">📈</div>
-        <div class="play-btn" aria-hidden="true"></div>
-        <div class="video-duration">18:45</div>
-      </div>
-      <div class="video-info">
-        <div class="video-tag" data-i18n="v2.tag">Аналитика</div>
-        <div class="video-title" data-i18n="v2.title">Рынок акций — что происходит?</div>
-        <div class="video-meta"><span>👁 7.3K</span><span data-i18n="v2.ago">1 месяц назад</span></div>
-      </div>
-    </a>
-    <a href="https://youtube.com/@Adilveis_life" target="_blank" rel="noopener noreferrer"
-       class="video-card" style="text-decoration:none;color:inherit;">
-      <div class="video-thumb">
-        <div class="video-thumb-bg" aria-hidden="true">📰</div>
-        <div class="play-btn" aria-hidden="true"></div>
-        <div class="video-duration">10:22</div>
-      </div>
-      <div class="video-info">
-        <div class="video-tag" data-i18n="v3.tag">Новости</div>
-        <div class="video-title" data-i18n="v3.title">Объявления недели в Щучинске</div>
-        <div class="video-meta"><span>👁 3.8K</span><span data-i18n="v3.ago">6 недель назад</span></div>
-      </div>
-    </a>
-  </div>
-
-  <div style="margin-top:28px; text-align:center;">
-    <a href="https://youtube.com/@Adilveis_life" target="_blank" rel="noopener noreferrer" class="btn-ghost" data-i18n="videos.all">▶ Все видео на YouTube</a>
-  </div>
-  <!-- Videos landscape: ночные горы, высокие острые пики, тёмные ели -->
-  <svg class="section-landscape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
-    <!-- far night mountains — tall sharp peaks -->
-    <polygon points="0,200 0,140 80,55 160,110 280,30 400,90 530,15 660,80 790,20 920,75 1060,10 1200,70 1320,35 1440,60 1440,200" fill="#1e2d4a" opacity="0.35"/>
-    <!-- mid mountains -->
-    <polygon points="0,200 0,160 100,100 220,140 360,70 500,125 640,60 780,120 920,50 1060,110 1200,60 1320,105 1440,75 1440,200" fill="#162540" opacity="0.3"/>
-    <!-- dark dense firs silhouette -->
-    <polygon points="0,200 0,162 10,162 10,140 16,140 16,118 22,118 22,96 28,96 28,74 34,74 34,96 40,96 40,118 46,118 46,140 52,140 52,162 62,162 62,200" fill="#0f2020" opacity="0.55"/>
-    <polygon points="56,200 56,164 66,164 66,142 72,142 72,120 78,120 78,98 84,98 84,76 90,76 90,98 96,98 96,120 102,120 102,142 108,142 108,164 118,164 118,200" fill="#122a22" opacity="0.52"/>
-    <polygon points="112,200 112,160 122,160 122,138 128,138 128,116 134,116 134,94 140,94 140,72 146,72 146,94 152,94 152,116 158,116 158,138 164,138 164,160 174,160 174,200" fill="#0f2020" opacity="0.55"/>
-    <polygon points="168,200 168,166 176,166 176,144 182,144 182,122 188,122 188,100 194,100 194,80 200,80 200,100 206,100 206,122 212,122 212,144 218,144 218,166 228,166 228,200" fill="#122a22" opacity="0.5"/>
-    <polygon points="222,200 222,162 232,162 232,140 238,140 238,118 244,118 244,96 250,96 250,76 256,76 256,96 262,96 262,118 268,118 268,140 274,140 274,162 284,162 284,200" fill="#0f2020" opacity="0.55"/>
-    <!-- center gap, then continue -->
-    <polygon points="600,200 600,164 610,164 610,144 616,144 616,122 622,122 622,100 628,100 628,80 634,80 634,100 640,100 640,122 646,122 646,144 652,144 652,164 662,164 662,200" fill="#0f2020" opacity="0.52"/>
-    <polygon points="656,200 656,162 666,162 666,140 672,140 672,118 678,118 678,96 684,96 684,76 690,76 690,96 696,96 696,118 702,118 702,140 708,140 708,162 718,162 718,200" fill="#122a22" opacity="0.5"/>
-    <!-- right cluster -->
-    <polygon points="1060,200 1060,162 1070,162 1070,140 1076,140 1076,118 1082,118 1082,96 1088,96 1088,74 1094,74 1094,96 1100,96 1100,118 1106,118 1106,140 1112,140 1112,162 1122,162 1122,200" fill="#0f2020" opacity="0.55"/>
-    <polygon points="1116,200 1116,166 1124,166 1124,144 1130,144 1130,122 1136,122 1136,100 1142,100 1142,78 1148,78 1148,100 1154,100 1154,122 1160,122 1160,144 1166,144 1166,166 1176,166 1176,200" fill="#122a22" opacity="0.52"/>
-    <polygon points="1170,200 1170,160 1180,160 1180,138 1186,138 1186,116 1192,116 1192,94 1198,94 1198,72 1204,72 1204,94 1210,94 1210,116 1216,116 1216,138 1222,138 1222,160 1232,160 1232,200" fill="#0f2020" opacity="0.55"/>
-    <polygon points="1226,200 1226,164 1236,164 1236,144 1242,144 1242,122 1248,122 1248,100 1254,100 1254,80 1260,80 1260,100 1266,100 1266,122 1272,122 1272,144 1278,144 1278,164 1288,164 1288,200" fill="#122a22" opacity="0.5"/>
-    <polygon points="1282,200 1282,162 1292,162 1292,140 1298,140 1298,118 1304,118 1304,96 1310,96 1310,76 1316,76 1316,96 1322,96 1322,118 1328,118 1328,140 1334,140 1334,162 1344,162 1344,200" fill="#0f2020" opacity="0.55"/>
-    <polygon points="1338,200 1338,166 1346,166 1346,144 1352,144 1352,122 1358,122 1358,100 1364,100 1364,78 1370,78 1370,100 1376,100 1376,122 1382,122 1382,144 1388,144 1388,166 1398,166 1398,200" fill="#122a22" opacity="0.52"/>
-    <polygon points="1392,200 1392,160 1402,160 1402,138 1408,138 1408,118 1414,118 1414,98 1420,98 1420,78 1426,78 1426,98 1432,98 1432,118 1438,118 1438,138 1440,140 1440,200" fill="#0f2020" opacity="0.55"/>
-  </svg>
-</section>
-
-<div class="kz-divider-band" aria-hidden="true"></div>
-
-<!-- CONTACT -->
-<div class="fw">
-<section id="contact">
-  <div class="section-label" data-i18n="contact.label">Связь</div>
-  <h2 class="section-title" data-i18n-html="contact.title">Написать <em>нам</em></h2>
-  <p class="section-desc" data-i18n="contact.desc">Вопрос, сотрудничество, или просто привет — мы рады любому сообщению.</p>
-
-  <div class="contact-grid">
-    <div class="contact-form-panel">
-      <div class="contact-form-title" data-i18n="contact.form.title">Отправить сообщение</div>
-      <form id="contactForm" novalidate>
-        <div class="form-group">
-          <label class="form-label" for="contactName" data-i18n="contact.f.name">Ваше имя</label>
-          <input type="text" id="contactName" name="name" class="form-control" placeholder="Имя" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="contactWhatsapp">WhatsApp *</label>
-          <input type="tel" id="contactWhatsapp" name="whatsapp" class="form-control" placeholder="+7 (___) ___-__-__" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="contactTelegram">Telegram</label>
-          <input type="text" id="contactTelegram" name="telegram" class="form-control" placeholder="@username">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="contactMessage" data-i18n="contact.f.message">Сообщение</label>
-          <textarea id="contactMessage" name="message" class="form-control" style="min-height:100px;" placeholder="Ваше сообщение..." required></textarea>
-        </div>
-        <button type="submit" id="contactSubmitBtn" class="btn-primary" style="width:100%;" data-i18n="contact.f.submit">Отправить ✉️</button>
-        <div class="form-status" id="contactStatus"></div>
-      </form>
+<!-- HOW IT WORKS -->
+<div class="section" style="padding-top:28px">
+  <div class="sec-head"><h2>Как это работает</h2></div>
+  <div class="hiw-grid">
+    <div class="hiw-card hiw-1">
+      <div class="hiw-num">Шаг 01</div>
+      <div class="hiw-icon"><i class="ti ti-camera" style="font-size:24px"></i></div>
+      <div class="hiw-title">Сфотографируй и опиши</div>
+      <div class="hiw-desc">Добавь фото, напиши цену и номер телефона. ИИ-помощник поможет написать продающий текст за 30 секунд.</div>
     </div>
+    <div class="hiw-card hiw-2">
+      <div class="hiw-num">Шаг 02</div>
+      <div class="hiw-icon"><i class="ti ti-check" style="font-size:24px"></i></div>
+      <div class="hiw-title">Автоматическая проверка</div>
+      <div class="hiw-desc">ИИ-модератор проверяет объявление на спам и мошенничество. Публикуется за 1–2 минуты, не нужно ждать часами.</div>
+    </div>
+    <div class="hiw-card hiw-3">
+      <div class="hiw-num">Шаг 03</div>
+      <div class="hiw-icon"><i class="ti ti-messages" style="font-size:24px"></i></div>
+      <div class="hiw-title">Получай звонки сразу</div>
+      <div class="hiw-desc">Покупатели видят ваш контакт и пишут напрямую. Никаких посредников, никаких комиссий с продажи.</div>
+    </div>
+  </div>
+</div>
 
-    <div class="ai-chat">
-      <div class="ai-chat-title">💬 AI-помощник</div>
-      <div class="ai-chat-messages" id="chatMessages"></div>
-      <div class="ai-chat-row">
-        <input type="text" class="ai-chat-input" id="chatInput" placeholder="Задайте вопрос..." maxlength="500">
-        <button class="ai-chat-send" id="chatSendBtn">Отправить</button>
+<!-- AI STRIP -->
+<div class="section" style="padding-top:20px">
+  <div class="ai-strip">
+    <div class="ai-icon"><i class="ti ti-robot"></i></div>
+    <div class="ai-text">
+      <h3>ИИ-помощник работает за вас 24/7</h3>
+      <p>Напишите боту в Telegram — он поможет составить объявление, ответит покупателям, проверит оплату и автоматически опубликует ваш товар. Вам ничего не нужно делать вручную.</p>
+      <div class="ai-btns">
+        <button class="ai-btn"><i class="ti ti-brand-telegram" style="font-size:13px"></i> Открыть бота</button>
+        <button class="ai-btn2">Узнать больше</button>
       </div>
     </div>
   </div>
-  <!-- Contact landscape: рассветные горы, мягкие контуры, берёзы и кусты -->
-  <svg class="section-landscape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 170" preserveAspectRatio="none" aria-hidden="true">
-    <!-- soft dawn mountains -->
-    <polygon points="0,170 0,110 140,55 280,90 440,35 600,80 760,40 920,85 1080,30 1240,75 1440,45 1440,170" fill="#3a6b5a" opacity="0.3"/>
-    <polygon points="0,170 0,135 120,95 260,120 420,75 580,115 740,70 900,118 1060,75 1220,115 1440,85 1440,170" fill="#2a5c4a" opacity="0.28"/>
-    <!-- birch trees — round canopy, white-ish trunk feel -->
-    <rect x="50" y="110" width="4" height="48" fill="#6a8a6a" opacity="0.45"/>
-    <ellipse cx="52" cy="103" rx="14" ry="18" fill="#4a7a5a" opacity="0.42"/>
-    <ellipse cx="52" cy="98" rx="10" ry="12" fill="#5a8a6a" opacity="0.35"/>
-    <rect x="110" y="118" width="4" height="40" fill="#6a8a6a" opacity="0.4"/>
-    <ellipse cx="112" cy="112" rx="12" ry="16" fill="#4a7a5a" opacity="0.38"/>
-    <rect x="200" y="108" width="4" height="50" fill="#6a8a6a" opacity="0.45"/>
-    <ellipse cx="202" cy="100" rx="14" ry="18" fill="#4a7a5a" opacity="0.42"/>
-    <!-- low bushes between trees -->
-    <ellipse cx="160" cy="148" rx="20" ry="9" fill="#3a7a2d" opacity="0.38"/>
-    <ellipse cx="280" cy="152" rx="18" ry="8" fill="#2a6b24" opacity="0.35"/>
-    <!-- center birch group -->
-    <rect x="680" y="112" width="4" height="46" fill="#6a8a6a" opacity="0.4"/>
-    <ellipse cx="682" cy="105" rx="13" ry="17" fill="#4a7a5a" opacity="0.38"/>
-    <rect x="730" y="120" width="4" height="38" fill="#6a8a6a" opacity="0.38"/>
-    <ellipse cx="732" cy="114" rx="11" ry="14" fill="#4a7a5a" opacity="0.35"/>
-    <ellipse cx="706" cy="150" rx="22" ry="9" fill="#3a7a2d" opacity="0.35"/>
-    <!-- right birch group -->
-    <rect x="1200" y="108" width="4" height="50" fill="#6a8a6a" opacity="0.45"/>
-    <ellipse cx="1202" cy="100" rx="14" ry="18" fill="#4a7a5a" opacity="0.42"/>
-    <rect x="1260" y="116" width="4" height="42" fill="#6a8a6a" opacity="0.4"/>
-    <ellipse cx="1262" cy="109" rx="12" ry="16" fill="#4a7a5a" opacity="0.38"/>
-    <rect x="1330" y="112" width="4" height="46" fill="#6a8a6a" opacity="0.45"/>
-    <ellipse cx="1332" cy="104" rx="13" ry="17" fill="#4a7a5a" opacity="0.42"/>
-    <ellipse cx="1295" cy="150" rx="24" ry="9" fill="#3a7a2d" opacity="0.38"/>
-    <!-- a few firs mixed in -->
-    <polygon points="460,170 460,148 468,148 468,130 474,130 474,112 480,112 480,94 486,94 486,76 492,76 492,94 498,94 498,112 504,112 504,130 510,130 510,148 518,148 518,170" fill="#1a5c3a" opacity="0.4"/>
-    <polygon points="940,170 940,150 948,150 948,132 954,132 954,114 960,114 960,96 966,96 966,78 972,78 972,96 978,96 978,114 984,114 984,132 990,132 990,150 998,150 998,170" fill="#1a5c3a" opacity="0.38"/>
-  </svg>
-</section>
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="kz-border" aria-hidden="true"></div>
-  <div class="footer-inner">
-    <div class="footer-logo">Burabay Tech</div>
-    <div class="footer-copy" data-i18n="footer.copy">© 2026 Burabay Tech · Бурабай &amp; Щучинск, Казахстан</div>
+<!-- B2B SERVICES SECTION -->
+<div class="section" style="padding-top:32px" id="services">
+  <div class="services-header">
+    <div class="services-header-icon">🏢</div>
+    <div class="services-header-text">
+      <h2>Наши услуги для бизнеса</h2>
+      <p>Комплексные цифровые решения для малого и среднего бизнеса Казахстана — от сайтов до ИИ-автоматизации</p>
+    </div>
+  </div>
+  <div class="b2b-grid">
+
+    <div class="b2b-card b2b-1">
+      <div class="b2b-icon"><i class="ti ti-world-www" style="font-size:22px"></i></div>
+      <div class="b2b-title">Создание сайтов и веб-приложений</div>
+      <div class="b2b-desc">Разработка современных сайтов, лендингов и интернет-магазинов. Быстро, красиво, с нуля до запуска за 7–14 дней. SEO-оптимизация и мобильная адаптация включены.</div>
+      <div class="b2b-tags">
+        <span class="b2b-tag">Лендинг</span>
+        <span class="b2b-tag">Интернет-магазин</span>
+        <span class="b2b-tag">CRM интеграция</span>
+        <span class="b2b-tag">SEO</span>
+      </div>
+      <div class="b2b-cta"><i class="ti ti-arrow-right" style="font-size:14px"></i> Обсудить проект</div>
+    </div>
+
+    <div class="b2b-card b2b-2">
+      <div class="b2b-icon"><i class="ti ti-brain" style="font-size:22px"></i></div>
+      <div class="b2b-title">Внедрение ИИ-технологий</div>
+      <div class="b2b-desc">Автоматизация клиентского сервиса с помощью ИИ-чат-ботов, умная модерация контента, ИИ-аналитика данных и автоматические ответы на обращения покупателей.</div>
+      <div class="b2b-tags">
+        <span class="b2b-tag">Чат-бот</span>
+        <span class="b2b-tag">GPT интеграция</span>
+        <span class="b2b-tag">Автоответы</span>
+        <span class="b2b-tag">Аналитика</span>
+      </div>
+      <div class="b2b-cta"><i class="ti ti-arrow-right" style="font-size:14px"></i> Узнать подробнее</div>
+    </div>
+
+    <div class="b2b-card b2b-3">
+      <div class="b2b-icon"><i class="ti ti-camera" style="font-size:22px"></i></div>
+      <div class="b2b-title">Автоматизация видеонаблюдения</div>
+      <div class="b2b-desc">Умные системы видеонаблюдения с ИИ-распознаванием: детекция людей и автомобилей, оповещения в Telegram, удалённый доступ и запись в облако. Frigate + Home Assistant.</div>
+      <div class="b2b-tags">
+        <span class="b2b-tag">Frigate NVR</span>
+        <span class="b2b-tag">Детекция людей</span>
+        <span class="b2b-tag">Telegram-боты</span>
+        <span class="b2b-tag">IP-камеры</span>
+      </div>
+      <div class="b2b-cta"><i class="ti ti-arrow-right" style="font-size:14px"></i> Получить консультацию</div>
+    </div>
+
+  </div>
+
+  <div class="b2b-contact-strip">
+    <div>
+      <h4>Готовы обсудить ваш проект?</h4>
+      <p>Бесплатная консультация · Ответим в течение 2 часов · Работаем по всему Казахстану</p>
+    </div>
+    <div class="b2b-contact-btns">
+      <a href="https://wa.me/77080802588?text=Здравствуйте! Хочу узнать про услуги для бизнеса" target="_blank">
+        <button class="btn-wa-b2b"><i class="ti ti-brand-whatsapp"></i> WhatsApp</button>
+      </a>
+      <button class="btn-tg-b2b"><i class="ti ti-brand-telegram"></i> Telegram</button>
+    </div>
+  </div>
+</div>
+
+<footer style="margin-top:32px">
+  <div class="foot-i">
+    <div class="foot-logo">Jalga.kz</div>
+    <div class="foot-links">
+      <a href="#">О сайте</a>
+      <a href="#">Помощь</a>
+      <a href="#">Правила</a>
+      <a href="#services">Наши услуги</a>
+      <a href="#">Реклама</a>
+      <a href="#">Безопасность</a>
+    </div>
+    <div class="foot-copy">© 2026 Jalga.kz · Казахстан</div>
   </div>
 </footer>
 
-<script>
-// ─── Translations ───
-const I18N = {
-  ru: {
-    'nav.taxi':'Такси','nav.ads':'Объявления','nav.videos':'Видео','nav.contact':'Контакты',
-    'hero.tag':'Бурабай & Щучинск',
-    'hero.title':'Объявления<br><em>Акмолинской</em><br>области',
-    'hero.subtitle':'Такси · Объявления · Видео',
-    'hero.cta.taxi':'🚖 Заказать такси','hero.cta.ads':'📋 Подать объявление',
-    'ann.title':'Вниманию жителей, гостей и предпринимателей<br>Акмолинской области!',
-    'ann.realty':'<strong>Недвижимость и транспорт</strong><br>Принимаются объявления о продаже движимого и недвижимого имущества по всему Бурабайскому району.',
-    'ann.drivers':'<strong>Для водителей</strong><br>Внедрена отдельная вкладка «Межгород» для частных перевозчиков и служб такси.',
-    'ann.biz':'<strong>Для бизнеса</strong><br>Реклама компаний, включая товары, работы и услуги (ТРУ).',
-    'ann.free':'🎉 <strong>Бесплатно:</strong> В связи с запуском — все объявления размещаются бесплатно.',
-    'ann.security':'🛡 <strong>Безопасность:</strong> Платформа будет оснащена ИИ-системой проверки на мошенничество.',
-    'taxi.label':'Трансфер','taxi.title':'Такси Бурабай — <em>Щучинск</em>','taxi.desc':'Комфортные поездки по городу и межгород. 24/7.',
-    'taxi.badge':'🛡 Стаж вождения 24 года · до 4 пассажиров','taxi.route':'Новый кроссовер · Санатории, дома отдыха, трансферы',
-    'taxi.price.label':'Астана ↔ Бурабай','taxi.date.label':'Выберите дату поездки',
-    'taxi.f1':'Только салон — с одного адреса на один','taxi.f2':'Просторный кроссовер, большой багажник',
-    'taxi.f3':'Санатории, дома отдыха и т.п.','taxi.f4':'Работаем круглосуточно 24/7',
-    'taxi.order':'Заказать в WhatsApp','taxi.warning':'⚠️ Писать заранее в WhatsApp',
-    'taxi.tariff.title':'Тарифы на размещение','taxi.7days':'7 дней','taxi.boost':'Поднять наверх',
-    'taxi.promo':'🎉 &nbsp;<strong>Акция до 10 июня</strong> — размещение бесплатно! Вы водитель? <a href="#ads" style="color:var(--gold);margin-left:6px;">Разместите свой маршрут →</a>',
-    'ads.label':'Локальная доска','ads.title':'<em>Объявления</em> Акмолинской области','ads.desc':'Купля-продажа, услуги, недвижимость и транспорт для жителей района.',
-    'ads.form.title':'📝 Подать объявление',
-    'ads.f.category':'Категория','ads.f.city':'Город','ads.f.headline':'Заголовок','ads.f.headline.ph':'Краткое описание',
-    'ads.f.desc':'Описание','ads.f.desc.ph':'Подробнее...','ads.f.price':'Цена (тенге)',
-    'ads.f.name':'Имя','ads.f.name.ph':'Ваше имя','ads.f.phone':'Телефон / WhatsApp',
-    'ads.f.telegram':'Telegram (без @)','ads.f.instagram':'Instagram (без @)','ads.f.submit':'Отправить объявление',
-    'filter.all':'Все','filter.auto':'Авто','filter.realty':'Недвижимость','filter.services':'Услуги',
-    'cities.label':'География','cities.title':'Города <em>Акмолинской области</em>','cities.desc':'Объявления и услуги для жителей всех городов и районов области. Нажмите на свой город, чтобы найти объявления рядом.','cities.resort':'Курорт','cities.capital':'Областной центр',
-    'videos.label':'Последние видео','videos.title':'Смотреть <em>на YouTube</em>','videos.desc':'Обзоры, аналитика и новости района от канала @Adilveis_life','videos.all':'▶ Все видео на YouTube',
-    'v1.tag':'Обзор','v1.title':'Обзор техники в Бурабае','v1.ago':'2 недели назад',
-    'v2.tag':'Аналитика','v2.title':'Рынок акций — что происходит?','v2.ago':'1 месяц назад',
-    'v3.tag':'Новости','v3.title':'Объявления недели в Щучинске','v3.ago':'6 недель назад',
-    'contact.label':'Связь','contact.title':'Написать <em>нам</em>','contact.desc':'Вопрос, сотрудничество, или просто привет — мы рады любому сообщению.',
-    'contact.form.title':'Отправить сообщение','contact.f.name':'Ваше имя','contact.f.name.ph':'Имя',
-    'contact.f.message':'Сообщение','contact.f.message.ph':'Ваше сообщение...','contact.f.submit':'Отправить ✉️',
-    'footer.copy':'© 2026 Burabay Tech · Бурабай & Щучинск, Казахстан',
-  },
-  kz: {
-    'nav.taxi':'Такси','nav.ads':'Хабарландырулар','nav.videos':'Бейне','nav.contact':'Байланыс',
-    'hero.tag':'Бурабай & Щучинск',
-    'hero.title':'Ақмола облысының<br><em>хабарландырулары</em>',
-    'hero.subtitle':'Такси · Хабарландырулар · Бейне',
-    'hero.cta.taxi':'🚖 Такси тапсырыс беру','hero.cta.ads':'📋 Хабарландыру беру',
-    'ann.title':'Бурабай ауданының тұрғындары мен кәсіпкерлеріне<br>назар аударыңыз!',
-    'ann.realty':'<strong>Жылжымайтын мүлік және көлік</strong><br>Бурабай ауданы бойынша жылжымалы және жылжымайтын мүлікті сатуға хабарландырулар қабылданады.',
-    'ann.drivers':'<strong>Жүргізушілерге арналған</strong><br>Жеке тасымалдаушылар мен такси қызметтері үшін «Қалааралық» бөлімі іске қосылды.',
-    'ann.biz':'<strong>Бизнес үшін</strong><br>Тауарларды, жұмыстарды және қызметтерді (ТЖҚ) қоса алғанда, компаниялардың жарнамасы.',
-    'ann.free':'🎉 <strong>Тегін:</strong> Іске қосуға байланысты — барлық хабарландырулар тегін орналастырылады.',
-    'ann.security':'🛡 <strong>Қауіпсіздік:</strong> Платформа алаяқтықты тексеруге арналған ЖИ жүйесімен жабдықталады.',
-    'taxi.label':'Трансфер','taxi.title':'Такси Бурабай — <em>Щучинск</em>','taxi.desc':'Қала бойынша және қалааралық ыңғайлы сапарлар. 24/7.',
-    'taxi.badge':'🛡 24 жылдық жүргізу тәжірибесі · 4 жолаушыға дейін','taxi.route':'Жаңа кроссовер · Санаторийлер, демалыс үйлері, трансферлер',
-    'taxi.price.label':'Астана ↔ Бурабай','taxi.date.label':'Сапар күнін таңдаңыз',
-    'taxi.f1':'Тек салон — бір мекенжайдан бір мекенжайға','taxi.f2':'Кең кроссовер, үлкен багаж бөлімі',
-    'taxi.f3':'Санаторийлер, демалыс үйлері және т.б.','taxi.f4':'Тәулік бойы 24/7 жұмыс істейміз',
-    'taxi.order':'WhatsApp арқылы тапсырыс беру','taxi.warning':'⚠️ WhatsApp-қа алдын ала жазыңыз',
-    'taxi.tariff.title':'Орналастыру тарифтері','taxi.7days':'7 күн','taxi.boost':'Жоғарыға көтеру',
-    'taxi.promo':'🎉 &nbsp;<strong>10 маусымға дейін акция</strong> — орналастыру тегін! Жүргізуші болсаңыз? <a href="#ads" style="color:var(--gold);margin-left:6px;">Маршрутыңызды орналастырыңыз →</a>',
-    'ads.label':'Жергілікті тақта','ads.title':'Ақмола облысының <em>хабарландырулары</em>','ads.desc':'Аудан тұрғындары үшін сатып алу-сату, қызметтер, жылжымайтын мүлік және көлік.',
-    'ads.form.title':'📝 Хабарландыру беру',
-    'ads.f.category':'Санат','ads.f.city':'Қала','ads.f.headline':'Тақырып','ads.f.headline.ph':'Қысқаша сипаттама',
-    'ads.f.desc':'Сипаттама','ads.f.desc.ph':'Толығырақ...','ads.f.price':'Бағасы (теңге)',
-    'ads.f.name':'Аты','ads.f.name.ph':'Атыңыз','ads.f.phone':'Телефон / WhatsApp',
-    'ads.f.telegram':'Telegram (@-сыз)','ads.f.instagram':'Instagram (@-сыз)','ads.f.submit':'Хабарландыруды жіберу',
-    'filter.all':'Барлығы','filter.auto':'Авто','filter.realty':'Жылжымайтын мүлік','filter.services':'Қызметтер',
-    'cities.label':'География','cities.title':'<em>Ақмола облысының</em> қалалары','cities.desc':'Облыстың барлық қалалары мен аудандарының тұрғындарына арналған хабарландырулар мен қызметтер. Жақын маңдағы хабарландыруларды табу үшін қалаңызды басыңыз.','cities.resort':'Курорт','cities.capital':'Облыс орталығы',
-    'videos.label':'Соңғы бейнелер','videos.title':'YouTube-та <em>қараңыз</em>','videos.desc':'@Adilveis_life каналынан аудан шолулары, талдау және жаңалықтар','videos.all':'▶ YouTube-тағы барлық бейнелер',
-    'v1.tag':'Шолу','v1.title':'Бурабайдағы техника шолуы','v1.ago':'2 апта бұрын',
-    'v2.tag':'Талдау','v2.title':'Акция нарығы — не болып жатыр?','v2.ago':'1 ай бұрын',
-    'v3.tag':'Жаңалықтар','v3.title':'Щучинскідегі апта хабарландырулары','v3.ago':'6 апта бұрын',
-    'contact.label':'Байланыс','contact.title':'<em>Бізге</em> жазыңыз','contact.desc':'Сұрақ, ынтымақтастық немесе жай сәлем — кез келген хабарламаңызды қабылдаймыз.',
-    'contact.form.title':'Хабарлама жіберу','contact.f.name':'Атыңыз','contact.f.name.ph':'Аты',
-    'contact.f.message':'Хабарлама','contact.f.message.ph':'Хабарламаңыз...','contact.f.submit':'Жіберу ✉️',
-    'footer.copy':'© 2026 Burabay Tech · Бурабай & Щучинск, Қазақстан',
-  },
-  en: {
-    'nav.taxi':'Taxi','nav.ads':'Classifieds','nav.videos':'Videos','nav.contact':'Contact',
-    'hero.tag':'Burabay & Shchuchinsk',
-    'hero.title':'Classifieds<br>of <em>Akmola</em><br>Region',
-    'hero.subtitle':'Taxi · Classifieds · Videos',
-    'hero.cta.taxi':'🚖 Order a taxi','hero.cta.ads':'📋 Post an ad',
-    'ann.title':'Attention residents and entrepreneurs<br>of Burabay district!',
-    'ann.realty':'<strong>Real estate & transport</strong><br>Listings for the sale of movable and immovable property throughout Burabay district are accepted.',
-    'ann.drivers':'<strong>For drivers</strong><br>A separate "Intercity" tab has been introduced for private carriers and taxi services.',
-    'ann.biz':'<strong>For business</strong><br>Company advertising including goods, works and services.',
-    'ann.free':'🎉 <strong>Free:</strong> Due to the launch — all ads are posted for free.',
-    'ann.security':'🛡 <strong>Security:</strong> The platform will be equipped with an AI fraud detection system.',
-    'taxi.label':'Transfer','taxi.title':'Taxi Burabay — <em>Shchuchinsk</em>','taxi.desc':'Comfortable rides in the city and intercity. 24/7.',
-    'taxi.badge':'🛡 24 years driving experience · up to 4 passengers','taxi.route':'New crossover · Sanatoriums, resorts, transfers',
-    'taxi.price.label':'Astana ↔ Burabay','taxi.date.label':'Select trip date',
-    'taxi.f1':'Private hire — from one address to one','taxi.f2':'Spacious crossover, large trunk',
-    'taxi.f3':'Sanatoriums, resorts, etc.','taxi.f4':'We work around the clock 24/7',
-    'taxi.order':'Order via WhatsApp','taxi.warning':'⚠️ Message in advance on WhatsApp',
-    'taxi.tariff.title':'Listing rates','taxi.7days':'7 days','taxi.boost':'Boost to top',
-    'taxi.promo':'🎉 &nbsp;<strong>Promo until June 10</strong> — free listings! Are you a driver? <a href="#ads" style="color:var(--gold);margin-left:6px;">Post your route →</a>',
-    'ads.label':'Local board','ads.title':'<em>Classifieds</em> of Akmola Region','ads.desc':'Buy & sell, services, real estate and transport for district residents.',
-    'ads.form.title':'📝 Post an ad',
-    'ads.f.category':'Category','ads.f.city':'City','ads.f.headline':'Title','ads.f.headline.ph':'Brief description',
-    'ads.f.desc':'Description','ads.f.desc.ph':'More details...','ads.f.price':'Price (tenge)',
-    'ads.f.name':'Name','ads.f.name.ph':'Your name','ads.f.phone':'Phone / WhatsApp',
-    'ads.f.telegram':'Telegram (no @)','ads.f.instagram':'Instagram (no @)','ads.f.submit':'Submit ad',
-    'filter.all':'All','filter.auto':'Cars','filter.realty':'Real estate','filter.services':'Services',
-    'cities.label':'Geography','cities.title':'Cities of <em>Akmola region</em>','cities.desc':'Listings and services for residents of every city and district in the region. Tap your city to find ads nearby.','cities.resort':'Resort','cities.capital':'Regional center',
-    'videos.label':'Latest videos','videos.title':'Watch <em>on YouTube</em>','videos.desc':'Reviews, analysis and district news from @Adilveis_life','videos.all':'▶ All videos on YouTube',
-    'v1.tag':'Review','v1.title':'Tech review in Burabay','v1.ago':'2 weeks ago',
-    'v2.tag':'Analysis','v2.title':'Stock market — what\'s happening?','v2.ago':'1 month ago',
-    'v3.tag':'News','v3.title':'Weekly classifieds in Shchuchinsk','v3.ago':'6 weeks ago',
-    'contact.label':'Contact','contact.title':'Write <em>to us</em>','contact.desc':'Question, collaboration, or just hello — we welcome any message.',
-    'contact.form.title':'Send a message','contact.f.name':'Your name','contact.f.name.ph':'Name',
-    'contact.f.message':'Message','contact.f.message.ph':'Your message...','contact.f.submit':'Send ✉️',
-    'footer.copy':'© 2026 Burabay Tech · Burabay & Shchuchinsk, Kazakhstan',
-  },
-  es: {
-    'nav.taxi':'Taxi','nav.ads':'Anuncios','nav.videos':'Videos','nav.contact':'Contacto',
-    'hero.tag':'Burabay & Shchuchinsk',
-    'hero.title':'Anuncios<br>de la <em>región</em><br>de Akmola',
-    'hero.subtitle':'Taxi · Anuncios · Videos',
-    'hero.cta.taxi':'🚖 Pedir taxi','hero.cta.ads':'📋 Publicar anuncio',
-    'ann.title':'¡Atención residentes y empresarios<br>del distrito de Burabay!',
-    'ann.realty':'<strong>Inmuebles y transporte</strong><br>Se aceptan anuncios de venta de bienes muebles e inmuebles en todo el distrito de Burabay.',
-    'ann.drivers':'<strong>Para conductores</strong><br>Se ha introducido una pestaña separada de "Interurbano" para transportistas privados y servicios de taxi.',
-    'ann.biz':'<strong>Para empresas</strong><br>Publicidad de empresas, incluyendo bienes, obras y servicios.',
-    'ann.free':'🎉 <strong>Gratis:</strong> Por el lanzamiento — todos los anuncios se publican gratis.',
-    'ann.security':'🛡 <strong>Seguridad:</strong> La plataforma contará con un sistema de detección de fraude con IA.',
-    'taxi.label':'Transfer','taxi.title':'Taxi Burabay — <em>Shchuchinsk</em>','taxi.desc':'Viajes cómodos por la ciudad e interurbanos. 24/7.',
-    'taxi.badge':'🛡 24 años de experiencia · hasta 4 pasajeros','taxi.route':'Crossover nuevo · Sanatorios, centros de descanso, traslados',
-    'taxi.price.label':'Astana ↔ Burabay','taxi.date.label':'Seleccionar fecha de viaje',
-    'taxi.f1':'Alquiler privado — de una dirección a otra','taxi.f2':'Crossover espacioso, maletero grande',
-    'taxi.f3':'Sanatorios, centros de descanso, etc.','taxi.f4':'Trabajamos las 24 horas los 7 días',
-    'taxi.order':'Pedir por WhatsApp','taxi.warning':'⚠️ Escribir con antelación por WhatsApp',
-    'taxi.tariff.title':'Tarifas de publicación','taxi.7days':'7 días','taxi.boost':'Subir al tope',
-    'taxi.promo':'🎉 &nbsp;<strong>Promo hasta el 10 de junio</strong> — publicación gratuita! ¿Eres conductor? <a href="#ads" style="color:var(--gold);margin-left:6px;">Publica tu ruta →</a>',
-    'ads.label':'Tablón local','ads.title':'<em>Anuncios</em> de la región de Akmola','ads.desc':'Compra-venta, servicios, inmuebles y transporte para residentes del distrito.',
-    'ads.form.title':'📝 Publicar anuncio',
-    'ads.f.category':'Categoría','ads.f.city':'Ciudad','ads.f.headline':'Título','ads.f.headline.ph':'Descripción breve',
-    'ads.f.desc':'Descripción','ads.f.desc.ph':'Más detalles...','ads.f.price':'Precio (tenge)',
-    'ads.f.name':'Nombre','ads.f.name.ph':'Su nombre','ads.f.phone':'Teléfono / WhatsApp',
-    'ads.f.telegram':'Telegram (sin @)','ads.f.instagram':'Instagram (sin @)','ads.f.submit':'Enviar anuncio',
-    'filter.all':'Todos','filter.auto':'Autos','filter.realty':'Inmuebles','filter.services':'Servicios',
-    'cities.label':'Geografía','cities.title':'Ciudades de <em>la región de Akmola</em>','cities.desc':'Anuncios y servicios para los residentes de todas las ciudades y distritos de la región. Toque su ciudad para encontrar anuncios cercanos.','cities.resort':'Resort','cities.capital':'Centro regional',
-    'videos.label':'Últimos videos','videos.title':'Ver <em>en YouTube</em>','videos.desc':'Reseñas, análisis y noticias del distrito del canal @Adilveis_life','videos.all':'▶ Todos los videos en YouTube',
-    'v1.tag':'Reseña','v1.title':'Reseña de tecnología en Burabay','v1.ago':'hace 2 semanas',
-    'v2.tag':'Análisis','v2.title':'Mercado de acciones — ¿qué pasa?','v2.ago':'hace 1 mes',
-    'v3.tag':'Noticias','v3.title':'Anuncios de la semana en Shchuchinsk','v3.ago':'hace 6 semanas',
-    'contact.label':'Contacto','contact.title':'Escríbenos <em>a nosotros</em>','contact.desc':'Pregunta, colaboración o simplemente hola — agradecemos cualquier mensaje.',
-    'contact.form.title':'Enviar mensaje','contact.f.name':'Su nombre','contact.f.name.ph':'Nombre',
-    'contact.f.message':'Mensaje','contact.f.message.ph':'Su mensaje...','contact.f.submit':'Enviar ✉️',
-    'footer.copy':'© 2026 Burabay Tech · Burabay & Shchuchinsk, Kazajistán',
-  },
-};
+<!-- CONTACT MODAL -->
+<div class="modal-ov" id="ctModal">
+  <div class="modal-box">
+    <button class="close" onclick="document.getElementById('ctModal').classList.remove('open')">×</button>
+    <h3 id="ctName">Продавец</h3>
+    <div id="ctBody"></div>
+  </div>
+</div>
 
-function applyLang(lang) {
-  const t = I18N[lang];
-  if (!t) return;
-  document.documentElement.lang = lang;
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const v = t[el.getAttribute('data-i18n')];
-    if (v !== undefined) el.textContent = v;
-  });
-  document.querySelectorAll('[data-i18n-html]').forEach(el => {
-    const v = t[el.getAttribute('data-i18n-html')];
-    if (v !== undefined) el.innerHTML = v;
-  });
-  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
-    const v = t[el.getAttribute('data-i18n-ph')];
-    if (v !== undefined) el.placeholder = v;
-  });
-}
-
-// ─── Kazakh ornament (kochkar-muyiz) is now rendered via CSS background-image
-// using assets/kz-ornament-tile.png — see .kz-border / .kz-divider-band rules. ───
-
-
-// ─── Filter ads ───
-// ─── Dynamic ads from Redis ───
-const _CAT_MAP = {
-  '🚕 Такси / Трансфер': 'taxi',
-  '🚗 Авто': 'auto',
-  '🏠 Недвижимость': 'realty',
-  '🔧 Услуги': 'services',
-  '💼 Работа': 'other',
-  '📱 Электроника': 'other',
-  '🛋️ Мебель и быт': 'other',
-  '🌿 Туризм': 'other',
-  '🎁 Отдам даром': 'other',
-};
-
-function _esc(s) {
-  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function renderAd(ad) {
-  const cat = _CAT_MAP[ad.category] || 'other';
-  const price = ad.price ? _esc(ad.price) + ' ₸' : 'Договорная';
-
-  const links = [];
-  if (ad.phone) {
-    const digits = ad.phone.replace(/\D/g, '');
-    links.push(`<a href="https://wa.me/${digits}" target="_blank" rel="noopener" class="ad-contact-link">📱 WhatsApp</a>`);
-  }
-  if (ad.telegram) {
-    const tg = ad.telegram.replace(/^@/, '');
-    links.push(`<a href="https://t.me/${encodeURIComponent(tg)}" target="_blank" rel="noopener" class="ad-contact-link">✈️ Telegram</a>`);
-  }
-  if (ad.instagram) {
-    const ig = ad.instagram.replace(/^@/, '');
-    links.push(`<a href="https://instagram.com/${encodeURIComponent(ig)}" target="_blank" rel="noopener" class="ad-contact-link">📸 Instagram</a>`);
-  }
-
-  const contactsHtml = links.length
-    ? `<div class="ad-contacts">
-        ${ad.name ? `<div class="ad-contact-name">${_esc(ad.name)}</div>` : ''}
-        <div class="ad-contact-links">${links.join('')}</div>
-       </div>`
-    : `<div class="ad-contacts"><span class="ad-no-contacts">Контакты не указаны</span></div>`;
-
-  return `<div class="ad-card" data-cat="${cat}">
-    <div class="ad-cat">${_esc(ad.category || 'Объявление')}</div>
-    <div class="ad-title">${_esc(ad.title || 'Объявление')}</div>
-    ${ad.description ? `<div class="ad-desc">${_esc(ad.description)}</div>` : ''}
-    <div class="ad-footer">
-      <div class="ad-price">${price}</div>
-      ${ad.city ? `<div class="ad-city">${_esc(ad.city)}</div>` : ''}
+<!-- CITY PICKER MODAL -->
+<div class="city-modal" id="cityModal" onclick="if(event.target===this)closeCityModal()">
+  <div class="city-modal-box">
+    <div class="city-modal-header">
+      <i class="ti ti-map-pin" style="font-size:18px;color:var(--o)"></i>
+      <h3>Выберите город</h3>
+      <button onclick="closeCityModal()"><i class="ti ti-x"></i></button>
     </div>
-    ${contactsHtml}
-    <button class="ad-contact-btn" onclick="this.closest('.ad-card').classList.toggle('ad-open');this.textContent=this.closest('.ad-card').classList.contains('ad-open')?'✕ Скрыть':'📞 Связаться'">📞 Связаться</button>
-  </div>`;
-}
-
-async function loadAds() {
-  const grid = document.getElementById('adsGrid');
-  try {
-    const res = await fetch('/api/getAds');
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const ads = await res.json();
-    if (!Array.isArray(ads) || ads.length === 0) {
-      grid.innerHTML = '<div style="color:var(--cream-dim,#9e9e7a);grid-column:1/-1;text-align:center;padding:40px 0;opacity:0.7">Объявлений пока нет — будьте первым!</div>';
-      return;
-    }
-    grid.innerHTML = ads.map(renderAd).join('');
-    const activeChip = document.querySelector('.filter-chip.active');
-    if (activeChip) filterAds(activeChip, activeChip.dataset.cat);
-  } catch (e) {
-    console.error('loadAds:', e);
-    grid.innerHTML = '<div style="color:var(--cream-dim,#9e9e7a);grid-column:1/-1;text-align:center;padding:40px 0;opacity:0.7">Не удалось загрузить объявления</div>';
-  }
-}
-
-document.addEventListener('DOMContentLoaded', loadAds);
-
-function filterAds(btn, cat) {
-  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.ad-card').forEach(card => {
-    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
-  });
-}
-
-document.querySelectorAll('.filter-chip').forEach(btn => {
-  btn.addEventListener('click', () => filterAds(btn, btn.dataset.cat));
-});
-
-// ─── City cards: clicking a city pre-fills the city in the ad form ───
-document.querySelectorAll('.city-card[data-city]').forEach(card => {
-  card.addEventListener('click', (e) => {
-    const city = card.dataset.city;
-    const select = document.getElementById('adCity');
-    if (select) {
-      // Find option with matching text and select it
-      for (const opt of select.options) {
-        if (opt.value === city || opt.textContent === city) {
-          select.value = opt.value || opt.textContent;
-          break;
-        }
-      }
-    }
-    // Smooth scroll handled by href="#ads"; pre-fill happens via click before navigate
-  });
-});
-
-// ─── Language switcher ───
-document.querySelectorAll('.nav-langs button[data-lang]').forEach(b => {
-  b.addEventListener('click', () => {
-    document.querySelectorAll('.nav-langs button').forEach(x => {
-      x.classList.remove('active');
-      x.setAttribute('aria-pressed', 'false');
-    });
-    b.classList.add('active');
-    b.setAttribute('aria-pressed', 'true');
-    applyLang(b.dataset.lang);
-  });
-});
-
-// ─── Hamburger menu ───
-const hamburger = document.querySelector('.nav-hamburger');
-const mobileNav = document.getElementById('mobileNav');
-
-hamburger.addEventListener('click', () => {
-  const isOpen = mobileNav.classList.toggle('open');
-  hamburger.classList.toggle('open', isOpen);
-  hamburger.setAttribute('aria-expanded', String(isOpen));
-  hamburger.setAttribute('aria-label', isOpen ? 'Закрыть меню' : 'Открыть меню');
-  mobileNav.setAttribute('aria-hidden', String(!isOpen));
-});
-
-mobileNav.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => {
-    mobileNav.classList.remove('open');
-    hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-    hamburger.setAttribute('aria-label', 'Открыть меню');
-    mobileNav.setAttribute('aria-hidden', 'true');
-  });
-});
-
-// ─── Ad form submit ───
-document.getElementById('adForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('adSubmitBtn');
-  const status = document.getElementById('adStatus');
-  const data = new FormData(this);
-
-  const text = [
-    '📋 Новое объявление',
-    'Категория: ' + data.get('category'),
-    'Город: ' + data.get('city'),
-    'Заголовок: ' + data.get('title'),
-    'Описание: ' + data.get('description'),
-    'Цена: ' + (data.get('price') || 'не указана') + ' ₸',
-    'Имя: ' + data.get('name'),
-    'Телефон: ' + data.get('phone'),
-    'Telegram: ' + (data.get('telegram') || 'не указан'),
-    'Instagram: ' + (data.get('instagram') || 'не указан'),
-  ].join('\n');
-
-  btn.disabled = true;
-  btn.textContent = 'Отправляем...';
-  status.className = 'form-status';
-  status.style.display = 'none';
-
-  try {
-    const res = await fetch('/api/sendAd', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        text,
-        category: data.get('category'),
-        city: data.get('city'),
-        title: data.get('title'),
-        description: data.get('description'),
-        price: data.get('price'),
-        name: data.get('name'),
-        phone: data.get('phone'),
-        telegram: data.get('telegram'),
-        instagram: data.get('instagram'),
-      }),
-    });
-    const json = await res.json();
-    if (res.ok && json.ok) {
-      status.textContent = '✅ Объявление отправлено на модерацию';
-      status.className = 'form-status success';
-      status.style.display = 'block';
-      this.reset();
-      setTimeout(loadAds, 800);
-    } else {
-      throw new Error(json.error || 'Ошибка отправки');
-    }
-  } catch (err) {
-    status.textContent = '❌ ' + (err.message || 'Ошибка. Попробуйте позже.');
-    status.className = 'form-status error';
-    status.style.display = 'block';
-  } finally {
-    btn.disabled = false;
-    btn.textContent = document.querySelector('#adSubmitBtn').getAttribute('data-i18n')
-      ? (I18N[document.documentElement.lang || 'ru']['ads.f.submit'] || 'Отправить объявление')
-      : 'Отправить объявление';
-  }
-});
-
-// ─── Contact form submit ───
-document.getElementById('contactForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('contactSubmitBtn');
-  const status = document.getElementById('contactStatus');
-  const data = new FormData(this);
-
-  btn.disabled = true;
-  btn.textContent = 'Отправляем...';
-  status.className = 'form-status';
-  status.style.display = 'none';
-
-  try {
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: data.get('name'),
-        whatsapp: data.get('whatsapp'),
-        telegram: data.get('telegram'),
-        message: data.get('message'),
-      }),
-    });
-    const json = await res.json();
-    if (res.ok && json.ok) {
-      status.textContent = '✅ ' + json.message;
-      status.className = 'form-status success';
-      status.style.display = 'block';
-      this.reset();
-    } else {
-      throw new Error(json.error || 'Ошибка отправки');
-    }
-  } catch (err) {
-    status.textContent = '❌ ' + (err.message || 'Ошибка. Попробуйте позже.');
-    status.className = 'form-status error';
-    status.style.display = 'block';
-  } finally {
-    btn.disabled = false;
-    const lang = document.documentElement.lang || 'ru';
-    btn.textContent = I18N[lang]['contact.f.submit'] || 'Отправить ✉️';
-  }
-});
-
-// ─── AI Chat ───
-(function () {
-  const messagesEl = document.getElementById('chatMessages');
-  const inputEl    = document.getElementById('chatInput');
-  const sendBtn    = document.getElementById('chatSendBtn');
-
-  function addMsg(text, role) {
-    const div = document.createElement('div');
-    div.className = 'chat-msg ' + role;
-    div.textContent = text;
-    messagesEl.appendChild(div);
-    messagesEl.scrollTop = messagesEl.scrollHeight;
-    return div;
-  }
-
-  async function send() {
-    const msg = inputEl.value.trim();
-    if (!msg || sendBtn.disabled) return;
-    inputEl.value = '';
-    sendBtn.disabled = true;
-    addMsg(msg, 'user');
-    const typing = addMsg('Печатает…', 'ai typing');
-    try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: msg }),
-      });
-      const data = await res.json();
-      typing.remove();
-      addMsg(data.reply || 'Нет ответа', 'ai');
-    } catch {
-      typing.remove();
-      addMsg('Ошибка соединения. Попробуйте позже.', 'ai');
-    } finally {
-      sendBtn.disabled = false;
-      inputEl.focus();
-    }
-  }
-
-  sendBtn.addEventListener('click', send);
-  inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); send(); } });
-
-  addMsg('Привет! Я AI-помощник burabay.su. Помогу составить объявление или отвечу на вопросы о сайте и регионе 🙂', 'ai');
-})();
-
-// ─── Service Worker ───
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(err => console.warn('SW:', err));
-  });
-}
-
-// ─── PWA install prompt ───
-(function () {
-  let deferredPrompt = null;
-  const btns = [document.getElementById('pwaNavBtn'), document.getElementById('pwaNavBtnMobile')];
-  const modal = document.getElementById('pwaInstallModal');
-  const modalClose = document.getElementById('pwaModalClose');
-
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-  });
-
-  async function handleInstallClick() {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      if (outcome === 'accepted') btns.forEach(b => b && b.classList.add('hidden'));
-    } else {
-      modal.classList.add('visible');
-    }
-  }
-
-  btns.forEach(b => b && b.addEventListener('click', handleInstallClick));
-
-  modalClose.addEventListener('click', () => modal.classList.remove('visible'));
-  modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('visible'); });
-
-  window.addEventListener('appinstalled', () => {
-    deferredPrompt = null;
-    btns.forEach(b => b && b.classList.add('hidden'));
-  });
-})();
-
-// ─── Radio Player ───
-(function () {
-  const CHANNELS = [
-    { name: 'Qazaq Radiosy', url: 'https://radio-streams.kaztrk.kz/qazradio/qazradio/icecast.audio' },
-    { name: 'Хит FM', url: 'https://hitfm.hostingradio.ru/hitfm96.aacp' },
-    { name: 'DFM', url: 'https://dfm.hostingradio.ru/dfm96.aacp' },
-    { name: 'Наше Радио', url: 'https://nashe1.hostingradio.ru/nashe-128.mp3' },
-    { name: 'Europa Plus', url: 'https://europaplus.hostingradio.ru/europaplus96.aacp' },
-    { name: 'Radio Shanson', url: 'https://shanson-e.hostingradio.ru/shanson96.aacp' },
-    { name: 'Радио Дача', url: 'https://dacha.hostingradio.ru/dacha96.aacp' },
-    { name: 'Радио 7', url: 'https://radio7.hostingradio.ru/radio796.aacp' },
-    { name: 'Монте-Карло', url: 'https://montecarlo.hostingradio.ru/montecarlo96.aacp' },
-    { name: 'Jazz Radio', url: 'https://jazz.hostingradio.ru/jazz96.aacp' },
-  ];
-
-  const toggleBtn   = document.getElementById('radioToggleBtn');
-  const toggleName  = document.getElementById('radioToggleName');
-  const panel       = document.getElementById('radioPanel');
-  const closeBtn    = document.getElementById('rpClose');
-  const stopBtn     = document.getElementById('rpStop');
-  const volumeSl    = document.getElementById('rpVolume');
-  const statusEl    = document.getElementById('rpStatus');
-  const waves       = document.getElementById('rpWaves');
-  const channelList = document.getElementById('rpChannels');
-
-  let audio    = null;
-  let activeIdx = -1;
-
-  // Build channel rows
-  CHANNELS.forEach((ch, i) => {
-    const row = document.createElement('div');
-    row.className = 'rp-ch';
-    row.innerHTML =
-      `<span class="rp-ch-num">${i + 1}</span>` +
-      `<div class="rp-ch-waves" aria-hidden="true"><span></span><span></span><span></span><span></span></div>` +
-      `<span class="rp-ch-name">${ch.name}</span>` +
-      `<button class="rp-ch-btn" aria-label="Играть ${ch.name}">▶</button>`;
-    row.querySelector('.rp-ch-btn').addEventListener('click', (e) => {
-      e.stopPropagation();
-      playChannel(i);
-    });
-    row.addEventListener('click', () => playChannel(i));
-    channelList.appendChild(row);
-  });
-
-  function playChannel(idx) {
-    // Stop previous
-    if (audio) { audio.pause(); audio.src = ''; audio = null; }
-
-    // Deactivate all rows
-    const rows = channelList.querySelectorAll('.rp-ch');
-    rows.forEach(r => {
-      r.classList.remove('active');
-      r.querySelector('.rp-ch-btn').textContent = '▶';
-    });
-
-    activeIdx = idx;
-    const ch  = CHANNELS[idx];
-    const row = rows[idx];
-    row.classList.add('active');
-    row.querySelector('.rp-ch-btn').textContent = '⏸';
-    setStatus('Загрузка...');
-
-    audio = new Audio();
-    audio.volume = parseFloat(volumeSl.value);
-
-    audio.addEventListener('playing', () => {
-      setStatus('▶ ' + ch.name);
-      waves.classList.add('playing');
-      toggleBtn.classList.add('playing');
-      toggleName.textContent = ch.name;
-      toggleName.classList.add('visible');
-      console.log('Radio: playing', ch.name, ch.url);
-    });
-    audio.addEventListener('waiting', () => { setStatus('Загрузка...'); });
-    audio.addEventListener('stalled', () => { setStatus('Загрузка...'); console.log('Radio: stalled', ch.name); });
-    audio.addEventListener('error', (e) => {
-      console.error('Radio: error', ch.name, e.target.error, ch.url);
-      setStatus('Нет сигнала ❌');
-      waves.classList.remove('playing');
-      toggleBtn.classList.remove('playing');
-      row.classList.remove('active');
-      row.querySelector('.rp-ch-btn').textContent = '▶';
-      activeIdx = -1;
-      audio = null;
-    });
-
-    audio.crossOrigin = 'anonymous';
-    audio.src = ch.url;
-    audio.load();
-    console.log('Radio: connecting to', ch.name, ch.url);
-    setTimeout(() => {
-      if (!audio) return;
-      audio.play().catch(err => {
-        console.error('Radio: play() rejected:', err.name, err.message, ch.url);
-        setStatus('Нет сигнала ❌');
-        waves.classList.remove('playing');
-        toggleBtn.classList.remove('playing');
-        row.classList.remove('active');
-        row.querySelector('.rp-ch-btn').textContent = '▶';
-        activeIdx = -1;
-        if (audio) { audio.pause(); audio.src = ''; audio = null; }
-      });
-    }, 300);
-  }
-
-  function stopAll() {
-    if (audio) { audio.pause(); audio.src = ''; audio = null; }
-    channelList.querySelectorAll('.rp-ch').forEach(r => {
-      r.classList.remove('active');
-      r.querySelector('.rp-ch-btn').textContent = '▶';
-    });
-    activeIdx = -1;
-    setStatus('Выберите канал');
-    waves.classList.remove('playing');
-    toggleBtn.classList.remove('playing');
-    toggleName.classList.remove('visible');
-  }
-
-  function setStatus(text) { statusEl.textContent = text; }
-
-  toggleBtn.addEventListener('click', () => {
-    const isOpen = panel.classList.toggle('open');
-    toggleBtn.classList.toggle('active', isOpen);
-  });
-  closeBtn.addEventListener('click', () => {
-    panel.classList.remove('open');
-    toggleBtn.classList.remove('active');
-  });
-  stopBtn.addEventListener('click', stopAll);
-  volumeSl.addEventListener('input', () => { if (audio) audio.volume = parseFloat(volumeSl.value); });
-})();
-
-// ─── Hero entrance animation ───
-document.addEventListener('DOMContentLoaded', () => {
-  const els = document.querySelectorAll('.hero-left > *, .announcement-card');
-  els.forEach((el, i) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = `opacity 0.6s ${i * 0.1 + 0.1}s, transform 0.6s ${i * 0.1 + 0.1}s`;
-  });
-  // setTimeout is more reliable than double-rAF on mobile browsers
-  setTimeout(() => {
-    els.forEach(el => {
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-    });
-  }, 60);
-});
-</script>
-<!-- Radio Player Widget -->
-<div id="radioWidget">
-  <div id="radioPanel" role="region" aria-label="Радио плеер">
-    <div class="rp-top">
-      <span class="rp-title">🎵 Радио Казахстана</span>
-      <button class="rp-close" id="rpClose" aria-label="Закрыть плеер">×</button>
-    </div>
-    <div class="rp-channels" id="rpChannels"></div>
-    <div class="rp-footer">
-      <div class="rp-footer-row">
-        <div class="rp-waves" id="rpWaves" aria-hidden="true">
-          <span></span><span></span><span></span><span></span>
-        </div>
-        <span id="rpStatus">Выберите канал</span>
-        <button class="rp-stop" id="rpStop" aria-label="Стоп">⏹</button>
+    <div class="city-popular-bar">
+      <span>Популярные</span>
+      <div class="city-popular-chips">
+        <div class="city-chip" onclick="selectCity('Все города','')">🌐 Все города</div>
+        <div class="city-chip" onclick="selectCity('Астана','Столица')">🌆 Астана</div>
+        <div class="city-chip" onclick="selectCity('Алматы','Мегаполис')">🌇 Алматы</div>
+        <div class="city-chip" onclick="selectCity('Бурабай','Акмол.')">⛰️ Бурабай</div>
+        <div class="city-chip" onclick="selectCity('Щучинск','Акмол.')">🏖️ Щучинск</div>
+        <div class="city-chip" onclick="selectCity('Кокшетау','Акмол.')">🏛️ Кокшетау</div>
+        <div class="city-chip" onclick="selectCity('Шымкент','Шымкент')">🌿 Шымкент</div>
+        <div class="city-chip" onclick="selectCity('Алматы','Алматы обл.')">🏔️ Алматы обл.</div>
       </div>
-      <div class="rp-footer-row">
-        <span style="font-size:10px;color:var(--muted);flex-shrink:0">🔈</span>
-        <input type="range" class="rp-volume" id="rpVolume" min="0" max="1" step="0.05" value="0.8" aria-label="Громкость">
-        <span style="font-size:10px;color:var(--muted);flex-shrink:0">🔊</span>
+    </div>
+    <div class="city-modal-body">
+      <div class="city-oblasts" id="oblastList"></div>
+      <div class="city-cities-list" id="citiesList">
+        <div class="city-cities-title">Выберите область слева</div>
       </div>
     </div>
   </div>
-  <div id="radioToggleName"></div>
-  <button id="radioToggleBtn" aria-label="Открыть радио">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" aria-hidden="true">
-      <line x1="21" y1="13" x2="28" y2="3" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"/>
-      <rect x="3" y="13" width="26" height="16" rx="2.5" stroke="var(--gold)" stroke-width="1.8"/>
-      <rect x="6" y="16" width="11" height="3" rx="1" fill="var(--gold)" opacity="0.5"/>
-      <circle cx="24" cy="21" r="3" stroke="var(--gold)" stroke-width="1.6"/>
-      <circle cx="10" cy="24" r="1.2" fill="var(--gold)" opacity="0.7"/>
-      <circle cx="14" cy="24" r="1.2" fill="var(--gold)" opacity="0.7"/>
-      <circle cx="18" cy="24" r="1.2" fill="var(--gold)" opacity="0.7"/>
-    </svg>
-  </button>
 </div>
 
+<script>
+// OBLASTS DATA
+var OBLASTS = [
+  {id:'akmola', name:'Акмолинская', center:'Кокшетау', emoji:'⛰️', cities:[
+    {name:'Кокшетау',emoji:'🏛️',type:'Облцентр'},
+    {name:'Бурабай',emoji:'⛰️',type:'Курорт'},
+    {name:'Щучинск',emoji:'🏖️',type:'Курорт'},
+    {name:'Степногорск',emoji:'🏭',type:'Город'},
+    {name:'Атбасар',emoji:'🚂',type:'Город'},
+    {name:'Зеренда',emoji:'🌳',type:'Посёлок'},
+    {name:'Акколь',emoji:'🌾',type:'Город'},
+    {name:'Макинск',emoji:'🌿',type:'Город'},
+    {name:'Катарколь',emoji:'🌊',type:'Санатории'},
+    {name:'Ерейментау',emoji:'🦅',type:'Город'},
+    {name:'Шортанды',emoji:'🌽',type:'Посёлок'},
+  ]},
+  {id:'aktobe', name:'Актюбинская', center:'Актобе', emoji:'🔵', cities:[
+    {name:'Актобе',emoji:'🏙️',type:'Облцентр'},
+    {name:'Алга',emoji:'🌾',type:'Город'},
+    {name:'Хромтау',emoji:'⛏️',type:'Город'},
+    {name:'Эмба',emoji:'🌿',type:'Посёлок'},
+  ]},
+  {id:'almaty_reg', name:'Алматинская', center:'Қонаев', emoji:'🏔️', cities:[
+    {name:'Қонаев',emoji:'🏙️',type:'Облцентр'},
+    {name:'Талдыкорган',emoji:'🌳',type:'Город'},
+    {name:'Капшагай',emoji:'🌊',type:'Курорт'},
+    {name:'Жаркент',emoji:'🌾',type:'Город'},
+    {name:'Текели',emoji:'⛏️',type:'Город'},
+  ]},
+  {id:'atyrau', name:'Атырауская', center:'Атырау', emoji:'🛢️', cities:[
+    {name:'Атырау',emoji:'🛢️',type:'Облцентр'},
+    {name:'Кульсары',emoji:'🌿',type:'Город'},
+  ]},
+  {id:'vko', name:'Восточно-Казахстанская', center:'Усть-Каменогорск', emoji:'🏔️', cities:[
+    {name:'Усть-Каменогорск',emoji:'🏔️',type:'Облцентр'},
+    {name:'Семей',emoji:'🌆',type:'Город'},
+    {name:'Риддер',emoji:'⛏️',type:'Город'},
+    {name:'Зыряновск',emoji:'🌿',type:'Город'},
+  ]},
+  {id:'zhambyl', name:'Жамбылская', center:'Тараз', emoji:'🌿', cities:[
+    {name:'Тараз',emoji:'🏛️',type:'Облцентр'},
+    {name:'Жанатас',emoji:'🏭',type:'Город'},
+    {name:'Каратау',emoji:'⛏️',type:'Город'},
+  ]},
+  {id:'zkaz', name:'Западно-Казахстанская', center:'Уральск', emoji:'🏞️', cities:[
+    {name:'Уральск',emoji:'🏞️',type:'Облцентр'},
+    {name:'Аксай',emoji:'🌾',type:'Город'},
+  ]},
+  {id:'karaganda', name:'Карагандинская', center:'Караганда', emoji:'⛏️', cities:[
+    {name:'Караганда',emoji:'⛏️',type:'Облцентр'},
+    {name:'Темиртау',emoji:'🏭',type:'Город'},
+    {name:'Балхаш',emoji:'🌊',type:'Город'},
+    {name:'Жезказган',emoji:'🔶',type:'Город'},
+    {name:'Сатпаев',emoji:'⛏️',type:'Город'},
+    {name:'Абай',emoji:'📚',type:'Город'},
+  ]},
+  {id:'kostanay', name:'Костанайская', center:'Костанай', emoji:'🌾', cities:[
+    {name:'Костанай',emoji:'🌾',type:'Облцентр'},
+    {name:'Рудный',emoji:'⛏️',type:'Город'},
+    {name:'Лисаковск',emoji:'🌿',type:'Город'},
+    {name:'Аркалык',emoji:'🏞️',type:'Город'},
+  ]},
+  {id:'kyzylorda', name:'Кызылординская', center:'Кызылорда', emoji:'🌵', cities:[
+    {name:'Кызылорда',emoji:'🌵',type:'Облцентр'},
+    {name:'Байконур',emoji:'🚀',type:'Космодром'},
+    {name:'Аральск',emoji:'🌊',type:'Город'},
+  ]},
+  {id:'mangistau', name:'Мангистауская', center:'Актау', emoji:'🌊', cities:[
+    {name:'Актау',emoji:'🌊',type:'Облцентр'},
+    {name:'Жанаозен',emoji:'🛢️',type:'Город'},
+    {name:'Форт-Шевченко',emoji:'🏛️',type:'Город'},
+  ]},
+  {id:'pavlodar', name:'Павлодарская', center:'Павлодар', emoji:'🌿', cities:[
+    {name:'Павлодар',emoji:'🌿',type:'Облцентр'},
+    {name:'Экибастуз',emoji:'⚡',type:'Энергетик'},
+    {name:'Аксу',emoji:'🏭',type:'Город'},
+  ]},
+  {id:'sko', name:'Северо-Казахстанская', center:'Петропавловск', emoji:'❄️', cities:[
+    {name:'Петропавловск',emoji:'❄️',type:'Облцентр'},
+    {name:'Мамлютка',emoji:'🌾',type:'Город'},
+    {name:'Кызылжар',emoji:'🌾',type:'Район'},
+  ]},
+  {id:'turkestan', name:'Туркестанская', center:'Туркестан', emoji:'🕌', cities:[
+    {name:'Туркестан',emoji:'🕌',type:'Облцентр'},
+    {name:'Шымкент',emoji:'🌿',type:'Мегаполис'},
+    {name:'Кентау',emoji:'⛏️',type:'Город'},
+    {name:'Сарыагаш',emoji:'💊',type:'Курорт'},
+  ]},
+  {id:'astana', name:'Астана (г.о.)', center:'Астана', emoji:'🌆', cities:[
+    {name:'Астана',emoji:'🌆',type:'Столица'},
+  ]},
+  {id:'almaty', name:'Алматы (г.о.)', center:'Алматы', emoji:'🌇', cities:[
+    {name:'Алматы',emoji:'🌇',type:'Мегаполис'},
+  ]},
+  {id:'shymkent', name:'Шымкент (г.о.)', center:'Шымкент', emoji:'🌿', cities:[
+    {name:'Шымкент',emoji:'🌿',type:'Мегаполис'},
+  ]},
+  {id:'abay', name:'Абайская', center:'Семей', emoji:'📚', cities:[
+    {name:'Семей',emoji:'📚',type:'Облцентр'},
+    {name:'Курчатов',emoji:'⚛️',type:'Город'},
+  ]},
+  {id:'zhetysu', name:'Жетысуская', center:'Талдыкорган', emoji:'🏔️', cities:[
+    {name:'Талдыкорган',emoji:'🏔️',type:'Облцентр'},
+    {name:'Текели',emoji:'⛏️',type:'Город'},
+    {name:'Жаркент',emoji:'🌾',type:'Город'},
+  ]},
+  {id:'ulytau', name:'Улытауская', center:'Жезказган', emoji:'🔶', cities:[
+    {name:'Жезказган',emoji:'🔶',type:'Облцентр'},
+    {name:'Сатпаев',emoji:'⛏️',type:'Город'},
+  ]},
+];
+
+var selectedOblast = null;
+
+function renderOblasts(){
+  var el = document.getElementById('oblastList');
+  el.innerHTML = OBLASTS.map(function(o){
+    return '<div class="city-oblast-item'+(selectedOblast===o.id?' selected':'')+'" onclick="selectOblast(\''+o.id+'\')">'
+      +'<span style="font-size:18px">'+o.emoji+'</span>'
+      +'<div><div>'+o.name+'</div><span class="ob-center">'+o.center+'</span></div>'
+      +'</div>';
+  }).join('');
+}
+
+function selectOblast(id){
+  selectedOblast = id;
+  renderOblasts();
+  var oblast = OBLASTS.find(function(o){return o.id===id});
+  var el = document.getElementById('citiesList');
+  el.innerHTML = '<div class="city-cities-title">'+oblast.emoji+' '+oblast.name+'</div>'
+    + oblast.cities.map(function(c){
+      return '<div class="city-city-item" onclick="selectCity(\''+c.name+'\',\''+oblast.name+'\')">'
+        +'<span class="city-emoji">'+c.emoji+'</span>'
+        +'<span class="city-name">'+c.name+'</span>'
+        +'<span class="city-type">'+c.type+'</span>'
+        +'</div>';
+    }).join('');
+}
+
+function selectCity(name, region){
+  document.getElementById('selectedCity').textContent = name;
+  document.getElementById('selectedCityMob').textContent = name;
+  closeCityModal();
+}
+
+function openCityModal(){
+  document.getElementById('cityModal').classList.add('open');
+  renderOblasts();
+  // auto-select Акмолинская
+  if(!selectedOblast) selectOblast('akmola');
+}
+
+function closeCityModal(){
+  document.getElementById('cityModal').classList.remove('open');
+}
+
+// ADS DATA
+var ADS=[
+  {id:1,cat:'auto',catColor:'#1565C0',catLabel:'Авто',bg:'#E3F2FD',title:'HAVAL M6 2024, пробег 21 тыс.',price:7888666,city:'Астана',age:'2 ч назад',phone:'77080802588',badge:'hot',emoji:'🚗'},
+  {id:2,cat:'elec',catColor:'#6A1B9A',catLabel:'Электроника',bg:'#F3E5F5',title:'iPhone 15 Pro 256GB Natural Titanium',price:490000,city:'Алматы',age:'5 мин назад',phone:'',badge:'new',emoji:'📱'},
+  {id:3,cat:'elec',catColor:'#6A1B9A',catLabel:'Электроника',bg:'#F3E5F5',title:'MacBook Air M2 8/256 Starlight',price:380000,city:'Астана',age:'40 мин назад',phone:'',badge:'',emoji:'💻'},
+  {id:4,cat:'realty',catColor:'#FF6B00',catLabel:'Недвижимость',bg:'#FFF3E0',title:'Сдам 2-комн квартиру, центр Щучинска',price:80000,city:'Щучинск',age:'1 ч назад',phone:'',badge:'',emoji:'🏠'},
+  {id:5,cat:'sport',catColor:'#C62828',catLabel:'Спорт',bg:'#FFEBEE',title:'Велосипед Trek Marlin 5 2023, горный',price:85000,city:'Алматы',age:'3 ч назад',phone:'',badge:'new',emoji:'🚲'},
+  {id:6,cat:'elec',catColor:'#6A1B9A',catLabel:'Электроника',bg:'#F3E5F5',title:'PlayStation 5 + 3 игры, состояние новое',price:165000,city:'Астана',age:'6 ч назад',phone:'',badge:'',emoji:'🎮'},
+  {id:7,cat:'furn',catColor:'#5D4037',catLabel:'Мебель',bg:'#EFEBE9',title:'Угловой диван-кровать серый 240×160',price:120000,city:'Шымкент',age:'8 ч назад',phone:'',badge:'',emoji:'🛋️'},
+  {id:8,cat:'taxi',catColor:'#F9A825',catLabel:'Межгород',bg:'#FFF8E1',title:'Трансфер Астана — Бурабай Haval M6',price:24000,city:'Бурабай',age:'Сегодня',phone:'77080802588',badge:'vip',emoji:'🚖'},
+];
+
+var currentView = 'grid';
+var currentCols = 3;
+
+function setView(v){
+  currentView = v;
+  ['grid','list','text'].forEach(function(x){
+    document.getElementById('vb'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('active', x===v);
+  });
+  // show/hide column switcher only in grid mode
+  document.getElementById('colSwitcher').style.display = (v==='grid') ? '' : 'none';
+  renderAds();
+}
+
+function setCols(n){
+  currentCols = n;
+  [2,3,4].forEach(function(x){
+    document.getElementById('col'+x).classList.toggle('active', x===n);
+  });
+  renderAds();
+}
+
+function renderAds(){
+  var g = document.getElementById('adsGrid');
+  g.className = '';
+
+  if(currentView === 'grid'){
+    var minW = currentCols===2 ? 160 : currentCols===4 ? 140 : 190;
+    g.className = 'ads-grid';
+    g.style.gridTemplateColumns = 'repeat('+currentCols+', 1fr)';
+    g.innerHTML = ADS.map(function(a){
+      var badgeHTML = '';
+      if(a.badge==='hot') badgeHTML='<span class="ad-cat-badge" style="background:#C62828;top:38px">🔥 Горячее</span>';
+      else if(a.badge==='new') badgeHTML='<span class="ad-cat-badge" style="background:#2E7D32;top:38px">✨ Новое</span>';
+      else if(a.badge==='vip') badgeHTML='<span class="ad-cat-badge" style="background:#6A1B9A;top:38px">★ VIP</span>';
+      var price = a.price>0 ? a.price.toLocaleString('ru-KZ')+' ₸' : 'Договорная';
+      var wa = a.phone ? '<a href="https://wa.me/'+a.phone+'" target="_blank" class="btn-wa-s"><i class="ti ti-brand-whatsapp" style="font-size:16px"></i></a>' : '';
+      var imgH = currentCols===4 ? '120px' : '160px';
+      var emojiSz = currentCols===4 ? '28px' : '40px';
+      return '<div class="ad-card">'
+        +'<div class="ad-img" style="background:'+a.bg+';height:'+imgH+';font-size:'+emojiSz+'">'+a.emoji
+        +'<div class="ad-cat-badge" style="background:'+a.catColor+'">'+a.catLabel+'</div>'
+        +badgeHTML
+        +'<button class="ad-fav" onclick="this.classList.toggle(\'on\')"><i class="ti ti-heart"></i></button></div>'
+        +'<div class="ad-body">'
+        +'<div class="ad-price" style="color:'+a.catColor+'">'+price+'</div>'
+        +'<div class="ad-title">'+a.title+'</div>'
+        +'<div class="ad-foot"><span><i class="ti ti-map-pin" style="font-size:11px;margin-right:2px"></i>'+a.city+'</span><span>'+a.age+'</span></div>'
+        +'<div class="ad-actions">'
+        +'<button class="btn-call" style="background:'+a.catColor+'" onclick="openCt('+a.id+')"><i class="ti ti-phone" style="font-size:13px"></i> Позвонить</button>'
+        +wa
+        +'</div></div></div>';
+    }).join('');
+
+  } else if(currentView === 'list'){
+    g.className = 'ads-list';
+    g.style.gridTemplateColumns = '';
+    g.innerHTML = ADS.map(function(a){
+      var price = a.price>0 ? a.price.toLocaleString('ru-KZ')+' ₸' : 'Договорная';
+      var wa = a.phone ? '<a href="https://wa.me/'+a.phone+'" target="_blank" class="ad-row-wa"><i class="ti ti-brand-whatsapp" style="font-size:15px"></i></a>' : '';
+      var badgePill = '';
+      if(a.badge==='hot') badgePill='<span class="ad-row-badge-pill" style="background:#C62828">🔥 Горячее</span>';
+      else if(a.badge==='new') badgePill='<span class="ad-row-badge-pill" style="background:#2E7D32">✨ Новое</span>';
+      else if(a.badge==='vip') badgePill='<span class="ad-row-badge-pill" style="background:#6A1B9A">★ VIP</span>';
+      return '<div class="ad-row">'
+        +'<div class="ad-row-img" style="background:'+a.bg+'">'
+        +'<span style="font-size:42px">'+a.emoji+'</span>'
+        +'<div class="ad-cat-badge" style="background:'+a.catColor+';top:6px;left:6px;font-size:9px">'+a.catLabel+'</div>'
+        +'</div>'
+        +'<div class="ad-row-body">'
+        +'<div class="ad-row-top">'
+        +'<div class="ad-row-title">'+a.title+'</div>'
+        +'<div class="ad-row-price" style="color:'+a.catColor+'">'+price+'</div>'
+        +'</div>'
+        +'<div class="ad-row-meta">'
+        +'<i class="ti ti-map-pin" style="font-size:11px"></i> '+a.city
+        +' · '+a.age
+        +(badgePill ? ' · '+badgePill : '')
+        +'</div>'
+        +'<div class="ad-row-btns">'
+        +'<button class="ad-row-call" style="background:'+a.catColor+'" onclick="openCt('+a.id+')"><i class="ti ti-phone" style="font-size:12px"></i> Позвонить</button>'
+        +wa
+        +'</div>'
+        +'</div>'
+        +'</div>';
+    }).join('');
+
+  } else { // text
+    g.className = 'ads-textlist';
+    g.style.gridTemplateColumns = '';
+    g.innerHTML = ADS.map(function(a){
+      var price = a.price>0 ? a.price.toLocaleString('ru-KZ')+' ₸' : 'Договорная';
+      return '<div class="ad-text-row" onclick="openCt('+a.id+')">'
+        +'<div class="ad-text-dot" style="background:'+a.catColor+'">'+a.catLabel.slice(0,2).toUpperCase()+'</div>'
+        +'<div class="ad-text-info">'
+        +'<div class="ad-text-title">'+a.title+'</div>'
+        +'<div class="ad-text-sub">'
+        +'<i class="ti ti-map-pin" style="font-size:10px"></i> '+a.city+' · '+a.age
+        +'</div>'
+        +'</div>'
+        +'<div class="ad-text-price" style="color:'+a.catColor+'">'+price+'</div>'
+        +'<i class="ti ti-chevron-right ad-text-chevron"></i>'
+        +'</div>';
+    }).join('');
+  }
+}
+
+function openCt(id){
+  var a=ADS.find(function(x){return x.id===id});
+  document.getElementById('ctName').textContent=a.title;
+  var html='';
+  if(a.phone) html+='<div class="ct-row"><i class="ti ti-phone" style="color:'+a.catColor+'"></i><div><div class="ct-lbl">Телефон</div><div class="ct-val">+'+a.phone+'</div></div></div>';
+  else html='<p style="color:var(--text2);font-size:13px;padding:12px 0">Нажмите WhatsApp или позвоните напрямую</p>';
+  document.getElementById('ctBody').innerHTML=html;
+  document.getElementById('ctModal').classList.add('open');
+}
+document.getElementById('ctModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open')});
+
+// 1-MONTH COUNTDOWN TIMER (target: June 12, 2026)
+var TARGET = new Date('2026-06-12T23:59:59').getTime();
+function tick(){
+  var now = Date.now();
+  var diff = TARGET - now;
+  if(diff <= 0){
+    document.getElementById('utimer').textContent = 'Акция завершена';
+    return;
+  }
+  var days = Math.floor(diff / 86400000);
+  var hours = Math.floor((diff % 86400000) / 3600000);
+  var mins = Math.floor((diff % 3600000) / 60000);
+  var secs = Math.floor((diff % 60000) / 1000);
+  document.getElementById('utimer').textContent =
+    days+'д '+
+    String(hours).padStart(2,'0')+':'+
+    String(mins).padStart(2,'0')+':'+
+    String(secs).padStart(2,'0');
+}
+tick();
+setInterval(tick,1000);
+
+// LIVE COUNTERS
+setInterval(function(){
+  var el=document.getElementById('onlineCount');
+  var v=parseInt(el.textContent.replace(/\s/g,''));
+  v+=Math.floor(Math.random()*5)-2;
+  if(v<3000)v=3000;
+  el.textContent=v.toLocaleString('ru-KZ');
+},4000);
+
+setInterval(function(){
+  var el=document.getElementById('adsCount');
+  var v=parseInt(el.textContent.replace(/\s/g,''));
+  if(Math.random()>0.7) v+=1;
+  el.textContent=v.toLocaleString('ru-KZ');
+},8000);
+
+// ROTATING NOTIFICATIONS
+var nMsgs=[
+  ['Новый отклик!','Кто-то написал продавцу iPhone 15 · только что'],
+  ['Объявление продано','MacBook Air нашёл покупателя за 12 мин'],
+  ['Популярное объявление','Haval M6 просмотрели 47 раз сегодня'],
+  ['Новое в Щучинске','Появилось объявление рядом с вами'],
+  ['Межгород · Бурабай-Астана','Заказ такси подтверждён · только что'],
+];
+var ni=0;
+setInterval(function(){
+  var b=document.getElementById('notifBox');
+  if(!b||b.style.display==='none')return;
+  var m=nMsgs[ni%nMsgs.length];
+  document.getElementById('notifTitle').textContent=m[0];
+  document.getElementById('notifText').textContent=m[1];
+  ni++;
+},5500);
+
+function showSection(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+
+// Taxi tabs toggle
+document.querySelectorAll('.taxi-tab').forEach(function(tab){
+  tab.addEventListener('click',function(){
+    document.querySelectorAll('.taxi-tab').forEach(function(t){t.classList.remove('active')});
+    this.classList.add('active');
+  });
+});
+
+renderAds();
+</script>
 </body>
 </html>
