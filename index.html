@@ -3409,12 +3409,12 @@ function addNewAdLocally(title, desc, price, city, phone) {
   // translate modal header
   var hdr = document.querySelector('#cityModal h3');
   if(hdr){
-    var T2 = LANGS[lang];
+    var T2 = LANGS[currentLang];
     if(T2 && T2.chooseCity) hdr.textContent = T2.chooseCity;
   }
   var popLabel = document.querySelector('.city-popular-bar > span');
   if(popLabel){
-    var T2 = LANGS[lang];
+    var T2 = LANGS[currentLang];
     if(T2 && T2.popularCities) popLabel.textContent = T2.popularCities;
   }
 }
