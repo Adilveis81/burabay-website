@@ -919,7 +919,7 @@ nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) satur
     </div>
     <div class="nav-right">
       <div class="theme-picker" id="themePicker">
-        <button class="theme-btn" onclick="toggleThemeDropdown()" id="themeMainBtn" title="Тема оформления">🌙</button>
+        <button class="theme-btn" onclick="toggleThemeDropdown(event)" id="themeMainBtn" title="Тема оформления">🌙</button>
         <div class="theme-dropdown" id="themeDropdown">
           <div class="theme-opt active" onclick="setTheme('light')"   id="topt-light"><span class="theme-swatch" style="background:linear-gradient(135deg,#fff 50%,#FF6B00 50%)"></span> <span data-i18n="themeLight">Светлая</span></div>
           <div class="theme-opt"        onclick="setTheme('dark')"    id="topt-dark"><span class="theme-swatch" style="background:linear-gradient(135deg,#1e2030 50%,#FF8C33 50%)"></span> <span data-i18n="themeDark">Тёмная</span></div>
@@ -2018,6 +2018,7 @@ renderFaq();
 // ===== THEME SYSTEM =====
 var THEME_ICONS = {light:'☀️', dark:'🌙', ocean:'🌊', forest:'🌿', sunset:'🌅'};
 function setTheme(name){
+  closeThemeDropdown();
   var root = document.documentElement;
   if(name==='light'){ root.removeAttribute('data-theme'); }
   else { root.setAttribute('data-theme', name); }
@@ -2030,9 +2031,9 @@ function setTheme(name){
     var el = document.getElementById('topt-'+t);
     if(el) el.classList.toggle('active', t===name);
   });
-  closeThemeDropdown();
 }
-function toggleThemeDropdown(){
+function toggleThemeDropdown(e){
+  if(e) e.stopPropagation();
   document.getElementById('themeDropdown').classList.toggle('open');
 }
 function closeThemeDropdown(){
