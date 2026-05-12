@@ -1196,6 +1196,20 @@ nav{background:rgba(255,255,255,0.56)!important;backdrop-filter:blur(24px) satur
 }
 /* dark mode keeps SVG wallpaper icons — body::after is disabled globally */
 
+/* ── Category nav cards ── */
+.cat-nav-card{transition:.18s;cursor:pointer}
+.cat-nav-card:hover{transform:translateY(-3px) scale(1.04);box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.95),0 0 0 0.5px rgba(255,255,255,0.42),0 12px 32px rgba(10,20,80,0.32)}
+.cat-nav-card.active{outline:2.5px solid rgba(255,255,255,0.7);transform:translateY(-2px)}
+/* ── Quick post form ── */
+.qp-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:560px){.qp-form{grid-template-columns:1fr}}
+.qp-field{display:flex;flex-direction:column;gap:4px}
+.qp-label{font-size:12px;font-weight:600;opacity:.65}
+.qp-input{padding:9px 12px;border-radius:var(--radius);border:1.5px solid rgba(0,0,0,0.12);font-size:13px;background:rgba(255,255,255,0.80);outline:none;transition:.15s;font-family:inherit;color:var(--text)}
+.qp-input:focus{border-color:var(--o);background:#fff;box-shadow:0 0 0 3px rgba(255,107,0,0.12)}
+@keyframes slideUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+#quickPostPanel{animation:slideUp .3s ease}
+#catFilterBanner{animation:slideUp .25s ease}
 /* ── Unified 3D Button System ─────────────────────── */
 /* Base: all solid action buttons get taller + 3D edge */
 .nav-post,.nav-support,.auth-submit,.post-submit,.edit-save-btn,.hbtn-o,
@@ -1561,8 +1575,52 @@ nav{background:rgba(255,255,255,0.56)!important;backdrop-filter:blur(24px) satur
 <div class="section" style="padding-top:24px;scroll-margin-top:64px" id="ads">
   <div class="sec-head">
     <h2><span data-i18n="adsTitle1">Свежие</span> <em style="color:var(--o)"><span data-i18n="adsTitle2">объявления</span></em></h2>
+    <button id="catClearBtn" onclick="clearCategory()" style="display:none;padding:5px 12px;border-radius:20px;border:none;background:rgba(0,0,0,0.08);font-size:12px;cursor:pointer;font-weight:600">✕ Все</button>
   </div>
-  <div id="adsGrid"></div>
+  <!-- Category filter banner -->
+  <div id="catFilterBanner" style="display:none;align-items:center;gap:10px;padding:10px 14px;margin-bottom:14px;background:rgba(255,255,255,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:var(--radius-lg);border:1px solid rgba(255,255,255,0.75);box-shadow:inset 0 1px 0 rgba(255,255,255,0.9)">
+    <span id="catBannerIcon" style="font-size:22px"></span>
+    <div style="flex:1">
+      <div id="catBannerName" style="font-size:14px;font-weight:800"></div>
+      <div id="catBannerRegion" style="font-size:11px;opacity:.65"></div>
+    </div>
+    <button onclick="clearCategory()" style="padding:4px 12px;border-radius:16px;border:none;background:rgba(0,0,0,0.08);font-size:12px;cursor:pointer">✕ Сбросить</button>
+  </div>
+  <!-- Ads + Quick Post side by side -->
+  <div id="catAdsLayout" style="display:block">
+    <div id="adsGrid"></div>
+    <!-- Inline quick post form -->
+    <div id="quickPostPanel" style="display:none;margin-top:16px;background:rgba(255,255,255,0.70);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);border-radius:var(--radius-xl);padding:20px;box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.95),0 6px 28px rgba(0,0,0,0.14);border:1px solid rgba(255,255,255,0.88)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+        <span id="qpCatIcon" style="font-size:24px"></span>
+        <div>
+          <div style="font-size:15px;font-weight:800">Подать объявление</div>
+          <div id="qpCatLabel" style="font-size:12px;opacity:.65"></div>
+        </div>
+        <button onclick="document.getElementById('quickPostPanel').style.display='none'" style="margin-left:auto;background:none;border:none;font-size:20px;cursor:pointer;opacity:.5">×</button>
+      </div>
+      <div class="qp-form">
+        <div class="qp-field" style="grid-column:1/-1">
+          <label class="qp-label">Заголовок <span style="font-size:10px;opacity:.5">(ИИ подберёт категорию)</span></label>
+          <input id="qpTitle" class="qp-input" placeholder="Например: Продаю диван в хорошем состоянии" oninput="autoDetectCategory(this.value)">
+          <div id="qpAiHint" style="display:none;margin-top:4px;font-size:11px;padding:4px 8px;border-radius:6px;background:rgba(0,150,0,0.10);color:#2E7D32"></div>
+        </div>
+        <div class="qp-field">
+          <label class="qp-label">Цена (₸)</label>
+          <input id="qpPrice" class="qp-input" type="number" placeholder="0 — договорная">
+        </div>
+        <div class="qp-field">
+          <label class="qp-label">Телефон</label>
+          <input id="qpPhone" class="qp-input" type="tel" placeholder="+7 (___) ___-__-__">
+        </div>
+        <div class="qp-field" style="grid-column:1/-1">
+          <label class="qp-label">Описание</label>
+          <textarea id="qpDesc" class="qp-input" rows="2" placeholder="Кратко опишите товар или услугу..." style="resize:none"></textarea>
+        </div>
+      </div>
+      <button onclick="submitQuickPost()" id="qpSubmitBtn" style="margin-top:14px;width:100%;padding:12px;border:none;border-radius:var(--radius-lg);font-size:14px;font-weight:700;color:#fff;cursor:pointer;background:var(--o)">📤 Опубликовать бесплатно</button>
+    </div>
+  </div>
 </div>
 
 <!-- NOTIFICATION -->
@@ -1593,16 +1651,16 @@ nav{background:rgba(255,255,255,0.56)!important;backdrop-filter:blur(24px) satur
   </div>
 
   <div class="cities-grid" id="mainCitiesGrid">
-    <div class="city-card" style="background:linear-gradient(145deg,rgba(255,140,0,0.22) 0%,rgba(200,100,0,0.08) 100%)"><div class="ci">🛍️</div><div class="cn">Товары</div><div class="ct">Продажа вещей</div></div>
-    <div class="city-card" style="background:linear-gradient(145deg,rgba(30,120,220,0.22) 0%,rgba(20,80,180,0.08) 100%)"><div class="ci">🔨</div><div class="cn">Работы</div><div class="ct">Подряд, ремонт</div></div>
-    <div class="city-card" style="background:linear-gradient(145deg,rgba(0,160,120,0.22) 0%,rgba(0,120,90,0.08) 100%)"><div class="ci">💼</div><div class="cn">Услуги</div><div class="ct">Специалисты</div></div>
-    <div class="city-card" style="background:linear-gradient(145deg,rgba(21,101,192,0.22) 0%,rgba(13,71,161,0.08) 100%)"><div class="ci">🚗</div><div class="cn">Авто</div><div class="ct">Авто и запчасти</div></div>
-    <div class="city-card" style="background:linear-gradient(145deg,rgba(255,80,0,0.22) 0%,rgba(200,50,0,0.08) 100%)"><div class="ci">🏠</div><div class="cn">Недвижимость</div><div class="ct">Аренда, продажа</div></div>
-    <div class="city-card" style="background:linear-gradient(145deg,rgba(100,20,180,0.22) 0%,rgba(70,10,140,0.08) 100%)"><div class="ci">📱</div><div class="cn">Электроника</div><div class="ct">Техника, гаджеты</div></div>
-    <div class="city-card" style="background:linear-gradient(145deg,rgba(100,60,20,0.22) 0%,rgba(70,40,10,0.08) 100%)"><div class="ci">🛋️</div><div class="cn">Мебель</div><div class="ct">Интерьер, декор</div></div>
-    <div class="city-card" style="background:linear-gradient(145deg,rgba(220,60,120,0.22) 0%,rgba(180,30,90,0.08) 100%)"><div class="ci">👕</div><div class="cn">Одежда</div><div class="ct">Одежда и обувь</div></div>
-    <div class="city-card" style="background:linear-gradient(145deg,rgba(30,160,60,0.22) 0%,rgba(20,120,40,0.08) 100%)"><div class="ci">🌾</div><div class="cn">АПК</div><div class="ct">Сельхоз, скот</div></div>
-    <div class="city-card" style="background:linear-gradient(145deg,rgba(0,150,200,0.22) 0%,rgba(0,110,160,0.08) 100%)"><div class="ci">🐾</div><div class="cn">Животные</div><div class="ct">Питомцы</div></div>
+    <div class="city-card cat-nav-card" style="background:linear-gradient(145deg,rgba(255,140,0,0.22) 0%,rgba(200,100,0,0.08) 100%)" onclick="selectCategory('Товары','🛍️','#FF6B00')"><div class="ci">🛍️</div><div class="cn">Товары</div><div class="ct">Продажа вещей</div></div>
+    <div class="city-card cat-nav-card" style="background:linear-gradient(145deg,rgba(30,120,220,0.22) 0%,rgba(20,80,180,0.08) 100%)" onclick="selectCategory('Работы','🔨','#1565C0')"><div class="ci">🔨</div><div class="cn">Работы</div><div class="ct">Подряд, ремонт</div></div>
+    <div class="city-card cat-nav-card" style="background:linear-gradient(145deg,rgba(0,160,120,0.22) 0%,rgba(0,120,90,0.08) 100%)" onclick="selectCategory('Услуги','💼','#00796B')"><div class="ci">💼</div><div class="cn">Услуги</div><div class="ct">Специалисты</div></div>
+    <div class="city-card cat-nav-card" style="background:linear-gradient(145deg,rgba(21,101,192,0.22) 0%,rgba(13,71,161,0.08) 100%)" onclick="selectCategory('Авто','🚗','#1565C0')"><div class="ci">🚗</div><div class="cn">Авто</div><div class="ct">Авто и запчасти</div></div>
+    <div class="city-card cat-nav-card" style="background:linear-gradient(145deg,rgba(255,80,0,0.22) 0%,rgba(200,50,0,0.08) 100%)" onclick="selectCategory('Недвижимость','🏠','#FF6B00')"><div class="ci">🏠</div><div class="cn">Недвижимость</div><div class="ct">Аренда, продажа</div></div>
+    <div class="city-card cat-nav-card" style="background:linear-gradient(145deg,rgba(100,20,180,0.22) 0%,rgba(70,10,140,0.08) 100%)" onclick="selectCategory('Электроника','📱','#6A1B9A')"><div class="ci">📱</div><div class="cn">Электроника</div><div class="ct">Техника, гаджеты</div></div>
+    <div class="city-card cat-nav-card" style="background:linear-gradient(145deg,rgba(100,60,20,0.22) 0%,rgba(70,40,10,0.08) 100%)" onclick="selectCategory('Мебель','🛋️','#5D4037')"><div class="ci">🛋️</div><div class="cn">Мебель</div><div class="ct">Интерьер, декор</div></div>
+    <div class="city-card cat-nav-card" style="background:linear-gradient(145deg,rgba(220,60,120,0.22) 0%,rgba(180,30,90,0.08) 100%)" onclick="selectCategory('Одежда','👕','#C62878')"><div class="ci">👕</div><div class="cn">Одежда</div><div class="ct">Одежда и обувь</div></div>
+    <div class="city-card cat-nav-card" style="background:linear-gradient(145deg,rgba(30,160,60,0.22) 0%,rgba(20,120,40,0.08) 100%)" onclick="selectCategory('АПК','🌾','#2E7D32')"><div class="ci">🌾</div><div class="cn">АПК</div><div class="ct">Сельхоз, скот</div></div>
+    <div class="city-card cat-nav-card" style="background:linear-gradient(145deg,rgba(0,150,200,0.22) 0%,rgba(0,110,160,0.08) 100%)" onclick="selectCategory('Животные','🐾','#0097A7')"><div class="ci">🐾</div><div class="cn">Животные</div><div class="ct">Питомцы</div></div>
   </div>
 </div>
 
@@ -2302,7 +2360,150 @@ function closeCityModal(){
   document.getElementById('cityModal').classList.remove('open');
 }
 
-// ADS DATA  (placeholder:true = призыв разместить объявление)
+// ── CATEGORY FILTER ──────────────────────────────────
+var currentCategory = null;
+var currentCategoryColor = '#FF6B00';
+var currentCategoryEmoji = '';
+
+// Which catLabels belong to each top-level category
+var CAT_MAP = {
+  'Товары':      ['Авто','Электроника','Мебель','Спорт','Одежда','Продукты','Отдам даром','Товары'],
+  'Работы':      ['Работа','Строительство','Ремонт','Работы'],
+  'Услуги':      ['Услуги','Такси','Межгород','Сервис'],
+  'Авто':        ['Авто'],
+  'Недвижимость':['Недвижимость'],
+  'Электроника': ['Электроника'],
+  'Мебель':      ['Мебель'],
+  'Одежда':      ['Одежда'],
+  'АПК':         ['АПК','Сельхоз','Животноводство'],
+  'Животные':    ['Животные','Питомцы']
+};
+
+function selectCategory(name, emoji, color){
+  currentCategory = name;
+  currentCategoryColor = color || '#FF6B00';
+  currentCategoryEmoji = emoji || '📦';
+  // highlight active card
+  document.querySelectorAll('.cat-nav-card').forEach(function(c){
+    c.classList.toggle('active', c.querySelector('.cn') && c.querySelector('.cn').textContent === name);
+  });
+  // scroll to ads
+  var el = document.getElementById('ads');
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  // show filter banner
+  var banner = document.getElementById('catFilterBanner');
+  if(banner){
+    banner.style.display = 'flex';
+    document.getElementById('catBannerIcon').textContent = emoji;
+    document.getElementById('catBannerName').textContent = name + ' — объявления';
+    var regionName = selectedOblast ? (OBLASTS.find(function(o){return o.id===selectedOblast;})||{name:'Казахстан'}).name : 'Казахстан';
+    document.getElementById('catBannerRegion').textContent = '📍 ' + regionName;
+  }
+  // show clear button
+  var cb = document.getElementById('catClearBtn');
+  if(cb) cb.style.display = '';
+  // pre-fill and show quick post panel
+  var qp = document.getElementById('quickPostPanel');
+  if(qp){
+    qp.style.display = '';
+    qp.style.borderTop = '3px solid ' + color;
+    document.getElementById('qpCatIcon').textContent = emoji;
+    document.getElementById('qpCatLabel').textContent = name + ' · ' + (selectedOblast ? (OBLASTS.find(function(o){return o.id===selectedOblast;})||{name:'Казахстан'}).name : 'Казахстан');
+    document.getElementById('qpSubmitBtn').style.background = color;
+    document.getElementById('qpTitle').value = '';
+    document.getElementById('qpPrice').value = '';
+    document.getElementById('qpDesc').value = '';
+    document.getElementById('qpAiHint').style.display = 'none';
+  }
+  renderAds();
+}
+
+function clearCategory(){
+  currentCategory = null;
+  document.querySelectorAll('.cat-nav-card').forEach(function(c){c.classList.remove('active')});
+  var banner = document.getElementById('catFilterBanner');
+  if(banner) banner.style.display = 'none';
+  var qp = document.getElementById('quickPostPanel');
+  if(qp) qp.style.display = 'none';
+  var cb = document.getElementById('catClearBtn');
+  if(cb) cb.style.display = 'none';
+  renderAds();
+}
+
+// ── AI AUTO-CLASSIFY ──────────────────────────────────
+var AI_KEYWORDS = [
+  {cats:['Авто'], words:['авто','машин','автомобил','мотоцикл','колес','запчаст','шин','двигател','кузов','салон']},
+  {cats:['Недвижимость'], words:['квартир','дом','комнат','участ','дач','гараж','аренд','снять','продаю дом','продаю квартир','офис','склад']},
+  {cats:['Электроника'], words:['телефон','смартфон','ноутбук','компьютер','планшет','наушник','колонк','телевизор','tv','iphone','samsung','xiaomi']},
+  {cats:['Мебель'], words:['диван','стол','стул','шкаф','кровать','матрас','полк','комод','тумб','кресл']},
+  {cats:['Одежда'], words:['куртк','пальто','пиджак','брюк','джинс','платье','обувь','кроссовк','ботинк','сапог','рубашк']},
+  {cats:['Работы'], words:['ремонт','строительств','монтаж','установк','укладк','сварк','покраск','штукатур','электрик','сантехник','подряд']},
+  {cats:['Услуги'], words:['услуг','такси','перевозк','грузовик','доставк','репетитор','массаж','уборк','помощ','переезд','фотограф']},
+  {cats:['АПК'], words:['сено','зерно','скот','корова','лошад','овц','пшениц','рассад','теплиц','семен','удобрен']},
+  {cats:['Животные'], words:['собак','кошк','котенок','щенок','попугай','рыбк','хомяк','клетк','корм','поводок']}
+];
+
+function autoDetectCategory(val){
+  var hint = document.getElementById('qpAiHint');
+  if(!hint) return;
+  if(!val || val.length < 4){ hint.style.display='none'; return; }
+  var lower = val.toLowerCase();
+  for(var i=0;i<AI_KEYWORDS.length;i++){
+    var entry = AI_KEYWORDS[i];
+    for(var j=0;j<entry.words.length;j++){
+      if(lower.indexOf(entry.words[j]) !== -1){
+        hint.style.display = '';
+        hint.textContent = '🤖 ИИ определил категорию: ' + entry.cats[0];
+        hint.dataset.suggestedCat = entry.cats[0];
+        return;
+      }
+    }
+  }
+  hint.style.display='none';
+}
+
+function submitQuickPost(){
+  var title = document.getElementById('qpTitle').value.trim();
+  var price = parseInt(document.getElementById('qpPrice').value)||0;
+  var phone = document.getElementById('qpPhone').value.trim().replace(/\D/g,'');
+  var desc  = document.getElementById('qpDesc').value.trim();
+  if(!title){ alert('Введите заголовок объявления'); return; }
+  // determine final category
+  var hint = document.getElementById('qpAiHint');
+  var finalCat = (hint && hint.style.display!=='none' && hint.dataset.suggestedCat) ? hint.dataset.suggestedCat : (currentCategory||'Товары');
+  var catColors = {'Авто':'#1565C0','Недвижимость':'#FF6B00','Электроника':'#6A1B9A','Мебель':'#5D4037','Одежда':'#C62878','Работы':'#1565C0','Услуги':'#00796B','АПК':'#2E7D32','Животные':'#0097A7','Товары':'#FF6B00'};
+  var catEmojis = {'Авто':'🚗','Недвижимость':'🏠','Электроника':'📱','Мебель':'🛋️','Одежда':'👕','Работы':'🔨','Услуги':'💼','АПК':'🌾','Животные':'🐾','Товары':'🛍️'};
+  var regionName = selectedOblast ? (OBLASTS.find(function(o){return o.id===selectedOblast;})||{name:'Казахстан'}).name : 'Казахстан';
+  ADS.unshift({
+    id: Date.now(),
+    catColor: catColors[finalCat]||currentCategoryColor,
+    catLabel: finalCat,
+    emoji: catEmojis[finalCat]||currentCategoryEmoji,
+    bg:'linear-gradient(135deg,rgba(255,255,255,0.2),rgba(200,200,200,0.1))',
+    title: title,
+    desc: desc,
+    price: price,
+    city: regionName,
+    phone: phone,
+    age:'только что',
+    badge:'new',
+    own:true
+  });
+  document.getElementById('qpTitle').value='';
+  document.getElementById('qpPrice').value='';
+  document.getElementById('qpPhone').value='';
+  document.getElementById('qpDesc').value='';
+  document.getElementById('qpAiHint').style.display='none';
+  renderAds();
+  // show success flash
+  var btn = document.getElementById('qpSubmitBtn');
+  var orig = btn.textContent;
+  btn.textContent = '✅ Опубликовано!';
+  btn.style.background = '#2E7D32';
+  setTimeout(function(){ btn.textContent=orig; btn.style.background=currentCategoryColor; }, 2200);
+}
+
+// ── ADS DATA  (placeholder:true = призыв разместить объявление) ──
 var ADS=[
   {id:1,placeholder:true,catColor:'#1565C0',catLabel:'Авто',emoji:'🚗'},
   {id:2,placeholder:true,catColor:'#6A1B9A',catLabel:'Электроника',emoji:'📱'},
@@ -2387,13 +2588,21 @@ function setCols(n){
 function renderAds(){
   var g = document.getElementById('adsGrid');
   g.className = '';
-  var filteredAds = searchQuery
-    ? ADS.filter(function(a){
-        if(a.placeholder) return false;
-        var hay = (a.title+' '+(a.desc||'')+' '+a.city+' '+a.catLabel).toLowerCase();
-        return hay.indexOf(searchQuery) !== -1;
-      })
-    : ADS;
+  var filteredAds = ADS.filter(function(a){
+    // search query overrides category filter; hides placeholders
+    if(searchQuery){
+      if(a.placeholder) return false;
+      var hay = (a.title+' '+(a.desc||'')+' '+a.city+' '+a.catLabel).toLowerCase();
+      return hay.indexOf(searchQuery) !== -1;
+    }
+    // category filter: always keep placeholders, filter real ads by category
+    if(currentCategory){
+      if(a.placeholder) return true;
+      var allowed = CAT_MAP[currentCategory] || [currentCategory];
+      return allowed.some(function(c){ return (a.catLabel||'').indexOf(c) !== -1; });
+    }
+    return true;
+  });
 
   if(currentView === 'grid'){
     g.className = 'ads-grid';
