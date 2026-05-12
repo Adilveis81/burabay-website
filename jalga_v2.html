@@ -3355,17 +3355,20 @@ function submitPostAd() {
   // Optimistically add to local list right away
   addNewAdLocally(title, desc, price, city, '');
 
-  if (_sb) {
+  if (_sb && currentUser) {
     _sb.from('ads').insert([{
       title: title,
       description: desc,
       price: price,
       city: city,
-      category: _selectedPostCat.cat,
+      cat: _selectedPostCat.cat,
       cat_label: _selectedPostCat.label,
       cat_color: _selectedPostCat.color,
       emoji: CAT_EMOJIS[_selectedPostCat.cat] || '📦',
-      owner_id: currentUser.id,
+      bg: CAT_BG[_selectedPostCat.cat] || '#F5F5F5',
+      badge: 'new',
+      status: 'active',
+      user_id: currentUser.id,
     }]).then(function(res) {
       if (res.error) console.warn('Supabase insert error:', res.error.message);
     });
