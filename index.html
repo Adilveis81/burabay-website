@@ -717,7 +717,19 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 [data-theme="dark"] .hiw-step{background:var(--card)}
 [data-theme="dark"] .b2b-card{background:var(--card)}
 [data-theme="dark"] .services-card{background:var(--card);border-color:var(--border)}
-[data-theme="dark"] .cat-card{filter:brightness(.75) saturate(.8)}
+[data-theme="dark"] .cat-card{filter:brightness(.7) saturate(.75)}
+[data-theme="dark"] .c-taxi{background:#2a1f00}
+[data-theme="dark"] .c-taxi .cat-name{color:#FFB74D}
+[data-theme="dark"] .c-pet{background:#2a0a14}
+[data-theme="dark"] .c-pet .cat-name{color:#F48FB1}
+[data-theme="dark"] .c-kids{background:#1a0a26}
+[data-theme="dark"] .c-kids .cat-name{color:#CE93D8}
+[data-theme="dark"] .c-furn{background:#1a1410}
+[data-theme="dark"] .c-furn .cat-name{color:#BCAAA4}
+[data-theme="dark"] .c-food{background:#0a1f0a}
+[data-theme="dark"] .c-food .cat-name{color:#A5D6A7}
+[data-theme="dark"] .c-free{background:#001a20}
+[data-theme="dark"] .c-free .cat-name{color:#80DEEA}
 [data-theme="dark"] .region-card{background:var(--card)!important}
 [data-theme="dark"] .city-card{background:var(--card)!important}
 
@@ -860,7 +872,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
 
 <nav>
   <div class="nav-i">
-    <a href="#" class="logo">Алсат<sup>asia</sup></a>
+    <a href="#" class="logo">Alsat<sup>asia</sup></a>
     <div class="nav-search">
       <input type="text" id="navSearchInput" placeholder="Поиск по объявлениям..." data-i18n-ph="searchPh" oninput="searchQuery=this.value.trim().toLowerCase();renderAds()">
       <button onclick="searchQuery=document.getElementById('navSearchInput').value.trim().toLowerCase();renderAds()"><i class="ti ti-search"></i></button>
@@ -886,7 +898,6 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
         <button class="lang-btn" onclick="setLang('kz')">KZ</button>
         <button class="lang-btn active" onclick="setLang('ru')">RU</button>
         <button class="lang-btn" onclick="setLang('en')">EN</button>
-      </div>
       </div>
       <div class="nav-city" onclick="openCityModal()"><i class="ti ti-map-pin" style="font-size:14px"></i> <span id="selectedCity" data-i18n="allCities">Все города</span> <i class="ti ti-chevron-down" style="font-size:12px"></i></div>
       <button class="nav-post" onclick="openPostModal()" data-i18n-btn="postAd"><i class="ti ti-plus"></i> <span data-i18n="postAd">Подать объявление</span></button>
@@ -1090,7 +1101,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
       <p data-i18n="oblastCities">Бурабай · Щучинск · Кокшетау · Степногорск · Атбасар · Зеренда · Акколь · Макинск</p>
       <p style="margin-top:4px;font-size:12px;color:rgba(255,255,255,.6)" data-i18n="oblastSubtitle">Жемчужина Казахстана — озёра, сосновые леса, горный воздух</p>
     </div>
-    <span class="oblast-hero-badge" data-i18n="oblastBadge">🏡 Наш регион</span>
+    <span class="oblast-hero-badge" data-i18n="oblastBadge">⛰️ Акмолинская</span>
   </div>
 
   <div class="cities-grid">
@@ -1285,7 +1296,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
 <div class="modal-ov" id="authModal" onclick="if(event.target===this)closeAuthModal()">
   <div class="auth-modal-box">
     <div class="auth-header">
-      <div class="ah-logo">Алсат<sup style="font-size:11px;background:rgba(255,255,255,.3);padding:1px 5px;border-radius:5px;margin-left:2px;vertical-align:super">asia</sup></div>
+      <div class="ah-logo">Alsat<sup style="font-size:11px;background:rgba(255,255,255,.3);padding:1px 5px;border-radius:5px;margin-left:2px;vertical-align:super">asia</sup></div>
       <p data-i18n="authSubtitle">Войдите, чтобы подать объявление</p>
     </div>
     <div class="auth-body">
@@ -1295,33 +1306,6 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
         Войти через Google
       </button>
       <div class="auth-divider"><span>или</span></div>
-      <div class="auth-tabs">
-        <button class="auth-tab" onclick="switchAuthTab('phone')" data-i18n="authPhoneTab">📱 Телефон</button>
-        <button class="auth-tab active" onclick="switchAuthTab('email')" data-i18n="authEmailTabBtn">✉️ Email</button>
-      </div>
-
-      <!-- Phone step 1: enter number -->
-      <div id="authPhoneStep1" style="display:none">
-        <div class="auth-field">
-          <label data-i18n="authPhoneLabel">Номер телефона</label>
-          <div class="phone-wrap">
-            <span class="phone-prefix">+7</span>
-            <input type="tel" id="authPhone" placeholder="(___) ___-__-__" maxlength="11">
-          </div>
-        </div>
-        <button class="auth-submit" onclick="sendOtp()" data-i18n="authSendSms">Получить SMS-код</button>
-        <p style="font-size:12px;color:var(--text3);margin-top:12px;text-align:center">SMS-авторизация временно недоступна.<br>Используйте вкладку Email.</p>
-      </div>
-
-      <!-- Phone step 2: enter OTP -->
-      <div id="authPhoneStep2" style="display:none">
-        <div class="auth-field">
-          <label data-i18n="authOtpLabel">Код из SMS</label>
-          <input type="text" id="authOtp" placeholder="______" maxlength="6" style="text-align:center;letter-spacing:8px;font-size:22px;font-weight:700">
-        </div>
-        <button class="auth-submit" onclick="verifyOtp()" data-i18n="authOtpBtn">Войти</button>
-        <div class="auth-otp-hint"><span data-i18n="authNoCode">Не получили код?</span> <a onclick="showPhoneStep1()" data-i18n="authResend">Отправить ещё раз</a></div>
-      </div>
 
       <!-- Email tab -->
       <div id="authEmailTab">
@@ -1398,11 +1382,6 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
             <label data-i18n="postCityLabel">Город</label>
             <input type="text" id="postCity" placeholder="Бурабай, Астана..." data-i18n-ph="postCityPh">
           </div>
-        </div>
-
-        <div class="post-field">
-          <label data-i18n="postPhoneLabel">Телефон</label>
-          <input type="tel" id="postPhone" placeholder="+7 (___) ___-__-__">
         </div>
 
         <div class="post-field">
@@ -1490,7 +1469,7 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
 
 <footer style="margin-top:0">
   <div class="foot-i">
-    <div class="foot-logo">Алсат</div>
+    <div class="foot-logo">Alsat<sup style="font-size:9px;background:var(--o);color:#fff;padding:1px 4px;border-radius:4px;margin-left:2px;vertical-align:super">asia</sup></div>
     <div class="foot-links">
       <a href="#faq-support" onclick="switchTab('faq')">❓ Вопросы и ответы</a>
       <a href="#faq-support" onclick="switchTab('support')">💚 Поддержать</a>
@@ -1546,6 +1525,16 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
 <script>
 // OBLASTS DATA
 var OBLASTS = [
+  {id:'astana', name:'Астана (г.о.)', center:'Астана', emoji:'🌆', cities:[
+    {name:'Астана',emoji:'🌆',type:'Столица'},
+  ]},
+  {id:'almaty', name:'Алматы (г.о.)', center:'Алматы', emoji:'🌇', cities:[
+    {name:'Алматы',emoji:'🌇',type:'Мегаполис'},
+  ]},
+  {id:'abay', name:'Абайская', center:'Семей', emoji:'📚', cities:[
+    {name:'Семей',emoji:'📚',type:'Облцентр'},
+    {name:'Курчатов',emoji:'⚛️',type:'Город'},
+  ]},
   {id:'akmola', name:'Акмолинская', center:'Кокшетау', emoji:'⛰️', cities:[
     {name:'Кокшетау',emoji:'🏛️',type:'Облцентр'},
     {name:'Бурабай',emoji:'⛰️',type:'Курорт'},
@@ -1586,6 +1575,11 @@ var OBLASTS = [
     {name:'Тараз',emoji:'🏛️',type:'Облцентр'},
     {name:'Жанатас',emoji:'🏭',type:'Город'},
     {name:'Каратау',emoji:'⛏️',type:'Город'},
+  ]},
+  {id:'zhetysu', name:'Жетысуская', center:'Талдыкорган', emoji:'🏔️', cities:[
+    {name:'Талдыкорган',emoji:'🏔️',type:'Облцентр'},
+    {name:'Текели',emoji:'⛏️',type:'Город'},
+    {name:'Жаркент',emoji:'🌾',type:'Город'},
   ]},
   {id:'zkaz', name:'Западно-Казахстанская', center:'Уральск', emoji:'🏞️', cities:[
     {name:'Уральск',emoji:'🏞️',type:'Облцентр'},
@@ -1631,27 +1625,12 @@ var OBLASTS = [
     {name:'Кентау',emoji:'⛏️',type:'Город'},
     {name:'Сарыагаш',emoji:'💊',type:'Курорт'},
   ]},
-  {id:'astana', name:'Астана (г.о.)', center:'Астана', emoji:'🌆', cities:[
-    {name:'Астана',emoji:'🌆',type:'Столица'},
-  ]},
-  {id:'almaty', name:'Алматы (г.о.)', center:'Алматы', emoji:'🌇', cities:[
-    {name:'Алматы',emoji:'🌇',type:'Мегаполис'},
-  ]},
-  {id:'shymkent', name:'Шымкент (г.о.)', center:'Шымкент', emoji:'🌿', cities:[
-    {name:'Шымкент',emoji:'🌿',type:'Мегаполис'},
-  ]},
-  {id:'abay', name:'Абайская', center:'Семей', emoji:'📚', cities:[
-    {name:'Семей',emoji:'📚',type:'Облцентр'},
-    {name:'Курчатов',emoji:'⚛️',type:'Город'},
-  ]},
-  {id:'zhetysu', name:'Жетысуская', center:'Талдыкорган', emoji:'🏔️', cities:[
-    {name:'Талдыкорган',emoji:'🏔️',type:'Облцентр'},
-    {name:'Текели',emoji:'⛏️',type:'Город'},
-    {name:'Жаркент',emoji:'🌾',type:'Город'},
-  ]},
   {id:'ulytau', name:'Улытауская', center:'Жезказган', emoji:'🔶', cities:[
     {name:'Жезказган',emoji:'🔶',type:'Облцентр'},
     {name:'Сатпаев',emoji:'⛏️',type:'Город'},
+  ]},
+  {id:'shymkent', name:'Шымкент (г.о.)', center:'Шымкент', emoji:'🌿', cities:[
+    {name:'Шымкент',emoji:'🌿',type:'Мегаполис'},
   ]},
 ];
 
@@ -2533,7 +2512,7 @@ function openPostModal() {
   // Reset form
   _selectedPostCat = null;
   document.querySelectorAll('.post-cat-item').forEach(function(el) { el.classList.remove('selected'); });
-  ['postTitle','postDesc','postPrice','postCity','postPhone'].forEach(function(id) {
+  ['postTitle','postDesc','postPrice','postCity'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.value = '';
   });
@@ -2561,13 +2540,12 @@ function submitPostAd() {
   var desc = document.getElementById('postDesc').value.trim();
   var price = parseInt(document.getElementById('postPrice').value) || 0;
   var city = document.getElementById('postCity').value.trim() || 'Казахстан';
-  var phone = document.getElementById('postPhone').value.replace(/\D/g,'');
 
   if (!_selectedPostCat) { alert('Выберите категорию'); return; }
   if (!title) { alert('Введите заголовок'); return; }
 
   // Optimistically add to local list right away
-  addNewAdLocally(title, desc, price, city, phone);
+  addNewAdLocally(title, desc, price, city, '');
 
   if (_sb) {
     _sb.from('ads').insert([{
@@ -2575,7 +2553,6 @@ function submitPostAd() {
       description: desc,
       price: price,
       city: city,
-      phone: phone,
       category: _selectedPostCat.cat,
       cat_label: _selectedPostCat.label,
       cat_color: _selectedPostCat.color,
