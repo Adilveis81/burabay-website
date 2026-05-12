@@ -591,7 +591,8 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .b2b-title{font-size:16px;font-weight:800;line-height:1.2}
 .b2b-desc{font-size:13px;line-height:1.5;opacity:.85}
 .b2b-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
-.b2b-tag{font-size:10px;font-weight:700;padding:3px 9px;border-radius:12px}
+.b2b-tag{font-size:10px;font-weight:700;padding:3px 9px;border-radius:12px;text-decoration:none;cursor:pointer;transition:.12s}
+a.b2b-tag:hover{filter:brightness(0.9);transform:translateY(-1px)}
 .b2b-cta{font-size:13px;font-weight:700;display:flex;align-items:center;gap:5px;margin-top:auto;padding-top:8px}
 .b2b-1{background:linear-gradient(135deg,#F3E5F5 0%,#EDE7F6 100%)}
 .b2b-1 .b2b-icon{background:var(--pu);color:#fff}
@@ -1391,8 +1392,8 @@ nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) satur
       <h3 data-i18n="aiTitle">ИИ-помощник работает за вас 24/7</h3>
       <p data-i18n="aiDesc">Напишите боту в Telegram — он поможет составить объявление, ответит покупателям, проверит оплату и автоматически опубликует ваш товар. Вам ничего не нужно делать вручную.</p>
       <div class="ai-btns">
-        <button class="ai-btn"><i class="ti ti-brand-telegram" style="font-size:13px"></i> <span data-i18n="aiBtnTg">Открыть бота</span></button>
-        <button class="ai-btn2" data-i18n="aiBtnMore">Узнать больше</button>
+        <a href="https://t.me/alsat_kz" target="_blank" style="text-decoration:none"><button class="ai-btn"><i class="ti ti-brand-telegram" style="font-size:13px"></i> <span data-i18n="aiBtnTg">Открыть бота</span></button></a>
+        <a href="/business.html#chatbot" style="text-decoration:none"><button class="ai-btn2" data-i18n="aiBtnMore">Узнать больше</button></a>
       </div>
     </div>
   </div>
@@ -1409,40 +1410,43 @@ nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) satur
   </div>
   <div class="b2b-grid">
 
-    <div class="b2b-card b2b-1">
+    <div class="b2b-card b2b-1" onclick="location.href='/business.html#websites'" style="cursor:pointer">
       <div class="b2b-icon"><i class="ti ti-world-www" style="font-size:22px"></i></div>
       <div class="b2b-title" data-i18n="b2bTitle1">Создание сайтов и веб-приложений</div>
       <div class="b2b-desc" data-i18n="b2bDesc1">Разработка современных сайтов, лендингов и интернет-магазинов. Быстро, красиво, с нуля до запуска за 7–14 дней. SEO-оптимизация и мобильная адаптация включены.</div>
       <div class="b2b-tags">
-        <span class="b2b-tag">Лендинг</span>
-        <span class="b2b-tag">Интернет-магазин</span>
-        <span class="b2b-tag">CRM интеграция</span>
-        <span class="b2b-tag">SEO</span>
+        <a class="b2b-tag" href="/business.html#landing" onclick="event.stopPropagation()">Лендинг</a>
+        <a class="b2b-tag" href="/business.html#shop" onclick="event.stopPropagation()">Интернет-магазин</a>
+        <a class="b2b-tag" href="/business.html#crm" onclick="event.stopPropagation()">CRM интеграция</a>
+        <a class="b2b-tag" href="/business.html#seo" onclick="event.stopPropagation()">SEO</a>
       </div>
+      <div class="b2b-cta" data-i18n="b2bCta1">Подробнее →</div>
     </div>
 
-    <div class="b2b-card b2b-2">
+    <div class="b2b-card b2b-2" onclick="location.href='/business.html#ai'" style="cursor:pointer">
       <div class="b2b-icon"><i class="ti ti-brain" style="font-size:22px"></i></div>
       <div class="b2b-title" data-i18n="b2bTitle2">Внедрение ИИ-технологий</div>
       <div class="b2b-desc" data-i18n="b2bDesc2">Автоматизация клиентского сервиса с помощью ИИ-чат-ботов, умная модерация контента, ИИ-аналитика данных и автоматические ответы на обращения покупателей.</div>
       <div class="b2b-tags">
-        <span class="b2b-tag">Чат-бот</span>
-        <span class="b2b-tag">GPT интеграция</span>
-        <span class="b2b-tag">Автоответы</span>
-        <span class="b2b-tag">Аналитика</span>
+        <a class="b2b-tag" href="/business.html#chatbot" onclick="event.stopPropagation()">Чат-бот</a>
+        <a class="b2b-tag" href="/business.html#ai" onclick="event.stopPropagation()">GPT интеграция</a>
+        <a class="b2b-tag" href="/business.html#ai" onclick="event.stopPropagation()">Автоответы</a>
+        <a class="b2b-tag" href="/business.html#ai" onclick="event.stopPropagation()">Аналитика</a>
       </div>
+      <div class="b2b-cta" data-i18n="b2bCta2">Подробнее →</div>
     </div>
 
-    <div class="b2b-card b2b-3">
+    <div class="b2b-card b2b-3" onclick="location.href='/business.html#cctv'" style="cursor:pointer">
       <div class="b2b-icon"><i class="ti ti-camera" style="font-size:22px"></i></div>
       <div class="b2b-title" data-i18n="b2bTitle3">Автоматизация видеонаблюдения</div>
       <div class="b2b-desc" data-i18n="b2bDesc3">Умные системы видеонаблюдения с ИИ-распознаванием: детекция людей и автомобилей, оповещения в Telegram, удалённый доступ и запись в облако. Frigate + Home Assistant.</div>
       <div class="b2b-tags">
-        <span class="b2b-tag">Frigate NVR</span>
-        <span class="b2b-tag">Детекция людей</span>
-        <span class="b2b-tag">Telegram-боты</span>
-        <span class="b2b-tag">IP-камеры</span>
+        <a class="b2b-tag" href="/business.html#cctv" onclick="event.stopPropagation()">Frigate NVR</a>
+        <a class="b2b-tag" href="/business.html#cctv" onclick="event.stopPropagation()">Детекция людей</a>
+        <a class="b2b-tag" href="/business.html#cctv" onclick="event.stopPropagation()">Telegram-боты</a>
+        <a class="b2b-tag" href="/business.html#cctv" onclick="event.stopPropagation()">IP-камеры</a>
       </div>
+      <div class="b2b-cta" data-i18n="b2bCta3">Подробнее →</div>
     </div>
 
   </div>
