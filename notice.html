@@ -140,8 +140,7 @@
     <a class="new-domain" href="https://alsat.asia">🌏 alsat.asia</a>
 
     <div class="redirect-note">
-      Вы будете перенаправлены через <span class="countdown" id="cd">15</span> сек. &nbsp;·&nbsp;
-      <span id="cd-kz">15</span> секундтан кейін автоматты өтесіз.
+      Вы будете перенаправлены через — <span class="countdown" id="cd">15</span> сек. — кейін автоматты өтесіз.
     </div>
   </div>
 
@@ -150,9 +149,7 @@
     var t = setInterval(function() {
       s--;
       var el = document.getElementById('cd');
-      var el2 = document.getElementById('cd-kz');
       if (el) el.textContent = s;
-      if (el2) el2.textContent = s;
       if (s <= 0) { clearInterval(t); window.location.href = 'https://alsat.asia'; }
     }, 1000);
   </script>
