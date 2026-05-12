@@ -3340,7 +3340,7 @@ function addNewAdLocally(title, desc, price, city, phone) {
     own: true,
   });
   renderAds();
-  renderFaq();
+  try { renderFaq(); } catch(e) {}
   // re-render city modal if open
   if(selectedOblast) selectOblast(selectedOblast);
   // translate popular chips
