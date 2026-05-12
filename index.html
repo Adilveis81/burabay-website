@@ -1231,7 +1231,7 @@ nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) satur
     <span class="oblast-hero-badge" data-i18n="oblastBadge">⛰️ Акмолинская</span>
   </div>
 
-  <div class="cities-grid">
+  <div class="cities-grid" id="mainCitiesGrid">
     <div class="city-card ci-bur" onclick="openCityModal()"><div class="ci">⛰️</div><div class="cn">Бурабай</div><div class="ct">Курорт</div></div>
     <div class="city-card ci-schu" onclick="openCityModal()"><div class="ci">🏖️</div><div class="cn">Щучинск</div><div class="ct">Курорт</div></div>
     <div class="city-card ci-kok" onclick="openCityModal()"><div class="ci">🏛️</div><div class="cn">Кокшетау</div><div class="ct">Облцентр</div></div>
@@ -1903,7 +1903,36 @@ function selectOblast(id){
 function selectCity(name, region){
   document.getElementById('selectedCity').textContent = name;
   document.getElementById('selectedCityMob').textContent = name;
+  // Find oblast for this city
+  var oblast = null;
+  if(selectedOblast){
+    oblast = OBLASTS.find(function(o){ return o.id===selectedOblast; });
+  }
+  if(!oblast){
+    OBLASTS.forEach(function(o){
+      if(!oblast) o.cities.forEach(function(c){ if(c.name===name) oblast=o; });
+    });
+  }
+  if(oblast) updateMainPageRegion(oblast);
   closeCityModal();
+}
+
+function updateMainPageRegion(oblast){
+  // Update hero card
+  var heroTitle = document.querySelector('[data-i18n="oblastTitle"]');
+  var heroCities = document.querySelector('[data-i18n="oblastCities"]');
+  var heroBadge = document.querySelector('[data-i18n="oblastBadge"]');
+  if(heroTitle) heroTitle.textContent = oblast.name;
+  if(heroCities) heroCities.textContent = oblast.cities.map(function(c){return c.name}).join(' · ');
+  if(heroBadge) heroBadge.textContent = oblast.emoji+' '+oblast.name;
+  // Update city grid
+  var grid = document.getElementById('mainCitiesGrid');
+  if(!grid) return;
+  var cards = oblast.cities.slice(0,9).map(function(c){
+    return '<div class="city-card" onclick="selectCity(\''+c.name.replace(/'/g,"\\'")+'\',\''+oblast.name.replace(/'/g,"\\'")+'\')"><div class="ci">'+c.emoji+'</div><div class="cn">'+c.name+'</div><div class="ct">'+c.type+'</div></div>';
+  });
+  cards.push('<div class="city-card" style="background:#FFF3E0;color:#BF4E00;border:1.5px dashed rgba(0,0,0,.1)" onclick="openCityModal()"><div class="ci">🗺️</div><div class="cn">Другие регионы</div><div class="ct">17 областей</div></div>');
+  grid.innerHTML = cards.join('');
 }
 
 function openCityModal(){
