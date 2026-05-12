@@ -1647,6 +1647,25 @@ nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) satur
 </div>
 
 <script>
+// ── Tab switching — definitive version ──────────────
+window.switchTab = function(name){
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.page-tab').forEach(function(t){ t.classList.remove('active'); });
+  var panel = document.getElementById('tab-'+name);
+  if(panel) panel.classList.add('active');
+  var tabs = document.querySelectorAll('#helpTabs .page-tab');
+  if(name==='faq' && tabs[0]) tabs[0].classList.add('active');
+  if(name==='support' && tabs[1]) tabs[1].classList.add('active');
+};
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('#helpTabs .page-tab').forEach(function(btn, i){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      window.switchTab(i===0 ? 'faq' : 'support');
+    });
+  });
+});
+
 // OBLASTS DATA
 var OBLASTS = [
   {id:'astana', name:'Астана (г.о.)', center:'Астана', emoji:'🌆', cities:[
@@ -1855,11 +1874,15 @@ var selectedOblast = null;
 function renderOblasts(){
   var el = document.getElementById('oblastList');
   el.innerHTML = OBLASTS.map(function(o){
-    return '<div class="city-oblast-item'+(selectedOblast===o.id?' selected':'')+'" onclick="selectOblast(\''+o.id+'\')">'
-      +'<span style="font-size:18px">'+o.emoji+'</span>'
+    return '<div class="city-oblast-item'+(selectedOblast===o.id?' selected':'')+'" data-oid="'+o.id+'">'
+      +'<span style="font-size:18px;flex-shrink:0">'+o.emoji+'</span>'
       +'<div><div>'+o.name+'</div><span class="ob-center">'+o.center+'</span></div>'
       +'</div>';
   }).join('');
+  el.onclick = function(e){
+    var item = e.target.closest('.city-oblast-item');
+    if(item && item.dataset.oid) selectOblast(item.dataset.oid);
+  };
 }
 
 function selectOblast(id){
