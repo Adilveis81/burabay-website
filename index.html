@@ -61,6 +61,61 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .nav-links a.services-link.nav-active::after{background:var(--pu)}
 /* mobile menu active */
 .mob-menu a.mob-active{background:var(--o-bg);color:var(--o-dark);font-weight:700}
+
+/* LANGUAGE SWITCHER */
+.lang-switcher{display:flex;gap:2px;background:var(--bg);border:1.5px solid var(--border2);border-radius:var(--radius);padding:2px;flex-shrink:0}
+.lang-btn{padding:4px 8px;font-size:11px;font-weight:700;border:none;background:transparent;border-radius:7px;cursor:pointer;color:var(--text3);transition:.15s;letter-spacing:.3px}
+.lang-btn.active{background:#fff;color:var(--b);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.lang-btn:hover:not(.active){color:var(--text)}
+
+/* PLACEHOLDER AD CARDS */
+.ad-card-placeholder{background:var(--card);border-radius:var(--radius-lg);overflow:hidden;border:2px dashed var(--border2);transition:.15s;position:relative;cursor:pointer;opacity:.75}
+.ad-card-placeholder:hover{opacity:1;border-color:var(--o);transform:translateY(-2px)}
+.ad-ph-img{height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:linear-gradient(135deg,#F8F8F6 0%,#EFEFEB 100%)}
+.ad-ph-icon{width:52px;height:52px;border-radius:50%;background:var(--o-bg);display:flex;align-items:center;justify-content:center;font-size:22px}
+.ad-ph-label{font-size:11px;font-weight:700;color:var(--o-dark);text-align:center;padding:0 16px}
+.ad-ph-body{padding:10px 12px 12px}
+.ad-ph-price{font-size:13px;font-weight:700;color:var(--text3);margin-bottom:4px}
+.ad-ph-cta{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--o);color:#fff;border:none;border-radius:var(--radius);padding:8px 0;font-size:12px;font-weight:700;cursor:pointer;width:100%;margin-top:6px}
+
+/* EDIT AD MODAL */
+.edit-modal-box{background:#fff;border-radius:var(--radius-xl);padding:0;max-width:500px;width:100%;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.edit-modal-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--b) 0%,var(--b2) 100%)}
+.edit-modal-header h3{color:#fff;font-size:15px;font-weight:800;flex:1}
+.edit-modal-header button{background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:8px;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px}
+.edit-modal-body{padding:20px}
+.edit-field{margin-bottom:14px}
+.edit-field label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text3);display:block;margin-bottom:5px}
+.edit-field textarea,.edit-field input{width:100%;border:1.5px solid var(--border2);border-radius:var(--radius);padding:9px 12px;font-size:13px;color:var(--text);font-family:inherit;resize:vertical;outline:none;transition:.15s}
+.edit-field textarea:focus,.edit-field input:focus{border-color:var(--b)}
+.edit-ai-hint{background:var(--pu-bg);border-radius:var(--radius);padding:10px 12px;font-size:12px;color:#4A148C;display:flex;align-items:flex-start;gap:8px;margin-bottom:14px}
+.edit-photo-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.edit-photo-thumb{width:60px;height:60px;border-radius:var(--radius);background:var(--bg);border:1.5px dashed var(--border2);display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;transition:.15s}
+.edit-photo-thumb:hover{border-color:var(--o);background:var(--o-bg)}
+.edit-modal-footer{padding:12px 20px;border-top:1px solid var(--border);display:flex;gap:8px}
+.edit-save-btn{flex:1;background:var(--o);color:#fff;border:none;border-radius:var(--radius);padding:10px;font-size:14px;font-weight:700;cursor:pointer}
+.edit-cancel-btn{background:var(--bg);color:var(--text2);border:1.5px solid var(--border2);border-radius:var(--radius);padding:10px 16px;font-size:13px;font-weight:600;cursor:pointer}
+
+/* APP DOWNLOAD SECTION */
+.app-section{border-radius:var(--radius-xl);overflow:hidden;background:linear-gradient(135deg,#0D47A1 0%,#1565C0 50%,#00796B 100%);padding:32px 28px;display:flex;align-items:center;gap:28px;position:relative}
+.app-section::before{content:'📱';position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:120px;opacity:.08;pointer-events:none;line-height:1}
+.app-icon{width:72px;height:72px;border-radius:18px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0}
+.app-text h3{color:#fff;font-size:20px;font-weight:800;margin-bottom:4px}
+.app-text p{color:rgba(255,255,255,.75);font-size:13px;margin-bottom:14px;max-width:340px}
+.app-coming-badge{display:inline-flex;align-items:center;gap:5px;background:var(--y);color:#1A1A1A;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:800;margin-bottom:12px;width:fit-content}
+.app-store-btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.app-store-btn{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.3);border-radius:var(--radius);padding:8px 14px;cursor:pointer;transition:.15s}
+.app-store-btn:hover{background:rgba(255,255,255,.2)}
+.app-store-btn .asb-icon{font-size:22px}
+.app-store-btn .asb-text{text-align:left}
+.app-store-btn .asb-sub{font-size:9px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.5px;display:block}
+.app-store-btn .asb-name{font-size:13px;font-weight:700;color:#fff;display:block}
+.app-waitlist{display:flex;gap:6px;flex-wrap:wrap}
+.app-waitlist input{flex:1;min-width:180px;border:none;border-radius:var(--radius);padding:9px 14px;font-size:13px;outline:none;background:rgba(255,255,255,.15);color:#fff}
+.app-waitlist input::placeholder{color:rgba(255,255,255,.5)}
+.app-waitlist input:focus{background:rgba(255,255,255,.22)}
+.app-waitlist button{background:var(--y);color:#1A1A1A;border:none;border-radius:var(--radius);padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.app-waitlist button:hover{background:var(--y2)}
 .nav-right{display:flex;gap:8px;margin-left:auto;align-items:center}
 .nav-city{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--text2);padding:6px 10px;border:1px solid var(--border2);border-radius:var(--radius);cursor:pointer;white-space:nowrap;transition:.15s}
 .nav-city:hover{border-color:var(--b);color:var(--b)}
@@ -396,8 +451,13 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
       <a href="#services" data-section="services" class="nav-link-item services-link"><i class="ti ti-briefcase" style="font-size:14px"></i> Наши услуги</a>
     </div>
     <div class="nav-right">
-      <div class="nav-city" onclick="openCityModal()"><i class="ti ti-map-pin" style="font-size:14px"></i> <span id="selectedCity">Все города</span> <i class="ti ti-chevron-down" style="font-size:12px"></i></div>
-      <button class="nav-post"><i class="ti ti-plus"></i> Подать объявление</button>
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+        <button class="lang-btn" onclick="setLang('kz')">KZ</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+      <div class="nav-city" onclick="openCityModal()"><i class="ti ti-map-pin" style="font-size:14px"></i> <span id="selectedCity" data-i18n="allCities">Все города</span> <i class="ti ti-chevron-down" style="font-size:12px"></i></div>
+      <button class="nav-post" data-i18n-btn="postAd"><i class="ti ti-plus"></i> <span data-i18n="postAd">Подать объявление</span></button>
       <button class="hamburger" onclick="document.getElementById('mobmenu').classList.toggle('open')"><i class="ti ti-menu-2"></i></button>
     </div>
   </div>
@@ -709,7 +769,75 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
   </div>
 </div>
 
-<footer style="margin-top:32px">
+<!-- APP DOWNLOAD SECTION -->
+<div class="section" style="padding-top:28px;padding-bottom:32px">
+  <div class="app-section">
+    <div class="app-icon">📲</div>
+    <div class="app-text">
+      <div class="app-coming-badge">🚀 Скоро · Coming Soon</div>
+      <h3 data-i18n="appTitle">Приложение Jalga.kz</h3>
+      <p data-i18n="appDesc">Продавай и покупай прямо с телефона — фото, публикация и чат с покупателем в два касания. Уведомления о новых предложениях мгновенно.</p>
+      <div class="app-store-btns">
+        <div class="app-store-btn" onclick="document.getElementById('appWaitEmail').focus()">
+          <span class="asb-icon">🍎</span>
+          <div class="asb-text"><span class="asb-sub">Скоро в</span><span class="asb-name">App Store</span></div>
+        </div>
+        <div class="app-store-btn" onclick="document.getElementById('appWaitEmail').focus()">
+          <span class="asb-icon">🤖</span>
+          <div class="asb-text"><span class="asb-sub">Скоро в</span><span class="asb-name">Google Play</span></div>
+        </div>
+      </div>
+      <div class="app-waitlist">
+        <input type="email" id="appWaitEmail" placeholder="Ваш email — уведомим о запуске" data-i18n-ph="emailPlaceholder">
+        <button onclick="submitWaitlist()" data-i18n="notify">Уведомить меня</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT AD MODAL -->
+<div class="modal-ov" id="editModal">
+  <div class="edit-modal-box">
+    <div class="edit-modal-header">
+      <i class="ti ti-pencil" style="font-size:18px;color:rgba(255,255,255,.8)"></i>
+      <h3 data-i18n="editAd">Редактировать объявление</h3>
+      <button onclick="document.getElementById('editModal').classList.remove('open')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="edit-modal-body">
+      <div class="edit-ai-hint">
+        <i class="ti ti-robot" style="font-size:18px;flex-shrink:0;margin-top:1px"></i>
+        <div><strong>ИИ-редактор следит за контекстом</strong> — можно менять текст и фото, но смысл объявления будет сохранён. Изменение цены или категории потребует повторной проверки.</div>
+      </div>
+      <div class="edit-field">
+        <label data-i18n="title">Заголовок</label>
+        <input type="text" id="editTitle" placeholder="Название товара или услуги">
+      </div>
+      <div class="edit-field">
+        <label data-i18n="description">Описание</label>
+        <textarea id="editDesc" rows="4" placeholder="Подробное описание..."></textarea>
+      </div>
+      <div class="edit-field">
+        <label data-i18n="price">Цена (₸)</label>
+        <input type="text" id="editPrice" placeholder="0">
+      </div>
+      <div class="edit-field">
+        <label data-i18n="photos">Фотографии</label>
+        <div class="edit-photo-row">
+          <div class="edit-photo-thumb">📷</div>
+          <div class="edit-photo-thumb">📷</div>
+          <div class="edit-photo-thumb">📷</div>
+          <div class="edit-photo-thumb" style="background:var(--o-bg);border-color:var(--o)">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="edit-modal-footer">
+      <button class="edit-cancel-btn" onclick="document.getElementById('editModal').classList.remove('open')" data-i18n="cancel">Отмена</button>
+      <button class="edit-save-btn" data-i18n="saveChanges">💾 Сохранить изменения</button>
+    </div>
+  </div>
+</div>
+
+<footer style="margin-top:0">
   <div class="foot-i">
     <div class="foot-logo">Jalga.kz</div>
     <div class="foot-links">
@@ -919,15 +1047,15 @@ function closeCityModal(){
   document.getElementById('cityModal').classList.remove('open');
 }
 
-// ADS DATA
+// ADS DATA  (placeholder:true = бутафорные, показываем как призыв разместить объявление)
 var ADS=[
-  {id:1,cat:'auto',catColor:'#1565C0',catLabel:'Авто',bg:'#E3F2FD',title:'HAVAL M6 2024, пробег 21 тыс.',price:7888666,city:'Астана',age:'2 ч назад',phone:'77080802588',badge:'hot',emoji:'🚗'},
+  {id:1,cat:'auto',catColor:'#1565C0',catLabel:'Авто',bg:'#E3F2FD',title:'HAVAL M6 2024, пробег 21 тыс.',price:7888666,city:'Астана',age:'2 ч назад',phone:'77080802588',badge:'hot',emoji:'🚗',own:true},
   {id:2,cat:'elec',catColor:'#6A1B9A',catLabel:'Электроника',bg:'#F3E5F5',title:'iPhone 15 Pro 256GB Natural Titanium',price:490000,city:'Алматы',age:'5 мин назад',phone:'',badge:'new',emoji:'📱'},
   {id:3,cat:'elec',catColor:'#6A1B9A',catLabel:'Электроника',bg:'#F3E5F5',title:'MacBook Air M2 8/256 Starlight',price:380000,city:'Астана',age:'40 мин назад',phone:'',badge:'',emoji:'💻'},
   {id:4,cat:'realty',catColor:'#FF6B00',catLabel:'Недвижимость',bg:'#FFF3E0',title:'Сдам 2-комн квартиру, центр Щучинска',price:80000,city:'Щучинск',age:'1 ч назад',phone:'',badge:'',emoji:'🏠'},
-  {id:5,cat:'sport',catColor:'#C62828',catLabel:'Спорт',bg:'#FFEBEE',title:'Велосипед Trek Marlin 5 2023, горный',price:85000,city:'Алматы',age:'3 ч назад',phone:'',badge:'new',emoji:'🚲'},
+  {id:5,placeholder:true,catColor:'#C62828',catLabel:'Спорт',emoji:'🏋️'},
   {id:6,cat:'elec',catColor:'#6A1B9A',catLabel:'Электроника',bg:'#F3E5F5',title:'PlayStation 5 + 3 игры, состояние новое',price:165000,city:'Астана',age:'6 ч назад',phone:'',badge:'',emoji:'🎮'},
-  {id:7,cat:'furn',catColor:'#5D4037',catLabel:'Мебель',bg:'#EFEBE9',title:'Угловой диван-кровать серый 240×160',price:120000,city:'Шымкент',age:'8 ч назад',phone:'',badge:'',emoji:'🛋️'},
+  {id:7,placeholder:true,catColor:'#5D4037',catLabel:'Мебель',emoji:'🛋️'},
   {id:8,cat:'taxi',catColor:'#F9A825',catLabel:'Межгород',bg:'#FFF8E1',title:'Трансфер Астана — Бурабай Haval M6',price:24000,city:'Бурабай',age:'Сегодня',phone:'77080802588',badge:'vip',emoji:'🚖'},
 ];
 
@@ -957,29 +1085,43 @@ function renderAds(){
   g.className = '';
 
   if(currentView === 'grid'){
-    var minW = currentCols===2 ? 160 : currentCols===4 ? 140 : 190;
     g.className = 'ads-grid';
     g.style.gridTemplateColumns = 'repeat('+currentCols+', 1fr)';
+    var T = LANGS[currentLang];
     g.innerHTML = ADS.map(function(a){
+      // PLACEHOLDER card
+      if(a.placeholder){
+        return '<div class="ad-card-placeholder" onclick="document.querySelector(\'.nav-post\').click()">'
+          +'<div class="ad-ph-img">'
+          +'<div class="ad-ph-icon">'+a.emoji+'</div>'
+          +'<div class="ad-ph-label" style="color:'+a.catColor+'">'+T.couldBeYours+'</div>'
+          +'</div>'
+          +'<div class="ad-ph-body">'
+          +'<div class="ad-ph-price">'+a.catLabel+' · '+T.yourPrice+'</div>'
+          +'<button class="ad-ph-cta"><i class="ti ti-plus" style="font-size:13px"></i> '+T.postFree+'</button>'
+          +'</div></div>';
+      }
       var badgeHTML = '';
-      if(a.badge==='hot') badgeHTML='<span class="ad-cat-badge" style="background:#C62828;top:38px">🔥 Горячее</span>';
-      else if(a.badge==='new') badgeHTML='<span class="ad-cat-badge" style="background:#2E7D32;top:38px">✨ Новое</span>';
+      if(a.badge==='hot') badgeHTML='<span class="ad-cat-badge" style="background:#C62828;top:38px">🔥 '+T.hot+'</span>';
+      else if(a.badge==='new') badgeHTML='<span class="ad-cat-badge" style="background:#2E7D32;top:38px">✨ '+T.isNew+'</span>';
       else if(a.badge==='vip') badgeHTML='<span class="ad-cat-badge" style="background:#6A1B9A;top:38px">★ VIP</span>';
-      var price = a.price>0 ? a.price.toLocaleString('ru-KZ')+' ₸' : 'Договорная';
+      var price = a.price>0 ? a.price.toLocaleString('ru-KZ')+' ₸' : T.negotiable;
       var wa = a.phone ? '<a href="https://wa.me/'+a.phone+'" target="_blank" class="btn-wa-s"><i class="ti ti-brand-whatsapp" style="font-size:16px"></i></a>' : '';
       var imgH = currentCols===4 ? '120px' : '160px';
       var emojiSz = currentCols===4 ? '28px' : '40px';
+      var editBtn = a.own ? '<button class="ad-fav" style="background:var(--b);color:#fff;border-color:var(--b)" onclick="openEdit('+a.id+');event.stopPropagation()" title="'+T.edit+'"><i class="ti ti-pencil" style="font-size:13px"></i></button>' : '<button class="ad-fav" onclick="this.classList.toggle(\'on\')"><i class="ti ti-heart"></i></button>';
       return '<div class="ad-card">'
         +'<div class="ad-img" style="background:'+a.bg+';height:'+imgH+';font-size:'+emojiSz+'">'+a.emoji
         +'<div class="ad-cat-badge" style="background:'+a.catColor+'">'+a.catLabel+'</div>'
         +badgeHTML
-        +'<button class="ad-fav" onclick="this.classList.toggle(\'on\')"><i class="ti ti-heart"></i></button></div>'
+        +editBtn+'</div>'
         +'<div class="ad-body">'
         +'<div class="ad-price" style="color:'+a.catColor+'">'+price+'</div>'
         +'<div class="ad-title">'+a.title+'</div>'
         +'<div class="ad-foot"><span><i class="ti ti-map-pin" style="font-size:11px;margin-right:2px"></i>'+a.city+'</span><span>'+a.age+'</span></div>'
         +'<div class="ad-actions">'
-        +'<button class="btn-call" style="background:'+a.catColor+'" onclick="openCt('+a.id+')"><i class="ti ti-phone" style="font-size:13px"></i> Позвонить</button>'
+        +(a.own ? '<button class="btn-call" style="background:var(--b)" onclick="openEdit('+a.id+')"><i class="ti ti-pencil" style="font-size:13px"></i> '+T.edit+'</button>'
+          : '<button class="btn-call" style="background:'+a.catColor+'" onclick="openCt('+a.id+')"><i class="ti ti-phone" style="font-size:13px"></i> '+T.call+'</button>')
         +wa
         +'</div></div></div>';
     }).join('');
@@ -1149,6 +1291,91 @@ var observer = new IntersectionObserver(function(entries){
   var el = document.getElementById(id);
   if(el) observer.observe(el);
 });
+
+// ── TRANSLATIONS ──────────────────────────────────────────────
+var currentLang = 'ru';
+var LANGS = {
+  ru:{
+    allCities:'Все города', postAd:'Подать объявление',
+    hot:'Горячее', isNew:'Новое', negotiable:'Договорная',
+    call:'Позвонить', edit:'Редактировать',
+    couldBeYours:'Здесь мог быть ваш товар',
+    yourPrice:'Ваша цена', postFree:'Разместить бесплатно',
+    appTitle:'Приложение Jalga.kz',
+    appDesc:'Продавай и покупай прямо с телефона — фото, публикация и чат в два касания.',
+    notify:'Уведомить меня', emailPlaceholder:'Ваш email — уведомим о запуске',
+    editAd:'Редактировать объявление', title:'Заголовок',
+    description:'Описание', price:'Цена (₸)', photos:'Фотографии',
+    cancel:'Отмена', saveChanges:'💾 Сохранить изменения',
+  },
+  kz:{
+    allCities:'Барлық қалалар', postAd:'Хабарландыру беру',
+    hot:'Ыстық', isNew:'Жаңа', negotiable:'Келісімді',
+    call:'Қоңырау', edit:'Өңдеу',
+    couldBeYours:'Мұнда сіздің тауарыңыз болуы мүмкін',
+    yourPrice:'Сіздің бағаңыз', postFree:'Тегін орналастыру',
+    appTitle:'Jalga.kz қосымшасы',
+    appDesc:'Телефоннан сат және сатып ал — фото, жариялау, чат екі рет тигізумен.',
+    notify:'Хабарлаңыз', emailPlaceholder:'Email — іске қосылғанда хабарлаймыз',
+    editAd:'Хабарландыруды өңдеу', title:'Тақырып',
+    description:'Сипаттама', price:'Бағасы (₸)', photos:'Суреттер',
+    cancel:'Болдырмау', saveChanges:'💾 Өзгерістерді сақтау',
+  },
+  en:{
+    allCities:'All cities', postAd:'Post an ad',
+    hot:'Hot', isNew:'New', negotiable:'Negotiable',
+    call:'Call', edit:'Edit',
+    couldBeYours:'Your item could be here',
+    yourPrice:'Your price', postFree:'Post for free',
+    appTitle:'Jalga.kz App',
+    appDesc:'Buy and sell right from your phone — photo, post and chat in two taps.',
+    notify:'Notify me', emailPlaceholder:'Your email — we\'ll notify you at launch',
+    editAd:'Edit listing', title:'Title',
+    description:'Description', price:'Price (₸)', photos:'Photos',
+    cancel:'Cancel', saveChanges:'💾 Save changes',
+  }
+};
+
+function setLang(lang){
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.classList.toggle('active', b.textContent.toLowerCase()===lang);
+  });
+  var T = LANGS[lang];
+  // update all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key = el.dataset.i18n;
+    if(T[key]) el.textContent = T[key];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+    var key = el.dataset.i18nPh;
+    if(T[key]) el.placeholder = T[key];
+  });
+  // re-render ads with new language
+  renderAds();
+}
+
+// ── EDIT AD ───────────────────────────────────────────────────
+function openEdit(id){
+  var a = ADS.find(function(x){return x.id===id});
+  if(!a) return;
+  document.getElementById('editTitle').value = a.title||'';
+  document.getElementById('editDesc').value = a.description||'';
+  document.getElementById('editPrice').value = a.price||'';
+  document.getElementById('editModal').classList.add('open');
+}
+document.getElementById('editModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open')});
+
+// ── APP WAITLIST ───────────────────────────────────────────────
+function submitWaitlist(){
+  var email = document.getElementById('appWaitEmail').value.trim();
+  if(!email || !email.includes('@')){
+    document.getElementById('appWaitEmail').style.borderColor='#C62828';
+    return;
+  }
+  document.getElementById('appWaitEmail').style.borderColor='';
+  document.querySelector('.app-waitlist').innerHTML = '<div style="color:#fff;font-size:13px;font-weight:600;padding:8px 0">✅ Отлично! Уведомим вас на <strong>'+email+'</strong></div>';
+}
 
 // Taxi tabs toggle
 document.querySelectorAll('.taxi-tab').forEach(function(tab){
