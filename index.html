@@ -215,7 +215,10 @@ async function sendChat(){
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;position:relative}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;position:relative;min-height:100vh}
+/* ── GLASS BACKGROUND BLOBS ─────────────────────────── */
+body::before{content:'';position:fixed;top:-120px;left:-180px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,0,.13) 0%,transparent 70%);pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;bottom:-150px;right:-200px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(41,98,255,.11) 0%,transparent 70%);pointer-events:none;z-index:0}
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
 
@@ -866,6 +869,30 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
   .city-oblasts{width:100%;max-height:200px;border-right:none;border-bottom:1px solid var(--border)}
   .city-oblast-item.selected{border-left:none;border-bottom:3px solid var(--o)}
 }
+/* ── GLASSMORPHISM ──────────────────────────────────── */
+nav{background:rgba(255,255,255,0.72)!important;backdrop-filter:blur(24px) saturate(180%)!important;-webkit-backdrop-filter:blur(24px) saturate(180%)!important;border-bottom:1px solid rgba(255,255,255,0.55)!important}
+.ad-card{background:rgba(255,255,255,0.68)!important;backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(255,255,255,0.7)!important;box-shadow:0 4px 24px rgba(0,0,0,0.07)}
+.ad-card:hover{box-shadow:0 8px 40px rgba(0,0,0,0.13)!important;border-color:rgba(255,255,255,0.9)!important;transform:translateY(-3px)}
+.ad-card-placeholder{background:rgba(255,255,255,0.5)!important;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:2px dashed rgba(200,200,200,0.7)!important}
+.cat-card{background:rgba(255,255,255,0.6)!important;backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border:1px solid rgba(255,255,255,0.75)!important;box-shadow:0 2px 16px rgba(0,0,0,0.05)}
+.cat-card:hover{box-shadow:0 6px 28px rgba(0,0,0,0.1)!important;border-color:rgba(255,255,255,1)!important}
+.faq-item{background:rgba(255,255,255,0.65)!important;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.7)!important;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.modal-box,.auth-modal-box,.post-modal-box{background:rgba(255,255,255,0.82)!important;backdrop-filter:blur(32px) saturate(200%);-webkit-backdrop-filter:blur(32px) saturate(200%);border:1px solid rgba(255,255,255,0.9)!important;box-shadow:0 24px 80px rgba(0,0,0,0.2)!important}
+.city-modal-box{background:rgba(255,255,255,0.88)!important;backdrop-filter:blur(32px) saturate(200%);-webkit-backdrop-filter:blur(32px) saturate(200%)}
+.hero-stats-card{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.hero-taxi{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.hero-free{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.hero-main{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+/* Dark theme glass */
+[data-theme] nav,[data-theme="dark"] nav{background:rgba(20,21,32,0.72)!important;backdrop-filter:blur(24px) saturate(180%)!important;-webkit-backdrop-filter:blur(24px) saturate(180%)!important;border-bottom:1px solid rgba(255,255,255,0.08)!important}
+[data-theme="dark"] .ad-card{background:rgba(30,32,48,0.72)!important;border:1px solid rgba(255,255,255,0.1)!important}
+[data-theme="dark"] .ad-card-placeholder{background:rgba(30,32,48,0.55)!important;border-color:rgba(255,255,255,0.12)!important}
+[data-theme="dark"] .cat-card{background:rgba(30,32,48,0.65)!important;border:1px solid rgba(255,255,255,0.1)!important}
+[data-theme="dark"] .faq-item{background:rgba(30,32,48,0.7)!important;border:1px solid rgba(255,255,255,0.09)!important}
+[data-theme="dark"] .modal-box,[data-theme="dark"] .auth-modal-box,[data-theme="dark"] .post-modal-box{background:rgba(20,21,40,0.88)!important;border:1px solid rgba(255,255,255,0.12)!important}
+[data-theme="dark"] .city-modal-box{background:rgba(20,21,40,0.92)!important}
+[data-theme="dark"] body::before{background:radial-gradient(circle,rgba(255,140,50,.09) 0%,transparent 70%)}
+[data-theme="dark"] body::after{background:radial-gradient(circle,rgba(80,120,255,.1) 0%,transparent 70%)}
 </style>
 </head>
 <body>
