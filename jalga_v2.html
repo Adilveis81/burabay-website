@@ -432,6 +432,7 @@ nav{
 .live-pill{display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.15);border-radius:20px;padding:5px 12px;font-size:12px;color:#fff;width:fit-content}
 .live-dot{width:7px;height:7px;border-radius:50%;background:#4CAF50;animation:pulse 1.5s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* TAXI CARD — МЕЖГОРОД HIGHLIGHTED */
 .hero-taxi{background:var(--t);border-radius:var(--radius-xl);padding:20px;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden}
@@ -2583,6 +2584,7 @@ var currentView = 'grid';
 var currentCols = 3;
 var searchQuery = '';
 var uploadedPhotos = []; // base64 data URLs (compressed)
+var _compressing = 0;   // number of photos currently being compressed
 
 // Compress image to target max bytes using Canvas, returns Promise<dataURL>
 function compressImage(file, maxBytes, maxPx) {
@@ -2622,17 +2624,38 @@ function compressImage(file, maxBytes, maxPx) {
   });
 }
 
+function setSubmitBtnState() {
+  var btn = document.querySelector('.post-submit');
+  if (!btn) return;
+  if (_compressing > 0) {
+    btn.disabled = true;
+    btn.style.opacity = '0.6';
+    btn.style.cursor = 'not-allowed';
+    btn.innerHTML = '<span style="display:inline-block;animation:spin 0.8s linear infinite">⏳</span> Сжатие фото...';
+  } else {
+    btn.disabled = false;
+    btn.style.opacity = '';
+    btn.style.cursor = '';
+    var T = LANGS[currentLang];
+    btn.innerHTML = '<i class="ti ti-send" style="font-size:15px"></i> <span>' + (T ? T.postSubmitBtn : 'Опубликовать') + '</span>';
+  }
+}
+
 function handlePhotoUpload(input) {
   var MAX = 5;
-  var MAX_BYTES = 1024 * 1024; // 1 MB per photo (5 photos = max ~5 MB total)
+  var MAX_BYTES = 1024 * 1024; // 1 MB per photo
   var files = Array.from(input.files).slice(0, MAX - uploadedPhotos.length);
   files.forEach(function(file) {
     if (uploadedPhotos.length >= MAX) return;
+    _compressing++;
+    setSubmitBtnState();
     compressImage(file, MAX_BYTES, 1920).then(function(dataURL) {
-      if (uploadedPhotos.length >= MAX) return;
-      var kb = Math.round((dataURL.length - 22) * 3 / 4 / 1024);
-      uploadedPhotos.push(dataURL);
-      refreshPhotoGrid(kb);
+      _compressing = Math.max(0, _compressing - 1);
+      if (uploadedPhotos.length < MAX) {
+        uploadedPhotos.push(dataURL);
+        refreshPhotoGrid();
+      }
+      setSubmitBtnState();
     });
   });
   input.value = '';
