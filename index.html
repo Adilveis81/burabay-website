@@ -3508,7 +3508,7 @@ function signInGoogle() {
   if (!_sb) { alert('База данных не подключена'); return; }
   _sb.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: window.location.href }
+    options: { redirectTo: window.location.origin + '/' }
   });
 }
 
