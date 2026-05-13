@@ -493,19 +493,20 @@ nav{
 .hero-free .fc{font-size:13px;color:#fff;font-weight:600;margin-top:auto;display:flex;align-items:center;gap:5px}
 .free-limit-badge{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700;color:#fff;width:fit-content}
 
-/* SOCIAL PROOF STRIP */
-.proof{
-  background:linear-gradient(180deg,rgba(255,255,255,0.19) 0%,rgba(255,255,255,0.11) 100%);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border-top:1px solid rgba(255,255,255,0.16);border-bottom:1px solid rgba(255,255,255,0.10);
-  padding:10px 20px;display:flex;align-items:center;gap:16px;overflow-x:auto;white-space:nowrap;max-width:100%
-}
-.proof-lbl{font-size:10px;font-weight:700;color:rgba(200,210,230,0.7);text-transform:uppercase;letter-spacing:.6px;flex-shrink:0}
-.proof-item{display:inline-flex;align-items:center;gap:7px;flex-shrink:0}
+/* FOREX TICKER */
+.fx-ticker{background:linear-gradient(180deg,rgba(255,255,255,0.19) 0%,rgba(255,255,255,0.11) 100%);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.16);border-bottom:1px solid rgba(255,255,255,0.10);overflow:hidden;white-space:nowrap;height:40px;position:relative;cursor:default}
+.fx-track{display:inline-flex;align-items:center;height:40px;animation:fxScroll 35s linear infinite}
+.fx-ticker:hover .fx-track{animation-play-state:paused}
+.fx-item{display:inline-flex;align-items:center;gap:5px;padding:0 18px;flex-shrink:0}
+.fx-flag{font-size:15px;line-height:1}
+.fx-pair{font-size:10px;font-weight:700;color:rgba(200,215,240,0.65);text-transform:uppercase;letter-spacing:.5px}
+.fx-rate{font-size:14px;font-weight:800;color:#fff}
+.fx-unit{font-size:11px;font-weight:700;color:#FFD54F}
+.fx-sep{color:rgba(255,255,255,.18);font-size:20px;padding:0 2px;flex-shrink:0}
+.fx-label{font-size:10px;font-weight:700;color:rgba(200,215,240,0.55);text-transform:uppercase;letter-spacing:.6px;padding:0 12px 0 16px;flex-shrink:0;border-right:1px solid rgba(255,255,255,.15);margin-right:6px}
+@keyframes fxScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* .av used in reviews/chats */
 .av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
-.proof-text strong{display:block;font-size:12px;font-weight:600;color:#e8eaf0}
-.proof-text span{font-size:11px;color:rgba(180,190,220,0.7)}
-.proof-sep{color:var(--border2);font-size:18px;flex-shrink:0}
 
 /* SECTION */
 .section{max-width:1280px;margin:0 auto;padding:28px 20px 16px;background:rgba(255,255,255,0.29);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:var(--radius-xl);margin-bottom:6px}
@@ -1611,39 +1612,19 @@ html[data-theme="dark"]{
   </div>
 </div>
 
-<!-- SOCIAL PROOF -->
-<div style="max-width:1280px;margin:14px auto 0;padding:0 20px">
-  <div class="proof">
-    <span class="proof-lbl" data-i18n="proofLabel">Только что:</span>
-    <div class="proof-item">
-      <div class="av" style="background:var(--b-bg);color:var(--b-dark)">АС</div>
-      <div class="proof-text"><strong>Асель из Алматы</strong><span class="proof-time" data-mins="1">купила iPhone 15 · 1 мин</span></div>
-    </div>
-    <span class="proof-sep">·</span>
-    <div class="proof-item">
-      <div class="av" style="background:var(--t-bg);color:var(--t-dark)">ДМ</div>
-      <div class="proof-text"><strong>Дамир из Астаны</strong><span class="proof-time" data-mins="3">продал велосипед · 3 мин</span></div>
-    </div>
-    <span class="proof-sep">·</span>
-    <div class="proof-item">
-      <div class="av" style="background:var(--o-bg);color:var(--o-dark)">МА</div>
-      <div class="proof-text"><strong>Марал из Щучинска</strong><span class="proof-time" data-mins="7">нашла кроватку · 7 мин</span></div>
-    </div>
-    <span class="proof-sep">·</span>
-    <div class="proof-item">
-      <div class="av" style="background:var(--g-bg);color:var(--g-dark)">КБ</div>
-      <div class="proof-text"><strong>Канат из Бурабая</strong><span class="proof-time" data-mins="12">сдал квартиру · 12 мин</span></div>
-    </div>
-    <span class="proof-sep">·</span>
-    <div class="proof-item">
-      <div class="av" style="background:var(--r-bg);color:var(--r-dark)">НА</div>
-      <div class="proof-text"><strong>Нурлан из Кокшетау</strong><span class="proof-time" data-mins="18">продал авто · 18 мин</span></div>
-    </div>
-    <span class="proof-sep">·</span>
-    <div class="proof-item">
-      <div class="av" style="background:#FFF8E1;color:#E65100">ЕМ</div>
-      <div class="proof-text"><strong>Ержан из Шымкента</strong><span class="proof-time" data-mins="25">нашёл арендатора · 25 мин</span></div>
-    </div>
+<!-- FOREX TICKER -->
+<div class="fx-ticker">
+  <div class="fx-track" id="fxTrack">
+    <span class="fx-label">💱 Курсы ₸</span>
+    <span class="fx-item"><span class="fx-flag">🇺🇸</span><span class="fx-pair">USD</span><span class="fx-rate" id="fx-usd">…</span><span class="fx-unit">₸</span></span>
+    <span class="fx-sep">|</span>
+    <span class="fx-item"><span class="fx-flag">🇪🇺</span><span class="fx-pair">EUR</span><span class="fx-rate" id="fx-eur">…</span><span class="fx-unit">₸</span></span>
+    <span class="fx-sep">|</span>
+    <span class="fx-item"><span class="fx-flag">🇷🇺</span><span class="fx-pair">RUB</span><span class="fx-rate" id="fx-rub">…</span><span class="fx-unit">₸</span></span>
+    <span class="fx-sep">|</span>
+    <span class="fx-item"><span class="fx-flag">🇹🇷</span><span class="fx-pair">TRY</span><span class="fx-rate" id="fx-try">…</span><span class="fx-unit">₸</span></span>
+    <span class="fx-sep">|</span>
+    <span class="fx-item"><span class="fx-flag">🇨🇳</span><span class="fx-pair">CNY</span><span class="fx-rate" id="fx-cny">…</span><span class="fx-unit">₸</span></span>
   </div>
 </div>
 
@@ -3390,17 +3371,54 @@ setInterval(function(){
   el.textContent=v.toLocaleString('ru-KZ');
 },8000);
 
-// SOCIAL PROOF — tick up every 30s so times look live
-var _proofActions = ['купила iPhone 15','продал велосипед','нашла кроватку','сдал квартиру','продал авто','нашёл арендатора'];
-setInterval(function(){
-  document.querySelectorAll('.proof-time').forEach(function(el,i){
-    var m = parseInt(el.dataset.mins) + 1;
-    el.dataset.mins = m;
-    var hrs = Math.floor(m/60);
-    var label = hrs >= 1 ? hrs+' ч' : m+' мин';
-    el.textContent = _proofActions[i] + ' · ' + label;
-  });
-}, 30000);
+// ── FOREX TICKER ────────────────────────────────────────────────
+(function initFxTicker(){
+  var PAIRS = [
+    {id:'fx-usd', code:'USD', decimals:0},
+    {id:'fx-eur', code:'EUR', decimals:0},
+    {id:'fx-rub', code:'RUB', decimals:2},
+    {id:'fx-try', code:'TRY', decimals:1},
+    {id:'fx-cny', code:'CNY', decimals:1}
+  ];
+  function fetchRates(){
+    fetch('https://open.er-api.com/v6/latest/USD')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(!d || !d.rates) return;
+        var kzt = d.rates['KZT'] || 0;
+        PAIRS.forEach(function(p){
+          var r = d.rates[p.code];
+          if(!r) return;
+          var val = p.code === 'USD' ? kzt : kzt / r;
+          var el = document.getElementById(p.id);
+          if(el) el.textContent = val.toFixed(p.decimals).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+        });
+        // duplicate track content for seamless loop
+        var track = document.getElementById('fxTrack');
+        if(track && !track.dataset.duped){
+          track.innerHTML += track.innerHTML;
+          track.dataset.duped = '1';
+        }
+      })
+      .catch(function(){});
+  }
+  fetchRates();
+  // refresh at 07:00, 12:00, 16:00 Almaty time (UTC+5)
+  function scheduleNextRefresh(){
+    var now = new Date();
+    var utcH = now.getUTCHours(), utcM = now.getUTCMinutes();
+    var localMins = utcH * 60 + utcM + 300; // UTC+5
+    var slots = [7*60, 12*60, 16*60];
+    var next = null;
+    for(var i=0; i<slots.length; i++){
+      if(slots[i] > localMins % 1440){ next = slots[i]; break; }
+    }
+    if(next === null) next = slots[0] + 1440; // tomorrow 07:00
+    var delay = (next - localMins % 1440) * 60 * 1000;
+    setTimeout(function(){ fetchRates(); scheduleNextRefresh(); }, delay);
+  }
+  scheduleNextRefresh();
+})();
 
 // ROTATING NOTIFICATIONS
 var nMsgs=[
