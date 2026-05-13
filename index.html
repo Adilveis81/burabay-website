@@ -483,7 +483,7 @@ nav{
   border-radius:var(--radius-lg);padding:18px 12px;text-align:center;cursor:pointer;transition:.2s;display:flex;flex-direction:column;align-items:center;gap:8px;
   min-height:120px;justify-content:center;
 }
-.cat-card:hover{border-color:rgba(255,255,255,0.32);transform:translateY(-2px);box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.95),0 0 0 0.5px rgba(255,255,255,0.40),0 8px 24px rgba(10,20,80,0.26)}
+.cat-card{cursor:pointer}.cat-card:hover{border-color:rgba(255,255,255,0.32);transform:translateY(-2px);box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.95),0 0 0 0.5px rgba(255,255,255,0.40),0 8px 24px rgba(10,20,80,0.26)}
 .cat-icon{font-size:26px;width:52px;height:52px;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center}
 .cat-name{font-size:16px;font-weight:900;line-height:1.2;color:#0D47A1;text-shadow:0 1px 3px rgba(255,255,255,0.70)}
 .cat-count{font-size:13px;font-weight:700;opacity:1;color:#1565C0;text-shadow:0 1px 2px rgba(255,255,255,0.60)}
@@ -1637,18 +1637,18 @@ html[data-theme="dark"]{
     <a href="#" class="sec-more"><span data-i18n="catAll">Все категории</span> <i class="ti ti-chevron-right" style="font-size:13px"></i></a>
   </div>
   <div class="cats-grid">
-    <div class="cat-card c-auto"><div class="cat-icon"><i class="ti ti-car"></i></div><div class="cat-name" data-i18n="catAuto">Авто и мото</div><div class="cat-count">2 840 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-realty"><div class="cat-icon"><i class="ti ti-building"></i></div><div class="cat-name" data-i18n="catRealty">Недвижимость</div><div class="cat-count">1 230 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-elec"><div class="cat-icon"><i class="ti ti-device-mobile"></i></div><div class="cat-name" data-i18n="catElec">Электроника</div><div class="cat-count">3 100 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-work"><div class="cat-icon"><i class="ti ti-briefcase"></i></div><div class="cat-name" data-i18n="catWork">Работа</div><div class="cat-count">980 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-serv"><div class="cat-icon"><i class="ti ti-tools"></i></div><div class="cat-name" data-i18n="catServ">Услуги</div><div class="cat-count">1 650 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-taxi" style="border:2px solid var(--y)"><div class="cat-icon"><i class="ti ti-car"></i></div><div class="cat-name" data-i18n="catTaxi">Такси · Межгород</div><div class="cat-count">340 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-pet"><div class="cat-icon"><i class="ti ti-paw"></i></div><div class="cat-name" data-i18n="catPet">Животные</div><div class="cat-count">420 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-kids"><div class="cat-icon"><i class="ti ti-baby-carriage"></i></div><div class="cat-name" data-i18n="catKids">Детское</div><div class="cat-count">750 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-sport"><div class="cat-icon"><i class="ti ti-ball-basketball"></i></div><div class="cat-name" data-i18n="catSport">Спорт</div><div class="cat-count">310 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-furn"><div class="cat-icon"><i class="ti ti-sofa"></i></div><div class="cat-name" data-i18n="catFurn">Мебель</div><div class="cat-count">580 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-food"><div class="cat-icon"><i class="ti ti-salad"></i></div><div class="cat-name" data-i18n="catFood">Продукты</div><div class="cat-count">190 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-free"><div class="cat-icon"><i class="ti ti-gift"></i></div><div class="cat-name" data-i18n="catFree">Отдам даром</div><div class="cat-count">220 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-auto" onclick="selectCategory('Авто','🚗','#1565C0')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-car"></i></div><div class="cat-name" data-i18n="catAuto">Авто и мото</div><div class="cat-count">2 840 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-realty" onclick="selectCategory('Недвижимость','🏠','#FF6B00')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-building"></i></div><div class="cat-name" data-i18n="catRealty">Недвижимость</div><div class="cat-count">1 230 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-elec" onclick="selectCategory('Электроника','📱','#6A1B9A')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-device-mobile"></i></div><div class="cat-name" data-i18n="catElec">Электроника</div><div class="cat-count">3 100 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-work" onclick="selectCategory('Работы','💼','#1565C0')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-briefcase"></i></div><div class="cat-name" data-i18n="catWork">Работа</div><div class="cat-count">980 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-serv" onclick="selectCategory('Услуги','🔧','#00796B')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-tools"></i></div><div class="cat-name" data-i18n="catServ">Услуги</div><div class="cat-count">1 650 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-taxi" onclick="selectCategory('Услуги','🚕','#FFB300')" style="border:2px solid var(--y);cursor:pointer"><div class="cat-icon"><i class="ti ti-car"></i></div><div class="cat-name" data-i18n="catTaxi">Такси · Межгород</div><div class="cat-count">340 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-pet" onclick="selectCategory('Животные','🐾','#0097A7')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-paw"></i></div><div class="cat-name" data-i18n="catPet">Животные</div><div class="cat-count">420 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-kids" onclick="selectCategory('Детское','🚼','#E91E63')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-baby-carriage"></i></div><div class="cat-name" data-i18n="catKids">Детское</div><div class="cat-count">750 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-sport" onclick="selectCategory('Спорт','⚽','#C62828')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-ball-basketball"></i></div><div class="cat-name" data-i18n="catSport">Спорт</div><div class="cat-count">310 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-furn" onclick="selectCategory('Мебель','🛋️','#5D4037')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-sofa"></i></div><div class="cat-name" data-i18n="catFurn">Мебель</div><div class="cat-count">580 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-food" onclick="selectCategory('Продукты','🥬','#2E7D32')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-salad"></i></div><div class="cat-name" data-i18n="catFood">Продукты</div><div class="cat-count">190 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-free" onclick="selectCategory('Отдам даром','🎁','#009688')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-gift"></i></div><div class="cat-name" data-i18n="catFree">Отдам даром</div><div class="cat-count">220 <span data-i18n="catCount">объявл.</span></div></div>
   </div>
 </div>
 
