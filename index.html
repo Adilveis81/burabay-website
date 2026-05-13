@@ -3038,7 +3038,7 @@ function renderAds(){
 
   if(currentView === 'grid'){
     g.className = 'ads-grid';
-    if(window.innerWidth <= 767){ g.style.setProperty('grid-template-columns','repeat(2,1fr)','important'); } else { g.style.gridTemplateColumns = ''; }  // mobile: 2 cols
+    if(window.innerWidth <= 767){ g.style.setProperty('grid-template-columns','repeat(2,1fr)','important'); } else { g.style.setProperty('grid-template-columns','repeat(4,1fr)','important'); }  // mobile:2 desktop:4
     var T = LANGS[currentLang];
     if(searchQuery && filteredAds.length===0){
       g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)"><div style="font-size:40px;margin-bottom:12px">🔍</div><div style="font-size:16px">'+T.noResults+'</div></div>';
@@ -3726,7 +3726,7 @@ function submitWaitlist(){
 }
 
 // Init default layout
-document.documentElement.dataset.cols = window.innerWidth <= 640 ? '2' : '3';
+document.documentElement.dataset.cols = window.innerWidth <= 767 ? '2' : '4';
 renderAds();
 
 // ── LOAD REAL ADS FROM SUPABASE ──────────────────────────────────
