@@ -3490,7 +3490,7 @@ document.querySelectorAll('.taxi-tab').forEach(function(tab){
 });
 
 // Init default layout
-document.documentElement.dataset.cols = '3';
+document.documentElement.dataset.cols = window.innerWidth <= 640 ? '2' : '3';
 renderAds();
 
 // ── LOAD REAL ADS FROM SUPABASE ──────────────────────────────────
