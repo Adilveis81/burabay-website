@@ -2953,7 +2953,7 @@ function renderAds(){
 
   if(currentView === 'grid'){
     g.className = 'ads-grid';
-    g.style.gridTemplateColumns = window.innerWidth <= 767 ? 'repeat(2,1fr)' : '';  // mobile: 2 cols
+    if(window.innerWidth <= 767){ g.style.setProperty('grid-template-columns','repeat(2,1fr)','important'); } else { g.style.gridTemplateColumns = ''; }  // mobile: 2 cols
     var T = LANGS[currentLang];
     if(searchQuery && filteredAds.length===0){
       g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)"><div style="font-size:40px;margin-bottom:12px">🔍</div><div style="font-size:16px">'+T.noResults+'</div></div>';
