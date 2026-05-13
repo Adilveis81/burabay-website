@@ -3622,14 +3622,6 @@ function submitWaitlist(){
   document.querySelector('.app-waitlist').innerHTML = '<div style="color:#fff;font-size:13px;font-weight:600;padding:8px 0">✅ Отлично! Уведомим вас на <strong>'+email+'</strong></div>';
 }
 
-// Taxi tabs toggle
-if(false){document.querySelectorAll('.taxi-tab').forEach(function(tab){
-  tab.addEventListener('click',function(){
-    document.querySelectorAll('.taxi-tab').forEach(function(t){t.classList.remove('active')});
-    this.classList.add('active');
-  });
-});
-
 // Init default layout
 document.documentElement.dataset.cols = window.innerWidth <= 640 ? '2' : '3';
 renderAds();
