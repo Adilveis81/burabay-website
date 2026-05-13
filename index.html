@@ -1578,10 +1578,7 @@ html[data-theme="dark"]{
 
     <!-- TAXI МЕЖГОРОД CARD -->
     <div class="hero-taxi" id="taxiCard" style="scroll-margin-top:70px">
-      <div class="taxi-tabs">
-        <div class="taxi-tab active" data-i18n="taxiTab1">🚗 Межгород</div>
-        <div class="taxi-tab" data-i18n="taxiTab2">🏙️ Город</div>
-      </div>
+      <div class="intercity-only-label" style="display:inline-flex;align-items:center;gap:6px;background:var(--y);color:#1A1A1A;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:800;margin-bottom:4px">🚗 Межгород</div>
       <div class="intercity-badge" data-i18n="taxiBadge">🛣️ Межгород · Популярно</div>
       <div style="text-align:center;padding:20px 0 8px"><div style="font-size:36px;margin-bottom:8px">🚗</div><div style="color:rgba(255,255,255,0.9);font-size:15px;font-weight:700;margin-bottom:4px">Здесь будут объявления такси</div><div style="color:rgba(255,255,255,0.6);font-size:12px;margin-bottom:14px">Подайте своё объявление — это бесплатно</div></div><button onclick="document.querySelector('.nav-post').click()" class="wa-btn" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4)">+ Подать объявление такси</button>
     </div>
@@ -3626,7 +3623,7 @@ function submitWaitlist(){
 }
 
 // Taxi tabs toggle
-document.querySelectorAll('.taxi-tab').forEach(function(tab){
+if(false){document.querySelectorAll('.taxi-tab').forEach(function(tab){
   tab.addEventListener('click',function(){
     document.querySelectorAll('.taxi-tab').forEach(function(t){t.classList.remove('active')});
     this.classList.add('active');
