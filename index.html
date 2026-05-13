@@ -1454,7 +1454,18 @@ html[data-theme="dark"]{
 [data-theme="dark"] .edit-cancel-btn,[data-theme="dark"] .post-cancel{
   box-shadow:inset 0 1px 0 rgba(255,255,255,0.1),0 3px 0 rgba(0,0,0,0.5),0 4px 8px rgba(0,0,0,0.3)!important;
 }
-@media(max-width:767px){#adsGrid{grid-template-columns:repeat(2,1fr)!important;display:grid!important}}</style>
+@media(max-width:767px){#adsGrid{grid-template-columns:repeat(2,1fr)!important;display:grid!important}}
+.taxi-photo-slot{display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px dashed rgba(249,168,37,0.5);border-radius:10px;min-height:90px;cursor:pointer;background:rgba(249,168,37,0.05);position:relative;overflow:hidden;transition:.2s}
+.taxi-photo-slot:hover{border-color:#F9A825;background:rgba(249,168,37,0.10)}
+.taxi-photo-slot.filled{border-style:solid;border-color:#4CAF50;background:transparent}
+.taxi-photo-slot img{width:100%;height:90px;object-fit:cover;border-radius:8px;display:block}
+.taxi-photo-slot .slot-label{font-size:10px;font-weight:700;color:rgba(0,0,0,0.5);margin-top:4px;text-align:center}
+.taxi-photo-slot .slot-icon{font-size:22px;margin-bottom:2px}
+.taxi-photo-slot input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.taxi-check-row{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:rgba(0,0,0,0.04);cursor:pointer;user-select:none}
+.taxi-check-row input{width:18px;height:18px;cursor:pointer;accent-color:#F9A825}
+.taxi-check-row span{font-size:13px;font-weight:600}
+</style>
 </head>
 <body>
 
@@ -1689,6 +1700,70 @@ html[data-theme="dark"]{
         <div class="qp-field" style="grid-column:1/-1">
           <label class="qp-label">Описание</label>
           <textarea id="qpDesc" class="qp-input" rows="2" placeholder="Кратко опишите товар или услугу..." style="resize:none"></textarea>
+        </div>
+      </div>
+
+      <!-- TAXI SPECIFIC FIELDS -->
+      <div id="taxiFields" style="display:none;margin-top:14px;border-top:1px solid rgba(249,168,37,0.3);padding-top:14px">
+        <div style="font-size:12px;font-weight:800;color:#F9A825;margin-bottom:10px;letter-spacing:.3px">🚖 МАРШРУТ И АВТОМОБИЛЬ</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <div class="qp-field" style="margin:0">
+            <label class="qp-label">🚦 Откуда</label>
+            <input id="taxiFrom" class="qp-input" list="taxiCityList" placeholder="Город" oninput="updateTaxiTitle()">
+          </div>
+          <div class="qp-field" style="margin:0">
+            <label class="qp-label">🏁 Куда</label>
+            <input id="taxiTo" class="qp-input" list="taxiCityList" placeholder="Город" oninput="updateTaxiTitle()">
+          </div>
+        </div>
+        <div class="qp-field" style="margin-bottom:8px">
+          <label class="qp-label">🚗 Марка, год, цвет авто</label>
+          <input id="taxiCar" class="qp-input" placeholder="Например: Toyota Camry 2022, белый">
+        </div>
+        <datalist id="taxiCityList">
+          <option value="Астана"><option value="Алматы"><option value="Шымкент">
+          <option value="Бурабай"><option value="Щучинск"><option value="Кокшетау">
+          <option value="Костанай"><option value="Актобе"><option value="Атырау">
+          <option value="Уральск"><option value="Петропавловск"><option value="Усть-Каменогорск">
+          <option value="Семей"><option value="Павлодар"><option value="Тараз">
+          <option value="Туркестан"><option value="Актау"><option value="Темиртау">
+          <option value="Жезказган"><option value="Кызылорда"><option value="Степногорск">
+        </datalist>
+
+        <div style="font-size:12px;font-weight:800;color:#F9A825;margin:12px 0 8px;letter-spacing:.3px">📸 ФОТО АВТОМОБИЛЯ (все обязательны)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+          <div class="taxi-photo-slot" id="tpSlot0" onclick="document.getElementById('tpInput0').click()">
+            <input type="file" id="tpInput0" accept="image/*" capture="environment" onchange="handleTaxiPhoto(0,this)" onclick="event.stopPropagation()">
+            <div class="slot-icon">🚗</div>
+            <div class="slot-label">Спереди *</div>
+          </div>
+          <div class="taxi-photo-slot" id="tpSlot1" onclick="document.getElementById('tpInput1').click()">
+            <input type="file" id="tpInput1" accept="image/*" capture="environment" onchange="handleTaxiPhoto(1,this)" onclick="event.stopPropagation()">
+            <div class="slot-icon">↔️</div>
+            <div class="slot-label">Сбоку *</div>
+          </div>
+          <div class="taxi-photo-slot" id="tpSlot2" onclick="document.getElementById('tpInput2').click()">
+            <input type="file" id="tpInput2" accept="image/*" capture="environment" onchange="handleTaxiPhoto(2,this)" onclick="event.stopPropagation()">
+            <div class="slot-icon">💺</div>
+            <div class="slot-label">Салон *</div>
+          </div>
+          <div class="taxi-photo-slot" id="tpSlot3" onclick="document.getElementById('tpInput3').click()">
+            <input type="file" id="tpInput3" accept="image/*" capture="environment" onchange="handleTaxiPhoto(3,this)" onclick="event.stopPropagation()">
+            <div class="slot-icon">🧳</div>
+            <div class="slot-label">Багажник *</div>
+          </div>
+        </div>
+
+        <div style="font-size:12px;font-weight:800;color:#F9A825;margin-bottom:8px;letter-spacing:.3px">🛡️ БЕЗОПАСНОСТЬ (обязательно)</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label class="taxi-check-row">
+            <input type="checkbox" id="taxiExtinguisher">
+            <span>🧯 Огнетушитель в наличии</span>
+          </label>
+          <label class="taxi-check-row">
+            <input type="checkbox" id="taxiKit">
+            <span>🩺 Аптечка в наличии</span>
+          </label>
         </div>
       </div>
       <button onclick="submitQuickPost()" id="qpSubmitBtn" style="margin-top:14px;width:100%;padding:12px;border:none;border-radius:var(--radius-lg);font-size:14px;font-weight:700;color:#fff;cursor:pointer;background:var(--o)">📤 Опубликовать бесплатно</button>
@@ -2530,6 +2605,25 @@ function selectCategory(name, emoji, color){
     document.getElementById('qpPrice').value = '';
     document.getElementById('qpDesc').value = '';
     document.getElementById('qpAiHint').style.display = 'none';
+    // Show taxi-specific fields when taxi category selected
+    var isTaxi = (emoji === '🚕') || name === 'Такси';
+    showTaxiFields(isTaxi);
+    if (isTaxi) {
+      taxiPhotos = [null, null, null, null];
+      var slotLabels = ['🚗 Спереди *', '↔️ Сбоку *', '💺 Салон *', '🧳 Багажник *'];
+      [0,1,2,3].forEach(function(i) {
+        var s = document.getElementById('tpSlot' + i);
+        if (s) {
+          s.classList.remove('filled');
+          s.innerHTML = '<div class="slot-icon">' + ['🚗','↔️','💺','🧳'][i] + '</div>'
+            + '<div class="slot-label">' + ['Спереди *','Сбоку *','Салон *','Багажник *'][i] + '</div>'
+            + '<input type="file" id="tpInput' + i + '" accept="image/*" capture="environment"'
+            + ' onchange="handleTaxiPhoto(' + i + ',this)" onclick="event.stopPropagation()">';
+        }
+      });
+      document.getElementById('taxiExtinguisher').checked = false;
+      document.getElementById('taxiKit').checked = false;
+    }
   }
   renderAds();
 }
@@ -2578,12 +2672,70 @@ function autoDetectCategory(val){
   hint.style.display='none';
 }
 
+
+var taxiPhotos = [null, null, null, null];
+
+function handleTaxiPhoto(idx, input) {
+  if (!input.files || !input.files[0]) return;
+  var file = input.files[0];
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    taxiPhotos[idx] = e.target.result;
+    var slot = document.getElementById('tpSlot' + idx);
+    slot.classList.add('filled');
+    slot.innerHTML = '<img src="' + e.target.result + '" alt="фото">'
+      + '<div class="slot-label" style="position:absolute;bottom:2px;left:0;right:0;background:rgba(0,0,0,0.45);color:#fff;text-align:center;font-size:9px;font-weight:700;padding:1px 0">'
+      + ['Спереди','Сбоку','Салон','Багажник'][idx] + ' ✓</div>';
+  };
+  reader.readAsDataURL(file);
+}
+
+function updateTaxiTitle() {
+  var from = (document.getElementById('taxiFrom').value||'').trim();
+  var to   = (document.getElementById('taxiTo').value||'').trim();
+  if (from && to) {
+    document.getElementById('qpTitle').value = 'Такси ' + from + ' → ' + to;
+  }
+}
+
+function showTaxiFields(show) {
+  var tf = document.getElementById('taxiFields');
+  if (!tf) return;
+  tf.style.display = show ? '' : 'none';
+  // show/hide regular title field label hint
+  var titleField = document.getElementById('qpTitle');
+  if (show) {
+    titleField.placeholder = 'Заполнится автоматически из маршрута';
+    titleField.readOnly = true;
+    titleField.style.background = 'rgba(0,0,0,0.05)';
+  } else {
+    titleField.placeholder = 'Например: Продаю диван в хорошем состоянии';
+    titleField.readOnly = false;
+    titleField.style.background = '';
+  }
+}
 function submitQuickPost(){
   var title = document.getElementById('qpTitle').value.trim();
   var price = parseInt(document.getElementById('qpPrice').value)||0;
   var phone = document.getElementById('qpPhone').value.trim().replace(/\D/g,'');
   var desc  = document.getElementById('qpDesc').value.trim();
   if(!title){ alert('Введите заголовок объявления'); return; }
+  // Taxi validation
+  var tf = document.getElementById('taxiFields');
+  if(tf && tf.style.display !== 'none'){
+    if(!document.getElementById('taxiFrom').value.trim()) { alert('Укажите город отправления'); return; }
+    if(!document.getElementById('taxiTo').value.trim()) { alert('Укажите город назначения'); return; }
+    if(!document.getElementById('taxiCar').value.trim()) { alert('Укажите марку и год автомобиля'); return; }
+    var missing = ['Спереди','Сбоку','Салон','Багажник'].filter(function(_,i){ return !taxiPhotos[i]; });
+    if(missing.length) { alert('Добавьте фото: ' + missing.join(', ')); return; }
+    if(!document.getElementById('taxiExtinguisher').checked) { alert('Подтвердите наличие огнетушителя'); return; }
+    if(!document.getElementById('taxiKit').checked) { alert('Подтвердите наличие аптечки'); return; }
+    // build description from taxi fields
+    var carDesc = document.getElementById('taxiCar').value.trim();
+    var existDesc = document.getElementById('qpDesc').value.trim();
+    if(carDesc && !existDesc) document.getElementById('qpDesc').value = carDesc;
+    uploadedPhotos = taxiPhotos.slice();
+  }
   // determine final category
   var hint = document.getElementById('qpAiHint');
   var finalCat = (hint && hint.style.display!=='none' && hint.dataset.suggestedCat) ? hint.dataset.suggestedCat : (currentCategory||'Товары');
