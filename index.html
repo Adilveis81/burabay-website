@@ -3976,6 +3976,7 @@ function openPostModal() {
 
 function closePostModal() {
   document.getElementById('postModal').classList.remove('open');
+  setTimeout(renderAds, 50); // re-apply grid columns after keyboard dismisses
 }
 
 function selectPostCat(el) {
