@@ -2848,8 +2848,25 @@ function openCt(id){
   var a=ADS.find(function(x){return x.id===id});
   document.getElementById('ctName').textContent=a.title;
   var html='';
-  if(a.phone) html+='<div class="ct-row"><i class="ti ti-phone" style="color:'+a.catColor+'"></i><div><div class="ct-lbl">Телефон</div><div class="ct-val">+'+a.phone+'</div></div></div>';
-  else html='<p style="color:var(--text2);font-size:13px;padding:12px 0">Нажмите WhatsApp или позвоните напрямую</p>';
+  if(a.phone){
+    var ph=String(a.phone).replace(/\D/g,'');
+    if(ph.length>=10 && ph[0]!=='7') ph='7'+ph;
+    var telHref='tel:+'+ph;
+    var waHref='https://wa.me/'+ph+'?text='+encodeURIComponent('Здравствуйте, меня интересует ваше объявление «'+a.title+'»');
+    html+=
+      '<div class="ct-row"><i class="ti ti-phone" style="color:'+a.catColor+'"></i>'
+        +'<div><div class="ct-lbl">Телефон</div><div class="ct-val">+'+ph+'</div></div></div>'
+      +'<div style="display:flex;gap:10px;margin-top:16px">'
+        +'<a href="'+telHref+'" style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;'
+          +'background:'+a.catColor+';color:#fff;border-radius:var(--radius-lg);padding:12px 0;font-size:15px;'
+          +'font-weight:700;text-decoration:none"><i class="ti ti-phone"></i> Позвонить</a>'
+        +'<a href="'+waHref+'" target="_blank" style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;'
+          +'background:#25D366;color:#fff;border-radius:var(--radius-lg);padding:12px 0;font-size:15px;'
+          +'font-weight:700;text-decoration:none"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>'
+      +'</div>';
+  } else {
+    html='<p style="color:var(--text2);font-size:13px;padding:12px 0;text-align:center">Продавец не указал номер телефона</p>';
+  }
   document.getElementById('ctBody').innerHTML=html;
   document.getElementById('ctModal').classList.add('open');
 }
