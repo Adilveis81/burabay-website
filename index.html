@@ -414,7 +414,23 @@ nav{
 @media(max-width:1200px){.nav-city{display:none!important}}
 @media(max-width:1100px){.nav-links a span{display:none}.nav-links a{padding:8px 9px;gap:0}}
 @media(max-width:768px){.nav-support span{display:none}.nav-support{padding:7px 9px;min-width:unset}}
-@media(max-width:640px){.nav-support{display:none}.nav-auth-btn{font-size:11px;padding:6px 10px}.nav-post{font-size:12px!important;padding-top:7px!important;padding-bottom:7px!important}}
+@media(max-width:640px){
+  /* Logo smaller */
+  .logo{font-size:13px!important}
+  .logo sup{font-size:8px;padding:1px 3px}
+  /* Nav inner tighter */
+  .nav-i{height:46px;gap:3px;padding:0 8px}
+  .nav-right{gap:3px}
+  /* Theme btn */
+  .theme-btn{font-size:16px;padding:4px 5px}
+  /* Lang dropdown compact */
+  .lang-current{padding:4px 6px;font-size:11px;gap:2px}
+  /* Auth btn — icon only */
+  .nav-auth-btn{padding:6px 8px;font-size:11px}
+  .nav-auth-btn #navAuthTxt{display:none}
+  /* nav-support — keep icon, no text (already hidden at 768) */
+  .nav-support{display:flex!important;padding:6px 7px;box-shadow:inset 0 1px 2px rgba(255,255,255,.4),inset 0 -1px 2px rgba(0,0,0,.10),0 2px 0 var(--g-dark),0 3px 8px rgba(0,0,0,.14)}
+}
 .nav-post{background:var(--o);color:#fff;border:none;border-radius:var(--radius);padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap}
 .nav-post:hover{background:var(--o2)}
 .hamburger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text)}
@@ -1024,15 +1040,18 @@ footer{background:#1A1A1A;color:#fff;padding:28px 20px;margin-top:40px}
   .nav-search{display:none}
   .hamburger{display:block}
   .nav-city{display:none}
-  .nav-links{display:none}
+  /* show nav-links on mobile, but only FAQ + Services; hide Ads+Taxi (they're in hamburger) */
+  .nav-links{display:flex;gap:3px;margin-left:0}
+  .nav-links a[data-section="ads"],.nav-links a.taxi-link{display:none!important}
+  .nav-links a{padding:6px 7px!important;gap:0!important}
+  .nav-links a span{display:none!important}
   /* Hero — full width, single column, no side gaps */
   .hero{padding:8px 8px 0!important;max-width:100%!important}
   .hero-grid{grid-template-columns:1fr!important;gap:8px!important}
   .hero-main{grid-column:1!important;grid-row:auto!important}
-  .hero-stats-card,.hero-taxi,.hero-free{min-height:auto!important;grid-column:auto!important;grid-row:auto!important}
+  .hero-taxi,.hero-free{min-height:auto!important;grid-column:auto!important;grid-row:auto!important}
   [data-cols="2"] .hero-grid,[data-cols="3"] .hero-grid,[data-cols="4"] .hero-grid{grid-template-columns:1fr!important}
   [data-cols="2"] .hero-main,[data-cols="3"] .hero-main,[data-cols="4"] .hero-main{grid-column:1!important;grid-row:auto!important}
-  [data-cols="2"] .hero-stats-card,[data-cols="3"] .hero-stats-card,[data-cols="4"] .hero-stats-card,
   [data-cols="2"] .hero-taxi,[data-cols="3"] .hero-taxi,[data-cols="4"] .hero-taxi,
   [data-cols="2"] .hero-free,[data-cols="3"] .hero-free,[data-cols="4"] .hero-free{grid-column:auto!important;grid-row:auto!important}
   .hero-main h1{font-size:24px}
