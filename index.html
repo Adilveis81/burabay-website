@@ -1889,6 +1889,19 @@ html[data-theme="dark"]{
   </div>
 </div>
 
+<!-- DELETE CONFIRM MODAL -->
+<div class="modal-ov" id="deleteModal" onclick="if(event.target===this)closeDeleteModal()">
+  <div class="modal-box" style="max-width:380px;text-align:center;padding:32px 28px">
+    <div style="font-size:52px;margin-bottom:14px">🗑️</div>
+    <h3 style="font-size:18px;font-weight:800;margin-bottom:10px;color:var(--text)">Удалить объявление?</h3>
+    <p style="font-size:14px;color:var(--text3);margin-bottom:24px;line-height:1.55">Вы уверены, что хотите удалить это объявление?<br>Денежные средства, уплаченные за объявление, не возвращаются.</p>
+    <div style="display:flex;gap:10px">
+      <button class="edit-cancel-btn" style="flex:1;padding:12px 0;font-size:14px" onclick="closeDeleteModal()">Отмена</button>
+      <button onclick="executeDeleteAd()" style="flex:1;background:#C62828;color:#fff;border:none;border-radius:var(--radius-lg);padding:12px 0;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(198,40,40,0.3)"><i class="ti ti-trash" style="font-size:14px;margin-right:5px"></i>Удалить</button>
+    </div>
+  </div>
+</div>
+
 <!-- AUTH MODAL -->
 <div class="modal-ov" id="authModal" onclick="if(event.target===this)closeAuthModal()">
   <div class="auth-modal-box">
@@ -2684,7 +2697,12 @@ function renderAds(){
       var wa = a.phone ? '<a href="https://wa.me/'+a.phone+'" target="_blank" class="btn-wa-s"><i class="ti ti-brand-whatsapp" style="font-size:16px"></i></a>' : '';
       var imgH = currentCols===4 ? '120px' : '160px';
       var emojiSz = currentCols===4 ? '28px' : '40px';
-      var editBtn = a.own ? '<button class="ad-fav" style="background:var(--b);color:#fff;border-color:var(--b)" onclick="openEdit('+a.id+');event.stopPropagation()" title="'+T.edit+'"><i class="ti ti-pencil" style="font-size:13px"></i></button>' : '<button class="ad-fav" onclick="this.classList.toggle(\'on\')"><i class="ti ti-heart"></i></button>';
+      var editBtn = a.own
+        ? '<div style="position:absolute;top:7px;right:7px;display:flex;gap:4px">'
+          +'<button class="ad-fav" style="position:static;background:var(--b);color:#fff;border-color:var(--b)" onclick="openEdit('+a.id+');event.stopPropagation()" title="'+T.edit+'"><i class="ti ti-pencil" style="font-size:13px"></i></button>'
+          +'<button class="ad-fav" style="position:static;background:#C62828;color:#fff;border-color:#C62828" onclick="confirmDeleteAd('+a.id+');event.stopPropagation()" title="Удалить"><i class="ti ti-trash" style="font-size:13px"></i></button>'
+          +'</div>'
+        : '<button class="ad-fav" onclick="this.classList.toggle(\'on\')"><i class="ti ti-heart"></i></button>';
       var adPhotos = a.photos || [];
       if(typeof adPhotos === 'string'){try{adPhotos=JSON.parse(adPhotos);}catch(e){adPhotos=[];}}
       var imgDiv = adPhotos.length > 0
@@ -2700,7 +2718,9 @@ function renderAds(){
         +'<div class="ad-title">'+a.title+'</div>'
         +'<div class="ad-foot"><span><i class="ti ti-map-pin" style="font-size:11px;margin-right:2px"></i>'+a.city+'</span><span>'+a.age+'</span></div>'
         +'<div class="ad-actions">'
-        +(a.own ? '<button class="btn-call" style="background:var(--b)" onclick="openEdit('+a.id+')"><i class="ti ti-pencil"></i><span>'+T.edit+'</span></button>'
+        +(a.own
+          ? '<button class="btn-call" style="background:var(--b);flex:1" onclick="openEdit('+a.id+')"><i class="ti ti-pencil"></i><span>'+T.edit+'</span></button>'
+            +'<button class="btn-call" style="background:#C62828;padding:7px 10px;flex:0 0 auto" onclick="confirmDeleteAd('+a.id+')" title="Удалить"><i class="ti ti-trash" style="font-size:14px"></i></button>'
           : '<button class="btn-call" style="background:'+a.catColor+'" onclick="openCt('+a.id+')"><i class="ti ti-phone"></i><span>'+T.call+'</span></button>')
         +wa
         +'</div></div></div>';
@@ -3116,6 +3136,36 @@ function openEdit(id){
   document.getElementById('editModal').classList.add('open');
 }
 document.getElementById('editModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open')});
+
+// ── DELETE AD ─────────────────────────────────────────────────────
+var _deleteAdId = null;
+
+function confirmDeleteAd(id) {
+  _deleteAdId = id;
+  document.getElementById('deleteModal').classList.add('open');
+}
+
+function closeDeleteModal() {
+  document.getElementById('deleteModal').classList.remove('open');
+  _deleteAdId = null;
+}
+
+function executeDeleteAd() {
+  var id = _deleteAdId;
+  if (!id) return;
+  var a = ADS.find(function(x){ return x.id === id; });
+  if (!a) { closeDeleteModal(); return; }
+  // Delete from Supabase
+  if (a.fromDb && a.dbId && _sb && currentUser) {
+    _sb.from('ads').delete().eq('id', a.dbId).then(function(res){
+      if (res.error) console.warn('Delete error:', res.error.message);
+    });
+  }
+  // Remove from local array and re-render
+  ADS = ADS.filter(function(x){ return x.id !== id; });
+  closeDeleteModal();
+  renderAds();
+}
 
 // ── APP WAITLIST ───────────────────────────────────────────────
 function submitWaitlist(){
