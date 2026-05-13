@@ -2101,11 +2101,71 @@ html[data-theme="dark"]{
           </div>
         </div>
 
-        <div class="post-field">
+        <div id="stdPhotoField" class="post-field">
           <label data-i18n="postPhotosLabel">Фотографии (до 5)</label>
           <input type="file" id="photoFileInput" accept="image/*" multiple style="display:none" onchange="handlePhotoUpload(this)">
           <div class="post-photo-grid" id="photoPreviewGrid">
             <div class="post-photo-slot" id="photoAddBtn" onclick="document.getElementById('photoFileInput').click()"><span style="font-size:24px">📷</span><span class="ps-add">+ фото</span></div>
+          </div>
+        </div>
+
+        <!-- Taxi fields shown when Такси category selected -->
+        <div id="postTaxiFields" style="display:none">
+          <div style="display:inline-flex;align-items:center;gap:6px;background:var(--y);color:#1A1A1A;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:800;margin-bottom:12px">🚗 Только Межгород</div>
+          <div class="post-row" style="margin-bottom:0">
+            <div class="post-field">
+              <label>Откуда</label>
+              <input type="text" id="postTaxiFrom" placeholder="Бурабай" list="postTaxiCityList" oninput="updatePostTaxiTitle()">
+            </div>
+            <div class="post-field">
+              <label>Куда</label>
+              <input type="text" id="postTaxiTo" placeholder="Астана" list="postTaxiCityList" oninput="updatePostTaxiTitle()">
+            </div>
+          </div>
+          <datalist id="postTaxiCityList">
+            <option value="Астана"><option value="Алматы"><option value="Шымкент"><option value="Актобе">
+            <option value="Бурабай"><option value="Кокшетау"><option value="Петропавловск"><option value="Павлодар">
+            <option value="Усть-Каменогорск"><option value="Семей"><option value="Атырау"><option value="Актау">
+            <option value="Тараз"><option value="Туркестан"><option value="Костанай"><option value="Уральск">
+            <option value="Кызылорда"><option value="Талдыкорган"><option value="Экибастуз"><option value="Темиртау">
+          </datalist>
+          <div class="post-field">
+            <label>Описание авто</label>
+            <input type="text" id="postTaxiCar" placeholder="Например: Toyota Camry 2021, белый">
+          </div>
+          <div class="post-field">
+            <label>Фото авто <span style="color:var(--o);font-size:11px">(все 4 обязательны)</span></label>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px">
+              <div id="ptSlot0" onclick="document.getElementById('ptFile0').click()" style="cursor:pointer;border:2px dashed #ccc;border-radius:10px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;color:#888;gap:3px;background:#fafafa;overflow:hidden">
+                <span style="font-size:20px">📷</span><span>Спереди</span>
+                <input type="file" id="ptFile0" accept="image/*" style="display:none" onchange="handlePostTaxiPhoto(0,this)">
+              </div>
+              <div id="ptSlot1" onclick="document.getElementById('ptFile1').click()" style="cursor:pointer;border:2px dashed #ccc;border-radius:10px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;color:#888;gap:3px;background:#fafafa;overflow:hidden">
+                <span style="font-size:20px">📷</span><span>Сбоку</span>
+                <input type="file" id="ptFile1" accept="image/*" style="display:none" onchange="handlePostTaxiPhoto(1,this)">
+              </div>
+              <div id="ptSlot2" onclick="document.getElementById('ptFile2').click()" style="cursor:pointer;border:2px dashed #ccc;border-radius:10px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;color:#888;gap:3px;background:#fafafa;overflow:hidden">
+                <span style="font-size:20px">📷</span><span>Салон</span>
+                <input type="file" id="ptFile2" accept="image/*" style="display:none" onchange="handlePostTaxiPhoto(2,this)">
+              </div>
+              <div id="ptSlot3" onclick="document.getElementById('ptFile3').click()" style="cursor:pointer;border:2px dashed #ccc;border-radius:10px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;color:#888;gap:3px;background:#fafafa;overflow:hidden">
+                <span style="font-size:20px">📷</span><span>Багажник</span>
+                <input type="file" id="ptFile3" accept="image/*" style="display:none" onchange="handlePostTaxiPhoto(3,this)">
+              </div>
+            </div>
+          </div>
+          <div class="post-field">
+            <label>Безопасность</label>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+              <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer">
+                <input type="checkbox" id="postTaxiExtinguisher" style="width:18px;height:18px;cursor:pointer">
+                <span>🧯 Огнетушитель имеется</span>
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer">
+                <input type="checkbox" id="postTaxiKit" style="width:18px;height:18px;cursor:pointer">
+                <span>🩺 Аптечка имеется</span>
+              </label>
+            </div>
           </div>
         </div>
 
@@ -2671,6 +2731,31 @@ function autoDetectCategory(val){
 
 
 var taxiPhotos = [null, null, null, null];
+var postTaxiPhotos = [null, null, null, null];
+
+function handlePostTaxiPhoto(idx, input) {
+  if(!input.files || !input.files[0]) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    postTaxiPhotos[idx] = e.target.result;
+    var slot = document.getElementById('ptSlot'+idx);
+    if(slot) {
+      slot.style.backgroundImage = 'url('+e.target.result+')';
+      slot.style.backgroundSize = 'cover';
+      slot.style.backgroundPosition = 'center';
+      slot.style.border = '2px solid #4CAF50';
+      slot.querySelectorAll('span').forEach(function(s){ s.style.display='none'; });
+    }
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function updatePostTaxiTitle() {
+  var from = (document.getElementById('postTaxiFrom')||{value:''}).value.trim();
+  var to = (document.getElementById('postTaxiTo')||{value:''}).value.trim();
+  var ti = document.getElementById('postTitle');
+  if(ti && from && to) ti.value = 'Такси ' + from + ' → ' + to;
+}
 
 function handleTaxiPhoto(idx, input) {
   if (!input.files || !input.files[0]) return;
@@ -3884,6 +3969,12 @@ function selectPostCat(el) {
   document.querySelectorAll('.post-cat-item').forEach(function(x) { x.classList.remove('selected'); });
   el.classList.add('selected');
   _selectedPostCat = { cat: el.dataset.cat, color: el.dataset.catColor, label: el.querySelector('span.pci').nextSibling.textContent.trim() };
+  var isTaxi = el.dataset.cat === 'taxi';
+  var ptf = document.getElementById('postTaxiFields');
+  var spf = document.getElementById('stdPhotoField');
+  if(ptf) ptf.style.display = isTaxi ? '' : 'none';
+  if(spf) spf.style.display = isTaxi ? 'none' : '';
+  if(isTaxi) { postTaxiPhotos = [null,null,null,null]; }
 }
 
 var CAT_EMOJIS = {auto:'🚗',realty:'🏠',elec:'📱',work:'💼',serv:'🔧',taxi:'🚖',kids:'🧸',sport:'🏋️',furn:'🛋️',pet:'🐾',food:'🌿',free:'🎁'};
@@ -3900,6 +3991,18 @@ async function submitPostAd() {
 
   if (!_selectedPostCat) { alert('Выберите категорию'); return; }
   if (!title) { alert('Введите заголовок'); return; }
+
+  // Taxi-specific validation
+  if(_selectedPostCat.cat === 'taxi') {
+    var ptFrom = (document.getElementById('postTaxiFrom')||{value:''}).value.trim();
+    var ptTo = (document.getElementById('postTaxiTo')||{value:''}).value.trim();
+    if(!ptFrom || !ptTo) { alert('Укажите откуда и куда'); return; }
+    var missingPt = ['Спереди','Сбоку','Салон','Багажник'].filter(function(_,i){ return !postTaxiPhotos[i]; });
+    if(missingPt.length) { alert('Добавьте фото: ' + missingPt.join(', ')); return; }
+    if(!document.getElementById('postTaxiExtinguisher').checked) { alert('Необходимо подтвердить наличие огнетушителя'); return; }
+    if(!document.getElementById('postTaxiKit').checked) { alert('Необходимо подтвердить наличие аптечки'); return; }
+    uploadedPhotos = postTaxiPhotos.slice();
+  }
 
   // Moderation check via Claude Haiku
   var submitBtn = document.querySelector('.post-submit');

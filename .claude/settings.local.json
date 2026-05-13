@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 *)",
+      "Bash(git config *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git branch *)",
+      "Bash(git remote *)",
+      "Bash(git push *)",
+      "Bash(gh auth *)",
+      "Bash(brew install *)",
+      "Bash(vercel --version)",
+      "Bash(npm install *)",
+      "Bash(git *)",
+      "mcp__plugin_vercel_vercel__deploy_to_vercel",
+      "Bash(vercel deploy *)",
+      "Bash(vercel *)",
+      "Bash(node *)"
+    ]
+  }
+}
