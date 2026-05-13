@@ -2001,6 +2001,11 @@ html[data-theme="dark"]{
         </div>
 
         <div class="post-field">
+          <label data-i18n="postPhoneLabel">Телефон</label>
+          <input type="tel" id="postPhone" placeholder="77001234567" data-i18n-ph="postPhonePh">
+        </div>
+
+        <div class="post-field">
           <label data-i18n="postPhotosLabel">Фотографии (до 5)</label>
           <input type="file" id="photoFileInput" accept="image/*" multiple style="display:none" onchange="handlePhotoUpload(this)">
           <div class="post-photo-grid" id="photoPreviewGrid">
@@ -3565,12 +3570,13 @@ function submitPostAd() {
   var desc = document.getElementById('postDesc').value.trim();
   var price = parseInt(document.getElementById('postPrice').value) || 0;
   var city = document.getElementById('postCity').value.trim() || 'Казахстан';
+  var phone = document.getElementById('postPhone').value.trim().replace(/\D/g,'');
 
   if (!_selectedPostCat) { alert('Выберите категорию'); return; }
   if (!title) { alert('Введите заголовок'); return; }
 
   // Optimistically add to local list right away
-  addNewAdLocally(title, desc, price, city, '');
+  addNewAdLocally(title, desc, price, city, phone);
 
   if (_sb && currentUser) {
     _sb.from('ads').insert([{
@@ -3578,6 +3584,7 @@ function submitPostAd() {
       description: desc,
       price: price,
       city: city,
+      phone: phone,
       cat: _selectedPostCat.cat,
       cat_label: _selectedPostCat.label,
       cat_color: _selectedPostCat.color,
