@@ -1875,6 +1875,10 @@ html[data-theme="dark"]{
         <input type="text" id="editPrice" placeholder="0">
       </div>
       <div class="edit-field">
+        <label>Телефон</label>
+        <input type="tel" id="editPhone" placeholder="77001234567">
+      </div>
+      <div class="edit-field">
         <label data-i18n="photos">Фотографии</label>
         <div class="edit-photo-row">
           <div class="edit-photo-thumb">📷</div>
@@ -1886,7 +1890,7 @@ html[data-theme="dark"]{
     </div>
     <div class="edit-modal-footer">
       <button class="edit-cancel-btn" onclick="document.getElementById('editModal').classList.remove('open')" data-i18n="cancel">Отмена</button>
-      <button class="edit-save-btn" data-i18n="saveChanges">💾 Сохранить изменения</button>
+      <button class="edit-save-btn" onclick="saveEdit()" data-i18n="saveChanges">💾 Сохранить изменения</button>
     </div>
   </div>
 </div>
@@ -3210,13 +3214,46 @@ function setLang(lang){
 }
 
 // ── EDIT AD ───────────────────────────────────────────────────
+var _editAdId = null;
+
 function openEdit(id){
   var a = ADS.find(function(x){return x.id===id});
   if(!a) return;
+  _editAdId = id;
   document.getElementById('editTitle').value = a.title||'';
   document.getElementById('editDesc').value = a.description||'';
   document.getElementById('editPrice').value = a.price||'';
+  document.getElementById('editPhone').value = a.phone||'';
   document.getElementById('editModal').classList.add('open');
+}
+
+function saveEdit(){
+  var a = ADS.find(function(x){return x.id===_editAdId});
+  if(!a) return;
+  var title = document.getElementById('editTitle').value.trim();
+  var desc  = document.getElementById('editDesc').value.trim();
+  var price = parseInt(document.getElementById('editPrice').value)||0;
+  var phone = document.getElementById('editPhone').value.trim().replace(/\D/g,'');
+  if(!title){ document.getElementById('editTitle').focus(); return; }
+
+  // Update local
+  a.title = title;
+  a.description = desc;
+  a.price = price;
+  a.phone = phone;
+
+  // Update Supabase
+  if(a.fromDb && a.dbId && _sb && window.currentUser){
+    _sb.from('ads').update({title:title, description:desc, price:price, phone:phone})
+      .eq('id', a.dbId)
+      .then(function(res){
+        if(res.error) console.warn('Edit save error:', res.error.message);
+      });
+  }
+
+  document.getElementById('editModal').classList.remove('open');
+  _editAdId = null;
+  renderAds();
 }
 document.getElementById('editModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open')});
 
