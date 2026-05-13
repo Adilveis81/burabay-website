@@ -3,10 +3,14 @@
 // • +7XXXXXXXXXX      → save phone, confirm
 // • any other text    → Claude Haiku (5 msg/hour per user)
 
-const BOT_TOKEN = '8695550788:AAGHe6IfJBAtrD6FbGLet7_Rk6m7A9yCh7s';
-const TG_API    = 'https://api.telegram.org/bot' + BOT_TOKEN;
-const SB_URL    = 'https://duscyiyxfmsriyhwlbqx.supabase.co';
-const SB_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
+const BOT_TOKEN   = '8695550788:AAGHe6IfJBAtrD6FbGLet7_Rk6m7A9yCh7s';
+const TG_API      = 'https://api.telegram.org/bot' + BOT_TOKEN;
+const SB_URL      = 'https://duscyiyxfmsriyhwlbqx.supabase.co';
+const SB_KEY      = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
+
+// Admin notification — old bot → your personal chat
+const ADMIN_BOT   = '8656447295:AAFHpvCGKjhSeqXS9DPAjeRd7pkyf7krtSs';
+const ADMIN_CHAT  = '1162752434';
 
 const CHAT_LIMIT  = 5;
 const HOUR_MS     = 60 * 60 * 1000;
@@ -131,6 +135,17 @@ module.exports = async function handler(req, res) {
       'Теперь при размещении объявления на alsat\\.asia вы получите уведомление здесь\\.\n\n' +
       '💬 Если есть вопросы — просто напишите мне\\!'
     );
+    // Notify admin via old bot
+    const tgLink = username ? '@' + username : 'chat_id: ' + chat_id;
+    fetch('https://api.telegram.org/bot' + ADMIN_BOT + '/sendMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: ADMIN_CHAT,
+        text: '📲 Новый пользователь подключился к боту Алсат!\n\n📞 Телефон: +' + phone + '\n👤 Telegram: ' + tgLink,
+        parse_mode: 'Markdown'
+      })
+    }).catch(() => {});
     return res.status(200).json({ ok: true });
   }
 
