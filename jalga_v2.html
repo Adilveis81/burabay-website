@@ -2685,8 +2685,13 @@ function renderAds(){
       var imgH = currentCols===4 ? '120px' : '160px';
       var emojiSz = currentCols===4 ? '28px' : '40px';
       var editBtn = a.own ? '<button class="ad-fav" style="background:var(--b);color:#fff;border-color:var(--b)" onclick="openEdit('+a.id+');event.stopPropagation()" title="'+T.edit+'"><i class="ti ti-pencil" style="font-size:13px"></i></button>' : '<button class="ad-fav" onclick="this.classList.toggle(\'on\')"><i class="ti ti-heart"></i></button>';
+      var adPhotos = a.photos || [];
+      if(typeof adPhotos === 'string'){try{adPhotos=JSON.parse(adPhotos);}catch(e){adPhotos=[];}}
+      var imgDiv = adPhotos.length > 0
+        ? '<div class="ad-img" style="background-image:url('+adPhotos[0]+');background-size:cover;background-position:center;height:'+imgH+'">'
+        : '<div class="ad-img" style="background:'+a.bg+';height:'+imgH+';font-size:'+emojiSz+'">'+a.emoji;
       return '<div class="ad-card">'
-        +'<div class="ad-img" style="background:'+a.bg+';height:'+imgH+';font-size:'+emojiSz+'">'+a.emoji
+        +imgDiv
         +'<div class="ad-cat-badge" style="background:'+a.catColor+'">'+a.catLabel+'</div>'
         +badgeHTML
         +editBtn+'</div>'
@@ -3140,6 +3145,48 @@ document.querySelectorAll('.taxi-tab').forEach(function(tab){
 document.documentElement.dataset.cols = '3';
 renderAds();
 
+// ── LOAD REAL ADS FROM SUPABASE ──────────────────────────────────
+(function loadRealAds(){
+  var SURL = 'https://duscyiyxfmsriyhwlbqx.supabase.co';
+  var SKEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
+  fetch(SURL + '/rest/v1/ads?select=*&status=eq.active&order=created_at.desc', {
+    headers: { 'apikey': SKEY, 'Authorization': 'Bearer ' + SKEY }
+  }).then(function(r){ return r.json(); })
+  .then(function(rows){
+    if(!Array.isArray(rows) || rows.length === 0) return;
+    var now = Date.now();
+    var realAds = rows.map(function(r){
+      var photos = [];
+      try { if(r.photos) photos = JSON.parse(r.photos); } catch(e){}
+      var ms = new Date(r.created_at).getTime();
+      var diff = Math.floor((now - ms) / 60000);
+      var age = diff < 1 ? 'только что' : diff < 60 ? diff + ' мин назад' : diff < 1440 ? Math.floor(diff/60) + ' ч назад' : Math.floor(diff/1440) + ' дн назад';
+      return {
+        id: r.id, dbId: r.id,
+        cat: r.cat, catColor: r.cat_color, catLabel: r.cat_label,
+        bg: r.bg || CAT_BG[r.cat] || '#F5F5F5',
+        title: r.title, description: r.description,
+        price: r.price || 0, city: r.city || '', phone: r.phone || '',
+        age: age, badge: r.badge || 'new',
+        emoji: r.emoji || CAT_EMOJIS[r.cat] || '📦',
+        photos: photos, userId: r.user_id, fromDb: true,
+      };
+    });
+    // Prepend real ads, keep placeholders at end
+    var placeholders = ADS.filter(function(a){ return a.placeholder; });
+    var demoAds = ADS.filter(function(a){ return !a.placeholder && !a.fromDb; });
+    ADS = realAds.concat(demoAds).concat(placeholders);
+    // Mark own ads after auth resolves
+    setTimeout(function(){
+      if(window.currentUser){
+        ADS.forEach(function(a){ if(a.fromDb) a.own = (a.userId === window.currentUser.id); });
+      }
+      renderAds();
+    }, 800);
+    renderAds();
+  }).catch(function(e){ console.warn('loadRealAds error:', e); });
+})();
+
 // ── REAL ADS COUNT FROM SUPABASE ──────────────────────────────
 (function fetchRealAdsCount(){
   var SURL = 'https://duscyiyxfmsriyhwlbqx.supabase.co';
@@ -3369,6 +3416,7 @@ function submitPostAd() {
       badge: 'new',
       status: 'active',
       user_id: currentUser.id,
+      photos: uploadedPhotos.length > 0 ? JSON.stringify(uploadedPhotos) : null,
     }]).then(function(res) {
       if (res.error) console.warn('Supabase insert error:', res.error.message);
     });
@@ -3394,6 +3442,7 @@ function addNewAdLocally(title, desc, price, city, phone) {
     age: 'только что',
     badge: 'new',
     emoji: CAT_EMOJIS[cat.cat] || '📦',
+    photos: uploadedPhotos.slice(),
     own: true,
   });
   renderAds();
