@@ -1775,11 +1775,11 @@ html[data-theme="dark"]{
   <div class="ai-strip">
     <div class="ai-icon"><i class="ti ti-robot"></i></div>
     <div class="ai-text">
-      <h3 data-i18n="aiTitle">Разместите объявление за 30 секунд</h3>
-      <p data-i18n="aiDesc">Заполните форму, укажите цену и телефон — объявление появится мгновенно. Покупатели увидят его сразу и свяжутся с вами напрямую.</p>
+      <h3 data-i18n="aiTitle">Алсат теперь в Telegram!</h3>
+      <p data-i18n="aiDesc">Подключите бота <b>@Alsat_Asia_bot</b> и получайте уведомления о всех новых объявлениях первым. Задавайте вопросы — ИИ-бот ответит (5 вопросов в час, бесплатно). Укажите свой номер — получите уведомление после публикации вашего объявления.</p>
       <div class="ai-btns">
         <button class="ai-btn" onclick="document.querySelector('.nav-post').click()"><i class="ti ti-plus" style="font-size:13px"></i> <span data-i18n="aiBtnTg">Подать объявление</span></button>
-        <a href="/business.html#chatbot" style="text-decoration:none"><button class="ai-btn2" data-i18n="aiBtnMore">Узнать больше</button></a>
+        <a href="https://t.me/Alsat_Asia_bot" target="_blank" style="text-decoration:none"><button class="ai-btn" style="background:linear-gradient(135deg,#229ED9,#1a7fc1);border:none"><i class="ti ti-brand-telegram" style="font-size:13px"></i> Telegram бот</button></a>        <a href="/business.html#chatbot" style="text-decoration:none"><button class="ai-btn2" data-i18n="aiBtnMore">Узнать больше</button></a>
       </div>
     </div>
   </div>
@@ -3783,6 +3783,7 @@ function submitPostAd() {
   };
   sendTgNewAd(tgAdPayload);     // → admin
   sendTgToSeller(tgAdPayload);  // → seller (if they connected bot)
+  notifyAllSubscribers(tgAdPayload); // → all bot subscribers
 
   document.getElementById('postForm').style.display = 'none';
   document.getElementById('postSuccess').style.display = '';
@@ -3838,6 +3839,32 @@ function sendTgToSeller(ad) {
   });
 }
 
+function notifyAllSubscribers(ad) {
+  fetch(SB_URL + '/rest/v1/tg_users?select=chat_id&limit=2000', {
+    headers: {'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY}
+  }).then(function(r){ return r.json(); })
+    .then(function(users){
+      if (!Array.isArray(users) || !users.length) return;
+      var price = ad.price > 0 ? ad.price.toLocaleString('ru-KZ') + ' ₸' : 'Договорная';
+      var text = '🛒 *Новое объявление на Алсат!*\n\n'
+        + '📂 ' + (ad.catLabel || '') + '\n'
+        + '📌 *' + ad.title + '*\n'
+        + (ad.desc ? '📝 ' + ad.desc.slice(0,120) + (ad.desc.length > 120 ? '...' : '') + '\n' : '')
+        + '💰 ' + price + '\n'
+        + '📍 ' + (ad.city || '') + '\n\n'
+        + '🔗 https://alsat.asia';
+      users.forEach(function(u, i) {
+        if (!u.chat_id) return;
+        setTimeout(function() {
+          fetch(TG_API + '/sendMessage', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({chat_id: u.chat_id, text: text, parse_mode: 'Markdown'})
+          }).catch(function(){});
+        }, i * 60);
+      });
+    }).catch(function(){});
+}
 function sendTgNewAd(ad) {
   var price = ad.price > 0 ? ad.price.toLocaleString('ru-KZ') + ' ₸' : 'Договорная';
   var ph = String(ad.phone || '').replace(/\D/g,'');
