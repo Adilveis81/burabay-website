@@ -254,24 +254,31 @@ nav{
   box-shadow:inset 0 1px 0 rgba(255,255,255,0.80),0 2px 16px rgba(10,20,80,0.18);
   position:sticky;top:0;z-index:200
 }
-.nav-i{max-width:1280px;margin:0 auto;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px}
-.logo{font-size:22px;font-weight:800;color:var(--o);letter-spacing:-.5px}
-.logo sup{font-size:10px;background:var(--o);color:#fff;padding:1px 5px;border-radius:6px;margin-left:2px;font-weight:700;vertical-align:super}
-.nav-search{flex:1;max-width:480px;display:flex;border:1.5px solid var(--border2);border-radius:var(--radius);overflow:hidden;background:var(--bg)}
+.nav-i{max-width:1280px;margin:0 auto;padding:0 16px;height:56px;display:flex;align-items:center;gap:8px}
+.logo{font-size:16px;font-weight:800;color:var(--o);letter-spacing:-.5px;flex-shrink:0}
+.logo sup{font-size:9px;background:var(--o);color:#fff;padding:1px 4px;border-radius:5px;margin-left:2px;font-weight:700;vertical-align:super}
+.nav-search{flex:1;max-width:320px;display:flex;border:1.5px solid var(--border2);border-radius:var(--radius);overflow:hidden;background:var(--bg)}
 .nav-search input{flex:1;padding:8px 14px;font-size:16px;border:none;outline:none;background:transparent;color:var(--text)}
 .nav-search button{background:var(--o);color:#fff;border:none;padding:0 18px;cursor:pointer;font-size:20px}
-.nav-links{display:flex;gap:2px;margin-left:8px}
-.nav-links a{font-size:15px;color:var(--text2);padding:6px 10px;border-radius:var(--radius);font-weight:500;white-space:nowrap;display:flex;align-items:center;gap:4px;position:relative;transition:.15s}
-.nav-links a::after{content:'';position:absolute;bottom:-1px;left:10px;right:10px;height:2px;border-radius:2px;background:transparent;transition:.2s}
-.nav-links a:hover{background:var(--bg);color:var(--text)}
-.nav-links a.nav-active{color:var(--o);font-weight:700;background:var(--o-bg)}
-.nav-links a.nav-active::after{background:var(--o)}
-.nav-links a.taxi-link.nav-active{color:var(--t);background:var(--t-bg)}
-.nav-links a.taxi-link.nav-active::after{background:var(--t)}
-.nav-links a.services-link{color:var(--pu);font-weight:700}
-.nav-links a.services-link:hover{background:var(--pu-bg)}
-.nav-links a.services-link.nav-active{color:var(--pu);background:var(--pu-bg)}
-.nav-links a.services-link.nav-active::after{background:var(--pu)}
+.nav-links{display:flex;gap:5px;margin-left:4px;flex-shrink:0}
+.nav-links a{font-size:12px;font-weight:700;padding:8px 10px;border-radius:999px;white-space:nowrap;display:flex;align-items:center;gap:4px;position:relative;transition:transform .1s ease,box-shadow .1s ease;color:#fff!important;text-shadow:0 1px 2px rgba(0,0,0,.28);text-decoration:none}
+.nav-links a::after{display:none}
+/* Объявления — blue */
+.nav-links a[data-section="ads"]{background:linear-gradient(to bottom,rgba(255,255,255,.50) 0%,rgba(255,255,255,0) 52%,rgba(0,0,0,.10) 100%),linear-gradient(160deg,var(--b2) 0%,var(--b) 100%);border:1px solid rgba(130,180,255,.4);box-shadow:inset 0 2px 3px rgba(255,255,255,.60),inset 0 -2px 3px rgba(0,0,0,.12),0 4px 0 var(--b-dark),0 5px 14px rgba(0,0,0,.18)}
+.nav-links a[data-section="ads"]:hover{transform:translateY(-1px);box-shadow:inset 0 2px 3px rgba(255,255,255,.65),inset 0 -2px 3px rgba(0,0,0,.10),0 5px 0 var(--b-dark),0 7px 18px rgba(0,0,0,.22)}
+.nav-links a[data-section="ads"]:active,.nav-links a[data-section="ads"].nav-active{transform:translateY(3px);box-shadow:inset 0 2px 4px rgba(255,255,255,.5),inset 0 -1px 2px rgba(0,0,0,.10),0 1px 0 var(--b-dark),0 2px 6px rgba(0,0,0,.12)}
+/* Такси — teal */
+.nav-links a.taxi-link{background:linear-gradient(to bottom,rgba(255,255,255,.48) 0%,rgba(255,255,255,0) 52%,rgba(0,0,0,.10) 100%),linear-gradient(160deg,var(--t2) 0%,var(--t) 100%);border:1px solid rgba(0,200,180,.35);box-shadow:inset 0 2px 3px rgba(255,255,255,.58),inset 0 -2px 3px rgba(0,0,0,.12),0 4px 0 var(--t-dark),0 5px 14px rgba(0,0,0,.18)}
+.nav-links a.taxi-link:hover{transform:translateY(-1px);box-shadow:inset 0 2px 3px rgba(255,255,255,.63),inset 0 -2px 3px rgba(0,0,0,.10),0 5px 0 var(--t-dark),0 7px 18px rgba(0,0,0,.22)}
+.nav-links a.taxi-link:active,.nav-links a.taxi-link.nav-active{transform:translateY(3px);box-shadow:inset 0 2px 4px rgba(255,255,255,.5),inset 0 -1px 2px rgba(0,0,0,.10),0 1px 0 var(--t-dark),0 2px 6px rgba(0,0,0,.12)}
+/* Вопросы и ответы — indigo */
+.nav-links a.faq-link{background:linear-gradient(to bottom,rgba(255,255,255,.48) 0%,rgba(255,255,255,0) 52%,rgba(0,0,0,.10) 100%),linear-gradient(160deg,#5c6bc0 0%,#3949ab 100%);border:1px solid rgba(140,155,230,.38);box-shadow:inset 0 2px 3px rgba(255,255,255,.58),inset 0 -2px 3px rgba(0,0,0,.12),0 4px 0 #283593,0 5px 14px rgba(0,0,0,.18)}
+.nav-links a.faq-link:hover{transform:translateY(-1px);box-shadow:inset 0 2px 3px rgba(255,255,255,.63),inset 0 -2px 3px rgba(0,0,0,.10),0 5px 0 #283593,0 7px 18px rgba(0,0,0,.22)}
+.nav-links a.faq-link:active,.nav-links a.faq-link.nav-active{transform:translateY(3px);box-shadow:inset 0 2px 4px rgba(255,255,255,.5),inset 0 -1px 2px rgba(0,0,0,.10),0 1px 0 #283593,0 2px 6px rgba(0,0,0,.12)}
+/* Наши услуги — purple */
+.nav-links a.services-link{background:linear-gradient(to bottom,rgba(255,255,255,.48) 0%,rgba(255,255,255,0) 52%,rgba(0,0,0,.10) 100%),linear-gradient(160deg,var(--pu2) 0%,var(--pu) 100%);border:1px solid rgba(180,130,225,.38);box-shadow:inset 0 2px 3px rgba(255,255,255,.58),inset 0 -2px 3px rgba(0,0,0,.12),0 4px 0 #4A0072,0 5px 14px rgba(0,0,0,.18);color:#fff!important}
+.nav-links a.services-link:hover{transform:translateY(-1px);box-shadow:inset 0 2px 3px rgba(255,255,255,.63),inset 0 -2px 3px rgba(0,0,0,.10),0 5px 0 #4A0072,0 7px 18px rgba(0,0,0,.22)}
+.nav-links a.services-link:active,.nav-links a.services-link.nav-active{transform:translateY(3px);box-shadow:inset 0 2px 4px rgba(255,255,255,.5),inset 0 -1px 2px rgba(0,0,0,.10),0 1px 0 #4A0072,0 2px 6px rgba(0,0,0,.12)}
 /* mobile menu active */
 .mob-menu a.mob-active{background:var(--o-bg);color:var(--o-dark);font-weight:700}
 
@@ -390,12 +397,15 @@ nav{
 .post-success .ps-icon{font-size:56px;margin-bottom:12px}
 .post-success h3{font-size:20px;font-weight:800;color:var(--g-dark);margin-bottom:6px}
 .post-success p{font-size:14px;color:var(--text2);line-height:1.5}
-.nav-right{display:flex;gap:8px;margin-left:auto;align-items:center}
+.nav-right{display:flex;gap:5px;margin-left:auto;align-items:center;flex-shrink:0}
 .nav-city{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--text2);padding:6px 10px;border:1px solid var(--border2);border-radius:var(--radius);cursor:pointer;white-space:nowrap;transition:.15s}
 .nav-city:hover{border-color:var(--b);color:var(--b)}
 .nav-support{background:rgba(37,211,102,0.12);color:#1a9e50;border:1.5px solid rgba(37,211,102,0.35);border-radius:var(--radius);padding:7px 13px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;transition:.15s}
 .nav-support:hover{background:rgba(37,211,102,0.22);border-color:#25D366}
-@media(max-width:768px){.nav-support span{display:none}.nav-support{padding:7px 10px;min-width:unset}}
+/* medium screens: compact nav */
+@media(max-width:1200px){.nav-city{display:none!important}}
+@media(max-width:1100px){.nav-links a span{display:none}.nav-links a{padding:8px 9px;gap:0}}
+@media(max-width:768px){.nav-support span{display:none}.nav-support{padding:7px 9px;min-width:unset}}
 @media(max-width:480px){.nav-support{display:none}}
 .nav-post{background:var(--o);color:#fff;border:none;border-radius:var(--radius);padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap}
 .nav-post:hover{background:var(--o2)}
@@ -1295,10 +1305,12 @@ html[data-theme="dark"]{
   position:relative;
   transition:transform .1s ease,box-shadow .1s ease!important;
 }
-.nav-post,.nav-support,.auth-submit,.post-submit,.edit-save-btn,.hbtn-o{
+.nav-support,.auth-submit,.post-submit,.edit-save-btn,.hbtn-o{
   padding-top:12px!important;padding-bottom:12px!important;
   font-size:14px!important;
 }
+.nav-post{padding-top:9px!important;padding-bottom:9px!important;font-size:13px!important}
+.nav-support{padding-top:9px!important;padding-bottom:9px!important;font-size:12px!important}
 .wa-btn,.btn-wa-b2b,.btn-tg-b2b{padding:11px 18px!important}
 .btn-call{padding:9px 0!important}
 
@@ -1481,7 +1493,7 @@ html[data-theme="dark"]{
     <div class="nav-links">
       <a href="#ads" data-section="ads" class="nav-link-item"><i class="ti ti-layout-grid" style="font-size:14px"></i> <span data-i18n="navAds">Объявления</span></a>
       <a href="#taxi-section" data-section="taxi-section" class="nav-link-item taxi-link"><i class="ti ti-car" style="font-size:14px"></i> <span data-i18n="navTaxi">Такси · Межгород</span></a>
-      <a href="#faq-support" class="nav-link-item" onclick="switchTab('faq');setTimeout(function(){document.getElementById('faq-support').scrollIntoView({behavior:'smooth'})},50)"><i class="ti ti-message-circle" style="font-size:14px"></i> <span>Вопросы и ответы</span></a>
+      <a href="#faq-support" class="nav-link-item faq-link" onclick="switchTab('faq');setTimeout(function(){document.getElementById('faq-support').scrollIntoView({behavior:'smooth'})},50)"><i class="ti ti-message-circle" style="font-size:14px"></i> <span>Вопросы и ответы</span></a>
       <a href="#services" data-section="services" class="nav-link-item services-link"><i class="ti ti-briefcase" style="font-size:14px"></i> <span data-i18n="navServices">Наши услуги</span></a>
     </div>
     <div class="nav-right">
