@@ -283,10 +283,14 @@ nav{
 .mob-menu a.mob-active{background:var(--o-bg);color:var(--o-dark);font-weight:700}
 
 /* LANGUAGE SWITCHER */
-.lang-switcher{display:flex;gap:2px;background:var(--bg);border:1.5px solid var(--border2);border-radius:var(--radius);padding:2px;flex-shrink:0}
-.lang-btn{padding:5px 10px;font-size:13px;font-weight:700;border:none;background:transparent;border-radius:7px;cursor:pointer;color:var(--text3);transition:.15s;letter-spacing:.3px}
-.lang-btn.active{background:#fff;color:var(--b);box-shadow:0 1px 4px rgba(0,0,0,.12)}
-.lang-btn:hover:not(.active){color:var(--text)}
+.lang-switcher{position:relative;flex-shrink:0}
+.lang-current{padding:5px 8px;font-size:11px;font-weight:800;border:1.5px solid var(--border2);background:var(--bg);border-radius:var(--radius);cursor:pointer;color:var(--text2);display:flex;align-items:center;gap:3px;white-space:nowrap;transition:.15s;letter-spacing:.4px}
+.lang-current:hover{border-color:var(--b);color:var(--b)}
+.lang-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;background:var(--bg);border:1.5px solid var(--border2);border-radius:var(--radius);box-shadow:0 4px 16px rgba(0,0,0,.15);z-index:999;overflow:hidden;min-width:56px}
+.lang-dropdown.open{display:block}
+.lang-opt{display:block;width:100%;padding:8px 14px;font-size:12px;font-weight:700;border:none;background:transparent;cursor:pointer;color:var(--text2);text-align:center;letter-spacing:.3px;transition:.1s}
+.lang-opt:hover{background:var(--bg2);color:var(--text)}
+.lang-opt.active{color:var(--b);font-weight:800}
 
 /* PLACEHOLDER AD CARDS */
 .ad-card-placeholder{background:var(--card);border-radius:var(--radius-lg);overflow:hidden;border:2px dashed var(--border2);transition:.15s;position:relative;cursor:pointer;opacity:.75}
@@ -362,9 +366,13 @@ nav{
 .auth-divider::before{left:0} .auth-divider::after{right:0}
 .auth-otp-hint{font-size:12px;color:var(--text3);text-align:center;margin-top:10px}
 .auth-otp-hint a{color:var(--o);cursor:pointer;font-weight:600}
-.auth-user-bar{display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:var(--radius);border:1px solid var(--border2);cursor:pointer;transition:.15s;font-size:13px;color:var(--text2)}
-.auth-user-bar:hover{border-color:var(--o);color:var(--o)}
-.auth-user-bar .au-avatar{width:28px;height:28px;border-radius:50%;background:var(--o);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.auth-user-bar{display:none!important}
+.nav-auth-btn{background:linear-gradient(to bottom,rgba(255,255,255,.48) 0%,rgba(255,255,255,0) 52%,rgba(0,0,0,.10) 100%),linear-gradient(160deg,var(--t2) 0%,var(--t) 100%);border:1px solid rgba(0,200,180,.35);box-shadow:inset 0 2px 3px rgba(255,255,255,.58),inset 0 -2px 3px rgba(0,0,0,.12),0 3px 0 var(--t-dark),0 4px 10px rgba(0,0,0,.16);color:#fff!important;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .1s ease,box-shadow .1s ease}
+.nav-auth-btn:hover{transform:translateY(-1px);box-shadow:inset 0 2px 3px rgba(255,255,255,.63),inset 0 -2px 3px rgba(0,0,0,.10),0 5px 0 var(--t-dark),0 7px 16px rgba(0,0,0,.22)}
+.nav-auth-btn:active{transform:translateY(3px);box-shadow:inset 0 2px 4px rgba(255,255,255,.5),inset 0 -1px 2px rgba(0,0,0,.10),0 1px 0 var(--t-dark),0 2px 5px rgba(0,0,0,.12)}
+.nav-auth-btn.signed-in{background:linear-gradient(to bottom,rgba(255,255,255,.28) 0%,rgba(255,255,255,0) 52%,rgba(0,0,0,.08) 100%),linear-gradient(160deg,#ef5350 0%,#c62828 100%);border-color:rgba(255,150,130,.35);box-shadow:inset 0 2px 3px rgba(255,255,255,.38),inset 0 -2px 3px rgba(0,0,0,.12),0 3px 0 #b71c1c,0 4px 10px rgba(0,0,0,.16)}
+.nav-auth-btn.signed-in:hover{transform:translateY(-1px);box-shadow:inset 0 2px 3px rgba(255,255,255,.48),inset 0 -2px 3px rgba(0,0,0,.10),0 5px 0 #b71c1c,0 7px 16px rgba(0,0,0,.22)}
+.nav-auth-btn.signed-in:active{transform:translateY(3px);box-shadow:inset 0 2px 4px rgba(255,255,255,.36),inset 0 -1px 2px rgba(0,0,0,.09),0 1px 0 #b71c1c,0 2px 5px rgba(0,0,0,.10)}
 
 /* POST AD MODAL */
 .post-modal-box{background:#fff;border-radius:var(--radius-xl);max-width:560px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.3)}
@@ -406,7 +414,7 @@ nav{
 @media(max-width:1200px){.nav-city{display:none!important}}
 @media(max-width:1100px){.nav-links a span{display:none}.nav-links a{padding:8px 9px;gap:0}}
 @media(max-width:768px){.nav-support span{display:none}.nav-support{padding:7px 9px;min-width:unset}}
-@media(max-width:480px){.nav-support{display:none}}
+@media(max-width:640px){.nav-support{display:none}.nav-auth-btn{font-size:11px;padding:6px 10px}.nav-post{font-size:12px!important;padding-top:7px!important;padding-bottom:7px!important}}
 .nav-post{background:var(--o);color:#fff;border:none;border-radius:var(--radius);padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap}
 .nav-post:hover{background:var(--o2)}
 .hamburger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text)}
@@ -815,7 +823,8 @@ a.b2b-tag:hover{filter:brightness(0.9);transform:translateY(-1px)}
 [data-theme="dark"] .post-field select,[data-theme="dark"] .post-field input,[data-theme="dark"] .post-field textarea{background:var(--bg);color:var(--text)}
 
 /* Buttons that have hardcoded #fff bg */
-[data-theme="dark"] .lang-btn.active{background:var(--bg);color:var(--b-dark)}
+[data-theme="dark"] .lang-opt.active{color:var(--b-dark)}
+[data-theme="dark"] .lang-current,[data-theme="dark"] .lang-dropdown{background:var(--bg);border-color:var(--border2);color:var(--text2)}
 [data-theme="dark"] .auth-tab.active{background:var(--bg);color:var(--o)}
 [data-theme="dark"] .auth-google-btn{background:var(--bg);color:var(--text);border-color:var(--border2)}
 [data-theme="dark"] .auth-google-btn:hover{background:var(--o-bg);border-color:var(--o)}
@@ -1507,13 +1516,17 @@ html[data-theme="dark"]{
           <div class="theme-opt"        onclick="setTheme('sunset')"  id="topt-sunset"><span class="theme-swatch" style="background:linear-gradient(135deg,#fce4ec 50%,#e91e63 50%)"></span> <span data-i18n="themeSunset">Закат</span></div>
         </div>
       </div>
-      <div class="lang-switcher">
-        <button class="lang-btn" onclick="setLang('kz')">KZ</button>
-        <button class="lang-btn active" onclick="setLang('ru')">RU</button>
-        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-current" id="langCurrentBtn" onclick="toggleLangDropdown(event)">RU <i class="ti ti-chevron-down" style="font-size:9px;opacity:.7"></i></button>
+        <div class="lang-dropdown" id="langDropdown">
+          <button class="lang-opt" id="lopt-kz" onclick="setLang('kz')">KZ</button>
+          <button class="lang-opt active" id="lopt-ru" onclick="setLang('ru')">RU</button>
+          <button class="lang-opt" id="lopt-en" onclick="setLang('en')">EN</button>
+        </div>
       </div>
       <div class="nav-city" onclick="openCityModal()"><i class="ti ti-map-pin" style="font-size:14px"></i> <span id="selectedCity" data-i18n="allCities">Все города</span> <i class="ti ti-chevron-down" style="font-size:12px"></i></div>
       <button class="nav-support" onclick="switchTab('support');setTimeout(function(){document.getElementById('faq-support').scrollIntoView({behavior:'smooth'})},50)"><i class="ti ti-heart" style="font-size:13px"></i> <span data-i18n="navSupport">Поддержать</span></button>
+      <button id="navAuthBtn" class="nav-auth-btn" onclick="navAuthAction()"><i class="ti ti-user" style="font-size:13px"></i> <span id="navAuthTxt">Войти</span></button>
       <button class="nav-post" onclick="openPostModal()" data-i18n-btn="postAd"><i class="ti ti-plus"></i> <span data-i18n="postAd">Подать объявление</span></button>
       <button class="hamburger" onclick="document.getElementById('mobmenu').classList.toggle('open')"><i class="ti ti-menu-2"></i></button>
     </div>
@@ -1527,6 +1540,7 @@ html[data-theme="dark"]{
     <a href="#ads" data-section="ads" class="mob-nav-item" onclick="closeMobMenu()"><i class="ti ti-layout-grid" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navAds">Объявления</span></a>
     <a href="#taxi-section" data-section="taxi-section" class="mob-nav-item intercity-mob" onclick="closeMobMenu()"><i class="ti ti-car" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navTaxi">Такси · Межгород</span> 🔥</a>
     <a href="#services" data-section="services" class="mob-nav-item services-mob" onclick="closeMobMenu()"><i class="ti ti-briefcase" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navServices">Наши услуги</span></a>
+    <a href="javascript:void(0)" onclick="switchTab('faq');closeMobMenu();setTimeout(function(){document.getElementById('faq-support').scrollIntoView({behavior:'smooth'})},120);return false"><i class="ti ti-message-circle" style="font-size:14px;margin-right:4px"></i> Вопросы и ответы</a>
     <a href="javascript:void(0)" onclick="switchTab('support');closeMobMenu();setTimeout(function(){document.getElementById('faq-support').scrollIntoView({behavior:'smooth'})},120);return false" style="color:#25D366;font-weight:700"><i class="ti ti-heart" style="font-size:14px;margin-right:4px"></i> <span data-i18n="navSupport">💚 Поддержать проект</span></a>
   </div>
 </nav>
@@ -3611,11 +3625,21 @@ en:{
 }
 };
 
+function toggleLangDropdown(e){
+  e.stopPropagation();
+  var dd = document.getElementById('langDropdown');
+  dd.classList.toggle('open');
+}
+document.addEventListener('click', function(){ var dd=document.getElementById('langDropdown'); if(dd) dd.classList.remove('open'); });
+
 function setLang(lang){
   currentLang = lang;
-  document.querySelectorAll('.lang-btn').forEach(function(b){
-    b.classList.toggle('active', b.textContent.toLowerCase()===lang);
+  var btn = document.getElementById('langCurrentBtn');
+  if(btn) btn.innerHTML = lang.toUpperCase()+' <i class="ti ti-chevron-down" style="font-size:9px;opacity:.7"></i>';
+  document.querySelectorAll('.lang-opt').forEach(function(b){
+    b.classList.toggle('active', b.id==='lopt-'+lang);
   });
+  var dd=document.getElementById('langDropdown'); if(dd) dd.classList.remove('open');
   var T = LANGS[lang];
   // textContent replacements
   document.querySelectorAll('[data-i18n]').forEach(function(el){
@@ -3814,23 +3838,22 @@ if (_sb) {
   });
 }
 
+function navAuthAction(){
+  if(currentUser){ if(confirm('Выйти из аккаунта?')) signOut(); } else { openAuthModal(); }
+}
 function setUser(user) {
   currentUser = user;
-  var navRight = document.querySelector('.nav-right');
-  var postBtn = document.querySelector('.nav-post');
-  var oldBar = document.getElementById('navUserBar');
-  if (oldBar) oldBar.remove();
-  if (user) {
-    var display = user.phone || user.email || '';
-    var initials = display.length >= 4 ? display.slice(-4) : display;
-    var bar = document.createElement('div');
-    bar.className = 'auth-user-bar';
-    bar.id = 'navUserBar';
-    bar.innerHTML = '<div class="au-avatar">' + initials + '</div>'
-      + '<span style="max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px">' + display + '</span>';
-    bar.title = 'Нажмите, чтобы выйти';
-    bar.onclick = function() { if (confirm('Выйти из аккаунта?')) signOut(); };
-    navRight.insertBefore(bar, postBtn);
+  var btn = document.getElementById('navAuthBtn');
+  var txt = document.getElementById('navAuthTxt');
+  if(!btn) return;
+  if(user){
+    btn.classList.add('signed-in');
+    if(txt) txt.textContent = 'Выйти';
+    btn.title = (user.phone || user.email || '');
+  } else {
+    btn.classList.remove('signed-in');
+    if(txt) txt.textContent = 'Войти';
+    btn.title = '';
   }
 }
 
