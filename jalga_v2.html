@@ -2582,21 +2582,60 @@ var ADS=[
 var currentView = 'grid';
 var currentCols = 3;
 var searchQuery = '';
-var uploadedPhotos = []; // base64 data URLs
+var uploadedPhotos = []; // base64 data URLs (compressed)
 
-function handlePhotoUpload(input){
-  var MAX = 5;
-  var files = Array.from(input.files);
-  files.forEach(function(file){
-    if(uploadedPhotos.length >= MAX) return;
+// Compress image to target max bytes using Canvas, returns Promise<dataURL>
+function compressImage(file, maxBytes, maxPx) {
+  maxBytes = maxBytes || 1024 * 1024; // 1 MB per photo default
+  maxPx = maxPx || 1920;              // max width/height
+  return new Promise(function(resolve) {
     var reader = new FileReader();
-    reader.onload = function(e){
-      uploadedPhotos.push(e.target.result);
-      refreshPhotoGrid();
+    reader.onload = function(e) {
+      var img = new Image();
+      img.onload = function() {
+        var w = img.width, h = img.height;
+        // Scale down if larger than maxPx
+        if (w > maxPx || h > maxPx) {
+          if (w > h) { h = Math.round(h * maxPx / w); w = maxPx; }
+          else       { w = Math.round(w * maxPx / h); h = maxPx; }
+        }
+        var canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        // Binary search for quality that hits maxBytes
+        var lo = 0.1, hi = 0.92, result = canvas.toDataURL('image/jpeg', 0.82);
+        for (var i = 0; i < 8; i++) {
+          var mid = (lo + hi) / 2;
+          var attempt = canvas.toDataURL('image/jpeg', mid);
+          var bytes = Math.round((attempt.length - 22) * 3 / 4);
+          if (bytes > maxBytes) { hi = mid; } else { lo = mid; result = attempt; }
+        }
+        // Final check — if still over, use lo quality
+        var finalBytes = Math.round((result.length - 22) * 3 / 4);
+        if (finalBytes > maxBytes) result = canvas.toDataURL('image/jpeg', lo);
+        resolve(result);
+      };
+      img.src = e.target.result;
     };
     reader.readAsDataURL(file);
   });
-  input.value = ''; // reset so same file can be re-added
+}
+
+function handlePhotoUpload(input) {
+  var MAX = 5;
+  var MAX_BYTES = 1024 * 1024; // 1 MB per photo (5 photos = max ~5 MB total)
+  var files = Array.from(input.files).slice(0, MAX - uploadedPhotos.length);
+  files.forEach(function(file) {
+    if (uploadedPhotos.length >= MAX) return;
+    compressImage(file, MAX_BYTES, 1920).then(function(dataURL) {
+      if (uploadedPhotos.length >= MAX) return;
+      var kb = Math.round((dataURL.length - 22) * 3 / 4 / 1024);
+      uploadedPhotos.push(dataURL);
+      refreshPhotoGrid(kb);
+    });
+  });
+  input.value = '';
 }
 
 function refreshPhotoGrid(){
@@ -2604,10 +2643,13 @@ function refreshPhotoGrid(){
   if(!grid) return;
   grid.innerHTML = '';
   uploadedPhotos.forEach(function(src, i){
+    var kb = Math.round((src.length - 22) * 3 / 4 / 1024);
+    var sizeLabel = kb >= 1024 ? (kb/1024).toFixed(1)+'МБ' : kb+'КБ';
     var slot = document.createElement('div');
     slot.className = 'post-photo-slot filled';
     slot.style.cssText = 'background-image:url('+src+');background-size:cover;background-position:center;position:relative;';
-    slot.innerHTML = '<button onclick="removePhoto('+i+');event.stopPropagation()" style="position:absolute;top:3px;right:3px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0">✕</button>';
+    slot.innerHTML = '<button onclick="removePhoto('+i+');event.stopPropagation()" style="position:absolute;top:3px;right:3px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0">✕</button>'
+      + '<span style="position:absolute;bottom:2px;left:3px;font-size:9px;font-weight:700;color:#fff;background:rgba(0,0,0,.5);border-radius:3px;padding:1px 3px">'+sizeLabel+'</span>';
     grid.appendChild(slot);
   });
   if(uploadedPhotos.length < 5){
