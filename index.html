@@ -1661,18 +1661,18 @@ html[data-theme="dark"]{
     <a href="#" class="sec-more"><span data-i18n="catAll">Все категории</span> <i class="ti ti-chevron-right" style="font-size:13px"></i></a>
   </div>
   <div class="cats-grid">
-    <div class="cat-card c-auto" onclick="selectCategory('Авто','🚗','#1565C0')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-car"></i></div><div class="cat-name" data-i18n="catAuto">Авто и мото</div><div class="cat-count">2 840 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-realty" onclick="selectCategory('Недвижимость','🏠','#FF6B00')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-building"></i></div><div class="cat-name" data-i18n="catRealty">Недвижимость</div><div class="cat-count">1 230 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-elec" onclick="selectCategory('Электроника','📱','#6A1B9A')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-device-mobile"></i></div><div class="cat-name" data-i18n="catElec">Электроника</div><div class="cat-count">3 100 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-work" onclick="selectCategory('Работы','💼','#1565C0')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-briefcase"></i></div><div class="cat-name" data-i18n="catWork">Работа</div><div class="cat-count">980 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-serv" onclick="selectCategory('Услуги','🔧','#00796B')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-tools"></i></div><div class="cat-name" data-i18n="catServ">Услуги</div><div class="cat-count">1 650 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-taxi" onclick="selectCategory('Услуги','🚕','#FFB300')" style="border:2px solid var(--y);cursor:pointer"><div class="cat-icon"><i class="ti ti-car"></i></div><div class="cat-name" data-i18n="catTaxi">Такси · Межгород</div><div class="cat-count">340 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-pet" onclick="selectCategory('Животные','🐾','#0097A7')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-paw"></i></div><div class="cat-name" data-i18n="catPet">Животные</div><div class="cat-count">420 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-kids" onclick="selectCategory('Детское','🚼','#E91E63')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-baby-carriage"></i></div><div class="cat-name" data-i18n="catKids">Детское</div><div class="cat-count">750 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-sport" onclick="selectCategory('Спорт','⚽','#C62828')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-ball-basketball"></i></div><div class="cat-name" data-i18n="catSport">Спорт</div><div class="cat-count">310 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-furn" onclick="selectCategory('Мебель','🛋️','#5D4037')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-sofa"></i></div><div class="cat-name" data-i18n="catFurn">Мебель</div><div class="cat-count">580 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-food" onclick="selectCategory('Продукты','🥬','#2E7D32')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-salad"></i></div><div class="cat-name" data-i18n="catFood">Продукты</div><div class="cat-count">190 <span data-i18n="catCount">объявл.</span></div></div>
-    <div class="cat-card c-free" onclick="selectCategory('Отдам даром','🎁','#009688')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-gift"></i></div><div class="cat-name" data-i18n="catFree">Отдам даром</div><div class="cat-count">220 <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-auto" onclick="selectCategory('Авто','🚗','#1565C0')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-car"></i></div><div class="cat-name" data-i18n="catAuto">Авто и мото</div><div class="cat-count" id="cc-auto">— <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-realty" onclick="selectCategory('Недвижимость','🏠','#FF6B00')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-building"></i></div><div class="cat-name" data-i18n="catRealty">Недвижимость</div><div class="cat-count" id="cc-realty">— <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-elec" onclick="selectCategory('Электроника','📱','#6A1B9A')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-device-mobile"></i></div><div class="cat-name" data-i18n="catElec">Электроника</div><div class="cat-count" id="cc-elec">— <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-work" onclick="selectCategory('Работы','💼','#1565C0')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-briefcase"></i></div><div class="cat-name" data-i18n="catWork">Работа</div><div class="cat-count" id="cc-work">— <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-serv" onclick="selectCategory('Услуги','🔧','#00796B')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-tools"></i></div><div class="cat-name" data-i18n="catServ">Услуги</div><div class="cat-count" id="cc-serv">— <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-taxi" onclick="selectCategory('Услуги','🚕','#FFB300')" style="border:2px solid var(--y);cursor:pointer"><div class="cat-icon"><i class="ti ti-car"></i></div><div class="cat-name" data-i18n="catTaxi">Такси · Межгород</div><div class="cat-count" id="cc-taxi">— <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-pet" onclick="selectCategory('Животные','🐾','#0097A7')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-paw"></i></div><div class="cat-name" data-i18n="catPet">Животные</div><div class="cat-count" id="cc-pet">— <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-kids" onclick="selectCategory('Детское','🚼','#E91E63')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-baby-carriage"></i></div><div class="cat-name" data-i18n="catKids">Детское</div><div class="cat-count" id="cc-kids">— <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-sport" onclick="selectCategory('Спорт','⚽','#C62828')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-ball-basketball"></i></div><div class="cat-name" data-i18n="catSport">Спорт</div><div class="cat-count" id="cc-sport">— <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-furn" onclick="selectCategory('Мебель','🛋️','#5D4037')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-sofa"></i></div><div class="cat-name" data-i18n="catFurn">Мебель</div><div class="cat-count" id="cc-furn">— <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-food" onclick="selectCategory('Продукты','🥬','#2E7D32')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-salad"></i></div><div class="cat-name" data-i18n="catFood">Продукты</div><div class="cat-count" id="cc-food">— <span data-i18n="catCount">объявл.</span></div></div>
+    <div class="cat-card c-free" onclick="selectCategory('Отдам даром','🎁','#009688')" style="cursor:pointer"><div class="cat-icon"><i class="ti ti-gift"></i></div><div class="cat-name" data-i18n="catFree">Отдам даром</div><div class="cat-count" id="cc-free">— <span data-i18n="catCount">объявл.</span></div></div>
   </div>
 </div>
 
@@ -3765,6 +3765,35 @@ document.documentElement.dataset.cols = window.innerWidth <= 767 ? '2' : '4';
 renderAds();
 
 // ── LOAD REAL ADS FROM SUPABASE ──────────────────────────────────
+// ── REAL CATEGORY COUNTS ────────────────────────────────────────
+var CC_MAP = {
+  'cc-auto':   ['Авто'],
+  'cc-realty': ['Недвижимость'],
+  'cc-elec':   ['Электроника'],
+  'cc-work':   ['Работа','Работы'],
+  'cc-serv':   ['Услуги'],
+  'cc-taxi':   ['Такси','Межгород'],
+  'cc-pet':    ['Животные','Питомцы'],
+  'cc-kids':   ['Детское'],
+  'cc-sport':  ['Спорт'],
+  'cc-furn':   ['Мебель'],
+  'cc-food':   ['Продукты'],
+  'cc-free':   ['Отдам даром']
+};
+function updateCatCounts(){
+  var realAds = ADS.filter(function(a){ return a.fromDb; });
+  var T = LANGS[currentLang] || LANGS['ru'];
+  var unit = T.catCount || 'объявл.';
+  Object.keys(CC_MAP).forEach(function(id){
+    var labels = CC_MAP[id];
+    var n = realAds.filter(function(a){
+      return labels.indexOf(a.catLabel) !== -1;
+    }).length;
+    var el = document.getElementById(id);
+    if(el) el.innerHTML = (n > 0 ? n : 0) + ' <span data-i18n="catCount">' + unit + '</span>';
+  });
+}
+
 (function loadRealAds(){
   var SURL = 'https://duscyiyxfmsriyhwlbqx.supabase.co';
   var SKEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
@@ -3795,6 +3824,7 @@ renderAds();
     var placeholders = ADS.filter(function(a){ return a.placeholder; });
     var demoAds = ADS.filter(function(a){ return !a.placeholder && !a.fromDb; });
     ADS = realAds.concat(demoAds).concat(placeholders);
+    updateCatCounts();
     // Mark own ads after auth resolves
     setTimeout(function(){
       if(window.currentUser){
