@@ -3472,8 +3472,77 @@ function submitPostAd() {
     });
   }
 
+  // Telegram notification
+  sendTgNewAd({
+    title: title, desc: desc, price: price, city: city,
+    catLabel: _selectedPostCat.label,
+    userEmail: currentUser ? currentUser.email : 'гость',
+    photos: uploadedPhotos.slice()
+  });
+
   document.getElementById('postForm').style.display = 'none';
   document.getElementById('postSuccess').style.display = '';
+}
+
+// ── TELEGRAM NOTIFICATIONS ────────────────────────────────────────
+var TG_BOT = '8656447295:AAFHpvCGKjhSeqXS9DPAjeRd7pkyf7krtSs';
+var TG_CHAT = '1162752434';
+var TG_API = 'https://api.telegram.org/bot' + TG_BOT;
+
+function dataURLtoBlob(dataURL) {
+  var parts = dataURL.split(',');
+  var mime = parts[0].match(/:(.*?);/)[1];
+  var b64 = parts[1];
+  var bin = atob(b64);
+  var arr = new Uint8Array(bin.length);
+  for (var i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return new Blob([arr], {type: mime});
+}
+
+function sendTgNewAd(ad) {
+  var price = ad.price > 0 ? ad.price.toLocaleString('ru-KZ') + ' ₸' : 'Договорная';
+  var text = '🆕 *Новое объявление на Алсат*\n\n'
+    + '📂 ' + (ad.catLabel || '') + '\n'
+    + '📌 *' + ad.title + '*\n'
+    + (ad.desc ? '📝 ' + ad.desc + '\n' : '')
+    + '💰 ' + price + '\n'
+    + '📍 ' + (ad.city || '') + '\n'
+    + '👤 ' + (ad.userEmail || '') + '\n'
+    + '\n🔗 https://alsat.asia';
+
+  var photos = ad.photos || [];
+
+  if (photos.length === 0) {
+    // Text only
+    fetch(TG_API + '/sendMessage', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({chat_id: TG_CHAT, text: text, parse_mode: 'Markdown'})
+    }).catch(function(){});
+    return;
+  }
+
+  if (photos.length === 1) {
+    // Single photo + caption
+    var form = new FormData();
+    form.append('chat_id', TG_CHAT);
+    form.append('photo', dataURLtoBlob(photos[0]), 'photo.jpg');
+    form.append('caption', text);
+    form.append('parse_mode', 'Markdown');
+    fetch(TG_API + '/sendPhoto', {method: 'POST', body: form}).catch(function(){});
+    return;
+  }
+
+  // Multiple photos — sendMediaGroup (max 10)
+  var form = new FormData();
+  form.append('chat_id', TG_CHAT);
+  var mediaArr = photos.slice(0, 10).map(function(p, i) {
+    var key = 'file' + i;
+    form.append(key, dataURLtoBlob(p), 'photo' + i + '.jpg');
+    return {type: 'photo', media: 'attach://' + key, caption: i === 0 ? text : '', parse_mode: i === 0 ? 'Markdown' : ''};
+  });
+  form.append('media', JSON.stringify(mediaArr));
+  fetch(TG_API + '/sendMediaGroup', {method: 'POST', body: form}).catch(function(){});
 }
 
 function addNewAdLocally(title, desc, price, city, phone) {
