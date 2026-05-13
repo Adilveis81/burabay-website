@@ -3774,22 +3774,26 @@ function submitPostAd() {
     });
   }
 
-  // Telegram notification
-  sendTgNewAd({
-    title: title, desc: desc, price: price, city: city,
+  // Telegram notifications
+  var tgAdPayload = {
+    title: title, desc: desc, price: price, city: city, phone: phone,
     catLabel: _selectedPostCat.label,
-    userEmail: currentUser ? currentUser.email : 'гость',
+    userEmail: currentUser ? currentUser.email : '',
     photos: uploadedPhotos.slice()
-  });
+  };
+  sendTgNewAd(tgAdPayload);     // → admin
+  sendTgToSeller(tgAdPayload);  // → seller (if they connected bot)
 
   document.getElementById('postForm').style.display = 'none';
   document.getElementById('postSuccess').style.display = '';
 }
 
 // ── TELEGRAM NOTIFICATIONS ────────────────────────────────────────
-var TG_BOT = '8656447295:AAFHpvCGKjhSeqXS9DPAjeRd7pkyf7krtSs';
+var TG_BOT  = '8695550788:AAGHe6IfJBAtrD6FbGLet7_Rk6m7A9yCh7s';
 var TG_CHAT = '1162752434';
-var TG_API = 'https://api.telegram.org/bot' + TG_BOT;
+var TG_API  = 'https://api.telegram.org/bot' + TG_BOT;
+var SB_URL  = 'https://duscyiyxfmsriyhwlbqx.supabase.co';
+var SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
 
 function dataURLtoBlob(dataURL) {
   var parts = dataURL.split(',');
@@ -3801,15 +3805,49 @@ function dataURLtoBlob(dataURL) {
   return new Blob([arr], {type: mime});
 }
 
+// Lookup seller's Telegram chat_id by phone from Supabase tg_users table
+function getTgChatId(phone, callback) {
+  if(!phone) return callback(null);
+  fetch(SB_URL + '/rest/v1/tg_users?phone=eq.' + encodeURIComponent(phone) + '&select=chat_id&limit=1', {
+    headers: {'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY}
+  }).then(function(r){ return r.json(); })
+    .then(function(rows){
+      callback(rows && rows[0] ? rows[0].chat_id : null);
+    }).catch(function(){ callback(null); });
+}
+
+// Send notification to seller when their ad is published
+function sendTgToSeller(ad) {
+  var ph = String(ad.phone || '').replace(/\D/g,'');
+  if(!ph) return;
+  getTgChatId(ph, function(chatId) {
+    if(!chatId) return; // seller hasn't connected bot yet
+    var price = ad.price > 0 ? ad.price.toLocaleString('ru-KZ') + ' ₸' : 'Договорная';
+    var text = '✅ *Ваше объявление опубликовано на Алсат!*\n\n'
+      + '📌 ' + ad.title + '\n'
+      + '💰 ' + price + '\n'
+      + '📍 ' + (ad.city || '') + '\n'
+      + '📞 +' + ph + '\n'
+      + '\n🔗 https://alsat.asia\n\n'
+      + '_Здесь будут появляться уведомления об интересующихся покупателях._';
+    fetch(TG_API + '/sendMessage', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({chat_id: chatId, text: text, parse_mode: 'Markdown'})
+    }).catch(function(){});
+  });
+}
+
 function sendTgNewAd(ad) {
   var price = ad.price > 0 ? ad.price.toLocaleString('ru-KZ') + ' ₸' : 'Договорная';
+  var ph = String(ad.phone || '').replace(/\D/g,'');
   var text = '🆕 *Новое объявление на Алсат*\n\n'
     + '📂 ' + (ad.catLabel || '') + '\n'
     + '📌 *' + ad.title + '*\n'
     + (ad.desc ? '📝 ' + ad.desc + '\n' : '')
     + '💰 ' + price + '\n'
     + '📍 ' + (ad.city || '') + '\n'
-    + '👤 ' + (ad.userEmail || '') + '\n'
+    + (ph ? '📞 +' + ph + '\n' : (ad.userEmail ? '👤 ' + ad.userEmail + '\n' : ''))
     + '\n🔗 https://alsat.asia';
 
   var photos = ad.photos || [];
