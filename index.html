@@ -2933,6 +2933,24 @@ function renderAds(){
     return true;
   });
 
+  // Show language notice for non-Russian UI
+  var noticeEl = document.getElementById('adsLangNotice');
+  if(!noticeEl){
+    noticeEl = document.createElement('div');
+    noticeEl.id = 'adsLangNotice';
+    noticeEl.style.cssText = 'display:none;margin-bottom:12px;padding:9px 14px;background:rgba(255,255,255,0.7);border-radius:10px;border:1px solid rgba(0,0,0,0.08);font-size:12px;color:#555;backdrop-filter:blur(8px)';
+    g.parentNode.insertBefore(noticeEl, g);
+  }
+  if(currentLang === 'en'){
+    noticeEl.style.display = '';
+    noticeEl.textContent = '🌐 Ads are in Russian — titles and descriptions are shown in the original language.';
+  } else if(currentLang === 'kz'){
+    noticeEl.style.display = '';
+    noticeEl.textContent = '🌐 Хабарландырулар орыс тілінде — тақырыптар мен сипаттамалар түпнұсқа тілінде көрсетіледі.';
+  } else {
+    noticeEl.style.display = 'none';
+  }
+
   if(currentView === 'grid'){
     g.className = 'ads-grid';
     g.style.gridTemplateColumns = window.innerWidth <= 767 ? 'repeat(2,1fr)' : '';  // mobile: 2 cols
@@ -2950,7 +2968,7 @@ function renderAds(){
           +'<div class="ad-ph-label" style="color:'+a.catColor+'">'+T.couldBeYours+'</div>'
           +'</div>'
           +'<div class="ad-ph-body">'
-          +'<div class="ad-ph-price">'+a.catLabel+' · '+T.yourPrice+'</div>'
+          +'<div class="ad-ph-price">'+trCatLabel(a.catLabel)+' · '+T.yourPrice+'</div>'
           +'<button class="ad-ph-cta"><i class="ti ti-plus" style="font-size:13px"></i> '+T.postFree+'</button>'
           +'</div></div>';
       }
@@ -2976,7 +2994,7 @@ function renderAds(){
       return '<div class="ad-card">'
         +'<div class="ad-card-click" onclick="openAd('+a.id+')" style="cursor:pointer">'
         +imgDiv
-        +'<div class="ad-cat-badge" style="background:'+a.catColor+'">'+a.catLabel+'</div>'
+        +'<div class="ad-cat-badge" style="background:'+a.catColor+'">'+trCatLabel(a.catLabel)+'</div>'
         +badgeHTML
         +editBtn+'</div>'
         +'<div class="ad-body" onclick="openAd('+a.id+')" style="cursor:pointer">'
@@ -3006,7 +3024,7 @@ function renderAds(){
       return '<div class="ad-row">'
         +'<div class="ad-row-img" style="background:'+a.bg+';cursor:pointer" onclick="openAd('+a.id+')">'
         +'<span style="font-size:42px">'+a.emoji+'</span>'
-        +'<div class="ad-cat-badge" style="background:'+a.catColor+';top:6px;left:6px;font-size:9px">'+a.catLabel+'</div>'
+        +'<div class="ad-cat-badge" style="background:'+a.catColor+';top:6px;left:6px;font-size:9px">'+trCatLabel(a.catLabel)+'</div>'
         +'</div>'
         +'<div class="ad-row-body" onclick="openAd('+a.id+')" style="cursor:pointer">'
         +'<div class="ad-row-top">'
@@ -3032,7 +3050,7 @@ function renderAds(){
     g.innerHTML = ADS.map(function(a){
       var price = a.price>0 ? a.price.toLocaleString('ru-KZ')+' ₸' : 'Договорная';
       return '<div class="ad-text-row" onclick="openAd('+a.id+')" style="cursor:pointer">'
-        +'<div class="ad-text-dot" style="background:'+a.catColor+'">'+a.catLabel.slice(0,2).toUpperCase()+'</div>'
+        +'<div class="ad-text-dot" style="background:'+a.catColor+'">'+trCatLabel(a.catLabel).slice(0,2).toUpperCase()+'</div>'
         +'<div class="ad-text-info">'
         +'<div class="ad-text-title">'+a.title+'</div>'
         +'<div class="ad-text-sub">'
@@ -3871,7 +3889,7 @@ function selectPostCat(el) {
 var CAT_EMOJIS = {auto:'🚗',realty:'🏠',elec:'📱',work:'💼',serv:'🔧',taxi:'🚖',kids:'🧸',sport:'🏋️',furn:'🛋️',pet:'🐾',food:'🌿',free:'🎁'};
 var CAT_BG = {auto:'#E3F2FD',realty:'#FFF3E0',elec:'#F3E5F5',work:'#F1F8E9',serv:'#E0F2F1',taxi:'#FFF8E1',kids:'#F3E5F5',sport:'#FFEBEE',furn:'#EFEBE9',pet:'#FCE4EC',food:'#E8F5E9',free:'#E0F7FA'};
 
-function submitPostAd() {
+async function submitPostAd() {
   var title = document.getElementById('postTitle').value.trim();
   var desc = document.getElementById('postDesc').value.trim();
   var price = parseInt(document.getElementById('postPrice').value) || 0;
@@ -3882,6 +3900,27 @@ function submitPostAd() {
 
   if (!_selectedPostCat) { alert('Выберите категорию'); return; }
   if (!title) { alert('Введите заголовок'); return; }
+
+  // Moderation check via Claude Haiku
+  var submitBtn = document.querySelector('.post-submit');
+  if(submitBtn){ submitBtn.disabled = true; submitBtn.textContent = '⏳ Проверка...'; }
+  try {
+    var modRes = await fetch('/api/moderation', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({title:title, desc:desc, phone:phone, price:price, city:city, catLabel:_selectedPostCat.label})
+    });
+    var modData = await modRes.json().catch(function(){ return {ok:true, safe:true}; });
+    if(modData.safe === false){
+      if(submitBtn){ submitBtn.disabled = false; submitBtn.innerHTML = '<i class="ti ti-send" style="font-size:15px"></i> Опубликовать'; }
+      alert('⚠️ Объявление не прошло модерацию:\n' + (modData.reason || 'Подозрительное содержание'));
+      return;
+    }
+  } catch(e) {
+    // If moderation API fails, allow publishing anyway
+    console.warn('Moderation check failed, proceeding:', e);
+  }
+  if(submitBtn){ submitBtn.disabled = false; submitBtn.innerHTML = '<i class="ti ti-send" style="font-size:15px"></i> Опубликовать'; }
 
   // Optimistically add to local list right away
   addNewAdLocally(title, desc, price, city, phone);
