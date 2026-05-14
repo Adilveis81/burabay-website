@@ -1324,6 +1324,32 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 }
 .taxi-check span{font-size:13px;font-weight:600;color:var(--text)}
 
+/* role toggle buttons */
+.taxi-role-btns{display:flex;gap:12px;margin-top:24px}
+.taxi-role-btn{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:10px;
+  border-radius:var(--radius);padding:14px 20px;
+  font-size:15px;font-weight:700;cursor:pointer;border:none;
+  transition:.15s;
+}
+.taxi-role-btn-driver{background:var(--yellow);color:#1A1A2A;box-shadow:0 4px 16px rgba(245,166,35,.35)}
+.taxi-role-btn-driver:hover{background:#FFB930;transform:translateY(-2px)}
+.taxi-role-btn-passenger{background:#29B6F6;color:#0d1b2a;box-shadow:0 4px 16px rgba(41,182,246,.35)}
+.taxi-role-btn-passenger:hover{background:#4FC3F7;transform:translateY(-2px)}
+
+/* passenger card */
+.taxi-card.pax-card{border-color:rgba(41,182,246,.3)}
+.taxi-card.pax-card .taxi-price-big{color:#29B6F6;font-size:14px}
+.pax-badge{font-size:10px;font-weight:700;background:rgba(41,182,246,.15);color:#29B6F6;padding:2px 8px;border-radius:20px}
+
+/* passenger modal header */
+.taxi-modal-head-pax{
+  background:linear-gradient(135deg,#0288D1 0%,#01579B 100%);
+  padding:24px;border-radius:var(--radius-xl) var(--radius-xl) 0 0;
+}
+.taxi-modal-head-pax h2{font-size:18px;font-weight:800;color:#fff}
+.taxi-modal-head-pax p{font-size:13px;color:rgba(255,255,255,.8);margin-top:4px}
+
 /* toast */
 .toast{
   position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);
@@ -1661,11 +1687,32 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
           <span class="tsb">📸 4 фото</span>
         </div>
       </div>
+
+      <!-- PASSENGER SAMPLE CARD -->
+      <div class="taxi-card pax-card" onclick="openPassengerPost()" style="position:relative;cursor:pointer">
+        <div style="position:absolute;top:10px;right:10px" class="pax-badge">ПРИМЕР · ПАССАЖИР</div>
+        <div class="taxi-card-top">
+          <div class="taxi-car-emoji">🧳</div>
+          <div class="taxi-route">
+            <div class="taxi-route-cities">Кокшетау <span class="taxi-route-arrow">→</span> Астана</div>
+            <div class="taxi-route-meta">Алия · 📅 20 мая · 2 места</div>
+          </div>
+          <div><div class="taxi-price-big" style="font-size:14px;color:#29B6F6">Ищу попутку</div></div>
+        </div>
+        <div class="taxi-car-info" style="margin-top:4px;font-style:italic;color:rgba(255,255,255,.4)">
+          <span>💬 Выезд утром, с вещами, есть ребёнок</span>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <a href="tel:+77001234567" onclick="event.stopPropagation()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">📞 Позвонить</a>
+          <a href="https://wa.me/77001234567" target="_blank" onclick="event.stopPropagation()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">💬 WhatsApp</a>
+        </div>
+      </div>
     </div>
 
-    <button class="taxi-post-btn" onclick="openTaxiPost()">
-      🚗 Подать объявление Такси · Межгород
-    </button>
+    <div class="taxi-role-btns">
+      <button class="taxi-role-btn taxi-role-btn-driver" onclick="openTaxiPost()">🚗 Я водитель</button>
+      <button class="taxi-role-btn taxi-role-btn-passenger" onclick="openPassengerPost()">🧳 Ищу попутку</button>
+    </div>
   </div>
 </section>
 
@@ -1869,6 +1916,62 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeTaxiPost()">Отмена</button>
       <button class="btn-submit" onclick="submitTaxiPost()" style="background:#F5A623;color:#1A1A2A">🚗 Опубликовать</button>
+    </div>
+  </div>
+</div>
+
+<!-- PASSENGER POST MODAL -->
+<div class="overlay" id="paxOverlay" onclick="if(event.target===this)closePassengerPost()">
+  <div class="modal taxi-modal">
+    <div class="taxi-modal-head-pax">
+      <h2>🧳 Ищу попутку · Межгород</h2>
+      <p>Заполните заявку — водители увидят её и свяжутся с вами</p>
+    </div>
+    <div class="modal-body">
+
+      <div class="taxi-section-label">🛣️ Маршрут</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="field"><label>🚦 Откуда</label><input type="text" id="pFromCity" list="tCityList" placeholder="Город отправления"></div>
+        <div class="field"><label>🏁 Куда</label><input type="text" id="pToCity" list="tCityList" placeholder="Город назначения"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="field"><label>📅 Дата поездки</label><input type="date" id="pDate"></div>
+        <div class="field"><label>👥 Количество мест</label>
+          <select id="pSeats"><option>1</option><option>2</option><option>3</option><option>4</option></select>
+        </div>
+      </div>
+
+      <div class="taxi-section-label">👤 О вас</div>
+      <div class="field"><label>Имя</label><input type="text" id="pName" placeholder="Как к вам обращаться"></div>
+      <div class="field"><label>Комментарий (опционально)</label>
+        <textarea id="pComment" rows="2" placeholder="Например: есть ребёнок, много багажа, выезд утром..."></textarea>
+      </div>
+
+      <div class="taxi-section-label">📞 Контакт</div>
+      <div class="field"><label>Телефон</label><input type="tel" id="pPhone" placeholder="+7 (___) ___-__-__"></div>
+      <div class="field">
+        <label>WhatsApp <span style="color:rgba(255,255,255,.4);font-weight:400;font-size:12px">(если отличается)</span></label>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:20px">💬</span>
+          <input type="tel" id="pWhatsApp" placeholder="+7 (___) ___-__-__" style="flex:1">
+        </div>
+      </div>
+      <div class="field">
+        <label>Telegram <span style="color:rgba(255,255,255,.4);font-weight:400;font-size:12px">(username или номер)</span></label>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:20px">✈️</span>
+          <input type="text" id="pTelegram" placeholder="@username или +7..." style="flex:1">
+        </div>
+      </div>
+
+      <div style="background:rgba(41,182,246,.08);border:1px solid rgba(41,182,246,.2);border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:rgba(255,255,255,.6);line-height:1.6">
+        ✈️ <strong style="color:#29B6F6">Telegram-бот автоматически уведомит водителей</strong> с подходящим маршрутом. Чтобы самому получать уведомления о новых водителях — зарегистрируйтесь в боте <strong>@Alsat_Asia_bot</strong>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closePassengerPost()">Отмена</button>
+      <button class="btn-submit" onclick="submitPassengerPost()" style="background:#29B6F6;color:#0d1b2a">🧳 Найти водителя</button>
     </div>
   </div>
 </div>
@@ -2647,6 +2750,13 @@ function showCityToast(){showToast('Выбор города — скоро')}
 // ═══════════════════
 var taxiPhotos=[null,null,null,null];
 
+// ── Supabase config ──────────────────────────────────────────────────────────
+var SB_URL='https://duscyiyxfmsriyhwlbqx.supabase.co';
+var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
+var BOT_TOKEN='8695550788:AAGHe6IfJBAtrD6FbGLet7_Rk6m7A9yCh7s';
+function sbHeaders(){return{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'}}
+function sbInsert(table,row){return fetch(SB_URL+'/rest/v1/'+table,{method:'POST',headers:{...sbHeaders(),Prefer:'return=minimal'},body:JSON.stringify(row)}).catch(()=>{})}
+
 function openTaxiPost(){
   document.getElementById('taxiOverlay').classList.add('open');
   document.body.style.overflow='hidden';
@@ -2654,6 +2764,71 @@ function openTaxiPost(){
 function closeTaxiPost(){
   document.getElementById('taxiOverlay').classList.remove('open');
   document.body.style.overflow='';
+}
+
+// ── Passenger modal ──────────────────────────────────────────────────────────
+function openPassengerPost(){
+  document.getElementById('paxOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  // set today as default date
+  var today=new Date().toISOString().split('T')[0];
+  document.getElementById('pDate').value=today;
+}
+function closePassengerPost(){
+  document.getElementById('paxOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+async function submitPassengerPost(){
+  var from=document.getElementById('pFromCity').value.trim();
+  var to=document.getElementById('pToCity').value.trim();
+  var date=document.getElementById('pDate').value;
+  var seats=document.getElementById('pSeats').value;
+  var name=document.getElementById('pName').value.trim();
+  var phone=document.getElementById('pPhone').value.trim();
+  var wa=document.getElementById('pWhatsApp').value.trim().replace(/\D/g,'');
+  var tg=document.getElementById('pTelegram').value.trim();
+  var comment=document.getElementById('pComment').value.trim();
+
+  if(!from){showToast('Укажите город отправления');return}
+  if(!to){showToast('Укажите город назначения');return}
+  if(!phone){showToast('Укажите номер телефона');return}
+
+  var waNum=wa||(phone.replace(/\D/g,''));
+  var row={from_city:from,to_city:to,travel_date:date,seats:Number(seats),
+    name:name||'Пассажир',phone:phone.replace(/\D/g,''),
+    whatsapp:waNum,telegram:tg,comment:comment,notified:false};
+
+  closePassengerPost();
+  showToast('✅ Заявка отправлена — водители получат уведомление');
+
+  // save to Supabase
+  await sbInsert('taxi_requests',row);
+
+  // add passenger card to grid
+  var grid=document.getElementById('taxiAdsGrid');
+  var card=document.createElement('div');
+  card.className='taxi-card pax-card';
+  card.innerHTML='<div class="taxi-card-top">'
+    +'<div class="taxi-car-emoji">🧳</div>'
+    +'<div class="taxi-route">'
+    +'<div class="taxi-route-cities">'+from+' <span class="taxi-route-arrow">→</span> '+to+'</div>'
+    +'<div class="taxi-route-meta">'+(name||'Пассажир')+' · 📅 '+date+' · '+seats+' мест</div>'
+    +'</div>'
+    +'<div><div class="taxi-price-big" style="font-size:14px;color:#29B6F6">Ищу попутку</div></div>'
+    +'</div>'
+    +(comment?'<div class="taxi-car-info" style="margin-top:4px;font-style:italic;color:rgba(255,255,255,.4)"><span>💬 '+comment+'</span></div>':'')
+    +'<div style="display:flex;gap:8px;margin-top:12px">'
+    +'<a href="tel:+'+phone.replace(/\D/g,'')+'" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">📞 Позвонить</a>'
+    +'<a href="https://wa.me/'+waNum+'" target="_blank" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">💬 WhatsApp</a>'
+    +(tg?'<a href="'+(tg.startsWith('@')?'https://t.me/'+tg.slice(1):'https://t.me/+'+tg.replace(/\D/g,''))+'" target="_blank" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#229ED9;border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">✈️ Telegram</a>':'')
+    +'</div>';
+  grid.insertBefore(card,grid.firstChild);
+
+  // reset form
+  ['pFromCity','pToCity','pName','pPhone','pWhatsApp','pTelegram','pComment'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.value='';
+  });
 }
 
 function handleTaxiPh(i,input){
@@ -2705,6 +2880,15 @@ function submitTaxiPost(){
 
   closeTaxiPost();
   showToast('✅ Объявление отправлено на модерацию');
+
+  // save driver post to Supabase for bot notifications
+  sbInsert('taxi_drivers',{
+    from_city:from,to_city:to,car:car,price:Number(price.replace(/\D/g,'')),
+    seats:Number(seats),phone:phone.replace(/\D/g,''),
+    whatsapp:String(waNum),telegram:tg,exp:exp,
+    ac:ac,seat:seat,trunk:trunk,parcel:parcel,
+    desc:document.getElementById('tDesc').value.trim(),notified:false
+  });
 
   // build extras badges
   var extras='';
