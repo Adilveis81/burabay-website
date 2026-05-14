@@ -1848,8 +1848,15 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
         </select>
       </div>
 
-      <div class="taxi-section-label">📞 Контакт</div>
-      <div class="field"><label>Ваш телефон</label><input type="tel" id="tPhone" placeholder="+7 (___) ___-__-__"></div>
+      <div class="taxi-section-label" data-i18n="tSecContact">📞 Контакт</div>
+      <div class="field"><label data-i18n="tPhoneLabel">Ваш телефон</label><input type="tel" id="tPhone" placeholder="+7 (___) ___-__-__"></div>
+      <div class="field">
+        <label data-i18n="tWaLabel">WhatsApp <span style="color:rgba(255,255,255,.4);font-weight:400;font-size:12px" data-i18n="tWaHint">(если отличается от телефона)</span></label>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:20px">💬</span>
+          <input type="tel" id="tWhatsApp" placeholder="+7 (___) ___-__-__" style="flex:1">
+        </div>
+      </div>
 
     </div>
     <div class="modal-footer">
@@ -2386,7 +2393,7 @@ var LANGS={
     tSecSafety:'🛡️ Безопасность (обязательно)',tSecAmenities:'🚙 Удобства и услуги',tSecDriver:'🧑‍✈️ Водитель',
     tKit:'🩺 Аптечка в наличии',tFire:'🧯 Огнетушитель в наличии',
     tAC:'❄️ Кондиционер',tSeat:'🪑 Детское кресло',tTrunk:'🧳 Багажник свободен',tParcel:'📦 Доставка посылок',
-    tExpLabel:'Стаж вождения',
+    tExpLabel:'Стаж вождения',tSecContact:'📞 Контакт',tPhoneLabel:'Ваш телефон',tWaLabel:'WhatsApp',tWaHint:'(если отличается от телефона)',
     botKicker:'Telegram бот',botTitle:'Алсат в вашем Telegram',
     botDesc:'Наш бот проверяет объявления на ошибки и безопасность, следит за спамом и отвечает на вопросы о размещении — 24/7.',
     botBtn:'Открыть бота',
@@ -2425,7 +2432,7 @@ var LANGS={
     tSecSafety:'🛡️ Қауіпсіздік (міндетті)',tSecAmenities:'🚙 Қолайлылықтар мен қызметтер',tSecDriver:'🧑‍✈️ Жүргізуші',
     tKit:'🩺 Дәрі-дәрмек жәшігі бар',tFire:'🧯 Өрт сөндіргіш бар',
     tAC:'❄️ Ауа баптағыш',tSeat:'🪑 Балалар орындығы',tTrunk:'🧳 Багажник бос',tParcel:'📦 Жылжыма жеткізу',
-    tExpLabel:'Жүргізу өтілі',
+    tExpLabel:'Жүргізу өтілі',tSecContact:'📞 Байланыс',tPhoneLabel:'Телефон нөміріңіз',tWaLabel:'WhatsApp',tWaHint:'(телефоннан өзгеше болса)',
     botKicker:'Telegram бот',botTitle:'Алсат — Telegram-да',
     botDesc:'Біздің бот хабарландыруларды қателер мен қауіпсіздікке тексереді, спамды бақылайды және орналастыру сұрақтарына 24/7 жауап береді.',
     botBtn:'Ботты ашу',
@@ -2464,7 +2471,7 @@ var LANGS={
     tSecSafety:'🛡️ Safety (required)',tSecAmenities:'🚙 Amenities & Services',tSecDriver:'🧑‍✈️ Driver',
     tKit:'🩺 First aid kit on board',tFire:'🧯 Fire extinguisher on board',
     tAC:'❄️ Air conditioning',tSeat:'🪑 Child seat',tTrunk:'🧳 Free trunk space',tParcel:'📦 Parcel delivery',
-    tExpLabel:'Driving experience',
+    tExpLabel:'Driving experience',tSecContact:'📞 Contact',tPhoneLabel:'Your phone',tWaLabel:'WhatsApp',tWaHint:'(if different from phone)',
     botKicker:'Telegram bot',botTitle:'Alsat in your Telegram',
     botDesc:'Our bot checks ads for errors and safety, monitors spam and answers posting questions — 24/7.',
     botBtn:'Open bot',
@@ -2679,6 +2686,8 @@ function submitTaxiPost(){
   if(!document.getElementById('tFire').checked){showToast('Подтвердите наличие огнетушителя');return}
   var exp=document.getElementById('tExp').value;
   if(!exp){showToast('Укажите стаж вождения');return}
+  var wa=document.getElementById('tWhatsApp').value.trim().replace(/\D/g,'');
+  var waNum=wa||(phone.replace(/\D/g,''));
 
   var ac=document.getElementById('tAC').checked;
   var seat=document.getElementById('tSeat').checked;
@@ -2715,6 +2724,10 @@ function submitTaxiPost(){
     +'<span class="tsb">✅ Огнетушитель</span>'
     +'<span class="tsb">📸 4 фото</span>'
     +extras
+    +'</div>'
+    +'<div style="display:flex;gap:8px;margin-top:12px">'
+    +'<a href="tel:+'+phone.replace(/\D/g,'')+'" onclick="event.stopPropagation()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">📞 Позвонить</a>'
+    +'<a href="https://wa.me/'+waNum+'" target="_blank" onclick="event.stopPropagation()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">💬 WhatsApp</a>'
     +'</div>';
   grid.insertBefore(card, grid.firstChild);
 
@@ -2725,7 +2738,7 @@ function submitTaxiPost(){
     var img=s.querySelector('img');if(img)img.remove();
     s.classList.remove('filled');
   });
-  ['tFromCity','tToCity','tCar','tPrice','tPhone','tDesc'].forEach(function(id){
+  ['tFromCity','tToCity','tCar','tPrice','tPhone','tWhatsApp','tDesc'].forEach(function(id){
     var el=document.getElementById(id);if(el)el.value='';
   });
   document.getElementById('tKit').checked=false;
