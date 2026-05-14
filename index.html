@@ -1352,6 +1352,35 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 .taxi-modal-head-pax h2{font-size:18px;font-weight:800;color:#fff}
 .taxi-modal-head-pax p{font-size:13px;color:rgba(255,255,255,.8);margin-top:4px}
 
+/* legal consent row in forms */
+.legal-consent-row{
+  padding:14px 24px 4px;
+  border-top:1px solid var(--border);
+}
+.legal-consent-label{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:12px;line-height:1.5;color:var(--text2);cursor:pointer;
+}
+.legal-consent-label input[type=checkbox]{
+  width:16px;height:16px;flex-shrink:0;margin-top:2px;
+  accent-color:var(--brand);cursor:pointer;
+}
+.legal-consent-label a{color:var(--brand);text-decoration:underline}
+.legal-consent-label a:hover{opacity:.8}
+
+/* taxi legal notice */
+.taxi-legal-notice{
+  background:rgba(245,166,35,.07);
+  border:1px solid rgba(245,166,35,.2);
+  border-radius:var(--radius-sm);
+  padding:10px 14px;
+  font-size:11px;
+  line-height:1.6;
+  color:rgba(255,255,255,.55);
+  margin-top:16px;
+}
+.taxi-legal-notice strong{color:rgba(255,255,255,.75)}
+
 /* modal close button */
 .modal-close-btn{
   position:absolute;top:14px;right:14px;
@@ -1729,6 +1758,10 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       <button class="taxi-role-btn taxi-role-btn-driver" onclick="openTaxiPost()">🚗 Я водитель</button>
       <button class="taxi-role-btn taxi-role-btn-passenger" onclick="openPassengerPost()">🧳 Ищу попутку</button>
     </div>
+    <div class="taxi-legal-notice">
+      ⚖️ <strong>Правовая информация.</strong> Платформа Алсат является информационным посредником и не несёт ответственности за действия перевозчиков. Водители обязаны иметь действующее ВУ, техосмотр и полис ОСГПО (Закон РК «Об автомобильном транспорте»). Пассажиры самостоятельно оценивают надёжность перевозчика.
+      Размещая объявление, вы принимаете <a onclick="openLegal('oferta');return false" href="#" style="color:rgba(245,166,35,.8)">Оферту</a> и даёте согласие на обработку персональных данных согласно <a onclick="openLegal('privacy');return false" href="#" style="color:rgba(245,166,35,.8)">Политике конфиденциальности</a> (Закон РК №94-V от 21.05.2013).
+    </div>
   </div>
 </section>
 
@@ -1932,6 +1965,12 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       </div>
 
     </div>
+    <div class="legal-consent-row">
+      <label class="legal-consent-label">
+        <input type="checkbox" id="tConsent">
+        <span>Я ознакомлен с <a onclick="openLegal('oferta');return false" href="#">Офертой</a> и даю согласие на <a onclick="openLegal('privacy');return false" href="#">обработку персональных данных</a> согласно Закону РК №94-V от 21.05.2013. Подтверждаю наличие водительского удостоверения, действующего техосмотра и полиса ОСГПО.</span>
+      </label>
+    </div>
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeTaxiPost()">Отмена</button>
       <button class="btn-submit" onclick="submitTaxiPost()" style="background:#F5A623;color:#1A1A2A">🚗 Опубликовать</button>
@@ -1991,6 +2030,12 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       </div>
 
     </div>
+    <div class="legal-consent-row">
+      <label class="legal-consent-label">
+        <input type="checkbox" id="pConsent">
+        <span>Согласен с <a onclick="openLegal('oferta');return false" href="#">Офертой</a> и даю согласие на <a onclick="openLegal('privacy');return false" href="#">обработку персональных данных</a> согласно Закону РК №94-V от 21.05.2013.</span>
+      </label>
+    </div>
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closePassengerPost()">Отмена</button>
       <button class="btn-submit" onclick="submitPassengerPost()" style="background:#29B6F6;color:#0d1b2a">🧳 Найти водителя</button>
@@ -2019,6 +2064,12 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       <div class="field"><label>Телефон</label><input id="pPhone" type="tel" placeholder="+7 (___) ___-__-__"></div>
       <div id="pError" style="color:var(--red);font-size:13px;display:none;margin-top:4px"></div>
     </div>
+    <div class="legal-consent-row">
+      <label class="legal-consent-label">
+        <input type="checkbox" id="adConsent">
+        <span>Согласен с <a onclick="openLegal('oferta');return false" href="#">Офертой</a> и даю согласие на <a onclick="openLegal('privacy');return false" href="#">обработку персональных данных</a> согласно Закону РК №94-V от 21.05.2013.</span>
+      </label>
+    </div>
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closePost()">Отмена</button>
       <button class="btn-submit" id="pSubmitBtn" onclick="submitAd()">Разместить →</button>
@@ -2046,11 +2097,61 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
   <div class="legal-box">
     <div class="legal-head"><h2>Политика конфиденциальности</h2><button class="legal-close" onclick="closeLegal('privacy')">×</button></div>
     <div class="legal-body">
-      <p><strong>Дата:</strong> 14 мая 2026 года</p>
-      <h3>1. Какие данные мы собираем</h3><ul><li>Имя, телефон, email — при размещении объявления</li><li>Содержание объявлений (текст, фото, цена)</li><li>Город и регион</li><li>Технические данные (IP, браузер) — для безопасности</li></ul>
-      <h3>2. Как используем</h3><ul><li>Отображение объявлений на сайте</li><li>Связь по вопросам сервиса</li><li>Модерация и безопасность</li></ul>
-      <h3>3. Передача третьим лицам</h3><p>Не продаём и не передаём данные, кроме случаев предусмотренных законодательством РК.</p>
-      <h3>4. Ваши права</h3><p>Запрос удаления или исправления данных: <strong>adilkurmanov9@gmail.com</strong></p>
+      <p><strong>Редакция от 14 мая 2026 года.</strong> Настоящая Политика разработана в соответствии с Законом Республики Казахстан «О персональных данных и их защите» №94-V ЗРК от 21.05.2013 и Законом РК «Об информатизации» №418-V ЗРК от 24.11.2015.</p>
+
+      <h3>1. Оператор персональных данных</h3>
+      <p>Информационная платформа <strong>Алсат</strong> (alsat.asia). Контакт: <strong>adilkurmanov9@gmail.com</strong>. Запросы субъектов обрабатываются в срок до 10 рабочих дней.</p>
+
+      <h3>2. Состав персональных данных</h3>
+      <ul>
+        <li>Имя и псевдоним пользователя</li>
+        <li>Номер телефона (привязка к Telegram-боту и уведомлениям)</li>
+        <li>Содержание объявлений: текст, фото, цена, город</li>
+        <li>Маршрут и дата поездки (раздел Такси · Межгород)</li>
+        <li>Технические данные: IP-адрес, User-Agent — исключительно для обеспечения безопасности</li>
+      </ul>
+
+      <h3>3. Цели обработки</h3>
+      <ul>
+        <li>Публикация и отображение объявлений на платформе</li>
+        <li>Отправка уведомлений через Telegram-бот @Alsat_Asia_bot</li>
+        <li>Автоматизированная модерация контента (ИИ-проверка)</li>
+        <li>Обеспечение безопасности и предотвращение мошенничества</li>
+        <li>Ответы на запросы службы поддержки</li>
+      </ul>
+
+      <h3>4. Правовые основания обработки</h3>
+      <p>Обработка осуществляется на основании <strong>добровольного согласия</strong> субъекта персональных данных (ст. 8 Закона №94-V), выраженного при заполнении форм на сайте.</p>
+
+      <h3>5. Передача третьим лицам</h3>
+      <p>Платформа не продаёт и не передаёт персональные данные третьим лицам. Исключение: случаи, прямо предусмотренные законодательством РК (запросы государственных органов, судебные решения). Данные хранятся в базе Supabase (EU-West-1) с шифрованием в состоянии покоя и при передаче.</p>
+
+      <h3>6. Раскрытие телефонных номеров (раздел Такси)</h3>
+      <p>Номера телефонов не рассылаются автоматически. Раскрытие происходит <strong>только по явному запросу</strong> заинтересованной стороны через команду Telegram-бота. Каждый обмен контактами фиксируется в журнале аудита.</p>
+
+      <h3>7. Сроки хранения</h3>
+      <ul>
+        <li>Объявления — 30 дней с момента публикации, затем архивируются</li>
+        <li>Заявки такси — 14 дней</li>
+        <li>Журнал обмена контактами — 90 дней</li>
+        <li>Технические логи — 7 дней</li>
+      </ul>
+
+      <h3>8. Права субъекта персональных данных</h3>
+      <ul>
+        <li>Право на доступ к своим данным</li>
+        <li>Право на исправление неточных данных</li>
+        <li>Право на удаление данных (право на забвение)</li>
+        <li>Право на ограничение обработки</li>
+        <li>Право на отзыв согласия в любой момент</li>
+      </ul>
+      <p>Для реализации прав — обратитесь: <strong>adilkurmanov9@gmail.com</strong></p>
+
+      <h3>9. Безопасность</h3>
+      <p>Платформа применяет: HTTPS/TLS 1.3, защита Cloudflare от DDoS и сканирования, ограничение количества запросов (rate limiting), honeypot-защита форм от ботов, ИИ-модерация контента.</p>
+
+      <h3>10. Возраст пользователей</h3>
+      <p>Сервис предназначен для лиц <strong>18 лет и старше</strong>. Лица до 18 лет могут пользоваться сервисом только с согласия родителей или законных представителей.</p>
     </div>
   </div>
 </div>
@@ -2059,12 +2160,61 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
   <div class="legal-box">
     <div class="legal-head"><h2>Публичная оферта</h2><button class="legal-close" onclick="closeLegal('oferta')">×</button></div>
     <div class="legal-body">
-      <p><strong>Дата:</strong> 14 мая 2026 года</p>
-      <h3>1. Статус платформы</h3><p>Alsat.asia — информационная площадка. Мы не являемся продавцом и не несём ответственности за сделки между пользователями.</p>
-      <h3>2. Бесплатный период</h3><p>Размещение бесплатно до достижения <strong>10 000 объявлений</strong> на платформе.</p>
-      <h3>3. Обязанности пользователя</h3><ul><li>Предоставлять достоверную информацию</li><li>Не размещать запрещённый контент</li><li>Самостоятельно платить налоги с продаж согласно законодательству РК</li></ul>
-      <h3>4. Модерация</h3><p>Платформа вправе удалять объявления, нарушающие правила, без предупреждения.</p>
-      <h3>5. Контакты</h3><p>adilkurmanov9@gmail.com · <a href="https://t.me/Alsat_Asia_bot" style="color:var(--brand)">@Alsat_Asia_bot</a></p>
+      <p><strong>Редакция от 14 мая 2026 года.</strong> Настоящая оферта составлена в соответствии со ст. 395 Гражданского кодекса Республики Казахстан и является официальным предложением заключить договор об использовании платформы Алсат (alsat.asia).</p>
+
+      <h3>1. Статус платформы</h3>
+      <p>Алсат (alsat.asia) является <strong>информационным посредником</strong> в смысле Закона РК «Об информатизации». Платформа не является продавцом, перевозчиком, работодателем или исполнителем услуг. Все сделки заключаются непосредственно между пользователями.</p>
+
+      <h3>2. Принятие оферты (акцепт)</h3>
+      <p>Размещение объявления или заявки (нажатие кнопки «Опубликовать» / «Найти водителя») является безоговорочным акцептом настоящей оферты и Политики конфиденциальности.</p>
+
+      <h3>3. Обязанности пользователя</h3>
+      <ul>
+        <li>Предоставлять достоверную и актуальную информацию</li>
+        <li>Не размещать запрещённый контент (см. п. 5)</li>
+        <li>Самостоятельно исполнять налоговые обязательства согласно законодательству РК</li>
+        <li>Не использовать платформу для массовой рассылки или сбора данных</li>
+        <li>Не использовать автоматизированные инструменты для подачи объявлений</li>
+      </ul>
+
+      <h3>4. Раздел «Такси · Межгород» — требования к водителям</h3>
+      <p style="background:rgba(245,166,35,.08);border-left:3px solid var(--yellow);padding:10px 12px;border-radius:4px">
+        ⚖️ В соответствии с Законом РК «Об автомобильном транспорте» и Правилами перевозок пассажиров, водитель-перевозчик ОБЯЗАН иметь:
+      </p>
+      <ul>
+        <li>✅ Действующее водительское удостоверение соответствующей категории</li>
+        <li>✅ Технически исправное транспортное средство с действующим техническим осмотром</li>
+        <li>✅ Полис обязательного страхования гражданско-правовой ответственности (ОСГПО) владельца ТС</li>
+        <li>✅ Аптечку первой помощи и огнетушитель в салоне</li>
+        <li>✅ Соблюдение ПДД РК и скоростного режима</li>
+      </ul>
+      <p>Платформа Алсат <strong>не несёт ответственности</strong> за действия водителей, состояние транспортных средств и безопасность поездок. Пассажиры самостоятельно оценивают риски.</p>
+
+      <h3>5. Запрещённый контент</h3>
+      <ul>
+        <li>Ссылки на сторонние сайты и конкурирующие сервисы</li>
+        <li>Нецензурная лексика, оскорбления, угрозы на любом языке</li>
+        <li>Дискриминация по национальности, полу, вероисповеданию</li>
+        <li>Мошеннические предложения, заведомо ложная информация</li>
+        <li>Контент 18+, пропаганда наркотиков, оружия, экстремизма</li>
+        <li>Персональные данные третьих лиц без их согласия</li>
+        <li>Объявления об услугах, запрещённых законодательством РК</li>
+      </ul>
+
+      <h3>6. Модерация и блокировка</h3>
+      <p>Платформа осуществляет автоматизированную ИИ-модерацию. Объявления, нарушающие правила, удаляются без предупреждения. При систематических нарушениях аккаунт блокируется. Решения о блокировке можно оспорить по адресу adilkurmanov9@gmail.com.</p>
+
+      <h3>7. Ограничение ответственности</h3>
+      <p>Платформа не несёт ответственности за убытки, возникшие в результате: сделок между пользователями, недостоверной информации в объявлениях, перерывов в работе сервиса, действий третьих лиц.</p>
+
+      <h3>8. Тарифы</h3>
+      <p>Размещение объявлений <strong>бесплатно</strong> до достижения 10 000 объявлений на платформе. Условия после достижения порога будут объявлены за 30 дней до вступления в силу.</p>
+
+      <h3>9. Применимое право</h3>
+      <p>Настоящая оферта регулируется законодательством <strong>Республики Казахстан</strong>. Споры рассматриваются судами РК по месту нахождения платформы.</p>
+
+      <h3>10. Контакты</h3>
+      <p>adilkurmanov9@gmail.com · <a href="https://t.me/Alsat_Asia_bot" style="color:var(--brand)">@Alsat_Asia_bot</a></p>
     </div>
   </div>
 </div>
@@ -2682,6 +2832,11 @@ function openPost(){document.getElementById('postOverlay').classList.add('open')
 function closePost(){document.getElementById('postOverlay').classList.remove('open');document.body.style.overflow='';document.getElementById('pError').style.display='none';}
 
 async function submitAd(){
+  if(!document.getElementById('adConsent').checked){
+    var errEl=document.getElementById('pError');
+    errEl.textContent='Необходимо дать согласие на обработку персональных данных';
+    errEl.style.display='block';return;
+  }
   var title=document.getElementById('pTitle').value.trim();
   var phone=document.getElementById('pPhone').value.trim();
   var errEl=document.getElementById('pError');
@@ -2809,7 +2964,8 @@ function closePassengerPost(){
 async function submitPassengerPost(){
   // ── bot / spam protection ──
   if(document.getElementById('hp_pax').value){return;} // honeypot
-  if(Date.now()-_paxFormOpen < 3000){showToast('Заполните форму внимательно');return;}
+  if(Date.now()-_paxFormOpen < 8000){showToast('Заполните форму внимательно');return;}
+  if(!document.getElementById('pConsent').checked){showToast('Необходимо дать согласие на обработку данных');return;}
   var allText=(document.getElementById('pComment').value).toLowerCase();
   if(/https?:\/\/|www\.|indrive|яндекс.такси|blablacar/.test(allText)){showToast('Ссылки запрещены');return;}
   // ──────────────────────────
@@ -2885,7 +3041,8 @@ function handleTaxiPh(i,input){
 function submitTaxiPost(){
   // ── bot / spam protection ──
   if(document.getElementById('hp_driver').value){return;} // honeypot triggered
-  if(Date.now()-_driverFormOpen < 4000){showToast('Заполните форму внимательно');return;}
+  if(Date.now()-_driverFormOpen < 8000){showToast('Заполните форму внимательно');return;}
+  if(!document.getElementById('tConsent').checked){showToast('Необходимо дать согласие на обработку данных');return;}
   var allText=(document.getElementById('tCar').value+' '+document.getElementById('tDesc').value).toLowerCase();
   if(/https?:\/\/|www\.|indrive|яндекс.такси|blablacar/.test(allText)){showToast('Ссылки и реклама конкурентов запрещены');return;}
   // ──────────────────────────

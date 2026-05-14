@@ -36,12 +36,44 @@ async function tgSend(chat_id, text, extra = {}) {
   return r;
 }
 
+// ── alert channels ────────────────────────────────────────────────────────────
+// ADMIN_CHAT = Адил (владелец)
+// CLAUDE_CHAT = Claude (AI-агент, принимает решения по безопасности)
+const CLAUDE_CHAT = process.env.CLAUDE_CHAT_ID || ADMIN_CHAT; // set env var to separate Claude's chat
+
 async function adminAlert(text) {
+  // notify owner (Адил)
   return fetch('https://api.telegram.org/bot' + ADMIN_BOT + '/sendMessage', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ chat_id: ADMIN_CHAT, text, parse_mode: 'Markdown' })
   }).catch(() => {});
+}
+
+// Security alerts go to Claude for autonomous decision-making
+async function securityAlert(level, title, details, actions) {
+  const icons = { critical: '🚨', high: '⚠️', medium: '🔶', info: 'ℹ️' };
+  const icon = icons[level] || '🔶';
+  const actionsText = actions && actions.length
+    ? '\n\n*Доступные действия:*\n' + actions.map((a, i) => `${i + 1}. ${a.label}: \`${a.cmd}\``).join('\n')
+    : '';
+  const msg =
+    `${icon} *[${level.toUpperCase()}] ${title}*\n\n` +
+    details +
+    actionsText +
+    `\n\n_${new Date().toLocaleString('ru-KZ', { timeZone: 'Asia/Almaty' })}_`;
+
+  // to Claude
+  fetch('https://api.telegram.org/bot' + ADMIN_BOT + '/sendMessage', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: CLAUDE_CHAT, text: msg, parse_mode: 'Markdown' })
+  }).catch(() => {});
+
+  // also to Адил for critical
+  if (level === 'critical') {
+    return adminAlert(msg);
+  }
 }
 
 async function getUser(cid) {
@@ -250,7 +282,9 @@ async function checkNotifications() {
             method: 'PATCH', headers: { ...sbH(), Prefer: 'return=minimal' },
             body: JSON.stringify({ notified: true, blocked: true, block_reason: 'Превышен лимит публикаций (3 в сутки)' })
           }).catch(() => {});
-          await adminAlert(`⛔ Заявка пассажира заблокирована\n📞 +${req.phone}\n🛣 ${req.from_city}→${req.to_city}\n❗ Превышен лимит публикаций`);
+          await securityAlert('high', 'Rate limit: пассажир',
+            `📞 +${req.phone}\n🛣 ${req.from_city} → ${req.to_city}\n❗ Превышен лимит публикаций (3/сутки)`,
+            [{ label: 'Разблокировать', cmd: `/unblock_req_${shortId(req.id)}` }, { label: 'Заблокировать навсегда', cmd: `/ban_${req.phone}` }]);
           continue;
         }
 
@@ -262,7 +296,9 @@ async function checkNotifications() {
             method: 'PATCH', headers: { ...sbH(), Prefer: 'return=minimal' },
             body: JSON.stringify({ notified: true, blocked: true, block_reason: mod.reason })
           }).catch(() => {});
-          await adminAlert(`⛔ Заявка пассажира отклонена модерацией\n📞 +${req.phone}\n🛣 ${req.from_city}→${req.to_city}\n❗ ${mod.reason}`);
+          await securityAlert('high', 'Модерация отклонила: пассажир',
+            `📞 +${req.phone}\n🛣 ${req.from_city} → ${req.to_city}\n💬 "${req.comment||''}"\n❗ ${mod.reason}`,
+            [{ label: 'Одобрить вручную', cmd: `/approve_req_${shortId(req.id)}` }, { label: 'Бан', cmd: `/ban_${req.phone}` }]);
           // notify the passenger if they're in the bot
           const cid = await phoneToChat(req.phone);
           if (cid) await tgSend(cid, `⛔ Ваша заявка на маршрут *${req.from_city} → ${req.to_city}* отклонена модерацией.\n❗ Причина: ${mod.reason}`);
@@ -295,7 +331,9 @@ async function checkNotifications() {
             method: 'PATCH', headers: { ...sbH(), Prefer: 'return=minimal' },
             body: JSON.stringify({ notified: true, blocked: true, block_reason: 'Превышен лимит публикаций (3 в сутки)' })
           }).catch(() => {});
-          await adminAlert(`⛔ Объявление водителя заблокировано\n📞 +${drv.phone}\n🛣 ${drv.from_city}→${drv.to_city}\n❗ Превышен лимит публикаций`);
+          await securityAlert('high', 'Rate limit: водитель',
+            `📞 +${drv.phone}\n🛣 ${drv.from_city} → ${drv.to_city}\n❗ Превышен лимит публикаций (3/сутки)`,
+            [{ label: 'Разблокировать', cmd: `/unblock_drv_${shortId(drv.id)}` }, { label: 'Бан', cmd: `/ban_${drv.phone}` }]);
           continue;
         }
 
@@ -307,7 +345,9 @@ async function checkNotifications() {
             method: 'PATCH', headers: { ...sbH(), Prefer: 'return=minimal' },
             body: JSON.stringify({ notified: true, blocked: true, block_reason: mod.reason })
           }).catch(() => {});
-          await adminAlert(`⛔ Объявление водителя отклонено модерацией\n📞 +${drv.phone}\n🛣 ${drv.from_city}→${drv.to_city}\n🚘 ${drv.car || ''}\n❗ ${mod.reason}`);
+          await securityAlert('high', 'Модерация отклонила: водитель',
+            `📞 +${drv.phone}\n🛣 ${drv.from_city} → ${drv.to_city}\n🚘 ${drv.car||''}\n💬 "${drv.desc||''}"\n❗ ${mod.reason}`,
+            [{ label: 'Одобрить вручную', cmd: `/approve_drv_${shortId(drv.id)}` }, { label: 'Бан', cmd: `/ban_${drv.phone}` }]);
           const cid = await phoneToChat(drv.phone);
           if (cid) await tgSend(cid, `⛔ Ваше объявление водителя на маршрут *${drv.from_city} → ${drv.to_city}* отклонено модерацией.\n❗ Причина: ${mod.reason}`);
           continue;
@@ -509,6 +549,79 @@ async function handleMessage(msg) {
     await upsertUser(chat_id, { notify: true });
     await tgSend(chat_id, '🔔 Уведомления *включены*! Отключить: /off');
     return;
+  }
+
+  // ── admin commands (only from ADMIN_CHAT or CLAUDE_CHAT) ────────────────────
+  if (chat_id === ADMIN_CHAT || chat_id === CLAUDE_CHAT) {
+
+    // /approve_req_XXXXXXXX — approve blocked passenger request
+    const approveReq = text.match(/^\/approve_req_([a-f0-9]{8})$/i);
+    if (approveReq) {
+      const sid = approveReq[1].toLowerCase();
+      const r = await fetch(SB_URL + '/rest/v1/taxi_requests?select=id,from_city,to_city&blocked=eq.true', { headers: sbH() }).catch(() => null);
+      const rows = await r?.json().catch(() => []) || [];
+      const req = rows.find(x => shortId(x.id) === sid);
+      if (!req) { await tgSend(chat_id, '❌ Заявка не найдена'); return; }
+      await fetch(SB_URL + '/rest/v1/taxi_requests?id=eq.' + req.id, {
+        method: 'PATCH', headers: { ...sbH(), Prefer: 'return=minimal' },
+        body: JSON.stringify({ blocked: false, notified: false, block_reason: null })
+      }).catch(() => {});
+      await tgSend(chat_id, `✅ Заявка ${req.from_city}→${req.to_city} одобрена, будет разослана.`);
+      return;
+    }
+
+    // /approve_drv_XXXXXXXX — approve blocked driver post
+    const approveDrv = text.match(/^\/approve_drv_([a-f0-9]{8})$/i);
+    if (approveDrv) {
+      const sid = approveDrv[1].toLowerCase();
+      const r = await fetch(SB_URL + '/rest/v1/taxi_drivers?select=id,from_city,to_city&blocked=eq.true', { headers: sbH() }).catch(() => null);
+      const rows = await r?.json().catch(() => []) || [];
+      const drv = rows.find(x => shortId(x.id) === sid);
+      if (!drv) { await tgSend(chat_id, '❌ Объявление не найдено'); return; }
+      await fetch(SB_URL + '/rest/v1/taxi_drivers?id=eq.' + drv.id, {
+        method: 'PATCH', headers: { ...sbH(), Prefer: 'return=minimal' },
+        body: JSON.stringify({ blocked: false, notified: false, block_reason: null })
+      }).catch(() => {});
+      await tgSend(chat_id, `✅ Объявление ${drv.from_city}→${drv.to_city} одобрено.`);
+      return;
+    }
+
+    // /ban_77XXXXXXXXX — permanently block a phone number
+    const banMatch = text.match(/^\/ban_(7\d{10})$/);
+    if (banMatch) {
+      const phone = banMatch[1];
+      await fetch(SB_URL + '/rest/v1/taxi_drivers?phone=eq.' + phone, {
+        method: 'PATCH', headers: { ...sbH(), Prefer: 'return=minimal' },
+        body: JSON.stringify({ blocked: true, block_reason: 'Manual ban by admin' })
+      }).catch(() => {});
+      await fetch(SB_URL + '/rest/v1/taxi_requests?phone=eq.' + phone, {
+        method: 'PATCH', headers: { ...sbH(), Prefer: 'return=minimal' },
+        body: JSON.stringify({ blocked: true, block_reason: 'Manual ban by admin' })
+      }).catch(() => {});
+      // notify the banned user
+      const cid = await phoneToChat(phone);
+      if (cid) await tgSend(cid, '🚫 Ваш аккаунт заблокирован за нарушение правил платформы.');
+      await tgSend(chat_id, `🚫 Номер +${phone} заблокирован.`);
+      return;
+    }
+
+    // /stats — platform statistics
+    if (text === '/stats') {
+      const [rDrv, rReq, rCon] = await Promise.all([
+        fetch(SB_URL + '/rest/v1/taxi_drivers?select=id,blocked', { headers: sbH() }).then(r=>r.json()).catch(()=>[]),
+        fetch(SB_URL + '/rest/v1/taxi_requests?select=id,blocked', { headers: sbH() }).then(r=>r.json()).catch(()=>[]),
+        fetch(SB_URL + '/rest/v1/contact_requests?select=id', { headers: sbH() }).then(r=>r.json()).catch(()=>[]),
+      ]);
+      const drvTotal = rDrv.length, drvBlocked = rDrv.filter(x=>x.blocked).length;
+      const reqTotal = rReq.length, reqBlocked = rReq.filter(x=>x.blocked).length;
+      await tgSend(chat_id,
+        `📊 *Статистика платформы*\n\n` +
+        `🚗 Водители: ${drvTotal} (заблокировано: ${drvBlocked})\n` +
+        `🧳 Пассажиры: ${reqTotal} (заблокировано: ${reqBlocked})\n` +
+        `🤝 Обменов контактами: ${rCon.length}`
+      );
+      return;
+    }
   }
 
   // ── /contact_req_XXXXXXXX or /contact_drv_XXXXXXXX ─────────────────────────
