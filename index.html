@@ -2509,7 +2509,7 @@ function setLang(lang){
   titles.forEach(function(t,i){if(map[i])t.textContent=map[i]});
   // taxi section h2
   var th=document.querySelector('.taxi-head h2');
-  if(th) th.innerHTML='🚗 '+L.taxiTitle.replace(' · ','<br><span style="color:var(--yellow)">').replace('$','')+(lang==='ru'?'<span>Межгород</span>':lang==='kz'?'<span>Қалааралық</span>':'<span>Intercity</span>');
+  if(th) th.innerHTML='🚗 '+L.taxiTitle.replace(' · ','<br><span style="color:var(--yellow)">').replace('$','')+'</span>';
   renderFaq();
   renderCats();
   renderChips();
