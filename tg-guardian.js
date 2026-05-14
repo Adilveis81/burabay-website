@@ -44,6 +44,25 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 function now() { return new Date().toLocaleString('ru-KZ', { timeZone: 'Asia/Almaty' }); }
 
+function sbHeaders() {
+  return { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY, 'Content-Type': 'application/json' };
+}
+
+async function logSecurity(event_type, severity, details) {
+  try {
+    await fetch(`${SB_URL}/rest/v1/security_log`, {
+      method: 'POST',
+      headers: { ...sbHeaders(), Prefer: 'return=minimal' },
+      body: JSON.stringify({
+        event_type,
+        severity,
+        details: JSON.stringify(details),
+        ts: new Date().toISOString()
+      })
+    });
+  } catch(e) {}
+}
+
 // ── call Claude Opus with full incident context ───────────────────────────────
 
 async function consultOpus(incident) {
@@ -278,6 +297,7 @@ async function processThreat(threat) {
   if (decision.decision !== 'no_action' && decision.decision !== 'escalate_human') {
     executedActions = await executeDecision(decision, threat);
   }
+  await logSecurity(threat.type, decision.risk_level || 'high', { threat, decision });
 
   // Send full report
   const reportLines = [

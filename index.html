@@ -1433,6 +1433,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 }
 .notify-close:hover{opacity:1}
 </style>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -1972,6 +1973,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       </label>
     </div>
     <div class="modal-footer">
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAA_PLACEHOLDER_REPLACE_ME" data-theme="auto" id="driverTurnstile"></div>
       <button class="btn-cancel" onclick="closeTaxiPost()">Отмена</button>
       <button class="btn-submit" onclick="submitTaxiPost()" style="background:#F5A623;color:#1A1A2A">🚗 Опубликовать</button>
     </div>
@@ -2037,6 +2039,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       </label>
     </div>
     <div class="modal-footer">
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAA_PLACEHOLDER_REPLACE_ME" data-theme="auto" id="paxTurnstile"></div>
       <button class="btn-cancel" onclick="closePassengerPost()">Отмена</button>
       <button class="btn-submit" onclick="submitPassengerPost()" style="background:#29B6F6;color:#0d1b2a">🧳 Найти водителя</button>
     </div>
@@ -2965,6 +2968,8 @@ async function submitPassengerPost(){
   // ── bot / spam protection ──
   if(document.getElementById('hp_pax').value){return;} // honeypot
   if(Date.now()-_paxFormOpen < 8000){showToast('Заполните форму внимательно');return;}
+  var tsResp = document.querySelector('#paxTurnstile [name="cf-turnstile-response"]');
+  if(!tsResp || !tsResp.value){ showToast('Пройдите проверку безопасности'); return; }
   if(!document.getElementById('pConsent').checked){showToast('Необходимо дать согласие на обработку данных');return;}
   var allText=(document.getElementById('pComment').value).toLowerCase();
   if(/https?:\/\/|www\.|indrive|яндекс.такси|blablacar/.test(allText)){showToast('Ссылки запрещены');return;}
@@ -3042,6 +3047,8 @@ function submitTaxiPost(){
   // ── bot / spam protection ──
   if(document.getElementById('hp_driver').value){return;} // honeypot triggered
   if(Date.now()-_driverFormOpen < 8000){showToast('Заполните форму внимательно');return;}
+  var tsResp = document.querySelector('#driverTurnstile [name="cf-turnstile-response"]');
+  if(!tsResp || !tsResp.value){ showToast('Пройдите проверку безопасности'); return; }
   if(!document.getElementById('tConsent').checked){showToast('Необходимо дать согласие на обработку данных');return;}
   var allText=(document.getElementById('tCar').value+' '+document.getElementById('tDesc').value).toLowerCase();
   if(/https?:\/\/|www\.|indrive|яндекс.такси|blablacar/.test(allText)){showToast('Ссылки и реклама конкурентов запрещены');return;}

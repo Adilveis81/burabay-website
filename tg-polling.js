@@ -173,7 +173,11 @@ async function checkPostingLimit(phone, table) {
   ).catch(() => null);
   if (!r?.ok) return true; // fail open
   const rows = await r.json().catch(() => []);
-  return rows.length < POST_LIMIT;
+  if (rows.length >= POST_LIMIT) {
+    await securityAlert('medium', 'Превышен лимит публикаций', `Телефон ${phone} пытается опубликовать более 3 объявлений за 24ч`, []);
+    return false;
+  }
+  return true;
 }
 
 async function checkContactLimit(chat_id) {
