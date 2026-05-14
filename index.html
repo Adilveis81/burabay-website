@@ -1574,7 +1574,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
   <div class="wrap">
     <div class="sec-head" style="margin-bottom:14px">
       <h2 class="sec-title">Свежие объявления</h2>
-      <a class="sec-link" href="#" data-i18n="allLink">Все →</a>
+      <a class="sec-link" href="#" onclick="showToast('Все объявления — скоро!');return false" data-i18n="allLink">Все →</a>
     </div>
 
     <!-- Filter chips (rendered by JS) -->
@@ -1643,7 +1643,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       <div class="city-tile" onclick="setCity('Кокшетау')"><div><div class="city-tile-name" data-i18n="cnKokshetau">Кокшетау</div><div class="city-tile-count" data-i18n="cityNorth">север</div></div><span class="city-tile-flag">🏔</span></div>
       <div class="city-tile" onclick="setCity('Актобе')"><div><div class="city-tile-name" data-i18n="cnAktobe">Актобе</div><div class="city-tile-count" data-i18n="cityWest">запад</div></div><span class="city-tile-flag">🏭</span></div>
       <div class="city-tile" onclick="setCity('Костанай')"><div><div class="city-tile-name" data-i18n="cnKostanay">Костанай</div><div class="city-tile-count" data-i18n="cityNorth">север</div></div><span class="city-tile-flag">🌾</span></div>
-      <div class="city-tile" onclick="setCity('Все города')"><div><div class="city-tile-name" data-i18n="cityAll">Все города</div><div class="city-tile-count" data-i18n="cityAllSub">весь КЗ</div></div><span class="city-tile-flag">🇰🇿</span></div>
+      <div class="city-tile" onclick="setCity('Весь Казахстан')"><div><div class="city-tile-name" data-i18n="cityAll">Все города</div><div class="city-tile-count" data-i18n="cityAllSub">весь КЗ</div></div><span class="city-tile-flag">🇰🇿</span></div>
     </div>
   </div>
 </section>
@@ -1749,8 +1749,8 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
           <span>💬 Выезд утром, с вещами, есть ребёнок</span>
         </div>
         <div style="display:flex;gap:8px;margin-top:12px">
-          <a href="tel:+77001234567" onclick="event.stopPropagation()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">📞 Позвонить</a>
-          <a href="https://wa.me/77001234567" target="_blank" onclick="event.stopPropagation()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">💬 WhatsApp</a>
+          <a href="#" onclick="event.stopPropagation();showToast('Это пример объявления');return false" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">📞 Позвонить</a>
+          <a href="#" onclick="event.stopPropagation();showToast('Это пример объявления');return false" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">💬 WhatsApp</a>
         </div>
       </div>
     </div>
@@ -1817,18 +1817,18 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       <div>
         <h4 data-i18n="footerCompany">Компания</h4>
         <div class="footer-links">
-          <a href="#" data-i18n="footerAbout">О нас</a>
-          <a href="#" data-i18n="footerAds">Реклама</a>
-          <a href="#" data-i18n="footerSafety">Безопасность</a>
+          <a href="#" onclick="showToast('Раздел в разработке');return false" data-i18n="footerAbout">О нас</a>
+          <a href="#" onclick="showToast('Раздел в разработке');return false" data-i18n="footerAds">Реклама</a>
+          <a href="#" onclick="showToast('Раздел в разработке');return false" data-i18n="footerSafety">Безопасность</a>
         </div>
       </div>
       <div>
         <h4 data-i18n="footerCats">Категории</h4>
         <div class="footer-links">
-          <a href="#" data-i18n="catAuto">Авто</a>
-          <a href="#" data-i18n="catRealty">Недвижимость</a>
-          <a href="#" data-i18n="catElec">Электроника</a>
-          <a href="#" data-i18n="catWork">Работа</a>
+          <a href="#" onclick="filterCat('Авто');window.scrollTo({top:0,behavior:'smooth'});return false" data-i18n="catAuto">Авто</a>
+          <a href="#" onclick="filterCat('Недвижимость');window.scrollTo({top:0,behavior:'smooth'});return false" data-i18n="catRealty">Недвижимость</a>
+          <a href="#" onclick="filterCat('Электроника');window.scrollTo({top:0,behavior:'smooth'});return false" data-i18n="catElec">Электроника</a>
+          <a href="#" onclick="filterCat('Работа');window.scrollTo({top:0,behavior:'smooth'});return false" data-i18n="catWork">Работа</a>
         </div>
       </div>
     </div>
@@ -2939,6 +2939,15 @@ function doSearch(){
 }
 document.getElementById('heroSearch').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch()});
 document.getElementById('navSearchInput').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch()});
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Escape')return;
+  if(document.getElementById('adDetailOverlay').classList.contains('open'))closeAdModal();
+  else if(document.getElementById('taxiOverlay').classList.contains('open'))closeTaxiPost();
+  else if(document.getElementById('paxOverlay').classList.contains('open'))closePassengerPost();
+  else if(document.getElementById('postOverlay').classList.contains('open'))closePost();
+  else if(document.getElementById('authOverlay').classList.contains('open'))closeAuth();
+  else if(document.getElementById('cityOverlay').classList.contains('open'))closeCityPicker();
+});
 
 // ═══════════════════
 // CITY
