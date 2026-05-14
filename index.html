@@ -1843,6 +1843,8 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       <p>Все поля обязательны — так пассажиры выбирают надёжных водителей</p>
     </div>
     <div class="modal-body">
+      <!-- honeypot: must stay empty — bots fill this -->
+      <input type="text" id="hp_driver" style="display:none!important;position:absolute;left:-9999px" tabindex="-1" autocomplete="off" aria-hidden="true">
 
       <div class="taxi-section-label">🛣️ Маршрут</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
@@ -1946,6 +1948,8 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       <p>Заполните заявку — водители увидят её и свяжутся с вами</p>
     </div>
     <div class="modal-body">
+      <!-- honeypot -->
+      <input type="text" id="hp_pax" style="display:none!important;position:absolute;left:-9999px" tabindex="-1" autocomplete="off" aria-hidden="true">
 
       <div class="taxi-section-label">🛣️ Маршрут</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
@@ -2776,9 +2780,11 @@ var BOT_TOKEN='8695550788:AAGHe6IfJBAtrD6FbGLet7_Rk6m7A9yCh7s';
 function sbHeaders(){return{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'}}
 function sbInsert(table,row){return fetch(SB_URL+'/rest/v1/'+table,{method:'POST',headers:{...sbHeaders(),Prefer:'return=minimal'},body:JSON.stringify(row)}).catch(()=>{})}
 
+var _driverFormOpen = 0;
 function openTaxiPost(){
   document.getElementById('taxiOverlay').classList.add('open');
   document.body.style.overflow='hidden';
+  _driverFormOpen = Date.now();
 }
 function closeTaxiPost(){
   document.getElementById('taxiOverlay').classList.remove('open');
@@ -2786,12 +2792,14 @@ function closeTaxiPost(){
 }
 
 // ── Passenger modal ──────────────────────────────────────────────────────────
+var _paxFormOpen = 0;
 function openPassengerPost(){
   document.getElementById('paxOverlay').classList.add('open');
   document.body.style.overflow='hidden';
   // set today as default date
   var today=new Date().toISOString().split('T')[0];
   document.getElementById('pDate').value=today;
+  _paxFormOpen = Date.now();
 }
 function closePassengerPost(){
   document.getElementById('paxOverlay').classList.remove('open');
@@ -2799,6 +2807,12 @@ function closePassengerPost(){
 }
 
 async function submitPassengerPost(){
+  // ── bot / spam protection ──
+  if(document.getElementById('hp_pax').value){return;} // honeypot
+  if(Date.now()-_paxFormOpen < 3000){showToast('Заполните форму внимательно');return;}
+  var allText=(document.getElementById('pComment').value).toLowerCase();
+  if(/https?:\/\/|www\.|indrive|яндекс.такси|blablacar/.test(allText)){showToast('Ссылки запрещены');return;}
+  // ──────────────────────────
   var from=document.getElementById('pFromCity').value.trim();
   var to=document.getElementById('pToCity').value.trim();
   var date=document.getElementById('pDate').value;
@@ -2869,6 +2883,12 @@ function handleTaxiPh(i,input){
 }
 
 function submitTaxiPost(){
+  // ── bot / spam protection ──
+  if(document.getElementById('hp_driver').value){return;} // honeypot triggered
+  if(Date.now()-_driverFormOpen < 4000){showToast('Заполните форму внимательно');return;}
+  var allText=(document.getElementById('tCar').value+' '+document.getElementById('tDesc').value).toLowerCase();
+  if(/https?:\/\/|www\.|indrive|яндекс.такси|blablacar/.test(allText)){showToast('Ссылки и реклама конкурентов запрещены');return;}
+  // ──────────────────────────
   var from=document.getElementById('tFromCity').value.trim();
   var to=document.getElementById('tToCity').value.trim();
   var car=document.getElementById('tCar').value.trim();
