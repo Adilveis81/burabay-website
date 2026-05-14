@@ -1868,6 +1868,30 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<!-- CITY PICKER MODAL -->
+<div class="overlay" id="cityOverlay" onclick="if(event.target===this)closeCityPicker()">
+  <div class="modal" style="max-width:480px;padding:0;overflow:hidden">
+    <div class="modal-head" style="padding:16px 20px">
+      <span data-i18n="cityPickerTitle">Выберите город</span>
+      <button class="modal-close-btn" onclick="closeCityPicker()">✕</button>
+    </div>
+    <div style="padding:12px 20px 20px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
+      <div class="city-tile" onclick="setCity('Весь Казахстан');closeCityPicker()"><div><div class="city-tile-name">Весь Казахстан</div><div class="city-tile-count">весь КЗ</div></div><span class="city-tile-flag">🇰🇿</span></div>
+      <div class="city-tile" onclick="setCity('Астана');closeCityPicker()"><div><div class="city-tile-name">Астана</div><div class="city-tile-count">столица</div></div><span class="city-tile-flag">🏛</span></div>
+      <div class="city-tile" onclick="setCity('Алматы');closeCityPicker()"><div><div class="city-tile-name">Алматы</div><div class="city-tile-count">мегаполис</div></div><span class="city-tile-flag">🏙</span></div>
+      <div class="city-tile" onclick="setCity('Шымкент');closeCityPicker()"><div><div class="city-tile-name">Шымкент</div><div class="city-tile-count">юг</div></div><span class="city-tile-flag">☀️</span></div>
+      <div class="city-tile" onclick="setCity('Бурабай');closeCityPicker()"><div><div class="city-tile-name">Бурабай</div><div class="city-tile-count">курорт</div></div><span class="city-tile-flag">🌲</span></div>
+      <div class="city-tile" onclick="setCity('Кокшетау');closeCityPicker()"><div><div class="city-tile-name">Кокшетау</div><div class="city-tile-count">север</div></div><span class="city-tile-flag">🏔</span></div>
+      <div class="city-tile" onclick="setCity('Актобе');closeCityPicker()"><div><div class="city-tile-name">Актобе</div><div class="city-tile-count">запад</div></div><span class="city-tile-flag">🏭</span></div>
+      <div class="city-tile" onclick="setCity('Костанай');closeCityPicker()"><div><div class="city-tile-name">Костанай</div><div class="city-tile-count">север</div></div><span class="city-tile-flag">🌾</span></div>
+      <div class="city-tile" onclick="setCity('Павлодар');closeCityPicker()"><div><div class="city-tile-name">Павлодар</div><div class="city-tile-count">восток</div></div><span class="city-tile-flag">🏗</span></div>
+      <div class="city-tile" onclick="setCity('Усть-Каменогорск');closeCityPicker()"><div><div class="city-tile-name">Усть-Каменогорск</div><div class="city-tile-count">ВКО</div></div><span class="city-tile-flag">⛰️</span></div>
+      <div class="city-tile" onclick="setCity('Тараз');closeCityPicker()"><div><div class="city-tile-name">Тараз</div><div class="city-tile-count">юг</div></div><span class="city-tile-flag">🕌</span></div>
+      <div class="city-tile" onclick="setCity('Атырау');closeCityPicker()"><div><div class="city-tile-name">Атырау</div><div class="city-tile-count">запад</div></div><span class="city-tile-flag">🛢️</span></div>
+    </div>
+  </div>
+</div>
+
 <!-- TAXI POST MODAL -->
 <div class="overlay" id="taxiOverlay" onclick="if(event.target===this)closeTaxiPost()">
   <div class="modal taxi-modal">
@@ -2922,9 +2946,10 @@ document.getElementById('navSearchInput').addEventListener('keydown',function(e)
 function setCity(c){
   document.getElementById('selectedCity').textContent=c;
   document.getElementById('heroCity').textContent=c;
-  showToast('Город: '+c);
 }
-function showCityToast(){showToast('Выбор города — скоро')}
+function showCityToast(){openCityPicker()}
+function openCityPicker(){document.getElementById('cityOverlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeCityPicker(){document.getElementById('cityOverlay').classList.remove('open');document.body.style.overflow=''}
 
 // ═══════════════════
 // TAXI
