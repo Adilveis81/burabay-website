@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Алсат Водитель</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{
+  --bg:#0E1420;
+  --surface:#16202E;
+  --surface2:#1E2A3A;
+  --border:#263040;
+  --text:#E8EEF8;
+  --text2:#8A9BB0;
+  --text3:#5A6A80;
+  --brand:#FF5C00;
+  --brand-dark:#D94A00;
+  --green:#00C853;
+  --blue:#29B6F6;
+  --radius:14px;
+  --radius-sm:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,'Inter',system-ui,sans-serif;font-size:15px;overflow-x:hidden}
+
+/* ── HEADER ── */
+.header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(14,20,32,0.96);
+  backdrop-filter:blur(12px);
+  padding:12px 16px 10px;
+  border-bottom:1px solid var(--border);
+}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.logo{font-size:18px;font-weight:800;color:var(--brand)}
+.user-badge{display:flex;align-items:center;gap:8px;background:var(--surface2);border-radius:20px;padding:4px 10px 4px 4px}
+.user-avatar{width:28px;height:28px;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff}
+.user-name{font-size:13px;font-weight:600;color:var(--text2)}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:6px}
+.tab{flex:1;padding:8px 0;border-radius:var(--radius-sm);border:none;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;background:var(--surface2);color:var(--text2)}
+.tab.active{background:var(--brand);color:#fff}
+
+/* ── MAIN ── */
+.main{padding:16px;padding-bottom:100px;min-height:calc(100vh - 120px)}
+
+/* ── CARD ── */
+.card{
+  background:linear-gradient(135deg,#1a2a1a 0%,#0a1520 100%);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--radius);
+  padding:14px;
+  margin-bottom:10px;
+  position:relative;
+  overflow:hidden;
+}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--brand);opacity:.6}
+.card.passenger::before{background:var(--blue)}
+
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.card-route{flex:1}
+.card-cities{font-size:17px;font-weight:800;color:#fff;margin-bottom:3px;display:flex;align-items:center;gap:6px}
+.card-arrow{color:var(--brand);font-style:normal}
+.card.passenger .card-arrow{color:var(--blue)}
+.card-meta{font-size:12px;color:var(--text2)}
+.card-price{text-align:right;font-size:20px;font-weight:800;color:var(--brand);white-space:nowrap}
+.card-price small{display:block;font-size:10px;color:var(--text3);font-weight:400}
+.card-type{font-size:11px;font-weight:700;color:var(--blue);background:rgba(41,182,246,.12);border-radius:6px;padding:3px 8px;display:inline-block;margin-bottom:8px}
+
+.card-info{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.badge{font-size:11px;background:rgba(255,255,255,.06);border-radius:6px;padding:3px 8px;color:var(--text2)}
+
+.card-actions{display:flex;gap:8px;margin-top:12px}
+.btn-call{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-wa{flex:1;background:#25D366;border-radius:10px;padding:10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-tg{flex:1;background:#229ED9;border-radius:10px;padding:10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px}
+
+/* ── FAB ── */
+.fab{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:var(--brand);color:#fff;
+  border:none;border-radius:50px;
+  padding:16px 32px;font-size:16px;font-weight:800;
+  cursor:pointer;
+  box-shadow:0 8px 24px rgba(255,92,0,.4);
+  display:flex;align-items:center;gap:10px;
+  white-space:nowrap;
+  transition:transform .15s,box-shadow .15s;
+  z-index:50;
+}
+.fab:active{transform:translateX(-50%) scale(.96);box-shadow:0 4px 12px rgba(255,92,0,.3)}
+
+/* ── MODAL ── */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{
+  background:var(--surface);border-radius:20px 20px 0 0;
+  width:100%;max-height:90vh;overflow-y:auto;
+  padding:0 0 40px;
+  transform:translateY(40px);transition:transform .3s;
+}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:12px auto 16px}
+.modal-title{font-size:18px;font-weight:800;padding:0 16px 16px;color:var(--text)}
+.modal-body{padding:0 16px}
+
+/* ── FORM ── */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.field input,.field select,.field textarea{
+  width:100%;background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:12px 14px;
+  color:var(--text);font-size:15px;font-family:inherit;
+  outline:none;transition:border .2s;
+  -webkit-appearance:none;appearance:none;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--brand)}
+.field textarea{resize:none;height:80px}
+.field-row{display:flex;gap:10px}
+.field-row .field{flex:1}
+
+.check-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.check-row:last-child{border-bottom:none}
+.check-row label{flex:1;font-size:14px;color:var(--text)}
+.check-row input[type=checkbox]{width:20px;height:20px;accent-color:var(--brand);cursor:pointer;flex-shrink:0}
+
+.submit-btn{
+  width:100%;background:var(--brand);color:#fff;
+  border:none;border-radius:var(--radius);padding:16px;
+  font-size:16px;font-weight:800;cursor:pointer;margin-top:20px;
+  box-shadow:0 6px 20px rgba(255,92,0,.35);
+  transition:opacity .2s;
+}
+.submit-btn:active{opacity:.85}
+
+/* ── EMPTY / LOADING ── */
+.empty{text-align:center;padding:60px 20px;color:var(--text3)}
+.empty-icon{font-size:48px;margin-bottom:16px}
+.empty-title{font-size:17px;font-weight:700;color:var(--text2);margin-bottom:8px}
+.skeleton{background:var(--surface);border-radius:var(--radius);height:120px;margin-bottom:10px;animation:pulse 1.4s ease infinite}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:#1A3A2E;border:1px solid #00C853;color:#00C853;
+  border-radius:30px;padding:10px 20px;font-size:14px;font-weight:700;
+  z-index:999;opacity:0;transition:all .3s;white-space:nowrap;pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.error{background:#3A1A1A;border-color:#FF5252;color:#FF5252}
+
+/* ── FILTER ── */
+.filter-row{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;-ms-overflow-style:none;scrollbar-width:none}
+.filter-row::-webkit-scrollbar{display:none}
+.filter-chip{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--text2);white-space:nowrap;cursor:pointer;transition:all .2s;flex-shrink:0}
+.filter-chip.active{background:var(--brand);border-color:var(--brand);color:#fff}
+
+.count-badge{font-size:12px;color:var(--text3);margin-bottom:12px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="logo">🚗 Алсат Водитель</div>
+    <div class="user-badge" id="userBadge">
+      <div class="user-avatar" id="userAvatar">?</div>
+      <div class="user-name" id="userName">Гость</div>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" id="tabPax" onclick="switchTab('pax')">🧳 Пассажиры</button>
+    <button class="tab" id="tabDrivers" onclick="switchTab('drivers')">🚗 Водители</button>
+  </div>
+</div>
+
+<div class="main" id="main">
+  <div class="skeleton"></div>
+  <div class="skeleton" style="height:100px;opacity:.6"></div>
+  <div class="skeleton" style="height:140px;opacity:.4"></div>
+</div>
+
+<button class="fab" onclick="openPostForm()">
+  ＋ Добавить маршрут
+</button>
+
+<!-- POST MODAL -->
+<div class="modal-overlay" id="postOverlay" onclick="if(event.target===this)closePostForm()">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">🚗 Мой маршрут</div>
+    <div class="modal-body">
+      <div class="field-row">
+        <div class="field">
+          <label>Откуда</label>
+          <input id="fFrom" type="text" placeholder="Астана" list="cityList">
+        </div>
+        <div class="field">
+          <label>Куда</label>
+          <input id="fTo" type="text" placeholder="Алматы" list="cityList">
+        </div>
+      </div>
+      <datalist id="cityList">
+        <option>Астана</option><option>Алматы</option><option>Шымкент</option>
+        <option>Карагандa</option><option>Актобе</option><option>Петропавловск</option>
+        <option>Костанай</option><option>Павлодар</option><option>Усть-Каменогорск</option>
+        <option>Семей</option><option>Кокшетау</option><option>Уральск</option>
+        <option>Атырау</option><option>Актау</option><option>Кызылорда</option>
+        <option>Туркестан</option><option>Талдыкорган</option>
+      </datalist>
+      <div class="field-row">
+        <div class="field">
+          <label>Авто (марка, год)</label>
+          <input id="fCar" type="text" placeholder="Toyota Camry 2020">
+        </div>
+        <div class="field">
+          <label>Цена/место (₸)</label>
+          <input id="fPrice" type="number" inputmode="numeric" placeholder="3000">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Мест</label>
+          <select id="fSeats">
+            <option value="1">1</option><option value="2">2</option>
+            <option value="3" selected>3</option><option value="4">4</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Стаж</label>
+          <select id="fExp">
+            <option value="1–3 года">1–3 года</option>
+            <option value="3–7 лет" selected>3–7 лет</option>
+            <option value="7–15 лет">7–15 лет</option>
+            <option value="15+ лет">15+ лет</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Телефон</label>
+        <input id="fPhone" type="tel" inputmode="tel" placeholder="+7 700 000 00 00">
+      </div>
+      <div class="field">
+        <label>WhatsApp (если другой)</label>
+        <input id="fWA" type="tel" inputmode="tel" placeholder="+7 700 000 00 00">
+      </div>
+      <div class="field">
+        <label>Telegram (@username или номер)</label>
+        <input id="fTG" type="text" placeholder="@username">
+      </div>
+      <div class="field">
+        <label>Комментарий</label>
+        <textarea id="fDesc" placeholder="Комфортная поездка, кондиционер, выезд в 6 утра…"></textarea>
+      </div>
+      <div style="padding:4px 0">
+        <div class="check-row"><label>❄️ Кондиционер</label><input type="checkbox" id="fAC"></div>
+        <div class="check-row"><label>🪑 Детское кресло</label><input type="checkbox" id="fSeat"></div>
+        <div class="check-row"><label>🧳 Багажник свободен</label><input type="checkbox" id="fTrunk"></div>
+        <div class="check-row"><label>📦 Беру посылки</label><input type="checkbox" id="fParcel"></div>
+      </div>
+      <button class="submit-btn" onclick="submitPost()">Опубликовать маршрут</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Config ──
+var SB_URL = 'https://duscyiyxfmsriyhwlbqx.supabase.co';
+var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
+
+var tg = window.Telegram && window.Telegram.WebApp;
+var tgUser = null;
+var currentTab = 'pax';
+
+// ── Init Telegram ──
+if (tg) {
+  tg.ready();
+  tg.expand();
+  tg.setHeaderColor('#0E1420');
+  tg.setBackgroundColor('#0E1420');
+  if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+    tgUser = tg.initDataUnsafe.user;
+    var name = tgUser.first_name + (tgUser.last_name ? ' ' + tgUser.last_name : '');
+    document.getElementById('userName').textContent = name;
+    document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
+    if (tgUser.username) {
+      document.getElementById('fTG').value = '@' + tgUser.username;
+    }
+  }
+}
+
+// ── Supabase helpers ──
+function sbFetch(path) {
+  return fetch(SB_URL + '/rest/v1/' + path, {
+    headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY }
+  }).then(function(r){ return r.json(); });
+}
+function sbInsert(table, row) {
+  return fetch(SB_URL + '/rest/v1/' + table, {
+    method: 'POST',
+    headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json', Prefer: 'return=minimal' },
+    body: JSON.stringify(row)
+  });
+}
+
+// ── Toast ──
+function showToast(msg, isErr) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isErr ? ' error' : '');
+  setTimeout(function(){ t.className = 'toast'; }, 2800);
+}
+
+// ── Tabs ──
+function switchTab(tab) {
+  currentTab = tab;
+  document.getElementById('tabPax').className = 'tab' + (tab === 'pax' ? ' active' : '');
+  document.getElementById('tabDrivers').className = 'tab' + (tab === 'drivers' ? ' active' : '');
+  loadCards();
+}
+
+// ── Load cards ──
+function loadCards() {
+  var main = document.getElementById('main');
+  main.innerHTML = '<div class="skeleton"></div><div class="skeleton" style="height:100px;opacity:.6"></div><div class="skeleton" style="height:140px;opacity:.4"></div>';
+
+  if (currentTab === 'pax') {
+    sbFetch('taxi_requests?select=*&order=created_at.desc&limit=50').then(function(rows) {
+      renderPaxCards(rows);
+    }).catch(function() {
+      main.innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-title">Ошибка загрузки</div></div>';
+    });
+  } else {
+    sbFetch('taxi_drivers?select=*&order=created_at.desc&limit=50').then(function(rows) {
+      renderDriverCards(rows);
+    }).catch(function() {
+      main.innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-title">Ошибка загрузки</div></div>';
+    });
+  }
+}
+
+// ── Render passenger cards ──
+function renderPaxCards(rows) {
+  var main = document.getElementById('main');
+  if (!rows || !rows.length) {
+    main.innerHTML = '<div class="empty"><div class="empty-icon">🧳</div><div class="empty-title">Пока нет заявок</div><p>Пассажиры ещё не оставили заявок</p></div>';
+    return;
+  }
+  var html = '<div class="count-badge">Заявок пассажиров: ' + rows.length + '</div>';
+  rows.forEach(function(r) {
+    var phone = r.phone ? r.phone.replace(/\D/g,'') : '';
+    var wa = r.whatsapp ? r.whatsapp.replace(/\D/g,'') : phone;
+    var tgContact = r.telegram || '';
+    var date = r.travel_date ? new Date(r.travel_date).toLocaleDateString('ru-RU', {day:'numeric',month:'short'}) : '';
+    html += '<div class="card passenger">'
+      + '<div class="card-type">Ищет попутку</div>'
+      + '<div class="card-top">'
+      + '<div class="card-route">'
+      + '<div class="card-cities">' + esc(r.from_city) + ' <span class="card-arrow">→</span> ' + esc(r.to_city) + '</div>'
+      + '<div class="card-meta">' + esc(r.name || 'Пассажир') + (date ? ' · 📅 ' + date : '') + ' · ' + (r.seats||1) + ' чел.</div>'
+      + '</div>'
+      + '<div class="card-price" style="color:#29B6F6;font-size:14px">🧳<br><small>попутчик</small></div>'
+      + '</div>'
+      + (r.comment ? '<div style="margin-top:8px;font-size:13px;color:var(--text2);font-style:italic">💬 ' + esc(r.comment) + '</div>' : '')
+      + '<div class="card-actions">'
+      + (phone ? '<a class="btn-call" href="tel:+' + phone + '">📞 Позвонить</a>' : '')
+      + (wa ? '<a class="btn-wa" href="https://wa.me/' + wa + '" target="_blank">💬 WhatsApp</a>' : '')
+      + (tgContact ? '<a class="btn-tg" href="' + tgLink(tgContact) + '" target="_blank">✈️ Telegram</a>' : '')
+      + '</div>'
+      + '</div>';
+  });
+  main.innerHTML = html;
+}
+
+// ── Render driver cards ──
+function renderDriverCards(rows) {
+  var main = document.getElementById('main');
+  if (!rows || !rows.length) {
+    main.innerHTML = '<div class="empty"><div class="empty-icon">🚗</div><div class="empty-title">Нет объявлений</div><p>Добавь свой маршрут первым!</p></div>';
+    return;
+  }
+  var html = '<div class="count-badge">Водителей: ' + rows.length + '</div>';
+  rows.forEach(function(r) {
+    var phone = r.phone ? r.phone.replace(/\D/g,'') : '';
+    var wa = r.whatsapp ? r.whatsapp.replace(/\D/g,'') : phone;
+    var tgContact = r.telegram || '';
+    var extras = '';
+    if (r.ac) extras += '<span class="badge">❄️ Кондиционер</span>';
+    if (r.seat) extras += '<span class="badge">🪑 Детское кресло</span>';
+    if (r.trunk) extras += '<span class="badge">🧳 Багажник</span>';
+    if (r.parcel) extras += '<span class="badge">📦 Посылки</span>';
+    html += '<div class="card">'
+      + '<div class="card-top">'
+      + '<div class="card-route">'
+      + '<div class="card-cities">' + esc(r.from_city) + ' <span class="card-arrow">→</span> ' + esc(r.to_city) + '</div>'
+      + '<div class="card-meta">' + esc(r.car || '') + (r.exp ? ' · ' + r.exp : '') + ' · ' + (r.seats||1) + ' мест</div>'
+      + '</div>'
+      + '<div class="card-price">' + (r.price ? Number(r.price).toLocaleString('ru-KZ') + ' ₸' : '—') + '<small>за место</small></div>'
+      + '</div>'
+      + (r.desc ? '<div style="margin-top:8px;font-size:13px;color:var(--text2)">💬 ' + esc(r.desc) + '</div>' : '')
+      + (extras ? '<div class="card-info">' + extras + '</div>' : '')
+      + '<div class="card-actions">'
+      + (phone ? '<a class="btn-call" href="tel:+' + phone + '">📞 Позвонить</a>' : '')
+      + (wa ? '<a class="btn-wa" href="https://wa.me/' + wa + '" target="_blank">💬 WhatsApp</a>' : '')
+      + (tgContact ? '<a class="btn-tg" href="' + tgLink(tgContact) + '" target="_blank">✈️ Telegram</a>' : '')
+      + '</div>'
+      + '</div>';
+  });
+  main.innerHTML = html;
+}
+
+// ── Helpers ──
+function esc(s) { return s ? String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : ''; }
+function tgLink(t) {
+  if (!t) return '#';
+  if (t.startsWith('@')) return 'https://t.me/' + t.slice(1);
+  return 'https://t.me/+' + t.replace(/\D/g,'');
+}
+
+// ── Post form ──
+function openPostForm() {
+  document.getElementById('postOverlay').classList.add('open');
+  if (tg) tg.BackButton.show();
+}
+function closePostForm() {
+  document.getElementById('postOverlay').classList.remove('open');
+  if (tg) tg.BackButton.hide();
+}
+if (tg) {
+  tg.BackButton.onClick(function(){ closePostForm(); });
+}
+
+function submitPost() {
+  var from = document.getElementById('fFrom').value.trim();
+  var to = document.getElementById('fTo').value.trim();
+  var car = document.getElementById('fCar').value.trim();
+  var price = document.getElementById('fPrice').value.trim();
+  var phone = document.getElementById('fPhone').value.trim();
+  var seats = document.getElementById('fSeats').value;
+  var exp = document.getElementById('fExp').value;
+  var wa = document.getElementById('fWA').value.trim().replace(/\D/g,'');
+  var tgVal = document.getElementById('fTG').value.trim();
+  var desc = document.getElementById('fDesc').value.trim();
+  var ac = document.getElementById('fAC').checked;
+  var seat = document.getElementById('fSeat').checked;
+  var trunk = document.getElementById('fTrunk').checked;
+  var parcel = document.getElementById('fParcel').checked;
+
+  if (!from) { showToast('Укажите город отправления', true); return; }
+  if (!to) { showToast('Укажите город назначения', true); return; }
+  if (!car) { showToast('Укажите марку автомобиля', true); return; }
+  if (!price) { showToast('Укажите цену за место', true); return; }
+  if (!phone) { showToast('Укажите номер телефона', true); return; }
+
+  var phoneClean = phone.replace(/\D/g,'');
+  var waNum = wa || phoneClean;
+  var tgId = tgUser ? tgUser.id : null;
+
+  var row = {
+    from_city: from, to_city: to, car: car,
+    price: Number(price.replace(/\D/g,'')),
+    seats: Number(seats), phone: phoneClean,
+    whatsapp: waNum, telegram: tgVal, exp: exp,
+    ac: ac, seat: seat, trunk: trunk, parcel: parcel,
+    desc: desc, notified: false,
+    tg_id: tgId
+  };
+
+  sbInsert('taxi_drivers', row).then(function(res) {
+    if (res.ok || res.status === 201) {
+      closePostForm();
+      showToast('✅ Маршрут опубликован!');
+      setTimeout(function(){ switchTab('drivers'); }, 1200);
+    } else {
+      showToast('Ошибка сохранения', true);
+    }
+  }).catch(function() {
+    showToast('Ошибка сети', true);
+  });
+}
+
+// ── Start ──
+loadCards();
+</script>
+</body>
+</html>
