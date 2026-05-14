@@ -1824,19 +1824,20 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
     </div>
     <div class="modal-body">
       <div class="field"><label>Категория</label>
-        <select><option>Выберите категорию</option><option>Авто</option><option>Недвижимость</option><option>Электроника</option><option>Работа</option><option>Услуги</option><option>Детское</option><option>Животные</option><option>Спорт</option><option>Мебель</option><option>Отдам даром</option></select>
+        <select id="pCat"><option value="">Выберите категорию</option><option>Авто</option><option>Недвижимость</option><option>Электроника</option><option>Работа</option><option>Услуги</option><option>Такси</option><option>Детское</option><option>Животные</option><option>Спорт</option><option>Мебель</option><option>Продукты</option><option>Отдам даром</option></select>
       </div>
-      <div class="field"><label>Заголовок</label><input type="text" placeholder="Например: iPhone 15 Pro 256GB синий"></div>
-      <div class="field"><label>Описание</label><textarea placeholder="Опишите товар — состояние, комплектация, причина продажи..."></textarea></div>
-      <div class="field"><label>Цена (₸)</label><input type="number" placeholder="0 — если даром"></div>
+      <div class="field"><label>Заголовок</label><input id="pTitle" type="text" placeholder="Например: iPhone 15 Pro 256GB синий"></div>
+      <div class="field"><label>Описание</label><textarea id="pDesc" placeholder="Опишите товар — состояние, комплектация, причина продажи..."></textarea></div>
+      <div class="field"><label>Цена (₸)</label><input id="pPrice" type="number" placeholder="0 — если даром"></div>
       <div class="field"><label>Город</label>
-        <select><option>Все города</option><option>Астана</option><option>Алматы</option><option>Шымкент</option><option>Бурабай</option><option>Кокшетау</option><option>Актобе</option><option>Костанай</option></select>
+        <select id="pCity"><option value="">Все города</option><option>Астана</option><option>Алматы</option><option>Шымкент</option><option>Бурабай</option><option>Кокшетау</option><option>Актобе</option><option>Костанай</option></select>
       </div>
-      <div class="field"><label>Телефон</label><input type="tel" placeholder="+7 (___) ___-__-__"></div>
+      <div class="field"><label>Телефон</label><input id="pPhone" type="tel" placeholder="+7 (___) ___-__-__"></div>
+      <div id="pError" style="color:var(--red);font-size:13px;display:none;margin-top:4px"></div>
     </div>
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closePost()">Отмена</button>
-      <button class="btn-submit" onclick="showToast('Объявление отправлено на модерацию');closePost()">Разместить →</button>
+      <button class="btn-submit" id="pSubmitBtn" onclick="submitAd()">Разместить →</button>
     </div>
   </div>
 </div>
@@ -1986,7 +1987,7 @@ function renderChips(){
       chip.classList.add('active');
       var cat=chip.dataset.cat||'';
       activeFilter=cat;
-      var filtered=cat?ALL_ADS.filter(function(a){return a.catLabel===cat}):ALL_ADS;
+      var filtered=cat?ALL_ADS.filter(function(a){return a.cat_label===cat}):ALL_ADS;
       renderAds(filtered);
     });
   });
@@ -2095,7 +2096,7 @@ function renderAds(ads){
   ads.forEach(function(a){_adsStore[String(a.id)]=a;});
   var html=ads.map(function(a){
     var price=a.price?Number(a.price).toLocaleString('ru-KZ')+' ₸':(L.freeLabel||'Договорная');
-    var emoji=EMOJIS[a.catLabel]||'📦';
+    var emoji=EMOJIS[a.cat_label]||'📦';
     var photo=parseFirstPhoto(a.photos);
     var imgHtml=photo
       ?'<img src="'+photo+'" alt="" loading="lazy" onerror="this.style.display=\'none\';this.nextSibling&&(this.nextSibling.style.display=\'flex\')">'
@@ -2135,7 +2136,7 @@ function openAdModal(id){
   var a=_adsStore[String(id)];
   if(!a) return;
   var EMOJIS={'Авто':'🚗','Недвижимость':'🏠','Электроника':'📱','Работа':'💼','Услуги':'🔧','Животные':'🐾','Детское':'🧸','Спорт':'⚽','Мебель':'🛋','Продукты':'🛒','Отдам даром':'🎁','Такси':'🚕'};
-  var emoji=EMOJIS[a.catLabel]||'📦';
+  var emoji=EMOJIS[a.cat_label]||'📦';
   var photos=parseAllPhotos(a.photos);
   // gallery
   var gal=document.getElementById('adModalGallery');
@@ -2169,7 +2170,7 @@ function openAdModal(id){
   // meta
   var meta=document.getElementById('adModalMeta');
   meta.innerHTML='<span>📍 '+(a.city||'')+'</span>'
-    +(a.catLabel?'<span>'+emoji+' '+a.catLabel+'</span>':'')
+    +(a.cat_label?'<span>'+emoji+' '+a.cat_label+'</span>':'')
     +'<span>🕐 '+timeSince(a.created_at)+'</span>';
   // desc
   document.getElementById('adModalDesc').textContent=a.description||a.desc||'';
@@ -2215,7 +2216,7 @@ function timeSince(dateStr){
 function updateCatCounts(ads){
   var MAP={auto:['Авто'],realty:['Недвижимость'],elec:['Электроника'],work:['Работа','Работы'],serv:['Услуги'],taxi:['Такси','Межгород'],pet:['Животные','Питомцы'],kids:['Детское'],sport:['Спорт'],furn:['Мебель'],food:['Продукты'],free:['Отдам даром']};
   Object.keys(MAP).forEach(function(id){
-    var n=ads.filter(function(a){return MAP[id].indexOf(a.catLabel)!==-1}).length;
+    var n=ads.filter(function(a){return MAP[id].indexOf(a.cat_label)!==-1}).length;
     var el=document.getElementById('cc-'+id);
     var sfx={ru:'объявл.',kz:'хабарл.',en:'ads'};
     if(el) el.textContent=n+' '+(sfx[currentLang]||sfx.ru);
@@ -2227,7 +2228,7 @@ function filterCat(cat){
   document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('active')});
   var matchChip=document.querySelector('.chip[data-cat="'+cat+'"]');
   if(matchChip) matchChip.classList.add('active');
-  var filtered=cat?ALL_ADS.filter(function(a){return a.catLabel===cat}):ALL_ADS;
+  var filtered=cat?ALL_ADS.filter(function(a){return a.cat_label===cat}):ALL_ADS;
   renderAds(filtered);
   document.querySelector('.ads-section').scrollIntoView({behavior:'smooth',block:'start'});
 }
@@ -2457,7 +2458,7 @@ function setLang(lang){
   renderCats();
   renderChips();
   // re-render ads with updated translations
-  var filtered=activeFilter?ALL_ADS.filter(function(a){return a.catLabel===activeFilter}):ALL_ADS;
+  var filtered=activeFilter?ALL_ADS.filter(function(a){return a.cat_label===activeFilter}):ALL_ADS;
   if(ALL_ADS.length) renderAds(filtered);
   showToast(lang==='ru'?'Русский язык':lang==='kz'?'Қазақ тілі':'English');
 }
@@ -2482,7 +2483,46 @@ applyTheme();
 // MODALS
 // ═══════════════════
 function openPost(){document.getElementById('postOverlay').classList.add('open');document.body.style.overflow='hidden'}
-function closePost(){document.getElementById('postOverlay').classList.remove('open');document.body.style.overflow=''}
+function closePost(){document.getElementById('postOverlay').classList.remove('open');document.body.style.overflow='';document.getElementById('pError').style.display='none';}
+
+async function submitAd(){
+  var title=document.getElementById('pTitle').value.trim();
+  var phone=document.getElementById('pPhone').value.trim();
+  var errEl=document.getElementById('pError');
+  errEl.style.display='none';
+  if(!title){errEl.textContent='Введите заголовок';errEl.style.display='block';return;}
+  if(!phone){errEl.textContent='Введите телефон';errEl.style.display='block';return;}
+  var btn=document.getElementById('pSubmitBtn');
+  btn.disabled=true;btn.textContent='Отправка...';
+  try{
+    var resp=await fetch('/api/sendAd',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        title:title,
+        description:document.getElementById('pDesc').value.trim(),
+        category:document.getElementById('pCat').value,
+        city:document.getElementById('pCity').value,
+        price:document.getElementById('pPrice').value||null,
+        phone:phone,
+        photos:[]
+      })
+    });
+    var data=await resp.json();
+    if(!resp.ok||data.error){
+      errEl.textContent=data.error||'Ошибка отправки. Попробуйте ещё раз.';
+      errEl.style.display='block';
+    } else {
+      closePost();
+      showToast('✅ Объявление опубликовано!');
+      setTimeout(function(){fetchAds();},1500);
+    }
+  }catch(e){
+    errEl.textContent='Ошибка сети. Проверьте интернет.';
+    errEl.style.display='block';
+  }
+  btn.disabled=false;btn.textContent='Разместить →';
+}
 function openAuth(){document.getElementById('authOverlay').classList.add('open');document.body.style.overflow='hidden'}
 function closeAuth(){document.getElementById('authOverlay').classList.remove('open');document.body.style.overflow=''}
 function openLegal(t){document.getElementById(t==='privacy'?'privacyMod':'ofertaMod').classList.add('open')}
