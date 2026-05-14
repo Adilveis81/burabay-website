@@ -238,19 +238,6 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 }
 .nav-theme:hover{border-color:var(--brand);color:var(--brand)}
 
-/* Оферта в навбаре */
-.nav-oferta-link{
-  font-size:12px;font-weight:600;
-  color:var(--brand);
-  cursor:pointer;
-  white-space:nowrap;
-  padding:4px 8px;
-  border-radius:6px;
-  border:1px solid rgba(255,92,0,.25);
-  transition:.15s;
-}
-.nav-oferta-link:hover{background:var(--brand-light)}
-
 /* mob nav elements hidden/shown */
 .mob-only{display:none}
 @media(max-width:900px){
@@ -1090,49 +1077,6 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 }
 .btn-submit:hover{background:var(--brand-dark)}
 
-/* ad detail modal */
-.ad-modal{max-width:560px}
-.ad-modal-gallery{
-  position:relative;
-  width:100%;aspect-ratio:4/3;
-  background:var(--surface2);
-  overflow:hidden;
-  border-radius:var(--radius-xl) var(--radius-xl) 0 0;
-}
-.ad-modal-gallery img{width:100%;height:100%;object-fit:cover}
-.ad-modal-gallery .ad-img-placeholder{
-  width:100%;height:100%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:64px;
-}
-.ad-modal-close{
-  position:absolute;top:12px;right:12px;
-  width:34px;height:34px;border-radius:50%;
-  background:rgba(12,31,63,.5);color:#fff;
-  font-size:18px;line-height:34px;text-align:center;
-  cursor:pointer;border:none;backdrop-filter:blur(4px);
-}
-.ad-modal-body{padding:20px 24px 8px}
-.ad-modal-price{font-size:26px;font-weight:900;color:var(--brand);margin-bottom:6px}
-.ad-modal-price.free{color:var(--green)}
-.ad-modal-title{font-size:18px;font-weight:700;margin-bottom:10px}
-.ad-modal-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--text2);margin-bottom:14px}
-.ad-modal-meta span{display:flex;align-items:center;gap:4px}
-.ad-modal-desc-label{font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-.ad-modal-desc{font-size:14px;line-height:1.6;color:var(--text2);margin-bottom:16px;white-space:pre-wrap}
-.ad-modal-phones{display:flex;gap:10px;padding:0 24px 20px}
-.ad-modal-phones .ad-btn-call{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;border-radius:var(--radius-sm);background:var(--brand);color:#fff;font-size:14px;font-weight:700;text-decoration:none}
-.ad-modal-phones .ad-btn-wa{display:flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:var(--radius-sm);background:#25D366;color:#fff;font-size:13px;font-weight:700;text-decoration:none}
-.ad-modal-gallery-dots{
-  position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
-  display:flex;gap:6px;
-}
-.ad-modal-gallery-dots span{
-  width:7px;height:7px;border-radius:50%;
-  background:rgba(255,255,255,.5);
-}
-.ad-modal-gallery-dots span.active{background:#fff}
-
 /* auth modal */
 .auth-head{
   background:linear-gradient(135deg,var(--brand) 0%,var(--brand-dark) 100%);
@@ -1421,7 +1365,6 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
           <div class="nav-lang-opt" onclick="setLang('en')">EN</div>
         </div>
       </div>
-      <a class="nav-oferta-link" onclick="openLegal('oferta')" data-i18n="oferta">Оферта</a>
       <button class="nav-theme" id="themeBtn" onclick="toggleTheme()" title="Тема">☀️</button>
       <button class="btn btn-ghost hide-mob" onclick="openAuth()">Войти</button>
       <button class="btn btn-brand hide-mob" onclick="openPost()">+ Разместить</button>
@@ -1432,9 +1375,9 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
-    <div class="hero-kicker">🇰🇿 <span>№1</span> <span data-i18n="heroKicker">в Казахстане · Бесплатно</span></div>
-    <h1 data-i18n="heroH1">Найди всё что<br>нужно на <em>Алсат</em></h1>
-    <p class="hero-sub" data-i18n="heroSub">Миллионы объявлений · Без комиссий · Проверенные продавцы</p>
+    <div class="hero-kicker">🇰🇿 <span>№1</span> в Казахстане · Бесплатно</div>
+    <h1>Найди всё что<br>нужно на <em>Алсат</em></h1>
+    <p class="hero-sub">Миллионы объявлений · Без комиссий · Проверенные продавцы</p>
 
     <div class="hero-search">
       <svg width="20" height="20" fill="none" stroke="#9AAAB8" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -1443,34 +1386,34 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
         📍 <span id="heroCity">Все города</span>
         <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
       </div>
-      <button class="hs-btn" onclick="doSearch()" data-i18n="searchBtn">Найти</button>
+      <button class="hs-btn" onclick="doSearch()">Найти</button>
     </div>
 
     <div class="hero-tags">
       <span class="hero-tag" onclick="setSearch('iPhone')">📱 iPhone</span>
       <span class="hero-tag" onclick="setSearch('Toyota')">🚗 Toyota</span>
-      <span class="hero-tag" onclick="setSearch('квартира')" data-i18n="tagApart">🏠 Квартира</span>
-      <span class="hero-tag" onclick="setSearch('ноутбук')" data-i18n="tagLaptop">💻 Ноутбук</span>
-      <span class="hero-tag" onclick="setSearch('работа')" data-i18n="tagWork">💼 Работа</span>
+      <span class="hero-tag" onclick="setSearch('квартира')">🏠 Квартира</span>
+      <span class="hero-tag" onclick="setSearch('ноутбук')">💻 Ноутбук</span>
+      <span class="hero-tag" onclick="setSearch('работа')">💼 Работа</span>
       <span class="hero-tag" onclick="setSearch('Алматы')">🏙 Алматы</span>
     </div>
 
     <div class="hero-stats">
       <div class="hero-stat">
         <strong id="statAds">…</strong>
-        <span data-i18n="statAds">объявлений</span>
+        <span>объявлений</span>
       </div>
       <div class="hero-stat">
         <strong>0 ₸</strong>
-        <span data-i18n="statComm">комиссия</span>
+        <span>комиссия</span>
       </div>
       <div class="hero-stat">
         <strong>14</strong>
-        <span data-i18n="statReg">регионов</span>
+        <span>регионов</span>
       </div>
       <div class="hero-stat">
         <strong>3</strong>
-        <span data-i18n="statLang">языка</span>
+        <span>языка</span>
       </div>
     </div>
   </div>
@@ -1502,7 +1445,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
   <div class="wrap">
     <div class="sec-head" style="margin-bottom:14px">
       <h2 class="sec-title">Свежие объявления</h2>
-      <a class="sec-link" href="#" data-i18n="allLink">Все →</a>
+      <a class="sec-link" href="#">Все →</a>
     </div>
 
     <!-- Filter chips -->
@@ -1529,7 +1472,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
     </div>
 
     <div style="text-align:center;margin-top:32px">
-      <button class="btn btn-ghost" style="padding:12px 40px;font-size:15px" onclick="showToast('Загружаем ещё...')" data-i18n="showMore">Показать ещё</button>
+      <button class="btn btn-ghost" style="padding:12px 40px;font-size:15px" onclick="showToast('Загружаем ещё...')">Показать ещё</button>
     </div>
   </div>
 </section>
@@ -1543,23 +1486,23 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
     <div class="why-grid">
       <div class="why-card">
         <div class="why-icon" style="background:#FFF3EE">🚀</div>
-        <h3 data-i18n="why1h">Быстрое размещение</h3>
-        <p data-i18n="why1p">Разместите объявление за 2 минуты — без регистрации и бумаг</p>
+        <h3>Быстрое размещение</h3>
+        <p>Разместите объявление за 2 минуты — без регистрации и бумаг</p>
       </div>
       <div class="why-card">
         <div class="why-icon" style="background:#E6F8F3">🛡️</div>
-        <h3 data-i18n="why2h">Безопасно</h3>
-        <p data-i18n="why2p">Верифицированные продавцы, система жалоб, модерация</p>
+        <h3>Безопасно</h3>
+        <p>Верифицированные продавцы, система жалоб, модерация</p>
       </div>
       <div class="why-card">
         <div class="why-icon" style="background:#EEF4FF">⚡</div>
-        <h3 data-i18n="why3h">0 ₸ комиссии</h3>
-        <p data-i18n="why3p">Никаких скрытых платежей — общайтесь напрямую с продавцом</p>
+        <h3>0 ₸ комиссии</h3>
+        <p>Никаких скрытых платежей — общайтесь напрямую с продавцом</p>
       </div>
       <div class="why-card">
         <div class="why-icon" style="background:#FFF8E0">🌍</div>
-        <h3 data-i18n="why4h">Весь Казахстан</h3>
-        <p data-i18n="why4p">Астана, Алматы, Шымкент и ещё 200+ городов и сёл</p>
+        <h3>Весь Казахстан</h3>
+        <p>Астана, Алматы, Шымкент и ещё 200+ городов и сёл</p>
       </div>
     </div>
   </div>
@@ -1572,14 +1515,14 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       <h2 class="sec-title">Популярные города</h2>
     </div>
     <div class="cities-grid">
-      <div class="city-tile" onclick="setCity('Астана')"><div><div class="city-tile-name">Астана</div><div class="city-tile-count" data-i18n="cityCapital">столица</div></div><span class="city-tile-flag">🏛</span></div>
-      <div class="city-tile" onclick="setCity('Алматы')"><div><div class="city-tile-name">Алматы</div><div class="city-tile-count" data-i18n="cityMega">мегаполис</div></div><span class="city-tile-flag">🏙</span></div>
-      <div class="city-tile" onclick="setCity('Шымкент')"><div><div class="city-tile-name">Шымкент</div><div class="city-tile-count" data-i18n="citySouth">юг</div></div><span class="city-tile-flag">☀️</span></div>
-      <div class="city-tile" onclick="setCity('Бурабай')"><div><div class="city-tile-name">Бурабай</div><div class="city-tile-count" data-i18n="cityResort">курорт</div></div><span class="city-tile-flag">🌲</span></div>
-      <div class="city-tile" onclick="setCity('Кокшетау')"><div><div class="city-tile-name">Кокшетау</div><div class="city-tile-count" data-i18n="cityNorth">север</div></div><span class="city-tile-flag">🏔</span></div>
-      <div class="city-tile" onclick="setCity('Актобе')"><div><div class="city-tile-name">Актобе</div><div class="city-tile-count" data-i18n="cityWest">запад</div></div><span class="city-tile-flag">🏭</span></div>
-      <div class="city-tile" onclick="setCity('Костанай')"><div><div class="city-tile-name">Костанай</div><div class="city-tile-count" data-i18n="cityNorth">север</div></div><span class="city-tile-flag">🌾</span></div>
-      <div class="city-tile" onclick="setCity('Все города')"><div><div class="city-tile-name" data-i18n="cityAll">Все города</div><div class="city-tile-count" data-i18n="cityAllSub">весь КЗ</div></div><span class="city-tile-flag">🇰🇿</span></div>
+      <div class="city-tile" onclick="setCity('Астана')"><div><div class="city-tile-name">Астана</div><div class="city-tile-count">столица</div></div><span class="city-tile-flag">🏛</span></div>
+      <div class="city-tile" onclick="setCity('Алматы')"><div><div class="city-tile-name">Алматы</div><div class="city-tile-count">мегаполис</div></div><span class="city-tile-flag">🏙</span></div>
+      <div class="city-tile" onclick="setCity('Шымкент')"><div><div class="city-tile-name">Шымкент</div><div class="city-tile-count">юг</div></div><span class="city-tile-flag">☀️</span></div>
+      <div class="city-tile" onclick="setCity('Бурабай')"><div><div class="city-tile-name">Бурабай</div><div class="city-tile-count">курорт</div></div><span class="city-tile-flag">🌲</span></div>
+      <div class="city-tile" onclick="setCity('Кокшетау')"><div><div class="city-tile-name">Кокшетау</div><div class="city-tile-count">север</div></div><span class="city-tile-flag">🏔</span></div>
+      <div class="city-tile" onclick="setCity('Актобе')"><div><div class="city-tile-name">Актобе</div><div class="city-tile-count">запад</div></div><span class="city-tile-flag">🏭</span></div>
+      <div class="city-tile" onclick="setCity('Костанай')"><div><div class="city-tile-name">Костанай</div><div class="city-tile-count">север</div></div><span class="city-tile-flag">🌾</span></div>
+      <div class="city-tile" onclick="setCity('Все города')"><div><div class="city-tile-name">Все города</div><div class="city-tile-count">весь КЗ</div></div><span class="city-tile-flag">🇰🇿</span></div>
     </div>
   </div>
 </section>
@@ -1590,7 +1533,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
     <div class="taxi-head">
       <div>
         <h2>🚗 Такси · <span>Межгород</span></h2>
-        <p style="color:rgba(255,255,255,.55);font-size:14px;margin-top:4px" data-i18n="taxiSub">Надёжные водители по всему Казахстану</p>
+        <p style="color:rgba(255,255,255,.55);font-size:14px;margin-top:4px">Надёжные водители по всему Казахстану</p>
       </div>
       <div class="taxi-badge-strip">
         <span class="taxi-badge">🛡️ Аптечка</span>
@@ -1660,11 +1603,11 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
   <div class="wrap">
     <div class="app-card">
       <div class="app-text">
-        <div class="app-kicker" data-i18n="botKicker">Telegram бот</div>
-        <h2 data-i18n="botTitle">Алсат в вашем Telegram</h2>
-        <p data-i18n="botDesc">Наш бот проверяет объявления на ошибки и безопасность, следит за спамом и отвечает на вопросы о размещении — 24/7.</p>
+        <div class="app-kicker">Telegram бот</div>
+        <h2>Алсат в вашем Telegram</h2>
+        <p>Наш бот проверяет объявления на ошибки и безопасность, следит за спамом и отвечает на вопросы о размещении — 24/7.</p>
         <a href="https://t.me/Alsat_Asia_bot" class="app-tg-btn" target="_blank">
-          <span style="font-size:20px">✈️</span> <span data-i18n="botBtn">Открыть бота</span>
+          <span style="font-size:20px">✈️</span> Открыть бота
         </a>
       </div>
       <div class="app-emoji">🤖</div>
@@ -1692,32 +1635,31 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
     <div class="footer-grid">
       <div>
         <div class="footer-brand">Alsat<sup>asia</sup></div>
-        <p class="footer-tagline" data-i18n="footerTagline">Самая большая доска объявлений Казахстана. Продавайте и покупайте без комиссий.</p>
+        <p class="footer-tagline">Самая большая доска объявлений Казахстана. Продавайте и покупайте без комиссий.</p>
       </div>
       <div>
-        <h4 data-i18n="footerHelp">Помощь</h4>
+        <h4>Помощь</h4>
         <div class="footer-links">
-          <a href="#" onclick="openFaq()" data-i18n="footerFaq">Вопросы и ответы</a>
-          <a href="mailto:adilkurmanov9@gmail.com" data-i18n="footerSupport">Поддержка</a>
+          <a href="#" onclick="openFaq()">Вопросы и ответы</a>
+          <a href="mailto:adilkurmanov9@gmail.com">Поддержка</a>
           <a href="https://t.me/Alsat_Asia_bot">Telegram бот</a>
-          <a onclick="openLegal('privacy')" style="cursor:pointer" data-i18n="footerPrivacy">Конфиденциальность</a>
         </div>
       </div>
       <div>
-        <h4 data-i18n="footerCompany">Компания</h4>
+        <h4>Компания</h4>
         <div class="footer-links">
-          <a href="#" data-i18n="footerAbout">О нас</a>
-          <a href="#" data-i18n="footerAds">Реклама</a>
-          <a href="#" data-i18n="footerSafety">Безопасность</a>
+          <a href="#">О нас</a>
+          <a href="#">Реклама</a>
+          <a href="#">Безопасность</a>
         </div>
       </div>
       <div>
-        <h4 data-i18n="footerCats">Категории</h4>
+        <h4>Категории</h4>
         <div class="footer-links">
-          <a href="#" data-i18n="catAuto">Авто</a>
-          <a href="#" data-i18n="catRealty">Недвижимость</a>
-          <a href="#" data-i18n="catElec">Электроника</a>
-          <a href="#" data-i18n="catWork">Работа</a>
+          <a href="#">Авто</a>
+          <a href="#">Недвижимость</a>
+          <a href="#">Электроника</a>
+          <a href="#">Работа</a>
         </div>
       </div>
     </div>
@@ -1731,27 +1673,9 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
   </div>
 </footer>
 
-<!-- AD DETAIL MODAL -->
-<div class="overlay" id="adDetailOverlay" onclick="if(event.target===this)closeAdModal()">
-  <div class="modal ad-modal" id="adDetailModal">
-    <div class="ad-modal-gallery" id="adModalGallery">
-      <button class="ad-modal-close" onclick="closeAdModal()">×</button>
-      <div class="ad-modal-gallery-dots" id="adModalDots"></div>
-    </div>
-    <div class="ad-modal-body">
-      <div class="ad-modal-price" id="adModalPrice"></div>
-      <div class="ad-modal-title" id="adModalTitle"></div>
-      <div class="ad-modal-meta" id="adModalMeta"></div>
-      <div class="ad-modal-desc-label" data-i18n="descLabel">Описание</div>
-      <div class="ad-modal-desc" id="adModalDesc"></div>
-    </div>
-    <div class="ad-modal-phones" id="adModalPhones"></div>
-  </div>
-</div>
-
 <!-- FAB -->
 <button class="fab" onclick="openPost()">
-  <span style="font-size:18px">＋</span> <span data-i18n="fabBtn">Разместить</span>
+  <span style="font-size:18px">＋</span> Разместить
 </button>
 
 <!-- TOAST -->
@@ -1914,39 +1838,16 @@ var CATS=[
   {name:'Отдам даром',emoji:'🎁',color:'#00838F',bg:'#E0F7FA',id:'free'},
 ];
 
-var FAQS_DATA={
-  ru:[
-    {q:'Как разместить объявление?',a:'Нажмите «+ Разместить» вверху страницы или зелёную кнопку. Заполните категорию, заголовок, описание, цену и телефон — готово.'},
-    {q:'Сколько стоит размещение?',a:'Бесплатно до первых 10 000 объявлений на платформе. После этого порога условия будут объявлены.'},
-    {q:'Как связаться с продавцом?',a:'Нажмите «Позвонить» или «WhatsApp» в карточке объявления. Продавец сам выбирает как с ним связываться.'},
-    {q:'Безопасно ли покупать?',a:'Рекомендуем встречаться лично и проверять товар до оплаты. Не переводите деньги заранее незнакомым людям.'},
-    {q:'Сколько действует объявление?',a:'30 дней с момента публикации. Продлить можно из личного кабинета.'},
-    {q:'Как удалить или изменить объявление?',a:'Войдите в аккаунт — ваши объявления отмечены значком ✏️. Нажмите чтобы редактировать или удалить.'},
-    {q:'В каких городах работает Алсат?',a:'По всему Казахстану — Астана, Алматы, Шымкент, Бурабай, Кокшетау, Костанай, Актобе и сотни других.'},
-    {q:'Что делать если меня обманули?',a:'Нажмите «Пожаловаться» в объявлении. В серьёзных случаях — в полицию или на egov.kz.'},
-  ],
-  kz:[
-    {q:'Хабарландыруды қалай орналастыруға болады?',a:'Беттің жоғарғы жағындағы «+ Орналастыру» немесе жасыл батырманы басыңыз. Санат, тақырып, сипаттама, баға және телефонды толтырыңыз — дайын.'},
-    {q:'Орналастыру қанша тұрады?',a:'Платформада 10 000 хабарландыруға жеткенге дейін тегін. Осы шектен кейін шарттар жарияланады.'},
-    {q:'Сатушымен қалай байланысуға болады?',a:'Хабарландыру картасындағы «Қоңырау шалу» немесе «WhatsApp» батырмасын басыңыз.'},
-    {q:'Сатып алу қауіпсіз бе?',a:'Жеке кездесіп, тауарды төлемге дейін тексеруді ұсынамыз. Бейтаныс адамдарға ақша аудармаңыз.'},
-    {q:'Хабарландыру қанша уақыт жарамды?',a:'Жарияланғаннан бастап 30 күн. Жеке кабинеттен ұзартуға болады.'},
-    {q:'Хабарландыруды қалай өшіруге немесе өзгертуге болады?',a:'Аккаунтқа кіріңіз — хабарландыруларыңыз ✏️ белгісімен белгіленген. Өңдеу немесе жою үшін басыңыз.'},
-    {q:'Алсат қандай қалаларда жұмыс істейді?',a:'Бүкіл Қазақстан бойынша — Астана, Алматы, Шымкент, Бурабай, Көкшетау, Қостанай, Ақтөбе және жүздеген басқа қалалар.'},
-    {q:'Алданып қалсам не істеу керек?',a:'Хабарландырудағы «Шағым беру» батырмасын басыңыз. Маңызды жағдайларда — полицияға немесе egov.kz сайтына.'},
-  ],
-  en:[
-    {q:'How do I post an ad?',a:'Click "+ Post Ad" at the top of the page or the green button. Fill in the category, title, description, price and phone — done.'},
-    {q:'How much does it cost?',a:'Free until the first 10,000 listings on the platform. After that threshold, conditions will be announced.'},
-    {q:'How do I contact a seller?',a:'Click "Call" or "WhatsApp" on the listing card. The seller chooses how to be contacted.'},
-    {q:'Is it safe to buy?',a:'We recommend meeting in person and checking the item before payment. Do not transfer money in advance to strangers.'},
-    {q:'How long is my ad active?',a:'30 days from the date of publication. You can extend it from your personal account.'},
-    {q:'How do I edit or delete my ad?',a:'Log into your account — your ads are marked with ✏️. Click to edit or delete.'},
-    {q:'Which cities does Alsat cover?',a:'All of Kazakhstan — Astana, Almaty, Shymkent, Burabay, Kokshetau, Kostanay, Aktobe and hundreds more.'},
-    {q:'What if I was scammed?',a:'Click "Report" on the listing. For serious cases — contact the police or egov.kz.'},
-  ]
-};
-var FAQS=FAQS_DATA.ru;
+var FAQS=[
+  {q:'Как разместить объявление?',a:'Нажмите «+ Разместить» вверху страницы или зелёную кнопку. Заполните категорию, заголовок, описание, цену и телефон — готово.'},
+  {q:'Сколько стоит размещение?',a:'Бесплатно до первых 10 000 объявлений на платформе. После этого порога условия будут объявлены.'},
+  {q:'Как связаться с продавцом?',a:'Нажмите «Позвонить» или «WhatsApp» в карточке объявления. Продавец сам выбирает как с ним связываться.'},
+  {q:'Безопасно ли покупать?',a:'Рекомендуем встречаться лично и проверять товар до оплаты. Не переводите деньги заранее незнакомым людям.'},
+  {q:'Сколько действует объявление?',a:'30 дней с момента публикации. Продлить можно из личного кабинета.'},
+  {q:'Как удалить или изменить объявление?',a:'Войдите в аккаунт — ваши объявления отмечены значком ✏️. Нажмите чтобы редактировать или удалить.'},
+  {q:'В каких городах работает Алсат?',a:'По всему Казахстану — Астана, Алматы, Шымкент, Бурабай, Кокшетау, Костанай, Актобе и сотни других.'},
+  {q:'Что делать если меня обманули?',a:'Нажмите «Пожаловаться» в объявлении. В серьёзных случаях — в полицию или на egov.kz.'},
+];
 
 // ═══════════════════
 // CATEGORIES RENDER
@@ -1967,12 +1868,10 @@ var FAQS=FAQS_DATA.ru;
 // ═══════════════════
 // FAQ RENDER
 // ═══════════════════
-function renderFaq(){
+(function renderFaq(){
   var g=document.getElementById('faqGrid');
-  if(!g) return;
-  var faqs=FAQS_DATA[currentLang]||FAQS_DATA.ru;
   var html='';
-  faqs.forEach(function(f,i){
+  FAQS.forEach(function(f,i){
     html+='<div class="faq-item">'
       +'<div class="faq-q" onclick="toggleFaq(this,'+i+')" id="fq'+i+'">'+f.q
       +'<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>'
@@ -1980,8 +1879,7 @@ function renderFaq(){
       +'</div>';
   });
   g.innerHTML=html;
-}
-renderFaq();
+})();
 
 function toggleFaq(btn,i){
   var wasOpen=btn.classList.contains('open');
@@ -2008,20 +1906,15 @@ function fetchAds(){
   }).catch(function(){});
 }
 
-var _adsStore={};
-
 function renderAds(ads){
   var g=document.getElementById('adsGrid');
   if(!ads||!ads.length){g.innerHTML='<p style="color:var(--text3);text-align:center;grid-column:1/-1;padding:40px">Объявлений пока нет</p>';return}
   var EMOJIS={'Авто':'🚗','Недвижимость':'🏠','Электроника':'📱','Работа':'💼','Услуги':'🔧','Животные':'🐾','Детское':'🧸','Спорт':'⚽','Мебель':'🛋','Продукты':'🛒','Отдам даром':'🎁','Такси':'🚕'};
-  ads.forEach(function(a){_adsStore[a.id]=a;});
   var html=ads.map(function(a){
     var price=a.price?Number(a.price).toLocaleString('ru-KZ')+' ₸':'Договорная';
     var emoji=EMOJIS[a.catLabel]||'📦';
-    var _rawPhoto=a.photos&&a.photos.length?a.photos[0]:null;
-    if(_rawPhoto&&typeof _rawPhoto==='string'&&_rawPhoto.trim().startsWith('[')){try{_rawPhoto=JSON.parse(_rawPhoto)[0];}catch(e){_rawPhoto=null;}}
-    var imgHtml=_rawPhoto
-      ?'<img src="'+_rawPhoto+'" alt="" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=ad-img-placeholder>'+emoji+'</div>\'">'
+    var imgHtml=a.photos&&a.photos.length
+      ?'<img src="'+a.photos[0]+'" alt="" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=ad-img-placeholder>'+emoji+'</div>\'">'
       :'<div class="ad-img-placeholder">'+emoji+'</div>';
     var ph=a.phone?String(a.phone).replace(/\D/g,''):'';
     var phoneBar='';
@@ -2032,7 +1925,7 @@ function renderAds(ads){
         +'<a class="ad-btn-wa" href="https://wa.me/'+waNum+'" target="_blank" rel="noopener">WA</a>'
         +'</div>';
     }
-    return '<div class="ad-card" onclick="openAdModal(\''+a.id+'\')" style="cursor:pointer">'
+    return '<div class="ad-card">'
       +'<div class="ad-img">'+imgHtml+'<div class="ad-fav">♡</div>'+(a.price==0?'<span class="ad-badge">ДАРОМ</span>':'')+'</div>'
       +'<div class="ad-body">'
       +'<div class="ad-price'+(a.price==0?' free':'')+'">'+price+'</div>'
@@ -2045,88 +1938,6 @@ function renderAds(ads){
       +'</div></div>';
   }).join('');
   g.innerHTML=html;
-  // prevent phone button clicks from opening modal
-  g.querySelectorAll('.ad-btn-call,.ad-btn-wa').forEach(function(btn){
-    btn.addEventListener('click',function(e){e.stopPropagation();});
-  });
-}
-
-function openAdModal(id){
-  var a=_adsStore[id];
-  if(!a) return;
-  var EMOJIS={'Авто':'🚗','Недвижимость':'🏠','Электроника':'📱','Работа':'💼','Услуги':'🔧','Животные':'🐾','Детское':'🧸','Спорт':'⚽','Мебель':'🛋','Продукты':'🛒','Отдам даром':'🎁','Такси':'🚕'};
-  var emoji=EMOJIS[a.catLabel]||'📦';
-  // parse photos
-  var photos=[];
-  if(a.photos&&a.photos.length){
-    a.photos.forEach(function(p){
-      if(typeof p==='string'&&p.trim().startsWith('[')){try{var arr=JSON.parse(p);photos=photos.concat(arr);}catch(e){photos.push(p);}}
-      else photos.push(p);
-    });
-  }
-  // gallery
-  var gal=document.getElementById('adModalGallery');
-  var dots=document.getElementById('adModalDots');
-  // remove old img
-  var oldImg=gal.querySelector('img,.ad-img-placeholder');
-  if(oldImg) oldImg.remove();
-  if(photos.length){
-    var img=document.createElement('img');
-    img.src=photos[0];
-    img.alt='';
-    img.onerror=function(){this.parentElement.innerHTML='<div class="ad-img-placeholder">'+emoji+'</div>';};
-    gal.insertBefore(img,gal.firstChild);
-    dots.innerHTML=photos.map(function(_,i){return '<span'+(i===0?' class="active"':'')+' onclick="adModalSlide('+i+')"></span>';}).join('');
-    dots.style.display=photos.length>1?'flex':'none';
-  } else {
-    var ph=document.createElement('div');
-    ph.className='ad-img-placeholder';
-    ph.textContent=emoji;
-    gal.insertBefore(ph,gal.firstChild);
-    dots.style.display='none';
-  }
-  window._adModalPhotos=photos;
-  // price
-  var L=LANGS[currentLang];
-  var priceEl=document.getElementById('adModalPrice');
-  priceEl.textContent=a.price?Number(a.price).toLocaleString('ru-KZ')+' ₸':(L.freeLabel||'Договорная');
-  priceEl.className='ad-modal-price'+(a.price==0?' free':'');
-  // title
-  document.getElementById('adModalTitle').textContent=a.title||'';
-  // meta
-  var meta=document.getElementById('adModalMeta');
-  meta.innerHTML='<span>📍 '+(a.city||'')+'</span>'
-    +(a.catLabel?'<span>'+emoji+' '+a.catLabel+'</span>':'')
-    +'<span>🕐 '+timeSince(a.created_at)+'</span>';
-  // desc
-  document.getElementById('adModalDesc').textContent=a.description||a.desc||'';
-  // phones
-  var ph=a.phone?String(a.phone).replace(/\D/g,''):'';
-  var phonesEl=document.getElementById('adModalPhones');
-  if(ph){
-    var waNum=ph.startsWith('7')?ph:'7'+ph;
-    phonesEl.innerHTML='<a class="ad-btn-call" href="tel:+'+ph+'">📞 '+(L.callBtn||'Позвонить')+'</a>'
-      +'<a class="ad-btn-wa" href="https://wa.me/'+waNum+'" target="_blank" rel="noopener">WhatsApp</a>';
-    phonesEl.style.display='flex';
-  } else {
-    phonesEl.style.display='none';
-  }
-  document.getElementById('adDetailOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-
-function adModalSlide(idx){
-  var photos=window._adModalPhotos||[];
-  if(!photos[idx]) return;
-  var gal=document.getElementById('adModalGallery');
-  var img=gal.querySelector('img');
-  if(img) img.src=photos[idx];
-  document.querySelectorAll('#adModalDots span').forEach(function(s,i){s.className=i===idx?'active':'';});
-}
-
-function closeAdModal(){
-  document.getElementById('adDetailOverlay').classList.remove('open');
-  document.body.style.overflow='';
 }
 
 function timeSince(dateStr){
@@ -2252,96 +2063,9 @@ window.addEventListener('scroll',function(){
 // ═══════════════════
 var currentLang='ru';
 var LANGS={
-  ru:{
-    search:'Что ищете?',heroInput:'Авто, телефон, квартира...',
-    postBtn:'+ Разместить',loginBtn:'Войти',
-    cats:'Категории',freshAds:'Свежие объявления',why:'Почему Алсат?',
-    cities:'Популярные города',faqTitle:'Частые вопросы',
-    taxiTitle:'Такси · Межгород',taxiPost:'🚗 Подать объявление Такси · Межгород',
-    heroKicker:'в Казахстане · Бесплатно',
-    heroH1:'Найди всё что<br>нужно на <em>Алсат</em>',
-    heroSub:'Миллионы объявлений · Без комиссий · Проверенные продавцы',
-    searchBtn:'Найти',
-    tagApart:'🏠 Квартира',tagLaptop:'💻 Ноутбук',tagWork:'💼 Работа',
-    statAds:'объявлений',statComm:'комиссия',statReg:'регионов',statLang:'языка',
-    allLink:'Все →',showMore:'Показать ещё',
-    why1h:'Быстрое размещение',why1p:'Разместите объявление за 2 минуты — без регистрации и бумаг',
-    why2h:'Безопасно',why2p:'Верифицированные продавцы, система жалоб, модерация',
-    why3h:'0 ₸ комиссии',why3p:'Никаких скрытых платежей — общайтесь напрямую с продавцом',
-    why4h:'Весь Казахстан',why4p:'Астана, Алматы, Шымкент и ещё 200+ городов и сёл',
-    cityCapital:'столица',cityMega:'мегаполис',citySouth:'юг',cityResort:'курорт',
-    cityNorth:'север',cityWest:'запад',cityAll:'Все города',cityAllSub:'весь КЗ',
-    taxiSub:'Надёжные водители по всему Казахстану',
-    botKicker:'Telegram бот',botTitle:'Алсат в вашем Telegram',
-    botDesc:'Наш бот проверяет объявления на ошибки и безопасность, следит за спамом и отвечает на вопросы о размещении — 24/7.',
-    botBtn:'Открыть бота',
-    footerTagline:'Самая большая доска объявлений Казахстана. Продавайте и покупайте без комиссий.',
-    footerHelp:'Помощь',footerFaq:'Вопросы и ответы',footerSupport:'Поддержка',footerPrivacy:'Конфиденциальность',
-    footerCompany:'Компания',footerAbout:'О нас',footerAds:'Реклама',footerSafety:'Безопасность',
-    footerCats:'Категории',catAuto:'Авто',catRealty:'Недвижимость',catElec:'Электроника',catWork:'Работа',
-    oferta:'Оферта',descLabel:'Описание',callBtn:'Позвонить',freeLabel:'Договорная',
-    fabBtn:'Разместить',verified:'✓ Проверен',
-  },
-  kz:{
-    search:'Не іздейсіз?',heroInput:'Авто, телефон, пәтер...',
-    postBtn:'+ Орналастыру',loginBtn:'Кіру',
-    cats:'Санаттар',freshAds:'Жаңа хабарландырулар',why:'Неге Алсат?',
-    cities:'Танымал қалалар',faqTitle:'Жиі қойылатын сұрақтар',
-    taxiTitle:'Такси · Қалааралық',taxiPost:'🚗 Такси хабарландыруын орналастыру',
-    heroKicker:'Қазақстанда · Тегін',
-    heroH1:'Қажетің барлығын<br><em>Алсаттан</em> тап',
-    heroSub:'Миллиондаған хабарландырулар · Комиссиясыз · Тексерілген сатушылар',
-    searchBtn:'Іздеу',
-    tagApart:'🏠 Пәтер',tagLaptop:'💻 Ноутбук',tagWork:'💼 Жұмыс',
-    statAds:'хабарландыру',statComm:'комиссия',statReg:'өңір',statLang:'тіл',
-    allLink:'Барлығы →',showMore:'Тағы көрсету',
-    why1h:'Жылдам орналастыру',why1p:'Хабарландыруды 2 минутта орналастырыңыз — тіркеусіз',
-    why2h:'Қауіпсіз',why2p:'Тексерілген сатушылар, шағым жүйесі, модерация',
-    why3h:'0 ₸ комиссия',why3p:'Жасырын төлемдер жоқ — сатушымен тікелей сөйлесіңіз',
-    why4h:'Бүкіл Қазақстан',why4p:'Астана, Алматы, Шымкент және 200+ қала мен ауыл',
-    cityCapital:'астана',cityMega:'мегаполис',citySouth:'оңтүстік',cityResort:'курорт',
-    cityNorth:'солтүстік',cityWest:'батыс',cityAll:'Барлық қалалар',cityAllSub:'бүкіл ҚЗ',
-    taxiSub:'Бүкіл Қазақстан бойынша сенімді жүргізушілер',
-    botKicker:'Telegram бот',botTitle:'Алсат — Telegram-да',
-    botDesc:'Біздің бот хабарландыруларды қателер мен қауіпсіздікке тексереді, спамды бақылайды және орналастыру сұрақтарына 24/7 жауап береді.',
-    botBtn:'Ботты ашу',
-    footerTagline:'Қазақстандағы ең үлкен хабарландырулар тақтасы. Комиссиясыз сатыңыз және сатып алыңыз.',
-    footerHelp:'Көмек',footerFaq:'Жиі қойылатын сұрақтар',footerSupport:'Қолдау',footerPrivacy:'Құпиялылық',
-    footerCompany:'Компания',footerAbout:'Біз туралы',footerAds:'Жарнама',footerSafety:'Қауіпсіздік',
-    footerCats:'Санаттар',catAuto:'Авто',catRealty:'Жылжымайтын мүлік',catElec:'Электроника',catWork:'Жұмыс',
-    oferta:'Оферта',descLabel:'Сипаттама',callBtn:'Қоңырау шалу',freeLabel:'Келісімді',
-    fabBtn:'Орналастыру',verified:'✓ Тексерілген',
-  },
-  en:{
-    search:'What are you looking for?',heroInput:'Car, phone, apartment...',
-    postBtn:'+ Post Ad',loginBtn:'Sign In',
-    cats:'Categories',freshAds:'Latest Listings',why:'Why Alsat?',
-    cities:'Popular Cities',faqTitle:'FAQ',
-    taxiTitle:'Taxi · Intercity',taxiPost:'🚗 Post Taxi Ad',
-    heroKicker:'in Kazakhstan · Free',
-    heroH1:'Find everything<br>you need on <em>Alsat</em>',
-    heroSub:'Millions of listings · No fees · Verified sellers',
-    searchBtn:'Search',
-    tagApart:'🏠 Apartment',tagLaptop:'💻 Laptop',tagWork:'💼 Jobs',
-    statAds:'listings',statComm:'commission',statReg:'regions',statLang:'languages',
-    allLink:'All →',showMore:'Show more',
-    why1h:'Fast Posting',why1p:'Post your ad in 2 minutes — no registration needed',
-    why2h:'Safe',why2p:'Verified sellers, report system, moderation',
-    why3h:'0 ₸ commission',why3p:'No hidden fees — communicate directly with the seller',
-    why4h:'All Kazakhstan',why4p:'Astana, Almaty, Shymkent and 200+ cities and villages',
-    cityCapital:'capital',cityMega:'megapolis',citySouth:'south',cityResort:'resort',
-    cityNorth:'north',cityWest:'west',cityAll:'All cities',cityAllSub:'all KZ',
-    taxiSub:'Reliable drivers across Kazakhstan',
-    botKicker:'Telegram bot',botTitle:'Alsat in your Telegram',
-    botDesc:'Our bot checks ads for errors and safety, monitors spam and answers posting questions — 24/7.',
-    botBtn:'Open bot',
-    footerTagline:'The largest classifieds board in Kazakhstan. Buy and sell without commissions.',
-    footerHelp:'Help',footerFaq:'FAQ',footerSupport:'Support',footerPrivacy:'Privacy',
-    footerCompany:'Company',footerAbout:'About',footerAds:'Advertising',footerSafety:'Safety',
-    footerCats:'Categories',catAuto:'Cars',catRealty:'Real Estate',catElec:'Electronics',catWork:'Jobs',
-    oferta:'Terms',descLabel:'Description',callBtn:'Call',freeLabel:'Negotiable',
-    fabBtn:'Post Ad',verified:'✓ Verified',
-  }
+  ru:{search:'Что ищете?',heroInput:'Авто, телефон, квартира...',postBtn:'+ Разместить',loginBtn:'Войти',cats:'Категории',freshAds:'Свежие объявления',why:'Почему Алсат?',cities:'Популярные города',faqTitle:'Частые вопросы',taxiTitle:'Такси · Межгород',taxiPost:'🚗 Подать объявление Такси · Межгород'},
+  kz:{search:'Не іздейсіз?',heroInput:'Авто, телефон, пәтер...',postBtn:'+ Орналастыру',loginBtn:'Кіру',cats:'Санаттар',freshAds:'Жаңа хабарландырулар',why:'Неге Алсат?',cities:'Танымал қалалар',faqTitle:'Жиі қойылатын сұрақтар',taxiTitle:'Такси · Қалааралық',taxiPost:'🚗 Такси хабарландыруын орналастыру'},
+  en:{search:'What are you looking for?',heroInput:'Car, phone, apartment...',postBtn:'+ Post Ad',loginBtn:'Sign In',cats:'Categories',freshAds:'Latest Listings',why:'Why Alsat?',cities:'Popular Cities',faqTitle:'FAQ',taxiTitle:'Taxi · Intercity',taxiPost:'🚗 Post Taxi Ad'}
 };
 
 function toggleLang(){
@@ -2351,12 +2075,6 @@ function setLang(lang){
   currentLang=lang;
   document.getElementById('langDrop').classList.remove('open');
   document.getElementById('langBtn').textContent=lang.toUpperCase()+' ▾';
-  var L=LANGS[lang];
-  // apply all data-i18n translations
-  document.querySelectorAll('[data-i18n]').forEach(function(el){
-    var key=el.getAttribute('data-i18n');
-    if(L[key]!==undefined) el.innerHTML=L[key];
-  });
   document.querySelectorAll('.nav-lang-opt').forEach(function(el){
     el.classList.toggle('active',el.textContent.toLowerCase().includes(lang));
   });
@@ -2377,7 +2095,6 @@ function setLang(lang){
   // taxi section h2
   var th=document.querySelector('.taxi-head h2');
   if(th) th.innerHTML='🚗 '+L.taxiTitle.replace(' · ','<br><span style="color:var(--yellow)">').replace('$','')+(lang==='ru'?'<span>Межгород</span>':lang==='kz'?'<span>Қалааралық</span>':'<span>Intercity</span>');
-  renderFaq();
   showToast(lang==='ru'?'Русский язык':lang==='kz'?'Қазақ тілі':'English');
 }
 document.addEventListener('click',function(e){
