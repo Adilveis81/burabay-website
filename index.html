@@ -1820,23 +1820,23 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
         <div class="tp-slot" id="ts3"><input type="file" accept="image/*" onchange="handleTaxiPh(3,this)"><div class="tp-slot-icon">🧳</div><div class="tp-slot-label">Багажник *</div></div>
       </div>
 
-      <div class="taxi-section-label">🛡️ Безопасность (обязательно)</div>
+      <div class="taxi-section-label" data-i18n="tSecSafety">🛡️ Безопасность (обязательно)</div>
       <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:4px">
-        <label class="taxi-check"><input type="checkbox" id="tKit"><span>🩺 Аптечка в наличии</span></label>
-        <label class="taxi-check"><input type="checkbox" id="tFire"><span>🧯 Огнетушитель в наличии</span></label>
+        <label class="taxi-check"><input type="checkbox" id="tKit"><span data-i18n="tKit">🩺 Аптечка в наличии</span></label>
+        <label class="taxi-check"><input type="checkbox" id="tFire"><span data-i18n="tFire">🧯 Огнетушитель в наличии</span></label>
       </div>
 
-      <div class="taxi-section-label">🚙 Удобства и услуги</div>
+      <div class="taxi-section-label" data-i18n="tSecAmenities">🚙 Удобства и услуги</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px">
-        <label class="taxi-check"><input type="checkbox" id="tAC"><span>❄️ Кондиционер</span></label>
-        <label class="taxi-check"><input type="checkbox" id="tSeat"><span>🪑 Детское кресло</span></label>
-        <label class="taxi-check"><input type="checkbox" id="tTrunk"><span>🧳 Багажник свободен</span></label>
-        <label class="taxi-check"><input type="checkbox" id="tParcel"><span>📦 Доставка посылок</span></label>
+        <label class="taxi-check"><input type="checkbox" id="tAC"><span data-i18n="tAC">❄️ Кондиционер</span></label>
+        <label class="taxi-check"><input type="checkbox" id="tSeat"><span data-i18n="tSeat">🪑 Детское кресло</span></label>
+        <label class="taxi-check"><input type="checkbox" id="tTrunk"><span data-i18n="tTrunk">🧳 Багажник свободен</span></label>
+        <label class="taxi-check"><input type="checkbox" id="tParcel"><span data-i18n="tParcel">📦 Доставка посылок</span></label>
       </div>
 
-      <div class="taxi-section-label">🧑‍✈️ Водитель</div>
+      <div class="taxi-section-label" data-i18n="tSecDriver">🧑‍✈️ Водитель</div>
       <div class="field">
-        <label>Стаж вождения</label>
+        <label data-i18n="tExpLabel">Стаж вождения</label>
         <select id="tExp">
           <option value="">— выберите —</option>
           <option>5 лет</option><option>6 лет</option><option>7 лет</option><option>8 лет</option><option>9 лет</option>
@@ -2383,6 +2383,10 @@ var LANGS={
     ubFree:'БЕСПЛАТНО',ubSlogan:'Размещай объявления без комиссий',
     ubAdsLabel:'объявлений уже на сайте',ubLocation:'Казахстан · Все города',
     taxiSub:'Надёжные водители по всему Казахстану',
+    tSecSafety:'🛡️ Безопасность (обязательно)',tSecAmenities:'🚙 Удобства и услуги',tSecDriver:'🧑‍✈️ Водитель',
+    tKit:'🩺 Аптечка в наличии',tFire:'🧯 Огнетушитель в наличии',
+    tAC:'❄️ Кондиционер',tSeat:'🪑 Детское кресло',tTrunk:'🧳 Багажник свободен',tParcel:'📦 Доставка посылок',
+    tExpLabel:'Стаж вождения',
     botKicker:'Telegram бот',botTitle:'Алсат в вашем Telegram',
     botDesc:'Наш бот проверяет объявления на ошибки и безопасность, следит за спамом и отвечает на вопросы о размещении — 24/7.',
     botBtn:'Открыть бота',
@@ -2418,6 +2422,10 @@ var LANGS={
     ubFree:'ТЕГІН',ubSlogan:'Комиссиясыз хабарландыру жариялаңыз',
     ubAdsLabel:'хабарландыру сайтта бар',ubLocation:'Қазақстан · Барлық қалалар',
     taxiSub:'Бүкіл Қазақстан бойынша сенімді жүргізушілер',
+    tSecSafety:'🛡️ Қауіпсіздік (міндетті)',tSecAmenities:'🚙 Қолайлылықтар мен қызметтер',tSecDriver:'🧑‍✈️ Жүргізуші',
+    tKit:'🩺 Дәрі-дәрмек жәшігі бар',tFire:'🧯 Өрт сөндіргіш бар',
+    tAC:'❄️ Ауа баптағыш',tSeat:'🪑 Балалар орындығы',tTrunk:'🧳 Багажник бос',tParcel:'📦 Жылжыма жеткізу',
+    tExpLabel:'Жүргізу өтілі',
     botKicker:'Telegram бот',botTitle:'Алсат — Telegram-да',
     botDesc:'Біздің бот хабарландыруларды қателер мен қауіпсіздікке тексереді, спамды бақылайды және орналастыру сұрақтарына 24/7 жауап береді.',
     botBtn:'Ботты ашу',
@@ -2453,6 +2461,10 @@ var LANGS={
     ubFree:'FREE',ubSlogan:'Post ads without any commission',
     ubAdsLabel:'listings already on the site',ubLocation:'Kazakhstan · All cities',
     taxiSub:'Reliable drivers across Kazakhstan',
+    tSecSafety:'🛡️ Safety (required)',tSecAmenities:'🚙 Amenities & Services',tSecDriver:'🧑‍✈️ Driver',
+    tKit:'🩺 First aid kit on board',tFire:'🧯 Fire extinguisher on board',
+    tAC:'❄️ Air conditioning',tSeat:'🪑 Child seat',tTrunk:'🧳 Free trunk space',tParcel:'📦 Parcel delivery',
+    tExpLabel:'Driving experience',
     botKicker:'Telegram bot',botTitle:'Alsat in your Telegram',
     botDesc:'Our bot checks ads for errors and safety, monitors spam and answers posting questions — 24/7.',
     botBtn:'Open bot',
