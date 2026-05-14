@@ -1928,8 +1928,10 @@ function renderAds(ads){
   var html=ads.map(function(a){
     var price=a.price?Number(a.price).toLocaleString('ru-KZ')+' ₸':'Договорная';
     var emoji=EMOJIS[a.catLabel]||'📦';
-    var imgHtml=a.photos&&a.photos.length
-      ?'<img src="'+a.photos[0]+'" alt="" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=ad-img-placeholder>'+emoji+'</div>\'">'
+    var _rawPhoto=a.photos&&a.photos.length?a.photos[0]:null;
+    if(_rawPhoto&&typeof _rawPhoto==='string'&&_rawPhoto.trim().startsWith('[')){try{_rawPhoto=JSON.parse(_rawPhoto)[0];}catch(e){_rawPhoto=null;}}
+    var imgHtml=_rawPhoto
+      ?'<img src="'+_rawPhoto+'" alt="" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=ad-img-placeholder>'+emoji+'</div>\'">'
       :'<div class="ad-img-placeholder">'+emoji+'</div>';
     var ph=a.phone?String(a.phone).replace(/\D/g,''):'';
     var phoneBar='';
