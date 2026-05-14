@@ -1505,16 +1505,8 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       <a class="sec-link" href="#" data-i18n="allLink">Все →</a>
     </div>
 
-    <!-- Filter chips -->
-    <div class="filter-bar" id="filterBar" style="margin-bottom:20px">
-      <div class="chip active" data-cat="">🔥 Все</div>
-      <div class="chip" data-cat="Авто">🚗 Авто</div>
-      <div class="chip" data-cat="Недвижимость">🏠 Недвижимость</div>
-      <div class="chip" data-cat="Электроника">📱 Электроника</div>
-      <div class="chip" data-cat="Работа">💼 Работа</div>
-      <div class="chip" data-cat="Услуги">🔧 Услуги</div>
-      <div class="chip" data-cat="Животные">🐾 Животные</div>
-    </div>
+    <!-- Filter chips (rendered by JS) -->
+    <div class="filter-bar" id="filterBar" style="margin-bottom:20px"></div>
 
     <div class="ads-grid" id="adsGrid">
       <!-- placeholders -->
@@ -1900,18 +1892,18 @@ var SURL='https://duscyiyxfmsriyhwlbqx.supabase.co';
 var SKEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
 
 var CATS=[
-  {name:'Авто',emoji:'🚗',color:'#1565C0',bg:'#E8F0FE',id:'auto'},
-  {name:'Недвижимость',emoji:'🏠',color:'#FF5C00',bg:'#FFF3EE',id:'realty'},
-  {name:'Электроника',emoji:'📱',color:'#6A1B9A',bg:'#F3E5F5',id:'elec'},
-  {name:'Работа',emoji:'💼',color:'#2E7D32',bg:'#E8F5E9',id:'work'},
-  {name:'Услуги',emoji:'🔧',color:'#00695C',bg:'#E0F2F1',id:'serv'},
-  {name:'Такси',emoji:'🚕',color:'#F57F17',bg:'#FFF8E1',id:'taxi'},
-  {name:'Животные',emoji:'🐾',color:'#E91E63',bg:'#FCE4EC',id:'pet'},
-  {name:'Детское',emoji:'🧸',color:'#7B1FA2',bg:'#F3E5F5',id:'kids'},
-  {name:'Спорт',emoji:'⚽',color:'#C62828',bg:'#FFEBEE',id:'sport'},
-  {name:'Мебель',emoji:'🛋',color:'#5D4037',bg:'#EFEBE9',id:'furn'},
-  {name:'Продукты',emoji:'🛒',color:'#388E3C',bg:'#E8F5E9',id:'food'},
-  {name:'Отдам даром',emoji:'🎁',color:'#00838F',bg:'#E0F7FA',id:'free'},
+  {name:'Авто',kz:'Авто',en:'Cars',emoji:'🚗',color:'#1565C0',bg:'#E8F0FE',id:'auto'},
+  {name:'Недвижимость',kz:'Жылжымайтын мүлік',en:'Real Estate',emoji:'🏠',color:'#FF5C00',bg:'#FFF3EE',id:'realty'},
+  {name:'Электроника',kz:'Электроника',en:'Electronics',emoji:'📱',color:'#6A1B9A',bg:'#F3E5F5',id:'elec'},
+  {name:'Работа',kz:'Жұмыс',en:'Jobs',emoji:'💼',color:'#2E7D32',bg:'#E8F5E9',id:'work'},
+  {name:'Услуги',kz:'Қызметтер',en:'Services',emoji:'🔧',color:'#00695C',bg:'#E0F2F1',id:'serv'},
+  {name:'Такси',kz:'Такси',en:'Taxi',emoji:'🚕',color:'#F57F17',bg:'#FFF8E1',id:'taxi'},
+  {name:'Животные',kz:'Жануарлар',en:'Pets',emoji:'🐾',color:'#E91E63',bg:'#FCE4EC',id:'pet'},
+  {name:'Детское',kz:'Балалар',en:'Kids',emoji:'🧸',color:'#7B1FA2',bg:'#F3E5F5',id:'kids'},
+  {name:'Спорт',kz:'Спорт',en:'Sports',emoji:'⚽',color:'#C62828',bg:'#FFEBEE',id:'sport'},
+  {name:'Мебель',kz:'Жиһаз',en:'Furniture',emoji:'🛋',color:'#5D4037',bg:'#EFEBE9',id:'furn'},
+  {name:'Продукты',kz:'Азық-түлік',en:'Food',emoji:'🛒',color:'#388E3C',bg:'#E8F5E9',id:'food'},
+  {name:'Отдам даром',kz:'Тегін беремін',en:'Free stuff',emoji:'🎁',color:'#00838F',bg:'#E0F7FA',id:'free'},
 ];
 
 var FAQS_DATA={
@@ -1951,18 +1943,55 @@ var FAQS=FAQS_DATA.ru;
 // ═══════════════════
 // CATEGORIES RENDER
 // ═══════════════════
-(function renderCats(){
+function renderCats(){
   var g=document.getElementById('catsGrid');
+  if(!g) return;
   var html='';
   CATS.forEach(function(c){
+    var label=c[currentLang]||c.name;
     html+='<div class="cat-tile" style="--tile-color:'+c.color+';--tile-bg:'+c.bg+'" onclick="filterCat(\''+c.name+'\')">'
       +'<div class="cat-icon-wrap"><span class="ci">'+c.emoji+'</span></div>'
-      +'<div class="cat-name">'+c.name+'</div>'
+      +'<div class="cat-name">'+label+'</div>'
       +'<div class="cat-count" id="cc-'+c.id+'">–</div>'
       +'</div>';
   });
   g.innerHTML=html;
-})();
+}
+renderCats();
+
+// ═══════════════════
+// FILTER CHIPS RENDER
+// ═══════════════════
+var CHIP_IDS=['','auto','realty','elec','work','serv','pet'];
+var CHIP_ALL_LABELS={ru:'🔥 Все',kz:'🔥 Барлығы',en:'🔥 All'};
+
+function renderChips(){
+  var bar=document.getElementById('filterBar');
+  if(!bar) return;
+  var html='';
+  CHIP_IDS.forEach(function(id){
+    if(id===''){
+      html+='<div class="chip'+(activeFilter===''?' active':'')+'" data-cat="">'+( CHIP_ALL_LABELS[currentLang]||CHIP_ALL_LABELS.ru)+'</div>';
+    } else {
+      var cat=CATS.find(function(c){return c.id===id;});
+      if(!cat) return;
+      var label=cat[currentLang]||cat.name;
+      html+='<div class="chip'+(activeFilter===cat.name?' active':'')+'" data-cat="'+cat.name+'">'+cat.emoji+' '+label+'</div>';
+    }
+  });
+  bar.innerHTML=html;
+  bar.querySelectorAll('.chip').forEach(function(chip){
+    chip.addEventListener('click',function(){
+      document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('active')});
+      chip.classList.add('active');
+      var cat=chip.dataset.cat||'';
+      activeFilter=cat;
+      var filtered=cat?ALL_ADS.filter(function(a){return a.catLabel===cat}):ALL_ADS;
+      renderAds(filtered);
+    });
+  });
+}
+renderChips();
 
 // ═══════════════════
 // FAQ RENDER
@@ -2012,11 +2041,17 @@ var _adsStore={};
 
 function renderAds(ads){
   var g=document.getElementById('adsGrid');
-  if(!ads||!ads.length){g.innerHTML='<p style="color:var(--text3);text-align:center;grid-column:1/-1;padding:40px">Объявлений пока нет</p>';return}
+  var L=LANGS[currentLang]||LANGS.ru;
+  if(!ads||!ads.length){
+    var noAds={ru:'Объявлений пока нет',kz:'Хабарландырулар әлі жоқ',en:'No listings yet'};
+    g.innerHTML='<p style="color:var(--text3);text-align:center;grid-column:1/-1;padding:40px">'+(noAds[currentLang]||noAds.ru)+'</p>';
+    return;
+  }
   var EMOJIS={'Авто':'🚗','Недвижимость':'🏠','Электроника':'📱','Работа':'💼','Услуги':'🔧','Животные':'🐾','Детское':'🧸','Спорт':'⚽','Мебель':'🛋','Продукты':'🛒','Отдам даром':'🎁','Такси':'🚕'};
+  var daromLabel={ru:'ДАРОМ',kz:'ТЕГІН',en:'FREE'};
   ads.forEach(function(a){_adsStore[a.id]=a;});
   var html=ads.map(function(a){
-    var price=a.price?Number(a.price).toLocaleString('ru-KZ')+' ₸':'Договорная';
+    var price=a.price?Number(a.price).toLocaleString('ru-KZ')+' ₸':(L.freeLabel||'Договорная');
     var emoji=EMOJIS[a.catLabel]||'📦';
     var _rawPhoto=a.photos&&a.photos.length?a.photos[0]:null;
     if(_rawPhoto&&typeof _rawPhoto==='string'&&_rawPhoto.trim().startsWith('[')){try{_rawPhoto=JSON.parse(_rawPhoto)[0];}catch(e){_rawPhoto=null;}}
@@ -2028,18 +2063,18 @@ function renderAds(ads){
     if(ph){
       var waNum=ph.startsWith('7')?ph:'7'+ph;
       phoneBar='<div class="ad-phone-bar">'
-        +'<a class="ad-btn-call" href="tel:+'+ph+'">📞 Позвонить</a>'
+        +'<a class="ad-btn-call" href="tel:+'+ph+'">📞 '+(L.callBtn||'Позвонить')+'</a>'
         +'<a class="ad-btn-wa" href="https://wa.me/'+waNum+'" target="_blank" rel="noopener">WA</a>'
         +'</div>';
     }
     return '<div class="ad-card" onclick="openAdModal(\''+a.id+'\')" style="cursor:pointer">'
-      +'<div class="ad-img">'+imgHtml+'<div class="ad-fav">♡</div>'+(a.price==0?'<span class="ad-badge">ДАРОМ</span>':'')+'</div>'
+      +'<div class="ad-img">'+imgHtml+'<div class="ad-fav">♡</div>'+(a.price==0?'<span class="ad-badge">'+(daromLabel[currentLang]||'ДАРОМ')+'</span>':'')+'</div>'
       +'<div class="ad-body">'
       +'<div class="ad-price'+(a.price==0?' free':'')+'">'+price+'</div>'
       +'<div class="ad-title">'+(a.title||'')+'</div>'
       +'<div class="ad-meta">'
       +'<span class="ad-meta-city">📍 '+(a.city||'')+'</span>'
-      +(a.verified?'<span class="ad-verified">✓ Проверен</span>':'<span style="color:var(--text3)">'+timeSince(a.created_at)+'</span>')
+      +(a.verified?'<span class="ad-verified">'+(L.verified||'✓ Проверен')+'</span>':'<span style="color:var(--text3)">'+timeSince(a.created_at)+'</span>')
       +'</div>'
       +phoneBar
       +'</div></div>';
@@ -2144,23 +2179,11 @@ function updateCatCounts(ads){
   Object.keys(MAP).forEach(function(id){
     var n=ads.filter(function(a){return MAP[id].indexOf(a.catLabel)!==-1}).length;
     var el=document.getElementById('cc-'+id);
-    if(el) el.textContent=n+' объявл.';
+    var sfx={ru:'объявл.',kz:'хабарл.',en:'ads'};
+    if(el) el.textContent=n+' '+(sfx[currentLang]||sfx.ru);
   });
 }
 
-// FILTER CHIPS
-(function(){
-  document.getElementById('filterBar').addEventListener('click',function(e){
-    var chip=e.target.closest('.chip');
-    if(!chip) return;
-    document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('active')});
-    chip.classList.add('active');
-    var cat=chip.dataset.cat||'';
-    activeFilter=cat;
-    var filtered=cat?ALL_ADS.filter(function(a){return a.catLabel===cat}):ALL_ADS;
-    renderAds(filtered);
-  });
-})();
 
 function filterCat(cat){
   document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('active')});
@@ -2378,6 +2401,11 @@ function setLang(lang){
   var th=document.querySelector('.taxi-head h2');
   if(th) th.innerHTML='🚗 '+L.taxiTitle.replace(' · ','<br><span style="color:var(--yellow)">').replace('$','')+(lang==='ru'?'<span>Межгород</span>':lang==='kz'?'<span>Қалааралық</span>':'<span>Intercity</span>');
   renderFaq();
+  renderCats();
+  renderChips();
+  // re-render ads with updated translations
+  var filtered=activeFilter?ALL_ADS.filter(function(a){return a.catLabel===activeFilter}):ALL_ADS;
+  if(ALL_ADS.length) renderAds(filtered);
   showToast(lang==='ru'?'Русский язык':lang==='kz'?'Қазақ тілі':'English');
 }
 document.addEventListener('click',function(e){
