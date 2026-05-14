@@ -86,7 +86,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 .nav{
   position:sticky;
   top:0;
-  z-index:900;
+  z-index:1100;
   height:var(--nav-h);
   background:rgba(255,255,255,0.95);
   backdrop-filter:blur(16px);
@@ -215,7 +215,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
   display:none;position:absolute;top:calc(100% + 6px);right:0;
   background:var(--surface);border:1.5px solid var(--border);
   border-radius:var(--radius);box-shadow:var(--shadow);
-  min-width:90px;overflow:hidden;z-index:999;
+  min-width:90px;overflow:hidden;z-index:1200;
 }
 .nav-lang-drop.open{display:block}
 .nav-lang-opt{
@@ -1020,7 +1020,8 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
    MODALS
 ═══════════════════════════════════════ */
 .overlay{
-  display:none;position:fixed;inset:0;
+  display:none;position:fixed;
+  top:var(--nav-h);left:0;right:0;bottom:0;
   background:rgba(12,31,63,.5);
   backdrop-filter:blur(4px);
   z-index:1000;
@@ -1144,7 +1145,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 .auth-head p{font-size:13px;color:rgba(255,255,255,.72)}
 
 /* legal modals */
-.legal-modal-ov{display:none;position:fixed;inset:0;background:rgba(12,31,63,.5);backdrop-filter:blur(4px);z-index:1000;align-items:flex-end;justify-content:center}
+.legal-modal-ov{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:rgba(12,31,63,.5);backdrop-filter:blur(4px);z-index:1000;align-items:flex-end;justify-content:center}
 @media(min-width:600px){.legal-modal-ov{align-items:center;padding:20px}}
 .legal-modal-ov.open{display:flex}
 .legal-box{
