@@ -238,6 +238,19 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 }
 .nav-theme:hover{border-color:var(--brand);color:var(--brand)}
 
+/* Оферта в навбаре */
+.nav-oferta-link{
+  font-size:12px;font-weight:600;
+  color:var(--brand);
+  cursor:pointer;
+  white-space:nowrap;
+  padding:4px 8px;
+  border-radius:6px;
+  border:1px solid rgba(255,92,0,.25);
+  transition:.15s;
+}
+.nav-oferta-link:hover{background:var(--brand-light)}
+
 /* mob nav elements hidden/shown */
 .mob-only{display:none}
 @media(max-width:900px){
@@ -1365,6 +1378,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
           <div class="nav-lang-opt" onclick="setLang('en')">EN</div>
         </div>
       </div>
+      <a class="nav-oferta-link" onclick="openLegal('oferta')">Оферта</a>
       <button class="nav-theme" id="themeBtn" onclick="toggleTheme()" title="Тема">☀️</button>
       <button class="btn btn-ghost hide-mob" onclick="openAuth()">Войти</button>
       <button class="btn btn-brand hide-mob" onclick="openPost()">+ Разместить</button>
@@ -1643,6 +1657,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
           <a href="#" onclick="openFaq()">Вопросы и ответы</a>
           <a href="mailto:adilkurmanov9@gmail.com">Поддержка</a>
           <a href="https://t.me/Alsat_Asia_bot">Telegram бот</a>
+          <a onclick="openLegal('privacy')" style="cursor:pointer">Конфиденциальность</a>
         </div>
       </div>
       <div>
