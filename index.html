@@ -1804,7 +1804,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       <div class="field"><label>Марка, год, цвет</label><input type="text" id="tCar" placeholder="Toyota Camry 2022, белый"></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
         <div class="field"><label>Мест для пассажиров</label>
-          <select id="tSeats"><option>1</option><option selected>2</option><option>3</option><option>4</option></select>
+          <select id="tSeats"><option>1</option><option>2</option><option>3</option><option selected>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select>
         </div>
         <div class="field"><label>Цена за место (₸)</label><input type="number" id="tPrice" placeholder="4000"></div>
       </div>
@@ -1824,6 +1824,28 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:4px">
         <label class="taxi-check"><input type="checkbox" id="tKit"><span>🩺 Аптечка в наличии</span></label>
         <label class="taxi-check"><input type="checkbox" id="tFire"><span>🧯 Огнетушитель в наличии</span></label>
+      </div>
+
+      <div class="taxi-section-label">🚙 Удобства и услуги</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px">
+        <label class="taxi-check"><input type="checkbox" id="tAC"><span>❄️ Кондиционер</span></label>
+        <label class="taxi-check"><input type="checkbox" id="tSeat"><span>🪑 Жёсткое кресло</span></label>
+        <label class="taxi-check"><input type="checkbox" id="tTrunk"><span>🧳 Багажник свободен</span></label>
+        <label class="taxi-check"><input type="checkbox" id="tParcel"><span>📦 Доставка посылок</span></label>
+      </div>
+
+      <div class="taxi-section-label">🧑‍✈️ Водитель</div>
+      <div class="field">
+        <label>Стаж вождения</label>
+        <select id="tExp">
+          <option value="">— выберите —</option>
+          <option>5 лет</option><option>6 лет</option><option>7 лет</option><option>8 лет</option><option>9 лет</option>
+          <option>10 лет</option><option>11 лет</option><option>12 лет</option><option>13 лет</option><option>14 лет</option>
+          <option>15 лет</option><option>16 лет</option><option>17 лет</option><option>18 лет</option><option>19 лет</option>
+          <option>20 лет</option><option>21 год</option><option>22 года</option><option>23 года</option><option>24 года</option>
+          <option>25 лет</option><option>26 лет</option><option>27 лет</option><option>28 лет</option><option>29 лет</option>
+          <option>30 лет</option><option>35 лет</option><option>40 лет</option>
+        </select>
       </div>
 
       <div class="taxi-section-label">📞 Контакт</div>
@@ -2643,9 +2665,24 @@ function submitTaxiPost(){
   if(missing.length){showToast('Добавьте фото: '+missing.join(', '));return}
   if(!document.getElementById('tKit').checked){showToast('Подтвердите наличие аптечки');return}
   if(!document.getElementById('tFire').checked){showToast('Подтвердите наличие огнетушителя');return}
+  var exp=document.getElementById('tExp').value;
+  if(!exp){showToast('Укажите стаж вождения');return}
+
+  var ac=document.getElementById('tAC').checked;
+  var seat=document.getElementById('tSeat').checked;
+  var trunk=document.getElementById('tTrunk').checked;
+  var parcel=document.getElementById('tParcel').checked;
+  var seats=document.getElementById('tSeats').value;
 
   closeTaxiPost();
   showToast('✅ Объявление отправлено на модерацию');
+
+  // build extras badges
+  var extras='';
+  if(ac) extras+='<span class="tsb">❄️ Кондиционер</span>';
+  if(seat) extras+='<span class="tsb">🪑 Жёсткое кресло</span>';
+  if(trunk) extras+='<span class="tsb">🧳 Багажник свободен</span>';
+  if(parcel) extras+='<span class="tsb">📦 Посылки</span>';
 
   // add to taxi grid
   var grid=document.getElementById('taxiAdsGrid');
@@ -2657,12 +2694,15 @@ function submitTaxiPost(){
     +'<div class="taxi-route-cities">'+from+' <span class="taxi-route-arrow">→</span> '+to+'</div>'
     +'<div class="taxi-route-meta">'+car+'</div>'
     +'</div>'
-    +'<div class="taxi-price-big">'+Number(price).toLocaleString('ru-KZ')+' ₸</div>'
+    +'<div><div class="taxi-price-big">'+Number(price).toLocaleString('ru-KZ')+' ₸</div>'
+    +'<div style="font-size:10px;color:rgba(255,255,255,.45);text-align:right;margin-top:2px">за 1 место</div></div>'
     +'</div>'
+    +'<div class="taxi-car-info"><span>🚗 Салон '+seats+' места</span><span>·</span><span>🧑‍✈️ Стаж '+exp+'</span></div>'
     +'<div class="taxi-safety-badges">'
     +'<span class="tsb">✅ Аптечка</span>'
     +'<span class="tsb">✅ Огнетушитель</span>'
     +'<span class="tsb">📸 4 фото</span>'
+    +extras
     +'</div>';
   grid.insertBefore(card, grid.firstChild);
 
@@ -2678,6 +2718,11 @@ function submitTaxiPost(){
   });
   document.getElementById('tKit').checked=false;
   document.getElementById('tFire').checked=false;
+  document.getElementById('tAC').checked=false;
+  document.getElementById('tSeat').checked=false;
+  document.getElementById('tTrunk').checked=false;
+  document.getElementById('tParcel').checked=false;
+  document.getElementById('tExp').value='';
 }
 
 // Also add taxi chip to nav filter
