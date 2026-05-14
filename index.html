@@ -2039,6 +2039,49 @@ function fetchAds(){
 
 var _adsStore={};
 
+// Universal photo extractor — handles all Supabase storage formats
+function parseFirstPhoto(photos){
+  if(!photos) return null;
+  // If photos is a string (JSON-encoded array)
+  if(typeof photos==='string'){
+    var s=photos.trim();
+    if(s.startsWith('[')){try{photos=JSON.parse(s);}catch(e){return null;}}
+    else if(s.startsWith('data:')||s.startsWith('http')) return s;
+    else return null;
+  }
+  // photos is now an array (or was already)
+  if(!Array.isArray(photos)||!photos.length) return null;
+  var first=photos[0];
+  if(typeof first==='string'){
+    var f=first.trim();
+    // double-encoded: first element is itself a JSON array string
+    if(f.startsWith('[')){try{var arr=JSON.parse(f);return arr[0]||null;}catch(e){return null;}}
+    if(f.startsWith('data:')||f.startsWith('http')) return f;
+  }
+  return null;
+}
+
+// Universal all-photos extractor
+function parseAllPhotos(photos){
+  if(!photos) return [];
+  if(typeof photos==='string'){
+    var s=photos.trim();
+    if(s.startsWith('[')){try{photos=JSON.parse(s);}catch(e){return [];}}
+    else if(s.startsWith('data:')||s.startsWith('http')) return [s];
+    else return [];
+  }
+  if(!Array.isArray(photos)) return [];
+  var result=[];
+  photos.forEach(function(p){
+    if(typeof p==='string'){
+      var f=p.trim();
+      if(f.startsWith('[')){try{var arr=JSON.parse(f);arr.forEach(function(x){if(x) result.push(x);});}catch(e){}}
+      else if(f.startsWith('data:')||f.startsWith('http')) result.push(f);
+    }
+  });
+  return result;
+}
+
 function renderAds(ads){
   var g=document.getElementById('adsGrid');
   var L=LANGS[currentLang]||LANGS.ru;
@@ -2049,14 +2092,14 @@ function renderAds(ads){
   }
   var EMOJIS={'Авто':'🚗','Недвижимость':'🏠','Электроника':'📱','Работа':'💼','Услуги':'🔧','Животные':'🐾','Детское':'🧸','Спорт':'⚽','Мебель':'🛋','Продукты':'🛒','Отдам даром':'🎁','Такси':'🚕'};
   var daromLabel={ru:'ДАРОМ',kz:'ТЕГІН',en:'FREE'};
-  ads.forEach(function(a){_adsStore[a.id]=a;});
+  ads.forEach(function(a){_adsStore[String(a.id)]=a;});
   var html=ads.map(function(a){
     var price=a.price?Number(a.price).toLocaleString('ru-KZ')+' ₸':(L.freeLabel||'Договорная');
     var emoji=EMOJIS[a.catLabel]||'📦';
-    var _rawPhoto=a.photos&&a.photos.length?a.photos[0]:null;
-    if(_rawPhoto&&typeof _rawPhoto==='string'&&_rawPhoto.trim().startsWith('[')){try{_rawPhoto=JSON.parse(_rawPhoto)[0];}catch(e){_rawPhoto=null;}}
-    var imgHtml=_rawPhoto
-      ?'<img src="'+_rawPhoto+'" alt="" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=ad-img-placeholder>'+emoji+'</div>\'">'
+    var photo=parseFirstPhoto(a.photos);
+    var imgHtml=photo
+      ?'<img src="'+photo+'" alt="" loading="lazy" onerror="this.style.display=\'none\';this.nextSibling&&(this.nextSibling.style.display=\'flex\')">'
+        +'<div class="ad-img-placeholder" style="display:none">'+emoji+'</div>'
       :'<div class="ad-img-placeholder">'+emoji+'</div>';
     var ph=a.phone?String(a.phone).replace(/\D/g,''):'';
     var phoneBar='';
@@ -2067,7 +2110,7 @@ function renderAds(ads){
         +'<a class="ad-btn-wa" href="https://wa.me/'+waNum+'" target="_blank" rel="noopener">WA</a>'
         +'</div>';
     }
-    return '<div class="ad-card" onclick="openAdModal(\''+a.id+'\')" style="cursor:pointer">'
+    return '<div class="ad-card" data-adid="'+String(a.id)+'" style="cursor:pointer">'
       +'<div class="ad-img">'+imgHtml+'<div class="ad-fav">♡</div>'+(a.price==0?'<span class="ad-badge">'+(daromLabel[currentLang]||'ДАРОМ')+'</span>':'')+'</div>'
       +'<div class="ad-body">'
       +'<div class="ad-price'+(a.price==0?' free':'')+'">'+price+'</div>'
@@ -2080,25 +2123,20 @@ function renderAds(ads){
       +'</div></div>';
   }).join('');
   g.innerHTML=html;
-  // prevent phone button clicks from opening modal
-  g.querySelectorAll('.ad-btn-call,.ad-btn-wa').forEach(function(btn){
-    btn.addEventListener('click',function(e){e.stopPropagation();});
-  });
+  // event delegation — replaces handler each render; phone clicks don't propagate
+  g.onclick=function(e){
+    if(e.target.closest('.ad-btn-call,.ad-btn-wa')) return;
+    var card=e.target.closest('.ad-card[data-adid]');
+    if(card) openAdModal(card.dataset.adid);
+  };
 }
 
 function openAdModal(id){
-  var a=_adsStore[id];
+  var a=_adsStore[String(id)];
   if(!a) return;
   var EMOJIS={'Авто':'🚗','Недвижимость':'🏠','Электроника':'📱','Работа':'💼','Услуги':'🔧','Животные':'🐾','Детское':'🧸','Спорт':'⚽','Мебель':'🛋','Продукты':'🛒','Отдам даром':'🎁','Такси':'🚕'};
   var emoji=EMOJIS[a.catLabel]||'📦';
-  // parse photos
-  var photos=[];
-  if(a.photos&&a.photos.length){
-    a.photos.forEach(function(p){
-      if(typeof p==='string'&&p.trim().startsWith('[')){try{var arr=JSON.parse(p);photos=photos.concat(arr);}catch(e){photos.push(p);}}
-      else photos.push(p);
-    });
-  }
+  var photos=parseAllPhotos(a.photos);
   // gallery
   var gal=document.getElementById('adModalGallery');
   var dots=document.getElementById('adModalDots');
