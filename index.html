@@ -1367,17 +1367,17 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 
 <!-- NOTIFY BAR -->
 <div class="notify" id="notifyBar">
-  ✨ Размещение объявлений бесплатно до первых 10 000 объявлений · Уже: <strong id="notifyCount">…</strong> / 10 000
+  <span data-i18n="notifyText">✨ Размещение объявлений бесплатно до первых 10 000 объявлений · Уже:</span> <strong id="notifyCount">…</strong> / 10 000
   <button class="notify-close" onclick="this.parentElement.style.display='none'">×</button>
 </div>
 
 <!-- URGENCY TICKER -->
 <div class="urgency-bar">
   <div class="urgency-track" id="urgTrack">
-    <span class="ub-item"><span class="ub-badge">БЕСПЛАТНО</span> Размещай объявления без комиссий</span>
-    <span class="ub-item"><span class="ub-sep">·</span> <span id="adsTotal">…</span> объявлений уже на сайте</span>
-    <span class="ub-item"><span class="ub-sep">·</span> Казахстан · Все города</span>
-    <span class="ub-item"><span class="ub-sep">·</span> <button class="ub-cta" onclick="openPost()">+ Разместить</button></span>
+    <span class="ub-item"><span class="ub-badge" data-i18n="ubFree">БЕСПЛАТНО</span> <span data-i18n="ubSlogan">Размещай объявления без комиссий</span></span>
+    <span class="ub-item"><span class="ub-sep">·</span> <span id="adsTotal">…</span> <span data-i18n="ubAdsLabel">объявлений уже на сайте</span></span>
+    <span class="ub-item"><span class="ub-sep">·</span> <span data-i18n="ubLocation">Казахстан · Все города</span></span>
+    <span class="ub-item"><span class="ub-sep">·</span> <button class="ub-cta" onclick="openPost()" data-i18n="postBtn">+ Разместить</button></span>
     <span class="ub-item" style="width:48px"></span>
   </div>
 </div>
@@ -1564,13 +1564,13 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       <h2 class="sec-title">Популярные города</h2>
     </div>
     <div class="cities-grid">
-      <div class="city-tile" onclick="setCity('Астана')"><div><div class="city-tile-name">Астана</div><div class="city-tile-count" data-i18n="cityCapital">столица</div></div><span class="city-tile-flag">🏛</span></div>
-      <div class="city-tile" onclick="setCity('Алматы')"><div><div class="city-tile-name">Алматы</div><div class="city-tile-count" data-i18n="cityMega">мегаполис</div></div><span class="city-tile-flag">🏙</span></div>
-      <div class="city-tile" onclick="setCity('Шымкент')"><div><div class="city-tile-name">Шымкент</div><div class="city-tile-count" data-i18n="citySouth">юг</div></div><span class="city-tile-flag">☀️</span></div>
-      <div class="city-tile" onclick="setCity('Бурабай')"><div><div class="city-tile-name">Бурабай</div><div class="city-tile-count" data-i18n="cityResort">курорт</div></div><span class="city-tile-flag">🌲</span></div>
-      <div class="city-tile" onclick="setCity('Кокшетау')"><div><div class="city-tile-name">Кокшетау</div><div class="city-tile-count" data-i18n="cityNorth">север</div></div><span class="city-tile-flag">🏔</span></div>
-      <div class="city-tile" onclick="setCity('Актобе')"><div><div class="city-tile-name">Актобе</div><div class="city-tile-count" data-i18n="cityWest">запад</div></div><span class="city-tile-flag">🏭</span></div>
-      <div class="city-tile" onclick="setCity('Костанай')"><div><div class="city-tile-name">Костанай</div><div class="city-tile-count" data-i18n="cityNorth">север</div></div><span class="city-tile-flag">🌾</span></div>
+      <div class="city-tile" onclick="setCity('Астана')"><div><div class="city-tile-name" data-i18n="cnAstana">Астана</div><div class="city-tile-count" data-i18n="cityCapital">столица</div></div><span class="city-tile-flag">🏛</span></div>
+      <div class="city-tile" onclick="setCity('Алматы')"><div><div class="city-tile-name" data-i18n="cnAlmaty">Алматы</div><div class="city-tile-count" data-i18n="cityMega">мегаполис</div></div><span class="city-tile-flag">🏙</span></div>
+      <div class="city-tile" onclick="setCity('Шымкент')"><div><div class="city-tile-name" data-i18n="cnShymkent">Шымкент</div><div class="city-tile-count" data-i18n="citySouth">юг</div></div><span class="city-tile-flag">☀️</span></div>
+      <div class="city-tile" onclick="setCity('Бурабай')"><div><div class="city-tile-name" data-i18n="cnBurabay">Бурабай</div><div class="city-tile-count" data-i18n="cityResort">курорт</div></div><span class="city-tile-flag">🌲</span></div>
+      <div class="city-tile" onclick="setCity('Кокшетау')"><div><div class="city-tile-name" data-i18n="cnKokshetau">Кокшетау</div><div class="city-tile-count" data-i18n="cityNorth">север</div></div><span class="city-tile-flag">🏔</span></div>
+      <div class="city-tile" onclick="setCity('Актобе')"><div><div class="city-tile-name" data-i18n="cnAktobe">Актобе</div><div class="city-tile-count" data-i18n="cityWest">запад</div></div><span class="city-tile-flag">🏭</span></div>
+      <div class="city-tile" onclick="setCity('Костанай')"><div><div class="city-tile-name" data-i18n="cnKostanay">Костанай</div><div class="city-tile-count" data-i18n="cityNorth">север</div></div><span class="city-tile-flag">🌾</span></div>
       <div class="city-tile" onclick="setCity('Все города')"><div><div class="city-tile-name" data-i18n="cityAll">Все города</div><div class="city-tile-count" data-i18n="cityAllSub">весь КЗ</div></div><span class="city-tile-flag">🇰🇿</span></div>
     </div>
   </div>
@@ -2294,6 +2294,11 @@ var LANGS={
     why4h:'Весь Казахстан',why4p:'Астана, Алматы, Шымкент и ещё 200+ городов и сёл',
     cityCapital:'столица',cityMega:'мегаполис',citySouth:'юг',cityResort:'курорт',
     cityNorth:'север',cityWest:'запад',cityAll:'Все города',cityAllSub:'весь КЗ',
+    cnAstana:'Астана',cnAlmaty:'Алматы',cnShymkent:'Шымкент',cnBurabay:'Бурабай',
+    cnKokshetau:'Кокшетау',cnAktobe:'Актобе',cnKostanay:'Костанай',
+    notifyText:'✨ Размещение объявлений бесплатно до первых 10 000 объявлений · Уже:',
+    ubFree:'БЕСПЛАТНО',ubSlogan:'Размещай объявления без комиссий',
+    ubAdsLabel:'объявлений уже на сайте',ubLocation:'Казахстан · Все города',
     taxiSub:'Надёжные водители по всему Казахстану',
     botKicker:'Telegram бот',botTitle:'Алсат в вашем Telegram',
     botDesc:'Наш бот проверяет объявления на ошибки и безопасность, следит за спамом и отвечает на вопросы о размещении — 24/7.',
@@ -2324,6 +2329,11 @@ var LANGS={
     why4h:'Бүкіл Қазақстан',why4p:'Астана, Алматы, Шымкент және 200+ қала мен ауыл',
     cityCapital:'астана',cityMega:'мегаполис',citySouth:'оңтүстік',cityResort:'курорт',
     cityNorth:'солтүстік',cityWest:'батыс',cityAll:'Барлық қалалар',cityAllSub:'бүкіл ҚЗ',
+    cnAstana:'Астана',cnAlmaty:'Алматы',cnShymkent:'Шымкент',cnBurabay:'Бурабай',
+    cnKokshetau:'Көкшетау',cnAktobe:'Ақтөбе',cnKostanay:'Қостанай',
+    notifyText:'✨ Алғашқы 10 000 хабарландыруды тегін орналастырыңыз · Бар:',
+    ubFree:'ТЕГІН',ubSlogan:'Комиссиясыз хабарландыру жариялаңыз',
+    ubAdsLabel:'хабарландыру сайтта бар',ubLocation:'Қазақстан · Барлық қалалар',
     taxiSub:'Бүкіл Қазақстан бойынша сенімді жүргізушілер',
     botKicker:'Telegram бот',botTitle:'Алсат — Telegram-да',
     botDesc:'Біздің бот хабарландыруларды қателер мен қауіпсіздікке тексереді, спамды бақылайды және орналастыру сұрақтарына 24/7 жауап береді.',
@@ -2354,6 +2364,11 @@ var LANGS={
     why4h:'All Kazakhstan',why4p:'Astana, Almaty, Shymkent and 200+ cities and villages',
     cityCapital:'capital',cityMega:'megapolis',citySouth:'south',cityResort:'resort',
     cityNorth:'north',cityWest:'west',cityAll:'All cities',cityAllSub:'all KZ',
+    cnAstana:'Astana',cnAlmaty:'Almaty',cnShymkent:'Shymkent',cnBurabay:'Burabay',
+    cnKokshetau:'Kokshetau',cnAktobe:'Aktobe',cnKostanay:'Kostanay',
+    notifyText:'✨ Post your first 10,000 listings for free · Already:',
+    ubFree:'FREE',ubSlogan:'Post ads without any commission',
+    ubAdsLabel:'listings already on the site',ubLocation:'Kazakhstan · All cities',
     taxiSub:'Reliable drivers across Kazakhstan',
     botKicker:'Telegram bot',botTitle:'Alsat in your Telegram',
     botDesc:'Our bot checks ads for errors and safety, monitors spam and answers posting questions — 24/7.',
@@ -2395,7 +2410,7 @@ function setLang(lang){
   if(pb) pb.textContent=L.taxiPost;
   // section titles
   var titles=document.querySelectorAll('.sec-title');
-  var map=[L.cats,L.freshAds];
+  var map=[L.cats,L.freshAds,L.why,L.cities,L.faqTitle];
   titles.forEach(function(t,i){if(map[i])t.textContent=map[i]});
   // taxi section h2
   var th=document.querySelector('.taxi-head h2');
