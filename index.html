@@ -1665,6 +1665,9 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       </div>
     </div>
 
+    <!-- Role info banner -->
+    <div id="taxiRoleBanner" style="margin-bottom:20px;border-radius:var(--radius);padding:14px 16px;font-size:13px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;line-height:1.5"></div>
+
     <!-- SAMPLE CARDS (replaced by real ads when available) -->
     <div class="taxi-grid" id="taxiAdsGrid">
       <div class="taxi-card" onclick="openTaxiPost()" style="position:relative">
@@ -1756,8 +1759,8 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
     </div>
 
     <div class="taxi-role-btns">
-      <button class="taxi-role-btn taxi-role-btn-driver" onclick="openTaxiPost()">🚗 Я водитель</button>
-      <button class="taxi-role-btn taxi-role-btn-passenger" onclick="openPassengerPost()">🧳 Ищу попутку</button>
+      <button class="taxi-role-btn taxi-role-btn-driver" onclick="setTaxiRole('driver');openTaxiPost()">🚗 Я водитель</button>
+      <button class="taxi-role-btn taxi-role-btn-passenger" onclick="setTaxiRole('passenger');openPassengerPost()">🧳 Ищу попутку</button>
     </div>
     <div class="taxi-legal-notice">
       ⚖️ <strong>Правовая информация.</strong> Платформа Алсат является информационным посредником и не несёт ответственности за действия перевозчиков. Водители обязаны иметь действующее ВУ, техосмотр и полис ОСГПО (Закон РК «Об автомобильном транспорте»). Пассажиры самостоятельно оценивают надёжность перевозчика.
@@ -2066,6 +2069,26 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       <div class="cf-turnstile" data-sitekey="0x4AAAAAADPM2ua-6_lfgz7S" data-theme="auto" id="paxTurnstile"></div>
       <button class="btn-cancel" onclick="closePassengerPost()">Отмена</button>
       <button class="btn-submit" onclick="submitPassengerPost()" style="background:#29B6F6;color:#0d1b2a">🧳 Найти водителя</button>
+    </div>
+  </div>
+</div>
+
+<!-- TAXI ROLE PICKER -->
+<div class="overlay" id="taxiRoleOverlay" onclick="if(event.target===this)closeTaxiRolePicker()">
+  <div class="modal" style="max-width:400px">
+    <button class="modal-close-btn" onclick="closeTaxiRolePicker()" aria-label="Закрыть">✕</button>
+    <div class="modal-body" style="text-align:center;padding:32px 24px 28px">
+      <div style="font-size:44px;margin-bottom:16px">🚗</div>
+      <h3 style="font-size:18px;margin-bottom:8px;color:#fff">Кто вы?</h3>
+      <p style="color:rgba(255,255,255,.5);font-size:13px;margin-bottom:24px;line-height:1.5">Новые заявки видят только те, кто зарегистрировался как водитель или пассажир</p>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <button onclick="setTaxiRole('driver')" style="padding:14px 16px;border-radius:var(--radius-sm);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:14px;font-weight:600;cursor:pointer;text-align:left;transition:.15s" onmouseover="this.style.background='rgba(255,255,255,.13)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">
+          🚗 Я водитель<br><span style="font-size:12px;font-weight:400;opacity:.55">Ищу пассажиров — вижу их заявки и контакты</span>
+        </button>
+        <button onclick="setTaxiRole('passenger')" style="padding:14px 16px;border-radius:var(--radius-sm);background:rgba(41,182,246,.1);border:1px solid rgba(41,182,246,.3);color:#fff;font-size:14px;font-weight:600;cursor:pointer;text-align:left;transition:.15s" onmouseover="this.style.background='rgba(41,182,246,.18)'" onmouseout="this.style.background='rgba(41,182,246,.1)'">
+          🧳 Я пассажир<br><span style="font-size:12px;font-weight:400;opacity:.55">Ищу водителя — вижу объявления водителей и их контакты</span>
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -2944,10 +2967,13 @@ document.addEventListener('keydown',function(e){
   if(document.getElementById('adDetailOverlay').classList.contains('open'))closeAdModal();
   else if(document.getElementById('taxiOverlay').classList.contains('open'))closeTaxiPost();
   else if(document.getElementById('paxOverlay').classList.contains('open'))closePassengerPost();
+  else if(document.getElementById('taxiRoleOverlay').classList.contains('open'))closeTaxiRolePicker();
   else if(document.getElementById('postOverlay').classList.contains('open'))closePost();
   else if(document.getElementById('authOverlay').classList.contains('open'))closeAuth();
   else if(document.getElementById('cityOverlay').classList.contains('open'))closeCityPicker();
 });
+
+updateTaxiRoleBanner();
 
 // ═══════════════════
 // CITY
@@ -2964,6 +2990,57 @@ function closeCityPicker(){document.getElementById('cityOverlay').classList.remo
 // TAXI
 // ═══════════════════
 var taxiPhotos=[null,null,null,null];
+
+// ── Taxi role management ────────────────────────────────────────────────────
+var _taxiRole=(function(){try{return localStorage.getItem('alsat_taxi_role');}catch(e){return null;}})();
+var _pendingRoleAction=null;
+
+function setTaxiRole(role){
+  _taxiRole=role;
+  try{localStorage.setItem('alsat_taxi_role',role);}catch(e){}
+  closeTaxiRolePicker();
+  updateTaxiRoleBanner();
+  if(_pendingRoleAction){var fn=_pendingRoleAction;_pendingRoleAction=null;fn();}
+}
+
+function openTaxiRolePicker(){
+  document.getElementById('taxiRoleOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeTaxiRolePicker(){
+  document.getElementById('taxiRoleOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function updateTaxiRoleBanner(){
+  var b=document.getElementById('taxiRoleBanner');
+  if(!b)return;
+  if(!_taxiRole){
+    b.style.cssText='margin-bottom:20px;border-radius:var(--radius);padding:14px 16px;font-size:13px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;line-height:1.5;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)';
+    b.innerHTML='<span style="font-size:18px">🔒</span><span style="color:rgba(255,255,255,.75)">Новые заявки видят только зарегистрированные участники. <a href="#" onclick="openTaxiRolePicker();return false" style="color:var(--yellow);text-decoration:underline">Укажите вашу роль</a> — водитель или пассажир</span>';
+  } else if(_taxiRole==='driver'){
+    b.style.cssText='margin-bottom:20px;border-radius:var(--radius);padding:14px 16px;font-size:13px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;line-height:1.5;background:rgba(0,168,107,.12);border:1px solid rgba(0,168,107,.3)';
+    b.innerHTML='<span style="font-size:18px">✅</span><span style="color:rgba(255,255,255,.85)">Вы вошли как <strong>водитель</strong> — видите контакты пассажиров. <a href="#" onclick="openTaxiRolePicker();return false" style="color:rgba(255,255,255,.35);font-size:12px;text-decoration:underline">Изменить роль</a></span>';
+  } else {
+    b.style.cssText='margin-bottom:20px;border-radius:var(--radius);padding:14px 16px;font-size:13px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;line-height:1.5;background:rgba(41,182,246,.1);border:1px solid rgba(41,182,246,.25)';
+    b.innerHTML='<span style="font-size:18px">✅</span><span style="color:rgba(255,255,255,.85)">Вы вошли как <strong>пассажир</strong> — видите контакты водителей. <a href="#" onclick="openTaxiRolePicker();return false" style="color:rgba(255,255,255,.35);font-size:12px;text-decoration:underline">Изменить роль</a></span>';
+  }
+}
+
+function taxiContactPhone(role_needed,phone){
+  if(_taxiRole===role_needed){window.location.href='tel:+'+phone;}
+  else{_pendingRoleAction=function(){taxiContactPhone(role_needed,phone);};openTaxiRolePicker();}
+}
+function taxiContactWA(role_needed,num){
+  if(_taxiRole===role_needed){window.open('https://wa.me/'+num,'_blank');}
+  else{_pendingRoleAction=function(){taxiContactWA(role_needed,num);};openTaxiRolePicker();}
+}
+function taxiContactTG(role_needed,tg){
+  if(_taxiRole===role_needed){
+    var url=tg.startsWith('@')?'https://t.me/'+tg.slice(1):'https://t.me/+'+tg.replace(/\D/g,'');
+    window.open(url,'_blank');
+  } else{_pendingRoleAction=function(){taxiContactTG(role_needed,tg);};openTaxiRolePicker();}
+}
 
 // ── Supabase config ──────────────────────────────────────────────────────────
 var SB_URL='https://duscyiyxfmsriyhwlbqx.supabase.co';
@@ -3047,9 +3124,9 @@ async function submitPassengerPost(){
     +'</div>'
     +(comment?'<div class="taxi-car-info" style="margin-top:4px;font-style:italic;color:rgba(255,255,255,.4)"><span>💬 '+comment+'</span></div>':'')
     +'<div style="display:flex;gap:8px;margin-top:12px">'
-    +'<a href="tel:+'+phone.replace(/\D/g,'')+'" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">📞 Позвонить</a>'
-    +'<a href="https://wa.me/'+waNum+'" target="_blank" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">💬 WhatsApp</a>'
-    +(tg?'<a href="'+(tg.startsWith('@')?'https://t.me/'+tg.slice(1):'https://t.me/+'+tg.replace(/\D/g,''))+'" target="_blank" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#229ED9;border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">✈️ Telegram</a>':'')
+    +'<a href="#" onclick="event.stopPropagation();taxiContactPhone(\'driver\',\''+phone.replace(/\D/g,'')+'\');return false" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">📞 Позвонить</a>'
+    +'<a href="#" onclick="event.stopPropagation();taxiContactWA(\'driver\',\''+waNum+'\');return false" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">💬 WhatsApp</a>'
+    +(tg?'<a href="#" onclick="event.stopPropagation();taxiContactTG(\'driver\',\''+tg+'\');return false" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#229ED9;border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">✈️ Telegram</a>':'')
     +'</div>';
   grid.insertBefore(card,grid.firstChild);
 
@@ -3155,9 +3232,9 @@ function submitTaxiPost(){
     +extras
     +'</div>'
     +'<div style="display:flex;gap:8px;margin-top:12px">'
-    +'<a href="tel:+'+phone.replace(/\D/g,'')+'" onclick="event.stopPropagation()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">📞 Позвонить</a>'
-    +'<a href="https://wa.me/'+waNum+'" target="_blank" onclick="event.stopPropagation()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">💬 WhatsApp</a>'
-    +(tg?'<a href="'+(tg.startsWith('@')?'https://t.me/'+tg.slice(1):'https://t.me/+'+tg.replace(/\D/g,''))+'" target="_blank" onclick="event.stopPropagation()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#229ED9;border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">✈️ Telegram</a>':'')
+    +'<a href="#" onclick="event.stopPropagation();taxiContactPhone(\'passenger\',\''+phone.replace(/\D/g,'')+'\');return false" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">📞 Позвонить</a>'
+    +'<a href="#" onclick="event.stopPropagation();taxiContactWA(\'passenger\',\''+waNum+'\');return false" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">💬 WhatsApp</a>'
+    +(tg?'<a href="#" onclick="event.stopPropagation();taxiContactTG(\'passenger\',\''+tg+'\');return false" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#229ED9;border-radius:10px;padding:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600">✈️ Telegram</a>':'')
     +'</div>';
   grid.insertBefore(card, grid.firstChild);
 
