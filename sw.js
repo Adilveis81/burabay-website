@@ -1,55 +1,56 @@
-const CACHE = 'burabay-v12';
+// Алсат PWA Service Worker v1
+// Стратегия: сайт всегда с сети (network-first), кэш только для иконок/шрифтов
 
-const PRECACHE = [
-  '/',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png',
-  '/apple-touch-icon.png',
-  '/assets/kz-ornament-tile.png',
-  '/assets/stars-bg.svg',
+const CACHE = 'alsat-static-v1';
+const STATIC = [
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+  '/favicon.ico'
 ];
 
-// Install: pre-cache static shell
-self.addEventListener('install', (e) => {
+self.addEventListener('install', function(e) {
+  self.skipWaiting();
   e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(PRECACHE)).then(() => self.skipWaiting())
+    caches.open(CACHE).then(function(c) { return c.addAll(STATIC); })
   );
 });
 
-// Activate: remove old caches
-self.addEventListener('activate', (e) => {
+self.addEventListener('activate', function(e) {
   e.waitUntil(
-    caches.keys()
-      .then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
-      .then(() => self.clients.claim())
+    caches.keys().then(function(keys) {
+      return Promise.all(keys.filter(function(k){ return k !== CACHE; }).map(function(k){ return caches.delete(k); }));
+    })
   );
+  self.clients.claim();
 });
 
-// Fetch: network-first for API, cache-first for static
-self.addEventListener('fetch', (e) => {
-  const { request } = e;
-  const url = new URL(request.url);
+self.addEventListener('fetch', function(e) {
+  var url = e.request.url;
 
-  // Skip non-GET and cross-origin
-  if (request.method !== 'GET' || url.origin !== self.location.origin) return;
-
-  // API — always network, no caching
-  if (url.pathname.startsWith('/api/')) {
-    e.respondWith(fetch(request));
+  // Иконки и статика — из кэша
+  if (url.includes('/icons/') || url.includes('favicon')) {
+    e.respondWith(
+      caches.match(e.request).then(function(r){ return r || fetch(e.request); })
+    );
     return;
   }
 
-  // Static assets — cache-first, fallback to network then cache
-  e.respondWith(
-    caches.match(request).then(cached => {
-      if (cached) return cached;
-      return fetch(request).then(response => {
-        if (!response || response.status !== 200) return response;
-        const clone = response.clone();
-        caches.open(CACHE).then(c => c.put(request, clone));
-        return response;
-      });
-    })
-  );
+  // Шрифты Google — кэшируем
+  if (url.includes('fonts.googleapis.com') || url.includes('fonts.gstatic.com')) {
+    e.respondWith(
+      caches.open(CACHE).then(function(c) {
+        return c.match(e.request).then(function(r) {
+          return r || fetch(e.request).then(function(res) {
+            c.put(e.request, res.clone());
+            return res;
+          });
+        });
+      })
+    );
+    return;
+  }
+
+  // Всё остальное (сайт, API) — всегда с сети, без кэша
+  // Изменения на сайте сразу отображаются
+  e.respondWith(fetch(e.request));
 });

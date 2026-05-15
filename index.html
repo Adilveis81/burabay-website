@@ -7,6 +7,12 @@
 <title>Алсат — Объявления Казахстана</title>
 <meta name="description" content="Алсат — самая большая доска объявлений Казахстана. Покупайте и продавайте легко, бесплатно, без комиссий.">
 <link rel="icon" href="/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Алсат">
+<meta name="mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -3293,6 +3299,11 @@ function submitTaxiPost(){
 // INIT
 // ═══════════════════
 fetchAds();
+
+// ── PWA: register service worker ──
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(function(){});
+}
 </script>
 </body>
 </html>
