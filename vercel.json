@@ -1,15 +1,19 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "burabay.su" }],
-      "destination": "/notice.html"
+      "destination": "https://alsat.asia/notice.html",
+      "permanent": false
     },
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "www.burabay.su" }],
-      "destination": "/notice.html"
-    },
+      "destination": "https://alsat.asia/notice.html",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "adil.alsat.asia" }],
