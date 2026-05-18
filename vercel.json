@@ -15,6 +15,11 @@
   ],
   "rewrites": [
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "adil.alsat.asia" }],
+      "destination": "/business.html"
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "adil.alsat.asia" }],
       "destination": "/business.html"
