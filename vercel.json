@@ -9,6 +9,11 @@
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "www.burabay.su" }],
       "destination": "/notice.html"
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "adil.alsat.asia" }],
+      "destination": "/business.html"
     }
   ]
 }
