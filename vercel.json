@@ -1,28 +1,21 @@
 {
-  "redirects": [
+  "routes": [
     {
-      "source": "/(.*)",
+      "src": "/(.*)",
+      "has": [{ "type": "host", "value": "adil.alsat.asia" }],
+      "dest": "/business.html"
+    },
+    {
+      "src": "/(.*)",
       "has": [{ "type": "host", "value": "burabay.su" }],
-      "destination": "https://alsat.asia/notice.html",
-      "permanent": false
+      "status": 302,
+      "headers": { "Location": "https://alsat.asia/notice.html" }
     },
     {
-      "source": "/(.*)",
+      "src": "/(.*)",
       "has": [{ "type": "host", "value": "www.burabay.su" }],
-      "destination": "https://alsat.asia/notice.html",
-      "permanent": false
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/",
-      "has": [{ "type": "host", "value": "adil.alsat.asia" }],
-      "destination": "/business.html"
-    },
-    {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "adil.alsat.asia" }],
-      "destination": "/business.html"
+      "status": 302,
+      "headers": { "Location": "https://alsat.asia/notice.html" }
     }
   ]
 }
