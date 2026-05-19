@@ -1445,7 +1445,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 
 <!-- NOTIFY BAR -->
 <div class="notify" id="notifyBar">
-  <span data-i18n="notifyText">✨ Размещение объявлений бесплатно до первых 10 000 объявлений · Уже:</span> <strong id="notifyCount">…</strong> / 10 000
+  <span data-i18n="notifyText">✨ Размещение объявлений бесплатно · Уже размещено:</span> <strong id="notifyCount">…</strong> объявлений
   <button class="notify-close" onclick="this.parentElement.style.display='none'">×</button>
 </div>
 
@@ -2283,7 +2283,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       <p>Платформа не несёт ответственности за убытки, возникшие в результате: сделок между пользователями, недостоверной информации в объявлениях, перерывов в работе сервиса, действий третьих лиц.</p>
 
       <h3>8. Тарифы</h3>
-      <p>Размещение объявлений <strong>бесплатно</strong> до достижения 10 000 объявлений на платформе. Условия после достижения порога будут объявлены за 30 дней до вступления в силу.</p>
+      <p>Размещение объявлений на платформе <strong>бесплатно</strong>.</p>
 
       <h3>9. Применимое право</h3>
       <p>Настоящая оферта регулируется законодательством <strong>Республики Казахстан</strong>. Споры рассматриваются судами РК по месту нахождения платформы.</p>
@@ -2319,7 +2319,7 @@ var CATS=[
 var FAQS_DATA={
   ru:[
     {q:'Как разместить объявление?',a:'Нажмите «+ Разместить» вверху страницы или зелёную кнопку. Заполните категорию, заголовок, описание, цену и телефон — готово.'},
-    {q:'Сколько стоит размещение?',a:'Бесплатно до первых 10 000 объявлений на платформе. После этого порога условия будут объявлены.'},
+    {q:'Сколько стоит размещение?',a:'Размещение объявлений бесплатно.'},
     {q:'Как связаться с продавцом?',a:'Нажмите «Позвонить» или «WhatsApp» в карточке объявления. Продавец сам выбирает как с ним связываться.'},
     {q:'Безопасно ли покупать?',a:'Рекомендуем встречаться лично и проверять товар до оплаты. Не переводите деньги заранее незнакомым людям.'},
     {q:'Сколько действует объявление?',a:'30 дней с момента публикации. Продлить можно из личного кабинета.'},
@@ -2329,7 +2329,7 @@ var FAQS_DATA={
   ],
   kz:[
     {q:'Хабарландыруды қалай орналастыруға болады?',a:'Беттің жоғарғы жағындағы «+ Орналастыру» немесе жасыл батырманы басыңыз. Санат, тақырып, сипаттама, баға және телефонды толтырыңыз — дайын.'},
-    {q:'Орналастыру қанша тұрады?',a:'Платформада 10 000 хабарландыруға жеткенге дейін тегін. Осы шектен кейін шарттар жарияланады.'},
+    {q:'Орналастыру қанша тұрады?',a:'Хабарландыруларды орналастыру тегін.'},
     {q:'Сатушымен қалай байланысуға болады?',a:'Хабарландыру картасындағы «Қоңырау шалу» немесе «WhatsApp» батырмасын басыңыз.'},
     {q:'Сатып алу қауіпсіз бе?',a:'Жеке кездесіп, тауарды төлемге дейін тексеруді ұсынамыз. Бейтаныс адамдарға ақша аудармаңыз.'},
     {q:'Хабарландыру қанша уақыт жарамды?',a:'Жарияланғаннан бастап 30 күн. Жеке кабинеттен ұзартуға болады.'},
@@ -2339,7 +2339,7 @@ var FAQS_DATA={
   ],
   en:[
     {q:'How do I post an ad?',a:'Click "+ Post Ad" at the top of the page or the green button. Fill in the category, title, description, price and phone — done.'},
-    {q:'How much does it cost?',a:'Free until the first 10,000 listings on the platform. After that threshold, conditions will be announced.'},
+    {q:'How much does it cost?',a:'Listing your ads is free.'},
     {q:'How do I contact a seller?',a:'Click "Call" or "WhatsApp" on the listing card. The seller chooses how to be contacted.'},
     {q:'Is it safe to buy?',a:'We recommend meeting in person and checking the item before payment. Do not transfer money in advance to strangers.'},
     {q:'How long is my ad active?',a:'30 days from the date of publication. You can extend it from your personal account.'},
@@ -2744,7 +2744,7 @@ var LANGS={
     cityNorth:'север',cityWest:'запад',cityAll:'Все города',cityAllSub:'весь КЗ',
     cnAstana:'Астана',cnAlmaty:'Алматы',cnShymkent:'Шымкент',cnBurabay:'Бурабай',
     cnKokshetau:'Кокшетау',cnAktobe:'Актобе',cnKostanay:'Костанай',
-    notifyText:'✨ Размещение объявлений бесплатно до первых 10 000 объявлений · Уже:',
+    notifyText:'✨ Размещение объявлений бесплатно · Уже размещено:',
     ubFree:'БЕСПЛАТНО',ubSlogan:'Размещай объявления без комиссий',
     ubAdsLabel:'объявлений уже на сайте',ubLocation:'Казахстан · Все города',
     taxiSub:'Надёжные водители по всему Казахстану',
@@ -2783,7 +2783,7 @@ var LANGS={
     cityNorth:'солтүстік',cityWest:'батыс',cityAll:'Барлық қалалар',cityAllSub:'бүкіл ҚЗ',
     cnAstana:'Астана',cnAlmaty:'Алматы',cnShymkent:'Шымкент',cnBurabay:'Бурабай',
     cnKokshetau:'Көкшетау',cnAktobe:'Ақтөбе',cnKostanay:'Қостанай',
-    notifyText:'✨ Алғашқы 10 000 хабарландыруды тегін орналастырыңыз · Бар:',
+    notifyText:'✨ Хабарландыруды тегін орналастырыңыз · Бар:',
     ubFree:'ТЕГІН',ubSlogan:'Комиссиясыз хабарландыру жариялаңыз',
     ubAdsLabel:'хабарландыру сайтта бар',ubLocation:'Қазақстан · Барлық қалалар',
     taxiSub:'Бүкіл Қазақстан бойынша сенімді жүргізушілер',
@@ -2822,7 +2822,7 @@ var LANGS={
     cityNorth:'north',cityWest:'west',cityAll:'All cities',cityAllSub:'all KZ',
     cnAstana:'Astana',cnAlmaty:'Almaty',cnShymkent:'Shymkent',cnBurabay:'Burabay',
     cnKokshetau:'Kokshetau',cnAktobe:'Aktobe',cnKostanay:'Kostanay',
-    notifyText:'✨ Post your first 10,000 listings for free · Already:',
+    notifyText:'✨ Post your listings for free · Already:',
     ubFree:'FREE',ubSlogan:'Post ads without any commission',
     ubAdsLabel:'listings already on the site',ubLocation:'Kazakhstan · All cities',
     taxiSub:'Reliable drivers across Kazakhstan',

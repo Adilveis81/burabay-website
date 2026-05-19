@@ -24,7 +24,7 @@
 var FAQ_DATA = {
   ru:[
     {q:'Как разместить объявление?', a:'Нажмите кнопку «+ Разместить» в верхнем меню. Заполните название, описание, цену, выберите категорию и город — объявление появится на сайте.'},
-    {q:'Сколько стоит размещение?', a:'До 12 июня 2026 года размещение полностью бесплатно — в честь открытия сайта. После этой даты условия будут объявлены дополнительно.'},
+    {q:'Сколько стоит размещение?', a:'Размещение объявлений на Алсат бесплатно.'},
     {q:'Как связаться с продавцом?', a:'В карточке объявления нажмите «Позвонить» или кнопку WhatsApp. Если кнопки нет — продавец не указал номер.'},
     {q:'Безопасно ли покупать на Алсат?', a:'Рекомендуем встречаться с продавцом лично и проверять товар перед оплатой. Не переводите деньги заранее незнакомым людям.'},
     {q:'Как долго действует объявление?', a:'Объявление активно 30 дней с момента публикации. По истечении срока его можно продлить из личного кабинета.'},
@@ -1507,9 +1507,9 @@ html[data-theme="dark"]{
 </nav>
 
 <div class="urgency">
-  <span class="u-free-badge" data-i18n="urgencyBadge">✨ ВРЕМЕННО БЕСПЛАТНО</span>
-  <span data-i18n="urgencyText">Акция в честь открытия — размещение объявлений бесплатно · Осталось:</span>
-  <span class="u-timer" id="utimer">29д 23:59:59</span>
+  <span class="u-free-badge" data-i18n="urgencyBadge">✨ БЕСПЛАТНО</span>
+  <span data-i18n="urgencyText">Размещение объявлений бесплатно — без комиссий и скрытых платежей</span>
+  <span class="u-timer" id="utimer" style="display:none"></span>
 </div>
 
 <!-- TAXI ANCHOR -->
@@ -1537,7 +1537,7 @@ html[data-theme="dark"]{
     <div class="hero-main">
       <div>
         <div class="hero-tag"><i class="ti ti-map-pin" style="font-size:12px"></i> <span data-i18n="heroTag">Казахстан · 18+ городов</span></div>
-        <div class="free-ribbon" data-i18n="heroRibbon">🎁 Временно бесплатно — на период запуска</div>
+        <div class="free-ribbon" data-i18n="heroRibbon">✅ Бесплатное размещение</div>
         <h1 data-i18n-html="heroTitle">Объявления<br><em>без комиссий</em><br>и посредников</h1>
         <p data-i18n="heroSubtitle">Продавайте быстро. Покупайте выгодно. Всё по-настоящему.</p>
         <div class="hero-btns">
@@ -1586,8 +1586,8 @@ html[data-theme="dark"]{
     <div class="hero-free">
       <i class="ti ti-gift" style="font-size:28px;color:#fff"></i>
       <div class="ft" data-i18n="freeTitle">Размещение бесплатно</div>
-      <div class="free-limit-badge" data-i18n="freeBadge">⏳ Ограниченное предложение</div>
-      <div class="fs" data-i18n="freeDesc">Первые 50 объявлений бесплатно для каждого продавца — успей пока действует акция!</div>
+      <div class="free-limit-badge" data-i18n="freeBadge" style="display:none"></div>
+      <div class="fs" data-i18n="freeDesc">Размещайте объявления бесплатно — без скрытых платежей и комиссий</div>
       <div class="fc"><i class="ti ti-arrow-right" style="font-size:14px"></i> <span data-i18n="freeLink">Зарегистрироваться</span></div>
     </div>
 
@@ -3210,7 +3210,7 @@ var LANGS = {
 ru:{
   searchPh:'Поиск по объявлениям...', navAds:'Объявления', navTaxi:'Такси · Межгород', navServices:'Наши услуги', navHelp:'Помощь',
   allCities:'Все города', postAd:'Подать объявление',
-  urgencyBadge:'✨ ВРЕМЕННО БЕСПЛАТНО', urgencyText:'Акция в честь открытия — размещение объявлений бесплатно · Осталось:',
+  urgencyBadge:'✨ БЕСПЛАТНО', urgencyText:'Размещение объявлений бесплатно — без комиссий и скрытых платежей',
   heroTag:'Казахстан · 18+ городов', heroRibbon:'🎁 Бесплатное размещение в честь открытия',
   heroTitle:'Объявления<br><em>без комиссий</em><br>и посредников',
   heroSubtitle:'Продавайте быстро. Покупайте выгодно. Всё по-настоящему.', heroBtnBrowse:'Смотреть все',
@@ -3218,8 +3218,8 @@ ru:{
   taxiTab1:'🚗 Межгород', taxiTab2:'🏙️ Город', taxiBadge:'🛣️ Межгород · Популярно',
   taxiTitle:'Такси Бурабай ↔ Астана', taxiSub:'Haval M6 2024 · 24/7 · 24 000 ₸',
   taxiExp:'Стаж 24 года', taxiPax:'До 4 чел', taxiRoute:'Кокшетау · Алматы', taxiWa:'Заказать в WhatsApp',
-  freeTitle:'Размещение бесплатно', freeBadge:'⏳ Ограниченное предложение',
-  freeDesc:'Первые 50 объявлений бесплатно для каждого продавца — успей пока действует акция!', freeLink:'Зарегистрироваться',
+  freeTitle:'Размещение бесплатно', freeBadge:'',
+  freeDesc:'Размещайте объявления бесплатно — без скрытых платежей и комиссий', freeLink:'Зарегистрироваться',
   proofLabel:'Только что:',
   catTitle:'Категории', catAll:'Все категории', catCount:'объявл.',
   catAuto:'Авто и мото', catRealty:'Недвижимость', catElec:'Электроника', catWork:'Работа',
@@ -3262,7 +3262,7 @@ ru:{
 kz:{
   searchPh:'Хабарландырулар бойынша іздеу...', navAds:'Хабарландырулар', navTaxi:'Такси · Қалааралық', navServices:'Біздің қызметтер', navHelp:'Көмек',
   allCities:'Барлық қалалар', postAd:'Хабарландыру беру',
-  urgencyBadge:'✨ УАҚЫТША ТЕГІН', urgencyText:'Ашылу құрметіне акция — хабарландыру орналастыру тегін · Қалды:',
+  urgencyBadge:'✨ ТЕГІН', urgencyText:'Хабарландыру орналастыру тегін — жасырын төлемсіз',
   heroTag:'Қазақстан · 18+ қала', heroRibbon:'🎁 Ашылу құрметіне тегін орналастыру',
   heroTitle:'Хабарландырулар<br><em>комиссиясыз</em><br>делдалдарсыз',
   heroSubtitle:'Тез сатыңыз. Тиімді сатып алыңыз. Бәрі шын.', heroBtnBrowse:'Барлығын қарау',
@@ -3270,8 +3270,8 @@ kz:{
   taxiTab1:'🚗 Қалааралық', taxiTab2:'🏙️ Қала', taxiBadge:'🛣️ Қалааралық · Танымал',
   taxiTitle:'Такси Бурабай ↔ Астана', taxiSub:'Haval M6 2024 · 24/7 · 24 000 ₸',
   taxiExp:'Тәжірибе 24 жыл', taxiPax:'4 адамға дейін', taxiRoute:'Көкшетау · Алматы', taxiWa:'WhatsApp-та тапсырыс беру',
-  freeTitle:'Орналастыру тегін', freeBadge:'⏳ Шектеулі ұсыныс',
-  freeDesc:'Әр сатушыға алғашқы 50 хабарландыру тегін — акция аяқталмай үлгіріңіз!', freeLink:'Тіркелу',
+  freeTitle:'Орналастыру тегін', freeBadge:'',
+  freeDesc:'Хабарландыруларды тегін орналастырыңыз — жасырын төлемсіз', freeLink:'Тіркелу',
   proofLabel:'Жаңа ғана:',
   catTitle:'Санаттар', catAll:'Барлық санаттар', catCount:'хаб.',
   catAuto:'Авто және мото', catRealty:'Жылжымайтын мүлік', catElec:'Электроника', catWork:'Жұмыс',
@@ -3314,7 +3314,7 @@ kz:{
 en:{
   searchPh:'Search listings...', navAds:'Listings', navTaxi:'Taxi · Intercity', navServices:'Our services', navHelp:'Help',
   allCities:'All cities', postAd:'Post an ad',
-  urgencyBadge:'✨ FREE FOR NOW', urgencyText:'Grand opening offer — post your ads for free · Time left:',
+  urgencyBadge:'✨ FREE', urgencyText:'Post your ads for free — no commissions or hidden fees',
   heroTag:'Kazakhstan · 18+ cities', heroRibbon:'🎁 Free posting to celebrate our launch',
   heroTitle:'Classifieds<br><em>commission-free</em><br>no middlemen',
   heroSubtitle:'Sell fast. Buy smart. No nonsense.', heroBtnBrowse:'Browse all',
@@ -3322,8 +3322,8 @@ en:{
   taxiTab1:'🚗 Intercity', taxiTab2:'🏙️ City', taxiBadge:'🛣️ Intercity · Popular',
   taxiTitle:'Taxi Burabay ↔ Astana', taxiSub:'Haval M6 2024 · 24/7 · 24 000 ₸',
   taxiExp:'24 yrs experience', taxiPax:'Up to 4 pax', taxiRoute:'Kokshetau · Almaty', taxiWa:'Book on WhatsApp',
-  freeTitle:'Free to post', freeBadge:'⏳ Limited offer',
-  freeDesc:'First 50 listings free per seller — get in before the offer ends!', freeLink:'Sign up',
+  freeTitle:'Free to post', freeBadge:'',
+  freeDesc:'Post your listings for free — no hidden fees or commissions', freeLink:'Sign up',
   proofLabel:'Just now:',
   catTitle:'Categories', catAll:'All categories', catCount:'listings',
   catAuto:'Cars & Moto', catRealty:'Real estate', catElec:'Electronics', catWork:'Jobs',
