@@ -6,251 +6,506 @@
 <title>График акции</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: var(--tg-theme-bg-color, #0C1F3F);
-    color: var(--tg-theme-text-color, #fff);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #0C1F3F;
+  --bg2: #0f2847;
+  --bg3: #162e50;
+  --green: #4ADE80;
+  --red: #F87171;
+  --orange: #FF5C00;
+  --yellow: #FBBF24;
+  --text: #fff;
+  --text2: rgba(255,255,255,0.5);
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
 
-  #header {
-    padding: 12px 16px 8px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(0,0,0,0.3);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-  #ticker-name {
-    font-size: 22px;
-    font-weight: 800;
-    color: #fff;
-  }
-  #ticker-price {
-    font-size: 18px;
-    font-weight: 600;
-    color: #4ADE80;
-    margin-left: auto;
-  }
+/* ── Header ── */
+#header {
+  padding: 12px 16px 10px;
+  background: rgba(0,0,0,0.4);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.header-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+#ticker-name {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+#company-name {
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#live-price {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--green);
+  margin-left: auto;
+  text-align: right;
+  flex-shrink: 0;
+}
+#live-change {
+  font-size: 12px;
+  text-align: right;
+  color: var(--text2);
+  margin-top: 2px;
+}
+#market-status {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+  color: var(--text2);
+  margin-top: 4px;
+  display: inline-block;
+}
 
-  #signal-bar {
-    display: none;
-    padding: 10px 16px;
-    background: rgba(255,92,0,0.12);
-    border-bottom: 1px solid rgba(255,92,0,0.3);
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  #signal-bar.visible { display: flex; }
-  .sig-item {
-    background: rgba(255,255,255,0.08);
-    border-radius: 8px;
-    padding: 5px 10px;
-    font-size: 12px;
-    color: rgba(255,255,255,0.85);
-  }
-  .sig-item span { font-weight: 700; color: #fff; }
+/* ── Signal Dashboard ── */
+#signal-dash {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
-  #chart-wrap {
-    flex: 1;
-    min-height: 300px;
-  }
-  #tradingview-widget-container {
-    width: 100%;
-    height: 100%;
-    min-height: 380px;
-  }
+/* Levels Visual */
+#levels-wrap {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+#levels-bar {
+  width: 10px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  position: relative;
+  background: var(--bg3);
+  overflow: visible;
+}
+#bar-target { position: absolute; left: -2px; right: -2px; border-radius: 4px; background: var(--green); }
+#bar-entry  { position: absolute; left: -2px; right: -2px; border-radius: 4px; background: var(--orange); }
+#bar-stop   { position: absolute; left: -2px; right: -2px; border-radius: 4px; background: var(--red); }
+#levels-labels {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100px;
+}
+.level-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.level-label { font-size: 12px; color: var(--text2); }
+.level-val { font-size: 14px; font-weight: 700; }
+.level-sub { font-size: 11px; color: var(--text2); margin-top: 1px; text-align: right; }
 
-  #signal-panel {
-    display: none;
-    padding: 14px 16px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    gap: 10px;
-    flex-direction: column;
-  }
-  #signal-panel.visible { display: flex; }
-  .signal-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 14px;
-  }
-  .signal-label { color: rgba(255,255,255,0.5); }
-  .signal-val { font-weight: 700; font-size: 15px; }
-  .val-green { color: #4ADE80; }
-  .val-red   { color: #F87171; }
-  .val-white { color: #fff; }
+/* Stats Grid */
+#stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.stat-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+.stat-label { font-size: 10px; color: var(--text2); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .3px; }
+.stat-val { font-size: 15px; font-weight: 700; }
+.stat-sub { font-size: 10px; color: var(--text2); margin-top: 2px; }
 
-  #actions {
-    display: flex;
-    gap: 10px;
-    padding: 12px 16px 20px;
-  }
-  .btn {
-    flex: 1;
-    padding: 13px;
-    border: none;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    display: block;
-  }
-  .btn-primary { background: #FF5C00; color: #fff; }
-  .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; }
+/* RSI Gauge */
+#rsi-wrap {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.rsi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.rsi-label { font-size: 12px; color: var(--text2); }
+.rsi-value { font-size: 16px; font-weight: 800; }
+#rsi-track {
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(to right, #4ADE80 0%, #FBBF24 50%, #F87171 100%);
+  position: relative;
+  margin-bottom: 4px;
+}
+#rsi-marker {
+  position: absolute;
+  top: -4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #0C1F3F;
+  transform: translateX(-50%);
+  box-shadow: 0 0 6px rgba(0,0,0,0.5);
+  transition: left .5s ease;
+}
+.rsi-zones {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text2);
+  margin-top: 2px;
+}
 
-  #loading {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255,255,255,0.4);
-    font-size: 14px;
-  }
+/* Risk/Reward */
+#rr-wrap {
+  display: flex;
+  gap: 8px;
+}
+.rr-card {
+  flex: 1;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+.rr-card.profit { background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25); }
+.rr-card.loss   { background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.25); }
+.rr-card.ratio  { background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.25); }
+.rr-label { font-size: 10px; color: var(--text2); text-transform: uppercase; letter-spacing: .3px; margin-bottom: 4px; }
+.rr-val { font-size: 16px; font-weight: 800; }
+
+/* Chart */
+#chart-section {
+  padding: 0 0 0 0;
+  flex-shrink: 0;
+}
+#chart-header {
+  padding: 8px 16px;
+  font-size: 11px;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+#chart-frame {
+  width: 100%;
+  height: 340px;
+  border: none;
+  display: block;
+  background: #131722;
+}
+
+/* Buttons */
+#actions {
+  display: flex;
+  gap: 10px;
+  padding: 12px 16px 24px;
+}
+.btn {
+  flex: 1;
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+}
+.btn-primary   { background: var(--orange); color: #fff; }
+.btn-secondary { background: rgba(255,255,255,0.1); color: #fff; }
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+  margin: 0 16px;
+}
 </style>
 </head>
 <body>
 
 <div id="header">
-  <div id="ticker-name">—</div>
-  <div id="ticker-price">Загрузка...</div>
-</div>
-
-<div id="signal-bar"></div>
-
-<div id="chart-wrap">
-  <div id="tradingview-widget-container">
-    <div id="loading">Загружаем график...</div>
+  <div class="header-row">
+    <div>
+      <div id="ticker-name">—</div>
+      <div id="company-name">Загружаем...</div>
+    </div>
+    <div style="text-align:right;flex-shrink:0;margin-left:auto">
+      <div id="live-price">—</div>
+      <div id="live-change">—</div>
+      <div id="market-status">⏳ Загрузка</div>
+    </div>
   </div>
 </div>
 
-<div id="signal-panel"></div>
+<div id="signal-dash">
+
+  <!-- Entry / Target / Stop levels -->
+  <div id="levels-wrap">
+    <div id="levels-bar" style="height:132px">
+      <div id="bar-target"></div>
+      <div id="bar-entry"></div>
+      <div id="bar-stop"></div>
+    </div>
+    <div id="levels-labels">
+      <div class="level-row">
+        <span class="level-label">🎯 Цель</span>
+        <div style="text-align:right">
+          <div class="level-val" style="color:var(--green)" id="lv-target">—</div>
+          <div class="level-sub" id="lv-potential">—</div>
+        </div>
+      </div>
+      <div class="level-row">
+        <span class="level-label">🟠 Вход</span>
+        <div style="text-align:right">
+          <div class="level-val" style="color:var(--orange)" id="lv-entry">—</div>
+          <div class="level-sub" id="lv-shares">—</div>
+        </div>
+      </div>
+      <div class="level-row">
+        <span class="level-label">🛑 Стоп</span>
+        <div style="text-align:right">
+          <div class="level-val" style="color:var(--red)" id="lv-stop">—</div>
+          <div class="level-sub" id="lv-risk">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats row -->
+  <div id="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Стоимость</div>
+      <div class="stat-val" id="st-cost">—</div>
+      <div class="stat-sub" id="st-shares-sub">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Горизонт</div>
+      <div class="stat-val" style="color:var(--yellow)">1–2 дня</div>
+      <div class="stat-sub">Pre-market</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Биржа</div>
+      <div class="stat-val">NYSE</div>
+      <div class="stat-sub">14:30 UTC</div>
+    </div>
+  </div>
+
+  <!-- RSI Gauge -->
+  <div id="rsi-wrap">
+    <div class="rsi-header">
+      <span class="rsi-label">RSI (14 дней)</span>
+      <span class="rsi-value" id="rsi-val-big">—</span>
+    </div>
+    <div id="rsi-track">
+      <div id="rsi-marker" style="left:0%"></div>
+    </div>
+    <div class="rsi-zones">
+      <span style="color:var(--green)">Перепродан &lt;30</span>
+      <span>Нейтрально</span>
+      <span style="color:var(--red)">Перекуплен &gt;70</span>
+    </div>
+  </div>
+
+  <!-- Risk / Reward -->
+  <div id="rr-wrap">
+    <div class="rr-card profit">
+      <div class="rr-label">Прибыль</div>
+      <div class="rr-val" style="color:var(--green)" id="rr-profit">—</div>
+    </div>
+    <div class="rr-card loss">
+      <div class="rr-label">Риск</div>
+      <div class="rr-val" style="color:var(--red)" id="rr-loss">—</div>
+    </div>
+    <div class="rr-card ratio">
+      <div class="rr-label">R/R ratio</div>
+      <div class="rr-val" style="color:var(--yellow)" id="rr-ratio">—</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="divider"></div>
+<div id="chart-section">
+  <div id="chart-header">📈 График (TradingView)</div>
+  <iframe id="chart-frame"
+    src="about:blank"
+    scrolling="no"
+    allowtransparency="true"
+    frameborder="0">
+  </iframe>
+</div>
 
 <div id="actions">
-  <a id="tv-link" class="btn btn-primary" href="#" target="_blank">Открыть в TradingView</a>
+  <a id="tv-link" class="btn btn-primary" href="#" target="_blank">📊 TradingView</a>
   <a id="yf-link" class="btn btn-secondary" href="#" target="_blank">Yahoo Finance</a>
 </div>
 
 <script>
-// ── Telegram WebApp init ──────────────────────────────────────────────────
-if (window.Telegram && window.Telegram.WebApp) {
+// ── Telegram WebApp ──────────────────────────────────────────────────────────
+if (window.Telegram?.WebApp) {
   Telegram.WebApp.ready();
   Telegram.WebApp.expand();
 }
 
-// ── Читаем параметры из URL ───────────────────────────────────────────────
-const params = new URLSearchParams(window.location.search);
-const ticker  = (params.get('ticker') || 'AAPL').toUpperCase();
-const entry   = params.get('entry');
-const target  = params.get('target');
-const stop    = params.get('stop');
-const shares  = params.get('shares');
-const cost    = params.get('cost');
-const pot     = params.get('potential');
-const risk    = params.get('risk');
-const rsi     = params.get('rsi');
-const flags   = params.get('flags');
+// ── URL params ───────────────────────────────────────────────────────────────
+const p       = new URLSearchParams(location.search);
+const ticker  = (p.get('ticker') || 'AAPL').toUpperCase();
+const entry   = parseFloat(p.get('entry'))  || 0;
+const target  = parseFloat(p.get('target')) || 0;
+const stop    = parseFloat(p.get('stop'))   || 0;
+const shares  = parseInt(p.get('shares'))   || 0;
+const cost    = parseFloat(p.get('cost'))   || 0;
+const pot     = parseFloat(p.get('potential')) || 0;
+const risk    = parseFloat(p.get('risk'))   || 0;
+const rsi     = parseFloat(p.get('rsi'))    || 0;
 
-// ── Заголовок ─────────────────────────────────────────────────────────────
+// ── Page title ───────────────────────────────────────────────────────────────
 document.getElementById('ticker-name').textContent = '$' + ticker;
-document.title = '$' + ticker + ' — График';
+document.title = '$' + ticker + ' — Сигнал';
 
-// ── Ссылки ────────────────────────────────────────────────────────────────
-document.getElementById('tv-link').href = `https://www.tradingview.com/symbols/NASDAQ-${ticker}/`;
+// ── Links ────────────────────────────────────────────────────────────────────
+document.getElementById('tv-link').href = `https://www.tradingview.com/symbols/${ticker}/`;
 document.getElementById('yf-link').href = `https://finance.yahoo.com/quote/${ticker}/`;
 
-// ── Цена через Yahoo Finance (через CORS-free API) ────────────────────────
-fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d`)
+// ── Levels ───────────────────────────────────────────────────────────────────
+if (entry && target && stop) {
+  document.getElementById('lv-entry').textContent   = `$${entry.toFixed(2)}`;
+  document.getElementById('lv-target').textContent  = `$${target.toFixed(2)}`;
+  document.getElementById('lv-stop').textContent    = `$${stop.toFixed(2)}`;
+  document.getElementById('lv-potential').textContent = `+$${pot.toFixed(2)} прибыль`;
+  document.getElementById('lv-risk').textContent      = `-$${risk.toFixed(2)} макс убыток`;
+  document.getElementById('lv-shares').textContent    = `${shares} акц = $${cost.toFixed(2)}`;
+  document.getElementById('st-cost').textContent      = `$${cost.toFixed(2)}`;
+  document.getElementById('st-shares-sub').textContent = `${shares} шт × $${entry.toFixed(2)}`;
+  document.getElementById('rr-profit').textContent  = `+$${pot.toFixed(2)}`;
+  document.getElementById('rr-loss').textContent    = `-$${risk.toFixed(2)}`;
+  const rr = risk > 0 ? (pot / risk).toFixed(1) : '—';
+  document.getElementById('rr-ratio').textContent   = `1 : ${rr}`;
+
+  // Visual levels bar
+  const barH   = 132;
+  const lo     = stop * 0.995;
+  const hi     = target * 1.005;
+  const range  = hi - lo;
+  const pct    = v => ((v - lo) / range) * 100;
+  const toPx   = v => barH - (pct(v) / 100 * barH);
+
+  const BAR_H  = 6;
+  const barEl  = document.getElementById('levels-bar');
+  const mkBar  = (id, price, color) => {
+    const el = document.getElementById(id);
+    const y  = toPx(price);
+    el.style.top    = (y - BAR_H/2) + 'px';
+    el.style.height = BAR_H + 'px';
+    el.style.background = color;
+  };
+  mkBar('bar-target', target, '#4ADE80');
+  mkBar('bar-entry',  entry,  '#FF5C00');
+  mkBar('bar-stop',   stop,   '#F87171');
+
+  // Fill between entry and target (green zone)
+  const gZone = document.createElement('div');
+  gZone.style.cssText = `position:absolute;left:0;right:0;background:rgba(74,222,128,0.15);
+    top:${toPx(target)}px;height:${toPx(entry) - toPx(target)}px`;
+  barEl.appendChild(gZone);
+
+  // Fill between stop and entry (red zone)
+  const rZone = document.createElement('div');
+  rZone.style.cssText = `position:absolute;left:0;right:0;background:rgba(248,113,113,0.15);
+    top:${toPx(entry)}px;height:${toPx(stop) - toPx(entry)}px`;
+  barEl.appendChild(rZone);
+}
+
+// ── RSI Gauge ────────────────────────────────────────────────────────────────
+if (rsi) {
+  const rsiEl = document.getElementById('rsi-val-big');
+  rsiEl.textContent = rsi.toFixed(1);
+  rsiEl.style.color = rsi < 30 ? '#4ADE80' : rsi > 70 ? '#F87171' : '#FBBF24';
+  document.getElementById('rsi-marker').style.left = Math.min(Math.max(rsi, 0), 100) + '%';
+}
+
+// ── TradingView chart iframe ──────────────────────────────────────────────────
+const tvExchange = 'NYSE'; // default exchange
+const chartUrl = `https://s.tradingview.com/widgetembed/?frameElementId=tv_1` +
+  `&symbol=${tvExchange}%3A${ticker}` +
+  `&interval=D` +
+  `&hidesidetoolbar=1` +
+  `&hidetoptoolbar=0` +
+  `&symboledit=0` +
+  `&saveimage=0` +
+  `&toolbarbg=0f2847` +
+  `&studies=RSI%40tv-basicstudies` +
+  `&theme=dark` +
+  `&style=1` +
+  `&timezone=Asia%2FAlmaty` +
+  `&studies_overrides=%7B%7D` +
+  `&overrides=%7B%7D` +
+  `&enabled_features=%5B%5D` +
+  `&disabled_features=%5B%5D` +
+  `&locale=ru` +
+  `&utm_source=alsat.asia`;
+document.getElementById('chart-frame').src = chartUrl;
+
+// ── Live price from Yahoo Finance ─────────────────────────────────────────────
+fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1m&range=1d`)
   .then(r => r.json())
   .then(data => {
     const meta = data?.chart?.result?.[0]?.meta;
-    if (meta) {
-      const price = meta.regularMarketPrice?.toFixed(2);
-      const prev  = meta.previousClose;
-      const change = price && prev ? ((price - prev) / prev * 100).toFixed(2) : null;
-      const el = document.getElementById('ticker-price');
-      el.textContent = price ? `$${price}` : '—';
-      if (change) {
-        const sign = change >= 0 ? '+' : '';
-        el.textContent += ` (${sign}${change}%)`;
-        el.style.color = change >= 0 ? '#4ADE80' : '#F87171';
-      }
+    if (!meta) return;
+    const price  = meta.regularMarketPrice;
+    const prev   = meta.previousClose || meta.chartPreviousClose;
+    const change = price && prev ? ((price - prev) / prev * 100) : null;
+    const isOpen = meta.marketState === 'REGULAR';
+
+    const priceEl = document.getElementById('live-price');
+    priceEl.textContent = price ? `$${price.toFixed(2)}` : '—';
+    priceEl.style.color = (change === null || change >= 0) ? '#4ADE80' : '#F87171';
+
+    if (change !== null) {
+      const sign = change >= 0 ? '+' : '';
+      document.getElementById('live-change').textContent = `${sign}${change.toFixed(2)}% за день`;
+    }
+    document.getElementById('market-status').textContent = isOpen ? '🟢 Рынок открыт' : '🔴 Рынок закрыт';
+
+    // Update company name from longName
+    if (meta.longName || meta.shortName) {
+      document.getElementById('company-name').textContent = meta.longName || meta.shortName;
     }
   })
   .catch(() => {
-    document.getElementById('ticker-price').textContent = '';
+    document.getElementById('live-price').textContent = entry ? `$${entry.toFixed(2)}` : '—';
+    document.getElementById('market-status').textContent = '📡 Нет данных';
+    document.getElementById('company-name').textContent = '';
   });
-
-// ── Сигнал-бар (флаги) ────────────────────────────────────────────────────
-if (flags) {
-  const bar = document.getElementById('signal-bar');
-  bar.classList.add('visible');
-  flags.split(',').forEach(f => {
-    const d = document.createElement('div');
-    d.className = 'sig-item';
-    d.textContent = decodeURIComponent(f);
-    bar.appendChild(d);
-  });
-}
-
-// ── Панель сигнала ────────────────────────────────────────────────────────
-if (entry && target && stop) {
-  const panel = document.getElementById('signal-panel');
-  panel.classList.add('visible');
-  const rows = [
-    ['Купить',  `$${entry}`,   'val-white'],
-    ['Акций',   `${shares} шт = $${cost}`, 'val-white'],
-    ['Цель',    `$${target}`,  'val-green'],
-    ['Потенциал', `+$${pot}`,  'val-green'],
-    ['Стоп',    `$${stop}`,    'val-red'],
-    ['Риск',    `-$${risk}`,   'val-red'],
-    ['RSI',     rsi,           rsi < 40 ? 'val-green' : 'val-white'],
-  ];
-  rows.forEach(([label, val, cls]) => {
-    if (!val || val === 'undefined') return;
-    const div = document.createElement('div');
-    div.className = 'signal-row';
-    div.innerHTML = `<span class="signal-label">${label}</span><span class="signal-val ${cls}">${val}</span>`;
-    panel.appendChild(div);
-  });
-}
-
-// ── TradingView Widget ────────────────────────────────────────────────────
-function loadChart() {
-  const container = document.getElementById('tradingview-widget-container');
-  container.innerHTML = '';
-  const div = document.createElement('div');
-  div.id = 'tv_chart';
-  container.appendChild(div);
-
-  const script = document.createElement('script');
-  script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
-  script.async = true;
-  script.innerHTML = JSON.stringify({
-    "autosize": true,
-    "symbol": `NASDAQ:${ticker}`,
-    "interval": "D",
-    "timezone": "Asia/Almaty",
-    "theme": "dark",
-    "style": "1",
-    "locale": "ru",
-    "hide_top_toolbar": false,
-    "hide_legend": false,
-    "allow_symbol_change": true,
-    "save_image": false,
-    "calendar": false,
-    "studies": ["STD;RSI", "MACD@tv-basicstudies"],
-    "support_host": "https://www.tradingview.com"
-  });
-  container.appendChild(script);
-}
-
-loadChart();
 </script>
 </body>
 </html>
