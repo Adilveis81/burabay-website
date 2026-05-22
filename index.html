@@ -327,6 +327,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
   letter-spacing:.3px;
 }
 .hero-kicker span{color:#FFB347}
+.hero-kicker span.grn{color:#4ADE80}
 .hero h1{
   font-size:clamp(28px,5vw,52px);
   font-weight:900;
@@ -423,6 +424,43 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 .hero-stat{color:rgba(255,255,255,.7);text-align:center}
 .hero-stat strong{display:block;font-size:28px;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1}
 .hero-stat span{font-size:12px;margin-top:3px}
+
+/* hero trust strip */
+.hero-trust{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:18px;
+  margin-top:24px;
+}
+.hero-trust-item{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  font-weight:600;
+  color:rgba(255,255,255,.65);
+}
+.hero-trust-item span.ck{
+  width:18px;height:18px;
+  border-radius:50%;
+  background:var(--green);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;
+  color:#fff;
+  flex-shrink:0;
+}
+
+/* green section accent */
+.sec-title-green::after{
+  content:'';
+  display:inline-block;
+  width:6px;height:6px;
+  border-radius:50%;
+  background:var(--green);
+  margin-left:8px;
+  vertical-align:middle;
+}
 
 /* wave */
 .hero-wave{
@@ -555,6 +593,11 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
   border-color:var(--brand);
   color:var(--brand);
 }
+.chip.chip-free,.chip.chip-free:hover{
+  background:var(--green-light);
+  border-color:var(--green);
+  color:var(--green);
+}
 
 /* ═══════════════════════════════════════
    ADS GRID
@@ -611,6 +654,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 }
 .ad-badge.top{background:var(--yellow);color:#333}
 .ad-badge.vip{background:linear-gradient(135deg,#7B1FA2,#4A0080);color:#fff}
+.ad-badge.new{background:var(--green);color:#fff}
 .ad-fav{
   position:absolute;
   top:8px;right:8px;
@@ -708,6 +752,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
   overflow:hidden;
   height:42px;
   position:relative;
+  border-bottom:2px solid var(--green);
 }
 .urgency-track{
   display:inline-flex;
@@ -1510,7 +1555,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
-    <div class="hero-kicker">🇰🇿 <span>№1</span> <span data-i18n="heroKicker">в Казахстане · Бесплатно</span></div>
+    <div class="hero-kicker">🇰🇿 <span>№1</span> <span data-i18n="heroKicker">в Казахстане · </span><span class="grn">Бесплатно</span></div>
     <h1 data-i18n="heroH1">Найди всё что<br>нужно на <em>Алсат</em></h1>
     <p class="hero-sub" data-i18n="heroSub">Миллионы объявлений · Без комиссий · Проверенные продавцы</p>
 
@@ -1539,7 +1584,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
         <span data-i18n="statAds">объявлений</span>
       </div>
       <div class="hero-stat">
-        <strong>0 ₸</strong>
+        <strong style="color:#4ADE80">0 ₸</strong>
         <span data-i18n="statComm">комиссия</span>
       </div>
       <div class="hero-stat">
@@ -1550,6 +1595,13 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
         <strong>3</strong>
         <span data-i18n="statLang">языка</span>
       </div>
+    </div>
+
+    <div class="hero-trust">
+      <div class="hero-trust-item"><span class="ck">✓</span> Без регистрации</div>
+      <div class="hero-trust-item"><span class="ck">✓</span> Без комиссий</div>
+      <div class="hero-trust-item"><span class="ck">✓</span> Проверенные продавцы</div>
+      <div class="hero-trust-item"><span class="ck">✓</span> 14 регионов</div>
     </div>
   </div>
 
@@ -1608,7 +1660,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 <section class="why-section">
   <div class="wrap">
     <div class="sec-head" style="justify-content:center;text-align:center;margin-bottom:36px">
-      <h2 class="sec-title">Почему Алсат?</h2>
+      <h2 class="sec-title sec-title-green">Почему Алсат?</h2>
     </div>
     <div class="why-grid">
       <div class="why-card">
@@ -1617,13 +1669,13 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
         <p data-i18n="why1p">Разместите объявление за 2 минуты — без регистрации и бумаг</p>
       </div>
       <div class="why-card">
-        <div class="why-icon" style="background:#E6F8F3">🛡️</div>
+        <div class="why-icon" style="background:var(--green-light)">🛡️</div>
         <h3 data-i18n="why2h">Безопасно</h3>
         <p data-i18n="why2p">Верифицированные продавцы, система жалоб, модерация</p>
       </div>
       <div class="why-card">
-        <div class="why-icon" style="background:#EEF4FF">⚡</div>
-        <h3 data-i18n="why3h">0 ₸ комиссии</h3>
+        <div class="why-icon" style="background:var(--green-light)">⚡</div>
+        <h3 data-i18n="why3h" style="color:var(--green)">0 ₸ комиссии</h3>
         <p data-i18n="why3p">Никаких скрытых платежей — общайтесь напрямую с продавцом</p>
       </div>
       <div class="why-card">
@@ -1649,7 +1701,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       <div class="city-tile" onclick="setCity('Актобе')"><div><div class="city-tile-name" data-i18n="cnAktobe">Актобе</div><div class="city-tile-count">запад</div></div><span class="city-tile-flag">🏭</span></div>
       <div class="city-tile" onclick="setCity('Петропавловск')"><div><div class="city-tile-name">Петропавловск</div><div class="city-tile-count">север</div></div><span class="city-tile-flag">🌾</span></div>
       <div class="city-tile" onclick="setCity('Костанай')"><div><div class="city-tile-name" data-i18n="cnKostanay">Костанай</div><div class="city-tile-count">север</div></div><span class="city-tile-flag">🌻</span></div>
-      <div class="city-tile" onclick="setCity('Весь Казахстан')"><div><div class="city-tile-name" data-i18n="cityAll">Все города</div><div class="city-tile-count" data-i18n="cityAllSub">весь КЗ</div></div><span class="city-tile-flag">🇰🇿</span></div>
+      <div class="city-tile" style="border-color:rgba(0,168,107,.25)" onclick="setCity('Весь Казахстан')"><div><div class="city-tile-name" data-i18n="cityAll" style="color:var(--green)">Все города</div><div class="city-tile-count" data-i18n="cityAllSub">весь КЗ</div></div><span class="city-tile-flag">🇰🇿</span></div>
     </div>
   </div>
 </section>
@@ -2372,7 +2424,7 @@ renderCats();
 // ═══════════════════
 // FILTER CHIPS RENDER
 // ═══════════════════
-var CHIP_IDS=['','auto','realty','elec','work','serv','pet'];
+var CHIP_IDS=['','auto','realty','elec','work','serv','pet','free'];
 var CHIP_ALL_LABELS={ru:'🔥 Все',kz:'🔥 Барлығы',en:'🔥 All'};
 
 function renderChips(){
@@ -2520,8 +2572,10 @@ function renderAds(ads){
         +'<a class="ad-btn-wa" href="https://wa.me/'+waNum+'" target="_blank" rel="noopener">WA</a>'
         +'</div>';
     }
+    var isNew=a.created_at&&(Date.now()-new Date(a.created_at).getTime())<86400000;
+    var badge=a.price==0?'<span class="ad-badge">'+(daromLabel[currentLang]||'ДАРОМ')+'</span>':(isNew?'<span class="ad-badge new">НОВОЕ</span>':'');
     return '<div class="ad-card" data-adid="'+String(a.id)+'" style="cursor:pointer">'
-      +'<div class="ad-img">'+imgHtml+'<div class="ad-fav">♡</div>'+(a.price==0?'<span class="ad-badge">'+(daromLabel[currentLang]||'ДАРОМ')+'</span>':'')+'</div>'
+      +'<div class="ad-img">'+imgHtml+'<div class="ad-fav">♡</div>'+badge+'</div>'
       +'<div class="ad-body">'
       +'<div class="ad-price'+(a.price==0?' free':'')+'">'+price+'</div>'
       +'<div class="ad-title">'+(a.title||'')+'</div>'
