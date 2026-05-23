@@ -2211,10 +2211,12 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       <h2>Вход в Алсат</h2>
       <p>Войдите чтобы управлять объявлениями</p>
     </div>
-    <div class="modal-body">
-      <div class="field"><label>Телефон</label><input type="tel" placeholder="+7 (___) ___-__-__"></div>
-      <div class="field"><label>Пароль</label><input type="password" placeholder="••••••••"></div>
-      <button class="btn-submit" style="width:100%;padding:13px;border-radius:var(--radius-sm);font-size:15px" onclick="showToast('Функция скоро будет доступна');closeAuth()">Войти</button>
+    <div class="modal-body" style="padding:24px;display:flex;flex-direction:column;gap:16px;align-items:center">
+      <button id="btnGoogleAuth" onclick="signInWithGoogle()" style="display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:14px 20px;border-radius:var(--radius-sm);background:#fff;border:1.5px solid #ddd;font-size:15px;font-weight:600;color:#1a1a1a;cursor:pointer;transition:box-shadow .2s" onmouseover="this.style.boxShadow='0 2px 8px rgba(0,0,0,.15)'" onmouseout="this.style.boxShadow='none'">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
+        Войти через Google
+      </button>
+      <p style="font-size:12px;color:rgba(255,255,255,.4);text-align:center;margin:0">Быстро и безопасно через ваш аккаунт Google</p>
     </div>
   </div>
 </div>
@@ -2346,12 +2348,14 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 // ═══════════════════
 // DATA
 // ═══════════════════
 var SURL='https://duscyiyxfmsriyhwlbqx.supabase.co';
 var SKEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
+var _sbClient = supabase.createClient(SURL, SKEY);
 
 var CATS=[
   {name:'Авто',kz:'Авто',en:'Cars',emoji:'🚗',color:'#1565C0',bg:'#E8F0FE',id:'auto'},
@@ -3005,6 +3009,27 @@ async function submitAd(){
 }
 function openAuth(){document.getElementById('authOverlay').classList.add('open');document.body.style.overflow='hidden'}
 function closeAuth(){document.getElementById('authOverlay').classList.remove('open');document.body.style.overflow=''}
+function signInWithGoogle(){
+  var btn=document.getElementById('btnGoogleAuth');
+  if(btn){btn.disabled=true;btn.textContent='Перенаправление...';}
+  _sbClient.auth.signInWithOAuth({
+    provider:'google',
+    options:{redirectTo:window.location.origin}
+  }).then(function(r){
+    if(r.error){
+      showToast('Ошибка входа: '+r.error.message);
+      if(btn){btn.disabled=false;btn.innerHTML='<svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg> Войти через Google';}
+    }
+  });
+}
+// Обработка редиректа после OAuth — показываем приветствие
+_sbClient.auth.onAuthStateChange(function(event,session){
+  if(event==='SIGNED_IN'&&session){
+    var name=(session.user.user_metadata&&session.user.user_metadata.full_name)||session.user.email||'';
+    showToast('Добро пожаловать'+(name?' , '+name:'')+'!');
+    closeAuth();
+  }
+});
 function openLegal(t){document.getElementById(t==='privacy'?'privacyMod':'ofertaMod').classList.add('open')}
 function closeLegal(t){document.getElementById(t==='privacy'?'privacyMod':'ofertaMod').classList.remove('open')}
 document.addEventListener('click',function(e){
