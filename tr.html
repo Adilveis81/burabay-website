@@ -4,1112 +4,1335 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5">
 <meta name="theme-color" content="#FF5C00">
-<title>Alsat — Türkiye'de Ücretsiz İlanlar</title>
-<meta name="description" content="Alsat — Türkiye'nin ücretsiz ilan platformu. Milyonlarca ilan, komisyonsuz, güvenilir satıcılar.">
+<title>Türkiye İlanları — alsat.asia</title>
+<meta name="description" content="Türkiye'nin ücretsiz ilan sitesi. İstanbul, Ankara, İzmir ve diğer şehirlerde ücretsiz ilan verin, komisyonsuz alın satın.">
+<link rel="icon" href="/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
 <style>
-/* ═══════════════════════════════════════
-   DESIGN SYSTEM
-═══════════════════════════════════════ */
 :root{
-  --brand:#FF5C00;
-  --brand-dark:#D94A00;
-  --brand-light:#FFF3EE;
-  --navy:#0C1F3F;
-  --navy2:#1A3A6E;
-  --green:#00A86B;
-  --green-light:#E6F8F3;
-  --red:#E02020;
-  --yellow:#F5A623;
-
-  --bg:#F4F6FA;
-  --surface:#FFFFFF;
-  --surface2:#F9FAFB;
-  --border:#E4E8F0;
-  --border2:#CDD4E0;
-
-  --text:#0C1F3F;
-  --text2:#5A6A80;
-  --text3:#9AAAB8;
-
-  --radius-sm:8px;
-  --radius:12px;
-  --radius-lg:18px;
-  --radius-xl:24px;
-
-  --shadow-sm:0 1px 4px rgba(12,31,63,.06);
-  --shadow:0 4px 16px rgba(12,31,63,.09);
-  --shadow-lg:0 12px 40px rgba(12,31,63,.14);
-  --shadow-brand:0 6px 24px rgba(255,92,0,.28);
-
-  --nav-h:64px;
-  --max-w:1280px;
+  --brand:#FF5C00;--brand-dark:#D94A00;--brand-light:#FFF3EE;
+  --navy:#0C1F3F;--navy2:#1A3A6E;--green:#00A86B;--green-light:#E6F8F3;
+  --red:#E02020;--yellow:#F5A623;
+  --bg:#F4F6FA;--surface:#FFFFFF;--surface2:#F9FAFB;
+  --border:#E4E8F0;--border2:#CDD4E0;
+  --text:#0C1F3F;--text2:#5A6A80;--text3:#9AAAB8;
+  --radius-sm:8px;--radius:12px;--radius-lg:18px;--radius-xl:24px;
+  --shadow-sm:0 1px 4px rgba(12,31,63,.06);--shadow:0 4px 16px rgba(12,31,63,.09);
+  --shadow-lg:0 12px 40px rgba(12,31,63,.14);--shadow-brand:0 6px 24px rgba(255,92,0,.28);
+  --nav-h:64px;--max-w:1280px;
+  --accent:var(--brand);
 }
-
 [data-theme="dark"]{
-  --bg:#0E1420;
-  --surface:#16202E;
-  --surface2:#1E2A3A;
-  --border:#263040;
-  --border2:#344055;
-  --text:#E8EEF8;
-  --text2:#8A9BB0;
-  --text3:#5A6A80;
-  --brand:#FF6D1A;
-  --brand-light:#1E1008;
-  --navy:#1A3A6E;
-  --shadow-sm:0 1px 4px rgba(0,0,0,.3);
-  --shadow:0 4px 16px rgba(0,0,0,.35);
-  --shadow-lg:0 12px 40px rgba(0,0,0,.45);
+  --bg:#0E1420;--surface:#16202E;--surface2:#1E2A3A;
+  --border:#263040;--border2:#344055;--text:#E8EEF8;--text2:#8A9BB0;--text3:#5A6A80;
+  --brand:#FF6D1A;--brand-light:#1E1008;--navy:#1A3A6E;
+  --shadow-sm:0 1px 4px rgba(0,0,0,.3);--shadow:0 4px 16px rgba(0,0,0,.35);--shadow-lg:0 12px 40px rgba(0,0,0,.45);
 }
-
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  font-family:'Inter',system-ui,-apple-system,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  font-size:15px;
-  line-height:1.5;
-  overflow-x:hidden;
-}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.5;overflow-x:hidden}
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
 button{font-family:inherit;cursor:pointer;border:none;outline:none}
 
-/* ═══════════════════════════════════════
-   NAV
-═══════════════════════════════════════ */
-.nav{
-  position:sticky;
-  top:0;
-  z-index:1100;
-  height:var(--nav-h);
-  background:rgba(255,255,255,0.95);
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-  transition:box-shadow .2s;
-}
+/* NAV */
+.nav{position:sticky;top:0;z-index:1100;height:var(--nav-h);background:rgba(255,255,255,0.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);transition:box-shadow .2s}
 [data-theme="dark"] .nav{background:rgba(22,32,46,0.96)}
 .nav.scrolled{box-shadow:var(--shadow)}
-.nav-inner{
-  max-width:var(--max-w);
-  margin:0 auto;
-  height:100%;
-  display:flex;
-  align-items:center;
-  gap:16px;
-  padding:0 20px;
-}
-.nav-logo{
-  font-size:22px;
-  font-weight:900;
-  color:var(--brand);
-  letter-spacing:-0.5px;
-  white-space:nowrap;
-  flex-shrink:0;
-}
-.nav-logo sup{
-  font-size:9px;
-  background:var(--navy);
-  color:#fff;
-  padding:1px 4px;
-  border-radius:4px;
-  vertical-align:super;
-  font-weight:700;
-  letter-spacing:0;
-}
-.nav-search-wrap{
-  flex:1;
-  max-width:560px;
-  position:relative;
-}
-.nav-search{
-  width:100%;
-  height:42px;
-  background:var(--surface2);
-  border:1.5px solid var(--border);
-  border-radius:100px;
-  display:flex;
-  align-items:center;
-  padding:0 16px;
-  gap:8px;
-  transition:border-color .15s,box-shadow .15s;
-}
-.nav-search:focus-within{
-  border-color:var(--brand);
-  box-shadow:0 0 0 3px rgba(255,92,0,.12);
-  background:var(--surface);
-}
+.nav-inner{max-width:var(--max-w);margin:0 auto;height:100%;display:flex;align-items:center;gap:12px;padding:0 20px}
+.nav-logo{font-size:22px;font-weight:900;color:var(--brand);letter-spacing:-0.5px;white-space:nowrap;flex-shrink:0}
+.nav-logo sup{font-size:9px;background:var(--navy);color:#fff;padding:1px 4px;border-radius:4px;vertical-align:super;font-weight:700;letter-spacing:0}
+.nav-search-wrap{flex:1;max-width:480px;position:relative}
+.nav-search{width:100%;height:42px;background:var(--surface2);border:1.5px solid var(--border);border-radius:100px;display:flex;align-items:center;padding:0 16px;gap:8px;transition:border-color .15s,box-shadow .15s}
+.nav-search:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px rgba(255,92,0,.12);background:var(--surface)}
 .nav-search svg{color:var(--text3);flex-shrink:0}
-.nav-search input{
-  flex:1;
-  border:none;
-  background:transparent;
-  font-size:14px;
-  color:var(--text);
-  outline:none;
-}
+.nav-search input{flex:1;border:none;background:transparent;font-size:14px;color:var(--text);outline:none}
 .nav-search input::placeholder{color:var(--text3)}
-.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  padding:9px 20px;
-  border-radius:100px;
-  font-size:14px;
-  font-weight:700;
-  cursor:pointer;
-  transition:.15s;
-  white-space:nowrap;
-}
-.btn-brand{
-  background:var(--brand);
-  color:#fff;
-  border:none;
-  box-shadow:0 3px 10px rgba(255,92,0,.30);
-}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 18px;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;transition:.15s;white-space:nowrap}
+.btn-ghost{background:transparent;border:1.5px solid var(--border);color:var(--text2)}
+.btn-ghost:hover{border-color:var(--brand);color:var(--brand)}
+.btn-brand{background:var(--brand);color:#fff;border:none;box-shadow:0 3px 10px rgba(255,92,0,.30)}
 .btn-brand:hover{background:var(--brand-dark);box-shadow:var(--shadow-brand)}
 .btn-brand:active{transform:scale(.97)}
-.btn-ghost{background:transparent;border:1.5px solid var(--border);color:var(--text2);height:36px;padding:0 14px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s}
-.btn-ghost:hover{border-color:var(--brand);color:var(--brand)}
-/* lang / country switcher */
-.nav-lang{position:relative;flex-shrink:0}
-.nav-lang-btn{height:36px;padding:0 12px;border-radius:100px;border:1.5px solid var(--border);background:transparent;color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;transition:.15s;white-space:nowrap}
-.nav-lang-btn:hover{border-color:var(--brand);color:var(--brand)}
-.nav-lang-drop{display:none;position:absolute;top:calc(100% + 6px);right:0;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;min-width:110px;overflow:hidden;z-index:1200}
-.nav-lang-drop.open{display:block}
-.nav-lang-opt{display:flex;align-items:center;gap:6px;padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--text2);transition:.12s;text-decoration:none}
-.nav-lang-opt:hover{background:var(--brand-light);color:var(--brand)}
-.nav-lang-opt.active{color:var(--brand);font-weight:800;background:var(--brand-light)}
-/* auth user */
-.nav-user-wrap{display:flex;align-items:center;gap:6px;cursor:default}
-.nav-user-avatar{width:30px;height:30px;border-radius:50%;object-fit:cover;border:2px solid var(--brand)}
-.nav-user-name{font-size:13px;font-weight:600;color:var(--text);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.nav-phone{
-  font-size:13px;
-  font-weight:600;
-  color:var(--text2);
-  white-space:nowrap;
-}
-@media(max-width:900px){
-  .hide-mob{display:none!important}
-}
-@media(max-width:640px){
-  .nav-inner{padding:0 12px;gap:8px}
-  .nav-logo{font-size:18px}
-}
+.nav-theme{width:36px;height:36px;border-radius:50%;background:var(--surface2);border:1.5px solid var(--border);color:var(--text2);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
+.nav-theme:hover{border-color:var(--brand);color:var(--brand)}
 
-/* Mobile FAB */
-.fab{
-  position:fixed;
-  bottom:24px;
-  right:20px;
-  z-index:800;
-  background:var(--brand);
-  color:#fff;
-  border-radius:100px;
-  padding:14px 22px;
-  font-size:15px;
-  font-weight:800;
-  box-shadow:var(--shadow-brand);
-  display:none;
-  align-items:center;
-  gap:8px;
-  letter-spacing:-.2px;
-  transition:.15s;
-  text-decoration:none;
-}
+/* Switchers */
+.lang-switcher{display:flex;gap:3px;align-items:center}
+.lang-btn{padding:3px 7px;border-radius:6px;border:1.5px solid var(--border);background:var(--surface2);color:var(--text2);font-size:11px;cursor:pointer;transition:.15s;line-height:1.4}
+.lang-btn:hover{border-color:var(--brand);color:var(--brand)}
+.lang-btn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+.country-switcher{display:flex;gap:2px;align-items:center}
+.country-switcher a{font-size:18px;text-decoration:none;opacity:0.45;transition:.15s;line-height:1}
+.country-switcher a:hover{opacity:0.8}
+.country-switcher a.current{opacity:1}
+
+/* Burger / drawer */
+.nav-burger{display:none;width:36px;height:36px;border-radius:50%;background:var(--surface2);border:1.5px solid var(--border);color:var(--text2);font-size:18px;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:.15s}
+@media(max-width:640px){.nav-burger{display:flex}.hide-mob{display:none!important}}
+@media(max-width:900px){.hide-mob-md{display:none!important}}
+.mob-drawer{position:fixed;top:0;right:-100%;width:min(320px,88vw);height:100%;background:var(--surface);z-index:1400;transition:right .28s cubic-bezier(.4,0,.2,1);box-shadow:-4px 0 24px rgba(0,0,0,.18);display:flex;flex-direction:column}
+.mob-drawer.open{right:0}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1399;display:none}
+.drawer-overlay.open{display:block}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:20px;border-bottom:1px solid var(--border)}
+.drawer-logo{font-size:20px;font-weight:900;color:var(--brand)}
+.drawer-close{width:32px;height:32px;border-radius:50%;background:var(--surface2);border:1.5px solid var(--border);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.drawer-body{padding:20px;display:flex;flex-direction:column;gap:12px;flex:1}
+
+/* FAB */
+.fab{position:fixed;bottom:24px;right:20px;z-index:800;background:var(--brand);color:#fff;border-radius:100px;padding:14px 22px;font-size:15px;font-weight:800;box-shadow:var(--shadow-brand);display:none;align-items:center;gap:8px;letter-spacing:-.2px;transition:.15s}
 .fab:active{transform:scale(.96)}
 @media(max-width:760px){.fab{display:flex}}
 
-/* ═══════════════════════════════════════
-   HERO
-═══════════════════════════════════════ */
-.hero{
-  background:linear-gradient(160deg,var(--navy) 0%,#0A2A60 55%,#1A3A8A 100%);
-  padding:56px 20px 72px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-.hero::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(ellipse 60% 80% at 20% 50%,rgba(255,92,0,.18) 0%,transparent 60%),
-    radial-gradient(ellipse 50% 70% at 80% 30%,rgba(26,90,220,.22) 0%,transparent 60%);
-  pointer-events:none;
-}
+/* HERO */
+.hero{background:linear-gradient(160deg,var(--navy) 0%,#0A2A60 55%,#1A3A8A 100%);padding:56px 20px 72px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 20% 50%,rgba(255,92,0,.18) 0%,transparent 60%),radial-gradient(ellipse 50% 70% at 80% 30%,rgba(26,90,220,.22) 0%,transparent 60%);pointer-events:none}
 .hero-content{position:relative;z-index:1;max-width:720px;margin:0 auto}
-.hero-kicker{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  background:rgba(255,255,255,.10);
-  border:1px solid rgba(255,255,255,.18);
-  backdrop-filter:blur(8px);
-  color:rgba(255,255,255,.85);
-  font-size:13px;
-  font-weight:600;
-  padding:5px 14px;
-  border-radius:100px;
-  margin-bottom:20px;
-  letter-spacing:.3px;
-}
-.hero h1{
-  font-size:clamp(28px,5vw,52px);
-  font-weight:900;
-  color:#fff;
-  line-height:1.12;
-  letter-spacing:-1.5px;
-  margin-bottom:14px;
-}
-.hero h1 em{
-  color:var(--brand);
-  font-style:normal;
-}
-.hero-sub{
-  font-size:16px;
-  color:rgba(255,255,255,.62);
-  margin-bottom:36px;
-  font-weight:400;
-}
-.hero-search{
-  background:#fff;
-  border-radius:16px;
-  display:flex;
-  align-items:center;
-  padding:6px 6px 6px 20px;
-  gap:10px;
-  box-shadow:0 8px 40px rgba(0,0,0,.25);
-  max-width:640px;
-  margin:0 auto 20px;
-}
+.hero-kicker{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px);color:rgba(255,255,255,.85);font-size:13px;font-weight:600;padding:5px 14px;border-radius:100px;margin-bottom:20px;letter-spacing:.3px}
+.hero-kicker span{color:#FFB347}
+.hero-kicker span.grn{color:#4ADE80}
+.hero h1{font-size:clamp(28px,5vw,52px);font-weight:900;color:#fff;line-height:1.12;letter-spacing:-1.5px;margin-bottom:14px}
+.hero h1 em{color:var(--brand);font-style:normal}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.62);margin-bottom:36px;font-weight:400}
+.hero-search{background:#fff;border-radius:16px;display:flex;align-items:center;padding:6px 6px 6px 20px;gap:10px;box-shadow:0 8px 40px rgba(0,0,0,.25);max-width:640px;margin:0 auto 20px}
 [data-theme="dark"] .hero-search{background:var(--surface);border:1.5px solid var(--border)}
-.hero-search svg{color:var(--text3);flex-shrink:0}
-.hero-search input{
-  flex:1;
-  border:none;
-  background:transparent;
-  font-size:16px;
-  font-weight:500;
-  color:var(--text);
-  outline:none;
-  padding:10px 0;
-}
+.hero-search input{flex:1;border:none;background:transparent;font-size:16px;font-weight:500;color:var(--text);outline:none;padding:10px 0}
 .hero-search input::placeholder{color:var(--text3);font-weight:400}
-.hero-search .hs-btn{
-  background:var(--brand);
-  color:#fff;
-  border-radius:10px;
-  padding:12px 24px;
-  font-size:15px;
-  font-weight:800;
-  white-space:nowrap;
-  flex-shrink:0;
-  transition:.15s;
-  border:none;
-  cursor:pointer;
-}
+.hero-search .hs-btn{background:var(--brand);color:#fff;border-radius:10px;padding:12px 24px;font-size:15px;font-weight:800;white-space:nowrap;flex-shrink:0;transition:.15s}
 .hero-search .hs-btn:hover{background:var(--brand-dark)}
-
-/* hero CTA button */
-.hero-cta-wrap{
-  display:flex;
-  justify-content:center;
-  margin-top:12px;
-}
-.hero-cta{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  background:transparent;
-  border:1.5px solid rgba(255,255,255,.35);
-  color:rgba(255,255,255,.85);
-  padding:11px 28px;
-  border-radius:100px;
-  font-size:15px;
-  font-weight:700;
-  transition:.15s;
-  cursor:pointer;
-  text-decoration:none;
-}
-.hero-cta:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.6);color:#fff}
-
-/* stats strip */
-.hero-stats{
-  display:flex;
-  justify-content:center;
-  gap:40px;
-  margin-top:40px;
-  flex-wrap:wrap;
-}
+.hero-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.hero-tag{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.78);padding:5px 14px;border-radius:100px;font-size:13px;cursor:pointer;transition:.15s;font-weight:500}
+.hero-tag:hover{background:rgba(255,255,255,.22);color:#fff}
+.hero-stats{display:flex;justify-content:center;gap:40px;margin-top:40px;flex-wrap:wrap}
 .hero-stat{color:rgba(255,255,255,.7);text-align:center}
 .hero-stat strong{display:block;font-size:28px;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1}
 .hero-stat span{font-size:12px;margin-top:3px}
-
-/* hero trust strip */
-.hero-trust{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:18px;
-  margin-top:24px;
-}
-.hero-trust-item{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  font-size:12px;
-  font-weight:600;
-  color:rgba(255,255,255,.65);
-}
-.hero-trust-item span.ck{
-  width:18px;height:18px;
-  border-radius:50%;
-  background:var(--green);
-  display:flex;align-items:center;justify-content:center;
-  font-size:9px;
-  color:#fff;
-  flex-shrink:0;
-}
-
-/* wave */
-.hero-wave{
-  position:absolute;
-  bottom:-1px;left:0;right:0;
-  line-height:0;
-}
+.hero-trust{display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-top:24px}
+.hero-trust-item{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:rgba(255,255,255,.65)}
+.hero-trust-item span.ck{width:18px;height:18px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;flex-shrink:0}
+.hero-wave{position:absolute;bottom:-1px;left:0;right:0;line-height:0}
 .hero-wave svg{width:100%;height:48px}
+@media(max-width:640px){.hero{padding:40px 16px 64px}.hero-stats{gap:24px}.hero-stat strong{font-size:22px}}
 
-@media(max-width:640px){
-  .hero{padding:40px 16px 64px}
-  .hero-search{padding:4px 4px 4px 14px;flex-wrap:nowrap}
-  .hero-stats{gap:24px}
-  .hero-stat strong{font-size:22px}
-}
-
-/* ═══════════════════════════════════════
-   WRAPPER
-═══════════════════════════════════════ */
+/* WRAP */
 .wrap{max-width:var(--max-w);margin:0 auto;padding:0 20px}
 @media(max-width:640px){.wrap{padding:0 12px}}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;gap:12px}
+.sec-title{font-size:22px;font-weight:800;letter-spacing:-.5px;color:var(--text)}
+.sec-link{font-size:13px;font-weight:600;color:var(--brand);white-space:nowrap;cursor:pointer}
+.sec-link:hover{text-decoration:underline}
 
-/* section title */
-.sec-head{
-  display:flex;
-  align-items:baseline;
-  justify-content:space-between;
-  margin-bottom:20px;
-  gap:12px;
-}
-.sec-title{
-  font-size:22px;
-  font-weight:800;
-  letter-spacing:-.5px;
-  color:var(--text);
-}
+/* URGENCY BAR */
+.urgency-bar{background:linear-gradient(135deg,var(--brand) 0%,var(--brand-dark) 100%);padding:0;overflow:hidden;height:42px;position:relative;border-bottom:2px solid var(--green)}
+.urgency-track{display:inline-flex;align-items:center;gap:0;height:42px;white-space:nowrap;animation:urgsScroll 30s linear infinite;will-change:transform}
+.urgency-bar:hover .urgency-track{animation-play-state:paused}
+@keyframes urgsScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ub-item{display:inline-flex;align-items:center;gap:10px;padding:0 32px;font-size:13px;font-weight:600;color:rgba(255,255,255,.9)}
+.ub-badge{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);padding:2px 10px;border-radius:100px;font-size:11px;font-weight:800;color:#fff;letter-spacing:.5px}
+.ub-sep{color:rgba(255,255,255,.3);font-size:18px}
+.ub-cta{background:#fff;color:var(--brand);padding:5px 16px;border-radius:100px;font-size:12px;font-weight:800;cursor:pointer;transition:.15s;border:none}
+.ub-cta:hover{transform:scale(1.04)}
 
-/* ═══════════════════════════════════════
-   CATEGORIES
-═══════════════════════════════════════ */
-.cats-section{padding:56px 0 0}
-.cats-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-}
-@media(max-width:760px){.cats-grid{grid-template-columns:repeat(2,1fr);gap:10px}}
+/* FOREX TICKER */
+.fx-bar{background:var(--surface);border-bottom:1px solid var(--border);overflow:hidden;height:38px}
+.fx-track{display:inline-flex;align-items:center;gap:0;height:38px;white-space:nowrap;animation:fxScroll 40s linear infinite}
+.fx-bar:hover .fx-track{animation-play-state:paused}
+@keyframes fxScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.fx-item{display:inline-flex;align-items:center;gap:6px;padding:0 20px;font-size:12px;font-weight:600;color:var(--text2);border-right:1px solid var(--border)}
+.fx-flag{font-size:14px}
+.fx-code{color:var(--text3);font-weight:500}
+.fx-rate{color:var(--text);font-weight:700}
+.fx-label{padding:0 20px;font-size:11px;font-weight:800;color:var(--brand);letter-spacing:.5px;border-right:1px solid var(--border)}
 
-.cat-tile{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:var(--radius-lg);
-  padding:28px 16px 22px;
-  text-align:center;
-  cursor:pointer;
-  transition:transform .15s,box-shadow .15s,border-color .15s;
-  position:relative;
-  overflow:hidden;
-}
-.cat-tile::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;
-  height:3px;
-  background:var(--tile-color,var(--brand));
-  transform:scaleX(0);
-  transition:transform .2s;
-  transform-origin:left;
-}
-.cat-tile:hover{
-  transform:translateY(-3px);
-  box-shadow:var(--shadow);
-  border-color:transparent;
-}
+/* CATEGORIES */
+.cats-section{padding:48px 0 0}
+.cats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+@media(max-width:1000px){.cats-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:640px){.cats-grid{grid-template-columns:repeat(3,1fr);gap:8px}}
+@media(max-width:380px){.cats-grid{grid-template-columns:repeat(2,1fr)}}
+.cat-tile{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 12px 16px;text-align:center;cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .15s;position:relative;overflow:hidden}
+.cat-tile::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--tile-color,var(--brand));transform:scaleX(0);transition:transform .2s;transform-origin:left}
+.cat-tile:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:transparent}
 .cat-tile:hover::before{transform:scaleX(1)}
-.cat-icon-wrap{
-  width:60px;height:60px;
-  border-radius:16px;
-  background:var(--tile-bg,#FFF3EE);
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 12px;
-  font-size:30px;
-  transition:.15s;
-}
+.cat-icon-wrap{width:52px;height:52px;border-radius:14px;background:var(--tile-bg,#FFF3EE);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:26px;transition:.15s}
 .cat-tile:hover .cat-icon-wrap{background:var(--tile-color,var(--brand));transform:scale(1.05)}
-.cat-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px;line-height:1.3}
+.cat-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;line-height:1.3}
+.cat-count{font-size:11px;color:var(--text3);font-weight:500}
+.cat-bddk{font-size:9px;color:var(--yellow);font-weight:700;margin-top:2px}
 
-/* ═══════════════════════════════════════
-   WHY SECTION
-═══════════════════════════════════════ */
-.why-section{
-  padding:56px 0;
-  background:var(--surface);
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-  margin-top:56px;
-}
-.why-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:24px;
-}
-@media(max-width:760px){.why-grid{grid-template-columns:1fr;gap:16px}}
-.why-card{
-  text-align:center;
-  padding:32px 20px;
-  background:var(--surface2);
-  border:1px solid var(--border);
-  border-radius:var(--radius-lg);
-}
-.why-icon{
-  width:64px;height:64px;
-  border-radius:18px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:30px;
-  margin:0 auto 16px;
-  background:var(--brand-light);
-}
-.why-card h3{font-size:17px;font-weight:700;margin-bottom:8px;color:var(--text)}
-.why-card p{font-size:14px;color:var(--text2);line-height:1.6}
+/* FILTER CHIPS */
+.filter-bar{display:flex;gap:8px;overflow-x:auto;padding:4px 0;scrollbar-width:none;-ms-overflow-style:none}
+.filter-bar::-webkit-scrollbar{display:none}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:100px;font-size:13px;font-weight:600;border:1.5px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;white-space:nowrap;transition:.15s;flex-shrink:0}
+.chip:hover,.chip.active{background:var(--brand-light);border-color:var(--brand);color:var(--brand)}
 
-/* ═══════════════════════════════════════
-   KVKK LEGAL SECTION
-═══════════════════════════════════════ */
-.kvkk-section{
-  padding:56px 0;
-}
-.kvkk-box{
-  background:linear-gradient(135deg,var(--navy) 0%,#0A2A60 100%);
-  border-radius:var(--radius-xl);
-  padding:40px 48px;
-  position:relative;
-  overflow:hidden;
-}
-.kvkk-box::before{
-  content:'';
-  position:absolute;
-  right:-40px;top:-40px;
-  width:220px;height:220px;
-  background:radial-gradient(circle,rgba(255,92,0,.18) 0%,transparent 70%);
-  pointer-events:none;
-}
-.kvkk-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  background:rgba(255,92,0,.2);
-  border:1px solid rgba(255,92,0,.4);
-  color:var(--brand);
-  font-size:12px;
-  font-weight:700;
-  padding:4px 12px;
-  border-radius:100px;
-  margin-bottom:16px;
-  letter-spacing:.5px;
-  text-transform:uppercase;
-}
-.kvkk-box h2{
-  font-size:26px;font-weight:900;
-  color:#fff;letter-spacing:-.5px;
-  margin-bottom:20px;
-}
-.kvkk-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-  position:relative;
-}
-@media(max-width:640px){.kvkk-grid{grid-template-columns:1fr}}
-.kvkk-item{
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:var(--radius);
-  padding:18px 20px;
-}
-.kvkk-item h4{
-  font-size:13px;font-weight:700;
-  color:rgba(255,255,255,.5);
-  text-transform:uppercase;
-  letter-spacing:.5px;
-  margin-bottom:6px;
-}
-.kvkk-item p{
-  font-size:14px;color:rgba(255,255,255,.82);line-height:1.6
-}
-.kvkk-item a{color:var(--brand);text-decoration:underline;}
-.kvkk-full{
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:var(--radius);
-  padding:18px 20px;
-  margin-top:20px;
-  position:relative;
-}
-.kvkk-full h4{
-  font-size:13px;font-weight:700;
-  color:rgba(255,255,255,.5);
-  text-transform:uppercase;
-  letter-spacing:.5px;
-  margin-bottom:8px;
-}
-.kvkk-full p{font-size:14px;color:rgba(255,255,255,.82);line-height:1.65}
-@media(max-width:640px){
-  .kvkk-box{padding:28px 20px}
-  .kvkk-box h2{font-size:20px}
-}
+/* ADS GRID */
+.ads-section{padding:40px 0}
+.ads-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:1100px){.ads-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.ads-grid{grid-template-columns:repeat(2,1fr);gap:10px}}
+@media(max-width:380px){.ads-grid{grid-template-columns:1fr}}
+.ad-card{background:var(--surface);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:transform .15s,box-shadow .15s;position:relative}
+.ad-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.ad-img{width:100%;aspect-ratio:4/3;background:var(--surface2);overflow:hidden;position:relative}
+.ad-img img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.ad-card:hover .ad-img img{transform:scale(1.04)}
+.ad-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;background:linear-gradient(145deg,var(--surface2),var(--border))}
+.ad-badge{position:absolute;top:10px;left:10px;background:var(--brand);color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;letter-spacing:.3px}
+.ad-badge.new{background:var(--green);color:#fff}
+.ad-fav{position:absolute;top:8px;right:8px;width:30px;height:30px;background:rgba(255,255,255,.85);backdrop-filter:blur(4px);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;opacity:0;transition:.15s}
+.ad-card:hover .ad-fav{opacity:1}
+.ad-body{padding:12px 14px 14px}
+.ad-price{font-size:18px;font-weight:800;color:var(--text);letter-spacing:-.4px;line-height:1.2;margin-bottom:5px}
+.ad-price.free{color:var(--green)}
+.ad-title{font-size:13px;font-weight:500;color:var(--text2);line-height:1.4;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ad-meta{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--text3);font-weight:500}
+.ad-meta-city{display:flex;align-items:center;gap:3px}
+.ad-verified{display:flex;align-items:center;gap:3px;color:var(--green);font-weight:600}
+.ad-phone-bar{display:flex;gap:6px;margin-top:8px}
+.ad-btn-call{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:var(--radius-sm);background:var(--brand);color:#fff;font-size:13px;font-weight:600;text-decoration:none;transition:background .15s}
+.ad-btn-call:hover{background:var(--brand-dark)}
+.ad-btn-wa{display:flex;align-items:center;justify-content:center;padding:7px 12px;border-radius:var(--radius-sm);background:#25D366;color:#fff;font-size:12px;font-weight:700;text-decoration:none;transition:opacity .15s}
+.ad-btn-wa:hover{opacity:.85}
+/* shimmer */
+.ad-card-ph{border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border)}
+.ph-img{aspect-ratio:4/3;background:linear-gradient(90deg,var(--surface2) 25%,var(--border) 50%,var(--surface2) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+.ph-body{padding:12px 14px}
+.ph-line{height:14px;border-radius:6px;margin-bottom:8px;background:linear-gradient(90deg,var(--surface2) 25%,var(--border) 50%,var(--surface2) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+.ph-line.short{width:60%}
+.ph-line.xs{width:40%;height:10px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-/* ═══════════════════════════════════════
-   PRIVACY POLICY SECTION
-═══════════════════════════════════════ */
-.privacy-section{
-  padding:56px 0;
-  background:var(--surface);
-  border-top:1px solid var(--border);
-}
-.privacy-box{
-  background:var(--surface2);
-  border:1px solid var(--border);
-  border-radius:var(--radius-xl);
-  padding:40px 48px;
-}
-@media(max-width:640px){.privacy-box{padding:24px 20px}}
-.privacy-box h2{
-  font-size:22px;font-weight:800;
-  color:var(--text);margin-bottom:24px;
-  letter-spacing:-.5px;
-}
-.privacy-block{margin-bottom:24px}
-.privacy-block h3{
-  font-size:15px;font-weight:700;
-  color:var(--text);margin-bottom:8px;
-  border-left:3px solid var(--brand);
-  padding-left:10px;
-}
-.privacy-block p,.privacy-block ul{
-  font-size:14px;color:var(--text2);line-height:1.7;
-}
-.privacy-block ul{padding-left:20px;margin-top:6px}
-.privacy-block ul li{margin-bottom:4px}
+/* WHY */
+.why-section{padding:56px 0;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-top:48px}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+@media(max-width:900px){.why-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.why-grid{grid-template-columns:1fr;gap:16px}}
+.why-card{text-align:center;padding:24px 16px}
+.why-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 14px}
+.why-card h3{font-size:15px;font-weight:700;margin-bottom:6px}
+.why-card p{font-size:13px;color:var(--text2);line-height:1.6}
 
-/* ═══════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════ */
-.footer{
-  background:var(--navy);
-  color:rgba(255,255,255,.6);
-  padding:48px 0 28px;
-}
-.footer-top{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:32px;
-  margin-bottom:40px;
-}
-.footer-brand{
-  font-size:24px;font-weight:900;
-  color:var(--brand);
-  margin-bottom:10px;
-  letter-spacing:-.5px;
-}
-.footer-brand sup{
-  font-size:9px;background:#fff;color:var(--navy);
-  padding:1px 4px;border-radius:4px;vertical-align:super;font-weight:700;
-}
-.footer-tagline{font-size:13px;line-height:1.6;max-width:260px;margin-bottom:12px}
-.footer-contact{font-size:13px;line-height:1.7}
-.footer-contact a{color:var(--brand);text-decoration:underline;}
-.footer-links-col h4{
-  font-size:13px;font-weight:700;
-  color:#fff;margin-bottom:14px;
-  letter-spacing:.3px;text-transform:uppercase;
-}
+/* CITIES */
+.cities-section{padding:48px 0}
+.cities-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+@media(max-width:900px){.cities-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.cities-grid{grid-template-columns:repeat(2,1fr)}}
+.city-tile{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:.15s}
+.city-tile:hover{border-color:var(--brand);background:var(--brand-light)}
+.city-tile:hover .city-tile-name{color:var(--brand)}
+.city-tile-name{font-size:14px;font-weight:700;color:var(--text)}
+.city-tile-count{font-size:12px;color:var(--text3);font-weight:500}
+.city-tile-flag{font-size:22px}
+
+/* APP SECTION */
+.app-section{padding:56px 0}
+.app-card{background:linear-gradient(135deg,var(--navy) 0%,#0A2A60 60%,#152060 100%);border-radius:var(--radius-xl);padding:48px 52px;display:flex;align-items:center;gap:48px;position:relative;overflow:hidden}
+.app-card::before{content:'';position:absolute;right:-60px;top:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(255,92,0,.22) 0%,transparent 70%);pointer-events:none}
+.app-text{flex:1;position:relative}
+.app-kicker{font-size:12px;font-weight:700;color:var(--brand);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.app-text h2{font-size:30px;font-weight:900;color:#fff;letter-spacing:-.8px;line-height:1.2;margin-bottom:12px}
+.app-text p{font-size:15px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:28px}
+.app-tg-btn{display:inline-flex;align-items:center;gap:10px;background:var(--brand);color:#fff;padding:14px 28px;border-radius:100px;font-size:15px;font-weight:800;box-shadow:var(--shadow-brand);transition:.15s}
+.app-tg-btn:hover{background:var(--brand-dark);transform:translateY(-2px)}
+.app-emoji{font-size:96px;flex-shrink:0;line-height:1}
+@media(max-width:760px){.app-card{padding:32px 28px;flex-direction:column;gap:24px;text-align:center}.app-text h2{font-size:22px}.app-emoji{font-size:64px}}
+
+/* FAQ */
+.faq-section{padding:56px 0;background:var(--surface);border-top:1px solid var(--border)}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){.faq-grid{grid-template-columns:1fr}}
+.faq-item{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:.15s}
+.faq-item:hover{border-color:var(--border2)}
+.faq-q{padding:16px 20px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--text);user-select:none}
+.faq-q svg{flex-shrink:0;transition:transform .2s;color:var(--text3)}
+.faq-q.open svg{transform:rotate(180deg);color:var(--brand)}
+.faq-q.open{color:var(--brand)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease}
+.faq-a.open{max-height:300px}
+.faq-a-inner{padding:0 20px 16px;font-size:13px;color:var(--text2);line-height:1.65;border-top:1px solid var(--border);padding-top:12px}
+
+/* FOOTER */
+.footer{background:var(--navy);color:rgba(255,255,255,.6);padding:48px 0 28px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:24px}}
+@media(max-width:540px){.footer-grid{grid-template-columns:1fr;gap:20px}}
+.footer-brand{font-size:24px;font-weight:900;color:var(--brand);margin-bottom:10px;letter-spacing:-.5px}
+.footer-brand sup{font-size:9px;background:#fff;color:var(--navy);padding:1px 4px;border-radius:4px;vertical-align:super;font-weight:700}
+.footer-tagline{font-size:13px;line-height:1.6;max-width:260px}
+.footer-col h4{font-size:13px;font-weight:700;color:#fff;margin-bottom:14px;letter-spacing:.3px;text-transform:uppercase}
 .footer-links{display:flex;flex-direction:column;gap:8px}
-.footer-links a{
-  font-size:13px;
-  color:rgba(255,255,255,.5);
-  transition:.12s;
-}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.5);transition:.12s;cursor:pointer}
 .footer-links a:hover{color:#fff}
-.footer-bottom{
-  border-top:1px solid rgba(255,255,255,.08);
-  padding-top:24px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:12px;
-  font-size:12px;
-}
-.footer-legal-links{display:flex;gap:16px;flex-wrap:wrap}
-.footer-legal-links a{color:rgba(255,255,255,.4);transition:.12s}
-.footer-legal-links a:hover{color:rgba(255,255,255,.8)}
+.footer-kvkk{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-sm);padding:12px 16px;font-size:12px;line-height:1.6;color:rgba(255,255,255,.5);margin-top:16px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px}
+.footer-legal{display:flex;gap:20px;flex-wrap:wrap}
+.footer-legal a{color:rgba(255,255,255,.4);transition:.12s;cursor:pointer}
+.footer-legal a:hover{color:rgba(255,255,255,.8)}
 
-/* ═══════════════════════════════════════
-   KVKK COOKIE CONSENT BANNER
-═══════════════════════════════════════ */
-#kvkk-banner{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  z-index:9999;
-  background:#0C1F3F;
-  color:#fff;
-  padding:18px 24px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  flex-wrap:wrap;
-  box-shadow:0 -4px 24px rgba(0,0,0,.3);
-  border-top:2px solid var(--brand);
-}
-#kvkk-banner p{
-  font-size:13px;
-  line-height:1.6;
-  color:rgba(255,255,255,.85);
-  flex:1;
-  min-width:260px;
-}
-#kvkk-banner p a{
-  color:var(--brand);
-  text-decoration:underline;
-}
-.kvkk-banner-btns{
-  display:flex;
-  gap:10px;
-  flex-shrink:0;
-}
-.kvkk-accept-btn{
-  background:var(--brand);
-  color:#fff;
-  border:none;
-  padding:10px 22px;
-  border-radius:100px;
-  font-size:14px;
-  font-weight:700;
-  cursor:pointer;
-  transition:.15s;
-  white-space:nowrap;
-}
-.kvkk-accept-btn:hover{background:var(--brand-dark)}
-.kvkk-more-btn{
-  background:transparent;
-  color:rgba(255,255,255,.7);
-  border:1.5px solid rgba(255,255,255,.3);
-  padding:10px 22px;
-  border-radius:100px;
-  font-size:14px;
-  font-weight:600;
-  cursor:pointer;
-  transition:.15s;
-  white-space:nowrap;
-  text-decoration:none;
-  display:inline-flex;
-  align-items:center;
-}
-.kvkk-more-btn:hover{border-color:rgba(255,255,255,.7);color:#fff}
-@media(max-width:640px){
-  #kvkk-banner{padding:14px 16px;gap:12px}
-  #kvkk-banner p{font-size:12px}
-  .kvkk-accept-btn,.kvkk-more-btn{padding:9px 16px;font-size:13px}
-}
+/* MODALS */
+.overlay{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:rgba(12,31,63,.5);backdrop-filter:blur(4px);z-index:1000;align-items:center;justify-content:center;padding:20px}
+.overlay.open{display:flex}
+.modal{background:var(--surface);border-radius:var(--radius-xl);width:100%;max-width:440px;max-height:88vh;overflow-y:auto;box-shadow:var(--shadow-lg);animation:modalIn .2s ease}
+@keyframes modalIn{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
+.post-modal{max-width:520px}
+.modal-head{position:relative;background:linear-gradient(135deg,var(--green) 0%,#009060 100%);padding:24px;border-radius:var(--radius-xl) var(--radius-xl) 0 0}
+.modal-head h2{font-size:18px;font-weight:800;color:#fff}
+.modal-head p{font-size:13px;color:rgba(255,255,255,.75);margin-top:4px}
+.modal-body{padding:24px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--text2)}
+.field input,.field textarea,.field select{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:inherit;background:var(--surface2);color:var(--text);outline:none;transition:.15s}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(255,92,0,.10);background:var(--surface)}
+.field textarea{resize:vertical;min-height:100px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end}
+.btn-cancel{padding:10px 20px;border-radius:100px;font-size:14px;font-weight:600;background:var(--surface2);color:var(--text2);border:1.5px solid var(--border)}
+.btn-cancel:hover{border-color:var(--border2)}
+.btn-submit{padding:10px 24px;border-radius:100px;font-size:14px;font-weight:700;background:var(--brand);color:#fff;box-shadow:0 3px 10px rgba(255,92,0,.25)}
+.btn-submit:hover{background:var(--brand-dark)}
+.modal-close-btn{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.18);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;transition:.15s;line-height:1}
+.modal-close-btn:hover{background:rgba(255,255,255,.32);transform:scale(1.1)}
+
+/* auth modal */
+.auth-head{background:linear-gradient(135deg,var(--brand) 0%,var(--brand-dark) 100%);padding:28px 24px 24px;border-radius:var(--radius-xl) var(--radius-xl) 0 0;text-align:center}
+.auth-head h2{font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.auth-head p{font-size:13px;color:rgba(255,255,255,.72)}
+
+/* ad detail modal */
+.ad-modal{max-width:560px}
+.ad-modal-gallery{position:relative;width:100%;aspect-ratio:4/3;background:var(--surface2);overflow:hidden;border-radius:var(--radius-xl) var(--radius-xl) 0 0}
+.ad-modal-gallery img{width:100%;height:100%;object-fit:cover}
+.ad-modal-gallery .ad-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:64px}
+.ad-modal-close{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(12,31,63,.5);color:#fff;font-size:18px;line-height:34px;text-align:center;cursor:pointer;border:none;backdrop-filter:blur(4px)}
+.ad-modal-body{padding:20px 24px 8px}
+.ad-modal-price{font-size:26px;font-weight:900;color:var(--brand);margin-bottom:6px}
+.ad-modal-price.free{color:var(--green)}
+.ad-modal-title{font-size:18px;font-weight:700;margin-bottom:10px}
+.ad-modal-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--text2);margin-bottom:14px}
+.ad-modal-desc{font-size:14px;line-height:1.6;color:var(--text2);margin-bottom:16px;white-space:pre-wrap}
+.ad-modal-phones{display:flex;gap:10px;padding:0 24px 20px}
+.ad-modal-phones .ad-btn-call{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;border-radius:var(--radius-sm);background:var(--brand);color:#fff;font-size:14px;font-weight:700;text-decoration:none}
+.ad-modal-phones .ad-btn-wa{display:flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:var(--radius-sm);background:#25D366;color:#fff;font-size:13px;font-weight:700;text-decoration:none}
+
+/* legal modal */
+.legal-modal-ov{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:rgba(12,31,63,.5);backdrop-filter:blur(4px);z-index:1000;align-items:flex-end;justify-content:center}
+@media(min-width:600px){.legal-modal-ov{align-items:center;padding:20px}}
+.legal-modal-ov.open{display:flex}
+.legal-box{background:var(--surface);border-radius:var(--radius-xl) var(--radius-xl) 0 0;width:100%;max-width:680px;max-height:88vh;display:flex;flex-direction:column;overflow:hidden}
+@media(min-width:600px){.legal-box{border-radius:var(--radius-xl)}}
+.legal-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 16px;border-bottom:1px solid var(--border);flex-shrink:0}
+.legal-head h2{font-size:17px;font-weight:700}
+.legal-close{width:32px;height:32px;border-radius:50%;background:var(--surface2);color:var(--text2);border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.12s}
+.legal-close:hover{background:var(--border)}
+.legal-body{overflow-y:auto;padding:24px;flex:1;font-size:14px;line-height:1.7;color:var(--text2)}
+.legal-body h3{font-size:14px;font-weight:700;color:var(--text);margin:18px 0 6px}
+.legal-body h3:first-child{margin-top:0}
+.legal-body p{margin-bottom:10px}
+.legal-body ul{margin-bottom:10px;padding-left:20px}
+.legal-body li{margin-bottom:4px}
+
+/* city picker */
+.city-pick-grid{padding:12px 20px 20px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+
+/* TOAST */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:11px 22px;border-radius:100px;font-size:14px;font-weight:600;opacity:0;transition:.25s;z-index:1500;white-space:nowrap;box-shadow:var(--shadow-lg)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* KVKK note */
+.kvkk-note{background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.2);border-radius:var(--radius-sm);padding:10px 14px;font-size:11px;line-height:1.6;color:var(--text2);margin-top:12px}
+
+/* countries row */
+.countries-section{padding:20px 0 8px}
+.countries-label{text-align:center;font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.countries-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.country-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 20px;background:var(--surface2);border:1.5px solid var(--border);border-radius:14px;text-decoration:none;color:var(--text);transition:.15s;min-width:90px}
+.country-btn:hover{border-color:var(--brand);background:var(--brand-light);transform:translateY(-2px);box-shadow:var(--shadow)}
+.country-flag{font-size:28px;line-height:1}
+.country-name{font-size:12px;font-weight:600;color:var(--text2);white-space:nowrap}
+@media(max-width:480px){.country-btn{min-width:72px;padding:10px 14px}.country-flag{font-size:24px}}
 </style>
 </head>
 <body>
 
-<!-- ═══ NAV ═══ -->
+<!-- DEV BANNER -->
+<div id="devBanner" style="background:#FFF3CD;border-bottom:2px solid #F5A623;padding:10px 20px;text-align:center;font-size:13px;font-weight:700;color:#664D00;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap">
+  <span>🚧</span>
+  <span data-i18n="dev_banner">Site geliştirme modunda — veriler test / Сайт в режиме разработки — данные тестовые</span>
+  <span>🚧</span>
+</div>
+
+<!-- URGENCY BAR -->
+<div class="urgency-bar">
+  <div class="urgency-track">
+    <span class="ub-item"><span class="ub-badge" data-i18n="stats_free">Ücretsiz</span> <span data-i18n="ub_slogan">Komisyonsuz ilan ver</span></span>
+    <span class="ub-item"><span class="ub-sep">·</span> <span>Türkiye'nin tüm şehirleri</span></span>
+    <span class="ub-item"><span class="ub-sep">·</span> KVKK Uyumlu</span>
+    <span class="ub-item"><span class="ub-sep">·</span> <button class="ub-cta" onclick="openPost()" data-i18n="post_btn">+ İlan ver</button></span>
+    <span class="ub-item" style="width:48px"></span>
+    <span class="ub-item"><span class="ub-badge" data-i18n="stats_free">Ücretsiz</span> <span data-i18n="ub_slogan">Komisyonsuz ilan ver</span></span>
+    <span class="ub-item"><span class="ub-sep">·</span> <span>Türkiye'nin tüm şehirleri</span></span>
+    <span class="ub-item"><span class="ub-sep">·</span> KVKK Uyumlu</span>
+    <span class="ub-item"><span class="ub-sep">·</span> <button class="ub-cta" onclick="openPost()" data-i18n="post_btn">+ İlan ver</button></span>
+    <span class="ub-item" style="width:48px"></span>
+  </div>
+</div>
+
+<!-- FOREX TICKER -->
+<div class="fx-bar">
+  <div class="fx-track" id="fxTrack">
+    <span class="fx-label">💱 KURLAR ₺</span>
+    <span class="fx-item"><span class="fx-flag">🇺🇸</span><span class="fx-code">USD</span><span class="fx-rate" id="fx-usd">…</span>₺</span>
+    <span class="fx-item"><span class="fx-flag">🇪🇺</span><span class="fx-code">EUR</span><span class="fx-rate" id="fx-eur">…</span>₺</span>
+    <span class="fx-item"><span class="fx-flag">🇬🇧</span><span class="fx-code">GBP</span><span class="fx-rate" id="fx-gbp">…</span>₺</span>
+    <span class="fx-item"><span class="fx-flag">🇷🇺</span><span class="fx-code">RUB</span><span class="fx-rate" id="fx-rub">…</span>₺</span>
+    <span class="fx-label">💱 KURLAR ₺</span>
+    <span class="fx-item"><span class="fx-flag">🇺🇸</span><span class="fx-code">USD</span><span class="fx-rate">…</span>₺</span>
+    <span class="fx-item"><span class="fx-flag">🇪🇺</span><span class="fx-code">EUR</span><span class="fx-rate">…</span>₺</span>
+    <span class="fx-item"><span class="fx-flag">🇬🇧</span><span class="fx-code">GBP</span><span class="fx-rate">…</span>₺</span>
+    <span class="fx-item"><span class="fx-flag">🇷🇺</span><span class="fx-code">RUB</span><span class="fx-rate">…</span>₺</span>
+  </div>
+</div>
+
+<!-- NAV -->
 <nav class="nav" id="mainNav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">Alsat<sup>asia</sup></a>
-    <div class="nav-search-wrap">
+    <a class="nav-logo" href="/tr.html">Alsat<sup>TR</sup></a>
+
+    <div class="nav-search-wrap hide-mob">
       <div class="nav-search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" placeholder="Ne arıyorsunuz?">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" data-i18n-placeholder="search_placeholder" placeholder="Ne arıyorsunuz?" id="navSearchInput">
       </div>
     </div>
+
     <div class="nav-right">
-      <span class="nav-phone hide-mob">+90</span>
-      <!-- Country switcher -->
-      <div class="nav-lang" id="navLang">
-        <button class="nav-lang-btn" onclick="toggleLangDrop()" id="langBtn">🇹🇷 TR ▾</button>
-        <div class="nav-lang-drop" id="langDrop">
-          <a class="nav-lang-opt" href="/?nogeo=1">🇰🇿 KZ</a>
-          <a class="nav-lang-opt" href="/kg.html">🇰🇬 KG</a>
-          <a class="nav-lang-opt" href="/uz.html">🇺🇿 UZ</a>
-          <a class="nav-lang-opt active" href="/tr.html">🇹🇷 TR</a>
-          <a class="nav-lang-opt" href="/az.html">🇦🇿 AZ</a>
-        </div>
+      <div class="country-switcher">
+        <a href="/index.html" title="Казахстан">🇰🇿</a>
+        <a href="/kg.html" title="Кыргызстан">🇰🇬</a>
+        <a href="/uz.html" title="Узбекистан">🇺🇿</a>
+        <a href="/tr.html" title="Türkiye" class="current">🇹🇷</a>
+        <a href="/az.html" title="Azərbaycan">🇦🇿</a>
       </div>
-      <button class="btn btn-ghost hide-mob" id="btnLogin" onclick="signInWithGoogle()">Giriş</button>
-      <div class="nav-user-wrap hide-mob" id="navUserWrap" style="display:none">
-        <img class="nav-user-avatar" id="navUserAvatar" src="" alt="">
-        <span class="nav-user-name" id="navUserName"></span>
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="tr" onclick="setLang('tr')">Tr</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">En</button>
+        <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">Ру</button>
       </div>
-      <a href="index.html" class="btn btn-brand">+ İlan Ver</a>
+      <button class="nav-theme" id="themeBtn" onclick="toggleTheme()" title="Tema">☀️</button>
+      <button class="btn btn-ghost hide-mob" onclick="openAuth()" data-i18n="nav_login">Giriş</button>
+      <button class="btn btn-brand hide-mob" onclick="openPost()" data-i18n="nav_post">+ İlan ver</button>
+      <button class="nav-burger hide-desktop" onclick="openDrawer()" aria-label="Menü">☰</button>
     </div>
   </div>
 </nav>
 
-<!-- ═══ HERO ═══ -->
+<!-- MOBILE DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="mob-drawer" id="mobDrawer">
+  <div class="drawer-head">
+    <span class="drawer-logo">Alsat<sup style="font-size:9px;background:var(--navy);color:#fff;padding:1px 4px;border-radius:4px;vertical-align:super">TR</sup></span>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-body">
+    <div class="lang-switcher" style="justify-content:center;margin-bottom:8px">
+      <button class="lang-btn active" data-lang="tr" onclick="setLang('tr')">Tr</button>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">En</button>
+      <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">Ру</button>
+    </div>
+    <button class="btn btn-ghost" style="width:100%" onclick="openAuth();closeDrawer()" data-i18n="drawer_login">Giriş</button>
+    <button class="btn btn-brand" style="width:100%" onclick="openPost();closeDrawer()" data-i18n="drawer_post">+ İlan ver</button>
+    <hr style="border:none;border-top:1px solid var(--border);margin:4px 0">
+    <a href="/index.html" style="display:flex;align-items:center;gap:10px;padding:10px 0;color:var(--text2);font-size:14px;font-weight:600">🇰🇿 Казахстан</a>
+    <a href="/kg.html" style="display:flex;align-items:center;gap:10px;padding:10px 0;color:var(--text2);font-size:14px;font-weight:600">🇰🇬 Кыргызстан</a>
+    <a href="/uz.html" style="display:flex;align-items:center;gap:10px;padding:10px 0;color:var(--text2);font-size:14px;font-weight:600">🇺🇿 Узбекистан</a>
+    <a href="/az.html" style="display:flex;align-items:center;gap:10px;padding:10px 0;color:var(--text2);font-size:14px;font-weight:600">🇦🇿 Azərbaycan</a>
+    <hr style="border:none;border-top:1px solid var(--border);margin:4px 0">
+    <a onclick="openLegal('oferta');closeDrawer()" style="display:flex;align-items:center;gap:10px;padding:10px 0;color:var(--text2);font-size:14px;font-weight:600;cursor:pointer">📄 Kullanım Koşulları</a>
+    <a onclick="openLegal('privacy');closeDrawer()" style="display:flex;align-items:center;gap:10px;padding:10px 0;color:var(--text2);font-size:14px;font-weight:600;cursor:pointer">🔒 KVKK / Gizlilik</a>
+  </div>
+</div>
+
+<!-- HERO -->
 <section class="hero">
   <div class="hero-content">
-    <div class="hero-kicker">🇹🇷 Türkiye · Ücretsiz</div>
-    <h1>Türkiye'de<br>her şeyi <em>Alsat'ta</em> bul</h1>
-    <p class="hero-sub">Milyonlarca ilan · Komisyonsuz · Güvenilir satıcılar</p>
+    <div class="hero-kicker">🇹🇷 <span>alsat.asia</span> · <span class="grn" data-i18n="stats_free">Ücretsiz</span></div>
+    <h1><span data-i18n="hero_title">Türkiye'nin ücretsiz ilanları</span></h1>
+    <p class="hero-sub" data-i18n="hero_subtitle">İstanbul, Ankara, İzmir ve diğer şehirler</p>
 
     <div class="hero-search">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" placeholder="Ne arıyorsunuz?">
-      <button class="hs-btn">Ara</button>
+      <svg width="20" height="20" fill="none" stroke="#9AAAB8" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" data-i18n-placeholder="search_placeholder" placeholder="Ne arıyorsunuz?" id="heroSearch">
+      <button class="hs-btn" onclick="doSearch()">Ara</button>
     </div>
 
-    <div class="hero-cta-wrap">
-      <a href="index.html" class="hero-cta">İlan Ver →</a>
+    <div class="hero-tags">
+      <span class="hero-tag" data-i18n="hero_tag_all" onclick="filterCat('')">Tümü</span>
+      <span class="hero-tag" data-i18n="hero_tag_cars" onclick="filterCat('Araç')">🚗 Araç</span>
+      <span class="hero-tag" data-i18n="hero_tag_realty" onclick="filterCat('Emlak')">🏠 Emlak</span>
+      <span class="hero-tag" data-i18n="hero_tag_jobs" onclick="filterCat('İş')">💼 İş</span>
+      <span class="hero-tag" data-i18n="hero_tag_electronics" onclick="filterCat('Elektronik')">📱 Elektronik</span>
     </div>
 
     <div class="hero-stats">
-      <div class="hero-stat"><strong>200.000+</strong><span>İlan</span></div>
-      <div class="hero-stat"><strong>TRY</strong><span>Lira</span></div>
-      <div class="hero-stat"><strong>81</strong><span>İl</span></div>
-      <div class="hero-stat"><strong>Ücretsiz</strong><span>&nbsp;</span></div>
+      <div class="hero-stat">
+        <strong>0 ₺</strong>
+        <span data-i18n="stats_free">Ücretsiz</span>
+      </div>
+      <div class="hero-stat">
+        <strong>10</strong>
+        <span data-i18n="stats_cities">şehir</span>
+      </div>
+      <div class="hero-stat">
+        <strong>12</strong>
+        <span>kategori</span>
+      </div>
     </div>
 
     <div class="hero-trust">
-      <div class="hero-trust-item"><span class="ck">✓</span> Kayıtsız</div>
-      <div class="hero-trust-item"><span class="ck">✓</span> Komisyonsuz</div>
-      <div class="hero-trust-item"><span class="ck">✓</span> TRY Lira</div>
+      <div class="hero-trust-item"><span class="ck">✓</span> Ücretsiz ilan</div>
+      <div class="hero-trust-item"><span class="ck">✓</span> Komisyon yok</div>
       <div class="hero-trust-item"><span class="ck">✓</span> KVKK Uyumlu</div>
+      <div class="hero-trust-item"><span class="ck">✓</span> BDDK denetimli</div>
     </div>
   </div>
   <div class="hero-wave">
-    <svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 48 C360 0 1080 0 1440 48 L1440 48 L0 48Z" fill="var(--bg)"/></svg>
+    <svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0 48 C360 0 1080 0 1440 48 L1440 48 L0 48Z" fill="var(--bg)"/>
+    </svg>
   </div>
 </section>
 
-<!-- ═══ CATEGORIES ═══ -->
+<main>
+
+<!-- COUNTRIES -->
+<section class="countries-section">
+  <div class="wrap">
+    <p class="countries-label">Ülke seçin / Выберите страну</p>
+    <div class="countries-row">
+      <a href="/index.html" class="country-btn"><span class="country-flag">🇰🇿</span><span class="country-name">Казахстан</span></a>
+      <a href="/kg.html" class="country-btn"><span class="country-flag">🇰🇬</span><span class="country-name">Кыргызстан</span></a>
+      <a href="/uz.html" class="country-btn"><span class="country-flag">🇺🇿</span><span class="country-name">Узбекистан</span></a>
+      <a href="/tr.html" class="country-btn" style="border-color:var(--brand);background:var(--brand-light)"><span class="country-flag">🇹🇷</span><span class="country-name" style="color:var(--brand)">Türkiye</span></a>
+      <a href="/az.html" class="country-btn"><span class="country-flag">🇦🇿</span><span class="country-name">Azərbaycan</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
 <section class="cats-section">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-title">Kategoriler</div>
+      <h2 class="sec-title" data-i18n="cats_title">Kategoriler</h2>
     </div>
-    <div class="cats-grid">
-      <div class="cat-tile" style="--tile-color:#FF5C00;--tile-bg:#FFF3EE">
-        <div class="cat-icon-wrap">🏠</div>
-        <div class="cat-name">Gayrimenkul</div>
-      </div>
-      <div class="cat-tile" style="--tile-color:#1A6EDE;--tile-bg:#EEF4FF">
-        <div class="cat-icon-wrap">🚗</div>
-        <div class="cat-name">Otomobil</div>
-      </div>
-      <div class="cat-tile" style="--tile-color:#00A86B;--tile-bg:#E6F8F3">
-        <div class="cat-icon-wrap">💼</div>
-        <div class="cat-name">İş İlanları</div>
-      </div>
-      <div class="cat-tile" style="--tile-color:#7B1FA2;--tile-bg:#F5EEF8">
-        <div class="cat-icon-wrap">📦</div>
-        <div class="cat-name">Ürünler</div>
-      </div>
+    <div class="cats-grid" id="catsGrid"></div>
+  </div>
+</section>
+
+<!-- ADS -->
+<section class="ads-section">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:14px">
+      <h2 class="sec-title">Son İlanlar</h2>
+      <span class="sec-link" onclick="showToast('Tüm ilanlar — yakında!')">Tümü →</span>
+    </div>
+    <div class="filter-bar" id="filterBar" style="margin-bottom:20px"></div>
+    <div class="ads-grid" id="adsGrid">
+      <div class="ad-card-ph"><div class="ph-img"></div><div class="ph-body"><div class="ph-line"></div><div class="ph-line short"></div><div class="ph-line xs"></div></div></div>
+      <div class="ad-card-ph"><div class="ph-img"></div><div class="ph-body"><div class="ph-line"></div><div class="ph-line short"></div><div class="ph-line xs"></div></div></div>
+      <div class="ad-card-ph"><div class="ph-img"></div><div class="ph-body"><div class="ph-line"></div><div class="ph-line short"></div><div class="ph-line xs"></div></div></div>
+      <div class="ad-card-ph"><div class="ph-img"></div><div class="ph-body"><div class="ph-line"></div><div class="ph-line short"></div><div class="ph-line xs"></div></div></div>
+      <div class="ad-card-ph hide-mob"><div class="ph-img"></div><div class="ph-body"><div class="ph-line"></div><div class="ph-line short"></div><div class="ph-line xs"></div></div></div>
+      <div class="ad-card-ph hide-mob"><div class="ph-img"></div><div class="ph-body"><div class="ph-line"></div><div class="ph-line short"></div><div class="ph-line xs"></div></div></div>
+      <div class="ad-card-ph hide-mob"><div class="ph-img"></div><div class="ph-body"><div class="ph-line"></div><div class="ph-line short"></div><div class="ph-line xs"></div></div></div>
+      <div class="ad-card-ph hide-mob"><div class="ph-img"></div><div class="ph-body"><div class="ph-line"></div><div class="ph-line short"></div><div class="ph-line xs"></div></div></div>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <button class="btn btn-ghost" style="padding:12px 40px;font-size:15px" onclick="showToast('Daha fazla ilan yükleniyor...')">Daha fazla göster</button>
     </div>
   </div>
 </section>
 
-<!-- ═══ WHY US ═══ -->
+<!-- WHY -->
 <section class="why-section">
   <div class="wrap">
-    <div class="sec-head" style="margin-bottom:32px">
-      <div class="sec-title">Neden Alsat?</div>
+    <div class="sec-head" style="justify-content:center;text-align:center;margin-bottom:36px">
+      <h2 class="sec-title">Neden alsat.asia?</h2>
     </div>
     <div class="why-grid">
       <div class="why-card">
-        <div class="why-icon">✅</div>
-        <h3>Ücretsiz</h3>
-        <p>Türkiye'de ilanlarınızı ücretsiz yayınlayın. Hiçbir gizli ücret, hiçbir komisyon yok.</p>
+        <div class="why-icon" style="background:#FFF3EE">🚀</div>
+        <h3>Hızlı İlan</h3>
+        <p>2 dakikada ücretsiz ilan verin — kayıt gerekmez</p>
       </div>
       <div class="why-card">
-        <div class="why-icon">🔒</div>
+        <div class="why-icon" style="background:var(--green-light)">🛡️</div>
         <h3>Güvenli</h3>
-        <p>6563 sayılı E-Ticaret Kanunu'na uygun alışveriş deneyimi. Verileriniz KVKK kapsamında korunur.</p>
+        <p>KVKK uyumlu, doğrulanmış satıcılar, moderasyon</p>
       </div>
       <div class="why-card">
-        <div class="why-icon">📱</div>
-        <h3>Kolay</h3>
-        <p>Kayıt olmadan ilan verin ve göz atın. Her cihazda sorunsuz çalışır.</p>
+        <div class="why-icon" style="background:var(--green-light)">⚡</div>
+        <h3 style="color:var(--green)">0 ₺ Komisyon</h3>
+        <p>Gizli ücret yok — satıcıyla doğrudan iletişim kurun</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:#FFF8E0">🌍</div>
+        <h3>Tüm Türkiye</h3>
+        <p>İstanbul, Ankara, İzmir ve tüm şehirlerde ilanlar</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ KVKK COMPLIANCE ═══ -->
-<section class="kvkk-section">
+<!-- CITIES -->
+<section class="cities-section">
   <div class="wrap">
-    <div class="kvkk-box">
-      <div class="kvkk-badge">⚖️ Yasal Uyumluluk</div>
-      <h2>KVKK &amp; Yasal Uyumluluk</h2>
-      <div class="kvkk-grid">
-        <div class="kvkk-item">
-          <h4>Veri Sorumlusu</h4>
-          <p>Alsat Asia<br><a href="mailto:adilkurmanov9@gmail.com">adilkurmanov9@gmail.com</a></p>
-        </div>
-        <div class="kvkk-item">
-          <h4>Yargı Yetkisi</h4>
-          <p>Türkiye Cumhuriyeti</p>
-        </div>
-        <div class="kvkk-item">
-          <h4>İletişim</h4>
-          <p>+90 (XXX) XXX-XX-XX</p>
-        </div>
-        <div class="kvkk-item">
-          <h4>Geçerli Mevzuat</h4>
-          <p>6698 sayılı KVKK · 6563 sayılı E-Ticaret Kanunu · 6502 sayılı Tüketici Kanunu</p>
-        </div>
-      </div>
-      <div class="kvkk-full">
-        <h4>Yasal Açıklama</h4>
-        <p>Bu platform, 6563 sayılı Elektronik Ticaret Kanunu, 6502 sayılı Tüketicinin Korunması Hakkında Kanun ve 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında faaliyet göstermektedir. Platformda yayınlanan tüm ilanlar kullanıcı tarafından oluşturulmaktadır; Alsat Asia bu ilanların içeriğinden yasal olarak sorumlu değildir. Tüketici hakları ve yasal yükümlülükler için yukarıdaki iletişim bilgilerinden bize ulaşabilirsiniz.</p>
-      </div>
+    <div class="sec-head">
+      <h2 class="sec-title">Popüler Şehirler</h2>
+    </div>
+    <div class="cities-grid">
+      <div class="city-tile" onclick="setCity('İstanbul')"><div><div class="city-tile-name">İstanbul</div><div class="city-tile-count">en büyük şehir</div></div><span class="city-tile-flag">🌉</span></div>
+      <div class="city-tile" onclick="setCity('Ankara')"><div><div class="city-tile-name">Ankara</div><div class="city-tile-count">başkent</div></div><span class="city-tile-flag">🏛</span></div>
+      <div class="city-tile" onclick="setCity('İzmir')"><div><div class="city-tile-name">İzmir</div><div class="city-tile-count">ege kenti</div></div><span class="city-tile-flag">🌊</span></div>
+      <div class="city-tile" onclick="setCity('Bursa')"><div><div class="city-tile-name">Bursa</div><div class="city-tile-count">sanayi</div></div><span class="city-tile-flag">🏔</span></div>
+      <div class="city-tile" onclick="setCity('Antalya')"><div><div class="city-tile-name">Antalya</div><div class="city-tile-count">turizm</div></div><span class="city-tile-flag">🏖</span></div>
+      <div class="city-tile" onclick="setCity('Adana')"><div><div class="city-tile-name">Adana</div><div class="city-tile-count">güney</div></div><span class="city-tile-flag">🌶</span></div>
+      <div class="city-tile" onclick="setCity('Konya')"><div><div class="city-tile-name">Konya</div><div class="city-tile-count">orta anadolu</div></div><span class="city-tile-flag">🌾</span></div>
+      <div class="city-tile" onclick="setCity('Gaziantep')"><div><div class="city-tile-name">Gaziantep</div><div class="city-tile-count">güneydoğu</div></div><span class="city-tile-flag">🏺</span></div>
+      <div class="city-tile" onclick="setCity('Mersin')"><div><div class="city-tile-name">Mersin</div><div class="city-tile-count">liman kenti</div></div><span class="city-tile-flag">⚓</span></div>
+      <div class="city-tile" onclick="setCity('Şanlıurfa')"><div><div class="city-tile-name">Şanlıurfa</div><div class="city-tile-count">güneydoğu</div></div><span class="city-tile-flag">☀️</span></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ KVKK PRIVACY POLICY ═══ -->
-<section class="privacy-section" id="kvkk">
+<!-- APP / BOT -->
+<section class="app-section">
   <div class="wrap">
-    <div class="privacy-box">
-      <h2>KVKK Aydınlatma Metni</h2>
-
-      <div class="privacy-block">
-        <h3>1. Veri Sorumlusu</h3>
-        <p>6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, kişisel verileriniz veri sorumlusu sıfatıyla <strong>Alsat Asia</strong> (adilkurmanov9@gmail.com) tarafından aşağıda açıklanan amaçlar kapsamında işlenebilecektir.</p>
+    <div class="app-card">
+      <div class="app-text">
+        <div class="app-kicker">Telegram Botu</div>
+        <h2>alsat.asia Telegram'da</h2>
+        <p>Botumuz ilanları kontrol eder, spam'i önler ve sorularınızı yanıtlar — 7/24 hizmetinizde.</p>
+        <a href="https://t.me/Alsat_Asia_bot" class="app-tg-btn" target="_blank" rel="noopener">
+          <span style="font-size:20px">✈️</span> Botu aç
+        </a>
       </div>
-
-      <div class="privacy-block">
-        <h3>2. İşlenen Kişisel Veriler</h3>
-        <p>Platformumuzda aşağıdaki kişisel veriler işlenebilmektedir:</p>
-        <ul>
-          <li>İletişim bilgileri (e-posta adresi, telefon numarası)</li>
-          <li>Kullanım verileri (IP adresi, tarayıcı bilgisi, ziyaret süreleri)</li>
-          <li>İlan içerikleri (başlık, açıklama, fiyat, konum bilgisi)</li>
-          <li>Çerez verileri (oturum çerezleri, tercih çerezleri)</li>
-        </ul>
-      </div>
-
-      <div class="privacy-block">
-        <h3>3. İşleme Amaçları</h3>
-        <p>Kişisel verileriniz aşağıdaki amaçlarla işlenmektedir:</p>
-        <ul>
-          <li>Platform hizmetlerinin sunulması ve iyileştirilmesi</li>
-          <li>İlan yayınlama ve yönetim süreçlerinin yürütülmesi</li>
-          <li>Kullanıcı güvenliğinin sağlanması ve dolandırıcılığın önlenmesi</li>
-          <li>Yasal yükümlülüklerin yerine getirilmesi</li>
-          <li>Müşteri destek hizmetlerinin sağlanması</li>
-        </ul>
-      </div>
-
-      <div class="privacy-block">
-        <h3>4. Hukuki Dayanak</h3>
-        <p>Kişisel verileriniz; 6698 sayılı KVKK'nın 5. maddesi kapsamında "sözleşmenin ifası", "meşru menfaat" ve "açık rıza" hukuki sebeplerine dayanılarak işlenmektedir.</p>
-      </div>
-
-      <div class="privacy-block">
-        <h3>5. Saklama Süresi</h3>
-        <p>Kişisel verileriniz, işlenme amacının gerektirdiği süre boyunca ve ilgili yasal düzenlemelerde öngörülen süreler içinde saklanmaktadır. İlan verileri, ilanın kaldırılmasından itibaren en fazla 2 yıl süreyle tutulabilir.</p>
-      </div>
-
-      <div class="privacy-block">
-        <h3>6. Veri Aktarımı</h3>
-        <p>Kişisel verileriniz; yasal zorunluluklar dışında üçüncü taraflara aktarılmamaktadır. Platform altyapısı için kullanılan hizmet sağlayıcılarla KVKK kapsamında gerekli güvenceler sağlanmaktadır.</p>
-      </div>
-
-      <div class="privacy-block">
-        <h3>7. İlgili Kişi Hakları (KVKK Madde 11)</h3>
-        <p>KVKK'nın 11. maddesi kapsamında aşağıdaki haklara sahipsiniz:</p>
-        <ul>
-          <li><strong>Erişim hakkı:</strong> Kişisel verilerinizin işlenip işlenmediğini öğrenme ve işlenmişse bilgi talep etme</li>
-          <li><strong>Düzeltme hakkı:</strong> Eksik veya yanlış işlenmiş verilerinizin düzeltilmesini isteme</li>
-          <li><strong>Silme hakkı:</strong> KVKK'da öngörülen şartlar çerçevesinde kişisel verilerinizin silinmesini isteme</li>
-          <li><strong>İşlemenin kısıtlanması:</strong> Kişisel verilerinizin işlenmesinin kısıtlanmasını talep etme</li>
-          <li><strong>İtiraz hakkı:</strong> İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle aleyhinize bir sonuç ortaya çıkmasına itiraz etme</li>
-          <li><strong>Tazminat hakkı:</strong> Kişisel verilerin kanuna aykırı işlenmesi sebebiyle zarara uğramanız hâlinde zararın giderilmesini talep etme</li>
-        </ul>
-        <p style="margin-top:10px">Bu haklarınızı kullanmak için <a href="mailto:adilkurmanov9@gmail.com" style="color:var(--brand)">adilkurmanov9@gmail.com</a> adresine yazılı başvuruda bulunabilirsiniz.</p>
-      </div>
-
-      <div class="privacy-block">
-        <h3>8. Çerezler</h3>
-        <p>Platformumuz, kullanıcı deneyimini iyileştirmek amacıyla çerezler kullanmaktadır. Zorunlu çerezler hizmetin işleyişi için gereklidir. Tercihlerinize bağlı çerezleri tarayıcı ayarlarınızdan devre dışı bırakabilirsiniz.</p>
-      </div>
-
-      <div class="privacy-block">
-        <h3>9. Şikâyet ve Başvuru</h3>
-        <p>Kişisel verilerinizin işlenmesiyle ilgili şikâyetlerinizi Kişisel Verileri Koruma Kurumu'na (KVKK) iletebilirsiniz: <strong>kvkk.gov.tr</strong></p>
-      </div>
+      <div class="app-emoji">🤖</div>
     </div>
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="wrap">
+    <div class="sec-head" style="justify-content:center;text-align:center;margin-bottom:32px">
+      <h2 class="sec-title" data-i18n="faq_title">Sık Sorulan Sorular</h2>
+    </div>
+    <div class="faq-grid" id="faqGrid"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
 <footer class="footer">
   <div class="wrap">
-    <div class="footer-top">
+    <div class="footer-grid">
       <div>
-        <div class="footer-brand">Alsat<sup>asia</sup></div>
-        <p class="footer-tagline">Türkiye'nin ücretsiz ilan platformu. Milyonlarca ilan, komisyonsuz.</p>
-        <div class="footer-contact">
-          Veri sorumlusu: <a href="mailto:adilkurmanov9@gmail.com">adilkurmanov9@gmail.com</a><br>
-          Telefon: +90 (XXX) XXX-XX-XX<br>
-          Para birimi: TRY (Türk Lirası)
+        <div class="footer-brand">Alsat<sup>TR</sup></div>
+        <p class="footer-tagline" data-i18n="footer_tagline">Türkiye'nin ücretsiz ilan sitesi</p>
+        <div class="footer-kvkk" data-i18n="kvkk_note">KVKK Uyumu: Kişisel verileriniz 6698 sayılı KVKK kapsamında işlenmektedir.</div>
+      </div>
+      <div>
+        <h4>Yardım</h4>
+        <div class="footer-links">
+          <a onclick="scrollToFaq()">Sık Sorulan Sorular</a>
+          <a href="mailto:adilkurmanov9@gmail.com">Destek</a>
+          <a href="https://t.me/Alsat_Asia_bot" target="_blank">Telegram Bot</a>
+          <a onclick="openLegal('privacy')">Gizlilik / KVKK</a>
         </div>
       </div>
-      <div class="footer-links-col">
-        <h4>Bağlantılar</h4>
+      <div>
+        <h4>Site</h4>
         <div class="footer-links">
-          <a href="#kvkk">Gizlilik Politikası</a>
-          <a href="#kvkk">KVKK Aydınlatma Metni</a>
-          <a href="#">Kullanıcı Sözleşmesi</a>
-          <a href="https://t.me/Alsat_Asia_bot" target="_blank" rel="noopener">Telegram Bot</a>
+          <a onclick="showToast('Yakında!')">Hakkımızda</a>
+          <a onclick="showToast('Yakında!')">Reklam</a>
+          <a onclick="openLegal('oferta')">Kullanım Koşulları</a>
+          <a onclick="showToast('Yakında!')">Güvenlik</a>
         </div>
       </div>
-      <div class="footer-links-col">
-        <h4>Platform</h4>
+      <div>
+        <h4>Diğer Ülkeler</h4>
         <div class="footer-links">
-          <a href="index.html">Ana Sayfa</a>
-          <a href="index.html">İlan Ver</a>
-          <a href="#">Kategoriler</a>
-          <a href="#">İletişim</a>
+          <a href="/index.html">🇰🇿 Казахстан</a>
+          <a href="/kg.html">🇰🇬 Кыргызстан</a>
+          <a href="/uz.html">🇺🇿 Узбекистан</a>
+          <a href="/az.html">🇦🇿 Azərbaycan</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Alsat · Türkiye · KVKK Uyumlu · 6563 sayılı Kanun</span>
-      <div class="footer-legal-links">
-        <a href="#kvkk">Gizlilik Politikası</a>
-        <a href="#kvkk">KVKK Aydınlatma Metni</a>
-        <a href="#">Kullanıcı Sözleşmesi</a>
+      <span>© 2026 alsat.asia · Türkiye</span>
+      <div class="footer-legal">
+        <a onclick="openLegal('privacy')">KVKK / Gizlilik</a>
+        <a onclick="openLegal('oferta')">Kullanım Koşulları</a>
       </div>
     </div>
   </div>
 </footer>
 
-<!-- ═══ KVKK COOKIE CONSENT BANNER ═══ -->
-<div id="kvkk-banner">
-  <p>Bu site, kullanıcı deneyimini iyileştirmek amacıyla çerezler kullanmaktadır. KVKK kapsamında kişisel verileriniz işlenmektedir. Daha fazla bilgi için <a href="#kvkk">Aydınlatma Metni</a>'ni inceleyebilirsiniz.</p>
-  <div class="kvkk-banner-btns">
-    <button class="kvkk-accept-btn" id="kvkk-accept">Kabul Et</button>
-    <a href="#kvkk" class="kvkk-more-btn">Daha Fazla Bilgi</a>
+<!-- FAB -->
+<button class="fab" onclick="openPost()">
+  <span style="font-size:18px">＋</span> <span data-i18n="post_btn">İlan ver</span>
+</button>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- POST MODAL -->
+<div class="overlay" id="postOverlay" onclick="if(event.target===this)closePost()">
+  <div class="modal post-modal">
+    <div class="modal-head" style="position:relative">
+      <button class="modal-close-btn" onclick="closePost()">✕</button>
+      <h2 data-i18n="nav_post">İlan ver</h2>
+      <p>Tüm alanları doldurun — ücretsiz!</p>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>Başlık *</label>
+        <input type="text" id="post_title" placeholder="İlan başlığı">
+      </div>
+      <div class="field">
+        <label>Kategori *</label>
+        <select id="post_cat">
+          <option value="">— Seçin —</option>
+          <option>Araç & Ulaşım</option>
+          <option>Emlak</option>
+          <option>İş & Kariyer</option>
+          <option>Elektronik</option>
+          <option>Giyim & Moda</option>
+          <option>Ev & Bahçe</option>
+          <option>Hayvanlar</option>
+          <option>İş Ekipmanları</option>
+          <option>Hobi & Spor</option>
+          <option>Çocuk & Bebek</option>
+          <option>Finansal Hizmetler (BDDK)</option>
+          <option>Diğer</option>
+        </select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="field">
+          <label>Fiyat (₺)</label>
+          <input type="number" id="post_price" placeholder="0">
+        </div>
+        <div class="field">
+          <label>Şehir *</label>
+          <select id="post_city">
+            <option value="">— Seçin —</option>
+            <option>İstanbul</option><option>Ankara</option><option>İzmir</option>
+            <option>Bursa</option><option>Antalya</option><option>Adana</option>
+            <option>Konya</option><option>Mersin</option><option>Gaziantep</option>
+            <option>Şanlıurfa</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Açıklama</label>
+        <textarea id="post_desc" placeholder="İlanınızı detaylı açıklayın..."></textarea>
+      </div>
+      <div class="field">
+        <label>Telefon *</label>
+        <input type="tel" id="post_phone" placeholder="+90 5xx xxx xx xx">
+      </div>
+      <div class="field">
+        <label>Fotoğraf (opsiyonel)</label>
+        <input type="file" id="post_photo" accept="image/*" multiple>
+      </div>
+      <div class="kvkk-note">🔒 Kişisel verileriniz 6698 sayılı KVKK kapsamında işlenmektedir. İlan vererek <a href="#" onclick="openLegal('oferta');return false" style="color:var(--brand)">Kullanım Koşulları</a>'nı kabul etmiş sayılırsınız.</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closePost()">İptal</button>
+      <button class="btn-submit" onclick="submitPost()" data-i18n="post_btn">İlan ver</button>
+    </div>
   </div>
 </div>
 
-<!-- ═══ FAB (mobile) ═══ -->
-<a href="index.html" class="fab">+ İlan Ver</a>
+<!-- AUTH MODAL -->
+<div class="overlay" id="authOverlay" onclick="if(event.target===this)closeAuth()">
+  <div class="modal" style="max-width:400px">
+    <div class="auth-head" style="position:relative">
+      <button class="modal-close-btn" onclick="closeAuth()">✕</button>
+      <h2 data-i18n="nav_login">Giriş Yap</h2>
+      <p>alsat.asia hesabınıza giriş yapın</p>
+    </div>
+    <div class="modal-body">
+      <button onclick="signInWithGoogle()" style="width:100%;display:flex;align-items:center;justify-content:center;gap:12px;padding:13px 20px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--surface);font-size:15px;font-weight:600;cursor:pointer;transition:.15s" onmouseover="this.style.borderColor='var(--brand)'" onmouseout="this.style.borderColor='var(--border)'">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Google ile giriş yap
+      </button>
+      <p style="text-align:center;font-size:12px;color:var(--text3);margin-top:16px">Giriş yaparak KVKK ve Kullanım Koşulları'nı kabul etmiş sayılırsınız.</p>
+    </div>
+  </div>
+</div>
 
+<!-- AD DETAIL MODAL -->
+<div class="overlay" id="adDetailOverlay" onclick="if(event.target===this)closeAdModal()">
+  <div class="modal ad-modal" id="adDetailModal">
+    <div class="ad-modal-gallery" id="adModalGallery">
+      <button class="ad-modal-close" onclick="closeAdModal()">×</button>
+    </div>
+    <div class="ad-modal-body">
+      <div class="ad-modal-price" id="adModalPrice"></div>
+      <div class="ad-modal-title" id="adModalTitle"></div>
+      <div class="ad-modal-meta" id="adModalMeta"></div>
+      <div style="font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Açıklama</div>
+      <div class="ad-modal-desc" id="adModalDesc"></div>
+    </div>
+    <div class="ad-modal-phones" id="adModalPhones"></div>
+  </div>
+</div>
+
+<!-- CITY PICKER MODAL -->
+<div class="overlay" id="cityOverlay" onclick="if(event.target===this)closeCityPicker()">
+  <div class="modal" style="max-width:480px;padding:0;overflow:hidden">
+    <div class="modal-head" style="padding:16px 20px;background:var(--surface);border-bottom:1px solid var(--border)">
+      <span style="font-size:15px;font-weight:700;color:var(--text)">Şehir Seç</span>
+      <button class="modal-close-btn" style="position:static;background:var(--surface2);color:var(--text2)" onclick="closeCityPicker()">✕</button>
+    </div>
+    <div class="city-pick-grid">
+      <div class="city-tile" onclick="setCity('Tüm Türkiye');closeCityPicker()"><div><div class="city-tile-name" style="color:var(--green)">Tüm Türkiye</div></div><span class="city-tile-flag">🇹🇷</span></div>
+      <div class="city-tile" onclick="setCity('İstanbul');closeCityPicker()"><div><div class="city-tile-name">İstanbul</div></div><span class="city-tile-flag">🌉</span></div>
+      <div class="city-tile" onclick="setCity('Ankara');closeCityPicker()"><div><div class="city-tile-name">Ankara</div></div><span class="city-tile-flag">🏛</span></div>
+      <div class="city-tile" onclick="setCity('İzmir');closeCityPicker()"><div><div class="city-tile-name">İzmir</div></div><span class="city-tile-flag">🌊</span></div>
+      <div class="city-tile" onclick="setCity('Bursa');closeCityPicker()"><div><div class="city-tile-name">Bursa</div></div><span class="city-tile-flag">🏔</span></div>
+      <div class="city-tile" onclick="setCity('Antalya');closeCityPicker()"><div><div class="city-tile-name">Antalya</div></div><span class="city-tile-flag">🏖</span></div>
+      <div class="city-tile" onclick="setCity('Adana');closeCityPicker()"><div><div class="city-tile-name">Adana</div></div><span class="city-tile-flag">🌶</span></div>
+      <div class="city-tile" onclick="setCity('Konya');closeCityPicker()"><div><div class="city-tile-name">Konya</div></div><span class="city-tile-flag">🌾</span></div>
+      <div class="city-tile" onclick="setCity('Mersin');closeCityPicker()"><div><div class="city-tile-name">Mersin</div></div><span class="city-tile-flag">⚓</span></div>
+      <div class="city-tile" onclick="setCity('Gaziantep');closeCityPicker()"><div><div class="city-tile-name">Gaziantep</div></div><span class="city-tile-flag">🏺</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- LEGAL MODAL -->
+<div class="legal-modal-ov" id="legalOv" onclick="if(event.target===this)closeLegal()">
+  <div class="legal-box">
+    <div class="legal-head">
+      <h2 id="legalTitle">Kullanım Koşulları</h2>
+      <button class="legal-close" onclick="closeLegal()">✕</button>
+    </div>
+    <div class="legal-body" id="legalBody"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" onerror="this.remove()"></script>
 <script>
-// Nav scroll shadow
-window.addEventListener('scroll',()=>{
+// ═══════════════════
+// SUPABASE
+// ═══════════════════
+var SURL='https://hbdwsimkrqopwbzaexhr.supabase.co';
+var SKEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhiZHdzaW1rcnFvcHdoemFleGhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYxOTUzNDUsImV4cCI6MjA2MTc3MTM0NX0.xmpSJqn09G4OzHnDxpCHLOmlb1UbOJgPaYQ7xGiJT9A';
+var _sbClient;
+try{_sbClient=supabase.createClient(SURL,SKEY);}catch(e){
+  _sbClient={auth:{signInWithOAuth:function(o){window.location.href=SURL+'/auth/v1/authorize?provider=google&redirect_to='+encodeURIComponent(o&&o.options&&o.options.redirectTo||'https://alsat.asia/tr.html');return Promise.resolve({error:null})},onAuthStateChange:function(){}}};
+}
+
+// ═══════════════════
+// i18n
+// ═══════════════════
+var LANGS={
+  tr:{
+    nav_login:'Giriş',nav_post:'İlan ver',
+    hero_title:"Türkiye'nin ücretsiz ilanları",
+    hero_subtitle:'İstanbul, Ankara, İzmir ve diğer şehirler',
+    search_placeholder:'Ne arıyorsunuz?',
+    hero_tag_all:'Tümü',hero_tag_cars:'Araç',hero_tag_realty:'Emlak',
+    hero_tag_jobs:'İş',hero_tag_electronics:'Elektronik',
+    stats_ads:'ilan',stats_cities:'şehir',stats_free:'Ücretsiz',
+    cats_title:'Kategoriler',post_btn:'İlan ver',
+    drawer_login:'Giriş',drawer_post:'İlan ver',
+    faq_title:'Sık Sorulan Sorular',
+    footer_free:'Ücretsiz',footer_tagline:"Türkiye'nin ücretsiz ilan sitesi",
+    dev_banner:'Site geliştirme modunda — veriler test / Сайт в режиме разработки — данные тестовые',
+    kvkk_note:'KVKK Uyumu: Kişisel verileriniz 6698 sayılı KVKK kapsamında işlenmektedir.',
+    ub_slogan:'Komisyonsuz ilan ver',callBtn:'Ara',verified:'✓ Onaylı',freeLabel:'Ücretsiz',
+  },
+  en:{
+    nav_login:'Sign in',nav_post:'Post ad',
+    hero_title:'Free classifieds of Turkey',
+    hero_subtitle:'Istanbul, Ankara, Izmir and other cities',
+    search_placeholder:'What are you looking for?',
+    hero_tag_all:'All',hero_tag_cars:'Cars',hero_tag_realty:'Real estate',
+    hero_tag_jobs:'Jobs',hero_tag_electronics:'Electronics',
+    stats_ads:'ads',stats_cities:'cities',stats_free:'Free',
+    cats_title:'Categories',post_btn:'Post ad',
+    drawer_login:'Sign in',drawer_post:'Post ad',
+    faq_title:'FAQ',footer_free:'Free',footer_tagline:'Free classifieds of Turkey',
+    dev_banner:'Site in development mode — data is test only',
+    kvkk_note:'KVKK Compliance: Your personal data is processed under Turkish Law No. 6698.',
+    ub_slogan:'Post ads without commission',callBtn:'Call',verified:'✓ Verified',freeLabel:'Free',
+  },
+  ru:{
+    nav_login:'Войти',nav_post:'Подать объявление',
+    hero_title:'Бесплатные объявления Турции',
+    hero_subtitle:'Стамбул, Анкара, Измир и другие города',
+    search_placeholder:'Что ищете?',
+    hero_tag_all:'Все',hero_tag_cars:'Авто',hero_tag_realty:'Недвижимость',
+    hero_tag_jobs:'Работа',hero_tag_electronics:'Электроника',
+    stats_ads:'объявлений',stats_cities:'городов',stats_free:'Бесплатно',
+    cats_title:'Категории',post_btn:'Подать объявление',
+    drawer_login:'Войти',drawer_post:'Подать объявление',
+    faq_title:'Вопросы и ответы',footer_free:'Бесплатно',footer_tagline:'Бесплатные объявления Турции',
+    dev_banner:'Site geliştirme modunda — veriler test / Сайт в режиме разработки — данные тестовые',
+    kvkk_note:'KVKK: Личные данные обрабатываются согласно турецкому закону №6698.',
+    ub_slogan:'Размещай без комиссий',callBtn:'Позвонить',verified:'✓ Проверен',freeLabel:'Бесплатно',
+  }
+};
+
+var currentLang=localStorage.getItem('tr_lang')||'tr';
+
+function setLang(code){
+  currentLang=code;
+  localStorage.setItem('tr_lang',code);
+  var t=LANGS[code];
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key=el.getAttribute('data-i18n');
+    if(t[key]!==undefined) el.textContent=t[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
+    var key=el.getAttribute('data-i18n-placeholder');
+    if(t[key]!==undefined) el.placeholder=t[key];
+  });
+  document.querySelectorAll('.lang-btn').forEach(function(btn){
+    btn.classList.toggle('active',btn.dataset.lang===code);
+  });
+  renderFaq();
+  renderChips();
+}
+
+// ═══════════════════
+// CATEGORIES DATA
+// ═══════════════════
+var CATS=[
+  {name:'Araç & Ulaşım',emoji:'🚗',color:'#1565C0',bg:'#E8F0FE',id:'arac'},
+  {name:'Emlak',emoji:'🏠',color:'#FF5C00',bg:'#FFF3EE',id:'emlak'},
+  {name:'İş & Kariyer',emoji:'💼',color:'#2E7D32',bg:'#E8F5E9',id:'is'},
+  {name:'Elektronik',emoji:'📱',color:'#6A1B9A',bg:'#F3E5F5',id:'elec'},
+  {name:'Giyim & Moda',emoji:'👗',color:'#E91E63',bg:'#FCE4EC',id:'giyim'},
+  {name:'Ev & Bahçe',emoji:'🏠',color:'#00695C',bg:'#E0F2F1',id:'ev'},
+  {name:'Hayvanlar',emoji:'🐾',color:'#5D4037',bg:'#EFEBE9',id:'hayvan'},
+  {name:'İş Ekipmanları',emoji:'⚙️',color:'#37474F',bg:'#ECEFF1',id:'ekip'},
+  {name:'Hobi & Spor',emoji:'🎮',color:'#C62828',bg:'#FFEBEE',id:'hobi'},
+  {name:'Çocuk & Bebek',emoji:'👶',color:'#7B1FA2',bg:'#F3E5F5',id:'cocuk'},
+  {name:'Finansal Hizmetler',emoji:'💰',color:'#F57F17',bg:'#FFF8E1',id:'finans',bddk:true},
+  {name:'Diğer',emoji:'🌍',color:'#00838F',bg:'#E0F7FA',id:'diger'},
+];
+
+// ═══════════════════
+// RENDER CATS
+// ═══════════════════
+function renderCats(){
+  var g=document.getElementById('catsGrid');
+  if(!g) return;
+  var html='';
+  CATS.forEach(function(c){
+    html+='<div class="cat-tile" style="--tile-color:'+c.color+';--tile-bg:'+c.bg+'" onclick="filterCat(\''+c.name+'\')">'
+      +'<div class="cat-icon-wrap"><span>'+c.emoji+'</span></div>'
+      +'<div class="cat-name">'+c.name+'</div>'
+      +(c.bddk?'<div class="cat-bddk">BDDK denetiminde</div>':'<div class="cat-count" id="cc-'+c.id+'">–</div>')
+      +'</div>';
+  });
+  g.innerHTML=html;
+}
+renderCats();
+
+// ═══════════════════
+// FILTER CHIPS
+// ═══════════════════
+var activeFilter='';
+var ALL_ADS=[];
+var _adsStore={};
+
+function renderChips(){
+  var bar=document.getElementById('filterBar');
+  if(!bar) return;
+  var L=LANGS[currentLang]||LANGS.tr;
+  var html='<div class="chip'+(activeFilter===''?' active':'')+'" data-cat="">🔥 '+(L.hero_tag_all||'Tümü')+'</div>';
+  CATS.forEach(function(c){
+    html+='<div class="chip'+(activeFilter===c.name?' active':'')+'" data-cat="'+c.name+'">'+c.emoji+' '+c.name+'</div>';
+  });
+  bar.innerHTML=html;
+  bar.querySelectorAll('.chip').forEach(function(chip){
+    chip.addEventListener('click',function(){
+      bar.querySelectorAll('.chip').forEach(function(c){c.classList.remove('active')});
+      chip.classList.add('active');
+      activeFilter=chip.dataset.cat||'';
+      var filtered=activeFilter?ALL_ADS.filter(function(a){return a.cat_label===activeFilter}):ALL_ADS;
+      renderAds(filtered);
+    });
+  });
+}
+renderChips();
+
+// ═══════════════════
+// FAQ DATA & RENDER
+// ═══════════════════
+var FAQS_DATA={
+  tr:[
+    {q:'İlan nasıl veririm?',a:"Sayfanın üst kısmındaki '+ İlan ver' butonuna tıklayın. Kategori, başlık, açıklama, fiyat ve telefon numaranızı doldurun — hazır."},
+    {q:'İlan vermek ücretli mi?',a:'İlan vermek tamamen ücretsizdir. Gizli ücret yoktur.'},
+    {q:'Satıcıyla nasıl iletişime geçebilirim?',a:"İlan kartındaki 'Ara' veya 'WhatsApp' butonuna tıklayın."},
+    {q:'Kişisel verilerim güvende mi?',a:'Verileriniz 6698 sayılı KVKK kapsamında işlenmekte ve üçüncü şahıslarla paylaşılmamaktadır.'},
+    {q:'Finansal ilanlar BDDK denetiminde mi?',a:'Evet. Finansal Hizmetler kategorisindeki ilanlar BDDK denetimi kapsamında değerlendirilmektedir.'},
+  ],
+  en:[
+    {q:'How do I post an ad?',a:"Click '+ Post ad' at the top. Fill in category, title, description, price and phone number — done."},
+    {q:'Is it free to post?',a:'Posting ads is completely free. No hidden fees.'},
+    {q:'How do I contact a seller?',a:"Click 'Call' or 'WhatsApp' on the listing card."},
+    {q:'Is my personal data safe?',a:'Your data is processed under Turkish Law No. 6698 (KVKK) and not shared with third parties.'},
+    {q:'Are financial listings under BDDK supervision?',a:'Yes. Listings in the Financial Services category are subject to BDDK regulatory oversight.'},
+  ],
+  ru:[
+    {q:'Как подать объявление?',a:"Нажмите '+ Подать объявление' вверху страницы. Заполните категорию, заголовок, описание, цену и телефон — готово."},
+    {q:'Сколько стоит размещение?',a:'Размещение объявлений бесплатно. Никаких скрытых платежей.'},
+    {q:'Как связаться с продавцом?',a:"Нажмите 'Позвонить' или 'WhatsApp' в карточке объявления."},
+    {q:'Мои персональные данные в безопасности?',a:'Ваши данные обрабатываются согласно турецкому закону KVKK №6698 и не передаются третьим лицам.'},
+    {q:'Финансовые объявления под надзором BDDK?',a:'Да. Объявления в категории «Финансовые услуги» подпадают под надзор BDDK.'},
+  ]
+};
+
+function renderFaq(){
+  var g=document.getElementById('faqGrid');
+  if(!g) return;
+  var faqs=FAQS_DATA[currentLang]||FAQS_DATA.tr;
+  var html='';
+  faqs.forEach(function(f,i){
+    html+='<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this,'+i+')" id="fq'+i+'">'+f.q
+      +'<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>'
+      +'<div class="faq-a" id="fa'+i+'"><div class="faq-a-inner">'+f.a+'</div></div></div>';
+  });
+  g.innerHTML=html;
+}
+renderFaq();
+
+function toggleFaq(btn,i){
+  var wasOpen=btn.classList.contains('open');
+  document.querySelectorAll('.faq-q').forEach(function(q){q.classList.remove('open')});
+  document.querySelectorAll('.faq-a').forEach(function(a){a.classList.remove('open')});
+  if(!wasOpen){btn.classList.add('open');document.getElementById('fa'+i).classList.add('open');}
+}
+
+// ═══════════════════
+// LOAD ADS
+// ═══════════════════
+function parseFirstPhoto(photos){
+  if(!photos) return null;
+  if(typeof photos==='string'){var s=photos.trim();if(s.startsWith('[')){try{photos=JSON.parse(s);}catch(e){return null;}}else if(s.startsWith('data:')||s.startsWith('http')) return s;else return null;}
+  if(!Array.isArray(photos)||!photos.length) return null;
+  var first=photos[0];
+  if(typeof first==='string'){var f=first.trim();if(f.startsWith('[')){try{var arr=JSON.parse(f);return arr[0]||null;}catch(e){return null;}}if(f.startsWith('data:')||f.startsWith('http')) return f;}
+  return null;
+}
+function parseAllPhotos(photos){
+  if(!photos) return [];
+  if(typeof photos==='string'){var s=photos.trim();if(s.startsWith('[')){try{photos=JSON.parse(s);}catch(e){return [];}}else if(s.startsWith('data:')||s.startsWith('http')) return [s];else return [];}
+  if(!Array.isArray(photos)) return [];
+  var result=[];
+  photos.forEach(function(p){if(typeof p==='string'){var f=p.trim();if(f.startsWith('data:')||f.startsWith('http')) result.push(f);}});
+  return result;
+}
+
+function timeSince(ds){
+  if(!ds) return '';
+  var diff=Math.floor((Date.now()-new Date(ds).getTime())/60000);
+  if(diff<60) return diff+'dk';
+  if(diff<1440) return Math.floor(diff/60)+'sa';
+  return Math.floor(diff/1440)+'g';
+}
+
+function renderAds(ads){
+  var g=document.getElementById('adsGrid');
+  var L=LANGS[currentLang]||LANGS.tr;
+  if(!ads||!ads.length){
+    g.innerHTML='<p style="color:var(--text3);text-align:center;grid-column:1/-1;padding:40px">Henüz ilan yok — ilk ilanı siz verin!</p>';
+    return;
+  }
+  var EMOJIS={'Araç & Ulaşım':'🚗','Emlak':'🏠','İş & Kariyer':'💼','Elektronik':'📱','Giyim & Moda':'👗','Ev & Bahçe':'🏡','Hayvanlar':'🐾','İş Ekipmanları':'⚙️','Hobi & Spor':'🎮','Çocuk & Bebek':'👶','Finansal Hizmetler':'💰','Diğer':'🌍'};
+  ads.forEach(function(a){_adsStore[String(a.id)]=a;});
+  var html=ads.map(function(a){
+    var price=a.price?Number(a.price).toLocaleString('tr-TR')+' ₺':(L.freeLabel||'Ücretsiz');
+    var emoji=EMOJIS[a.cat_label]||'📦';
+    var photo=parseFirstPhoto(a.photos);
+    var imgHtml=photo?'<img src="'+photo+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">'
+      :'<div class="ad-img-placeholder">'+emoji+'</div>';
+    var ph=a.phone?String(a.phone).replace(/\D/g,''):'';
+    var phoneBar='';
+    if(ph){phoneBar='<div class="ad-phone-bar"><a class="ad-btn-call" href="tel:+'+ph+'">📞 '+(L.callBtn||'Ara')+'</a>'
+      +'<a class="ad-btn-wa" href="https://wa.me/'+ph+'" target="_blank" rel="noopener">WA</a></div>';}
+    var isNew=a.created_at&&(Date.now()-new Date(a.created_at).getTime())<86400000;
+    var badge=a.price==0?'<span class="ad-badge">'+(L.freeLabel||'Ücretsiz')+'</span>':(isNew?'<span class="ad-badge new">YENİ</span>':'');
+    return '<div class="ad-card" data-adid="'+String(a.id)+'">'
+      +'<div class="ad-img">'+imgHtml+'<div class="ad-fav">♡</div>'+badge+'</div>'
+      +'<div class="ad-body"><div class="ad-price'+(a.price==0?' free':'')+'">'+price+'</div>'
+      +'<div class="ad-title">'+(a.title||'')+'</div>'
+      +'<div class="ad-meta"><span class="ad-meta-city">📍 '+(a.city||'')+'</span>'
+      +(a.verified?'<span class="ad-verified">'+(L.verified||'✓ Onaylı')+'</span>':'<span style="color:var(--text3)">'+timeSince(a.created_at)+'</span>')
+      +'</div>'+phoneBar+'</div></div>';
+  }).join('');
+  g.innerHTML=html;
+  g.onclick=function(e){
+    if(e.target.closest('.ad-btn-call,.ad-btn-wa')) return;
+    var card=e.target.closest('.ad-card[data-adid]');
+    if(card) openAdModal(card.dataset.adid);
+  };
+}
+
+function fetchAds(){
+  fetch(SURL+'/rest/v1/ads?select=*&status=eq.active&country=eq.TR&order=created_at.desc&limit=16',{
+    headers:{'apikey':SKEY,'Authorization':'Bearer '+SKEY}
+  }).then(function(r){return r.json();})
+  .then(function(data){
+    if(!Array.isArray(data)||!data.length){
+      // Try without country filter for now
+      fetch(SURL+'/rest/v1/ads?select=*&status=eq.active&order=created_at.desc&limit=16',{
+        headers:{'apikey':SKEY,'Authorization':'Bearer '+SKEY}
+      }).then(function(r2){return r2.json();})
+      .then(function(d2){if(Array.isArray(d2)&&d2.length){ALL_ADS=d2;renderAds(d2);}else{document.getElementById('adsGrid').innerHTML='<p style="color:var(--text3);text-align:center;grid-column:1/-1;padding:40px">Henüz ilan yok — ilk ilanı siz verin!</p>';}})
+      .catch(function(){document.getElementById('adsGrid').innerHTML='<p style="color:var(--text3);text-align:center;grid-column:1/-1;padding:40px">Henüz ilan yok</p>';});
+      return;
+    }
+    ALL_ADS=data;
+    renderAds(data);
+  }).catch(function(){document.getElementById('adsGrid').innerHTML='<p style="color:var(--text3);text-align:center;grid-column:1/-1;padding:40px">İlanlar yüklenemedi</p>';});
+}
+fetchAds();
+
+// ═══════════════════
+// AD DETAIL MODAL
+// ═══════════════════
+function openAdModal(id){
+  var a=_adsStore[String(id)];
+  if(!a) return;
+  var EMOJIS={'Araç & Ulaşım':'🚗','Emlak':'🏠','İş & Kariyer':'💼','Elektronik':'📱','Giyim & Moda':'👗','Ev & Bahçe':'🏡','Hayvanlar':'🐾','İş Ekipmanları':'⚙️','Hobi & Spor':'🎮','Çocuk & Bebek':'👶','Finansal Hizmetler':'💰','Diğer':'🌍'};
+  var emoji=EMOJIS[a.cat_label]||'📦';
+  var photos=parseAllPhotos(a.photos);
+  var gal=document.getElementById('adModalGallery');
+  var old=gal.querySelector('img,.ad-img-placeholder');
+  if(old) old.remove();
+  if(photos.length){
+    var img=document.createElement('img');img.src=photos[0];img.alt='';
+    img.onerror=function(){this.parentElement.innerHTML='<div class="ad-img-placeholder">'+emoji+'</div>';};
+    gal.insertBefore(img,gal.firstChild);
+  } else {
+    var ph=document.createElement('div');ph.className='ad-img-placeholder';ph.textContent=emoji;
+    gal.insertBefore(ph,gal.firstChild);
+  }
+  var L=LANGS[currentLang]||LANGS.tr;
+  var priceEl=document.getElementById('adModalPrice');
+  priceEl.textContent=a.price?Number(a.price).toLocaleString('tr-TR')+' ₺':(L.freeLabel||'Ücretsiz');
+  priceEl.className='ad-modal-price'+(a.price==0?' free':'');
+  document.getElementById('adModalTitle').textContent=a.title||'';
+  document.getElementById('adModalMeta').innerHTML=(a.city?'<span>📍 '+a.city+'</span>':'')+(a.cat_label?'<span>📂 '+a.cat_label+'</span>':'');
+  document.getElementById('adModalDesc').textContent=a.description||a.desc||'';
+  var phones=document.getElementById('adModalPhones');
+  var ph=a.phone?String(a.phone).replace(/\D/g,''):'';
+  phones.innerHTML=ph?'<a class="ad-btn-call" href="tel:+'+ph+'">📞 '+(L.callBtn||'Ara')+'</a>'
+    +'<a class="ad-btn-wa" href="https://wa.me/'+ph+'" target="_blank" rel="noopener">💬 WhatsApp</a>':'';
+  document.getElementById('adDetailOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeAdModal(){
+  document.getElementById('adDetailOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ═══════════════════
+// FOREX
+// ═══════════════════
+async function fetchForex(){
+  try{
+    var r=await fetch('https://open.er-api.com/v6/latest/TRY');
+    var d=await r.json();
+    var rates=d.rates;
+    var usd=(1/rates.USD).toFixed(2);
+    var eur=(1/rates.EUR).toFixed(2);
+    var gbp=(1/rates.GBP).toFixed(2);
+    var rub=(1/rates.RUB).toFixed(4);
+    var el=document.getElementById('fx-usd');if(el) el.textContent=usd;
+    el=document.getElementById('fx-eur');if(el) el.textContent=eur;
+    el=document.getElementById('fx-gbp');if(el) el.textContent=gbp;
+    el=document.getElementById('fx-rub');if(el) el.textContent=rub;
+    // update all duplicate spans too
+    document.querySelectorAll('.fx-track .fx-rate').forEach(function(span,i){
+      var vals=[usd,eur,gbp,rub,usd,eur,gbp,rub];
+      if(vals[i]) span.textContent=vals[i];
+    });
+  }catch(e){}
+}
+fetchForex();
+
+// ═══════════════════
+// NAV SCROLL
+// ═══════════════════
+window.addEventListener('scroll',function(){
   document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>10);
 });
 
-// KVKK Cookie Banner
+// ═══════════════════
+// THEME
+// ═══════════════════
 (function(){
-  var banner = document.getElementById('kvkk-banner');
-  var acceptBtn = document.getElementById('kvkk-accept');
-
-  // Check if already accepted
-  if(localStorage.getItem('kvkk_accepted')==='1'){
-    banner.style.display='none';
-  }
-
-  acceptBtn.addEventListener('click',function(){
-    localStorage.setItem('kvkk_accepted','1');
-    banner.style.display='none';
-  });
+  var saved=localStorage.getItem('tr_theme')||'light';
+  document.documentElement.setAttribute('data-theme',saved);
+  var btn=document.getElementById('themeBtn');
+  if(btn) btn.textContent=saved==='dark'?'🌙':'☀️';
 })();
 
-// Lang drop toggle
-function toggleLangDrop() {
-  document.getElementById('langDrop').classList.toggle('open');
+function toggleTheme(){
+  var cur=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',cur);
+  localStorage.setItem('tr_theme',cur);
+  document.getElementById('themeBtn').textContent=cur==='dark'?'🌙':'☀️';
 }
-document.addEventListener('click', function(e) {
-  var nl = document.getElementById('navLang');
-  if (nl && !nl.contains(e.target)) document.getElementById('langDrop').classList.remove('open');
-});
-</script>
 
-<!-- Supabase Auth: jsdelivr + unpkg fallback -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" onerror="this.remove();var s=document.createElement('script');s.src='https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js';document.head.appendChild(s)"></script>
-<script>
-(function(){
-  var SURL = 'https://duscyiyxfmsriyhwlbqx.supabase.co';
-  var SKEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
-  var REDIRECT = 'https://alsat.asia/?nogeo=1';
-  var OAUTH_DIRECT = SURL + '/auth/v1/authorize?provider=google&redirect_to=' + encodeURIComponent(REDIRECT);
-  var _sb = null;
-  try { _sb = window.supabase && window.supabase.createClient(SURL, SKEY); } catch(e){}
+// ═══════════════════
+// TOAST
+// ═══════════════════
+function showToast(msg,dur){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show')},dur||3000);
+}
 
-  window.signInWithGoogle = function() {
-    var btn = document.getElementById('btnLogin');
-    if (btn) { btn.disabled = true; btn.textContent = '...'; }
-    if (_sb) {
-      _sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: REDIRECT } })
-        .then(function(r) { if (r && r.error && btn) { btn.disabled = false; btn.textContent = 'Giriş'; } });
-    } else {
-      window.location.href = OAUTH_DIRECT;
-    }
-  };
+// ═══════════════════
+// DRAWER
+// ═══════════════════
+function openDrawer(){
+  document.getElementById('mobDrawer').classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeDrawer(){
+  document.getElementById('mobDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
 
-  if (_sb) {
-    _sb.auth.onAuthStateChange(function(event, session) {
-      var loginBtn = document.getElementById('btnLogin');
-      var userWrap = document.getElementById('navUserWrap');
-      if (session && session.user) {
-        var meta = session.user.user_metadata || {};
-        var name = meta.full_name || meta.name || session.user.email || '';
-        var avatar = meta.avatar_url || meta.picture || '';
-        if (loginBtn) loginBtn.style.display = 'none';
-        if (userWrap) {
-          userWrap.style.display = 'flex';
-          document.getElementById('navUserName').textContent = name.split(' ')[0];
-          if (avatar) document.getElementById('navUserAvatar').src = avatar;
-          else document.getElementById('navUserAvatar').style.display = 'none';
-        }
-      } else {
-        if (loginBtn) { loginBtn.style.display = ''; loginBtn.disabled = false; loginBtn.textContent = 'Giriş'; }
-        if (userWrap) userWrap.style.display = 'none';
-      }
-    });
+// ═══════════════════
+// POST MODAL
+// ═══════════════════
+function openPost(){
+  document.getElementById('postOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePost(){
+  document.getElementById('postOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function submitPost(){
+  var title=document.getElementById('post_title').value.trim();
+  var cat=document.getElementById('post_cat').value;
+  var city=document.getElementById('post_city').value;
+  var phone=document.getElementById('post_phone').value.trim();
+  if(!title||!cat||!city||!phone){showToast('Lütfen zorunlu alanları doldurun *');return;}
+  showToast('✅ İlanınız alındı (test modu)');
+  closePost();
+  document.getElementById('post_title').value='';
+  document.getElementById('post_cat').value='';
+  document.getElementById('post_price').value='';
+  document.getElementById('post_city').value='';
+  document.getElementById('post_desc').value='';
+  document.getElementById('post_phone').value='';
+}
+
+// ═══════════════════
+// AUTH
+// ═══════════════════
+function openAuth(){
+  document.getElementById('authOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeAuth(){
+  document.getElementById('authOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function signInWithGoogle(){
+  _sbClient.auth.signInWithOAuth({provider:'google',options:{redirectTo:'https://alsat.asia/tr.html'}});
+}
+
+// ═══════════════════
+// CITY
+// ═══════════════════
+var currentCity='Tüm Türkiye';
+function setCity(c){currentCity=c;showToast('📍 '+c+' seçildi');}
+function openCityPicker(){document.getElementById('cityOverlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeCityPicker(){document.getElementById('cityOverlay').classList.remove('open');document.body.style.overflow='';}
+
+// ═══════════════════
+// SEARCH / FILTER
+// ═══════════════════
+function doSearch(){
+  var q=(document.getElementById('heroSearch')||document.getElementById('navSearchInput')).value.trim();
+  if(!q) return;
+  var filtered=ALL_ADS.filter(function(a){return (a.title||'').toLowerCase().includes(q.toLowerCase())||(a.description||'').toLowerCase().includes(q.toLowerCase());});
+  renderAds(filtered.length?filtered:ALL_ADS);
+  document.querySelector('.ads-section').scrollIntoView({behavior:'smooth'});
+}
+function filterCat(name){
+  activeFilter=name;
+  renderChips();
+  var filtered=name?ALL_ADS.filter(function(a){return a.cat_label===name}):ALL_ADS;
+  renderAds(filtered);
+  document.querySelector('.ads-section').scrollIntoView({behavior:'smooth'});
+}
+
+// ═══════════════════
+// LEGAL MODAL
+// ═══════════════════
+var LEGAL_CONTENT={
+  oferta:{
+    title:'Kullanım Koşulları',
+    body:'<h3>1. Genel Hükümler</h3><p>alsat.asia, Türkiye\'de faaliyet gösteren ücretsiz bir ilan platformudur. Siteyi kullanarak bu koşulları kabul etmiş sayılırsınız.</p>'
+      +'<h3>2. İlan Kuralları</h3><p>İlanlar gerçek bilgiler içermeli, yanıltıcı olmamalıdır. Yasadışı ürün ve hizmetlerin ilanı yasaktır.</p>'
+      +'<h3>3. Finansal Hizmetler</h3><p>Finansal hizmet ilanları BDDK (Bankacılık Düzenleme ve Denetleme Kurumu) denetimine tabidir.</p>'
+      +'<h3>4. Sorumluluk</h3><p>alsat.asia, ilan içerikleri veya alıcı-satıcı arasındaki işlemlerden sorumlu tutulamaz.</p>'
+      +'<h3>5. KVKK</h3><p>Kişisel veriler 6698 sayılı KVKK kapsamında işlenmektedir.</p>'
+  },
+  privacy:{
+    title:'Gizlilik Politikası / KVKK Aydınlatma Metni',
+    body:'<h3>KVKK Kapsamında Kişisel Veri İşleme</h3><p>alsat.asia olarak 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) çerçevesinde kişisel verilerinizi işlemekteyiz.</p>'
+      +'<h3>Toplanan Veriler</h3><ul><li>Ad, soyad ve iletişim bilgileri</li><li>İlan içerikleri</li><li>Kullanım istatistikleri</li></ul>'
+      +'<h3>İşleme Amaçları</h3><p>Verileriniz yalnızca ilan hizmetinin sunulması amacıyla kullanılır.</p>'
+      +'<h3>Veri Güvenliği</h3><p>Verileriniz üçüncü şahıslarla paylaşılmaz. Supabase altyapısında şifreli olarak saklanır.</p>'
+      +'<h3>Haklarınız</h3><p>KVKK\'nın 11. maddesi kapsamında verilerinize erişme, düzeltme ve silme hakkına sahipsiniz. Talepler için: adilkurmanov9@gmail.com</p>'
   }
-})();
+};
+
+function openLegal(type){
+  var c=LEGAL_CONTENT[type]||LEGAL_CONTENT.oferta;
+  document.getElementById('legalTitle').textContent=c.title;
+  document.getElementById('legalBody').innerHTML=c.body;
+  document.getElementById('legalOv').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLegal(){
+  document.getElementById('legalOv').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ═══════════════════
+// SCROLL TO FAQ
+// ═══════════════════
+function scrollToFaq(){
+  document.querySelector('.faq-section').scrollIntoView({behavior:'smooth'});
+}
+
+// ═══════════════════
+// INIT LANG
+// ═══════════════════
+document.addEventListener('DOMContentLoaded',function(){setLang(currentLang);});
 </script>
 </body>
 </html>

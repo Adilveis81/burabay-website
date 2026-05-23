@@ -206,24 +206,16 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 }
 .btn-brand:hover{background:var(--brand-dark);box-shadow:var(--shadow-brand)}
 .btn-brand:active{transform:scale(.97)}
-/* lang switcher */
-.nav-lang{position:relative;flex-shrink:0}
-.nav-lang-btn{
-  height:36px;padding:0 12px;
-  border-radius:100px;
-  background:var(--surface2);
-  border:1.5px solid var(--border);
-  color:var(--text2);font-size:13px;font-weight:700;
-  cursor:pointer;transition:.15s;white-space:nowrap;
-}
-.nav-lang-btn:hover{border-color:var(--brand);color:var(--brand)}
-.nav-lang-drop{
-  display:none;position:absolute;top:calc(100% + 6px);right:0;
-  background:var(--surface);border:1.5px solid var(--border);
-  border-radius:var(--radius);box-shadow:var(--shadow);
-  min-width:90px;overflow:hidden;z-index:1200;
-}
-.nav-lang-drop.open{display:block}
+/* country + language switchers */
+.country-switcher{display:flex;gap:2px;align-items:center;flex-shrink:0}
+.country-switcher a{font-size:18px;text-decoration:none;opacity:.42;transition:.15s;line-height:1;padding:2px}
+.country-switcher a:hover{opacity:.8}
+.country-switcher a.current{opacity:1}
+.lang-switcher{display:flex;gap:3px;align-items:center;flex-shrink:0}
+.lang-btn{padding:3px 8px;border-radius:6px;border:1.5px solid var(--border);background:var(--surface2);color:var(--text2);font-size:11px;font-weight:700;cursor:pointer;transition:.15s;line-height:1.5}
+.lang-btn:hover{border-color:var(--brand);color:var(--brand)}
+.lang-btn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+/* legacy compat */
 .nav-lang-opt{
   padding:9px 14px;font-size:13px;font-weight:600;
   cursor:pointer;color:var(--text2);transition:.12s;
@@ -1498,6 +1490,13 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 </head>
 <body>
 
+<!-- DEV BANNER -->
+<div style="background:#FFF3CD;border-bottom:2px solid #F5A623;padding:10px 20px;text-align:center;font-size:13px;font-weight:700;color:#664D00;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap">
+  <span>🚧</span>
+  <span>Сайт жұмыс режимінде (тест) &nbsp;/&nbsp; Сайт в режиме разработки — данные тестовые</span>
+  <span>🚧</span>
+</div>
+
 <!-- NOTIFY BAR -->
 <div class="notify" id="notifyBar">
   <span data-i18n="notifyText">✨ Размещение объявлений бесплатно · Уже размещено:</span> <strong id="notifyCount">…</strong> объявлений
@@ -1546,18 +1545,22 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
     </button>
 
     <div class="nav-right">
-      <div class="nav-lang" id="navLang">
-        <button class="nav-lang-btn" onclick="toggleLang()" id="langBtn">RU ▾</button>
-        <div class="nav-lang-drop" id="langDrop">
-          <div class="nav-lang-opt active" onclick="setLang('ru')">RU</div>
-          <div class="nav-lang-opt" onclick="setLang('kz')">KZ</div>
-          <div class="nav-lang-opt" onclick="setLang('en')">EN</div>
-        </div>
+      <div class="country-switcher">
+        <a href="/index.html" title="Казахстан" class="current">🇰🇿</a>
+        <a href="/kg.html" title="Кыргызстан">🇰🇬</a>
+        <a href="/uz.html" title="Узбекистан">🇺🇿</a>
+        <a href="/tr.html" title="Türkiye">🇹🇷</a>
+        <a href="/az.html" title="Azərbaycan">🇦🇿</a>
+      </div>
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="ru" onclick="setLang('ru')">Рус</button>
+        <button class="lang-btn" data-lang="kz" onclick="setLang('kz')">Қаз</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">Eng</button>
       </div>
       <a class="nav-oferta-link" onclick="openLegal('oferta')" data-i18n="oferta">Оферта</a>
       <button class="nav-theme" id="themeBtn" onclick="toggleTheme()" title="Тема">☀️</button>
-      <button class="btn btn-ghost hide-mob" onclick="openAuth()">Войти</button>
-      <button class="btn btn-brand hide-mob" onclick="openPost()">+ Разместить</button>
+      <button class="btn btn-ghost hide-mob" onclick="openAuth()" data-i18n="loginBtn">Войти</button>
+      <button class="btn btn-brand hide-mob" onclick="openPost()" data-i18n="postBtn">+ Разместить</button>
     </div>
   </div>
 </nav>
@@ -2844,7 +2847,7 @@ window.addEventListener('scroll',function(){
 // ═══════════════════
 // LANGUAGE
 // ═══════════════════
-var currentLang='ru';
+var currentLang=localStorage.getItem('alsat_lang')||'ru';
 var LANGS={
   ru:{
     search:'Что ищете?',heroInput:'Авто, телефон, квартира...',
@@ -2965,30 +2968,24 @@ var LANGS={
   }
 };
 
-function toggleLang(){
-  document.getElementById('langDrop').classList.toggle('open');
-}
 function setLang(lang){
   currentLang=lang;
-  document.getElementById('langDrop').classList.remove('open');
-  document.getElementById('langBtn').textContent=lang.toUpperCase()+' ▾';
+  localStorage.setItem('alsat_lang',lang);
   var L=LANGS[lang];
   // apply all data-i18n translations
   document.querySelectorAll('[data-i18n]').forEach(function(el){
     var key=el.getAttribute('data-i18n');
     if(L[key]!==undefined) el.innerHTML=L[key];
   });
-  document.querySelectorAll('.nav-lang-opt').forEach(function(el){
-    el.classList.toggle('active',el.textContent.toLowerCase().includes(lang));
+  // update lang-btn active state
+  document.querySelectorAll('.lang-btn').forEach(function(btn){
+    btn.classList.toggle('active',btn.dataset.lang===lang);
   });
-  var L=LANGS[lang];
-  // apply translations
+  // apply placeholder translations
   var ns=document.querySelector('.nav-search input');
   if(ns) ns.placeholder=L.search;
   var hs=document.getElementById('heroSearch');
   if(hs) hs.placeholder=L.heroInput;
-  document.querySelectorAll('.btn-brand').forEach(function(b){if(b.textContent.includes('+'))b.textContent=L.postBtn});
-  document.querySelectorAll('.btn-ghost').forEach(function(b){if(b.onclick&&b.onclick.toString().includes('openAuth'))b.textContent=L.loginBtn});
   var pb=document.querySelector('.taxi-post-btn');
   if(pb) pb.textContent=L.taxiPost;
   // section titles
@@ -3006,10 +3003,6 @@ function setLang(lang){
   if(ALL_ADS.length) renderAds(filtered);
   showToast(lang==='ru'?'Русский язык':lang==='kz'?'Қазақ тілі':'English');
 }
-document.addEventListener('click',function(e){
-  if(!document.getElementById('navLang').contains(e.target))
-    document.getElementById('langDrop').classList.remove('open');
-});
 
 // ═══════════════════
 // THEME
