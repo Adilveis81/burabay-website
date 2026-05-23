@@ -462,6 +462,16 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
   vertical-align:middle;
 }
 
+/* countries */
+.countries-section{padding:20px 0 8px}
+.countries-label{text-align:center;font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.countries-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.country-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 20px;background:var(--surface2);border:1.5px solid var(--border);border-radius:14px;text-decoration:none;color:var(--text);transition:.15s;min-width:90px}
+.country-btn:hover{border-color:var(--brand);background:var(--brand-light);transform:translateY(-2px);box-shadow:var(--shadow)}
+.country-flag{font-size:28px;line-height:1}
+.country-name{font-size:12px;font-weight:600;color:var(--text2);white-space:nowrap}
+@media(max-width:480px){.country-btn{min-width:72px;padding:10px 14px}.country-flag{font-size:24px}}
+
 /* wave */
 .hero-wave{
   position:absolute;
@@ -1614,6 +1624,31 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 
 <!-- MAIN CONTENT -->
 <main>
+
+<!-- COUNTRIES -->
+<section class="countries-section">
+  <div class="wrap">
+    <p class="countries-label">Выберите страну</p>
+    <div class="countries-row">
+      <a href="https://kg.alsat.asia" class="country-btn">
+        <span class="country-flag">🇰🇬</span>
+        <span class="country-name">Кыргызстан</span>
+      </a>
+      <a href="https://uz.alsat.asia" class="country-btn">
+        <span class="country-flag">🇺🇿</span>
+        <span class="country-name">Узбекистан</span>
+      </a>
+      <a href="https://tr.alsat.asia" class="country-btn">
+        <span class="country-flag">🇹🇷</span>
+        <span class="country-name">Türkiye</span>
+      </a>
+      <a href="https://az.alsat.asia" class="country-btn">
+        <span class="country-flag">🇦🇿</span>
+        <span class="country-name">Azərbaycan</span>
+      </a>
+    </div>
+  </div>
+</section>
 
 <!-- CATEGORIES -->
 <section class="cats-section">
