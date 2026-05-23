@@ -1,25 +1,42 @@
-// Cloudflare Pages Worker — subdomain routing for alsat.asia
-// Routes kg/uz/tr/az.alsat.asia to their respective HTML pages
+// Cloudflare Pages Worker — subdomain routing + geo-redirect for alsat.asia
 
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const host = url.hostname;
 
-    // Subdomain routing
-    const countryMap = {
+    // Subdomain routing — serve country-specific HTML
+    const subdomainMap = {
       'kg.alsat.asia': '/kg.html',
       'uz.alsat.asia': '/uz.html',
       'tr.alsat.asia': '/tr.html',
       'az.alsat.asia': '/az.html',
     };
 
-    const targetPath = countryMap[host];
+    const targetPath = subdomainMap[host];
     if (targetPath) {
       const newUrl = new URL(request.url);
       newUrl.pathname = targetPath;
-      const newRequest = new Request(newUrl.toString(), request);
-      return env.ASSETS.fetch(newRequest);
+      return env.ASSETS.fetch(new Request(newUrl.toString(), request));
+    }
+
+    // Main domain — geo-redirect based on CF-IPCountry header
+    // Only redirect on root path, skip if ?nogeo=1 is set (allows user to go back)
+    if ((host === 'alsat.asia' || host === 'www.alsat.asia') && url.pathname === '/') {
+      const noGeo = url.searchParams.get('nogeo');
+      if (!noGeo) {
+        const country = request.headers.get('CF-IPCountry') || '';
+        const geoRedirect = {
+          'KG': 'https://kg.alsat.asia',
+          'UZ': 'https://uz.alsat.asia',
+          'TR': 'https://tr.alsat.asia',
+          'AZ': 'https://az.alsat.asia',
+        };
+        const redirectUrl = geoRedirect[country];
+        if (redirectUrl) {
+          return Response.redirect(redirectUrl, 302);
+        }
+      }
     }
 
     // Default: pass through to Cloudflare Pages assets
