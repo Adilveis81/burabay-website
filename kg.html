@@ -205,6 +205,19 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
   transition:.15s;
 }
 .nav-theme:hover{border-color:var(--brand);color:var(--brand)}
+/* lang / country switcher */
+.nav-lang{position:relative;flex-shrink:0}
+.nav-lang-btn{height:36px;padding:0 12px;border-radius:100px;border:1.5px solid var(--border);background:transparent;color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;transition:.15s;white-space:nowrap}
+.nav-lang-btn:hover{border-color:var(--brand);color:var(--brand)}
+.nav-lang-drop{display:none;position:absolute;top:calc(100% + 6px);right:0;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;min-width:110px;overflow:hidden;z-index:1200}
+.nav-lang-drop.open{display:block}
+.nav-lang-opt{display:flex;align-items:center;gap:6px;padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--text2);transition:.12s;text-decoration:none}
+.nav-lang-opt:hover{background:var(--brand-light);color:var(--brand)}
+.nav-lang-opt.active{color:var(--brand);font-weight:800;background:var(--brand-light)}
+/* auth user */
+.nav-user-wrap{display:flex;align-items:center;gap:6px;cursor:default}
+.nav-user-avatar{width:30px;height:30px;border-radius:50%;object-fit:cover;border:2px solid var(--brand)}
+.nav-user-name{font-size:13px;font-weight:600;color:var(--text);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 @media(max-width:900px){
   .hide-mob{display:none!important}
@@ -629,7 +642,23 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 
     <div class="nav-right">
       <span class="nav-phone hide-mob">+996</span>
+      <!-- Country switcher -->
+      <div class="nav-lang" id="navLang">
+        <button class="nav-lang-btn" onclick="toggleLangDrop()" id="langBtn">🇰🇬 KG ▾</button>
+        <div class="nav-lang-drop" id="langDrop">
+          <a class="nav-lang-opt" href="/?nogeo=1">🇰🇿 KZ</a>
+          <a class="nav-lang-opt active" href="/kg.html">🇰🇬 KG</a>
+          <a class="nav-lang-opt" href="/uz.html">🇺🇿 UZ</a>
+          <a class="nav-lang-opt" href="/tr.html">🇹🇷 TR</a>
+          <a class="nav-lang-opt" href="/az.html">🇦🇿 AZ</a>
+        </div>
+      </div>
       <button class="nav-theme" id="themeBtn" title="Тема" onclick="toggleTheme()">☀️</button>
+      <button class="btn btn-ghost hide-mob" id="btnLogin" onclick="signInWithGoogle()">Кіру</button>
+      <div class="nav-user-wrap hide-mob" id="navUserWrap" style="display:none">
+        <img class="nav-user-avatar" id="navUserAvatar" src="" alt="">
+        <span class="nav-user-name" id="navUserName"></span>
+      </div>
       <a class="btn btn-brand hide-mob" href="index.html">+ Жарнама жайгаштыруу</a>
     </div>
   </div>
@@ -698,28 +727,28 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
     <div class="cats-grid">
 
       <!-- Real Estate -->
-      <div class="cat-tile" style="--tile-color:#FF5C00;--tile-bg:#FFF3EE" onclick="window.location='index.html'">
+      <div class="cat-tile" style="--tile-color:#FF5C00;--tile-bg:#FFF3EE" onclick="showComingSoon()">
         <div class="cat-icon-wrap">🏠</div>
         <div class="cat-name">Кыймылсыз мүлк</div>
         <div class="cat-name-sub">Недвижимость</div>
       </div>
 
       <!-- Auto -->
-      <div class="cat-tile" style="--tile-color:#0288D1;--tile-bg:#E3F2FD" onclick="window.location='index.html'">
+      <div class="cat-tile" style="--tile-color:#0288D1;--tile-bg:#E3F2FD" onclick="showComingSoon()">
         <div class="cat-icon-wrap">🚗</div>
         <div class="cat-name">Унаалар</div>
         <div class="cat-name-sub">Авто</div>
       </div>
 
       <!-- Jobs -->
-      <div class="cat-tile" style="--tile-color:#00A86B;--tile-bg:#E6F8F3" onclick="window.location='index.html'">
+      <div class="cat-tile" style="--tile-color:#00A86B;--tile-bg:#E6F8F3" onclick="showComingSoon()">
         <div class="cat-icon-wrap">💼</div>
         <div class="cat-name">Жумуш</div>
         <div class="cat-name-sub">Работа</div>
       </div>
 
       <!-- Goods -->
-      <div class="cat-tile" style="--tile-color:#7B1FA2;--tile-bg:#F3E5F5" onclick="window.location='index.html'">
+      <div class="cat-tile" style="--tile-color:#7B1FA2;--tile-bg:#F3E5F5" onclick="showComingSoon()">
         <div class="cat-icon-wrap">📦</div>
         <div class="cat-name">Товарлар</div>
         <div class="cat-name-sub">Товары</div>
@@ -870,7 +899,14 @@ function toggleTheme() {
 // Search
 function doSearch() {
   const q = document.getElementById('heroSearch').value.trim();
-  if (q) window.location = 'index.html';
+  if (q) showComingSoon();
+}
+function showComingSoon() {
+  var t = document.createElement('div');
+  t.textContent = 'Жакында — Скоро!';
+  t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 22px;border-radius:100px;font-size:14px;z-index:9999;pointer-events:none';
+  document.body.appendChild(t);
+  setTimeout(function(){ t.remove(); }, 2500);
 }
 document.getElementById('heroSearch').addEventListener('keydown', e => {
   if (e.key === 'Enter') doSearch();
@@ -878,6 +914,62 @@ document.getElementById('heroSearch').addEventListener('keydown', e => {
 document.getElementById('navSearchInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') doSearch();
 });
+
+// Lang drop toggle
+function toggleLangDrop() {
+  document.getElementById('langDrop').classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('navLang').contains(e.target)) {
+    document.getElementById('langDrop').classList.remove('open');
+  }
+});
+</script>
+
+<!-- Supabase Auth: jsdelivr + unpkg fallback -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" onerror="this.remove();var s=document.createElement('script');s.src='https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js';document.head.appendChild(s)"></script>
+<script>
+(function(){
+  var SURL = 'https://duscyiyxfmsriyhwlbqx.supabase.co';
+  var SKEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
+  var REDIRECT = 'https://alsat.asia/?nogeo=1';
+  var OAUTH_DIRECT = SURL + '/auth/v1/authorize?provider=google&redirect_to=' + encodeURIComponent(REDIRECT);
+  var _sb = null;
+  try { _sb = window.supabase && window.supabase.createClient(SURL, SKEY); } catch(e){}
+
+  window.signInWithGoogle = function() {
+    var btn = document.getElementById('btnLogin');
+    if (btn) { btn.disabled = true; btn.textContent = '...'; }
+    if (_sb) {
+      _sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: REDIRECT } })
+        .then(function(r) { if (r && r.error && btn) { btn.disabled = false; btn.textContent = 'Кіру'; } });
+    } else {
+      window.location.href = OAUTH_DIRECT;
+    }
+  };
+
+  if (_sb) {
+    _sb.auth.onAuthStateChange(function(event, session) {
+      var loginBtn = document.getElementById('btnLogin');
+      var userWrap = document.getElementById('navUserWrap');
+      if (session && session.user) {
+        var meta = session.user.user_metadata || {};
+        var name = meta.full_name || meta.name || session.user.email || '';
+        var avatar = meta.avatar_url || meta.picture || '';
+        if (loginBtn) loginBtn.style.display = 'none';
+        if (userWrap) {
+          userWrap.style.display = 'flex';
+          document.getElementById('navUserName').textContent = name.split(' ')[0];
+          if (avatar) document.getElementById('navUserAvatar').src = avatar;
+          else document.getElementById('navUserAvatar').style.display = 'none';
+        }
+      } else {
+        if (loginBtn) { loginBtn.style.display = ''; loginBtn.disabled = false; loginBtn.textContent = 'Кіру'; }
+        if (userWrap) userWrap.style.display = 'none';
+      }
+    });
+  }
+})();
 </script>
 </body>
 </html>
