@@ -5,5 +5,5 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; connect-src 'self' https://duscyiyxfmsriyhwlbqx.supabase.co https://api.anthropic.com https://api.telegram.org; font-src 'self' data:; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; connect-src 'self' https://duscyiyxfmsriyhwlbqx.supabase.co https://api.anthropic.com https://api.telegram.org https://open.er-api.com https://accounts.google.com; font-src 'self' data: https://fonts.gstatic.com; frame-ancestors 'none'
   Cache-Control: public, max-age=0, must-revalidate

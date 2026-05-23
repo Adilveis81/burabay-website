@@ -1630,19 +1630,23 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
   <div class="wrap">
     <p class="countries-label">Выберите страну</p>
     <div class="countries-row">
-      <a href="https://kg.alsat.asia" class="country-btn">
+      <a href="/?nogeo=1" class="country-btn">
+        <span class="country-flag">🇰🇿</span>
+        <span class="country-name">Казахстан</span>
+      </a>
+      <a href="/kg.html" class="country-btn">
         <span class="country-flag">🇰🇬</span>
         <span class="country-name">Кыргызстан</span>
       </a>
-      <a href="https://uz.alsat.asia" class="country-btn">
+      <a href="/uz.html" class="country-btn">
         <span class="country-flag">🇺🇿</span>
         <span class="country-name">Узбекистан</span>
       </a>
-      <a href="https://tr.alsat.asia" class="country-btn">
+      <a href="/tr.html" class="country-btn">
         <span class="country-flag">🇹🇷</span>
         <span class="country-name">Türkiye</span>
       </a>
-      <a href="https://az.alsat.asia" class="country-btn">
+      <a href="/az.html" class="country-btn">
         <span class="country-flag">🇦🇿</span>
         <span class="country-name">Azərbaycan</span>
       </a>
@@ -1931,10 +1935,10 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
       <div>
         <h4>Другие страны</h4>
         <div class="footer-links">
-          <a href="https://kg.alsat.asia">🇰🇬 Кыргызстан</a>
-          <a href="https://uz.alsat.asia">🇺🇿 Узбекистан</a>
-          <a href="https://tr.alsat.asia">🇹🇷 Türkiye</a>
-          <a href="https://az.alsat.asia">🇦🇿 Azərbaycan</a>
+          <a href="/kg.html">🇰🇬 Кыргызстан</a>
+          <a href="/uz.html">🇺🇿 Узбекистан</a>
+          <a href="/tr.html">🇹🇷 Türkiye</a>
+          <a href="/az.html">🇦🇿 Azərbaycan</a>
         </div>
       </div>
       <div>
@@ -2399,7 +2403,19 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 // ═══════════════════
 var SURL='https://duscyiyxfmsriyhwlbqx.supabase.co';
 var SKEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
-var _sbClient = supabase.createClient(SURL, SKEY);
+var _sbClient;
+try {
+  _sbClient = supabase.createClient(SURL, SKEY);
+} catch(e) {
+  console.warn('Supabase JS not loaded, falling back to REST API only:', e.message);
+  // Provide stub so auth calls fail gracefully instead of crashing
+  _sbClient = {
+    auth: {
+      signInWithOAuth: function(){ return Promise.resolve({error:{message:'Supabase JS не загружен — попробуйте обновить страницу'}}); },
+      onAuthStateChange: function(){}
+    }
+  };
+}
 
 var CATS=[
   {name:'Авто',kz:'Авто',en:'Cars',emoji:'🚗',color:'#1565C0',bg:'#E8F0FE',id:'auto'},
