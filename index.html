@@ -3074,7 +3074,7 @@ function signInWithGoogle(){
   if(btn){btn.disabled=true;btn.textContent='Перенаправление...';}
   _sbClient.auth.signInWithOAuth({
     provider:'google',
-    options:{redirectTo:window.location.origin}
+    options:{redirectTo:window.location.origin+'/?nogeo=1'}
   }).then(function(r){
     if(r.error){
       showToast('Ошибка входа: '+r.error.message);
