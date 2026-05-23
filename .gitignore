@@ -1,3 +1,7 @@
 node_modules/
 .env
 .DS_Store
+
+# Локальные файлы с ключами — не в репо
+CLAUDE.md
+claude_context.txt
