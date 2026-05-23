@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5">
+<meta name="theme-color" content="#FF5C00">
+<title>Alsat — O'zbekistonda bepul e'lonlar</title>
+<meta name="description" content="Alsat — O'zbekistondagi eng yirik bepul e'lonlar taxtasi. Komissiyasiz sotib oling va soting. Millionlab e'lonlar.">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════
+   DESIGN SYSTEM
+═══════════════════════════════════════ */
+:root{
+  --brand:#FF5C00;
+  --brand-dark:#D94A00;
+  --brand-light:#FFF3EE;
+  --navy:#0C1F3F;
+  --navy2:#1A3A6E;
+  --green:#00A86B;
+  --green-light:#E6F8F3;
+  --red:#E02020;
+  --yellow:#F5A623;
+
+  --bg:#F4F6FA;
+  --surface:#FFFFFF;
+  --surface2:#F9FAFB;
+  --border:#E4E8F0;
+  --border2:#CDD4E0;
+
+  --text:#0C1F3F;
+  --text2:#5A6A80;
+  --text3:#9AAAB8;
+
+  --radius-sm:8px;
+  --radius:12px;
+  --radius-lg:18px;
+  --radius-xl:24px;
+
+  --shadow-sm:0 1px 4px rgba(12,31,63,.06);
+  --shadow:0 4px 16px rgba(12,31,63,.09);
+  --shadow-lg:0 12px 40px rgba(12,31,63,.14);
+  --shadow-brand:0 6px 24px rgba(255,92,0,.28);
+
+  --nav-h:64px;
+  --max-w:1280px;
+}
+
+[data-theme="dark"]{
+  --bg:#0E1420;
+  --surface:#16202E;
+  --surface2:#1E2A3A;
+  --border:#263040;
+  --border2:#344055;
+  --text:#E8EEF8;
+  --text2:#8A9BB0;
+  --text3:#5A6A80;
+  --brand:#FF6D1A;
+  --brand-light:#1E1008;
+  --navy:#1A3A6E;
+  --shadow-sm:0 1px 4px rgba(0,0,0,.3);
+  --shadow:0 4px 16px rgba(0,0,0,.35);
+  --shadow-lg:0 12px 40px rgba(0,0,0,.45);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:15px;
+  line-height:1.5;
+  overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;border:none;outline:none}
+
+/* ═══════════════════════════════════════
+   NAV
+═══════════════════════════════════════ */
+.nav{
+  position:sticky;
+  top:0;
+  z-index:1100;
+  height:var(--nav-h);
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow .2s;
+}
+[data-theme="dark"] .nav{background:rgba(22,32,46,0.96)}
+.nav.scrolled{box-shadow:var(--shadow)}
+.nav-inner{
+  max-width:var(--max-w);
+  margin:0 auto;
+  height:100%;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:0 20px;
+}
+.nav-logo{
+  font-size:22px;
+  font-weight:900;
+  color:var(--brand);
+  letter-spacing:-0.5px;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+.nav-logo sup{
+  font-size:9px;
+  background:var(--navy);
+  color:#fff;
+  padding:1px 4px;
+  border-radius:4px;
+  vertical-align:super;
+  font-weight:700;
+  letter-spacing:0;
+}
+.nav-search-wrap{
+  flex:1;
+  max-width:560px;
+  position:relative;
+}
+.nav-search{
+  width:100%;
+  height:42px;
+  background:var(--surface2);
+  border:1.5px solid var(--border);
+  border-radius:100px;
+  display:flex;
+  align-items:center;
+  padding:0 16px;
+  gap:8px;
+  transition:border-color .15s,box-shadow .15s;
+}
+.nav-search:focus-within{
+  border-color:var(--brand);
+  box-shadow:0 0 0 3px rgba(255,92,0,.12);
+  background:var(--surface);
+}
+.nav-search svg{color:var(--text3);flex-shrink:0}
+.nav-search input{
+  flex:1;
+  border:none;
+  background:transparent;
+  font-size:14px;
+  color:var(--text);
+  outline:none;
+}
+.nav-search input::placeholder{color:var(--text3)}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:9px 20px;
+  border-radius:100px;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.15s;
+  white-space:nowrap;
+}
+.btn-brand{
+  background:var(--brand);
+  color:#fff;
+  border:none;
+  box-shadow:0 3px 10px rgba(255,92,0,.30);
+}
+.btn-brand:hover{background:var(--brand-dark);box-shadow:var(--shadow-brand)}
+.btn-brand:active{transform:scale(.97)}
+.nav-phone{
+  font-size:13px;
+  font-weight:600;
+  color:var(--text2);
+  white-space:nowrap;
+}
+.nav-theme{
+  width:36px;height:36px;
+  border-radius:50%;
+  background:var(--surface2);
+  border:1.5px solid var(--border);
+  color:var(--text2);
+  font-size:16px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  transition:.15s;
+}
+.nav-theme:hover{border-color:var(--brand);color:var(--brand)}
+
+@media(max-width:900px){
+  .hide-mob{display:none!important}
+}
+@media(max-width:640px){
+  .nav-inner{padding:0 12px;gap:8px}
+  .nav-logo{font-size:18px}
+}
+
+/* Mobile FAB */
+.fab{
+  position:fixed;
+  bottom:24px;
+  right:20px;
+  z-index:800;
+  background:var(--brand);
+  color:#fff;
+  border-radius:100px;
+  padding:14px 22px;
+  font-size:15px;
+  font-weight:800;
+  box-shadow:var(--shadow-brand);
+  display:none;
+  align-items:center;
+  gap:8px;
+  letter-spacing:-.2px;
+  transition:.15s;
+}
+.fab:active{transform:scale(.96)}
+@media(max-width:760px){.fab{display:flex}}
+
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+.hero{
+  background:linear-gradient(160deg,var(--navy) 0%,#0A2A60 55%,#1A3A8A 100%);
+  padding:56px 20px 72px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse 60% 80% at 20% 50%,rgba(255,92,0,.18) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 70% at 80% 30%,rgba(26,90,220,.22) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero-content{position:relative;z-index:1;max-width:720px;margin:0 auto}
+.hero-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.18);
+  backdrop-filter:blur(8px);
+  color:rgba(255,255,255,.85);
+  font-size:13px;
+  font-weight:600;
+  padding:5px 14px;
+  border-radius:100px;
+  margin-bottom:20px;
+  letter-spacing:.3px;
+}
+.hero-kicker span{color:#FFB347}
+.hero h1{
+  font-size:clamp(28px,5vw,52px);
+  font-weight:900;
+  color:#fff;
+  line-height:1.12;
+  letter-spacing:-1.5px;
+  margin-bottom:14px;
+}
+.hero h1 em{
+  color:var(--brand);
+  font-style:normal;
+}
+.hero-sub{
+  font-size:16px;
+  color:rgba(255,255,255,.62);
+  margin-bottom:36px;
+  font-weight:400;
+}
+.hero-search{
+  background:#fff;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  padding:6px 6px 6px 20px;
+  gap:10px;
+  box-shadow:0 8px 40px rgba(0,0,0,.25);
+  max-width:640px;
+  margin:0 auto 20px;
+}
+[data-theme="dark"] .hero-search{background:var(--surface);border:1.5px solid var(--border)}
+.hero-search svg{color:var(--text3);flex-shrink:0}
+.hero-search input{
+  flex:1;
+  border:none;
+  background:transparent;
+  font-size:16px;
+  font-weight:500;
+  color:var(--text);
+  outline:none;
+  padding:10px 0;
+}
+.hero-search input::placeholder{color:var(--text3);font-weight:400}
+.hero-search .hs-btn{
+  background:var(--brand);
+  color:#fff;
+  border-radius:10px;
+  padding:12px 24px;
+  font-size:15px;
+  font-weight:800;
+  white-space:nowrap;
+  flex-shrink:0;
+  transition:.15s;
+  border:none;
+  cursor:pointer;
+}
+.hero-search .hs-btn:hover{background:var(--brand-dark)}
+
+/* stats strip */
+.hero-stats{
+  display:flex;
+  justify-content:center;
+  gap:40px;
+  margin-top:40px;
+  flex-wrap:wrap;
+}
+.hero-stat{color:rgba(255,255,255,.7);text-align:center}
+.hero-stat strong{display:block;font-size:28px;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1}
+.hero-stat span{font-size:12px;margin-top:3px}
+
+/* hero trust strip */
+.hero-trust{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:18px;
+  margin-top:24px;
+}
+.hero-trust-item{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  font-weight:600;
+  color:rgba(255,255,255,.65);
+}
+.hero-trust-item span.ck{
+  width:18px;height:18px;
+  border-radius:50%;
+  background:var(--green);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;
+  color:#fff;
+  flex-shrink:0;
+}
+
+/* hero CTA strip */
+.hero-cta-strip{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-top:28px;
+  flex-wrap:wrap;
+}
+.hero-cta-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--brand);
+  color:#fff;
+  padding:13px 28px;
+  border-radius:100px;
+  font-size:15px;
+  font-weight:800;
+  box-shadow:var(--shadow-brand);
+  transition:.15s;
+  text-decoration:none;
+}
+.hero-cta-btn:hover{background:var(--brand-dark);transform:translateY(-2px)}
+
+/* wave */
+.hero-wave{
+  position:absolute;
+  bottom:-1px;left:0;right:0;
+  line-height:0;
+}
+.hero-wave svg{width:100%;height:48px}
+
+@media(max-width:640px){
+  .hero{padding:40px 16px 64px}
+  .hero-search{padding:4px 4px 4px 14px;flex-wrap:nowrap}
+  .hero-stats{gap:24px}
+  .hero-stat strong{font-size:22px}
+}
+
+/* ═══════════════════════════════════════
+   WRAPPER
+═══════════════════════════════════════ */
+.wrap{max-width:var(--max-w);margin:0 auto;padding:0 20px}
+@media(max-width:640px){.wrap{padding:0 12px}}
+
+/* section title */
+.sec-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  margin-bottom:20px;
+  gap:12px;
+}
+.sec-title{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:-.5px;
+  color:var(--text);
+}
+
+/* ═══════════════════════════════════════
+   CATEGORIES
+═══════════════════════════════════════ */
+.cats-section{padding:48px 0}
+.cats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+@media(max-width:900px){.cats-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.cats-grid{grid-template-columns:repeat(2,1fr);gap:10px}}
+
+.cat-tile{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:28px 20px 24px;
+  text-align:center;
+  cursor:pointer;
+  transition:transform .15s,box-shadow .15s,border-color .15s;
+  position:relative;
+  overflow:hidden;
+  display:block;
+  text-decoration:none;
+}
+.cat-tile::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:3px;
+  background:var(--tile-color,var(--brand));
+  transform:scaleX(0);
+  transition:transform .2s;
+  transform-origin:left;
+}
+.cat-tile:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow);
+  border-color:transparent;
+}
+.cat-tile:hover::before{transform:scaleX(1)}
+.cat-icon-wrap{
+  width:56px;height:56px;
+  border-radius:16px;
+  background:var(--tile-bg,#FFF3EE);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 12px;
+  font-size:28px;
+  transition:.15s;
+}
+.cat-tile:hover .cat-icon-wrap{background:var(--tile-color,var(--brand));transform:scale(1.05)}
+.cat-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.3}
+.cat-sub{font-size:12px;color:var(--text3);font-weight:500;font-style:italic}
+
+/* ═══════════════════════════════════════
+   WHY SECTION
+═══════════════════════════════════════ */
+.why-section{
+  padding:56px 0;
+  background:var(--surface);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  margin-top:0;
+}
+.why-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+@media(max-width:700px){.why-grid{grid-template-columns:1fr;gap:16px}}
+.why-card{
+  text-align:center;
+  padding:28px 20px;
+  background:var(--surface2);
+  border-radius:var(--radius-lg);
+  border:1px solid var(--border);
+}
+.why-icon{
+  width:60px;height:60px;
+  border-radius:18px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;
+  margin:0 auto 16px;
+}
+.why-card h3{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--text)}
+.why-card p{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* ═══════════════════════════════════════
+   LEGAL COMPLIANCE SECTION
+═══════════════════════════════════════ */
+.legal-section{
+  padding:48px 0;
+}
+.legal-box{
+  background:linear-gradient(135deg,var(--navy) 0%,#0A2A60 100%);
+  border-radius:var(--radius-xl);
+  padding:40px 48px;
+  position:relative;
+  overflow:hidden;
+}
+.legal-box::before{
+  content:'';
+  position:absolute;
+  right:-40px;top:-40px;
+  width:250px;height:250px;
+  background:radial-gradient(circle,rgba(255,92,0,.18) 0%,transparent 70%);
+  pointer-events:none;
+}
+.legal-box-inner{position:relative;z-index:1}
+.legal-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.20);
+  color:rgba(255,255,255,.85);
+  font-size:12px;
+  font-weight:700;
+  padding:4px 12px;
+  border-radius:100px;
+  margin-bottom:16px;
+  letter-spacing:.3px;
+}
+.legal-box h2{
+  font-size:clamp(18px,3vw,24px);
+  font-weight:800;
+  color:#fff;
+  letter-spacing:-.4px;
+  margin-bottom:6px;
+  line-height:1.3;
+}
+.legal-box h2 small{
+  display:block;
+  font-size:13px;
+  font-weight:500;
+  color:rgba(255,255,255,.55);
+  margin-top:4px;
+  letter-spacing:0;
+}
+.legal-content{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+@media(max-width:700px){.legal-content{grid-template-columns:1fr}}
+.legal-lang-block{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--radius);
+  padding:18px 20px;
+}
+.legal-lang-label{
+  font-size:11px;
+  font-weight:800;
+  color:var(--brand);
+  letter-spacing:.8px;
+  text-transform:uppercase;
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.legal-lang-text{
+  font-size:13px;
+  color:rgba(255,255,255,.7);
+  line-height:1.65;
+}
+.legal-meta-strip{
+  display:flex;
+  gap:24px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+.legal-meta-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:13px;
+  color:rgba(255,255,255,.65);
+  font-weight:500;
+}
+.legal-meta-item strong{color:#fff;font-weight:700}
+
+@media(max-width:760px){
+  .legal-box{padding:28px 24px}
+}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+.footer{
+  background:var(--navy);
+  color:rgba(255,255,255,.6);
+  padding:48px 0 28px;
+}
+.footer-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:32px;
+  margin-bottom:40px;
+  flex-wrap:wrap;
+}
+.footer-brand{
+  font-size:24px;font-weight:900;
+  color:var(--brand);
+  margin-bottom:10px;
+  letter-spacing:-.5px;
+}
+.footer-brand sup{
+  font-size:9px;background:#fff;color:var(--navy);
+  padding:1px 4px;border-radius:4px;vertical-align:super;font-weight:700;
+}
+.footer-tagline{font-size:13px;line-height:1.6;max-width:260px;color:rgba(255,255,255,.5)}
+.footer-links-group h4{
+  font-size:12px;font-weight:700;
+  color:#fff;margin-bottom:12px;
+  letter-spacing:.4px;text-transform:uppercase;
+}
+.footer-links{display:flex;flex-direction:column;gap:8px}
+.footer-links a{
+  font-size:13px;
+  color:rgba(255,255,255,.5);
+  transition:.12s;
+}
+.footer-links a:hover{color:#fff}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding-top:24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:12px;
+  font-size:12px;
+}
+.footer-copyright{color:rgba(255,255,255,.45)}
+.footer-legal-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-legal-links a{color:rgba(255,255,255,.4);transition:.12s;font-size:12px}
+.footer-legal-links a:hover{color:rgba(255,255,255,.8)}
+
+@media(max-width:640px){
+  .footer-top{flex-direction:column;gap:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Alsat<sup>asia</sup></a>
+    <div class="nav-search-wrap">
+      <label class="nav-search">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="search" placeholder="Nima qidiryapsiz?" aria-label="Qidirish">
+      </label>
+    </div>
+    <div class="nav-right">
+      <span class="nav-phone hide-mob">+998</span>
+      <a href="index.html" class="btn btn-brand">+ E'lon berish</a>
+      <button class="nav-theme" id="themeBtn" aria-label="Mavzuni almashtirish">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-kicker">🇺🇿 O'zbekiston · <span>Bepul</span></div>
+    <h1>O'zbekistonda<br>hamma narsani <em>Alsatda</em> top</h1>
+    <p class="hero-sub">Millionlab e'lonlar · Komissiyasiz · Tekshirilgan sotuvchilar</p>
+
+    <div class="hero-search">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="search" placeholder="E'lon qidirish..." aria-label="E'lon qidirish">
+      <button class="hs-btn">Topish</button>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <strong>100,000+</strong>
+        <span>E'lon</span>
+      </div>
+      <div class="hero-stat">
+        <strong>UZS</strong>
+        <span>So'm</span>
+      </div>
+      <div class="hero-stat">
+        <strong>14</strong>
+        <span>Viloyat</span>
+      </div>
+      <div class="hero-stat">
+        <strong>Bepul</strong>
+        <span>Xizmat</span>
+      </div>
+    </div>
+
+    <div class="hero-trust">
+      <div class="hero-trust-item"><span class="ck">✓</span> Ro'yxatsiz</div>
+      <div class="hero-trust-item"><span class="ck">✓</span> Komissiyasiz</div>
+      <div class="hero-trust-item"><span class="ck">✓</span> UZS So'm</div>
+      <div class="hero-trust-item"><span class="ck">✓</span> O'zR Qonuni</div>
+    </div>
+
+    <div class="hero-cta-strip">
+      <a href="index.html" class="hero-cta-btn">E'lon berish →</a>
+    </div>
+  </div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,48 C360,0 1080,0 1440,48 L1440,48 L0,48 Z" fill="var(--bg)"/>
+    </svg>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="cats-section">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="sec-title">Kategoriyalar</h2>
+    </div>
+    <div class="cats-grid">
+
+      <a href="index.html" class="cat-tile" style="--tile-color:#FF5C00;--tile-bg:#FFF3EE">
+        <div class="cat-icon-wrap">🏠</div>
+        <div class="cat-name">Ko'chmas mulk</div>
+        <div class="cat-sub">Недвижимость</div>
+      </a>
+
+      <a href="index.html" class="cat-tile" style="--tile-color:#1A73E8;--tile-bg:#EEF4FF">
+        <div class="cat-icon-wrap">🚗</div>
+        <div class="cat-name">Avtomobillar</div>
+        <div class="cat-sub">Авто</div>
+      </a>
+
+      <a href="index.html" class="cat-tile" style="--tile-color:#00A86B;--tile-bg:#E6F8F3">
+        <div class="cat-icon-wrap">💼</div>
+        <div class="cat-name">Ish</div>
+        <div class="cat-sub">Работа</div>
+      </a>
+
+      <a href="index.html" class="cat-tile" style="--tile-color:#F5A623;--tile-bg:#FFF8EC">
+        <div class="cat-icon-wrap">📦</div>
+        <div class="cat-name">Tovarlar</div>
+        <div class="cat-sub">Товары</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="sec-title">Nima uchun Alsat?</h2>
+    </div>
+    <div class="why-grid">
+
+      <div class="why-card">
+        <div class="why-icon" style="background:#E6F8F3">✅</div>
+        <h3>Bepul</h3>
+        <p>O'zbekistonda e'lonlarni bepul joylashtiring. Hech qanday to'lov yoki komissiya yo'q.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon" style="background:#EEF4FF">🔒</div>
+        <h3>Xavfsiz</h3>
+        <p>O'zR qonunlariga muvofiq. Tekshirilgan sotuvchilar va xavfsiz tranzaksiyalar.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon" style="background:#FFF3EE">📱</div>
+        <h3>Qulay</h3>
+        <p>Ro'yxatdan o'tmasdan foydalanish mumkin. Istalgan qurilmadan tezkor kirish.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- LEGAL COMPLIANCE -->
+<section class="legal-section">
+  <div class="wrap">
+    <div class="legal-box">
+      <div class="legal-box-inner">
+        <div class="legal-badge">⚖️ Huquqiy muvofiqlik</div>
+        <h2>
+          O'zR Elektron tijorat qonuniga muvofiqlik
+          <small>Закон РУз об электронной коммерции №571</small>
+        </h2>
+
+        <div class="legal-content">
+          <div class="legal-lang-block">
+            <div class="legal-lang-label">🇺🇿 O'zbek</div>
+            <p class="legal-lang-text">
+              Ushbu sayt O'zbekiston Respublikasining «Elektron tijorat to'g'risida»gi 571-sonli Qonuni va «Reklama to'g'risida»gi Qonun talablariga to'liq rioya qilgan holda faoliyat yuritadi. Yurisdiksiya: O'zbekiston Respublikasi.
+            </p>
+          </div>
+          <div class="legal-lang-block">
+            <div class="legal-lang-label">🇷🇺 Русский</div>
+            <p class="legal-lang-text">
+              Сайт работает в соответствии с Законом РУз «Об электронной коммерции» №571 и Законом «О рекламе». Юрисдикция: Республика Узбекистан.
+            </p>
+          </div>
+        </div>
+
+        <div class="legal-meta-strip">
+          <div class="legal-meta-item">
+            📞 <span>Telefon: <strong>+998 (XX) XXX-XX-XX</strong></span>
+          </div>
+          <div class="legal-meta-item">
+            💰 <span>Valyuta: <strong>UZS (Узбекский сум)</strong></span>
+          </div>
+          <div class="legal-meta-item">
+            🌐 <span>Yurisdiksiya: <strong>O'zbekiston Respublikasi</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Alsat<sup>asia</sup></div>
+        <p class="footer-tagline">O'zbekistondagi eng yirik bepul e'lonlar taxtasi. Komissiyasiz. Xavfsiz. Qulay.</p>
+      </div>
+      <div class="footer-links-group">
+        <h4>Yordam</h4>
+        <div class="footer-links">
+          <a href="mailto:adilkurmanov9@gmail.com">adilkurmanov9@gmail.com</a>
+          <a href="https://t.me/Alsat_Asia_bot" target="_blank" rel="noopener">Telegram: @Alsat_Asia_bot</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <h4>Hujjatlar</h4>
+        <div class="footer-links">
+          <a href="#">Maxfiylik siyosati</a>
+          <a href="#">Конфиденциальность</a>
+          <a href="#">Foydalanuvchi shartnomasi</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copyright">© 2026 Alsat · O'zbekiston · O'zR Qonunlariga muvofiq</span>
+      <div class="footer-legal-links">
+        <a href="#">Maxfiylik siyosati</a>
+        <a href="#">Конфиденциальность</a>
+        <a href="#">Foydalanuvchi shartnomasi (O'zR Qonuni asosida)</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile FAB -->
+<a href="index.html" class="fab">+ E'lon berish</a>
+
+<script>
+// Nav scroll shadow
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 10);
+}, { passive: true });
+
+// Theme toggle
+const themeBtn = document.getElementById('themeBtn');
+const root = document.documentElement;
+const saved = localStorage.getItem('alsat-theme');
+if (saved) { root.dataset.theme = saved; themeBtn.textContent = saved === 'dark' ? '☀️' : '🌙'; }
+themeBtn.addEventListener('click', () => {
+  const isDark = root.dataset.theme === 'dark';
+  root.dataset.theme = isDark ? 'light' : 'dark';
+  themeBtn.textContent = isDark ? '🌙' : '☀️';
+  localStorage.setItem('alsat-theme', root.dataset.theme);
+});
+</script>
+</body>
+</html>
