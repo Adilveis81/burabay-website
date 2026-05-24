@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Production Pack — Uranium & Critical Minerals</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #050508;
+  --deep: #0D0D14;
+  --panel: #12121C;
+  --border: #1E1E2E;
+  --uranium: #39FF14;
+  --gold: #FFB800;
+  --plasma: #FF6B35;
+  --ice: #7DF9FF;
+  --text: #E8E8F0;
+  --muted: #6B6B80;
+  --heygen: #A78BFA;
+  --kling: #FB7185;
+  --eleven: #34D399;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--void);
+  color: var(--text);
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* SCAN LINE EFFECT */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* HEADER */
+.header {
+  padding: 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.header-bg {
+  background: linear-gradient(135deg, #0D1117 0%, #0D0D14 40%, #0A1628 100%);
+  padding: 48px 24px 40px;
+  position: relative;
+}
+
+.header-bg::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(57,255,20,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.header-bg::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(255,184,0,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.header-label {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--uranium);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-label::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--uranium);
+}
+
+.header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 6vw, 56px);
+  font-weight: 800;
+  line-height: 1.0;
+  color: var(--text);
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.header h1 em {
+  font-style: normal;
+  color: var(--uranium);
+  -webkit-text-stroke: 0px;
+}
+
+.header-sub {
+  font-family: 'Crimson Pro', serif;
+  font-size: 18px;
+  color: var(--muted);
+  margin-top: 12px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.header-meta {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.meta-tag {
+  font-size: 11px;
+  padding: 4px 12px;
+  border: 1px solid;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.meta-tag.heygen { border-color: var(--heygen); color: var(--heygen); }
+.meta-tag.kling { border-color: var(--kling); color: var(--kling); }
+.meta-tag.eleven { border-color: var(--eleven); color: var(--eleven); }
+.meta-tag.dur { border-color: var(--gold); color: var(--gold); }
+
+/* LEGEND */
+.legend {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+.legend-item {
+  flex: 1;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-right: 1px solid var(--border);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.legend-item:last-child { border-right: none; }
+.legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.legend-dot.heygen { background: var(--heygen); }
+.legend-dot.kling { background: var(--kling); }
+.legend-dot.eleven { background: var(--eleven); }
+
+/* SCENE */
+.scene {
+  border-bottom: 1px solid var(--border);
+}
+
+.scene-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  cursor: pointer;
+  background: var(--deep);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+.scene-header:hover { background: var(--panel); }
+
+.scene-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--border);
+  padding: 16px 20px;
+  border-right: 1px solid var(--border);
+  min-width: 80px;
+  text-align: center;
+  line-height: 1;
+}
+
+.scene-title-wrap {
+  padding: 16px 20px;
+}
+
+.scene-time {
+  font-size: 10px;
+  color: var(--uranium);
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+
+.scene-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.scene-desc {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.scene-badge {
+  padding: 16px 20px;
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.badge {
+  font-size: 9px;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.scene-body {
+  display: none;
+}
+.scene-body.open { display: block; }
+
+/* BLOCKS */
+.block {
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+}
+
+.block-header {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--void);
+}
+
+.block-type {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-right: 1px solid var(--border);
+  min-width: 110px;
+  font-weight: 700;
+}
+
+.block-type.heygen { color: var(--heygen); background: rgba(167,139,250,0.05); }
+.block-type.kling { color: var(--kling); background: rgba(251,113,133,0.05); }
+.block-type.eleven { color: var(--eleven); background: rgba(52,211,153,0.05); }
+
+.block-title {
+  font-size: 11px;
+  color: var(--muted);
+  padding: 8px 14px;
+  letter-spacing: 1px;
+}
+
+.block-content {
+  padding: 20px 24px;
+  background: var(--panel);
+}
+
+/* HEYGEN SPECIFIC */
+.heygen-scene {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.direction {
+  background: rgba(167,139,250,0.06);
+  border: 1px solid rgba(167,139,250,0.2);
+  border-left: 3px solid var(--heygen);
+  padding: 12px 16px;
+  border-radius: 0 4px 4px 0;
+}
+
+.direction-label {
+  font-size: 9px;
+  color: var(--heygen);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.direction-text {
+  font-family: 'Crimson Pro', serif;
+  font-size: 15px;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.avatar-notes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.note-item {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.note-label {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--heygen);
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+/* KLING SPECIFIC */
+.kling-prompt {
+  font-family: 'Crimson Pro', serif;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text);
+  background: rgba(251,113,133,0.04);
+  border: 1px solid rgba(251,113,133,0.15);
+  border-left: 3px solid var(--kling);
+  padding: 16px 20px;
+  margin-bottom: 12px;
+}
+
+.kling-tech {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.tech-item {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  font-size: 11px;
+}
+
+.tech-label {
+  font-size: 9px;
+  color: var(--kling);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.tech-val { color: var(--text); }
+
+/* ELEVENLABS SPECIFIC */
+.tts-text {
+  font-family: 'Crimson Pro', serif;
+  font-size: 17px;
+  line-height: 1.9;
+  color: var(--text);
+  font-weight: 300;
+  background: rgba(52,211,153,0.04);
+  border: 1px solid rgba(52,211,153,0.15);
+  border-left: 3px solid var(--eleven);
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  white-space: pre-wrap;
+}
+
+.tts-pause {
+  color: var(--eleven);
+  opacity: 0.7;
+  font-style: normal;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+}
+
+.tts-emphasis {
+  color: var(--gold);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.tts-settings {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.setting-item {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+}
+
+.setting-label {
+  font-size: 9px;
+  color: var(--eleven);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.setting-val {
+  font-size: 12px;
+  color: var(--text);
+}
+
+/* COPY BUTTON */
+.copy-btn {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  padding: 6px 14px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+  float: right;
+  margin-bottom: 8px;
+}
+.copy-btn:hover { border-color: var(--uranium); color: var(--uranium); }
+.copy-btn.copied { border-color: var(--uranium); color: var(--uranium); }
+
+/* TOTAL BAR */
+.total-bar {
+  padding: 24px;
+  background: var(--deep);
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.total-item {
+  background: var(--deep);
+  padding: 16px 20px;
+}
+
+.total-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--uranium);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.total-label {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* WORKFLOW FOOTER */
+.workflow {
+  padding: 32px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--deep);
+}
+
+.workflow h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.workflow-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.workflow-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+
+.step-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--border);
+  line-height: 1;
+  min-width: 32px;
+}
+
+.step-content strong {
+  display: block;
+  font-size: 12px;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.step-content span {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.step-tool {
+  margin-left: auto;
+  font-size: 10px;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+  color: var(--muted);
+}
+
+/* TOGGLE */
+.scene-toggle {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 16px 20px;
+  transition: color 0.2s;
+}
+.scene-toggle:hover { color: var(--uranium); }
+.scene-header.active .scene-toggle { color: var(--uranium); }
+
+@media (min-width: 768px) {
+  .heygen-scene { grid-template-columns: 1fr 1fr; }
+  .avatar-notes { grid-template-columns: repeat(4, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-bg">
+    <div class="header-label">Video Production Pack · Alsat.Asia</div>
+    <h1>URANIUM &<br><em>CRITICAL MINERALS</em></h1>
+    <p class="header-sub">Kazakhstan's $20B opportunity that Wall Street isn't watching</p>
+    <div class="header-meta">
+      <span class="meta-tag heygen">HeyGen · Avatar Script</span>
+      <span class="meta-tag kling">Kling · 6 Scene Prompts</span>
+      <span class="meta-tag eleven">ElevenLabs · Full TTS</span>
+      <span class="meta-tag dur">~9:30 min total</span>
+    </div>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-dot heygen"></div>
+    <span>HeyGen — Avatar directions</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot kling"></div>
+    <span>Kling — Background video prompts</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot eleven"></div>
+    <span>ElevenLabs — Voice text</span>
+  </div>
+</div>
+
+<!-- TOTAL STATS -->
+<div class="total-bar">
+  <div class="total-item">
+    <div class="total-val">6</div>
+    <div class="total-label">Scenes</div>
+  </div>
+  <div class="total-item">
+    <div class="total-val">9:30</div>
+    <div class="total-label">Duration</div>
+  </div>
+  <div class="total-item">
+    <div class="total-val">6</div>
+    <div class="total-label">Kling Prompts</div>
+  </div>
+  <div class="total-item">
+    <div class="total-val">~1,400</div>
+    <div class="total-label">Words TTS</div>
+  </div>
+</div>
+
+<!-- SCENE 1: HOOK -->
+<div class="scene">
+  <div class="scene-header" onclick="toggleScene(this)">
+    <div class="scene-num">01</div>
+    <div class="scene-title-wrap">
+      <div class="scene-time">0:00 – 0:30 · HOOK</div>
+      <div class="scene-name">The Uranium Shock</div>
+      <div class="scene-desc">Open with a confrontational fact. No intro. Straight to the gut.</div>
+    </div>
+    <div class="scene-badge">
+      <span class="badge" style="border-color:var(--heygen);color:var(--heygen)">HEYGEN</span>
+      <span class="badge" style="border-color:var(--kling);color:var(--kling)">KLING</span>
+      <span class="badge" style="border-color:var(--eleven);color:var(--eleven)">11LABS</span>
+    </div>
+    <button class="scene-toggle">▾</button>
+  </div>
+  <div class="scene-body">
+
+    <!-- HEYGEN -->
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type heygen">HeyGen</div>
+        <div class="block-title">Avatar Script + Stage Directions</div>
+      </div>
+      <div class="block-content">
+        <div class="heygen-scene">
+          <div>
+            <div class="direction">
+              <div class="direction-label">Opening Direction</div>
+              <div class="direction-text">Avatar appears mid-frame, slight forward lean. Confident pause for 1 second before speaking. No smile — serious, almost confrontational eye contact. Background: dark, with subtle data visualization overlay.</div>
+            </div>
+          </div>
+          <div>
+            <div class="direction">
+              <div class="direction-label">Delivery Note</div>
+              <div class="direction-text">Slow and deliberate. Each sentence lands like a fact being dropped on a table. Pause 0.8s after "forty-three percent." Raise one eyebrow slightly on "nobody is talking about this."</div>
+            </div>
+          </div>
+        </div>
+        <div class="avatar-notes" style="margin-top:12px">
+          <div class="note-item">
+            <div class="note-label">Gesture</div>
+            Hands on desk, still. No movement until "nobody."
+          </div>
+          <div class="note-item">
+            <div class="note-label">Eye Contact</div>
+            Direct camera. No looking away.
+          </div>
+          <div class="note-item">
+            <div class="note-label">Expression</div>
+            Serious → slight intrigue at end
+          </div>
+          <div class="note-item">
+            <div class="note-label">Pacing</div>
+            Slower than normal. ~120 WPM
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KLING -->
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type kling">Kling</div>
+        <div class="block-title">Background Video Prompt — Scene 01</div>
+      </div>
+      <div class="block-content">
+        <button class="copy-btn" onclick="copyText(this, 'kling1')">COPY PROMPT</button>
+        <div class="kling-prompt" id="kling1">Aerial cinematic shot of a vast Kazakhstan steppe at golden hour, camera slowly pushing forward toward the horizon, dried grass rippling in wind, no people visible, dramatic low clouds, industrial facility silhouette barely visible in extreme distance. Color grade: desaturated yellows and deep shadows, slight green tint on horizon. 4K, film grain, anamorphic lens flare. Motion: ultra-slow drift forward, 0.3x speed. Mood: ancient, powerful, unknown. 10 seconds.</div>
+        <div class="kling-tech">
+          <div class="tech-item">
+            <div class="tech-label">Duration</div>
+            <div class="tech-val">10 seconds</div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-label">Aspect</div>
+            <div class="tech-val">16:9 (YouTube)</div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-label">Motion</div>
+            <div class="tech-val">Slow forward drift</div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-label">Style</div>
+            <div class="tech-val">Cinematic, desaturated</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ELEVENLABS -->
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type eleven">ElevenLabs</div>
+        <div class="block-title">Voice Script — Scene 01 · ~30 seconds</div>
+      </div>
+      <div class="block-content">
+        <div class="tts-settings" style="margin-bottom:12px">
+          <div class="setting-item">
+            <div class="setting-label">Voice Style</div>
+            <div class="setting-val">Authoritative, calm</div>
+          </div>
+          <div class="setting-item">
+            <div class="setting-label">Stability</div>
+            <div class="setting-val">0.75</div>
+          </div>
+          <div class="setting-item">
+            <div class="setting-label">Similarity</div>
+            <div class="setting-val">0.85</div>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="copyText(this, 'tts1')">COPY TEXT</button>
+        <div class="tts-text" id="tts1">One country produces <span class="tts-emphasis">forty-three percent</span> of all the uranium on Earth. <span class="tts-pause">[pause: 0.8s]</span>
+
+It sits between Russia and China, holds some of the largest lithium deposits in the region, and controls critical mineral reserves that the entire energy transition depends on. <span class="tts-pause">[pause: 0.5s]</span>
+
+And almost <span class="tts-emphasis">nobody</span> in the Western investment world is talking about this.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SCENE 2: DISCLAIMER -->
+<div class="scene">
+  <div class="scene-header" onclick="toggleScene(this)">
+    <div class="scene-num">02</div>
+    <div class="scene-title-wrap">
+      <div class="scene-time">0:30 – 1:00 · DISCLAIMER + INTRO</div>
+      <div class="scene-name">Who I Am & Why I'm Here</div>
+      <div class="scene-desc">Legal disclaimer + credibility establishment. Position as ground-level analyst.</div>
+    </div>
+    <div class="scene-badge">
+      <span class="badge" style="border-color:var(--heygen);color:var(--heygen)">HEYGEN</span>
+      <span class="badge" style="border-color:var(--kling);color:var(--kling)">KLING</span>
+      <span class="badge" style="border-color:var(--eleven);color:var(--eleven)">11LABS</span>
+    </div>
+    <button class="scene-toggle">▾</button>
+  </div>
+  <div class="scene-body">
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type heygen">HeyGen</div>
+        <div class="block-title">Avatar Script + Stage Directions</div>
+      </div>
+      <div class="block-content">
+        <div class="heygen-scene">
+          <div>
+            <div class="direction">
+              <div class="direction-label">Visual Direction</div>
+              <div class="direction-text">Avatar shifts slightly back in frame — less confrontational, more conversational. Slight nod on "not financial advice." Warm but still professional. Lower third text overlay: "EDUCATIONAL CONTENT ONLY · NOT FINANCIAL ADVICE" appears at start of this scene.</div>
+            </div>
+          </div>
+          <div>
+            <div class="direction">
+              <div class="direction-label">Delivery Note</div>
+              <div class="direction-text">Faster pace for disclaimer — gets it out quickly and honestly. Slows down again on "I live here." That phrase is the credibility anchor — let it breathe for 0.5 seconds after.</div>
+            </div>
+          </div>
+        </div>
+        <div class="avatar-notes" style="margin-top:12px">
+          <div class="note-item">
+            <div class="note-label">Lower Third</div>
+            Show disclaimer text overlay
+          </div>
+          <div class="note-item">
+            <div class="note-label">Gesture</div>
+            Open hands — transparency signal
+          </div>
+          <div class="note-item">
+            <div class="note-label">Tone</div>
+            Transparent → building trust
+          </div>
+          <div class="note-item">
+            <div class="note-label">Speed</div>
+            Faster on legal, slow on "I live here"
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type kling">Kling</div>
+        <div class="block-title">Background Video Prompt — Scene 02</div>
+      </div>
+      <div class="block-content">
+        <button class="copy-btn" onclick="copyText(this, 'kling2')">COPY PROMPT</button>
+        <div class="kling-prompt" id="kling2">Top-down drone shot slowly rotating over a modern Central Asian city at dawn, glass towers catching first light, wide streets below mostly empty, a river cutting through the urban grid. Camera: slow clockwise rotation, 200 meters altitude. Color: cool dawn blues gradually warming to gold. Style: clean architectural photography, sharp details, 4K. No people visible. Mood: watching, observing, analytical. 12 seconds.</div>
+        <div class="kling-tech">
+          <div class="tech-item"><div class="tech-label">Duration</div><div class="tech-val">12 seconds</div></div>
+          <div class="tech-item"><div class="tech-label">Camera</div><div class="tech-val">Slow rotation, aerial</div></div>
+          <div class="tech-item"><div class="tech-label">Time</div><div class="tech-val">Dawn / blue hour</div></div>
+          <div class="tech-item"><div class="tech-label">Mood</div><div class="tech-val">Analytical, observing</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type eleven">ElevenLabs</div>
+        <div class="block-title">Voice Script — Scene 02 · ~30 seconds</div>
+      </div>
+      <div class="block-content">
+        <button class="copy-btn" onclick="copyText(this, 'tts2')">COPY TEXT</button>
+        <div class="tts-text" id="tts2">Before we go further — quick disclaimer. Everything in this video is for <span class="tts-emphasis">educational purposes only</span>. This is not financial advice. Always do your own research before making any investment decisions. <span class="tts-pause">[pause: 0.4s]</span>
+
+My name doesn't matter. What matters is this: <span class="tts-emphasis">I live here.</span> <span class="tts-pause">[pause: 0.5s]</span>
+
+I'm an analyst based in Central Asia. I watch these markets every day. And I'm here to show you what the numbers look like from the inside — not from a Bloomberg terminal in New York.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SCENE 3: CONTEXT -->
+<div class="scene">
+  <div class="scene-header" onclick="toggleScene(this)">
+    <div class="scene-num">03</div>
+    <div class="scene-title-wrap">
+      <div class="scene-time">1:00 – 3:00 · CONTEXT</div>
+      <div class="scene-name">Kazakhstan — The Country Explained</div>
+      <div class="scene-desc">Assume zero knowledge. Make them feel smart for learning this.</div>
+    </div>
+    <div class="scene-badge">
+      <span class="badge" style="border-color:var(--heygen);color:var(--heygen)">HEYGEN</span>
+      <span class="badge" style="border-color:var(--kling);color:var(--kling)">KLING</span>
+      <span class="badge" style="border-color:var(--eleven);color:var(--eleven)">11LABS</span>
+    </div>
+    <button class="scene-toggle">▾</button>
+  </div>
+  <div class="scene-body">
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type heygen">HeyGen</div>
+        <div class="block-title">Avatar Script + Stage Directions</div>
+      </div>
+      <div class="block-content">
+        <div class="heygen-scene">
+          <div>
+            <div class="direction">
+              <div class="direction-label">Visual Overlay Note</div>
+              <div class="direction-text">This scene uses B-roll heavy editing. Avatar appears as PiP (picture-in-picture) in bottom-right corner, 30% screen size. Main screen shows: animated map of Kazakhstan with borders, then transitions to data graphics showing GDP, reserves, mineral deposits highlighted on geographic map.</div>
+            </div>
+          </div>
+          <div>
+            <div class="direction">
+              <div class="direction-label">Delivery Note</div>
+              <div class="direction-text">Teacher mode. Slightly warmer tone. Use "think of it this way" energy. Pause briefly before each major statistic — let the graphic appear 0.5s before speaking the number. The audience should see the number AND hear it.</div>
+            </div>
+          </div>
+        </div>
+        <div class="avatar-notes" style="margin-top:12px">
+          <div class="note-item"><div class="note-label">Layout</div>PiP bottom-right corner</div>
+          <div class="note-item"><div class="note-label">Tone</div>Teacher, warm, clear</div>
+          <div class="note-item"><div class="note-label">Graphics</div>Map + data overlays</div>
+          <div class="note-item"><div class="note-label">Pace</div>Medium, clear diction</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type kling">Kling</div>
+        <div class="block-title">Background Video Prompt — Scene 03</div>
+      </div>
+      <div class="block-content">
+        <button class="copy-btn" onclick="copyText(this, 'kling3')">COPY PROMPT</button>
+        <div class="kling-prompt" id="kling3">Sweeping cinematic drone flight across the Kazakhstan steppe transitioning into a montage: first, endless flat grassland with a single road disappearing to horizon; then cut to a modern Astana skyline with Baiterek tower reflecting sunset gold; then cut to an open-pit mine from above, massive trucks looking like insects, geometric terraced walls of earth. Each cut is clean. Camera moves: slow push, slow pull back, slow rotation. Color: warm documentary grade. Style: National Geographic meets financial documentary. 4K HDR, 20 seconds total.</div>
+        <div class="kling-tech">
+          <div class="tech-item"><div class="tech-label">Duration</div><div class="tech-val">20 seconds</div></div>
+          <div class="tech-item"><div class="tech-label">Shots</div><div class="tech-val">3-shot sequence</div></div>
+          <div class="tech-item"><div class="tech-label">Style</div><div class="tech-val">Documentary grade</div></div>
+          <div class="tech-item"><div class="tech-label">Energy</div><div class="tech-val">Educational, inspiring</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type eleven">ElevenLabs</div>
+        <div class="block-title">Voice Script — Scene 03 · ~2 minutes</div>
+      </div>
+      <div class="block-content">
+        <button class="copy-btn" onclick="copyText(this, 'tts3')">COPY TEXT</button>
+        <div class="tts-text" id="tts3">Let me give you the context first — because most Western investors have never spent five minutes thinking about Kazakhstan, and that's exactly the problem. <span class="tts-pause">[pause: 0.4s]</span>
+
+Kazakhstan is the <span class="tts-emphasis">ninth largest country on Earth</span> by territory. Bigger than Western Europe. It sits between Russia to the north, China to the east, and the Caspian Sea to the west. <span class="tts-pause">[pause: 0.4s]</span>
+
+The economy: <span class="tts-emphasis">$270 billion GDP</span>, growing at six and a half percent in 2025 — more than double the US growth rate. Public debt is just twenty-two point eight percent of GDP. Compare that to America's one hundred twenty percent. <span class="tts-pause">[pause: 0.5s]</span>
+
+International reserves: <span class="tts-emphasis">$129 billion</span>. That's the fiscal cushion. That's the stability. <span class="tts-pause">[pause: 0.4s]</span>
+
+But here's what most financial media completely misses. <span class="tts-pause">[pause: 0.5s]</span>
+
+Kazakhstan is not a petro-state that got lucky with oil. It is a country sitting on top of one of the most valuable mineral portfolios on the planet — precisely the minerals that the entire global energy transition depends on.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SCENE 4: MAIN CONTENT -->
+<div class="scene">
+  <div class="scene-header" onclick="toggleScene(this)">
+    <div class="scene-num">04</div>
+    <div class="scene-title-wrap">
+      <div class="scene-time">3:00 – 7:00 · MAIN CONTENT</div>
+      <div class="scene-name">The Minerals Deep Dive</div>
+      <div class="scene-desc">Uranium, lithium, rare earths — data, risks, US angle. Core educational content.</div>
+    </div>
+    <div class="scene-badge">
+      <span class="badge" style="border-color:var(--heygen);color:var(--heygen)">HEYGEN</span>
+      <span class="badge" style="border-color:var(--kling);color:var(--kling)">KLING</span>
+      <span class="badge" style="border-color:var(--eleven);color:var(--eleven)">11LABS</span>
+    </div>
+    <button class="scene-toggle">▾</button>
+  </div>
+  <div class="scene-body">
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type heygen">HeyGen</div>
+        <div class="block-title">Avatar Script + Stage Directions</div>
+      </div>
+      <div class="block-content">
+        <div class="heygen-scene">
+          <div>
+            <div class="direction">
+              <div class="direction-label">Layout Change</div>
+              <div class="direction-text">Avatar moves to full-screen for the "risks" section (7:00 mark). For the data section (3:00–6:00), stay PiP with full-screen data graphics. Use animated pie chart showing Kazakhstan's 43% uranium share. Show comparison bar charts for mineral reserves vs. other countries.</div>
+            </div>
+          </div>
+          <div>
+            <div class="direction">
+              <div class="direction-label">Emphasis Points</div>
+              <div class="direction-text">At "43 percent" — lean forward slightly, hold eye contact. At "nuclear renaissance" — slight upward inflection, optimistic. At "risks" section — straighten posture, slightly slower delivery, more serious expression. Credibility comes from honesty about risk.</div>
+            </div>
+          </div>
+        </div>
+        <div class="avatar-notes" style="margin-top:12px">
+          <div class="note-item"><div class="note-label">At 3:00</div>PiP with data graphics</div>
+          <div class="note-item"><div class="note-label">At 6:00</div>Full screen for risks</div>
+          <div class="note-item"><div class="note-label">Key moment</div>Lean forward on "43%"</div>
+          <div class="note-item"><div class="note-label">Transitions</div>Clean cuts, no dissolves</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type kling">Kling</div>
+        <div class="block-title">Background Video Prompt — Scene 04A · Uranium</div>
+      </div>
+      <div class="block-content">
+        <button class="copy-btn" onclick="copyText(this, 'kling4a')">COPY PROMPT</button>
+        <div class="kling-prompt" id="kling4a">Close-up cinematic footage of uranium ore samples under industrial lighting, yellowcake powder in industrial containers, then transition to a nuclear power plant cooling tower releasing steam against a blue sky, massive scale visible. Camera: slow macro zoom on ore, then cut to wide drone shot of power plant. Color: clinical whites and industrial grays, slight yellow cast on ore close-ups. Style: documentary industrial photography. 4K, 15 seconds. No people visible. Mood: powerful, controlled, abundant.</div>
+        <div class="kling-tech">
+          <div class="tech-item"><div class="tech-label">Scene A</div><div class="tech-val">Uranium ore → reactor</div></div>
+          <div class="tech-item"><div class="tech-label">Duration</div><div class="tech-val">15 seconds</div></div>
+          <div class="tech-item"><div class="tech-label">Color</div><div class="tech-val">Industrial, clinical</div></div>
+          <div class="tech-item"><div class="tech-label">Mood</div><div class="tech-val">Powerful, controlled</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type kling">Kling</div>
+        <div class="block-title">Background Video Prompt — Scene 04B · Energy Transition</div>
+      </div>
+      <div class="block-content">
+        <button class="copy-btn" onclick="copyText(this, 'kling4b')">COPY PROMPT</button>
+        <div class="kling-prompt" id="kling4b">Cinematic aerial shot of an electric vehicle manufacturing line with robotic arms assembling battery packs, sparks flying, then transition to a vast solar farm in a desert landscape shot from 500 meters altitude, panels stretching to horizon, then close-up of lithium battery cells in a laboratory. Camera: dynamic, confident movements. Color: warm industrial tones, bright clinical laboratory. Style: tech-optimistic documentary. 4K HDR, 15 seconds. Mood: future is here, industrial scale.</div>
+        <div class="kling-tech">
+          <div class="tech-item"><div class="tech-label">Scene B</div><div class="tech-val">EV → solar → battery</div></div>
+          <div class="tech-item"><div class="tech-label">Duration</div><div class="tech-val">15 seconds</div></div>
+          <div class="tech-item"><div class="tech-label">Color</div><div class="tech-val">Tech-optimistic warm</div></div>
+          <div class="tech-item"><div class="tech-label">Mood</div><div class="tech-val">Future is here</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type eleven">ElevenLabs</div>
+        <div class="block-title">Voice Script — Scene 04 · ~4 minutes</div>
+      </div>
+      <div class="block-content">
+        <button class="copy-btn" onclick="copyText(this, 'tts4')">COPY TEXT</button>
+        <div class="tts-text" id="tts4">Let's start with uranium — because this is where the story gets really interesting. <span class="tts-pause">[pause: 0.4s]</span>
+
+Kazakhstan, through its state-owned company Kazatomprom, produces approximately <span class="tts-emphasis">forty-three percent</span> of all uranium mined on Earth. <span class="tts-pause">[pause: 0.6s]</span>
+
+Not thirty percent. Not twenty-five. Forty-three. <span class="tts-pause">[pause: 0.5s]</span>
+
+For context: the entire United States nuclear fleet, which provides about twenty percent of American electricity, depends significantly on imported uranium. And the world's largest supplier is not Canada. It's not Australia. <span class="tts-pause">[pause: 0.4s]</span>
+
+It's a country most Americans couldn't find on a map. <span class="tts-pause">[pause: 0.5s]</span>
+
+Now layer on top of that the nuclear renaissance. The United States, France, Japan, South Korea — all extending reactor lifetimes, all planning new builds. The demand curve for uranium points in one direction through the 2030s. <span class="tts-pause">[pause: 0.5s]</span>
+
+Beyond uranium — lithium. Rare earth elements. Chromium. Manganese. Titanium. <span class="tts-pause">[pause: 0.4s]</span>
+
+Every electric vehicle battery requires lithium, cobalt, nickel, and manganese. Every wind turbine requires rare earth elements. Every solar panel supply chain eventually runs through raw materials — and Kazakhstan sits on meaningful deposits of all of them. <span class="tts-pause">[pause: 0.5s]</span>
+
+In November 2025, the C5+1 Business Conference in Washington — that's the United States plus the five Central Asian nations — saw American companies sign <span class="tts-emphasis">landmark deals in Kazakhstan</span> specifically in energy and critical minerals. The U.S. Chamber of Commerce publicly identified Kazakhstan as a strategic partner for reducing supply chain dependence on China. <span class="tts-pause">[pause: 0.5s]</span>
+
+This is not speculation. This is documented, public policy. <span class="tts-pause">[pause: 0.6s]</span>
+
+Now — and I want to be very direct here — <span class="tts-emphasis">what are the risks?</span> <span class="tts-pause">[pause: 0.5s]</span>
+
+Kazatomprom is state-controlled. That means the government has significant influence over production decisions, pricing negotiations, and export flows. Geopolitically, Kazakhstan borders Russia — that creates risk you must weigh carefully. The tenge, Kazakhstan's currency, has experienced significant volatility in past cycles. And for most retail investors, direct access to these assets is not straightforward.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SCENE 5: PERSONAL VIEW -->
+<div class="scene">
+  <div class="scene-header" onclick="toggleScene(this)">
+    <div class="scene-num">05</div>
+    <div class="scene-title-wrap">
+      <div class="scene-time">7:00 – 8:30 · PERSONAL VIEW</div>
+      <div class="scene-name">What I See That Others Miss</div>
+      <div class="scene-desc">Analyst perspective. Builds trust. Avoids direct advice. Positions as expert on the ground.</div>
+    </div>
+    <div class="scene-badge">
+      <span class="badge" style="border-color:var(--heygen);color:var(--heygen)">HEYGEN</span>
+      <span class="badge" style="border-color:var(--kling);color:var(--kling)">KLING</span>
+      <span class="badge" style="border-color:var(--eleven);color:var(--eleven)">11LABS</span>
+    </div>
+    <button class="scene-toggle">▾</button>
+  </div>
+  <div class="scene-body">
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type heygen">HeyGen</div>
+        <div class="block-title">Avatar Script + Stage Directions</div>
+      </div>
+      <div class="block-content">
+        <div class="heygen-scene">
+          <div>
+            <div class="direction">
+              <div class="direction-label">Visual Direction</div>
+              <div class="direction-text">Full-screen avatar for this entire scene. Most personal and direct moment of the video. Avatar leans slightly toward camera. Expression: thoughtful, confident, slightly lowered voice energy — like sharing something important with a trusted colleague. Not performing. Talking.</div>
+            </div>
+          </div>
+          <div>
+            <div class="direction">
+              <div class="direction-label">Key Moment</div>
+              <div class="direction-text">On "I'm watching this market closely" — slight pause before and after. This is the credibility moment. Don't rush it. The authenticity here is what makes viewers subscribe. Honest, not hype.</div>
+            </div>
+          </div>
+        </div>
+        <div class="avatar-notes" style="margin-top:12px">
+          <div class="note-item"><div class="note-label">Layout</div>Full-screen, close-up</div>
+          <div class="note-item"><div class="note-label">Tone</div>Personal, trusted, direct</div>
+          <div class="note-item"><div class="note-label">Energy</div>Quieter, more intimate</div>
+          <div class="note-item"><div class="note-label">Position</div>Slight forward lean</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type kling">Kling</div>
+        <div class="block-title">Background Video Prompt — Scene 05</div>
+      </div>
+      <div class="block-content">
+        <button class="copy-btn" onclick="copyText(this, 'kling5')">COPY PROMPT</button>
+        <div class="kling-prompt" id="kling5">Intimate ground-level footage of a Central Asian bazaar at dusk — vendors closing stalls, people walking past, warm orange and amber market lights. Camera: slow handheld-style movement at eye level through the market, slightly out of focus on faces, focus on textures, goods, atmosphere. Then cut to a quiet office window at night overlooking city lights, a desk with documents and a laptop visible. Style: intimate documentary, slightly desaturated, warm shadows. 12 seconds. Mood: local, real, on-the-ground.</div>
+        <div class="kling-tech">
+          <div class="tech-item"><div class="tech-label">Duration</div><div class="tech-val">12 seconds</div></div>
+          <div class="tech-item"><div class="tech-label">Style</div><div class="tech-val">Intimate documentary</div></div>
+          <div class="tech-item"><div class="tech-label">Shots</div><div class="tech-val">Bazaar → office window</div></div>
+          <div class="tech-item"><div class="tech-label">Mood</div><div class="tech-val">Ground-level, real</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type eleven">ElevenLabs</div>
+        <div class="block-title">Voice Script — Scene 05 · ~90 seconds</div>
+      </div>
+      <div class="block-content">
+        <button class="copy-btn" onclick="copyText(this, 'tts5')">COPY TEXT</button>
+        <div class="tts-text" id="tts5">Here's what I actually think — and remember, this is educational analysis, not advice. <span class="tts-pause">[pause: 0.4s]</span>
+
+<span class="tts-emphasis">I'm watching this market closely.</span> <span class="tts-pause">[pause: 0.6s]</span>
+
+What I see from the inside that most Western analysts miss: this is not a story about one commodity. It's a story about a country that is simultaneously the world's largest uranium supplier, a growing lithium producer, and a critical logistics hub between China and Europe — all while maintaining fiscal discipline that most Western governments have completely abandoned. <span class="tts-pause">[pause: 0.5s]</span>
+
+The information asymmetry here is enormous. There are thousands of analysts covering Brazilian iron ore, Indonesian nickel, Australian lithium. There are almost none covering Kazakhstan from the ground. <span class="tts-pause">[pause: 0.4s]</span>
+
+That gap is where opportunities historically live. <span class="tts-pause">[pause: 0.5s]</span>
+
+If I were thinking about how to get exposure to this thesis, I would be looking at three things: Kazatomprom on the London Stock Exchange — it trades there, it's accessible. Kaspi dot kz on Nasdaq — Kazakhstan's digital economy in one liquid stock. And for more sophisticated investors, the AIFC in Astana, which operates under English common law and is specifically designed to attract foreign capital. <span class="tts-pause">[pause: 0.5s]</span>
+
+But I want to say this clearly one more time — <span class="tts-emphasis">do your own research</span>. These are market observations, not recommendations. The risks I outlined are real. This is a frontier market, not a blue-chip portfolio.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SCENE 6: CTA -->
+<div class="scene">
+  <div class="scene-header" onclick="toggleScene(this)">
+    <div class="scene-num">06</div>
+    <div class="scene-title-wrap">
+      <div class="scene-time">8:30 – 9:30 · CTA</div>
+      <div class="scene-name">Subscribe + Next Video Tease</div>
+      <div class="scene-desc">Earn the subscribe. Tease next episode. Drive traffic to alsat.asia.</div>
+    </div>
+    <div class="scene-badge">
+      <span class="badge" style="border-color:var(--heygen);color:var(--heygen)">HEYGEN</span>
+      <span class="badge" style="border-color:var(--kling);color:var(--kling)">KLING</span>
+      <span class="badge" style="border-color:var(--eleven);color:var(--eleven)">11LABS</span>
+    </div>
+    <button class="scene-toggle">▾</button>
+  </div>
+  <div class="scene-body">
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type heygen">HeyGen</div>
+        <div class="block-title">Avatar Script + Stage Directions</div>
+      </div>
+      <div class="block-content">
+        <div class="heygen-scene">
+          <div>
+            <div class="direction">
+              <div class="direction-label">Visual Direction</div>
+              <div class="direction-text">Avatar returns to slightly warmer, forward energy. On "subscribe" — do NOT beg. State it once, matter-of-factly. On next video tease — slight lean forward, lower voice slightly, create intrigue. End with a direct camera hold for 2 seconds — no speaking, just holding the gaze. Cuts to end screen.</div>
+            </div>
+          </div>
+          <div>
+            <div class="direction">
+              <div class="direction-label">End Screen</div>
+              <div class="direction-text">Final 20 seconds: YouTube end screen with subscribe button, link card to alsat.asia, and suggested video thumbnail. Lower third: "alsat.asia — Full Research Available." Avatar steps to side-frame to leave room for end screen elements.</div>
+            </div>
+          </div>
+        </div>
+        <div class="avatar-notes" style="margin-top:12px">
+          <div class="note-item"><div class="note-label">Subscribe ask</div>Once, matter-of-fact</div>
+          <div class="note-item"><div class="note-label">End hold</div>2 seconds silent camera</div>
+          <div class="note-item"><div class="note-label">Lower Third</div>alsat.asia website</div>
+          <div class="note-item"><div class="note-label">End screen</div>Last 20 seconds</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type kling">Kling</div>
+        <div class="block-title">Background Video Prompt — Scene 06</div>
+      </div>
+      <div class="block-content">
+        <button class="copy-btn" onclick="copyText(this, 'kling6')">COPY PROMPT</button>
+        <div class="kling-prompt" id="kling6">Time-lapse of the Kazakhstan steppe transitioning from night to sunrise — stars wheeling overhead, then the first golden light breaking over the flat horizon, painting the grass in amber and orange, clouds catching fire above. Camera: completely static, wide angle, horizon centered. Color: deep blue-black of night transitioning to brilliant warm gold. No artificial lights visible. Style: high-end nature documentary time-lapse, 4K HDR. Duration: 15 seconds compressed from hours. Mood: beginning, possibility, new perspective.</div>
+        <div class="kling-tech">
+          <div class="tech-item"><div class="tech-label">Duration</div><div class="tech-val">15 seconds</div></div>
+          <div class="tech-item"><div class="tech-label">Type</div><div class="tech-val">Time-lapse: night→dawn</div></div>
+          <div class="tech-item"><div class="tech-label">Camera</div><div class="tech-val">Static wide angle</div></div>
+          <div class="tech-item"><div class="tech-label">Mood</div><div class="tech-val">Beginning, possibility</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-type eleven">ElevenLabs</div>
+        <div class="block-title">Voice Script — Scene 06 · ~60 seconds</div>
+      </div>
+      <div class="block-content">
+        <button class="copy-btn" onclick="copyText(this, 'tts6')">COPY TEXT</button>
+        <div class="tts-text" id="tts6">If you found this useful — and I hope you did — subscribe. <span class="tts-pause">[pause: 0.3s]</span>
+
+I put out one video a week. Each one covers a different angle of Central Asia that Western financial media completely ignores. Next week, I'm breaking down the <span class="tts-emphasis">Middle Corridor</span> — why Kazakhstan's thirteen transit routes are reshaping global trade flows, and why logistics companies are already moving quietly into this space. <span class="tts-pause">[pause: 0.4s]</span>
+
+You will not read about that in the Financial Times. <span class="tts-pause">[pause: 0.5s]</span>
+
+The full written analysis for today's video — with all sources, data tables, and a breakdown of how to access Kazatomprom and AIFC investments — is published on <span class="tts-emphasis">alsat dot asia</span>. Free. No paywall. Link in the description. <span class="tts-pause">[pause: 0.4s]</span>
+
+Most Western investors will keep ignoring Central Asia. <span class="tts-pause">[pause: 0.4s]</span>
+
+That is, of course, <span class="tts-emphasis">your advantage.</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- WORKFLOW -->
+<div class="workflow">
+  <h3>⚡ Production Workflow</h3>
+  <div class="workflow-steps">
+    <div class="workflow-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <strong>Generate Background Videos in Kling</strong>
+        <span>Run all 6 prompts. Generate 2–3 variations each. Pick best. Export 4K MP4. Total: ~90 seconds of B-roll needed.</span>
+      </div>
+      <div class="step-tool" style="border-color:var(--kling);color:var(--kling)">KLING.AI</div>
+    </div>
+    <div class="workflow-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <strong>Generate Voice in ElevenLabs</strong>
+        <span>Copy each scene TTS text. Use consistent voice throughout. Export WAV. Recommended voices: "Adam" or "Antoni" for authority. Set stability 0.75, similarity 0.85.</span>
+      </div>
+      <div class="step-tool" style="border-color:var(--eleven);color:var(--eleven)">ELEVENLABS</div>
+    </div>
+    <div class="workflow-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <strong>Build Avatar Video in HeyGen</strong>
+        <span>Create avatar with same voice as ElevenLabs (upload audio) or use HeyGen TTS. Use directions from each scene for avatar behavior settings. Export 1080p.</span>
+      </div>
+      <div class="step-tool" style="border-color:var(--heygen);color:var(--heygen)">HEYGEN</div>
+    </div>
+    <div class="workflow-step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <strong>Edit in CapCut or DaVinci Resolve</strong>
+        <span>Layer: background Kling video → avatar PiP → data graphics → voice audio. Add lower thirds, end screen, thumbnail. Export 4K H.264 for YouTube.</span>
+      </div>
+      <div class="step-tool" style="border-color:var(--gold);color:var(--gold)">CAPCUT / DAVINCI</div>
+    </div>
+    <div class="workflow-step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <strong>YouTube Upload + SEO</strong>
+        <span>Title: "Kazakhstan Controls 43% of the World's Uranium — And Nobody Is Talking About It" · Tags: Kazakhstan investment, uranium stocks, frontier markets, critical minerals · Description includes alsat.asia link.</span>
+      </div>
+      <div class="step-tool" style="border-color:var(--uranium);color:var(--uranium)">YOUTUBE</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleScene(header) {
+  const body = header.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  header.classList.toggle('active', !isOpen);
+}
+
+function copyText(btn, id) {
+  const el = document.getElementById(id);
+  let text = el.innerText || el.textContent;
+  // Clean pause markers and emphasis markers for plain text copy
+  text = text.replace(/\[pause: [^\]]+\]/g, '').replace(/\s+/g, ' ').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ COPIED';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'COPY ' + (id.startsWith('kling') ? 'PROMPT' : 'TEXT');
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// Open first scene by default
+document.querySelector('.scene-header').click();
+</script>
+
+</body>
+</html>
