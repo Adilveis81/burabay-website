@@ -97,6 +97,27 @@ button { cursor: pointer; }
   white-space: nowrap;
 }
 .nav a:hover, .ghost-btn:hover { color: var(--text); border-color: rgba(255,92,0,.5); }
+.lang-switch {
+  display: flex;
+  gap: 5px;
+  padding: 4px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 8px;
+  background: rgba(255,255,255,.04);
+}
+.lang-btn {
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 850;
+}
+.lang-btn.active {
+  background: var(--brand);
+  color: #111;
+}
 .primary-btn {
   border: 0;
   border-radius: 8px;
@@ -400,6 +421,32 @@ h1 {
   color: var(--muted);
   font-size: 13px;
 }
+.check a { color: var(--brand2); }
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 0 0 34px;
+}
+.info-card {
+  background: rgba(18,27,41,.82);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 8px;
+  padding: 16px;
+}
+.info-card h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+.info-card p, .info-card li {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.info-card ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
 .empty, .loading {
   color: var(--muted);
   text-align: center;
@@ -435,6 +482,7 @@ footer {
 }
 @media (max-width: 900px) {
   .hero, .layout { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 1fr; }
   .side-stack { order: -1; }
 }
 @media (max-width: 640px) {
@@ -450,11 +498,16 @@ footer {
 </head>
 <body>
 <header class="topbar">
-  <div class="brand"><span class="brand-mark">A</span><span>Алсат Межгород</span></div>
+  <div class="brand"><span class="brand-mark">A</span><span data-i18n="brand">Алсат Межгород</span></div>
   <nav class="nav">
-    <a href="#routes">Маршруты</a>
-    <a href="#post">Добавить</a>
-    <a href="https://t.me/Alsat_Asia_bot" target="_blank" rel="noopener">Telegram бот</a>
+    <a href="#routes" data-i18n="navRoutes">Маршруты</a>
+    <a href="#post" data-i18n="navPost">Добавить</a>
+    <a href="https://t.me/Alsat_Asia_bot" target="_blank" rel="noopener" data-i18n="navBot">Telegram бот</a>
+    <div class="lang-switch" aria-label="Language">
+      <button class="lang-btn active" type="button" data-lang-btn="ru" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn" type="button" data-lang-btn="kz" onclick="setLang('kz')">KZ</button>
+      <button class="lang-btn" type="button" data-lang-btn="en" onclick="setLang('en')">EN</button>
+    </div>
   </nav>
 </header>
 
@@ -462,38 +515,38 @@ footer {
   <section class="hero">
     <div class="hero-main">
       <div>
-        <div class="eyebrow">Казахстан · Попутчики · Водители</div>
-        <h1>Междугородние поездки без лишних посредников</h1>
-        <p class="lead">Найдите водителя, пассажира или опубликуйте свой маршрут. Алсат оставляет только нужную часть классифайда: поездки между городами.</p>
+        <div class="eyebrow" data-i18n="eyebrow">Казахстан · Попутчики · Водители</div>
+        <h1 data-i18n="heroTitle">Междугородние поездки без лишних посредников</h1>
+        <p class="lead" data-i18n="heroLead">Найдите водителя, пассажира или опубликуйте свой маршрут. Алсат оставляет только нужную часть классифайда: поездки между городами.</p>
         <div class="hero-actions">
-          <a class="primary-btn" href="#post">＋ Добавить маршрут</a>
-          <a class="ghost-btn" href="#routes">Смотреть объявления</a>
+          <a class="primary-btn" href="#post" data-i18n="heroPost">＋ Добавить маршрут</a>
+          <a class="ghost-btn" href="#routes" data-i18n="heroView">Смотреть объявления</a>
         </div>
       </div>
       <div class="hero-stats">
-        <div class="stat-card"><div class="stat-num" id="driversStat">...</div><div class="stat-label">водителей</div></div>
-        <div class="stat-card"><div class="stat-num" id="paxStat">...</div><div class="stat-label">заявок пассажиров</div></div>
-        <div class="stat-card"><div class="stat-num">0 ₸</div><div class="stat-label">комиссия сайта</div></div>
+        <div class="stat-card"><div class="stat-num" id="driversStat">...</div><div class="stat-label" data-i18n="statDrivers">водителей</div></div>
+        <div class="stat-card"><div class="stat-num" id="paxStat">...</div><div class="stat-label" data-i18n="statPax">заявок пассажиров</div></div>
+        <div class="stat-card"><div class="stat-num">0 ₸</div><div class="stat-label" data-i18n="statFee">комиссия сайта</div></div>
       </div>
     </div>
 
     <aside class="search-panel">
-      <h2 class="panel-title">Быстрый поиск</h2>
+      <h2 class="panel-title" data-i18n="searchTitle">Быстрый поиск</h2>
       <div class="field-grid">
         <div class="field">
-          <label>Откуда</label>
+          <label data-i18n="from">Откуда</label>
           <input id="filterFrom" list="cityList" placeholder="Бурабай">
         </div>
         <div class="field">
-          <label>Куда</label>
+          <label data-i18n="to">Куда</label>
           <input id="filterTo" list="cityList" placeholder="Астана">
         </div>
       </div>
       <div class="filter-actions">
-        <button class="primary-btn" onclick="applyFilters()">Найти</button>
-        <button class="ghost-btn" onclick="clearFilters()">Сбросить</button>
+        <button class="primary-btn" onclick="applyFilters()" data-i18n="find">Найти</button>
+        <button class="ghost-btn" onclick="clearFilters()" data-i18n="reset">Сбросить</button>
       </div>
-      <p class="muted-note">Контакты открываются напрямую: звонок, WhatsApp или Telegram. Новые объявления проходят модерацию ботом Алсат.</p>
+      <p class="muted-note" data-i18n="searchNote">Контакты открываются напрямую: звонок, WhatsApp или Telegram. Новые объявления проходят модерацию ботом Алсат.</p>
     </aside>
   </section>
 
@@ -508,8 +561,8 @@ footer {
   </datalist>
 
   <div class="tabs" id="routes">
-    <button class="tab active" id="tabDrivers" onclick="switchTab('drivers')">🚗 Водители</button>
-    <button class="tab" id="tabPax" onclick="switchTab('pax')">🧳 Пассажиры</button>
+    <button class="tab active" id="tabDrivers" onclick="switchTab('drivers')" data-i18n="driversTab">🚗 Водители</button>
+    <button class="tab" id="tabPax" onclick="switchTab('pax')" data-i18n="paxTab">🧳 Пассажиры</button>
     <button class="tab" onclick="quickRoute('Бурабай','Астана')">Бурабай → Астана</button>
     <button class="tab" onclick="quickRoute('Кокшетау','Астана')">Кокшетау → Астана</button>
     <button class="tab" onclick="quickRoute('Алматы','Астана')">Алматы → Астана</button>
@@ -526,19 +579,19 @@ footer {
 
     <aside class="side-stack" id="post">
       <div class="form-panel">
-        <h2 class="panel-title">Добавить объявление</h2>
+        <h2 class="panel-title" data-i18n="postTitle">Добавить объявление</h2>
         <div class="form-tabs">
-          <button class="form-tab active" id="formDriverTab" onclick="switchForm('driver')">Я водитель</button>
-          <button class="form-tab" id="formPaxTab" onclick="switchForm('pax')">Ищу поездку</button>
+          <button class="form-tab active" id="formDriverTab" onclick="switchForm('driver')" data-i18n="formDriver">Я водитель</button>
+          <button class="form-tab" id="formPaxTab" onclick="switchForm('pax')" data-i18n="formPax">Ищу поездку</button>
         </div>
         <div class="form-grid">
           <div class="field-grid">
             <div class="field">
-              <label>Откуда</label>
+              <label data-i18n="from">Откуда</label>
               <input id="fFrom" list="cityList" placeholder="Астана">
             </div>
             <div class="field">
-              <label>Куда</label>
+              <label data-i18n="to">Куда</label>
               <input id="fTo" list="cityList" placeholder="Бурабай">
             </div>
           </div>
@@ -546,24 +599,24 @@ footer {
           <div id="driverFields" class="form-grid">
             <div class="field-grid">
               <div class="field">
-                <label>Авто</label>
+                <label data-i18n="car">Авто</label>
                 <input id="fCar" placeholder="Toyota Camry 2020">
               </div>
               <div class="field">
-                <label>Цена за место</label>
+                <label data-i18n="price">Цена за место</label>
                 <input id="fPrice" type="number" inputmode="numeric" placeholder="5000">
               </div>
             </div>
             <div class="field-grid">
               <div class="field">
-                <label>Мест</label>
+                <label data-i18n="seats">Мест</label>
                 <select id="fSeats">
                   <option value="1">1</option><option value="2">2</option>
                   <option value="3" selected>3</option><option value="4">4</option>
                 </select>
               </div>
               <div class="field">
-                <label>Стаж</label>
+                <label data-i18n="experience">Стаж</label>
                 <select id="fExp">
                   <option value="1-3 года">1-3 года</option>
                   <option value="3-7 лет" selected>3-7 лет</option>
@@ -573,26 +626,26 @@ footer {
               </div>
             </div>
             <div class="checks">
-              <label class="check"><input type="checkbox" id="fAC"> Кондиционер</label>
-              <label class="check"><input type="checkbox" id="fSeat"> Детское кресло</label>
-              <label class="check"><input type="checkbox" id="fTrunk"> Багажник свободен</label>
-              <label class="check"><input type="checkbox" id="fParcel"> Беру посылки</label>
+              <label class="check"><input type="checkbox" id="fAC"> <span data-i18n="ac">Кондиционер</span></label>
+              <label class="check"><input type="checkbox" id="fSeat"> <span data-i18n="childSeat">Детское кресло</span></label>
+              <label class="check"><input type="checkbox" id="fTrunk"> <span data-i18n="trunk">Багажник свободен</span></label>
+              <label class="check"><input type="checkbox" id="fParcel"> <span data-i18n="parcel">Беру посылки</span></label>
             </div>
           </div>
 
           <div id="paxFields" class="form-grid" style="display:none">
             <div class="field-grid">
               <div class="field">
-                <label>Имя</label>
+                <label data-i18n="name">Имя</label>
                 <input id="pName" placeholder="Адил">
               </div>
               <div class="field">
-                <label>Дата поездки</label>
+                <label data-i18n="date">Дата поездки</label>
                 <input id="pDate" type="date">
               </div>
             </div>
             <div class="field">
-              <label>Мест нужно</label>
+              <label data-i18n="neededSeats">Мест нужно</label>
               <select id="pSeats">
                 <option value="1" selected>1</option><option value="2">2</option>
                 <option value="3">3</option><option value="4">4</option>
@@ -601,7 +654,7 @@ footer {
           </div>
 
           <div class="field">
-            <label>Телефон</label>
+            <label data-i18n="phone">Телефон</label>
             <input id="fPhone" type="tel" inputmode="tel" placeholder="+7 700 000 00 00">
           </div>
           <div class="field-grid">
@@ -615,27 +668,141 @@ footer {
             </div>
           </div>
           <div class="field">
-            <label>Комментарий</label>
+            <label data-i18n="comment">Комментарий</label>
             <textarea id="fComment" placeholder="Выезд утром, можно с багажом, без животных..."></textarea>
           </div>
-          <button class="primary-btn" onclick="submitPost()">Опубликовать</button>
-          <p class="muted-note">Телефон нужен для связи по поездке. Публикации с подозрительным текстом может остановить модерация.</p>
+          <label class="check"><input type="checkbox" id="fConsent"> <span data-i18n="consent">Я согласен с правилами сервиса и обработкой контактных данных для связи по поездке.</span></label>
+          <button class="primary-btn" onclick="submitPost()" data-i18n="publish">Опубликовать</button>
+          <p class="muted-note" data-i18n="postNote">Телефон нужен для связи по поездке. Публикации с подозрительным текстом может остановить модерация.</p>
         </div>
       </div>
 
       <div class="form-panel">
         <h2 class="panel-title">Telegram</h2>
-        <p class="muted-note">Бот Алсат присылает совпадения по маршрутам и помогает получить контакт.</p>
-        <a class="primary-btn" href="https://t.me/Alsat_Asia_bot" target="_blank" rel="noopener" style="width:100%;margin-top:10px">Открыть бота</a>
+        <p class="muted-note" data-i18n="botNote">Бот Алсат присылает совпадения по маршрутам и помогает получить контакт.</p>
+        <a class="primary-btn" href="https://t.me/Alsat_Asia_bot" target="_blank" rel="noopener" style="width:100%;margin-top:10px" data-i18n="openBot">Открыть бота</a>
       </div>
     </aside>
   </section>
+
+  <section class="info-grid" aria-label="Планы и безопасность">
+    <div class="info-card">
+      <h3 data-i18n="mapsTitle">Карты и маршруты</h3>
+      <p data-i18n="mapsText">Следующий шаг — показать точки отправления и прибытия через 2GIS или Яндекс Карты. Пока адреса вводятся текстом, без передачи геолокации.</p>
+    </div>
+    <div class="info-card">
+      <h3 data-i18n="payTitle">Оплата услуг сайта</h3>
+      <p data-i18n="payText">Базовое размещение остается бесплатным. Платными лучше делать только продвижение объявления или подписку водителя после подключения официального эквайринга.</p>
+    </div>
+    <div class="info-card">
+      <h3 data-i18n="safeTitle">Безопасность и законность</h3>
+      <ul>
+        <li data-i18n="safe1">Контакты публикуются только с согласия пользователя.</li>
+        <li data-i18n="safe2">Сайт не является перевозчиком и не принимает оплату за поездку.</li>
+        <li data-i18n="safe3">Водителям нужно соблюдать требования к пассажирским перевозкам.</li>
+      </ul>
+    </div>
+  </section>
 </main>
 
-<footer class="wrap">Alsat.Asia · Междугородние поездки по Казахстану · Бесплатное размещение</footer>
+<footer class="wrap" data-i18n="footer">Alsat.Asia · Междугородние поездки по Казахстану · Бесплатное размещение</footer>
 <div class="toast" id="toast"></div>
 
 <script>
+var I18N = {
+  ru: {
+    brand:'Алсат Межгород', navRoutes:'Маршруты', navPost:'Добавить', navBot:'Telegram бот',
+    eyebrow:'Казахстан · Попутчики · Водители', heroTitle:'Междугородние поездки без лишних посредников',
+    heroLead:'Найдите водителя, пассажира или опубликуйте свой маршрут. Алсат оставляет только нужную часть классифайда: поездки между городами.',
+    heroPost:'＋ Добавить маршрут', heroView:'Смотреть объявления', statDrivers:'водителей', statPax:'заявок пассажиров', statFee:'комиссия сайта',
+    searchTitle:'Быстрый поиск', from:'Откуда', to:'Куда', find:'Найти', reset:'Сбросить',
+    searchNote:'Контакты открываются напрямую: звонок, WhatsApp или Telegram. Новые объявления проходят модерацию ботом Алсат.',
+    driversTab:'🚗 Водители', paxTab:'🧳 Пассажиры', listDrivers:'Водители', listPax:'Пассажиры ищут поездку', found:'найдено',
+    postTitle:'Добавить объявление', formDriver:'Я водитель', formPax:'Ищу поездку', car:'Авто', price:'Цена за место', seats:'Мест', experience:'Стаж',
+    ac:'Кондиционер', childSeat:'Детское кресло', trunk:'Багажник свободен', parcel:'Беру посылки', name:'Имя', date:'Дата поездки', neededSeats:'Мест нужно',
+    phone:'Телефон', comment:'Комментарий', consent:'Я согласен с правилами сервиса и обработкой контактных данных для связи по поездке.',
+    publish:'Опубликовать', postNote:'Телефон нужен для связи по поездке. Публикации с подозрительным текстом может остановить модерация.',
+    botNote:'Бот Алсат присылает совпадения по маршрутам и помогает получить контакт.', openBot:'Открыть бота',
+    mapsTitle:'Карты и маршруты', mapsText:'Следующий шаг — показать точки отправления и прибытия через 2GIS или Яндекс Карты. Пока адреса вводятся текстом, без передачи геолокации.',
+    payTitle:'Оплата услуг сайта', payText:'Базовое размещение остается бесплатным. Платными лучше делать только продвижение объявления или подписку водителя после подключения официального эквайринга.',
+    safeTitle:'Безопасность и законность', safe1:'Контакты публикуются только с согласия пользователя.', safe2:'Сайт не является перевозчиком и не принимает оплату за поездку.', safe3:'Водителям нужно соблюдать требования к пассажирским перевозкам.',
+    footer:'Alsat.Asia · Междугородние поездки по Казахстану · Бесплатное размещение',
+    empty:'Пока нет объявлений по этому маршруту. Добавьте первое объявление.', offline:'Онлайн-маршруты временно не загрузились. Добавление заявок останется доступным после восстановления связи с базой.',
+    dbUnavailable:'онлайн-база недоступна', loading:'Загружаю маршруты...', carMissing:'Авто не указано', call:'Позвонить', perSeat:'за место', passenger:'Пассажир', looking:'ищет',
+    exampleMeta:'Пример объявления · Haval M6 · 4 места', exampleComment:'Пример того, как будет выглядеть карточка водителя после загрузки базы.', routeTag:'Межгород', freeTag:'Бесплатно',
+    errFrom:'Укажите город отправления', errTo:'Укажите город назначения', errPhone:'Укажите телефон', errCar:'Укажите автомобиль', errPrice:'Укажите цену', errConsent:'Подтвердите согласие с правилами и обработкой данных',
+    saved:'Опубликовано. Модерация и уведомления включены.', saveFailed:'Не удалось сохранить. Проверьте интернет и попробуйте еще раз.'
+  },
+  kz: {
+    brand:'Алсат Қалааралық', navRoutes:'Бағыттар', navPost:'Қосу', navBot:'Telegram бот',
+    eyebrow:'Қазақстан · Жолаушылар · Жүргізушілер', heroTitle:'Қалааралық сапарлар делдалсыз',
+    heroLead:'Жүргізушіні, жолаушыны табыңыз немесе өз бағытыңызды жариялаңыз. Алсатта тек қалааралық сапарлар бөлігі қалды.',
+    heroPost:'＋ Бағыт қосу', heroView:'Хабарландыруларды көру', statDrivers:'жүргізуші', statPax:'жолаушы өтінімі', statFee:'сайт комиссиясы',
+    searchTitle:'Жылдам іздеу', from:'Қайдан', to:'Қайда', find:'Іздеу', reset:'Тазарту',
+    searchNote:'Байланыс тікелей ашылады: қоңырау, WhatsApp немесе Telegram. Жаңа хабарландыруларды Алсат боты тексереді.',
+    driversTab:'🚗 Жүргізушілер', paxTab:'🧳 Жолаушылар', listDrivers:'Жүргізушілер', listPax:'Жолаушылар сапар іздейді', found:'табылды',
+    postTitle:'Хабарландыру қосу', formDriver:'Мен жүргізушімін', formPax:'Сапар іздеймін', car:'Көлік', price:'Орын бағасы', seats:'Орын', experience:'Тәжірибе',
+    ac:'Кондиционер', childSeat:'Балалар орындығы', trunk:'Жүксалғыш бос', parcel:'Сәлемдеме аламын', name:'Аты', date:'Сапар күні', neededSeats:'Қажет орын',
+    phone:'Телефон', comment:'Пікір', consent:'Сервис ережелерімен және сапар бойынша байланысу үшін контакт деректерін өңдеумен келісемін.',
+    publish:'Жариялау', postNote:'Телефон сапар бойынша байланыс үшін қажет. Күмәнді мәтінді модерация тоқтатуы мүмкін.',
+    botNote:'Алсат боты бағыттар бойынша сәйкестіктерді жіберіп, контакт алуға көмектеседі.', openBot:'Ботты ашу',
+    mapsTitle:'Карталар және бағыттар', mapsText:'Келесі қадам — 2GIS немесе Яндекс Карталар арқылы жөнелту және келу нүктелерін көрсету. Әзірге мекенжайлар мәтінмен енгізіледі, геолокация берілмейді.',
+    payTitle:'Сайт қызметтерін төлеу', payText:'Негізгі жариялау тегін қалады. Ресми эквайринг қосылғаннан кейін тек хабарландыруды ілгерілету немесе жүргізуші жазылымын ақылы еткен дұрыс.',
+    safeTitle:'Қауіпсіздік және заңдылық', safe1:'Контактілер тек пайдаланушы келісімімен жарияланады.', safe2:'Сайт тасымалдаушы емес және сапар ақысын қабылдамайды.', safe3:'Жүргізушілер жолаушы тасымалы талаптарын сақтауы керек.',
+    footer:'Alsat.Asia · Қазақстан бойынша қалааралық сапарлар · Тегін жариялау',
+    empty:'Бұл бағытта хабарландыру жоқ. Бірінші хабарландыруды қосыңыз.', offline:'Онлайн бағыттар уақытша жүктелмеді. Дерекқормен байланыс қалпына келгенде өтінім қосу жұмыс істейді.',
+    dbUnavailable:'онлайн база қолжетімсіз', loading:'Бағыттар жүктелуде...', carMissing:'Көлік көрсетілмеген', call:'Қоңырау', perSeat:'орын үшін', passenger:'Жолаушы', looking:'іздейді',
+    exampleMeta:'Мысал хабарландыру · Haval M6 · 4 орын', exampleComment:'База жүктелгеннен кейін жүргізуші карточкасы осылай көрінеді.', routeTag:'Қалааралық', freeTag:'Тегін',
+    errFrom:'Жөнелту қаласын көрсетіңіз', errTo:'Баратын қаланы көрсетіңіз', errPhone:'Телефонды көрсетіңіз', errCar:'Көлікті көрсетіңіз', errPrice:'Бағаны көрсетіңіз', errConsent:'Ережелермен және деректерді өңдеумен келісімді растаңыз',
+    saved:'Жарияланды. Модерация және хабарламалар қосулы.', saveFailed:'Сақтау мүмкін болмады. Интернетті тексеріп, қайталап көріңіз.'
+  },
+  en: {
+    brand:'Alsat Intercity', navRoutes:'Routes', navPost:'Post', navBot:'Telegram bot',
+    eyebrow:'Kazakhstan · Passengers · Drivers', heroTitle:'Intercity rides without extra middlemen',
+    heroLead:'Find a driver, find a passenger, or publish your route. Alsat now keeps only the intercity rides part of the classifieds product.',
+    heroPost:'＋ Add route', heroView:'View listings', statDrivers:'drivers', statPax:'passenger requests', statFee:'site commission',
+    searchTitle:'Quick Search', from:'From', to:'To', find:'Search', reset:'Reset',
+    searchNote:'Contacts open directly: phone, WhatsApp, or Telegram. New listings are moderated by the Alsat bot.',
+    driversTab:'🚗 Drivers', paxTab:'🧳 Passengers', listDrivers:'Drivers', listPax:'Passengers looking for a ride', found:'found',
+    postTitle:'Add Listing', formDriver:'I am a driver', formPax:'I need a ride', car:'Car', price:'Price per seat', seats:'Seats', experience:'Experience',
+    ac:'Air conditioning', childSeat:'Child seat', trunk:'Free trunk space', parcel:'Can take parcels', name:'Name', date:'Travel date', neededSeats:'Seats needed',
+    phone:'Phone', comment:'Comment', consent:'I agree to the service rules and processing of contact data for ride communication.',
+    publish:'Publish', postNote:'Phone is needed for ride communication. Suspicious listings may be stopped by moderation.',
+    botNote:'The Alsat bot sends route matches and helps people request contacts.', openBot:'Open bot',
+    mapsTitle:'Maps and routes', mapsText:'Next step: show departure and arrival points with 2GIS or Yandex Maps. For now, addresses are typed as text without sharing geolocation.',
+    payTitle:'Payment for site services', payText:'Basic posting should stay free. Paid features should be listing promotion or driver subscription after official acquiring is connected.',
+    safeTitle:'Safety and legality', safe1:'Contacts are published only with user consent.', safe2:'The site is not a carrier and does not accept ride payments.', safe3:'Drivers must comply with passenger transport requirements.',
+    footer:'Alsat.Asia · Intercity rides in Kazakhstan · Free posting',
+    empty:'No listings for this route yet. Add the first one.', offline:'Online routes could not be loaded for now. Posting will work after the database connection is restored.',
+    dbUnavailable:'online database unavailable', loading:'Loading routes...', carMissing:'Car not specified', call:'Call', perSeat:'per seat', passenger:'Passenger', looking:'looking',
+    exampleMeta:'Example listing · Haval M6 · 4 seats', exampleComment:'This is how a driver card will look after the database loads.', routeTag:'Intercity', freeTag:'Free',
+    errFrom:'Enter departure city', errTo:'Enter destination city', errPhone:'Enter phone number', errCar:'Enter car', errPrice:'Enter price', errConsent:'Confirm agreement with rules and data processing',
+    saved:'Published. Moderation and notifications are enabled.', saveFailed:'Could not save. Check internet and try again.'
+  }
+};
+
+var currentLang = localStorage.getItem('alsat_lang') || 'ru';
+function tr(key) {
+  return (I18N[currentLang] && I18N[currentLang][key]) || I18N.ru[key] || key;
+}
+function setLang(lang) {
+  currentLang = I18N[lang] ? lang : 'ru';
+  localStorage.setItem('alsat_lang', currentLang);
+  document.documentElement.lang = currentLang === 'kz' ? 'kk' : currentLang;
+  document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.langBtn === currentLang);
+  });
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    el.textContent = tr(el.dataset.i18n);
+  });
+  document.title = currentLang === 'en'
+    ? 'Alsat Intercity — drivers and passengers in Kazakhstan'
+    : currentLang === 'kz'
+      ? 'Алсат Қалааралық — Қазақстан бойынша жүргізушілер мен жолаушылар'
+      : 'Алсат Межгород — попутчики и водители по Казахстану';
+  render();
+}
+
 var SB_URL = 'https://duscyiyxfmsriyhwlbqx.supabase.co';
 var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
 
@@ -757,11 +924,11 @@ function render() {
   renderStats();
   var rows = visibleRows();
   var isDrivers = state.tab === 'drivers';
-  document.getElementById('listTitle').textContent = isDrivers ? 'Водители' : 'Пассажиры ищут поездку';
-  document.getElementById('listCount').textContent = rows.length + ' найдено';
+  document.getElementById('listTitle').textContent = isDrivers ? tr('listDrivers') : tr('listPax');
+  document.getElementById('listCount').textContent = rows.length + ' ' + tr('found');
   var cards = document.getElementById('cards');
   if (!rows.length) {
-    cards.innerHTML = '<div class="empty">Пока нет объявлений по этому маршруту. Добавьте первое объявление.</div>';
+    cards.innerHTML = '<div class="empty">' + esc(tr('empty')) + '</div>';
     return;
   }
   cards.innerHTML = rows.map(isDrivers ? driverCard : paxCard).join('');
@@ -770,15 +937,15 @@ function render() {
 function renderOfflineState() {
   document.getElementById('driversStat').textContent = '—';
   document.getElementById('paxStat').textContent = '—';
-  document.getElementById('listCount').textContent = 'онлайн-база недоступна';
+  document.getElementById('listCount').textContent = tr('dbUnavailable');
   document.getElementById('cards').innerHTML =
-    '<div class="empty">Онлайн-маршруты временно не загрузились. Добавление заявок останется доступным после восстановления связи с базой.</div>' +
+    '<div class="empty">' + esc(tr('offline')) + '</div>' +
     '<article class="route-card">' +
       '<div class="route-top"><div><div class="route-cities">Бурабай <span class="arrow">→</span> Астана</div>' +
-      '<div class="route-meta">Пример объявления · Haval M6 · 4 места</div></div>' +
+      '<div class="route-meta">' + esc(tr('exampleMeta')) + '</div></div>' +
       '<div class="price">24 000 ₸<small>машина</small></div></div>' +
-      '<div class="comment">Пример того, как будет выглядеть карточка водителя после загрузки базы.</div>' +
-      '<div class="badges"><span class="badge">Межгород</span><span class="badge">WhatsApp</span><span class="badge">Бесплатно</span></div>' +
+      '<div class="comment">' + esc(tr('exampleComment')) + '</div>' +
+      '<div class="badges"><span class="badge">' + esc(tr('routeTag')) + '</span><span class="badge">WhatsApp</span><span class="badge">' + esc(tr('freeTag')) + '</span></div>' +
     '</article>';
 }
 
@@ -787,14 +954,14 @@ function driverCard(r) {
   var wa = digits(r.whatsapp) || phone;
   var tg = tgLink(r.telegram);
   var extras = [];
-  if (r.ac) extras.push('Кондиционер');
-  if (r.seat) extras.push('Детское кресло');
-  if (r.trunk) extras.push('Багажник');
-  if (r.parcel) extras.push('Посылки');
+  if (r.ac) extras.push(tr('ac'));
+  if (r.seat) extras.push(tr('childSeat'));
+  if (r.trunk) extras.push(tr('trunk'));
+  if (r.parcel) extras.push(tr('parcel'));
   return '<article class="route-card">'
     + '<div class="route-top"><div><div class="route-cities">' + esc(r.from_city) + ' <span class="arrow">→</span> ' + esc(r.to_city) + '</div>'
-    + '<div class="route-meta">' + esc(r.car || 'Авто не указано') + (r.exp ? ' · стаж ' + esc(r.exp) : '') + ' · ' + (r.seats || 1) + ' мест</div></div>'
-    + '<div class="price">' + (r.price ? Number(r.price).toLocaleString('ru-KZ') + ' ₸' : '—') + '<small>за место</small></div></div>'
+    + '<div class="route-meta">' + esc(r.car || tr('carMissing')) + (r.exp ? ' · ' + esc(tr('experience').toLowerCase()) + ' ' + esc(r.exp) : '') + ' · ' + (r.seats || 1) + ' ' + esc(tr('seats').toLowerCase()) + '</div></div>'
+    + '<div class="price">' + (r.price ? Number(r.price).toLocaleString('ru-KZ') + ' ₸' : '—') + '<small>' + esc(tr('perSeat')) + '</small></div></div>'
     + (r.desc ? '<div class="comment">' + esc(r.desc) + '</div>' : '')
     + (extras.length ? '<div class="badges">' + extras.map(function(x){ return '<span class="badge">' + esc(x) + '</span>'; }).join('') + '</div>' : '')
     + contactActions(phone, wa, tg)
@@ -805,11 +972,11 @@ function paxCard(r) {
   var phone = digits(r.phone);
   var wa = digits(r.whatsapp) || phone;
   var tg = tgLink(r.telegram);
-  var date = r.travel_date ? new Date(r.travel_date).toLocaleDateString('ru-RU', { day:'numeric', month:'short' }) : '';
+  var date = r.travel_date ? new Date(r.travel_date).toLocaleDateString(currentLang === 'en' ? 'en-US' : currentLang === 'kz' ? 'kk-KZ' : 'ru-RU', { day:'numeric', month:'short' }) : '';
   return '<article class="route-card passenger">'
     + '<div class="route-top"><div><div class="route-cities">' + esc(r.from_city) + ' <span class="arrow">→</span> ' + esc(r.to_city) + '</div>'
-    + '<div class="route-meta">' + esc(r.name || 'Пассажир') + (date ? ' · ' + date : '') + ' · ' + (r.seats || 1) + ' чел.</div></div>'
-    + '<div class="price" style="color:var(--blue)">🧳<small>ищет</small></div></div>'
+    + '<div class="route-meta">' + esc(r.name || tr('passenger')) + (date ? ' · ' + date : '') + ' · ' + (r.seats || 1) + '</div></div>'
+    + '<div class="price" style="color:var(--blue)">🧳<small>' + esc(tr('looking')) + '</small></div></div>'
     + (r.comment ? '<div class="comment">' + esc(r.comment) + '</div>' : '')
     + contactActions(phone, wa, tg)
     + '</article>';
@@ -817,7 +984,7 @@ function paxCard(r) {
 
 function contactActions(phone, wa, tg) {
   var html = '<div class="actions">';
-  if (phone) html += '<a class="contact call" href="tel:+' + phone + '">Позвонить</a>';
+  if (phone) html += '<a class="contact call" href="tel:+' + phone + '">' + esc(tr('call')) + '</a>';
   if (wa) html += '<a class="contact whatsapp" target="_blank" rel="noopener" href="https://wa.me/' + wa + '">WhatsApp</a>';
   if (tg) html += '<a class="contact telegram" target="_blank" rel="noopener" href="' + tg + '">Telegram</a>';
   html += '</div>';
@@ -828,9 +995,9 @@ function readCommonFields() {
   var from = document.getElementById('fFrom').value.trim();
   var to = document.getElementById('fTo').value.trim();
   var phone = digits(document.getElementById('fPhone').value);
-  if (!from) throw new Error('Укажите город отправления');
-  if (!to) throw new Error('Укажите город назначения');
-  if (!phone || phone.length < 10) throw new Error('Укажите телефон');
+  if (!from) throw new Error(tr('errFrom'));
+  if (!to) throw new Error(tr('errTo'));
+  if (!phone || phone.length < 10) throw new Error(tr('errPhone'));
   return {
     from_city: from,
     to_city: to,
@@ -853,8 +1020,9 @@ function submitPost() {
   if (state.form === 'driver') {
     var car = document.getElementById('fCar').value.trim();
     var price = digits(document.getElementById('fPrice').value);
-    if (!car) return showToast('Укажите автомобиль', true);
-    if (!price) return showToast('Укажите цену', true);
+    if (!car) return showToast(tr('errCar'), true);
+    if (!price) return showToast(tr('errPrice'), true);
+    if (!document.getElementById('fConsent').checked) return showToast(tr('errConsent'), true);
     table = 'taxi_drivers';
     Object.assign(row, {
       car: car,
@@ -869,6 +1037,7 @@ function submitPost() {
       notified: false
     });
   } else {
+    if (!document.getElementById('fConsent').checked) return showToast(tr('errConsent'), true);
     table = 'taxi_requests';
     Object.assign(row, {
       name: document.getElementById('pName').value.trim(),
@@ -881,11 +1050,11 @@ function submitPost() {
 
   sbInsert(table, row).then(function(res) {
     if (!res.ok && res.status !== 201) throw new Error('save');
-    showToast('Опубликовано. Модерация и уведомления включены.');
+    showToast(tr('saved'));
     clearForm();
     return loadData();
   }).catch(function() {
-    showToast('Не удалось сохранить. Проверьте интернет и попробуйте еще раз.', true);
+    showToast(tr('saveFailed'), true);
   });
 }
 
@@ -897,10 +1066,11 @@ function clearForm() {
   ['fAC','fSeat','fTrunk','fParcel'].forEach(function(id) {
     document.getElementById(id).checked = false;
   });
+  document.getElementById('fConsent').checked = false;
 }
 
 function loadData() {
-  document.getElementById('cards').innerHTML = '<div class="loading">Загружаю маршруты...</div>';
+  document.getElementById('cards').innerHTML = '<div class="loading">' + esc(tr('loading')) + '</div>';
   return Promise.all([
     sbFetch('taxi_drivers?select=*&blocked=neq.true&order=created_at.desc&limit=80'),
     sbFetch('taxi_requests?select=*&blocked=neq.true&order=created_at.desc&limit=80')
@@ -913,6 +1083,7 @@ function loadData() {
   });
 }
 
+setLang(currentLang);
 loadData();
 </script>
 </body>
