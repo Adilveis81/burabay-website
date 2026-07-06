@@ -1,1920 +1,919 @@
 <!DOCTYPE html>
-<html lang="en" data-lang="en" data-theme="light">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alsat.Asia — Central Asia Financial Intelligence</title>
-<meta name="description" content="Independent financial research and market analysis from Central Asia. Kazakhstan, Kyrgyzstan investment opportunities, emerging markets, frontier market analysis.">
-<meta name="keywords" content="Kazakhstan investment, Kyrgyzstan, Central Asia, frontier markets, emerging markets, KASE, AIFC, financial research">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Алсат Межгород — попутчики и водители по Казахстану</title>
+<meta name="description" content="Алсат Межгород: найдите водителя или пассажира между городами Казахстана. Астана, Алматы, Бурабай, Кокшетау, Шымкент и другие маршруты.">
+<meta name="keywords" content="Алсат, межгород, попутчики Казахстан, такси межгород, Астана Алматы, Бурабай Астана, пассажиры, водители">
 <meta name="author" content="Alsat.Asia">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://alsat.asia/">
-
-<!-- Open Graph -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#FF5C00">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://alsat.asia/">
-<meta property="og:title" content="Alsat.Asia — Central Asia Financial Intelligence">
-<meta property="og:description" content="Independent financial research from Central Asia. Kazakhstan, Kyrgyzstan, emerging markets analysis.">
-<meta property="og:image" content="https://alsat.asia/og-image.png">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="es_ES">
-<meta property="og:locale:alternate" content="ru_RU">
-<meta property="og:locale:alternate" content="kk_KZ">
-<meta property="og:site_name" content="Alsat.Asia">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Alsat.Asia — Central Asia Financial Intelligence">
-<meta name="twitter:description" content="Independent financial research from Central Asia.">
-<meta name="twitter:image" content="https://alsat.asia/og-image.png">
-
-<!-- RSS -->
-<link rel="alternate" type="application/rss+xml" title="Alsat.Asia RSS Feed" href="/rss.xml">
-
-<!-- Sitemap -->
-<link rel="sitemap" type="application/xml" href="/sitemap.xml">
-
-<!-- Favicon SVG inline -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230C0C0E'/%3E%3Ctext x='50' y='65' font-family='Georgia,serif' font-size='52' font-weight='900' fill='%23B8860B' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230C0C0E'/%3E%3Ctext x='50' y='65' font-family='Georgia,serif' font-size='52' font-weight='900' fill='%23B8860B' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
-
-<!-- JSON-LD Structured Data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "NewsMediaOrganization",
-  "name": "Alsat.Asia",
-  "url": "https://alsat.asia",
-  "logo": "https://alsat.asia/logo.png",
-  "description": "Independent financial research and market analysis from Central Asia",
-  "foundingDate": "2026",
-  "areaServed": ["Kazakhstan", "Kyrgyzstan", "Central Asia"],
-  "knowsAbout": ["Investing", "Emerging Markets", "Frontier Markets", "Kazakhstan Economy", "Central Asia"],
-  "sameAs": []
-}
-</script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
+<meta property="og:title" content="Алсат Межгород">
+<meta property="og:description" content="Водители и пассажиры между городами Казахстана. Бесплатные объявления маршрутов.">
+<meta property="og:site_name" content="Алсат">
+<meta name="twitter:card" content="summary">
 <style>
 :root {
-  --ink: #0C0C0E;
-  --paper: #F4F0E8;
-  --cream: #EDE8DC;
-  --gold: #B8860B;
-  --gold-light: #D4A017;
-  --rust: #8B3A2A;
-  --border: #D4CEC0;
-  --muted: #7A7468;
-  --white: #FDFCF8;
+  --bg: #0b1019;
+  --panel: #121b29;
+  --panel2: #182434;
+  --panel3: #213148;
+  --line: #28384f;
+  --text: #eef4ff;
+  --muted: #91a1b8;
+  --faint: #66758b;
+  --brand: #ff5c00;
+  --brand2: #ff9a3d;
+  --blue: #29b6f6;
+  --green: #20c76a;
+  --red: #ff5656;
+  --shadow: 0 18px 60px rgba(0,0,0,.35);
+  --radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", system-ui, sans-serif;
 }
-
-[data-theme="dark"] {
-  --ink: #F4F0E8;
-  --paper: #0C0C0E;
-  --cream: #14141A;
-  --gold: #D4A017;
-  --border: #2A2A2A;
-  --muted: #999;
-  --white: #1A1A1F;
-}
-
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+* { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  overflow-x: hidden;
-  transition: background 0.3s, color 0.3s;
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 80% -10%, rgba(255,92,0,.22), transparent 30%),
+    linear-gradient(180deg, #0b1019 0%, #0e1623 42%, #0b1019 100%);
+  color: var(--text);
 }
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 1000;
-  opacity: 0.5;
-}
-
-/* NAV */
-nav {
+a { color: inherit; }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+.topbar {
   position: sticky;
   top: 0;
-  z-index: 100;
-  background: var(--paper);
-  border-bottom: 1px solid var(--border);
-  padding: 0 16px;
+  z-index: 20;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 56px;
-  gap: 12px;
+  gap: 14px;
+  min-height: 60px;
+  padding: 10px 18px;
+  background: rgba(11,16,25,.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,.07);
 }
-.nav-logo {
-  font-family: 'DM Mono', monospace;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--ink);
-  text-decoration: none;
-  letter-spacing: 1px;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+  letter-spacing: .2px;
   white-space: nowrap;
 }
-.nav-logo span { color: var(--gold); }
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--brand), #ffbd73);
+  color: #101010;
+  box-shadow: 0 6px 18px rgba(255,92,0,.35);
 }
-.lang-switcher {
-  position: relative;
-}
-.lang-btn {
-  background: var(--cream);
-  border: 1px solid var(--border);
-  padding: 6px 10px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--ink);
-  cursor: pointer;
-  border-radius: 2px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.lang-btn:hover { border-color: var(--gold); }
-.lang-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  margin-top: 4px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  min-width: 130px;
-  display: none;
-  z-index: 200;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-.lang-dropdown.open { display: block; }
-.lang-option {
-  padding: 8px 12px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  cursor: pointer;
+.nav {
+  margin-left: auto;
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--ink);
-  border-bottom: 1px solid var(--border);
 }
-.lang-option:last-child { border-bottom: none; }
-.lang-option:hover { background: var(--cream); color: var(--gold); }
-.lang-option.active { background: var(--cream); color: var(--gold); }
-.theme-btn {
-  background: var(--cream);
-  border: 1px solid var(--border);
-  padding: 6px 10px;
-  cursor: pointer;
-  border-radius: 2px;
-  font-size: 14px;
-  line-height: 1;
-}
-.theme-btn:hover { border-color: var(--gold); }
-.nav-disclaimer {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
+.nav a, .ghost-btn {
+  border: 1px solid rgba(255,255,255,.11);
+  background: rgba(255,255,255,.04);
   color: var(--muted);
-  display: none;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 8px 11px;
+  font-size: 13px;
+  white-space: nowrap;
 }
-@media (min-width: 768px) {
-  .nav-disclaimer { display: inline; }
-  nav { padding: 0 24px; }
-  .nav-logo { font-size: 15px; }
-}
-
-/* HERO */
-.hero {
-  padding: 48px 16px 40px;
-  border-bottom: 1px solid var(--border);
-  position: relative;
-  overflow: hidden;
-}
-.hero-eyebrow {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 20px;
-  display: flex;
+.nav a:hover, .ghost-btn:hover { color: var(--text); border-color: rgba(255,92,0,.5); }
+.primary-btn {
+  border: 0;
+  border-radius: 8px;
+  padding: 11px 14px;
+  background: linear-gradient(135deg, var(--brand), var(--brand2));
+  color: #101010;
+  font-weight: 850;
+  text-decoration: none;
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 8px 22px rgba(255,92,0,.32);
 }
-.hero-eyebrow::before {
-  content: '';
-  display: inline-block;
-  width: 24px;
-  height: 1px;
-  background: var(--gold);
+.wrap {
+  width: min(1160px, calc(100% - 28px));
+  margin: 0 auto;
 }
-.hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(34px, 8vw, 76px);
-  font-weight: 900;
-  line-height: 1.0;
-  color: var(--ink);
-  max-width: 900px;
-  margin-bottom: 24px;
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr);
+  gap: 18px;
+  align-items: stretch;
+  padding: 34px 0 18px;
 }
-.hero h1 em {
-  font-style: italic;
-  color: var(--gold);
+.hero-main, .search-panel, .stat-card, .section-panel {
+  background: rgba(18,27,41,.82);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
-.hero-sub {
-  font-size: 16px;
-  color: var(--muted);
-  max-width: 560px;
-  line-height: 1.7;
-  margin-bottom: 28px;
-  font-weight: 300;
+.hero-main {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 360px;
+}
+.eyebrow {
+  color: var(--brand2);
+  font-weight: 850;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+}
+h1 {
+  margin: 12px 0 12px;
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: .95;
+  letter-spacing: 0;
+}
+.lead {
+  color: #c5d1e2;
+  font-size: 18px;
+  max-width: 720px;
+  line-height: 1.55;
+  margin: 0 0 20px;
+}
+.hero-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 6px;
 }
 .hero-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  max-width: 560px;
-  margin-bottom: 28px;
-}
-.hero-stat {
-  background: var(--white);
-  padding: 14px 12px;
-}
-.hero-stat-value {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(20px, 5vw, 28px);
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-.hero-stat-value span { color: var(--gold); }
-.hero-stat-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-.hero-disclaimer {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--muted);
-  border-left: 2px solid var(--gold);
-  padding-left: 12px;
-  max-width: 560px;
-  line-height: 1.6;
-}
-.hero-decoration {
-  position: absolute;
-  right: -60px;
-  top: 60px;
-  width: 280px;
-  height: 280px;
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  opacity: 0.3;
-  pointer-events: none;
-}
-.hero-decoration::after {
-  content: '';
-  position: absolute;
-  inset: 40px;
-  border: 1px solid var(--border);
-  border-radius: 50%;
-}
-
-/* TICKER */
-.ticker-wrap {
-  background: var(--ink);
-  padding: 10px 0;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.ticker {
-  display: inline-flex;
-  gap: 40px;
-  animation: ticker 30s linear infinite;
-}
-.ticker-item {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  color: var(--paper);
-  opacity: 0.7;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.ticker-item .up { color: #4ade80; opacity: 1; }
-@keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* SECTIONS */
-.section-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.section-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-/* SEARCH */
-.search-section {
-  padding: 32px 16px 16px;
-  border-bottom: 1px solid var(--border);
-}
-.search-box {
-  width: 100%;
-  background: var(--white);
-  border: 1px solid var(--border);
-  padding: 12px 14px;
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  color: var(--ink);
-  outline: none;
-  transition: border 0.2s;
-}
-.search-box:focus { border-color: var(--gold); }
-.search-box::placeholder { color: var(--muted); }
-
-/* FEATURED */
-.featured {
-  padding: 32px 16px;
-  border-bottom: 1px solid var(--border);
-}
-.featured-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1px;
-  background: var(--border);
-}
-.featured-main {
-  background: var(--white);
-  padding: 24px;
-}
-.article-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.article-tag::before {
-  content: '▶';
-  font-size: 8px;
-}
-.featured-main h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(22px, 4vw, 36px);
-  font-weight: 700;
-  line-height: 1.2;
-  color: var(--ink);
-  margin-bottom: 16px;
-}
-.featured-main .excerpt {
-  font-size: 15px;
-  color: var(--muted);
-  line-height: 1.8;
-  margin-bottom: 20px;
-  font-weight: 300;
-}
-.article-meta {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--muted);
-  flex-wrap: wrap;
-}
-.read-more {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  color: var(--gold);
-  text-decoration: none;
-  border: 1px solid var(--gold);
-  padding: 8px 16px;
-  transition: all 0.2s;
-  margin-top: 20px;
-  cursor: pointer;
-  background: none;
-}
-.read-more:hover { background: var(--gold); color: var(--white); }
-
-/* ARTICLES */
-.articles-section { padding: 32px 16px; border-bottom: 1px solid var(--border); }
-.articles-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1px;
-  background: var(--border);
-}
-@media (min-width: 768px) {
-  .articles-grid { grid-template-columns: 1fr 1fr; }
-}
-.article-card {
-  background: var(--white);
-  padding: 20px;
-  transition: background 0.2s;
-  cursor: pointer;
-}
-.article-card:hover { background: var(--cream); }
-.article-card h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 19px;
-  font-weight: 700;
-  line-height: 1.3;
-  color: var(--ink);
-  margin-bottom: 10px;
-}
-.article-card .excerpt {
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.7;
-  font-weight: 300;
-  margin-bottom: 16px;
-}
-.card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  color: var(--muted);
-  border-top: 1px solid var(--border);
-  padding-top: 12px;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.card-footer .tag {
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-.no-results {
-  padding: 40px 20px;
-  text-align: center;
-  font-family: 'DM Mono', monospace;
-  color: var(--muted);
-  background: var(--white);
-}
-
-/* MODAL */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(12,12,14,0.85);
-  z-index: 500;
-  overflow-y: auto;
-  padding: 16px;
-}
-.modal-overlay.active { display: flex; justify-content: center; align-items: flex-start; }
-.modal {
-  background: var(--white);
-  max-width: 720px;
-  width: 100%;
-  margin: auto;
-  padding: 32px 24px;
-  position: relative;
-  color: var(--ink);
-}
-.modal-close {
-  position: absolute;
-  top: 12px; right: 12px;
-  background: none;
-  border: 1px solid var(--border);
-  width: 36px; height: 36px;
-  cursor: pointer;
-  font-family: 'DM Mono', monospace;
-  font-size: 16px;
-  color: var(--muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.modal-close:hover { border-color: var(--gold); color: var(--gold); }
-.modal-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 14px;
-}
-.modal h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(22px, 4vw, 34px);
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 16px;
-  color: var(--ink);
-}
-.modal-meta {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--muted);
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.modal-body {
-  font-size: 15px;
-  line-height: 1.85;
-  color: var(--ink);
-  font-weight: 300;
-}
-.modal-body p { margin-bottom: 18px; }
-.modal-body h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 19px;
-  font-weight: 700;
-  margin: 24px 0 12px;
-  color: var(--ink);
-}
-.modal-body strong { font-weight: 500; color: var(--ink); }
-.modal-body .stat-highlight {
-  background: var(--cream);
-  border-left: 3px solid var(--gold);
-  padding: 14px 18px;
-  margin: 18px 0;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  line-height: 1.7;
-  color: var(--ink);
-}
-.modal-body .disclaimer {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--muted);
-  border: 1px solid var(--border);
-  padding: 12px 16px;
+  gap: 10px;
   margin-top: 28px;
-  line-height: 1.6;
 }
-.yt-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  color: var(--rust);
-  text-decoration: none;
-  border: 1px solid var(--rust);
-  padding: 8px 16px;
-  margin-top: 20px;
-  cursor: pointer;
-  background: none;
+.stat-card {
+  padding: 13px;
+  box-shadow: none;
 }
-.yt-link:hover { background: var(--rust); color: var(--white); }
-
-/* NEWSLETTER */
-.newsletter {
-  background: var(--ink);
-  padding: 40px 16px;
-  border-bottom: 1px solid var(--border);
+.stat-num {
+  font-size: 22px;
+  font-weight: 900;
 }
-.newsletter h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(22px, 5vw, 36px);
-  font-weight: 700;
-  color: var(--paper);
-  margin-bottom: 12px;
-}
-.newsletter p {
+.stat-label {
   color: var(--muted);
-  font-size: 14px;
-  margin-bottom: 20px;
-  font-weight: 300;
-  max-width: 480px;
-}
-.newsletter-form {
-  display: flex;
-  gap: 0;
-  max-width: 420px;
-  flex-wrap: wrap;
-}
-.newsletter-form input {
-  flex: 1;
-  min-width: 200px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  padding: 12px 14px;
-  color: var(--paper);
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  outline: none;
-}
-.newsletter-form input::placeholder { color: rgba(255,255,255,0.3); }
-.newsletter-form input:focus { border-color: var(--gold); }
-.newsletter-form button {
-  background: var(--gold);
-  border: 1px solid var(--gold);
-  padding: 12px 18px;
-  color: var(--ink);
-  font-family: 'DM Mono', monospace;
   font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  margin-top: 2px;
 }
-.newsletter-note {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  color: rgba(255,255,255,0.25);
-  margin-top: 12px;
-  letter-spacing: 1px;
+.search-panel {
+  padding: 18px;
 }
-
-/* ABOUT */
-.about-strip {
-  padding: 28px 16px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  background: var(--cream);
-}
-.about-strip-icon { font-size: 32px; flex-shrink: 0; }
-.about-strip h3 {
-  font-family: 'Playfair Display', serif;
+.panel-title {
   font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--ink);
+  font-weight: 900;
+  margin: 0 0 12px;
 }
-.about-strip p {
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.7;
-  font-weight: 300;
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
-
-/* FOOTER */
-footer {
-  padding: 28px 16px;
-  border-top: 1px solid var(--border);
+.field {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 6px;
 }
-.footer-top {
+.field label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+}
+.field input, .field select, .field textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(11,16,25,.75);
+  color: var(--text);
+  padding: 11px 12px;
+  outline: none;
+}
+.field textarea {
+  min-height: 84px;
+  resize: vertical;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--brand);
+}
+.filter-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+.muted-note {
+  color: var(--faint);
+  font-size: 12px;
+  line-height: 1.45;
+  margin-top: 12px;
+}
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin: 18px 0 12px;
+  overflow-x: auto;
+}
+.tab {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 10px 13px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+.tab.active {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #111;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 18px;
+  align-items: start;
+  padding-bottom: 34px;
+}
+.section-panel {
+  padding: 16px;
+}
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.section-head h2 {
+  margin: 0;
+  font-size: 20px;
+}
+.count {
+  color: var(--muted);
+  font-size: 13px;
+}
+.cards {
+  display: grid;
+  gap: 10px;
+}
+.route-card {
+  background: linear-gradient(135deg, rgba(33,49,72,.92), rgba(18,27,41,.92));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 8px;
+  padding: 14px;
+}
+.route-card.passenger {
+  background: linear-gradient(135deg, rgba(20,51,71,.9), rgba(18,27,41,.92));
+}
+.route-top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
   gap: 12px;
 }
-.footer-logo {
-  font-family: 'DM Mono', monospace;
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  color: var(--ink);
+.route-cities {
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.25;
 }
-.footer-logo span { color: var(--gold); }
-.footer-links {
-  display: flex;
-  gap: 14px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-}
-.footer-links a {
+.arrow { color: var(--brand2); }
+.passenger .arrow { color: var(--blue); }
+.route-meta {
   color: var(--muted);
-  text-decoration: none;
+  font-size: 13px;
+  margin-top: 5px;
 }
-.footer-links a:hover { color: var(--gold); }
-.footer-disclaimer {
-  font-family: 'DM Mono', monospace;
+.price {
+  text-align: right;
+  color: var(--brand2);
+  font-size: 20px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+.price small {
+  display: block;
+  color: var(--faint);
   font-size: 10px;
+  font-weight: 600;
+}
+.comment {
+  color: #c8d5e6;
+  font-size: 13px;
+  margin-top: 9px;
+  line-height: 1.45;
+}
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.badge {
+  border-radius: 6px;
+  background: rgba(255,255,255,.06);
   color: var(--muted);
-  line-height: 1.7;
-  max-width: 640px;
-  border-top: 1px solid var(--border);
-  padding-top: 14px;
-}
-
-/* COOKIE BANNER */
-.cookie-banner {
-  position: fixed;
-  bottom: 16px; left: 16px; right: 16px;
-  max-width: 560px;
-  margin: 0 auto;
-  background: var(--ink);
-  color: var(--paper);
-  padding: 16px 18px;
-  z-index: 400;
-  display: none;
-  font-family: 'DM Mono', monospace;
+  padding: 4px 8px;
   font-size: 12px;
-  line-height: 1.6;
-  border: 1px solid var(--gold);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
-.cookie-banner.show { display: block; }
-.cookie-banner-text { margin-bottom: 12px; }
-.cookie-actions { display: flex; gap: 8px; }
-.cookie-actions button {
-  padding: 8px 14px;
-  border: 1px solid var(--gold);
-  background: none;
-  color: var(--paper);
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
 }
-.cookie-actions .accept { background: var(--gold); color: var(--ink); }
-
-/* RESPONSIVE */
-@media (min-width: 768px) {
-  .hero { padding: 60px 24px 48px; }
-  .featured, .articles-section, .search-section { padding: 48px 24px; }
-  .featured-main, .article-card { padding: 32px; }
-  .article-card { padding: 24px; }
-  .about-strip, .newsletter, footer { padding: 40px 24px; }
-  .modal { padding: 40px 32px; }
-  .hero-stat { padding: 16px 20px; }
-  .hero-stat-label { font-size: 10px; }
+.contact {
+  flex: 1;
+  min-width: 0;
+  border-radius: 8px;
+  padding: 10px 8px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 850;
+  background: rgba(255,255,255,.07);
 }
-
-/* ANIMATIONS */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.contact.whatsapp { background: #25d366; color: #082512; }
+.contact.telegram { background: #229ed9; color: #fff; }
+.contact.call { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.1); }
+.side-stack {
+  display: grid;
+  gap: 12px;
 }
-.hero h1 { animation: fadeUp 0.6s ease both; }
-.hero-sub { animation: fadeUp 0.6s 0.1s ease both; }
-.hero-stats { animation: fadeUp 0.6s 0.2s ease both; }
+.form-panel {
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 8px;
+  padding: 16px;
+}
+.form-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.form-tab {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px;
+  background: var(--panel2);
+  color: var(--muted);
+  font-weight: 850;
+}
+.form-tab.active {
+  background: var(--brand);
+  color: #111;
+  border-color: var(--brand);
+}
+.form-grid {
+  display: grid;
+  gap: 10px;
+}
+.checks {
+  display: grid;
+  gap: 7px;
+}
+.check {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.empty, .loading {
+  color: var(--muted);
+  text-align: center;
+  padding: 40px 16px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+}
+.toast {
+  position: fixed;
+  z-index: 50;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%) translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  background: #123726;
+  border: 1px solid var(--green);
+  color: #8ff0b8;
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-weight: 800;
+  transition: .2s;
+  box-shadow: var(--shadow);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.error { background: #3a1616; border-color: var(--red); color: #ffb0b0; }
+footer {
+  color: var(--faint);
+  font-size: 12px;
+  text-align: center;
+  padding: 18px 0 28px;
+}
+@media (max-width: 900px) {
+  .hero, .layout { grid-template-columns: 1fr; }
+  .side-stack { order: -1; }
+}
+@media (max-width: 640px) {
+  .topbar { align-items: flex-start; flex-direction: column; }
+  .nav { margin-left: 0; width: 100%; overflow-x: auto; padding-bottom: 2px; }
+  .hero { padding-top: 18px; }
+  .hero-main { min-height: auto; padding: 20px; }
+  .hero-stats, .field-grid { grid-template-columns: 1fr; }
+  .filter-actions, .actions { flex-direction: column; }
+  .contact { width: 100%; }
+}
 </style>
 </head>
 <body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">A</span><span>Алсат Межгород</span></div>
+  <nav class="nav">
+    <a href="#routes">Маршруты</a>
+    <a href="#post">Добавить</a>
+    <a href="https://t.me/Alsat_Asia_bot" target="_blank" rel="noopener">Telegram бот</a>
+  </nav>
+</header>
 
-<nav>
-  <a href="#" class="nav-logo">ALSAT<span>.ASIA</span></a>
-  <div class="nav-actions">
-    <span class="nav-disclaimer" data-t="nav_disclaimer"></span>
-    <div class="lang-switcher">
-      <button class="lang-btn" onclick="toggleLang(event)">
-        <span id="currentLang">🇺🇸 EN</span>
-        <span>▾</span>
-      </button>
-      <div class="lang-dropdown" id="langDropdown">
-        <div class="lang-option" data-lang="en" onclick="setLang('en')">🇺🇸 English</div>
-        <div class="lang-option" data-lang="es" onclick="setLang('es')">🇪🇸 Español</div>
-        <div class="lang-option" data-lang="ru" onclick="setLang('ru')">🇷🇺 Русский</div>
-        <div class="lang-option" data-lang="kk" onclick="setLang('kk')">🇰🇿 Қазақша</div>
+<main class="wrap">
+  <section class="hero">
+    <div class="hero-main">
+      <div>
+        <div class="eyebrow">Казахстан · Попутчики · Водители</div>
+        <h1>Междугородние поездки без лишних посредников</h1>
+        <p class="lead">Найдите водителя, пассажира или опубликуйте свой маршрут. Алсат оставляет только нужную часть классифайда: поездки между городами.</p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="#post">＋ Добавить маршрут</a>
+          <a class="ghost-btn" href="#routes">Смотреть объявления</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card"><div class="stat-num" id="driversStat">...</div><div class="stat-label">водителей</div></div>
+        <div class="stat-card"><div class="stat-num" id="paxStat">...</div><div class="stat-label">заявок пассажиров</div></div>
+        <div class="stat-card"><div class="stat-num">0 ₸</div><div class="stat-label">комиссия сайта</div></div>
       </div>
     </div>
-    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
-  </div>
-</nav>
 
-<div class="ticker-wrap">
-  <div class="ticker">
-    <span class="ticker-item">KZ GDP 2025 <span class="up">▲ 6.5%</span></span>
-    <span class="ticker-item">KZ FDI 2025 <span class="up">▲ $20.5B</span></span>
-    <span class="ticker-item">Fixed Capital <span class="up">▲ 13% YoY</span></span>
-    <span class="ticker-item">Reserves <span class="up">$129.5B</span></span>
-    <span class="ticker-item">Debt/GDP <span class="up">22.8%</span></span>
-    <span class="ticker-item">Renewable <span class="up">BULLISH</span></span>
-    <span class="ticker-item">Middle Corridor <span class="up">▲ EXPANDING</span></span>
-    <span class="ticker-item">KZ GDP 2025 <span class="up">▲ 6.5%</span></span>
-    <span class="ticker-item">KZ FDI 2025 <span class="up">▲ $20.5B</span></span>
-    <span class="ticker-item">Fixed Capital <span class="up">▲ 13% YoY</span></span>
-    <span class="ticker-item">Reserves <span class="up">$129.5B</span></span>
-    <span class="ticker-item">Debt/GDP <span class="up">22.8%</span></span>
-    <span class="ticker-item">Renewable <span class="up">BULLISH</span></span>
-    <span class="ticker-item">Middle Corridor <span class="up">▲ EXPANDING</span></span>
-  </div>
-</div>
+    <aside class="search-panel">
+      <h2 class="panel-title">Быстрый поиск</h2>
+      <div class="field-grid">
+        <div class="field">
+          <label>Откуда</label>
+          <input id="filterFrom" list="cityList" placeholder="Бурабай">
+        </div>
+        <div class="field">
+          <label>Куда</label>
+          <input id="filterTo" list="cityList" placeholder="Астана">
+        </div>
+      </div>
+      <div class="filter-actions">
+        <button class="primary-btn" onclick="applyFilters()">Найти</button>
+        <button class="ghost-btn" onclick="clearFilters()">Сбросить</button>
+      </div>
+      <p class="muted-note">Контакты открываются напрямую: звонок, WhatsApp или Telegram. Новые объявления проходят модерацию ботом Алсат.</p>
+    </aside>
+  </section>
 
-<section class="hero">
-  <div class="hero-decoration"></div>
-  <div class="hero-eyebrow" data-t="hero_eyebrow"></div>
-  <h1>
-    <span data-t="hero_title_1"></span><br>
-    <em data-t="hero_title_2"></em><br>
-    <span data-t="hero_title_3"></span>
-  </h1>
-  <p class="hero-sub" data-t="hero_sub"></p>
-  <div class="hero-stats">
-    <div class="hero-stat">
-      <div class="hero-stat-value"><span>$</span>20.5B</div>
-      <div class="hero-stat-label" data-t="stat_fdi"></div>
+  <datalist id="cityList">
+    <option>Астана</option><option>Алматы</option><option>Шымкент</option>
+    <option>Караганда</option><option>Актобе</option><option>Петропавловск</option>
+    <option>Костанай</option><option>Павлодар</option><option>Усть-Каменогорск</option>
+    <option>Семей</option><option>Кокшетау</option><option>Уральск</option>
+    <option>Атырау</option><option>Актау</option><option>Кызылорда</option>
+    <option>Туркестан</option><option>Талдыкорган</option><option>Бурабай</option>
+    <option>Щучинск</option><option>Степногорск</option><option>Рудный</option>
+  </datalist>
+
+  <div class="tabs" id="routes">
+    <button class="tab active" id="tabDrivers" onclick="switchTab('drivers')">🚗 Водители</button>
+    <button class="tab" id="tabPax" onclick="switchTab('pax')">🧳 Пассажиры</button>
+    <button class="tab" onclick="quickRoute('Бурабай','Астана')">Бурабай → Астана</button>
+    <button class="tab" onclick="quickRoute('Кокшетау','Астана')">Кокшетау → Астана</button>
+    <button class="tab" onclick="quickRoute('Алматы','Астана')">Алматы → Астана</button>
+  </div>
+
+  <section class="layout">
+    <div class="section-panel">
+      <div class="section-head">
+        <h2 id="listTitle">Водители</h2>
+        <span class="count" id="listCount">загрузка...</span>
+      </div>
+      <div class="cards" id="cards"><div class="loading">Загружаю маршруты...</div></div>
     </div>
-    <div class="hero-stat">
-      <div class="hero-stat-value">6.5<span>%</span></div>
-      <div class="hero-stat-label" data-t="stat_gdp"></div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-value"><span>#</span>1</div>
-      <div class="hero-stat-label" data-t="stat_region"></div>
-    </div>
-  </div>
-  <p class="hero-disclaimer" data-t="hero_disclaimer"></p>
-</section>
 
-<section class="search-section">
-  <input type="text" class="search-box" id="searchInput" oninput="filterArticles()" />
-</section>
+    <aside class="side-stack" id="post">
+      <div class="form-panel">
+        <h2 class="panel-title">Добавить объявление</h2>
+        <div class="form-tabs">
+          <button class="form-tab active" id="formDriverTab" onclick="switchForm('driver')">Я водитель</button>
+          <button class="form-tab" id="formPaxTab" onclick="switchForm('pax')">Ищу поездку</button>
+        </div>
+        <div class="form-grid">
+          <div class="field-grid">
+            <div class="field">
+              <label>Откуда</label>
+              <input id="fFrom" list="cityList" placeholder="Астана">
+            </div>
+            <div class="field">
+              <label>Куда</label>
+              <input id="fTo" list="cityList" placeholder="Бурабай">
+            </div>
+          </div>
 
-<section class="featured" id="research">
-  <div class="section-label" data-t="featured_label"></div>
-  <div class="featured-grid" id="featuredArticle"></div>
-</section>
+          <div id="driverFields" class="form-grid">
+            <div class="field-grid">
+              <div class="field">
+                <label>Авто</label>
+                <input id="fCar" placeholder="Toyota Camry 2020">
+              </div>
+              <div class="field">
+                <label>Цена за место</label>
+                <input id="fPrice" type="number" inputmode="numeric" placeholder="5000">
+              </div>
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label>Мест</label>
+                <select id="fSeats">
+                  <option value="1">1</option><option value="2">2</option>
+                  <option value="3" selected>3</option><option value="4">4</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Стаж</label>
+                <select id="fExp">
+                  <option value="1-3 года">1-3 года</option>
+                  <option value="3-7 лет" selected>3-7 лет</option>
+                  <option value="7-15 лет">7-15 лет</option>
+                  <option value="15+ лет">15+ лет</option>
+                </select>
+              </div>
+            </div>
+            <div class="checks">
+              <label class="check"><input type="checkbox" id="fAC"> Кондиционер</label>
+              <label class="check"><input type="checkbox" id="fSeat"> Детское кресло</label>
+              <label class="check"><input type="checkbox" id="fTrunk"> Багажник свободен</label>
+              <label class="check"><input type="checkbox" id="fParcel"> Беру посылки</label>
+            </div>
+          </div>
 
-<section class="articles-section">
-  <div class="section-label" data-t="library_label"></div>
-  <div class="articles-grid" id="articlesGrid"></div>
-</section>
+          <div id="paxFields" class="form-grid" style="display:none">
+            <div class="field-grid">
+              <div class="field">
+                <label>Имя</label>
+                <input id="pName" placeholder="Адил">
+              </div>
+              <div class="field">
+                <label>Дата поездки</label>
+                <input id="pDate" type="date">
+              </div>
+            </div>
+            <div class="field">
+              <label>Мест нужно</label>
+              <select id="pSeats">
+                <option value="1" selected>1</option><option value="2">2</option>
+                <option value="3">3</option><option value="4">4</option>
+              </select>
+            </div>
+          </div>
 
-<section class="about-strip" id="about">
-  <div class="about-strip-icon">🌍</div>
-  <div>
-    <h3 data-t="about_title"></h3>
-    <p data-t="about_text"></p>
-  </div>
-</section>
+          <div class="field">
+            <label>Телефон</label>
+            <input id="fPhone" type="tel" inputmode="tel" placeholder="+7 700 000 00 00">
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <label>WhatsApp</label>
+              <input id="fWA" type="tel" inputmode="tel" placeholder="+7 700 000 00 00">
+            </div>
+            <div class="field">
+              <label>Telegram</label>
+              <input id="fTG" placeholder="@username">
+            </div>
+          </div>
+          <div class="field">
+            <label>Комментарий</label>
+            <textarea id="fComment" placeholder="Выезд утром, можно с багажом, без животных..."></textarea>
+          </div>
+          <button class="primary-btn" onclick="submitPost()">Опубликовать</button>
+          <p class="muted-note">Телефон нужен для связи по поездке. Публикации с подозрительным текстом может остановить модерация.</p>
+        </div>
+      </div>
 
-<section class="newsletter">
-  <h2 data-t="newsletter_title"></h2>
-  <p data-t="newsletter_text"></p>
-  <div class="newsletter-form">
-    <input type="email" placeholder="your@email.com">
-    <button data-t="newsletter_button"></button>
-  </div>
-  <p class="newsletter-note" data-t="newsletter_note"></p>
-</section>
+      <div class="form-panel">
+        <h2 class="panel-title">Telegram</h2>
+        <p class="muted-note">Бот Алсат присылает совпадения по маршрутам и помогает получить контакт.</p>
+        <a class="primary-btn" href="https://t.me/Alsat_Asia_bot" target="_blank" rel="noopener" style="width:100%;margin-top:10px">Открыть бота</a>
+      </div>
+    </aside>
+  </section>
+</main>
 
-<footer>
-  <div class="footer-top">
-    <div class="footer-logo">ALSAT<span>.ASIA</span></div>
-    <div class="footer-links">
-      <a href="/rss.xml">RSS</a>
-      <a href="/sitemap.xml">Sitemap</a>
-    </div>
-  </div>
-  <div class="footer-disclaimer" data-t="footer_disclaimer"></div>
-</footer>
-
-<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
-  <div class="modal" id="modalContent">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-tag" id="modalTag"></div>
-    <h2 id="modalTitle"></h2>
-    <div class="modal-meta" id="modalMeta"></div>
-    <div class="modal-body" id="modalBody"></div>
-  </div>
-</div>
-
-<div class="cookie-banner" id="cookieBanner">
-  <div class="cookie-banner-text" data-t="cookie_text"></div>
-  <div class="cookie-actions">
-    <button class="accept" onclick="cookieAccept()" data-t="cookie_accept"></button>
-    <button onclick="cookieDecline()" data-t="cookie_decline"></button>
-  </div>
-</div>
+<footer class="wrap">Alsat.Asia · Междугородние поездки по Казахстану · Бесплатное размещение</footer>
+<div class="toast" id="toast"></div>
 
 <script>
-const ARTICLES = [
-  {
-    id: "kz-reserves",
-    date_iso: "2026-05-15",
-    date_display: { en: "May 2026", es: "Mayo 2026", ru: "Май 2026" },
-    read_min: 12,
-    en: {
-      tag: "Macro · Kazakhstan",
-      category: "Kazakhstan · Macro",
-      title: "Kazakhstan's $129.5 Billion Reserve: Why This Central Asian Economy Is Quietly Becoming a Frontier Market Powerhouse",
-      excerpt: "While most Western investors focus on Southeast Asia and Eastern Europe, Kazakhstan has been building one of the most resilient emerging market balance sheets in the world.",
-      body: `<p>There is a country sitting at the crossroads of Russia, China, and the Middle East, with international reserves of $129.5 billion, GDP growth of 6.5% in 2025, and $20.5 billion in foreign direct investment — and almost nobody on Wall Street is talking about it.</p>
-<p>That country is Kazakhstan. And if you are a serious investor looking for asymmetric opportunities in frontier markets, the numbers demand your attention.</p>
-<div class="stat-highlight">📊 Key Data Points:<br>· GDP Growth 2025: 6.5% (US: 2.5%)<br>· International Reserves: $129.5 billion<br>· FDI 2025: $20.5 billion (record regional high)<br>· Public Debt / GDP: 22.8% (US: ~122%)<br>· Fixed Capital Investment: +13% YoY</div>
-<h3>The Fiscal Picture</h3>
-<p>Kazakhstan's public debt stands at just 22.8% of GDP. Compare that to the United States at approximately 122%, or the Eurozone average of over 90%. The country's fiscal discipline, combined with sovereign reserves from oil revenues, creates a buffer that most emerging market economies can only dream of.</p>
-<p>The government is targeting $400 billion in total investment over the next five years, prioritizing manufacturing, petrochemicals, agriculture, and high-value industries. This is not a petro-state coasting on oil — it is a deliberate diversification play.</p>
-<h3>Why Western Investors Are Missing This</h3>
-<p>Kazakhstan does not fit neatly into standard emerging market indices. It lacks the brand recognition of Brazil, India, or Vietnam. And its English-language financial media coverage is thin compared to its economic weight. That gap is the opportunity.</p>
-<p>The American Chamber of Commerce in Kazakhstan published its Investors' Voice 2026 report in January, noting that 2026 is seen as a defining moment for diversification, regulatory clarity, and expanded Kazakhstan-U.S. economic engagement. Citi, IFC, BCG, Deloitte, HP, and Procter & Gamble all contributed.</p>
-<h3>The Structural Shift</h3>
-<p>Historically, about 75% of foreign investment went to extractive industries — oil and gas. That share has now dropped to 43%, as capital flows increasingly into processing, digital, and manufacturing sectors. This diversification is exactly what long-term investors want to see.</p>
-<div class="disclaimer">⚠ Educational content only. This is not financial advice. Data from UNCTAD, AmCham Kazakhstan, Ministry of National Economy. Always do your own research.</div>`
-    },
-    es: {
-      tag: "Macro · Kazajistán",
-      category: "Kazajistán · Macro",
-      title: "Las Reservas de $129.5 Mil Millones de Kazajistán: Por Qué Esta Economía Se Está Convirtiendo en Potencia de Mercado Frontera",
-      excerpt: "Mientras la mayoría de los inversores occidentales se enfocan en el Sudeste Asiático, Kazajistán construye uno de los balances más resilientes de mercados emergentes del mundo.",
-      body: `<p>Hay un país en el cruce de Rusia, China y Oriente Medio, con reservas internacionales de $129.5 mil millones, crecimiento del PIB del 6.5% en 2025, y $20.5 mil millones en inversión extranjera directa — y casi nadie en Wall Street habla de él.</p>
-<p>Ese país es Kazajistán. Si usted es un inversor serio buscando oportunidades asimétricas en mercados frontera, los números exigen su atención.</p>
-<div class="stat-highlight">📊 Datos Clave:<br>· Crecimiento PIB 2025: 6.5% (EE.UU.: 2.5%)<br>· Reservas Internacionales: $129.5 mil millones<br>· IED 2025: $20.5 mil millones<br>· Deuda Pública / PIB: 22.8% (EE.UU.: ~122%)<br>· Inversión en Capital Fijo: +13% interanual</div>
-<h3>El Panorama Fiscal</h3>
-<p>La deuda pública de Kazajistán es solo del 22.8% del PIB. Compare con EE.UU. al 122%, o la Eurozona en más del 90%. La disciplina fiscal combinada con reservas soberanas crea un colchón que la mayoría de economías emergentes solo pueden soñar.</p>
-<p>El gobierno apunta a $400 mil millones en inversión total durante los próximos cinco años, priorizando manufactura, petroquímica, agricultura e industrias de alto valor.</p>
-<h3>Por Qué los Inversores Occidentales Lo Están Perdiendo</h3>
-<p>Kazajistán no encaja perfectamente en los índices estándar de mercados emergentes. Carece del reconocimiento de Brasil, India o Vietnam. Esa brecha es la oportunidad.</p>
-<p>La Cámara de Comercio Estadounidense en Kazajistán publicó su Investors' Voice 2026 en enero. Citi, IFC, BCG, Deloitte, HP y Procter & Gamble contribuyeron al informe.</p>
-<h3>El Cambio Estructural</h3>
-<p>Históricamente, el 75% de la inversión extranjera iba a industrias extractivas. Esa participación cayó al 43%, mientras el capital fluye hacia procesamiento, digital y manufactura.</p>
-<div class="disclaimer">⚠ Solo contenido educativo. Esto no es asesoramiento financiero. Datos de UNCTAD, AmCham Kazajistán. Siempre haga su propia investigación.</div>`
-    },
-    ru: {
-      tag: "Макро · Казахстан",
-      category: "Казахстан · Макро",
-      title: "Резервы Казахстана в $129,5 млрд: Почему эта экономика Центральной Азии тихо становится мощной силой пограничного рынка",
-      excerpt: "Пока западные инвесторы сосредоточены на Юго-Восточной Азии, Казахстан строит один из самых устойчивых балансов развивающихся рынков в мире.",
-      body: `<p>Есть страна на перекрёстке России, Китая и Ближнего Востока с международными резервами в $129,5 млрд, ростом ВВП 6,5% в 2025 году и $20,5 млрд прямых иностранных инвестиций — и почти никто на Уолл-стрит об этом не говорит.</p>
-<p>Эта страна — Казахстан. Если вы серьёзный инвестор, ищущий асимметричные возможности на пограничных рынках, эти цифры требуют вашего внимания.</p>
-<div class="stat-highlight">📊 Ключевые данные:<br>· Рост ВВП 2025: 6,5% (США: 2,5%)<br>· Международные резервы: $129,5 млрд<br>· ПИИ 2025: $20,5 млрд<br>· Госдолг / ВВП: 22,8% (США: ~122%)<br>· Инвестиции в основной капитал: +13% г/г</div>
-<h3>Фискальная картина</h3>
-<p>Государственный долг Казахстана — всего 22,8% ВВП. Сравните с США — около 122%. Фискальная дисциплина в сочетании с суверенными резервами создаёт подушку, о которой большинство развивающихся экономик может только мечтать.</p>
-<p>Правительство нацелено на $400 миллиардов общих инвестиций за пять лет в производство, нефтехимию, сельское хозяйство и высокотехнологичные отрасли.</p>
-<h3>Почему западные инвесторы упускают это</h3>
-<p>Казахстан не вписывается в стандартные индексы развивающихся рынков. Ему не хватает узнаваемости Бразилии, Индии или Вьетнама. Этот разрыв и есть возможность.</p>
-<p>AmCham опубликовала отчёт Investors' Voice 2026 в январе. В отчёте участвовали Citi, IFC, BCG, Deloitte, HP и Procter & Gamble.</p>
-<h3>Структурный сдвиг</h3>
-<p>Исторически 75% иностранных инвестиций шли в добывающие отрасли. Эта доля упала до 43%, капитал течёт в переработку, цифру и производство.</p>
-<div class="disclaimer">⚠ Только образовательный контент. Это не финансовый совет. Данные UNCTAD, AmCham Казахстан. Всегда делайте собственное исследование.</div>`
-    }
-  },
-  {
-    id: "almaty-real-estate",
-    date_iso: "2026-05-10",
-    date_display: { en: "May 2026", es: "Mayo 2026", ru: "Май 2026" },
-    read_min: 9,
-    en: {
-      tag: "Real Estate · Almaty",
-      category: "Real Estate",
-      title: "Almaty Real Estate vs. Dubai vs. New York: A Price-Per-Square-Meter Analysis",
-      excerpt: "Premium apartments in Almaty cost $1,500–$2,500 per square meter. Dubai: $4,000–$8,000. New York: $12,000–$20,000. What is the risk-adjusted case for Central Asian real estate?",
-      body: `<p>A premium apartment in Almaty, Kazakhstan's financial capital, currently trades at approximately $1,500 to $2,500 per square meter. The same quality property in Dubai runs $4,000 to $8,000. In Manhattan, you are looking at $12,000 to $20,000 or more.</p>
-<div class="stat-highlight">🏢 Price Per Square Meter (Premium Residential, 2026):<br>· Almaty, Kazakhstan: $1,500 – $2,500<br>· Dubai, UAE: $4,000 – $8,000<br>· Warsaw, Poland: $3,500 – $5,500<br>· New York, USA: $12,000 – $20,000+<br>· London, UK: $14,000 – $25,000+</div>
-<h3>What the Numbers Do Not Tell You</h3>
-<p>Raw price comparisons are useful but incomplete. What matters is the risk-adjusted return: rental yields, currency risk, legal framework for foreign ownership, liquidity, and growth trajectory.</p>
-<p>Kazakhstan's construction sector grew 18.4% year-on-year in the first half of 2025. Fixed capital investment grew 17.5% in the first nine months of 2025. These are not the numbers of a stagnant market.</p>
-<h3>The Foreign Ownership Question</h3>
-<p>Foreign citizens can purchase apartments in multi-unit residential buildings. Land ownership rules are more complex and restrict foreign nationals from owning land directly.</p>
-<h3>Rental Yields and Currency Considerations</h3>
-<p>Rental yields in Almaty's prime districts have historically ranged from 5% to 8% annually in tenge terms. The tenge has experienced volatility. Any investor must account for currency risk and ideally structure transactions to hedge tenge exposure.</p>
-<div class="disclaimer">⚠ Educational content only. Real estate investment involves significant risk. This is not financial advice.</div>`
-    },
-    es: {
-      tag: "Bienes Raíces · Almaty",
-      category: "Bienes Raíces",
-      title: "Bienes Raíces de Almaty vs. Dubái vs. Nueva York: Análisis de Precio por Metro Cuadrado",
-      excerpt: "Apartamentos premium en Almaty cuestan $1,500–$2,500 por m². Dubái: $4,000–$8,000. Nueva York: $12,000–$20,000. ¿Cuál es el caso ajustado al riesgo?",
-      body: `<p>Un apartamento premium en Almaty, capital financiera de Kazajistán, se cotiza actualmente entre $1,500 y $2,500 por metro cuadrado. La misma propiedad en Dubái cuesta $4,000 a $8,000. En Manhattan, hablamos de $12,000 a $20,000 o más.</p>
-<div class="stat-highlight">🏢 Precio Por Metro Cuadrado (Residencial Premium, 2026):<br>· Almaty, Kazajistán: $1,500 – $2,500<br>· Dubái, EAU: $4,000 – $8,000<br>· Varsovia, Polonia: $3,500 – $5,500<br>· Nueva York, EE.UU.: $12,000 – $20,000+<br>· Londres, Reino Unido: $14,000 – $25,000+</div>
-<h3>Lo Que los Números No le Dicen</h3>
-<p>Las comparaciones de precios brutos son útiles pero incompletas. Lo que importa es el retorno ajustado al riesgo: rendimientos de alquiler, riesgo cambiario, marco legal para propiedad extranjera, liquidez.</p>
-<p>El sector de construcción de Kazajistán creció 18.4% interanual en la primera mitad de 2025. La inversión en capital fijo creció 17.5% en los primeros nueve meses de 2025.</p>
-<h3>La Cuestión de la Propiedad Extranjera</h3>
-<p>Los ciudadanos extranjeros pueden comprar apartamentos en edificios residenciales multifamiliares. Las reglas de propiedad de la tierra son más complejas y restringen a extranjeros de poseer tierra directamente.</p>
-<h3>Rendimientos de Alquiler y Consideraciones Cambiarias</h3>
-<p>Los rendimientos de alquiler en distritos prime de Almaty históricamente han variado de 5% a 8% anual en tenge. El tenge ha experimentado volatilidad. Cualquier inversor debe considerar el riesgo cambiario.</p>
-<div class="disclaimer">⚠ Solo contenido educativo. La inversión inmobiliaria implica riesgos significativos. Esto no es asesoramiento financiero.</div>`
-    },
-    ru: {
-      tag: "Недвижимость · Алматы",
-      category: "Недвижимость",
-      title: "Недвижимость Алматы vs. Дубай vs. Нью-Йорк: Анализ цены за квадратный метр",
-      excerpt: "Премиальные квартиры в Алматы стоят $1,500–$2,500 за м². Дубай: $4,000–$8,000. Нью-Йорк: $12,000–$20,000. Каков риск-скорректированный кейс?",
-      body: `<p>Премиальная квартира в Алматы, финансовой столице Казахстана, сейчас торгуется примерно по $1,500–$2,500 за квадратный метр. То же качество в Дубае стоит $4,000–$8,000. На Манхэттене — $12,000–$20,000 или больше.</p>
-<div class="stat-highlight">🏢 Цена за м² (Премиум жильё, 2026):<br>· Алматы, Казахстан: $1,500 – $2,500<br>· Дубай, ОАЭ: $4,000 – $8,000<br>· Варшава, Польша: $3,500 – $5,500<br>· Нью-Йорк, США: $12,000 – $20,000+<br>· Лондон, Великобритания: $14,000 – $25,000+</div>
-<h3>Что цифры не говорят</h3>
-<p>Прямые сравнения цен полезны, но неполны. Важна риск-скорректированная доходность: арендная доходность, валютный риск, правовая база для иностранцев, ликвидность.</p>
-<p>Строительный сектор Казахстана вырос на 18,4% г/г в первой половине 2025 года. Инвестиции в основной капитал выросли на 17,5% за девять месяцев 2025 года.</p>
-<h3>Вопрос иностранной собственности</h3>
-<p>Иностранные граждане могут покупать квартиры в многоквартирных жилых домах. Правила владения землёй сложнее и ограничивают иностранцев от прямого владения землёй.</p>
-<h3>Арендная доходность и валютные риски</h3>
-<p>Арендная доходность в премиальных районах Алматы исторически составляла 5–8% годовых в тенге. Тенге имел волатильность. Любой инвестор должен учитывать валютный риск.</p>
-<div class="disclaimer">⚠ Только образовательный контент. Недвижимость связана со значительными рисками. Это не финансовый совет.</div>`
-    }
-  },
-  {
-    id: "middle-corridor",
-    date_iso: "2026-05-05",
-    date_display: { en: "May 2026", es: "Mayo 2026", ru: "Май 2026" },
-    read_min: 10,
-    en: {
-      tag: "Infrastructure · Logistics",
-      category: "Infrastructure · Trade",
-      title: "The Middle Corridor: Why Kazakhstan's 13 Transit Routes Are Reshaping Global Trade",
-      excerpt: "With 13 international transit corridors crossing its territory, Kazakhstan is positioning itself as the critical land bridge between China, Europe, and the Middle East.",
-      body: `<p>When Kazakhstan's Deputy Minister of Foreign Affairs addressed the Annual Investors Meeting 2026, he did not lead with oil. He led with transit corridors — 13 international transit routes that cross Kazakhstan's territory.</p>
-<div class="stat-highlight">🛤 Middle Corridor Key Facts:<br>· 13 international transit corridors through Kazakhstan<br>· Route: China → Kazakhstan → Caspian Sea → Azerbaijan → Georgia → Europe<br>· Alternative to Russian rail routes post-2022 sanctions<br>· Transit volumes growing 30–40% annually since 2022<br>· Government investing in Caspian port expansion</div>
-<h3>Why 2022 Changed Everything</h3>
-<p>Before 2022, the dominant rail route for China-Europe freight ran through Russia. Western sanctions following the Ukraine conflict made that route commercially complicated for many European businesses.</p>
-<p>The Middle Corridor — officially the Trans-Caspian International Transport Route — runs through Kazakhstan, across the Caspian Sea by ferry, then through Azerbaijan and Georgia to Turkey and Europe.</p>
-<h3>The Investment Angle</h3>
-<p>Kazakhstan is actively expanding Caspian port capacity, upgrading rail infrastructure, and adopting digital logistics solutions. The IFC identifies logistics as one of Kazakhstan's core investment opportunities for 2026.</p>
-<div class="disclaimer">⚠ Educational content only. Infrastructure investment involves long time horizons and regulatory risk. This is not financial advice.</div>`
-    },
-    es: {
-      tag: "Infraestructura · Logística",
-      category: "Infraestructura · Comercio",
-      title: "El Corredor Medio: Por Qué las 13 Rutas de Tránsito de Kazajistán Están Reformando el Comercio Global",
-      excerpt: "Con 13 corredores internacionales de tránsito cruzando su territorio, Kazajistán se posiciona como el puente terrestre crítico entre China, Europa y Oriente Medio.",
-      body: `<p>Cuando el Viceministro de Asuntos Exteriores de Kazajistán habló en la Reunión Anual de Inversores 2026, no comenzó con petróleo. Comenzó con corredores de tránsito — 13 rutas internacionales que cruzan el territorio de Kazajistán.</p>
-<div class="stat-highlight">🛤 Hechos Clave del Corredor Medio:<br>· 13 corredores de tránsito internacionales por Kazajistán<br>· Ruta: China → Kazajistán → Mar Caspio → Azerbaiyán → Georgia → Europa<br>· Alternativa a rutas rusas tras sanciones de 2022<br>· Volúmenes de tránsito creciendo 30–40% anual desde 2022<br>· Gobierno invirtiendo en expansión de puertos del Caspio</div>
-<h3>Por Qué 2022 Cambió Todo</h3>
-<p>Antes de 2022, la ruta ferroviaria dominante para carga China-Europa pasaba por Rusia. Las sanciones occidentales tras el conflicto de Ucrania complicaron esa ruta comercialmente.</p>
-<p>El Corredor Medio — oficialmente la Ruta de Transporte Internacional Trans-Caspia — pasa por Kazajistán, cruza el Mar Caspio en ferry, luego por Azerbaiyán y Georgia hacia Turquía y Europa.</p>
-<h3>El Ángulo de Inversión</h3>
-<p>Kazajistán está expandiendo activamente la capacidad portuaria del Caspio, modernizando infraestructura ferroviaria y adoptando soluciones de logística digital. La IFC identifica logística como una de las oportunidades centrales de Kazajistán para 2026.</p>
-<div class="disclaimer">⚠ Solo contenido educativo. La inversión en infraestructura implica horizontes largos y riesgo regulatorio. Esto no es asesoramiento financiero.</div>`
-    },
-    ru: {
-      tag: "Инфраструктура · Логистика",
-      category: "Инфраструктура · Торговля",
-      title: "Средний Коридор: Почему 13 транзитных маршрутов Казахстана меняют мировую торговлю",
-      excerpt: "С 13 международными транзитными коридорами, пересекающими его территорию, Казахстан позиционирует себя как критический сухопутный мост между Китаем, Европой и Ближним Востоком.",
-      body: `<p>Когда заместитель министра иностранных дел Казахстана выступал на Ежегодной встрече инвесторов 2026, он начал не с нефти. Он начал с транзитных коридоров — 13 международных маршрутов, пересекающих территорию Казахстана.</p>
-<div class="stat-highlight">🛤 Ключевые факты о Среднем коридоре:<br>· 13 международных транзитных коридоров через Казахстан<br>· Маршрут: Китай → Казахстан → Каспий → Азербайджан → Грузия → Европа<br>· Альтернатива российским маршрутам после санкций 2022<br>· Транзитные объёмы растут на 30–40% ежегодно с 2022<br>· Правительство инвестирует в расширение каспийских портов</div>
-<h3>Почему 2022 год изменил всё</h3>
-<p>До 2022 года доминирующий железнодорожный маршрут для грузов Китай-Европа проходил через Россию. Западные санкции после конфликта на Украине усложнили этот маршрут коммерчески.</p>
-<p>Средний коридор — официально Транскаспийский международный транспортный маршрут — идёт через Казахстан, через Каспийское море на пароме, затем через Азербайджан и Грузию в Турцию и Европу.</p>
-<h3>Инвестиционный аспект</h3>
-<p>Казахстан активно расширяет каспийские портовые мощности, модернизирует железнодорожную инфраструктуру и внедряет цифровые логистические решения. IFC определяет логистику как одну из ключевых инвестиционных возможностей Казахстана на 2026 год.</p>
-<div class="disclaimer">⚠ Только образовательный контент. Инфраструктурные инвестиции имеют долгие горизонты и регуляторные риски. Это не финансовый совет.</div>`
-    }
-  },
-  {
-    id: "critical-minerals",
-    date_iso: "2026-04-25",
-    date_display: { en: "April 2026", es: "Abril 2026", ru: "Апрель 2026" },
-    read_min: 11,
-    en: {
-      tag: "Energy · Critical Minerals",
-      category: "Energy · Resources",
-      title: "Uranium, Lithium, and Rare Earths: Kazakhstan's Critical Mineral Wealth Explained",
-      excerpt: "Kazakhstan produces 43% of the world's uranium. It holds significant lithium, chromium, manganese, and rare earth deposits. In an era of energy transition, this matters.",
-      body: `<p>In the global race to secure critical minerals for the energy transition — electric vehicles, batteries, solar panels, wind turbines — one country keeps appearing in supply chain analyses: Kazakhstan.</p>
-<p>Kazakhstan is the world's largest uranium producer, accounting for approximately 43% of global output through state-owned Kazatomprom. It also holds meaningful deposits of lithium, chromium, manganese, titanium, and various rare earth elements.</p>
-<div class="stat-highlight">⚡ Kazakhstan Critical Minerals:<br>· Uranium: ~43% of global production (world #1)<br>· Chromium: significant reserves, major exporter<br>· Manganese: substantial deposits<br>· Lithium: emerging extraction projects<br>· Rare Earths: early-stage exploration ongoing</div>
-<h3>The Nuclear Energy Revival</h3>
-<p>Nuclear energy is experiencing a global renaissance. The US, France, Japan, South Korea, and other nations are extending reactor lifetimes and planning new builds. Uranium demand is projected to rise significantly through the 2030s.</p>
-<h3>The U.S. Angle</h3>
-<p>The C5+1 10th Anniversary Business Conference in Washington in November 2025 saw U.S. companies sign landmark deals in Kazakhstan across energy and critical minerals. The U.S. Chamber of Commerce has identified Kazakhstan as a strategic partner for supply chain diversification away from China-dependent sources.</p>
-<h3>Risks to Understand</h3>
-<p>Kazatomprom is state-controlled. Regulatory frameworks for foreign participation in mining vary by mineral type. The country's proximity to Russia and China creates geopolitical considerations any investor must weigh.</p>
-<div class="disclaimer">⚠ Educational content only. Commodity and mining investments carry significant risk. This is not financial advice.</div>`
-    },
-    es: {
-      tag: "Energía · Minerales Críticos",
-      category: "Energía · Recursos",
-      title: "Uranio, Litio y Tierras Raras: La Riqueza Mineral Crítica de Kazajistán",
-      excerpt: "Kazajistán produce el 43% del uranio mundial. Tiene depósitos significativos de litio, cromo, manganeso y tierras raras. En la era de transición energética, esto importa.",
-      body: `<p>En la carrera global por asegurar minerales críticos para la transición energética — vehículos eléctricos, baterías, paneles solares, turbinas eólicas — un país aparece repetidamente en los análisis de cadena de suministro: Kazajistán.</p>
-<p>Kazajistán es el mayor productor mundial de uranio, representando aproximadamente el 43% de la producción global a través de la estatal Kazatomprom. También tiene depósitos significativos de litio, cromo, manganeso, titanio y varios elementos de tierras raras.</p>
-<div class="stat-highlight">⚡ Minerales Críticos de Kazajistán:<br>· Uranio: ~43% de producción global (mundial #1)<br>· Cromo: reservas significativas<br>· Manganeso: depósitos sustanciales<br>· Litio: proyectos de extracción emergentes<br>· Tierras Raras: exploración en etapas iniciales</div>
-<h3>El Renacimiento de la Energía Nuclear</h3>
-<p>La energía nuclear experimenta un renacimiento global. EE.UU., Francia, Japón, Corea del Sur y otras naciones están extendiendo la vida útil de reactores y planificando nuevas construcciones. La demanda de uranio crecerá significativamente hasta los 2030.</p>
-<h3>El Ángulo Estadounidense</h3>
-<p>La Conferencia de Negocios del 10º Aniversario C5+1 en Washington en noviembre de 2025 vio a empresas estadounidenses firmar acuerdos importantes en Kazajistán en energía y minerales críticos. La Cámara de Comercio de EE.UU. identifica a Kazajistán como socio estratégico para diversificación de cadenas de suministro fuera de fuentes dependientes de China.</p>
-<h3>Riesgos a Comprender</h3>
-<p>Kazatomprom es controlado por el estado. Los marcos regulatorios para participación extranjera en minería varían según el tipo de mineral. La proximidad del país a Rusia y China crea consideraciones geopolíticas.</p>
-<div class="disclaimer">⚠ Solo contenido educativo. Las inversiones en commodities y minería conllevan riesgo significativo. Esto no es asesoramiento financiero.</div>`
-    },
-    ru: {
-      tag: "Энергетика · Критические минералы",
-      category: "Энергетика · Ресурсы",
-      title: "Уран, литий и редкоземельные металлы: Объяснение минерального богатства Казахстана",
-      excerpt: "Казахстан производит 43% мирового урана. Имеет значительные месторождения лития, хрома, марганца и редкоземельных металлов. В эпоху энергоперехода это имеет значение.",
-      body: `<p>В глобальной гонке за критически важными минералами для энергоперехода — электромобили, батареи, солнечные панели, ветрогенераторы — одна страна постоянно появляется в анализах цепочек поставок: Казахстан.</p>
-<p>Казахстан — крупнейший в мире производитель урана, на его долю приходится около 43% мирового производства через государственный Казатомпром. Также страна имеет значительные месторождения лития, хрома, марганца, титана и редкоземельных элементов.</p>
-<div class="stat-highlight">⚡ Критические минералы Казахстана:<br>· Уран: ~43% мирового производства (#1)<br>· Хром: значительные запасы<br>· Марганец: существенные месторождения<br>· Литий: развивающиеся проекты добычи<br>· Редкоземельные: ранние стадии разведки</div>
-<h3>Возрождение атомной энергетики</h3>
-<p>Атомная энергетика переживает глобальный ренессанс. США, Франция, Япония, Южная Корея продлевают сроки службы реакторов и планируют новые. Спрос на уран значительно вырастет к 2030-м годам.</p>
-<h3>Американский аспект</h3>
-<p>На бизнес-конференции C5+1 в Вашингтоне в ноябре 2025 года американские компании подписали знаковые сделки в Казахстане в области энергетики и критических минералов. Торговая палата США определяет Казахстан как стратегического партнёра для диверсификации цепочек поставок от китайских источников.</p>
-<h3>Риски, которые нужно понимать</h3>
-<p>Казатомпром контролируется государством. Регуляторные рамки для иностранного участия в добыче варьируются по типам минералов. Близость к России и Китаю создаёт геополитические соображения.</p>
-<div class="disclaimer">⚠ Только образовательный контент. Инвестиции в сырьё и добычу несут значительный риск. Это не финансовый совет.</div>`
-    }
-  },
-  {
-    id: "kyrgyzstan-business",
-    date_iso: "2026-04-20",
-    date_display: { en: "April 2026", es: "Abril 2026", ru: "Апрель 2026" },
-    read_min: 8,
-    en: {
-      tag: "Business · Kyrgyzstan",
-      category: "Business · Kyrgyzstan",
-      title: "Why Kyrgyzstan May Be the Cheapest Place in Central Asia to Start a Business in 2026",
-      excerpt: "Minimal bureaucracy, low registration costs, a growing fintech scene, and a strategic location between China and Central Asia. Kyrgyzstan's startup environment is underrated.",
-      body: `<p>Kyrgyzstan does not appear on most investors' radar. It is smaller than Kazakhstan, less resource-rich, and less prominently covered in financial media. But for entrepreneurs and early-stage investors, that obscurity may be the point.</p>
-<p>The country has made meaningful strides in simplifying business registration, reducing bureaucratic friction, and creating a legal framework that welcomes foreign business formation.</p>
-<div class="stat-highlight">🏢 Kyrgyzstan Business Basics 2026:<br>· Population: ~7 million<br>· Capital: Bishkek<br>· Currency: Kyrgyzstani Som (KGS)<br>· LLC registration: ~$50–100 USD equivalent<br>· Corporate tax rate: 10%<br>· EAEU member: Yes (access to Russia, Kazakhstan, Belarus markets)</div>
-<h3>The EAEU Angle</h3>
-<p>Kyrgyzstan is a member of the Eurasian Economic Union, the trade bloc including Russia, Kazakhstan, Belarus, and Armenia. This membership means a company registered in Kyrgyzstan can access a combined market of over 180 million people with reduced trade barriers.</p>
-<h3>The Fintech and Digital Opportunity</h3>
-<p>Bishkek has a growing community of developers and digital entrepreneurs. The country has a young, tech-literate population and mobile internet penetration that rivals regional neighbors. Several fintech startups have emerged from Bishkek targeting remittance and payment infrastructure.</p>
-<h3>What the Risks Look Like</h3>
-<p>Kyrgyzstan's economy is heavily dependent on remittances, gold exports from Kumtor mine, and re-export trade with China. Political volatility has historically been a concern. Currency liquidity is limited compared to Kazakhstan.</p>
-<div class="disclaimer">⚠ Educational content only. Business in frontier markets involves substantial risk. This is not financial, legal, or business advice.</div>`
-    },
-    es: {
-      tag: "Negocios · Kirguistán",
-      category: "Negocios · Kirguistán",
-      title: "Por Qué Kirguistán Puede Ser el Lugar Más Barato de Asia Central para Iniciar un Negocio en 2026",
-      excerpt: "Burocracia mínima, bajos costos de registro, una creciente escena fintech y ubicación estratégica. El entorno de startups de Kirguistán está subestimado.",
-      body: `<p>Kirguistán no aparece en el radar de la mayoría de inversores. Es más pequeño que Kazajistán, menos rico en recursos, y menos cubierto en medios financieros. Pero para emprendedores e inversores en etapa inicial, esa oscuridad puede ser el punto.</p>
-<p>El país ha logrado avances significativos en simplificar el registro de empresas, reducir fricciones burocráticas y crear un marco legal que da la bienvenida a la formación de negocios extranjeros.</p>
-<div class="stat-highlight">🏢 Conceptos Básicos de Negocios en Kirguistán 2026:<br>· Población: ~7 millones<br>· Capital: Bishkek<br>· Moneda: Som Kirguiso (KGS)<br>· Registro de SRL: ~$50–100 USD<br>· Tasa de impuesto corporativo: 10%<br>· Miembro UEEA: Sí (acceso a Rusia, Kazajistán, Bielorrusia)</div>
-<h3>El Ángulo UEEA</h3>
-<p>Kirguistán es miembro de la Unión Económica Euroasiática, el bloque comercial que incluye Rusia, Kazajistán, Bielorrusia y Armenia. Esta membresía significa que una empresa registrada en Kirguistán puede acceder a un mercado combinado de más de 180 millones de personas.</p>
-<h3>La Oportunidad Fintech y Digital</h3>
-<p>Bishkek tiene una creciente comunidad de desarrolladores y emprendedores digitales. El país tiene una población joven y conocedora de la tecnología. Varias startups fintech han emergido de Bishkek apuntando a remesas e infraestructura de pagos.</p>
-<h3>Cómo Se Ven los Riesgos</h3>
-<p>La economía de Kirguistán depende fuertemente de remesas, exportaciones de oro de la mina Kumtor, y comercio de reexportación con China. La volatilidad política ha sido históricamente una preocupación.</p>
-<div class="disclaimer">⚠ Solo contenido educativo. Los negocios en mercados frontera implican riesgo sustancial. Esto no es asesoramiento financiero, legal o empresarial.</div>`
-    },
-    ru: {
-      tag: "Бизнес · Кыргызстан",
-      category: "Бизнес · Кыргызстан",
-      title: "Почему Кыргызстан может быть самым дешёвым местом в Центральной Азии для старта бизнеса в 2026",
-      excerpt: "Минимальная бюрократия, низкие затраты на регистрацию, растущая финтех-сцена и стратегическое расположение. Стартап-среда Кыргызстана недооценена.",
-      body: `<p>Кыргызстан не появляется на радаре большинства инвесторов. Он меньше Казахстана, менее богат ресурсами и меньше освещён в финансовых СМИ. Но для предпринимателей и инвесторов ранней стадии эта неизвестность может быть как раз тем, что нужно.</p>
-<p>Страна сделала значительные шаги в упрощении регистрации бизнеса, снижении бюрократических трений и создании правовой базы, приветствующей формирование иностранного бизнеса.</p>
-<div class="stat-highlight">🏢 Основы бизнеса в Кыргызстане 2026:<br>· Население: ~7 миллионов<br>· Столица: Бишкек<br>· Валюта: Кыргызский сом (KGS)<br>· Регистрация ООО: ~$50–100 USD<br>· Корпоративный налог: 10%<br>· Член ЕАЭС: Да (доступ к рынкам России, Казахстана, Беларуси)</div>
-<h3>Аспект ЕАЭС</h3>
-<p>Кыргызстан — член Евразийского экономического союза, торгового блока, включающего Россию, Казахстан, Беларусь и Армению. Это членство означает, что компания, зарегистрированная в Кыргызстане, может получить доступ к объединённому рынку более 180 миллионов человек.</p>
-<h3>Финтех и цифровые возможности</h3>
-<p>В Бишкеке растёт сообщество разработчиков и цифровых предпринимателей. У страны молодое, технически грамотное население. Несколько финтех-стартапов появились из Бишкека, нацеленных на инфраструктуру денежных переводов и платежей.</p>
-<h3>Как выглядят риски</h3>
-<p>Экономика Кыргызстана сильно зависит от денежных переводов, экспорта золота с шахты Кумтор и реэкспортной торговли с Китаем. Политическая волатильность исторически была проблемой.</p>
-<div class="disclaimer">⚠ Только образовательный контент. Бизнес в пограничных рынках связан со значительным риском. Это не финансовый, юридический или бизнес-совет.</div>`
-    }
-  },
-  {
-    id: "kase-stock",
-    date_iso: "2026-04-15",
-    date_display: { en: "April 2026", es: "Abril 2026", ru: "Апрель 2026" },
-    read_min: 10,
-    en: {
-      tag: "Finance · Markets",
-      category: "Markets · Finance",
-      title: "KASE vs. NYSE: An Honest Look at Kazakhstan's Stock Exchange for Foreign Investors",
-      excerpt: "The Kazakhstan Stock Exchange has fewer than 150 listed securities. But for frontier market investors, the question is whether the inefficiency is the opportunity.",
-      body: `<p>The Kazakhstan Stock Exchange, known as KASE, is not the NYSE. It is not even close in terms of market depth, liquidity, or listed security count. If you are looking for the trading volume of a developed market, KASE will disappoint you.</p>
-<p>But that framing misses the point of frontier market investing entirely.</p>
-<div class="stat-highlight">📈 KASE Quick Facts 2026:<br>· Listed companies: ~150 securities<br>· Market cap: approximately $50–60 billion USD<br>· Key sectors: banking, energy, telecoms, real estate<br>· Foreign investor access: available with registration<br>· Settlement: T+2</div>
-<h3>The Inefficiency Argument</h3>
-<p>In efficient markets, prices quickly reflect all available information. In frontier markets, information asymmetry is enormous. A foreign analyst who actually understands the Kazakhstani banking sector may have a meaningful edge over the market.</p>
-<h3>The Astana International Financial Centre</h3>
-<p>Kazakhstan has established the Astana International Financial Centre (AIFC), a separate financial hub with its own legal framework based on English common law and a dedicated exchange, AIX. The AIFC is designed to attract international capital and operates in English.</p>
-<h3>What Serious Investors Are Watching</h3>
-<p>The banking sector — led by Halyk Bank and Kaspi.kz — is the most liquid segment of the Kazakhstani equity market. Kaspi has attracted significant international attention as a fintech-driven super-app with remarkable domestic penetration.</p>
-<div class="disclaimer">⚠ Educational content only. Securities investment involves risk of total loss. Frontier markets carry amplified risks. This is not financial advice.</div>`
-    },
-    es: {
-      tag: "Finanzas · Mercados",
-      category: "Mercados · Finanzas",
-      title: "KASE vs. NYSE: Una Mirada Honesta a la Bolsa de Kazajistán para Inversores Extranjeros",
-      excerpt: "La Bolsa de Kazajistán tiene menos de 150 valores cotizados. Para inversores de mercados frontera, la pregunta es si la ineficiencia es la oportunidad.",
-      body: `<p>La Bolsa de Kazajistán, conocida como KASE, no es la NYSE. Ni siquiera se acerca en términos de profundidad de mercado, liquidez o número de valores cotizados. Si busca el volumen de un mercado desarrollado, KASE le decepcionará.</p>
-<p>Pero ese marco pierde por completo el punto de la inversión en mercados frontera.</p>
-<div class="stat-highlight">📈 Datos Rápidos de KASE 2026:<br>· Empresas cotizadas: ~150 valores<br>· Capitalización: aproximadamente $50–60 mil millones USD<br>· Sectores clave: banca, energía, telecomunicaciones, inmobiliario<br>· Acceso para inversores extranjeros: disponible con registro<br>· Liquidación: T+2</div>
-<h3>El Argumento de la Ineficiencia</h3>
-<p>En mercados eficientes, los precios reflejan rápidamente toda la información disponible. En mercados frontera, la asimetría de información es enorme. Un analista extranjero que realmente entienda el sector bancario kazajo puede tener una ventaja significativa.</p>
-<h3>El Centro Financiero Internacional de Astaná</h3>
-<p>Kazajistán ha establecido el Centro Financiero Internacional de Astaná (AIFC), un centro financiero separado con su propio marco legal basado en derecho común inglés y una bolsa dedicada, AIX. El AIFC opera en inglés.</p>
-<h3>Qué Están Observando los Inversores Serios</h3>
-<p>El sector bancario — liderado por Halyk Bank y Kaspi.kz — es el segmento más líquido del mercado de acciones kazajo. Kaspi ha atraído atención internacional significativa como una super-app impulsada por fintech.</p>
-<div class="disclaimer">⚠ Solo contenido educativo. La inversión en valores implica riesgo de pérdida total. Los mercados frontera conllevan riesgos amplificados. Esto no es asesoramiento financiero.</div>`
-    },
-    ru: {
-      tag: "Финансы · Рынки",
-      category: "Рынки · Финансы",
-      title: "KASE vs. NYSE: Честный взгляд на фондовую биржу Казахстана для иностранных инвесторов",
-      excerpt: "На Казахстанской фондовой бирже листинговано менее 150 ценных бумаг. Для инвесторов пограничного рынка вопрос — является ли неэффективность возможностью.",
-      body: `<p>Казахстанская фондовая биржа, известная как KASE, — это не NYSE. Она даже близко не стоит по глубине рынка, ликвидности или количеству листинговых бумаг. Если вы ищете объём торгов развитого рынка, KASE вас разочарует.</p>
-<p>Но эта рамка полностью упускает суть инвестирования в пограничные рынки.</p>
-<div class="stat-highlight">📈 Краткие факты о KASE 2026:<br>· Листинговые компании: ~150 бумаг<br>· Капитализация: примерно $50–60 млрд USD<br>· Ключевые секторы: банки, энергетика, телеком, недвижимость<br>· Доступ для иностранцев: есть с регистрацией<br>· Расчёты: T+2</div>
-<h3>Аргумент неэффективности</h3>
-<p>В эффективных рынках цены быстро отражают всю доступную информацию. В пограничных рынках информационная асимметрия огромна. Иностранный аналитик, который действительно понимает казахстанский банковский сектор, может иметь значительное преимущество.</p>
-<h3>Международный финансовый центр «Астана»</h3>
-<p>Казахстан создал Международный финансовый центр «Астана» (AIFC), отдельный финансовый хаб со своей правовой базой на основе английского общего права и собственной биржей AIX. AIFC работает на английском языке.</p>
-<h3>За чем следят серьёзные инвесторы</h3>
-<p>Банковский сектор — во главе с Halyk Bank и Kaspi.kz — самый ликвидный сегмент казахстанского рынка акций. Kaspi привлекла значительное международное внимание как суперапп, основанный на финтехе.</p>
-<div class="disclaimer">⚠ Только образовательный контент. Инвестиции в ценные бумаги несут риск полной потери. Пограничные рынки имеют усиленные риски. Это не финансовый совет.</div>`
-    }
-  },
-  {
-    id: "agriculture",
-    date_iso: "2026-03-30",
-    date_display: { en: "March 2026", es: "Marzo 2026", ru: "Март 2026" },
-    read_min: 9,
-    en: {
-      tag: "Agriculture · Food",
-      category: "Agriculture · Food Security",
-      title: "Kazakhstan's Agricultural Frontier: 22 Million Hectares of Arable Land",
-      excerpt: "Kazakhstan has the world's ninth-largest territory, vast arable land, and a government actively seeking foreign agricultural investment. The efficiency gap is enormous.",
-      body: `<p>Kazakhstan's agricultural sector is one of the most underanalyzed investment stories in Eurasia. The country has approximately 22 million hectares of arable land — more than France and Germany combined — yet agricultural productivity per hectare remains well below global benchmarks.</p>
-<p>AmCham Kazakhstan identifies agribusiness as a key opportunity sector for 2026. The IFC echoes this, pointing to agriculture as a structural diversification play.</p>
-<div class="stat-highlight">🌾 Kazakhstan Agriculture Snapshot:<br>· Arable land: ~22 million hectares<br>· Major crops: wheat, barley, sunflower, cotton<br>· World wheat exporters: Kazakhstan consistently top 10<br>· Livestock: significant cattle and sheep herds<br>· Government incentives: available for foreign agri-investors</div>
-<h3>The Efficiency Gap</h3>
-<p>Kazakhstan's wheat yields average approximately 1.1 to 1.3 tonnes per hectare. Western European wheat farming averages 7 to 8 tonnes per hectare. This gap is about irrigation, mechanization, seed technology, and agronomic knowledge transfer.</p>
-<p>German agricultural equipment manufacturer CLAAS and CT-Agro GmbH are already operating in Kazakhstan. Sophisticated Western agricultural businesses are on the ground.</p>
-<h3>The Food Security Dimension</h3>
-<p>The 2022 global food price shock put Central Asian food production on the agenda of food security planners. Kazakhstan's agricultural potential is increasingly viewed as a strategic asset.</p>
-<div class="disclaimer">⚠ Educational content only. Agricultural investment involves significant risks including weather and commodity price volatility. This is not financial advice.</div>`
-    },
-    es: {
-      tag: "Agricultura · Alimentación",
-      category: "Agricultura · Seguridad Alimentaria",
-      title: "La Frontera Agrícola de Kazajistán: 22 Millones de Hectáreas de Tierra Cultivable",
-      excerpt: "Kazajistán tiene el noveno territorio más grande del mundo, vastas tierras cultivables y un gobierno buscando activamente inversión agrícola extranjera.",
-      body: `<p>El sector agrícola de Kazajistán es una de las historias de inversión más subanalizadas en Eurasia. El país tiene aproximadamente 22 millones de hectáreas de tierra cultivable — más que Francia y Alemania combinadas — pero la productividad agrícola por hectárea permanece muy por debajo de los puntos de referencia globales.</p>
-<p>AmCham Kazajistán identifica el agronegocio como un sector de oportunidad clave para 2026. La IFC se hace eco, señalando la agricultura como una jugada de diversificación estructural.</p>
-<div class="stat-highlight">🌾 Instantánea Agrícola de Kazajistán:<br>· Tierra cultivable: ~22 millones de hectáreas<br>· Cultivos principales: trigo, cebada, girasol, algodón<br>· Exportadores mundiales de trigo: Kazajistán consistentemente top 10<br>· Ganadería: importantes rebaños de ganado y ovejas<br>· Incentivos gubernamentales: disponibles para inversores agrícolas extranjeros</div>
-<h3>La Brecha de Eficiencia</h3>
-<p>Los rendimientos de trigo de Kazajistán promedian aproximadamente 1.1 a 1.3 toneladas por hectárea. La agricultura de trigo de Europa Occidental promedia 7 a 8 toneladas por hectárea. Esta brecha es sobre riego, mecanización, tecnología de semillas y transferencia de conocimiento agronómico.</p>
-<p>El fabricante alemán de equipos agrícolas CLAAS y CT-Agro GmbH ya operan en Kazajistán.</p>
-<h3>La Dimensión de Seguridad Alimentaria</h3>
-<p>El shock de precios alimentarios global de 2022 puso la producción alimentaria de Asia Central en la agenda de los planificadores de seguridad alimentaria. El potencial agrícola de Kazajistán es visto cada vez más como un activo estratégico.</p>
-<div class="disclaimer">⚠ Solo contenido educativo. La inversión agrícola implica riesgos significativos incluyendo clima y volatilidad de precios. Esto no es asesoramiento financiero.</div>`
-    },
-    ru: {
-      tag: "Сельское хозяйство · Продовольствие",
-      category: "Сельское хозяйство · Продбезопасность",
-      title: "Аграрная граница Казахстана: 22 миллиона гектаров пахотных земель",
-      excerpt: "Казахстан имеет девятую по величине территорию в мире, обширные пахотные земли и правительство, активно ищущее иностранные сельхозинвестиции.",
-      body: `<p>Сельскохозяйственный сектор Казахстана — одна из самых недооценённых инвестиционных историй в Евразии. У страны примерно 22 миллиона гектаров пахотной земли — больше, чем у Франции и Германии вместе взятых — но производительность с гектара остаётся значительно ниже мировых эталонов.</p>
-<p>AmCham Казахстан определяет агробизнес как ключевой сектор возможностей на 2026 год. IFC вторит этому, указывая на сельское хозяйство как на структурную диверсификацию.</p>
-<div class="stat-highlight">🌾 Сельское хозяйство Казахстана:<br>· Пахотные земли: ~22 миллиона гектаров<br>· Основные культуры: пшеница, ячмень, подсолнечник, хлопок<br>· Мировые экспортёры пшеницы: Казахстан стабильно в топ-10<br>· Скот: значительные стада крупного рогатого скота и овец<br>· Государственные льготы: доступны иностранным агроинвесторам</div>
-<h3>Разрыв в эффективности</h3>
-<p>Урожайность пшеницы в Казахстане в среднем составляет 1,1–1,3 тонны с гектара. Западноевропейское пшеничное земледелие даёт в среднем 7–8 тонн с гектара. Разрыв в орошении, механизации, технологиях семян и агрономических знаниях.</p>
-<p>Немецкий производитель сельхозтехники CLAAS и CT-Agro GmbH уже работают в Казахстане.</p>
-<h3>Аспект продовольственной безопасности</h3>
-<p>Глобальный продовольственный шок 2022 года поставил продовольственное производство Центральной Азии в повестку плановиков продовольственной безопасности. Сельскохозяйственный потенциал Казахстана всё больше рассматривается как стратегический актив.</p>
-<div class="disclaimer">⚠ Только образовательный контент. Сельскохозяйственные инвестиции связаны со значительными рисками. Это не финансовый совет.</div>`
-    }
-  },
-  {
-    id: "digital-economy",
-    date_iso: "2026-03-20",
-    date_display: { en: "March 2026", es: "Marzo 2026", ru: "Март 2026" },
-    read_min: 8,
-    en: {
-      tag: "Digital · Tech",
-      category: "Technology · Digital",
-      title: "Kazakhstan's Digital Economy: From E-Government to AI",
-      excerpt: "Kazakhstan has one of the most digitized government service systems in the post-Soviet space. Its tech sector is growing rapidly. Here is what the transformation looks like from the inside.",
-      body: `<p>When global analysts discuss Central Asian technology, they typically underestimate the speed and depth of Kazakhstan's digital transformation. This is partly because the narrative is told from the outside. From the inside, the picture looks considerably more dynamic.</p>
-<p>Kazakhstan's e-government platform is widely regarded as one of the most advanced in the post-Soviet region. The Digital Kazakhstan initiative, launched in 2018, has driven significant investment in broadband, data centers, and public sector digitalization.</p>
-<div class="stat-highlight">💻 Kazakhstan Digital Economy 2026:<br>· E-government services: 90%+ available online<br>· Mobile internet penetration: ~80%+<br>· Kaspi.kz MAU: ~14 million (in a country of 19 million)<br>· AIFC FinTech hub: operational in Astana<br>· AI investment: government targeting $1B+ in AI infrastructure</div>
-<h3>Kaspi.kz as a Case Study</h3>
-<p>No discussion of Kazakhstan's digital economy is complete without Kaspi.kz. What began as a bank has evolved into a super-app encompassing payments, e-commerce, marketplace, financial services, and government service access. With 14 million monthly active users in a country of 19 million, the penetration rate is extraordinary.</p>
-<p>Kaspi's Nasdaq listing in 2024 gave international investors a liquid vehicle to access Kazakhstani digital growth.</p>
-<h3>The AI and Data Center Play</h3>
-<p>The government has identified AI and data infrastructure as strategic priorities. Kazakhstan's abundant energy resources make it a potential location for energy-intensive data center development.</p>
-<div class="disclaimer">⚠ Educational content only. Technology investment involves significant risk including rapid obsolescence. This is not financial advice.</div>`
-    },
-    es: {
-      tag: "Digital · Tecnología",
-      category: "Tecnología · Digital",
-      title: "La Economía Digital de Kazajistán: Del E-Gobierno a la IA",
-      excerpt: "Kazajistán tiene uno de los sistemas de servicios gubernamentales más digitalizados del espacio postsoviético. Su sector tecnológico crece rápidamente.",
-      body: `<p>Cuando los analistas globales discuten la tecnología de Asia Central, típicamente subestiman la velocidad y profundidad de la transformación digital de Kazajistán. Esto es en parte porque la narrativa se cuenta desde afuera. Desde adentro, el panorama se ve considerablemente más dinámico.</p>
-<p>La plataforma de gobierno electrónico de Kazajistán es ampliamente considerada como una de las más avanzadas en la región postsoviética. La iniciativa Digital Kazakhstan, lanzada en 2018, ha impulsado inversiones significativas en banda ancha, centros de datos y digitalización del sector público.</p>
-<div class="stat-highlight">💻 Economía Digital de Kazajistán 2026:<br>· Servicios de gobierno electrónico: 90%+ disponibles en línea<br>· Penetración de internet móvil: ~80%+<br>· Kaspi.kz MAU: ~14 millones (en un país de 19 millones)<br>· Hub FinTech AIFC: operacional en Astaná<br>· Inversión en IA: gobierno apuntando a $1B+ en infraestructura</div>
-<h3>Kaspi.kz Como Caso de Estudio</h3>
-<p>Ninguna discusión sobre la economía digital de Kazajistán está completa sin Kaspi.kz. Lo que comenzó como un banco ha evolucionado a una super-app que abarca pagos, comercio electrónico, marketplace, servicios financieros y acceso a servicios gubernamentales. Con 14 millones de usuarios activos mensuales en un país de 19 millones, la tasa de penetración es extraordinaria.</p>
-<p>La cotización de Kaspi en Nasdaq en 2024 dio a los inversores internacionales un vehículo líquido para acceder al crecimiento digital kazajo.</p>
-<h3>La Apuesta de IA y Centros de Datos</h3>
-<p>El gobierno ha identificado la IA y la infraestructura de datos como prioridades estratégicas. Los abundantes recursos energéticos de Kazajistán lo hacen una ubicación potencial para desarrollo de centros de datos.</p>
-<div class="disclaimer">⚠ Solo contenido educativo. La inversión en tecnología implica riesgo significativo. Esto no es asesoramiento financiero.</div>`
-    },
-    ru: {
-      tag: "Цифровое · Технологии",
-      category: "Технологии · Цифровое",
-      title: "Цифровая экономика Казахстана: От э-правительства до ИИ",
-      excerpt: "Казахстан имеет одну из наиболее цифровизированных систем госуслуг на постсоветском пространстве. Технологический сектор быстро растёт.",
-      body: `<p>Когда глобальные аналитики обсуждают центральноазиатские технологии, они обычно недооценивают скорость и глубину цифровой трансформации Казахстана. Это частично потому, что нарратив рассказывается извне. Изнутри картина выглядит значительно более динамичной.</p>
-<p>Платформа электронного правительства Казахстана широко считается одной из самых передовых в постсоветском регионе. Инициатива «Цифровой Казахстан», запущенная в 2018 году, привела к значительным инвестициям в широкополосный интернет, дата-центры и цифровизацию госсектора.</p>
-<div class="stat-highlight">💻 Цифровая экономика Казахстана 2026:<br>· Электронные госуслуги: 90%+ доступны онлайн<br>· Проникновение мобильного интернета: ~80%+<br>· Kaspi.kz MAU: ~14 миллионов (в стране с 19 миллионами)<br>· FinTech-хаб AIFC: работает в Астане<br>· Инвестиции в ИИ: цель $1млрд+ в инфраструктуру</div>
-<h3>Kaspi.kz как кейс</h3>
-<p>Ни одно обсуждение цифровой экономики Казахстана не полно без Kaspi.kz. То, что начиналось как банк, эволюционировало в суперапп, охватывающий платежи, электронную коммерцию, маркетплейс, финансовые услуги и доступ к госуслугам. С 14 миллионами ежемесячных активных пользователей в стране с населением 19 миллионов, уровень проникновения экстраординарный.</p>
-<p>Листинг Kaspi на Nasdaq в 2024 году дал международным инвесторам ликвидный инструмент для доступа к цифровому росту Казахстана.</p>
-<h3>Ставка на ИИ и дата-центры</h3>
-<p>Правительство определило ИИ и инфраструктуру данных как стратегические приоритеты. Обильные энергоресурсы Казахстана делают его потенциальным местом для развития энергоёмких дата-центров.</p>
-<div class="disclaimer">⚠ Только образовательный контент. Инвестиции в технологии связаны со значительным риском. Это не финансовый совет.</div>`
-    }
-  },
-  {
-    id: "renewable-energy",
-    date_iso: "2026-03-10",
-    date_display: { en: "March 2026", es: "Marzo 2026", ru: "Март 2026" },
-    read_min: 9,
-    en: {
-      tag: "Renewable Energy · ESG",
-      category: "Energy · ESG",
-      title: "From Oil to Solar: Kazakhstan's Renewable Energy Transition",
-      excerpt: "A country known for oil and uranium is building solar farms, wind parks, and nuclear plants simultaneously. The energy transition is more advanced than most Western analysts realize.",
-      body: `<p>Kazakhstan's energy identity has historically been defined by fossil fuels — oil from Tengiz, gas from Karachaganak, uranium from the northern steppe. But a parallel story is developing: the country is pursuing aggressive renewable energy buildout already attracting international capital.</p>
-<p>AmCham Kazakhstan's Investors' Voice 2026 identifies renewable energy as one of the top opportunity sectors. The IFC echoes this, pointing to structural transformation rather than simple resource extraction.</p>
-<div class="stat-highlight">☀️ Kazakhstan Renewable Energy 2026:<br>· Wind capacity: expanding rapidly in northern regions<br>· Solar capacity: growing in southern Kazakhstan<br>· Nuclear: plans for first nuclear power plant (referendum approved)<br>· Renewable target: 15% of electricity by 2030<br>· Green hydrogen: early-stage projects under development</div>
-<h3>The Nuclear Referendum</h3>
-<p>In October 2024, Kazakhstan held a national referendum on nuclear power plant construction — and voted in favor. This is significant for a country with the world's largest uranium reserves simultaneously building renewable capacity.</p>
-<h3>The ESG Capital Angle</h3>
-<p>Global ESG-oriented capital flows have increasingly sought opportunities in energy transition plays in emerging markets. Kazakhstan's combination of renewable resource potential with a government actively seeking foreign investment creates conditions ESG-focused institutional investors may find worth evaluating.</p>
-<p>The EXPO 2026 Regional Ecological Summit in Astana signals Kazakhstan is positioning itself in the international sustainability conversation.</p>
-<div class="disclaimer">⚠ Educational content only. Energy investment involves regulatory and commodity price risks. This is not financial advice.</div>`
-    },
-    es: {
-      tag: "Energía Renovable · ESG",
-      category: "Energía · ESG",
-      title: "Del Petróleo al Solar: La Transición de Energía Renovable de Kazajistán",
-      excerpt: "Un país conocido por petróleo y uranio está construyendo granjas solares, parques eólicos y plantas nucleares simultáneamente. La transición es más avanzada de lo que se cree.",
-      body: `<p>La identidad energética de Kazajistán ha sido históricamente definida por combustibles fósiles — petróleo de Tengiz, gas de Karachaganak, uranio de la estepa del norte. Pero una historia paralela se está desarrollando: el país persigue una construcción agresiva de energía renovable que ya atrae capital internacional.</p>
-<p>El Investors' Voice 2026 de AmCham Kazajistán identifica la energía renovable como uno de los sectores principales de oportunidad. La IFC se hace eco, señalando transformación estructural en lugar de simple extracción de recursos.</p>
-<div class="stat-highlight">☀️ Energía Renovable Kazajistán 2026:<br>· Capacidad eólica: expandiéndose rápidamente en regiones norte<br>· Capacidad solar: creciendo en el sur de Kazajistán<br>· Nuclear: planes para primera central nuclear (referéndum aprobado)<br>· Meta renovable: 15% de electricidad para 2030<br>· Hidrógeno verde: proyectos en etapa inicial</div>
-<h3>El Referéndum Nuclear</h3>
-<p>En octubre de 2024, Kazajistán celebró un referéndum nacional sobre construcción de planta nuclear — y votó a favor. Esto es significativo para un país con las mayores reservas de uranio del mundo construyendo capacidad renovable simultáneamente.</p>
-<h3>El Ángulo de Capital ESG</h3>
-<p>Los flujos de capital orientados a ESG han buscado cada vez más oportunidades en juegos de transición energética en mercados emergentes. La combinación de potencial de recursos renovables de Kazajistán con un gobierno buscando activamente inversión extranjera crea condiciones que inversores institucionales enfocados en ESG pueden encontrar valiosas.</p>
-<p>La Cumbre Ecológica Regional EXPO 2026 en Astaná señala que Kazajistán se posiciona en la conversación internacional de sostenibilidad.</p>
-<div class="disclaimer">⚠ Solo contenido educativo. La inversión en energía implica riesgos regulatorios y de precio. Esto no es asesoramiento financiero.</div>`
-    },
-    ru: {
-      tag: "Возобновляемая энергия · ESG",
-      category: "Энергия · ESG",
-      title: "От нефти к солнцу: Переход Казахстана на возобновляемую энергию",
-      excerpt: "Страна, известная нефтью и ураном, одновременно строит солнечные фермы, ветропарки и атомные станции. Энергопереход более продвинут, чем считают западные аналитики.",
-      body: `<p>Энергетическая идентичность Казахстана исторически определялась ископаемым топливом — нефтью с Тенгиза, газом с Карачаганака, ураном из северной степи. Но параллельная история развивается: страна проводит агрессивное строительство возобновляемой энергетики, уже привлекающее международный капитал.</p>
-<p>Investors' Voice 2026 от AmCham Казахстан определяет возобновляемую энергию как один из топ-секторов возможностей. IFC вторит этому, указывая на структурную трансформацию, а не простую добычу ресурсов.</p>
-<div class="stat-highlight">☀️ Возобновляемая энергия Казахстана 2026:<br>· Ветроэнергетика: быстро расширяется в северных регионах<br>· Солнечная: растёт в южном Казахстане<br>· Атом: планы первой АЭС (референдум одобрил)<br>· Цель ВИЭ: 15% электроэнергии к 2030<br>· Зелёный водород: проекты на ранней стадии</div>
-<h3>Атомный референдум</h3>
-<p>В октябре 2024 года Казахстан провёл национальный референдум о строительстве АЭС — и проголосовал «за». Это значимо для страны с крупнейшими в мире запасами урана, одновременно строящей возобновляемые мощности.</p>
-<h3>Аспект ESG-капитала</h3>
-<p>Глобальные потоки ESG-капитала всё больше ищут возможности в играх энергоперехода на развивающихся рынках. Сочетание возобновляемого потенциала Казахстана с правительством, активно ищущим иностранные инвестиции, создаёт условия, которые институциональные инвесторы ESG могут найти достойными оценки.</p>
-<p>Региональный экологический саммит EXPO 2026 в Астане сигнализирует, что Казахстан позиционирует себя в международном разговоре об устойчивости.</p>
-<div class="disclaimer">⚠ Только образовательный контент. Инвестиции в энергетику связаны с регуляторными и ценовыми рисками. Это не финансовый совет.</div>`
-    }
-  },
-  {
-    id: "geopolitics",
-    date_iso: "2026-02-25",
-    date_display: { en: "February 2026", es: "Febrero 2026", ru: "Февраль 2026" },
-    read_min: 10,
-    en: {
-      tag: "Geopolitics · Strategy",
-      category: "Geopolitics · Strategy",
-      title: "Kazakhstan's Multi-Vector Foreign Policy: How a Nation Between Russia and China Stays Independent",
-      excerpt: "Kazakhstan borders Russia to the north and China to the east, yet has deepened ties with the United States, EU, and Gulf states simultaneously.",
-      body: `<p>Any serious analysis of Kazakhstan's investment environment must engage with geopolitics. The country shares a 7,500-kilometer border with Russia — the world's longest land border — and a 1,800-kilometer border with China.</p>
-<p>Yet Kazakhstan has consistently pursued "multi-vector diplomacy" — maintaining functional relationships with Moscow, Beijing, Washington, Brussels, Ankara, and Riyadh simultaneously. Understanding how this works is essential for any investor.</p>
-<div class="stat-highlight">🌐 Kazakhstan Strategic Relationships 2026:<br>· Russia: EAEU membership, historical ties, energy transit<br>· China: Belt and Road partner, major trade relationship<br>· USA: C5+1 framework, AmCham presence, energy partnerships<br>· EU: significant FDI source, trade agreements<br>· Gulf States: growing investment from UAE, Saudi Arabia<br>· Turkey: cultural ties, growing economic relationship</div>
-<h3>The Post-2022 Recalibration</h3>
-<p>Russia's invasion of Ukraine in 2022 forced Kazakhstan into a delicate position. The country declined to recognize Russia's annexations and simultaneously deepened engagement with the US and EU.</p>
-<p>The result has been a notable acceleration of Western business interest. The C5+1 Business Conference in Washington in November 2025 produced landmark deals and signaled a strategic intensification of US-Kazakhstan relations.</p>
-<h3>What This Means for Investment Risk</h3>
-<p>Multi-vector diplomacy is a genuine risk management strategy. Kazakhstan has navigated extraordinary geopolitical pressure over three decades of independence without being forced to choose sides. That track record matters.</p>
-<p>It does not eliminate geopolitical risk — no policy can. But it suggests Kazakhstan's leadership has both the incentive and capability to maintain the kind of stability foreign investors require.</p>
-<div class="disclaimer">⚠ Educational content only. Geopolitical risk is inherently unpredictable. This is not financial or political advice.</div>`
-    },
-    es: {
-      tag: "Geopolítica · Estrategia",
-      category: "Geopolítica · Estrategia",
-      title: "La Política Exterior Multi-Vector de Kazajistán: Cómo una Nación Entre Rusia y China Se Mantiene Independiente",
-      excerpt: "Kazajistán limita con Rusia al norte y China al este, sin embargo, ha profundizado lazos con Estados Unidos, la UE y los estados del Golfo simultáneamente.",
-      body: `<p>Cualquier análisis serio del entorno de inversión de Kazajistán debe abordar la geopolítica. El país comparte una frontera de 7,500 km con Rusia — la frontera terrestre más larga del mundo — y una frontera de 1,800 km con China.</p>
-<p>Sin embargo, Kazajistán ha perseguido consistentemente la "diplomacia multi-vector" — manteniendo relaciones funcionales con Moscú, Pekín, Washington, Bruselas, Ankara y Riad simultáneamente. Entender cómo funciona esto es esencial para cualquier inversor.</p>
-<div class="stat-highlight">🌐 Relaciones Estratégicas de Kazajistán 2026:<br>· Rusia: membresía UEEA, lazos históricos, tránsito energético<br>· China: socio Ruta de la Seda, importante relación comercial<br>· EE.UU.: marco C5+1, presencia AmCham, asociaciones energéticas<br>· UE: fuente significativa de IED, acuerdos comerciales<br>· Estados del Golfo: inversión creciente de EAU, Arabia Saudita<br>· Turquía: lazos culturales, relación económica creciente</div>
-<h3>La Recalibración Post-2022</h3>
-<p>La invasión rusa de Ucrania en 2022 puso a Kazajistán en una posición delicada. El país declinó reconocer las anexiones rusas y simultáneamente profundizó el compromiso con EE.UU. y la UE.</p>
-<p>El resultado ha sido una notable aceleración del interés empresarial occidental. La Conferencia de Negocios C5+1 en Washington en noviembre de 2025 produjo acuerdos importantes y señaló una intensificación estratégica de las relaciones EE.UU.-Kazajistán.</p>
-<h3>Qué Significa Esto Para el Riesgo de Inversión</h3>
-<p>La diplomacia multi-vector es una estrategia genuina de gestión de riesgos. Kazajistán ha navegado presión geopolítica extraordinaria durante tres décadas de independencia sin verse forzado a elegir bandos. Ese historial importa.</p>
-<p>No elimina el riesgo geopolítico — ninguna política puede. Pero sugiere que el liderazgo de Kazajistán tiene tanto el incentivo como la capacidad de mantener el tipo de estabilidad que los inversores extranjeros requieren.</p>
-<div class="disclaimer">⚠ Solo contenido educativo. El riesgo geopolítico es inherentemente impredecible. Esto no es asesoramiento financiero o político.</div>`
-    },
-    ru: {
-      tag: "Геополитика · Стратегия",
-      category: "Геополитика · Стратегия",
-      title: "Многовекторная внешняя политика Казахстана: Как нация между Россией и Китаем сохраняет независимость",
-      excerpt: "Казахстан граничит с Россией на севере и Китаем на востоке, но при этом углубил связи с США, ЕС и государствами Залива одновременно.",
-      body: `<p>Любой серьёзный анализ инвестиционной среды Казахстана должен затрагивать геополитику. Страна имеет границу в 7 500 километров с Россией — самую длинную сухопутную границу в мире — и границу в 1 800 километров с Китаем.</p>
-<p>При этом Казахстан последовательно проводит «многовекторную дипломатию» — поддерживая функциональные отношения с Москвой, Пекином, Вашингтоном, Брюсселем, Анкарой и Эр-Риядом одновременно. Понимание того, как это работает, существенно для любого инвестора.</p>
-<div class="stat-highlight">🌐 Стратегические отношения Казахстана 2026:<br>· Россия: членство в ЕАЭС, исторические связи, транзит энергоресурсов<br>· Китай: партнёр «Пояса и пути», крупные торговые отношения<br>· США: формат C5+1, присутствие AmCham, энергетическое партнёрство<br>· ЕС: значительный источник ПИИ, торговые соглашения<br>· Страны Залива: растущие инвестиции из ОАЭ, Саудовской Аравии<br>· Турция: культурные связи, растущие экономические отношения</div>
-<h3>Перенастройка после 2022 года</h3>
-<p>Российское вторжение в Украину в 2022 году поставило Казахстан в деликатное положение. Страна отказалась признавать российские аннексии и одновременно углубила взаимодействие с США и ЕС.</p>
-<p>Результат — заметное ускорение интереса западного бизнеса. Бизнес-конференция C5+1 в Вашингтоне в ноябре 2025 года произвела знаковые сделки и сигнализировала о стратегической интенсификации отношений США-Казахстан.</p>
-<h3>Что это значит для инвестиционного риска</h3>
-<p>Многовекторная дипломатия — это настоящая стратегия управления рисками. Казахстан прошёл через экстраординарное геополитическое давление за три десятилетия независимости, не будучи вынужденным выбирать сторону. Этот послужной список важен.</p>
-<p>Это не устраняет геополитический риск — никакая политика не может. Но это предполагает, что лидерство Казахстана имеет и стимул, и возможность поддерживать ту стабильность, которая требуется иностранным инвесторам.</p>
-<div class="disclaimer">⚠ Только образовательный контент. Геополитический риск по своей природе непредсказуем. Это не финансовый или политический совет.</div>`
-    }
-  }
-];
-// Kazakh translations to be merged into articles_data.js
-const KAZAKH_ARTICLES = {
-  "kz-reserves": {
-    tag: "Макро · Қазақстан",
-    category: "Қазақстан · Макро",
-    title: "Қазақстанның 129,5 миллиард долларлық резерві: Орталық Азия экономикасы неге шекаралық нарық алыбына айналуда",
-    excerpt: "Батыс инвесторлары Оңтүстік-Шығыс Азия мен Шығыс Еуропаға назар аударған кезде, Қазақстан әлемдегі ең тұрақты дамушы нарық баланстарының бірін құрып жатыр.",
-    body: `<p>Ресей, Қытай және Таяу Шығыстың қиылысында тұрған, халықаралық резервтері 129,5 миллиард доллар, 2025 жылы ЖІӨ өсімі 6,5% және тікелей шетелдік инвестициясы 20,5 миллиард доллар болатын ел бар — бірақ Уолл-стритте бұл туралы ешкім дерлік айтпайды.</p>
-<p>Бұл ел — Қазақстан. Егер сіз шекаралық нарықтарда асимметриялық мүмкіндіктер іздейтін салмақты инвестор болсаңыз, бұл сандар сіздің назарыңызды талап етеді.</p>
-<div class="stat-highlight">📊 Негізгі деректер:<br>· ЖІӨ өсімі 2025: 6,5% (АҚШ: 2,5%)<br>· Халықаралық резервтер: $129,5 млрд<br>· ТШИ 2025: $20,5 млрд (аймақтық рекорд)<br>· Мемлекеттік қарыз / ЖІӨ: 22,8% (АҚШ: ~122%)<br>· Негізгі капиталға инвестициялар: +13% ж/ж</div>
-<h3>Фискалдық көрініс</h3>
-<p>Қазақстанның мемлекеттік қарызы ЖІӨ-нің небәрі 22,8% құрайды. АҚШ-та шамамен 122%, еуроаймақта 90%-дан жоғары. Фискалдық тәртіп пен мұнай кірістерінен суверендік резервтер дамушы экономикалардың көпшілігі армандайтын жастықшаны жасайды.</p>
-<p>Үкімет өндіріске, мұнай-химияға, ауыл шаруашылығына және жоғары технологиялық салаларға басымдық бере отырып, келесі бес жылда жалпы 400 миллиард доллар инвестицияны мақсат етеді.</p>
-<h3>Неге Батыс инвесторлары мұны жіберіп алуда</h3>
-<p>Қазақстан дамушы нарықтардың стандартты индекстеріне дәл сәйкес келмейді. Бразилия, Үндістан немесе Вьетнам сияқты бренд танылуы жоқ. Бұл алшақтық — мүмкіндік.</p>
-<p>Қазақстандағы Америка сауда палатасы (AmCham) қаңтарда Investors' Voice 2026 есебін шығарды. Есепке Citi, IFC, BCG, Deloitte, HP және Procter & Gamble қатысты.</p>
-<h3>Құрылымдық өзгеріс</h3>
-<p>Тарихи түрде шетелдік инвестициялардың 75%-ы өндіруші салаларға — мұнай мен газға бағытталды. Қазір бұл үлес 43%-ға түсті, капитал қайта өңдеу, цифрлық және өндіріс секторларына барған сайын ағылуда.</p>
-<div class="disclaimer">⚠ Тек білім беру мақсатындағы мазмұн. Бұл қаржылық кеңес емес. Деректер: UNCTAD, AmCham Қазақстан. Әрқашан өз зерттеуіңізді жүргізіңіз.</div>`
-  },
-  "almaty-real-estate": {
-    tag: "Жылжымайтын мүлік · Алматы",
-    category: "Жылжымайтын мүлік",
-    title: "Алматы жылжымайтын мүлкі мен Дубай, Нью-Йорк салыстыруы: Шаршы метр бағасының талдауы",
-    excerpt: "Алматыдағы премиум пәтерлер шаршы метр үшін $1 500–$2 500 тұрады. Дубай: $4 000–$8 000. Нью-Йорк: $12 000–$20 000. Тәуекелге бейімделген жағдай қандай?",
-    body: `<p>Қазақстанның қаржы орталығы Алматыдағы премиум пәтер қазіргі уақытта шаршы метр үшін шамамен $1 500–$2 500 тұрады. Дубайдағы дәл осындай мүлік $4 000–$8 000 тұрады. Манхэттенде сіз $12 000–$20 000 немесе одан да көп туралы айтасыз.</p>
-<div class="stat-highlight">🏢 Шаршы метр бағасы (Премиум тұрғын үй, 2026):<br>· Алматы, Қазақстан: $1 500 – $2 500<br>· Дубай, БАӘ: $4 000 – $8 000<br>· Варшава, Польша: $3 500 – $5 500<br>· Нью-Йорк, АҚШ: $12 000 – $20 000+<br>· Лондон, Ұлыбритания: $14 000 – $25 000+</div>
-<h3>Сандар сізге айтпайтын нәрсе</h3>
-<p>Тікелей баға салыстырулары пайдалы, бірақ толық емес. Маңыздысы — тәуекелге бейімделген кіріс: жалдау табыстары, валюталық тәуекел, шетелдіктер үшін заңдық база, өтімділік.</p>
-<p>Қазақстанның құрылыс секторы 2025 жылдың бірінші жартысында ж/ж 18,4% өсті. Негізгі капиталға инвестициялар 2025 жылдың тоғыз айында 17,5% өсті.</p>
-<h3>Шетелдік меншік мәселесі</h3>
-<p>Шетел азаматтары көпфункционалды тұрғын ғимараттардағы пәтерлерді сатып ала алады. Жер меншігі ережелері күрделірек және шетелдіктерге жерді тікелей иеленуге шектеу қояды.</p>
-<h3>Жалдау табыстары және валюталық пайымдаулар</h3>
-<p>Алматының премиум аудандарындағы жалдау табыстары тарихи түрде теңгеде жылдық 5–8% құрайды. Теңге құбылмалылықты бастан кешірді. Кез келген инвестор валюталық тәуекелді ескеруі керек.</p>
-<div class="disclaimer">⚠ Тек білім беру мазмұны. Жылжымайтын мүлік инвестициясы елеулі тәуекелдерді қамтиды. Бұл қаржылық кеңес емес.</div>`
-  },
-  "middle-corridor": {
-    tag: "Инфрақұрылым · Логистика",
-    category: "Инфрақұрылым · Сауда",
-    title: "Орта дәліз: Қазақстанның 13 транзит маршруты әлемдік сауданы қалай өзгертуде",
-    excerpt: "Аумағын кесіп өтетін 13 халықаралық транзит дәлізімен Қазақстан Қытай, Еуропа мен Таяу Шығыс арасындағы маңызды құрғақ көпір ретінде позицияланады.",
-    body: `<p>Қазақстанның Сыртқы істер министрінің орынбасары 2026 жылғы Жыл сайынғы инвесторлар жиналысында сөйлеген кезде, ол мұнаймен бастамады. Ол транзит дәліздерімен бастады — Қазақстан аумағын кесіп өтетін 13 халықаралық маршрут.</p>
-<div class="stat-highlight">🛤 Орта дәліз туралы негізгі деректер:<br>· Қазақстан арқылы 13 халықаралық транзит дәлізі<br>· Маршрут: Қытай → Қазақстан → Каспий теңізі → Әзірбайжан → Грузия → Еуропа<br>· 2022 жылдан кейінгі санкциялардан кейінгі ресейлік темір жолдарға балама<br>· 2022 жылдан бері транзит көлемдері жыл сайын 30–40% өсуде<br>· Үкімет Каспий портын кеңейтуге инвестиция салуда</div>
-<h3>2022 жыл бәрін неге өзгертті</h3>
-<p>2022 жылға дейін Қытай-Еуропа жүктері үшін басым теміржол маршруты Ресей арқылы өтті. Украина қақтығысынан кейінгі батыс санкциялары бұл маршрутты көптеген еуропалық бизнес үшін коммерциялық тұрғыдан қиындатты.</p>
-<p>Орта дәліз — ресми түрде Транскаспийлік халықаралық көлік маршруты — Қазақстан арқылы өтеді, паромда Каспий теңізін кесіп, содан кейін Әзірбайжан мен Грузия арқылы Түркия мен Еуропаға барады.</p>
-<h3>Инвестициялық аспект</h3>
-<p>Қазақстан Каспий портының қуатын белсенді кеңейтуде, теміржол инфрақұрылымын жаңғыртуда және цифрлық логистика шешімдерін қабылдауда. IFC логистиканы 2026 жылғы Қазақстанның негізгі инвестициялық мүмкіндіктерінің бірі ретінде анықтайды.</p>
-<div class="disclaimer">⚠ Тек білім беру мазмұны. Инфрақұрылымдық инвестициялар ұзақ мерзімді көкжиек пен реттеуші тәуекелді қамтиды. Бұл қаржылық кеңес емес.</div>`
-  },
-  "critical-minerals": {
-    tag: "Энергия · Маңызды минералдар",
-    category: "Энергия · Ресурстар",
-    title: "Уран, литий және сирек жер элементтері: Қазақстанның маңызды минералдық байлығы",
-    excerpt: "Қазақстан әлем уранының 43%-ын өндіреді. Литий, хром, марганец және сирек жер элементтерінің елеулі қорлары бар. Энергиялық ауысу дәуірінде бұл маңызды.",
-    body: `<p>Энергиялық ауысу үшін маңызды минералдарды қамтамасыз етудегі жаһандық жарыста — электр көліктер, батареялар, күн панельдері, жел турбиналары — бір ел жабдықтау тізбектерін талдауда қайта-қайта пайда болады: Қазақстан.</p>
-<p>Қазақстан — әлемдегі ең үлкен уран өндірушісі, мемлекеттік "Қазатомпром" арқылы әлемдік өндірістің шамамен 43%-ын құрайды. Сондай-ақ литий, хром, марганец, титан және әртүрлі сирек жер элементтерінің елеулі қорлары бар.</p>
-<div class="stat-highlight">⚡ Қазақстанның маңызды минералдары:<br>· Уран: ~43% әлемдік өндіріс (әлем №1)<br>· Хром: елеулі қорлар<br>· Марганец: маңызды кен орындары<br>· Литий: дамушы өндіру жобалары<br>· Сирек жер: ерте кезеңдегі барлау</div>
-<h3>Атом энергиясының жаңғыруы</h3>
-<p>Атом энергиясы әлемдік қайта өрлеуді бастан кешуде. АҚШ, Франция, Жапония, Оңтүстік Корея және басқа елдер реактор қызметінің мерзімін ұзартып, жаңа құрылыстарды жоспарлауда. Уранға сұраныс 2030 жылдарға дейін айтарлықтай артады.</p>
-<h3>АҚШ аспектісі</h3>
-<p>2025 жылдың қарашасында Вашингтондағы C5+1 10 жылдық мерейтойлық бизнес-конференциясында АҚШ компаниялары Қазақстанда энергетика және маңызды минералдар саласында тарихи мәмілелерге қол қойды. АҚШ сауда палатасы Қазақстанды Қытайға тәуелді көздерден жабдықтау тізбегін әртараптандыру үшін стратегиялық серіктес ретінде анықтайды.</p>
-<h3>Түсіну керек тәуекелдер</h3>
-<p>Қазатомпром мемлекет бақылауында. Тау-кен ісіне шетелдік қатысу үшін реттеуші базалар минерал түріне қарай әртүрлі. Ресей мен Қытайға жақындық кез келген инвестор есепке алуы тиіс геосаяси пайымдауларды тудырады.</p>
-<div class="disclaimer">⚠ Тек білім беру мазмұны. Тауар және тау-кен инвестицияларында елеулі тәуекел бар. Бұл қаржылық кеңес емес.</div>`
-  },
-  "kyrgyzstan-business": {
-    tag: "Бизнес · Қырғызстан",
-    category: "Бизнес · Қырғызстан",
-    title: "Неліктен Қырғызстан 2026 жылы Орталық Азиядағы бизнес бастаудың ең арзан орны болуы мүмкін",
-    excerpt: "Минималды бюрократия, төмен тіркеу шығындары, өсіп келе жатқан финтех орта, стратегиялық орналасу. Қырғызстанның стартап ортасы бағаланбайды.",
-    body: `<p>Қырғызстан көптеген инвесторлардың назарына түспейді. Ол Қазақстаннан кішірек, ресурстарға кедейірек, қаржы БАҚ-ында аз көрсетіледі. Бірақ кәсіпкерлер мен ерте кезеңдегі инвесторлар үшін бұл белгісіздік нүкте болуы мүмкін.</p>
-<p>Ел бизнесті тіркеуді жеңілдетуде, бюрократиялық кедергілерді азайтуда және шетелдік бизнестің құрылуын қарсы алатын құқықтық база құруда айтарлықтай ілгерілеу жасады.</p>
-<div class="stat-highlight">🏢 Қырғызстан бизнес негіздері 2026:<br>· Халық саны: ~7 миллион<br>· Астанасы: Бішкек<br>· Валюта: Қырғыз сомы (KGS)<br>· ЖШС тіркеуі: ~$50–100 USD<br>· Корпоративтік салық: 10%<br>· ЕАЭО мүшесі: Иә (Ресей, Қазақстан, Беларусь нарықтарына қол жеткізу)</div>
-<h3>ЕАЭО аспектісі</h3>
-<p>Қырғызстан — Еуразиялық экономикалық одақтың мүшесі, ол Ресей, Қазақстан, Беларусь және Арменияны қамтиды. Бұл мүшелік Қырғызстанда тіркелген компания 180 миллионнан астам адамнан тұратын біріктірілген нарыққа қол жеткізе алатынын білдіреді.</p>
-<h3>Финтех және цифрлық мүмкіндік</h3>
-<p>Бішкекте әзірлеушілер мен цифрлық кәсіпкерлердің өсіп келе жатқан қауымдастығы бар. Елдің жас, технологияны жетік меңгерген халқы бар. Бішкектен ақша аударымдары мен төлем инфрақұрылымына бағытталған бірнеше финтех стартаптар пайда болды.</p>
-<h3>Тәуекелдер қандай көрінеді</h3>
-<p>Қырғызстан экономикасы ақша аударымдарына, Кумтор кенішінен алтын экспортына және Қытаймен қайта экспорт саудасына қатты тәуелді. Саяси құбылмалылық тарихи мәселе болды.</p>
-<div class="disclaimer">⚠ Тек білім беру мазмұны. Шекаралық нарықтардағы бизнес елеулі тәуекелді қамтиды. Бұл қаржылық, заңдық немесе бизнес кеңес емес.</div>`
-  },
-  "kase-stock": {
-    tag: "Қаржы · Нарықтар",
-    category: "Нарықтар · Қаржы",
-    title: "KASE мен NYSE: Қазақстан қор биржасына шетелдік инвесторлар үшін шынайы көзқарас",
-    excerpt: "Қазақстан қор биржасында 150-ден аз бағалы қағаздар тіркелген. Шекаралық нарық инвесторлары үшін мәселе — тиімсіздік мүмкіндік пе.",
-    body: `<p>Қазақстан қор биржасы, KASE деп аталатын, NYSE емес. Ол нарық тереңдігі, өтімділік немесе тіркелген бағалы қағаздар саны бойынша жақын да емес. Егер сіз дамыған нарықтың сауда көлемін іздесеңіз, KASE сізді көңіл қалдырады.</p>
-<p>Бірақ бұл шеңбер шекаралық нарық инвестициясының мағынасын мүлдем жоғалтады.</p>
-<div class="stat-highlight">📈 KASE жылдам деректер 2026:<br>· Тіркелген компаниялар: ~150 бағалы қағаз<br>· Капитализация: шамамен $50–60 млрд USD<br>· Негізгі секторлар: банк ісі, энергетика, телеком, жылжымайтын мүлік<br>· Шетелдік инвесторларға қол жеткізу: тіркеумен қолжетімді<br>· Есеп айырысу: T+2</div>
-<h3>Тиімсіздік аргументі</h3>
-<p>Тиімді нарықтарда бағалар барлық қолжетімді ақпаратты тез көрсетеді. Шекаралық нарықтарда ақпараттық асимметрия үлкен. Қазақстандық банк секторын шынымен түсінетін шетелдік талдаушы нарықтан айтарлықтай артықшылыққа ие болуы мүмкін.</p>
-<h3>"Астана" халықаралық қаржы орталығы</h3>
-<p>Қазақстан "Астана" халықаралық қаржы орталығын (AIFC) құрды, ағылшын жалпы құқығына негізделген өз құқықтық базасы және өз биржасы AIX бар жеке қаржы хабы. AIFC ағылшын тілінде жұмыс істейді.</p>
-<h3>Салмақты инвесторлар не қадағалайды</h3>
-<p>Банк секторы — Halyk Bank және Kaspi.kz басшылығымен — қазақстандық акция нарығының ең өтімді сегменті. Kaspi финтехке негізделген суперапп ретінде елеулі халықаралық назарды өзіне аударды.</p>
-<div class="disclaimer">⚠ Тек білім беру мазмұны. Бағалы қағаздарға инвестиция толық жоғалту тәуекелін қамтиды. Шекаралық нарықтарда күшейтілген тәуекелдер бар. Бұл қаржылық кеңес емес.</div>`
-  },
-  "agriculture": {
-    tag: "Ауыл шаруашылығы · Тамақ",
-    category: "Ауыл шаруашылығы · Азық-түлік қауіпсіздігі",
-    title: "Қазақстанның ауыл шаруашылық шекарасы: 22 миллион гектар егістік жер",
-    excerpt: "Қазақстанда әлемдегі тоғызыншы үлкен аумақ, кең егістік жерлер және белсенді шетелдік ауыл шаруашылық инвестицияларын іздейтін үкімет бар.",
-    body: `<p>Қазақстанның ауыл шаруашылық секторы Еуразиядағы ең аз талданған инвестициялық оқиғалардың бірі. Елде шамамен 22 миллион гектар егістік жер бар — Франция мен Германияны қосқанда көп — бірақ гектарға өнімділік әлемдік эталондарға қарағанда едәуір төмен.</p>
-<p>AmCham Қазақстан агробизнесті 2026 жылға арналған негізгі мүмкіндік секторы ретінде анықтайды. IFC бұған үн қосып, ауыл шаруашылығын құрылымдық әртараптандыру ойыны ретінде көрсетеді.</p>
-<div class="stat-highlight">🌾 Қазақстан ауыл шаруашылық суреті:<br>· Егістік жер: ~22 миллион гектар<br>· Негізгі дақылдар: бидай, арпа, күнбағыс, мақта<br>· Әлемдік бидай экспортшылары: Қазақстан тұрақты түрде топ-10<br>· Мал шаруашылығы: ірі қара мал мен қой отарлары<br>· Үкімет ынталандырулары: шетелдік агроинвесторлар үшін қолжетімді</div>
-<h3>Тиімділік алшақтығы</h3>
-<p>Қазақстанның бидай өнімділігі гектарына шамамен 1,1-1,3 тоннаны құрайды. Батыс Еуропалық бидай шаруашылығы гектарына орта есеппен 7-8 тонна береді. Бұл алшақтық суару, механикаландыру, тұқым технологиясы және агрономиялық білімді беру туралы.</p>
-<p>Неміс ауыл шаруашылық техникасы өндірушісі CLAAS және CT-Agro GmbH қазірдің өзінде Қазақстанда жұмыс істеуде.</p>
-<h3>Азық-түлік қауіпсіздігі өлшемі</h3>
-<p>2022 жылғы әлемдік азық-түлік бағасының шокы Орталық Азия азық-түлік өндірісін азық-түлік қауіпсіздігі жоспарлаушыларының күн тәртібіне қойды. Қазақстанның ауыл шаруашылық әлеуеті стратегиялық актив ретінде барған сайын қарастырылуда.</p>
-<div class="disclaimer">⚠ Тек білім беру мазмұны. Ауыл шаруашылық инвестициясы ауа райы мен тауар бағасының құбылмалылығын қоса алғанда, елеулі тәуекелдерді қамтиды. Бұл қаржылық кеңес емес.</div>`
-  },
-  "digital-economy": {
-    tag: "Цифрлық · Технологиялар",
-    category: "Технологиялар · Цифрлық",
-    title: "Қазақстанның цифрлық экономикасы: Электрондық үкіметтен ЖИ-ге дейін",
-    excerpt: "Қазақстан посткеңестік кеңістіктегі мемлекеттік қызметтердің ең цифрланған жүйелерінің бірін иеленеді. Технологиялық секторы жылдам өсуде.",
-    body: `<p>Әлемдік талдаушылар Орталық Азия технологиясын талқылағанда, олар әдетте Қазақстанның цифрлық трансформациясының жылдамдығы мен тереңдігін бағаламайды. Бұл ішінара әңгіме сырттан айтылғандықтан. Іштен қарасаңыз, сурет әлдеқайда қарқынды көрінеді.</p>
-<p>Қазақстанның электрондық үкімет платформасы посткеңестік аймақтағы ең дамыған платформалардың бірі ретінде кеңінен танылған. 2018 жылы іске қосылған "Цифрлық Қазақстан" бастамасы кең жолақты желіге, дата орталықтарға және мемлекеттік сектордың цифрландырылуына елеулі инвестицияға серпін берді.</p>
-<div class="stat-highlight">💻 Қазақстан цифрлық экономикасы 2026:<br>· Электрондық үкімет қызметтері: 90%+ онлайн қолжетімді<br>· Мобильді интернет ену: ~80%+<br>· Kaspi.kz MAU: ~14 миллион (19 миллиондық елде)<br>· AIFC FinTech хаб: Астанада жұмыс істейді<br>· ЖИ инвестициясы: үкімет инфрақұрылымға $1 млрд+ мақсат етеді</div>
-<h3>Kaspi.kz - кейс ретінде</h3>
-<p>Қазақстанның цифрлық экономикасы туралы әңгіме Kaspi.kz-сіз толық емес. Банк ретінде басталған нәрсе төлемдерді, электрондық коммерцияны, маркетплейсті, қаржы қызметтерін және мемлекеттік қызметтерге қол жеткізуді қамтитын супераппқа айналды. 19 миллиондық елде ай сайын 14 миллион белсенді қолданушысы бар, ену деңгейі ерекше.</p>
-<p>2024 жылы Kaspi-дің Nasdaq-та листингке шығуы халықаралық инвесторларға қазақстандық цифрлық өсуге қол жеткізу үшін өтімді құрал берді.</p>
-<h3>ЖИ және дата орталық ставкасы</h3>
-<p>Үкімет ЖИ мен деректер инфрақұрылымын стратегиялық басымдықтар ретінде анықтады. Қазақстанның мол энергетикалық ресурстары оны энергиямен жұмыс істейтін дата орталықтарды дамыту үшін әлеуетті орынға айналдырады.</p>
-<div class="disclaimer">⚠ Тек білім беру мазмұны. Технологияға инвестиция жылдам ескіруді қоса, елеулі тәуекелді қамтиды. Бұл қаржылық кеңес емес.</div>`
-  },
-  "renewable-energy": {
-    tag: "Жаңартылатын энергия · ESG",
-    category: "Энергия · ESG",
-    title: "Мұнайдан күн энергиясына: Қазақстанның жаңартылатын энергияға көшуі",
-    excerpt: "Мұнаймен және уранмен танымал ел бір мезгілде күн фермаларын, жел парктерін және атом станцияларын салуда. Энергиялық ауысу батыс талдаушыларының ойлағанынан да дамыған.",
-    body: `<p>Қазақстанның энергетикалық бірегейлігі тарихи түрде қазба отындарымен — Теңіз мұнайымен, Қарашығанақ газымен, солтүстік даладан уранмен анықталды. Бірақ параллель оқиға дамуда: ел қазірдің өзінде халықаралық капиталды тартатын жаңартылатын энергияны қарқынды құруда.</p>
-<p>AmCham Қазақстанның Investors' Voice 2026 жаңартылатын энергияны жоғарғы мүмкіндік секторларының бірі ретінде анықтайды. IFC бұған үн қосып, қарапайым ресурс өндіру емес, құрылымдық трансформацияны көрсетеді.</p>
-<div class="stat-highlight">☀️ Қазақстан жаңартылатын энергия 2026:<br>· Жел қуаты: солтүстік аймақтарда жылдам кеңеюде<br>· Күн қуаты: оңтүстік Қазақстанда өсуде<br>· Атом: алғашқы атом станциясының жоспарлары (референдум мақұлдады)<br>· Жаңартылатын мақсат: 2030 жылға қарай электр энергиясының 15%<br>· Жасыл сутегі: ерте кезеңдегі жобалар</div>
-<h3>Атом референдумы</h3>
-<p>2024 жылдың қазанында Қазақстан атом электр станциясын салу туралы ұлттық референдум өткізіп, "иә" деп дауыс берді. Бұл әлемдегі ең үлкен уран қорлары бар, бір мезгілде жаңартылатын қуат салып жатқан ел үшін маңызды.</p>
-<h3>ESG капитал аспектісі</h3>
-<p>Жаһандық ESG бағытталған капитал ағындары дамушы нарықтардағы энергиялық ауысу ойындарында мүмкіндіктерді барған сайын іздеуде. Қазақстанның жаңартылатын ресурс әлеуеті мен шетелдік инвестиция іздейтін үкіметтің үйлесімі ESG-ге бағытталған институционалдық инвесторлар бағалауға тұратын жағдайларды жасайды.</p>
-<p>Астанадағы EXPO 2026 Аймақтық экологиялық саммиті Қазақстанның халықаралық тұрақтылық әңгімесіндегі позициясын білдіреді.</p>
-<div class="disclaimer">⚠ Тек білім беру мазмұны. Энергияға инвестиция реттеуші және баға тәуекелдерін қамтиды. Бұл қаржылық кеңес емес.</div>`
-  },
-  "geopolitics": {
-    tag: "Геосаясат · Стратегия",
-    category: "Геосаясат · Стратегия",
-    title: "Қазақстанның көпвекторлы сыртқы саясаты: Ресей мен Қытай арасындағы ел тәуелсіздігін қалай сақтайды",
-    excerpt: "Қазақстан солтүстікте Ресеймен, шығыста Қытаймен шектеседі, бірақ сонымен бірге АҚШ, ЕО және Парсы шығанағы мемлекеттерімен байланыстарды тереңдетті.",
-    body: `<p>Қазақстанның инвестициялық ортасының кез келген салмақты талдауы геосаясатпен айналысуы керек. Ел Ресеймен 7 500 шақырымдық шекараны — әлемдегі ең ұзын құрғақ шекараны — және Қытаймен 1 800 шақырымдық шекараны бөліседі.</p>
-<p>Алайда Қазақстан үнемі "көпвекторлы дипломатияны" жүргізді — Мәскеу, Пекин, Вашингтон, Брюссель, Анкара және Эр-Риядпен функционалды қарым-қатынастарды бір мезгілде сақтай отырып. Бұл қалай жұмыс істейтінін түсіну кез келген инвестор үшін маңызды.</p>
-<div class="stat-highlight">🌐 Қазақстан стратегиялық қарым-қатынастары 2026:<br>· Ресей: ЕАЭО мүшелігі, тарихи байланыстар, энергия транзиті<br>· Қытай: Жібек жолы серіктесі, ірі сауда қарым-қатынасы<br>· АҚШ: C5+1 шеңбері, AmCham қатысуы, энергиялық серіктестіктер<br>· ЕО: ПИИ ірі көзі, сауда келісімдері<br>· Парсы шығанағы: БАӘ, Сауд Арабиясынан өсіп келе жатқан инвестициялар<br>· Түркия: мәдени байланыстар, өсіп келе жатқан экономикалық қарым-қатынас</div>
-<h3>2022 жылдан кейінгі қайта реттеу</h3>
-<p>2022 жылы Ресейдің Украинаға басып кіруі Қазақстанды нәзік жағдайға қойды. Ел Ресей аннексияларын мойындаудан бас тартты және сонымен бірге АҚШ және ЕО-мен өзара іс-қимылды тереңдетті.</p>
-<p>Нәтиже — батыс бизнес мүддесінің елеулі жеделдеуі. 2025 жылдың қарашасында Вашингтондағы C5+1 Бизнес-конференциясы тарихи мәмілелерді шығарды және АҚШ-Қазақстан қатынастарының стратегиялық күшеюін білдірді.</p>
-<h3>Бұл инвестициялық тәуекел үшін нені білдіреді</h3>
-<p>Көпвекторлы дипломатия — нағыз тәуекел басқару стратегиясы. Қазақстан үш ондаған тәуелсіздік жылдарында екі жақтың бірін таңдауға мәжбүр болмай-ақ ерекше геосаяси қысымды өткерді. Бұл тәжірибе маңызды.</p>
-<p>Бұл геосаяси тәуекелді жоймайды — ешбір саясат жоя алмайды. Бірақ бұл Қазақстан басшылығының шетелдік инвесторлар талап ететін тұрақтылықты сақтауға ынталандыруы мен мүмкіндігі бар екенін болжайды.</p>
-<div class="disclaimer">⚠ Тек білім беру мазмұны. Геосаяси тәуекел өзінен өзі болжанбайды. Бұл қаржылық немесе саяси кеңес емес.</div>`
-  }
+var SB_URL = 'https://duscyiyxfmsriyhwlbqx.supabase.co';
+var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
+
+var state = {
+  tab: 'drivers',
+  form: 'driver',
+  drivers: [],
+  pax: [],
+  from: '',
+  to: ''
 };
 
-// UI translations
-const UI = {
-  en: {
-    nav_disclaimer: "Educational Only · Not Financial Advice",
-    hero_eyebrow: "Central Asia Financial Intelligence",
-    hero_title_1: "The Market",
-    hero_title_2: "Wall Street",
-    hero_title_3: "Isn't Watching",
-    hero_sub: "Independent research and analysis on Kazakhstan, Kyrgyzstan, and Central Asian markets — for investors who look beyond the obvious.",
-    stat_fdi: "FDI 2025",
-    stat_gdp: "GDP Growth",
-    stat_region: "#1 in Region",
-    hero_disclaimer: "Everything on this site is for educational purposes only. This is not financial advice. Always conduct your own research before making investment decisions.",
-    featured_label: "Featured Analysis",
-    library_label: "Research Library · 10 Reports",
-    read_more: "Read Full Analysis →",
-    about_title: "About Alsat.Asia",
-    about_text: "We are an independent research outlet based in Central Asia — covering Kazakhstan and Kyrgyzstan for a global investment audience. Our edge is simple: we live here, we speak the language, and we see what outside analysts miss. All content is for educational purposes only.",
-    newsletter_title: "Get the Weekly Brief",
-    newsletter_text: "Central Asian market updates, investment research, and analysis — delivered every Monday. Free, independent, and from the ground.",
-    newsletter_button: "Subscribe",
-    newsletter_note: "NO SPAM · UNSUBSCRIBE ANYTIME · EDUCATIONAL ONLY",
-    search_placeholder: "Search articles...",
-    yt_button: "▶ Watch Video Version on YouTube",
-    cookie_text: "We use minimal cookies for analytics. By continuing to use this site, you agree to our use of cookies.",
-    cookie_accept: "Accept",
-    cookie_decline: "Decline",
-    no_results: "No articles found",
-    minutes_read: "min read",
-    footer_disclaimer: "DISCLAIMER: All content published on Alsat.Asia is strictly for educational and informational purposes only. Nothing on this website constitutes financial, investment, legal, or tax advice. We are analysts and researchers, not licensed financial advisors. Always consult a qualified professional before making any investment decisions. Past performance is not indicative of future results. Investing in emerging and frontier markets involves significant risk."
-  },
-  es: {
-    nav_disclaimer: "Solo Educativo · No Asesoramiento Financiero",
-    hero_eyebrow: "Inteligencia Financiera de Asia Central",
-    hero_title_1: "El Mercado que",
-    hero_title_2: "Wall Street",
-    hero_title_3: "No Está Mirando",
-    hero_sub: "Investigación y análisis independientes sobre Kazajistán, Kirguistán y los mercados de Asia Central — para inversores que ven más allá de lo obvio.",
-    stat_fdi: "IED 2025",
-    stat_gdp: "Crecimiento PIB",
-    stat_region: "#1 Regional",
-    hero_disclaimer: "Todo en este sitio es solo con fines educativos. Esto no es asesoramiento financiero. Siempre realice su propia investigación antes de tomar decisiones de inversión.",
-    featured_label: "Análisis Destacado",
-    library_label: "Biblioteca · 10 Informes",
-    read_more: "Leer Análisis Completo →",
-    about_title: "Sobre Alsat.Asia",
-    about_text: "Somos un medio de investigación independiente con base en Asia Central — cubriendo Kazajistán y Kirguistán para una audiencia global de inversores. Nuestra ventaja es simple: vivimos aquí, hablamos el idioma, y vemos lo que los analistas externos pasan por alto. Todo el contenido es solo con fines educativos.",
-    newsletter_title: "Reciba el Resumen Semanal",
-    newsletter_text: "Actualizaciones de mercados de Asia Central, investigación de inversiones y análisis — todos los lunes. Gratis e independiente.",
-    newsletter_button: "Suscribirse",
-    newsletter_note: "SIN SPAM · CANCELE EN CUALQUIER MOMENTO · SOLO EDUCATIVO",
-    search_placeholder: "Buscar artículos...",
-    yt_button: "▶ Ver Versión en Video en YouTube",
-    cookie_text: "Utilizamos cookies mínimas para análisis. Al continuar usando este sitio, acepta nuestro uso de cookies.",
-    cookie_accept: "Aceptar",
-    cookie_decline: "Rechazar",
-    no_results: "No se encontraron artículos",
-    minutes_read: "min de lectura",
-    footer_disclaimer: "AVISO: Todo el contenido publicado en Alsat.Asia es estrictamente con fines educativos. Nada en este sitio web constituye asesoramiento financiero, de inversión, legal o fiscal. Somos analistas e investigadores, no asesores financieros con licencia. Siempre consulte a un profesional calificado antes de tomar cualquier decisión de inversión. El rendimiento pasado no es indicativo de resultados futuros. Invertir en mercados emergentes y frontera implica riesgo significativo."
-  },
-  ru: {
-    nav_disclaimer: "Только Образование · Не Финсовет",
-    hero_eyebrow: "Финансовая Аналитика Центральной Азии",
-    hero_title_1: "Рынок, который",
-    hero_title_2: "Уолл-стрит",
-    hero_title_3: "Не Замечает",
-    hero_sub: "Независимые исследования и анализ Казахстана, Кыргызстана и рынков Центральной Азии — для инвесторов, которые видят дальше очевидного.",
-    stat_fdi: "ПИИ 2025",
-    stat_gdp: "Рост ВВП",
-    stat_region: "#1 в Регионе",
-    hero_disclaimer: "Все материалы на этом сайте предназначены только для образовательных целей. Это не финансовый совет. Всегда проводите собственное исследование перед принятием инвестиционных решений.",
-    featured_label: "Главная Аналитика",
-    library_label: "Библиотека · 10 Отчётов",
-    read_more: "Читать Полный Анализ →",
-    about_title: "О Alsat.Asia",
-    about_text: "Мы — независимое исследовательское издание из Центральной Азии. Освещаем Казахстан и Кыргызстан для глобальной инвестиционной аудитории. Наше преимущество: мы живём здесь, говорим на местных языках и видим то, что упускают внешние аналитики. Весь контент только для образовательных целей.",
-    newsletter_title: "Получайте Еженедельный Обзор",
-    newsletter_text: "Обновления рынков Центральной Азии, инвестиционные исследования и аналитика — каждый понедельник. Бесплатно и независимо.",
-    newsletter_button: "Подписаться",
-    newsletter_note: "БЕЗ СПАМА · ОТПИШИТЕСЬ В ЛЮБОЙ МОМЕНТ · ТОЛЬКО ОБРАЗОВАНИЕ",
-    search_placeholder: "Поиск статей...",
-    yt_button: "▶ Смотреть Видеоверсию на YouTube",
-    cookie_text: "Мы используем минимальные cookies для аналитики. Продолжая использовать сайт, вы соглашаетесь с использованием cookies.",
-    cookie_accept: "Принять",
-    cookie_decline: "Отклонить",
-    no_results: "Статьи не найдены",
-    minutes_read: "мин чтения",
-    footer_disclaimer: "ОТКАЗ ОТ ОТВЕТСТВЕННОСТИ: Весь контент на Alsat.Asia предназначен только для образовательных целей. Ничто на сайте не является финансовым, инвестиционным, юридическим или налоговым советом. Мы — аналитики и исследователи, не лицензированные финансовые консультанты. Всегда консультируйтесь с квалифицированным специалистом перед принятием инвестиционных решений. Прошлые результаты не являются показателем будущих. Инвестирование в развивающиеся и пограничные рынки связано со значительным риском."
-  },
-  kk: {
-    nav_disclaimer: "Тек Білім · Қаржы Кеңесі Емес",
-    hero_eyebrow: "Орталық Азия Қаржы Барлауы",
-    hero_title_1: "Уолл-стрит",
-    hero_title_2: "Көрмейтін",
-    hero_title_3: "Нарық",
-    hero_sub: "Қазақстан, Қырғызстан және Орталық Азия нарықтары туралы тәуелсіз зерттеулер мен талдау — анық емеске қараған инвесторларға.",
-    stat_fdi: "ТШИ 2025",
-    stat_gdp: "ЖІӨ Өсімі",
-    stat_region: "Аймақта #1",
-    hero_disclaimer: "Сайттағы барлық материалдар тек білім беру мақсатына арналған. Бұл қаржылық кеңес емес. Әрқашан өз зерттеуіңізді жүргізіңіз.",
-    featured_label: "Басты Талдау",
-    library_label: "Кітапхана · 10 Есеп",
-    read_more: "Толық талдауды оқу →",
-    about_title: "Alsat.Asia туралы",
-    about_text: "Біз Орталық Азиядан жұмыс істейтін тәуелсіз зерттеу басылымымыз — Қазақстан мен Қырғызстанды әлемдік инвестициялық аудиторияға арналған мазмұн етеміз. Біздің артықшылығымыз: біз осында тұрамыз, жергілікті тілдерде сөйлейміз және сыртқы талдаушылар жіберіп алғанды көреміз.",
-    newsletter_title: "Апта сайынғы қысқаша алыңыз",
-    newsletter_text: "Орталық Азия нарықтары туралы жаңартулар, инвестициялық зерттеулер және талдау — әр дүйсенбіде. Тегін және тәуелсіз.",
-    newsletter_button: "Жазылу",
-    newsletter_note: "СПАМ ЖОҚ · КЕЗ КЕЛГЕН УАҚЫТТА ОЛАЙ БОЛУ · ТЕК БІЛІМ",
-    search_placeholder: "Мақалаларды іздеу...",
-    yt_button: "▶ YouTube-те видеоны қарау",
-    cookie_text: "Аналитика үшін минималды cookie қолданамыз. Сайтты пайдалануды жалғастыра отырып, сіз cookie қолдануға келісесіз.",
-    cookie_accept: "Қабылдау",
-    cookie_decline: "Бас тарту",
-    no_results: "Мақалалар табылмады",
-    minutes_read: "мин оқу",
-    footer_disclaimer: "ЕСКЕРТУ: Alsat.Asia-да жарияланған барлық мазмұн тек білім беру мақсатына арналған. Сайттағы ешбір нәрсе қаржылық, инвестициялық, заңды немесе салықтық кеңес емес. Біз — талдаушылар мен зерттеушілер, лицензияланған қаржы кеңесшілері емеспіз. Кез келген инвестициялық шешім қабылдамас бұрын білікті маманмен кеңесіңіз. Бұрынғы нәтижелер болашаққа кепілдік емес. Дамушы және шекаралық нарықтарға инвестиция елеулі тәуекелді қамтиды."
-  }
-};
-
-let currentLang = localStorage.getItem('alsat_lang') || 'en';
-let currentTheme = localStorage.getItem('alsat_theme') || 'light';
-
-// Merge Kazakh data into ARTICLES
-ARTICLES.forEach(article => {
-  if (KAZAKH_ARTICLES[article.id]) {
-    article.kk = KAZAKH_ARTICLES[article.id];
-    article.date_display = article.date_display || {};
-    // Add Kazakh date displays
-    const kkMonths = {en: {}, es: {}, ru: {}, kk: {}};
-    const dateMap = {
-      "May 2026": "Мамыр 2026",
-      "April 2026": "Сәуір 2026", 
-      "March 2026": "Наурыз 2026",
-      "February 2026": "Ақпан 2026"
-    };
-    article.date_display.kk = dateMap[article.date_display.en] || article.date_display.en;
-  }
-});
-
-function toggleLang(e) {
-  e.stopPropagation();
-  document.getElementById('langDropdown').classList.toggle('open');
-}
-
-document.addEventListener('click', () => {
-  document.getElementById('langDropdown').classList.remove('open');
-});
-
-function setLang(lang) {
-  currentLang = lang;
-  localStorage.setItem('alsat_lang', lang);
-  document.documentElement.setAttribute('lang', lang);
-  document.documentElement.setAttribute('data-lang', lang);
-  
-  const flags = {en: '🇺🇸 EN', es: '🇪🇸 ES', ru: '🇷🇺 RU', kk: '🇰🇿 KZ'};
-  document.getElementById('currentLang').textContent = flags[lang];
-  
-  document.querySelectorAll('.lang-option').forEach(el => {
-    el.classList.toggle('active', el.dataset.lang === lang);
+function sbFetch(path) {
+  return fetch(SB_URL + '/rest/v1/' + path, {
+    headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY }
+  }).then(function(r) {
+    if (!r.ok) throw new Error('Supabase ' + r.status);
+    return r.json();
   });
-  
-  applyTranslations();
-  renderArticles();
-  renderFeatured();
-  document.getElementById('langDropdown').classList.remove('open');
 }
 
-function applyTranslations() {
-  document.querySelectorAll('[data-t]').forEach(el => {
-    const key = el.dataset.t;
-    if (UI[currentLang] && UI[currentLang][key]) {
-      el.textContent = UI[currentLang][key];
-    }
+function sbInsert(table, row) {
+  return fetch(SB_URL + '/rest/v1/' + table, {
+    method: 'POST',
+    headers: {
+      apikey: SB_KEY,
+      Authorization: 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json',
+      Prefer: 'return=minimal'
+    },
+    body: JSON.stringify(row)
   });
-  document.getElementById('searchInput').placeholder = UI[currentLang].search_placeholder;
 }
 
-function toggleTheme() {
-  currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-  document.documentElement.setAttribute('data-theme', currentTheme);
-  document.getElementById('themeBtn').textContent = currentTheme === 'light' ? '🌙' : '☀️';
-  localStorage.setItem('alsat_theme', currentTheme);
+function esc(s) {
+  return s == null ? '' : String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-function renderFeatured() {
-  const a = ARTICLES[0];
-  const lang = currentLang;
-  const t = a[lang] || a.en;
-  const date = (a.date_display && a.date_display[lang]) || a.date_display.en;
-  
-  document.getElementById('featuredArticle').innerHTML = `
-    <div class="featured-main">
-      <div class="article-tag">${t.tag}</div>
-      <h2>${t.title}</h2>
-      <p class="excerpt">${t.excerpt}</p>
-      <div class="article-meta">
-        <span>${date}</span>
-        <span>${a.read_min} ${UI[lang].minutes_read}</span>
-        <span>${t.category}</span>
-      </div>
-      <button class="read-more" onclick="openModal(0)">${UI[lang].read_more}</button>
-    </div>
-  `;
+function digits(s) {
+  return String(s || '').replace(/\D/g, '');
 }
 
-function renderArticles(filter = '') {
-  const grid = document.getElementById('articlesGrid');
-  grid.innerHTML = '';
-  const lang = currentLang;
-  
-  let filtered = ARTICLES.slice(1);
-  
-  if (filter) {
-    const q = filter.toLowerCase();
-    filtered = filtered.filter(a => {
-      const t = a[lang] || a.en;
-      return t.title.toLowerCase().includes(q) || 
-             t.excerpt.toLowerCase().includes(q) ||
-             t.tag.toLowerCase().includes(q);
-    });
-  }
-  
-  if (filtered.length === 0) {
-    grid.innerHTML = `<div class="no-results">${UI[lang].no_results}</div>`;
+function tgLink(t) {
+  if (!t) return '';
+  t = String(t).trim();
+  if (t.indexOf('http') === 0) return t;
+  if (t.charAt(0) === '@') return 'https://t.me/' + t.slice(1);
+  return 'https://t.me/+' + digits(t);
+}
+
+function showToast(msg, err) {
+  var el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (err ? ' error' : '');
+  setTimeout(function(){ el.className = 'toast'; }, 3000);
+}
+
+function normalize(s) {
+  return String(s || '').trim().toLowerCase();
+}
+
+function matchesRoute(row) {
+  var from = normalize(state.from);
+  var to = normalize(state.to);
+  if (from && normalize(row.from_city).indexOf(from) === -1) return false;
+  if (to && normalize(row.to_city).indexOf(to) === -1) return false;
+  return true;
+}
+
+function visibleRows() {
+  var rows = state.tab === 'drivers' ? state.drivers : state.pax;
+  return rows.filter(matchesRoute);
+}
+
+function switchTab(tab) {
+  state.tab = tab;
+  document.getElementById('tabDrivers').classList.toggle('active', tab === 'drivers');
+  document.getElementById('tabPax').classList.toggle('active', tab === 'pax');
+  render();
+}
+
+function switchForm(form) {
+  state.form = form;
+  document.getElementById('formDriverTab').classList.toggle('active', form === 'driver');
+  document.getElementById('formPaxTab').classList.toggle('active', form === 'pax');
+  document.getElementById('driverFields').style.display = form === 'driver' ? 'grid' : 'none';
+  document.getElementById('paxFields').style.display = form === 'pax' ? 'grid' : 'none';
+}
+
+function applyFilters() {
+  state.from = document.getElementById('filterFrom').value;
+  state.to = document.getElementById('filterTo').value;
+  render();
+}
+
+function clearFilters() {
+  document.getElementById('filterFrom').value = '';
+  document.getElementById('filterTo').value = '';
+  state.from = '';
+  state.to = '';
+  render();
+}
+
+function quickRoute(from, to) {
+  document.getElementById('filterFrom').value = from;
+  document.getElementById('filterTo').value = to;
+  state.from = from;
+  state.to = to;
+  render();
+  document.getElementById('routes').scrollIntoView({ behavior: 'smooth' });
+}
+
+function renderStats() {
+  document.getElementById('driversStat').textContent = state.drivers.length || '0';
+  document.getElementById('paxStat').textContent = state.pax.length || '0';
+}
+
+function render() {
+  renderStats();
+  var rows = visibleRows();
+  var isDrivers = state.tab === 'drivers';
+  document.getElementById('listTitle').textContent = isDrivers ? 'Водители' : 'Пассажиры ищут поездку';
+  document.getElementById('listCount').textContent = rows.length + ' найдено';
+  var cards = document.getElementById('cards');
+  if (!rows.length) {
+    cards.innerHTML = '<div class="empty">Пока нет объявлений по этому маршруту. Добавьте первое объявление.</div>';
     return;
   }
-  
-  filtered.forEach(a => {
-    const t = a[lang] || a.en;
-    const date = (a.date_display && a.date_display[lang]) || a.date_display.en;
-    const realIndex = ARTICLES.indexOf(a);
-    
-    const card = document.createElement('div');
-    card.className = 'article-card';
-    card.innerHTML = `
-      <div class="article-tag">${t.tag}</div>
-      <h3>${t.title}</h3>
-      <p class="excerpt">${t.excerpt}</p>
-      <div class="card-footer">
-        <span class="tag">${t.category}</span>
-        <span>${date} · ${a.read_min} ${UI[lang].minutes_read}</span>
-      </div>
-    `;
-    card.onclick = () => openModal(realIndex);
-    grid.appendChild(card);
+  cards.innerHTML = rows.map(isDrivers ? driverCard : paxCard).join('');
+}
+
+function renderOfflineState() {
+  document.getElementById('driversStat').textContent = '—';
+  document.getElementById('paxStat').textContent = '—';
+  document.getElementById('listCount').textContent = 'онлайн-база недоступна';
+  document.getElementById('cards').innerHTML =
+    '<div class="empty">Онлайн-маршруты временно не загрузились. Добавление заявок останется доступным после восстановления связи с базой.</div>' +
+    '<article class="route-card">' +
+      '<div class="route-top"><div><div class="route-cities">Бурабай <span class="arrow">→</span> Астана</div>' +
+      '<div class="route-meta">Пример объявления · Haval M6 · 4 места</div></div>' +
+      '<div class="price">24 000 ₸<small>машина</small></div></div>' +
+      '<div class="comment">Пример того, как будет выглядеть карточка водителя после загрузки базы.</div>' +
+      '<div class="badges"><span class="badge">Межгород</span><span class="badge">WhatsApp</span><span class="badge">Бесплатно</span></div>' +
+    '</article>';
+}
+
+function driverCard(r) {
+  var phone = digits(r.phone);
+  var wa = digits(r.whatsapp) || phone;
+  var tg = tgLink(r.telegram);
+  var extras = [];
+  if (r.ac) extras.push('Кондиционер');
+  if (r.seat) extras.push('Детское кресло');
+  if (r.trunk) extras.push('Багажник');
+  if (r.parcel) extras.push('Посылки');
+  return '<article class="route-card">'
+    + '<div class="route-top"><div><div class="route-cities">' + esc(r.from_city) + ' <span class="arrow">→</span> ' + esc(r.to_city) + '</div>'
+    + '<div class="route-meta">' + esc(r.car || 'Авто не указано') + (r.exp ? ' · стаж ' + esc(r.exp) : '') + ' · ' + (r.seats || 1) + ' мест</div></div>'
+    + '<div class="price">' + (r.price ? Number(r.price).toLocaleString('ru-KZ') + ' ₸' : '—') + '<small>за место</small></div></div>'
+    + (r.desc ? '<div class="comment">' + esc(r.desc) + '</div>' : '')
+    + (extras.length ? '<div class="badges">' + extras.map(function(x){ return '<span class="badge">' + esc(x) + '</span>'; }).join('') + '</div>' : '')
+    + contactActions(phone, wa, tg)
+    + '</article>';
+}
+
+function paxCard(r) {
+  var phone = digits(r.phone);
+  var wa = digits(r.whatsapp) || phone;
+  var tg = tgLink(r.telegram);
+  var date = r.travel_date ? new Date(r.travel_date).toLocaleDateString('ru-RU', { day:'numeric', month:'short' }) : '';
+  return '<article class="route-card passenger">'
+    + '<div class="route-top"><div><div class="route-cities">' + esc(r.from_city) + ' <span class="arrow">→</span> ' + esc(r.to_city) + '</div>'
+    + '<div class="route-meta">' + esc(r.name || 'Пассажир') + (date ? ' · ' + date : '') + ' · ' + (r.seats || 1) + ' чел.</div></div>'
+    + '<div class="price" style="color:var(--blue)">🧳<small>ищет</small></div></div>'
+    + (r.comment ? '<div class="comment">' + esc(r.comment) + '</div>' : '')
+    + contactActions(phone, wa, tg)
+    + '</article>';
+}
+
+function contactActions(phone, wa, tg) {
+  var html = '<div class="actions">';
+  if (phone) html += '<a class="contact call" href="tel:+' + phone + '">Позвонить</a>';
+  if (wa) html += '<a class="contact whatsapp" target="_blank" rel="noopener" href="https://wa.me/' + wa + '">WhatsApp</a>';
+  if (tg) html += '<a class="contact telegram" target="_blank" rel="noopener" href="' + tg + '">Telegram</a>';
+  html += '</div>';
+  return html;
+}
+
+function readCommonFields() {
+  var from = document.getElementById('fFrom').value.trim();
+  var to = document.getElementById('fTo').value.trim();
+  var phone = digits(document.getElementById('fPhone').value);
+  if (!from) throw new Error('Укажите город отправления');
+  if (!to) throw new Error('Укажите город назначения');
+  if (!phone || phone.length < 10) throw new Error('Укажите телефон');
+  return {
+    from_city: from,
+    to_city: to,
+    phone: phone,
+    whatsapp: digits(document.getElementById('fWA').value) || phone,
+    telegram: document.getElementById('fTG').value.trim(),
+  };
+}
+
+function submitPost() {
+  var row;
+  try {
+    row = readCommonFields();
+  } catch(e) {
+    showToast(e.message, true);
+    return;
+  }
+
+  var table;
+  if (state.form === 'driver') {
+    var car = document.getElementById('fCar').value.trim();
+    var price = digits(document.getElementById('fPrice').value);
+    if (!car) return showToast('Укажите автомобиль', true);
+    if (!price) return showToast('Укажите цену', true);
+    table = 'taxi_drivers';
+    Object.assign(row, {
+      car: car,
+      price: Number(price),
+      seats: Number(document.getElementById('fSeats').value || 1),
+      exp: document.getElementById('fExp').value,
+      ac: document.getElementById('fAC').checked,
+      seat: document.getElementById('fSeat').checked,
+      trunk: document.getElementById('fTrunk').checked,
+      parcel: document.getElementById('fParcel').checked,
+      desc: document.getElementById('fComment').value.trim(),
+      notified: false
+    });
+  } else {
+    table = 'taxi_requests';
+    Object.assign(row, {
+      name: document.getElementById('pName').value.trim(),
+      travel_date: document.getElementById('pDate').value || null,
+      seats: Number(document.getElementById('pSeats').value || 1),
+      comment: document.getElementById('fComment').value.trim(),
+      notified: false
+    });
+  }
+
+  sbInsert(table, row).then(function(res) {
+    if (!res.ok && res.status !== 201) throw new Error('save');
+    showToast('Опубликовано. Модерация и уведомления включены.');
+    clearForm();
+    return loadData();
+  }).catch(function() {
+    showToast('Не удалось сохранить. Проверьте интернет и попробуйте еще раз.', true);
   });
 }
 
-function filterArticles() {
-  const q = document.getElementById('searchInput').value;
-  renderArticles(q);
+function clearForm() {
+  ['fFrom','fTo','fCar','fPrice','fPhone','fWA','fTG','fComment','pName','pDate'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  ['fAC','fSeat','fTrunk','fParcel'].forEach(function(id) {
+    document.getElementById(id).checked = false;
+  });
 }
 
-function openModal(index) {
-  const a = ARTICLES[index];
-  const lang = currentLang;
-  const t = a[lang] || a.en;
-  const date = (a.date_display && a.date_display[lang]) || a.date_display.en;
-  
-  document.getElementById('modalTag').textContent = t.tag;
-  document.getElementById('modalTitle').textContent = t.title;
-  document.getElementById('modalMeta').innerHTML = `
-    <span>${date}</span>
-    <span>${a.read_min} ${UI[lang].minutes_read}</span>
-    <span>${t.category}</span>
-  `;
-  document.getElementById('modalBody').innerHTML = t.body + 
-    `<br><button class="yt-link" onclick="alert('YouTube channel coming soon')">${UI[lang].yt_button}</button>`;
-  document.getElementById('modalOverlay').classList.add('active');
-  document.body.style.overflow = 'hidden';
+function loadData() {
+  document.getElementById('cards').innerHTML = '<div class="loading">Загружаю маршруты...</div>';
+  return Promise.all([
+    sbFetch('taxi_drivers?select=*&blocked=neq.true&order=created_at.desc&limit=80'),
+    sbFetch('taxi_requests?select=*&blocked=neq.true&order=created_at.desc&limit=80')
+  ]).then(function(results) {
+    state.drivers = results[0] || [];
+    state.pax = results[1] || [];
+    render();
+  }).catch(function() {
+    renderOfflineState();
+  });
 }
 
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function closeModalOutside(e) {
-  if (e.target === document.getElementById('modalOverlay')) closeModal();
-}
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModal();
-});
-
-// Cookie banner
-function cookieAccept() {
-  localStorage.setItem('alsat_cookies', 'accepted');
-  document.getElementById('cookieBanner').classList.remove('show');
-}
-function cookieDecline() {
-  localStorage.setItem('alsat_cookies', 'declined');
-  document.getElementById('cookieBanner').classList.remove('show');
-}
-
-// Initialize
-document.documentElement.setAttribute('data-theme', currentTheme);
-document.getElementById('themeBtn').textContent = currentTheme === 'light' ? '🌙' : '☀️';
-setLang(currentLang);
-
-if (!localStorage.getItem('alsat_cookies')) {
-  setTimeout(() => document.getElementById('cookieBanner').classList.add('show'), 1500);
-}
+loadData();
 </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 {
-  "name": "Алсат — Объявления Казахстана",
+  "name": "Алсат Межгород",
   "short_name": "Алсат",
-  "description": "Покупайте и продавайте легко — доска объявлений Казахстана",
+  "description": "Попутчики и водители между городами Казахстана",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
@@ -22,18 +22,18 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["shopping", "business"],
+  "categories": ["travel", "business"],
   "shortcuts": [
     {
-      "name": "Такси Межгород",
-      "short_name": "Такси",
-      "url": "/#taxiSection",
+      "name": "Межгород",
+      "short_name": "Маршруты",
+      "url": "/#routes",
       "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
     },
     {
-      "name": "Разместить объявление",
-      "short_name": "Разместить",
-      "url": "/?post=1",
+      "name": "Добавить маршрут",
+      "short_name": "Добавить",
+      "url": "/#post",
       "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
     }
   ]
