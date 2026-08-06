@@ -5,378 +5,539 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Хочешь сайт лучше этого? — alsat.asia</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #0a0a1a; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: 'Georgia', serif; overflow: hidden; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { width:100%; height:100%; overflow:hidden; background:#060f1a; font-family:'Segoe UI',Arial,sans-serif; }
 
-.aquarium {
-  position: relative;
-  width: 820px;
-  height: 520px;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 0 0 6px #1a3a5c, 0 0 0 10px #0d2035, 0 30px 80px rgba(0,0,0,0.8), inset 0 0 120px rgba(0,100,200,0.1);
-  cursor: crosshair;
+#tank {
+  position:relative; width:100vw; height:100vh; overflow:hidden;
+  background:linear-gradient(180deg,#041830 0%,#072848 25%,#083560 55%,#041c35 100%);
 }
 
-@media (max-width: 860px) {
-  .aquarium { width: 100vw; height: 60vw; border-radius: 0; }
+/* ── Caustic light overlay ─────────────────── */
+#caustics { position:absolute; inset:0; pointer-events:none; z-index:1; }
+
+/* ── Sand / gravel bottom ──────────────────── */
+#bottom {
+  position:absolute; bottom:0; left:0; right:0; height:110px; z-index:4;
+  background:linear-gradient(180deg,#6b5010 0%,#8a6818 25%,#a07c20 60%,#b89030 100%);
+}
+#bottom::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:30px;
+  background:
+    radial-gradient(ellipse 60px 15px at 8%  50%, rgba(0,0,0,.2) 0%, transparent 70%),
+    radial-gradient(ellipse 40px 12px at 20% 60%, rgba(0,0,0,.15) 0%, transparent 70%),
+    radial-gradient(ellipse 80px 18px at 35% 40%, rgba(0,0,0,.2) 0%, transparent 70%),
+    radial-gradient(ellipse 50px 14px at 55% 55%, rgba(0,0,0,.15) 0%, transparent 70%),
+    radial-gradient(ellipse 70px 16px at 72% 45%, rgba(0,0,0,.2) 0%, transparent 70%),
+    radial-gradient(ellipse 45px 12px at 88% 52%, rgba(0,0,0,.15) 0%, transparent 70%);
 }
 
-canvas#water { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+/* ── Stones ────────────────────────────────── */
+.stone { position:absolute; bottom:85px; cursor:pointer; z-index:5; transition:filter .2s,transform .2s; }
+.stone:hover { filter:drop-shadow(0 0 16px rgba(80,200,255,.85)); transform:translateY(-8px) scale(1.08); }
 
-.glass-left {
-  position: absolute; top: 0; left: 0; width: 60px; height: 100%;
-  background: linear-gradient(90deg, rgba(255,255,255,0.07) 0%, transparent 100%);
-  pointer-events: none; z-index: 10;
-}
-.glass-top {
-  position: absolute; top: 0; left: 0; right: 0; height: 40px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 100%);
-  pointer-events: none; z-index: 10;
-}
+/* ── Seaweed ───────────────────────────────── */
+.weed { position:absolute; bottom:100px; z-index:3; transform-origin:bottom center; pointer-events:none; }
 
-.fish {
-  position: absolute;
-  cursor: pointer;
-  z-index: 5;
-  transition: transform 0.1s;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
-}
-.fish:hover { transform: scale(1.2) !important; filter: drop-shadow(0 0 12px rgba(255,200,0,0.8)); }
-.fish svg { display: block; }
-
-.stone {
-  position: absolute;
-  bottom: 58px;
-  cursor: pointer;
-  z-index: 4;
-  transition: transform 0.15s, filter 0.15s;
-  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.6));
-}
-.stone:hover { transform: translateY(-6px) scale(1.08) !important; filter: drop-shadow(0 0 14px rgba(100,200,255,0.7)); }
-
-.weed {
-  position: absolute;
-  bottom: 70px;
-  z-index: 3;
-  transform-origin: bottom center;
-  animation: sway 3s ease-in-out infinite;
-  pointer-events: none;
-}
-@keyframes sway {
-  0%,100% { transform: rotate(-8deg); }
-  50% { transform: rotate(8deg); }
-}
-
+/* ── Bubbles ───────────────────────────────── */
 .bubble {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.3);
-  background: rgba(255,255,255,0.05);
-  pointer-events: none;
-  animation: rise linear infinite;
-  z-index: 6;
+  position:absolute; border-radius:50%;
+  border:1px solid rgba(180,220,255,.35);
+  background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.25), rgba(100,180,255,.05));
+  pointer-events:none; z-index:7;
+  animation:rise linear forwards;
 }
 @keyframes rise {
-  0%   { transform: translateY(0) translateX(0); opacity: 0.8; }
-  100% { transform: translateY(-520px) translateX(var(--drift)); opacity: 0; }
+  0%   { transform:translateY(0) translateX(0); opacity:.8; }
+  100% { transform:translateY(-110vh) translateX(var(--drift)); opacity:0; }
 }
 
-.sand {
-  position: absolute; bottom: 0; left: 0; right: 0; height: 75px;
-  background: linear-gradient(180deg, #8b6914 0%, #a07820 30%, #c49a2a 70%, #b8891e 100%);
-  border-radius: 0 0 18px 18px;
-  z-index: 3;
+/* ── Fish canvas ───────────────────────────── */
+#fish-layer { position:absolute; inset:0; z-index:6; pointer-events:none; }
+
+/* ── Clickable fish hit areas ──────────────── */
+.fish-hit {
+  position:absolute; z-index:8; cursor:pointer; border-radius:50%;
+  background:transparent;
 }
-.sand::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 18px;
-  background: radial-gradient(ellipse 20px 10px at 10% 50%, rgba(0,0,0,0.15) 0%, transparent 70%),
-              radial-gradient(ellipse 30px 8px at 30% 60%, rgba(0,0,0,0.1) 0%, transparent 70%),
-              radial-gradient(ellipse 15px 6px at 60% 40%, rgba(0,0,0,0.12) 0%, transparent 70%),
-              radial-gradient(ellipse 25px 9px at 80% 55%, rgba(0,0,0,0.1) 0%, transparent 70%);
+.fish-hit:hover + .fish-glow, .fish-hit:hover { filter:drop-shadow(0 0 10px gold); }
+
+/* ── Surface shimmer ───────────────────────── */
+#surface {
+  position:absolute; top:0; left:0; right:0; height:18px; z-index:2; pointer-events:none;
+  background:linear-gradient(180deg,rgba(120,200,255,.15) 0%,transparent 100%);
 }
 
-.modal-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,30,0.8);
-  z-index: 100;
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.3s;
-  backdrop-filter: blur(4px);
+/* ── Hint ──────────────────────────────────── */
+#hint {
+  position:absolute; bottom:120px; left:50%; transform:translateX(-50%);
+  color:rgba(255,255,255,.3); font-size:13px; letter-spacing:2px;
+  z-index:9; pointer-events:none; white-space:nowrap;
+  animation:fadeOut 5s 2s forwards;
 }
-.modal-overlay.show { opacity: 1; pointer-events: all; }
-.modal {
-  background: linear-gradient(135deg, #0d2a4a 0%, #0a1a30 60%, #071525 100%);
-  border: 1px solid rgba(100,180,255,0.3);
-  border-radius: 20px;
-  padding: 50px 60px;
-  text-align: center;
-  max-width: 480px;
-  box-shadow: 0 0 60px rgba(0,100,255,0.2), 0 30px 60px rgba(0,0,0,0.6);
-  transform: scale(0.8);
-  transition: transform 0.3s;
-}
-.modal-overlay.show .modal { transform: scale(1); }
-.modal-emoji { font-size: 64px; margin-bottom: 20px; display: block; }
-.modal h2 { color: #fff; font-size: 26px; margin-bottom: 12px; line-height: 1.3; }
-.modal h2 span { color: #4db8ff; }
-.modal p { color: rgba(200,220,255,0.75); font-size: 15px; margin-bottom: 30px; line-height: 1.6; }
-.modal-btn {
-  background: linear-gradient(135deg, #0080ff, #00c3ff);
-  color: #fff;
-  border: none;
-  padding: 14px 36px;
-  border-radius: 50px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  display: block;
-  width: 100%;
-  margin-bottom: 12px;
-  letter-spacing: 0.5px;
-  transition: transform 0.15s, box-shadow 0.15s;
-  box-shadow: 0 4px 20px rgba(0,128,255,0.4);
-}
-.modal-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,180,255,0.5); }
-.modal-close {
-  background: transparent; color: rgba(150,170,200,0.7);
-  border: none; font-size: 13px; cursor: pointer; padding: 6px;
-}
-.modal-close:hover { color: #fff; }
-.fish-name { color: #4db8ff; font-style: italic; font-size: 13px; margin-bottom: 20px; }
+@keyframes fadeOut { to { opacity:0; } }
 
-.aquarium-title {
-  position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
-  z-index: 9;
-  color: rgba(255,255,255,0.15);
-  font-size: 11px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  pointer-events: none;
-  white-space: nowrap;
+/* ══════════════════════════════════════════════
+   MODAL — сайты-образцы
+═══════════════════════════════════════════════ */
+#overlay {
+  position:fixed; inset:0; z-index:100;
+  background:rgba(2,10,25,.85); backdrop-filter:blur(6px);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity .3s;
 }
+#overlay.on { opacity:1; pointer-events:all; }
 
-/* Hint text */
-.hint {
-  position: absolute; bottom: 82px; left: 50%; transform: translateX(-50%);
-  z-index: 9;
-  color: rgba(255,255,255,0.25);
-  font-size: 11px;
-  letter-spacing: 2px;
-  pointer-events: none;
-  white-space: nowrap;
-  animation: fadeHint 4s ease-out forwards;
+#modal {
+  background:linear-gradient(135deg,#0c2240,#071528);
+  border:1px solid rgba(80,160,255,.3);
+  border-radius:22px; padding:36px 40px;
+  max-width:780px; width:92%;
+  box-shadow:0 0 60px rgba(0,80,200,.25),0 30px 60px rgba(0,0,0,.7);
+  transform:scale(.9); transition:transform .3s;
+  max-height:90vh; overflow-y:auto;
 }
-@keyframes fadeHint {
-  0% { opacity: 1; }
-  60% { opacity: 1; }
-  100% { opacity: 0; }
+#overlay.on #modal { transform:scale(1); }
+
+#modal h2 {
+  color:#fff; font-size:22px; text-align:center; margin-bottom:6px;
 }
+#modal h2 span { color:#38b6ff; }
+#modal .sub { color:rgba(180,210,255,.6); text-align:center; font-size:14px; margin-bottom:28px; }
+
+.sites-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px;
+  margin-bottom:24px;
+}
+.site-card {
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(80,160,255,.2);
+  border-radius:14px; padding:20px 16px;
+  text-align:center; cursor:pointer;
+  transition:background .2s, border-color .2s, transform .15s;
+}
+.site-card:hover {
+  background:rgba(56,182,255,.12);
+  border-color:rgba(56,182,255,.5);
+  transform:translateY(-4px);
+}
+.site-card .icon { font-size:38px; margin-bottom:10px; }
+.site-card h3 { color:#fff; font-size:15px; margin-bottom:6px; }
+.site-card p { color:rgba(180,210,255,.65); font-size:12px; line-height:1.5; }
+.site-card .price { color:#38b6ff; font-size:13px; font-weight:bold; margin-top:10px; }
+
+.cta-btn {
+  display:block; width:100%; padding:14px;
+  background:linear-gradient(135deg,#0077ff,#00c3ff);
+  color:#fff; border:none; border-radius:50px;
+  font-size:16px; font-weight:bold; cursor:pointer;
+  letter-spacing:.5px;
+  box-shadow:0 4px 20px rgba(0,120,255,.4);
+  transition:transform .15s,box-shadow .15s;
+}
+.cta-btn:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(0,180,255,.5); }
+.close-btn {
+  display:block; width:100%; margin-top:10px; padding:8px;
+  background:transparent; color:rgba(150,180,220,.5);
+  border:none; font-size:13px; cursor:pointer;
+}
+.close-btn:hover { color:#aaa; }
 </style>
 </head>
 <body>
-
-<div class="aquarium" id="aquarium">
-  <canvas id="water"></canvas>
-  <div class="glass-left"></div>
-  <div class="glass-top"></div>
-  <div class="aquarium-title">🐟 Кликни на рыбку или камушек 🪨</div>
-  <div class="hint">Нажми на любой объект →</div>
-
-  <!-- Sand -->
-  <div class="sand"></div>
-
-  <!-- Seaweeds -->
-  <div class="weed" style="left:60px; animation-duration:2.8s; animation-delay:0s;">
-    <svg width="22" height="120" viewBox="0 0 22 120"><path d="M11 120 Q18 95 8 75 Q2 55 14 35 Q20 15 11 0" fill="none" stroke="#1a7a3a" stroke-width="4" stroke-linecap="round"/><path d="M11 100 Q22 85 18 68" fill="none" stroke="#228b44" stroke-width="3"/><path d="M11 70 Q0 58 4 44" fill="none" stroke="#1e7a3c" stroke-width="3"/></svg>
-  </div>
-  <div class="weed" style="left:68px; animation-duration:3.5s; animation-delay:0.5s;">
-    <svg width="18" height="90" viewBox="0 0 18 90"><path d="M9 90 Q15 70 6 52 Q0 35 11 18 Q16 6 9 0" fill="none" stroke="#2a9a4a" stroke-width="3.5" stroke-linecap="round"/></svg>
-  </div>
-  <div class="weed" style="left:650px; animation-duration:3.2s; animation-delay:1s;">
-    <svg width="22" height="110" viewBox="0 0 22 110"><path d="M11 110 Q18 88 7 68 Q1 48 13 28 Q19 10 11 0" fill="none" stroke="#1a7a3a" stroke-width="4" stroke-linecap="round"/><path d="M11 90 Q22 76 18 60" fill="none" stroke="#228b44" stroke-width="3"/></svg>
-  </div>
-  <div class="weed" style="left:700px; animation-duration:2.6s; animation-delay:0.3s;">
-    <svg width="16" height="80" viewBox="0 0 16 80"><path d="M8 80 Q14 60 5 44 Q-1 28 10 12 Q14 4 8 0" fill="none" stroke="#2a9a4a" stroke-width="3" stroke-linecap="round"/></svg>
-  </div>
-  <div class="weed" style="left:360px; animation-duration:4s; animation-delay:1.5s;">
-    <svg width="20" height="100" viewBox="0 0 20 100"><path d="M10 100 Q17 78 7 60 Q0 42 12 22 Q18 8 10 0" fill="none" stroke="#1d8040" stroke-width="3.5" stroke-linecap="round"/></svg>
-  </div>
+<div id="tank">
+  <canvas id="caustics"></canvas>
+  <div id="surface"></div>
+  <canvas id="fish-layer"></canvas>
+  <div id="bottom"></div>
+  <div id="hint">👆 Кликни на рыбку или камушек</div>
 </div>
 
-<!-- Modal -->
-<div class="modal-overlay" id="modal">
-  <div class="modal">
-    <span class="modal-emoji" id="modal-emoji">🐠</span>
-    <div class="fish-name" id="modal-fish">Золотая рыбка говорит:</div>
+<!-- MODAL -->
+<div id="overlay">
+  <div id="modal">
     <h2>Хочешь сайт <span>лучше этого?</span></h2>
-    <p>Аквариум — красиво. Но твой бизнес заслуживает сайта, который работает на тебя 24/7. Современный дизайн, быстрая загрузка, AI-чат-боты и автоматизация.</p>
-    <button class="modal-btn" onclick="window.open('https://alsat.asia','_blank')">🚀 Обсудить проект на alsat.asia</button>
-    <button class="modal-close" onclick="closeModal()">Нет, я доволен обычным сайтом</button>
+    <p class="sub">Выбери тип — покажем примеры и обсудим проект</p>
+    <div class="sites-grid">
+      <div class="site-card" onclick="goSite('Интернет-магазин')">
+        <div class="icon">🛒</div>
+        <h3>Интернет-магазин</h3>
+        <p>Каталог, корзина, оплата, доставка. Продавайте онлайн 24/7</p>
+        <div class="price">от $800</div>
+      </div>
+      <div class="site-card" onclick="goSite('Лендинг')">
+        <div class="icon">🚀</div>
+        <h3>Лендинг</h3>
+        <p>Одна страница — максимум конверсий. Быстро, красиво, убедительно</p>
+        <div class="price">от $300</div>
+      </div>
+      <div class="site-card" onclick="goSite('Корпоративный сайт')">
+        <div class="icon">🏢</div>
+        <h3>Корпоративный сайт</h3>
+        <p>Презентация компании, услуги, команда, новости, контакты</p>
+        <div class="price">от $500</div>
+      </div>
+      <div class="site-card" onclick="goSite('AI чат-бот')">
+        <div class="icon">🤖</div>
+        <h3>Сайт + AI бот</h3>
+        <p>Умный чат-бот на сайте отвечает клиентам вместо менеджера</p>
+        <div class="price">от $600</div>
+      </div>
+      <div class="site-card" onclick="goSite('Доска объявлений')">
+        <div class="icon">📋</div>
+        <h3>Доска объявлений</h3>
+        <p>Маркетплейс, объявления, регистрация, фильтры — как alsat.asia</p>
+        <div class="price">от $1200</div>
+      </div>
+      <div class="site-card" onclick="goSite('Портфолио')">
+        <div class="icon">🎨</div>
+        <h3>Портфолио / блог</h3>
+        <p>Личный бренд, кейсы, статьи. Стильно и запоминается</p>
+        <div class="price">от $250</div>
+      </div>
+    </div>
+    <button class="cta-btn" onclick="window.open('https://alsat.asia','_blank')">📩 Написать на alsat.asia</button>
+    <button class="close-btn" onclick="closeModal()">Закрыть</button>
   </div>
 </div>
 
 <script>
-const aquarium = document.getElementById('aquarium');
-const W = 820, H = 520;
+// ══════════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════════
+const W = () => window.innerWidth;
+const H = () => window.innerHeight;
 
-// Water & caustics
-const canvas = document.getElementById('water');
-canvas.width = W; canvas.height = H;
-const ctx = canvas.getContext('2d');
+// ── Caustics ─────────────────────────────────
+const caus = document.getElementById('caustics');
+const cctx = caus.getContext('2d');
+function resizeCaustics() { caus.width = W(); caus.height = H(); }
+resizeCaustics();
+window.addEventListener('resize', resizeCaustics);
 
-function drawWater(t) {
-  const grad = ctx.createLinearGradient(0, 0, 0, H);
-  grad.addColorStop(0,   '#0a2a5a');
-  grad.addColorStop(0.3, '#0d3a7a');
-  grad.addColorStop(0.7, '#0a2855');
-  grad.addColorStop(1,   '#050e20');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, W, H);
-
-  ctx.save();
-  for (let i = 0; i < 14; i++) {
-    const x = (i / 14) * W + Math.sin(t * 0.4 + i) * 30;
-    const w = 8 + Math.sin(t * 0.6 + i * 1.3) * 5;
-    const g = ctx.createLinearGradient(0, 0, 0, H * 0.7);
-    g.addColorStop(0, `rgba(100,180,255,${0.04 + Math.sin(t*0.5+i)*0.02})`);
-    g.addColorStop(1, 'rgba(100,180,255,0)');
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.moveTo(x - w, 0); ctx.lineTo(x + w, 0);
-    ctx.lineTo(x + w * 2, H * 0.7); ctx.lineTo(x - w * 2, H * 0.7);
-    ctx.closePath(); ctx.fill();
+function drawCaustics(t) {
+  const w = W(), h = H();
+  cctx.clearRect(0,0,w,h);
+  // Light rays from above
+  for (let i=0; i<18; i++) {
+    const x = (i/18)*w + Math.sin(t*.35+i*.7)*45;
+    const bw = 10+Math.sin(t*.5+i*1.2)*7;
+    const g = cctx.createLinearGradient(0,0,0,h*.75);
+    g.addColorStop(0,`rgba(120,200,255,${.035+Math.sin(t*.4+i)*.015})`);
+    g.addColorStop(1,'rgba(80,160,255,0)');
+    cctx.fillStyle=g;
+    cctx.beginPath();
+    cctx.moveTo(x-bw,0); cctx.lineTo(x+bw,0);
+    cctx.lineTo(x+bw*2.5,h*.75); cctx.lineTo(x-bw*2.5,h*.75);
+    cctx.fill();
   }
-  ctx.restore();
-
-  ctx.save();
-  for (let i = 0; i < 6; i++) {
-    const y = 4 + Math.sin(t * 1.2 + i * 1.1) * 3;
-    const g = ctx.createLinearGradient(0, 0, W, 0);
-    g.addColorStop(0, 'rgba(150,210,255,0)');
-    g.addColorStop(0.3 + Math.sin(t+i)*0.1, `rgba(180,230,255,0.08)`);
-    g.addColorStop(1, 'rgba(150,210,255,0)');
-    ctx.fillStyle = g;
-    ctx.fillRect(0, y + i*4, W, 2);
+  // Shimmer patches
+  for (let i=0; i<8; i++) {
+    const px = ((t*30+i*180)%w);
+    const py = 30+Math.sin(t+i*2)*20;
+    const r = 15+Math.sin(t*2+i)*8;
+    const g = cctx.createRadialGradient(px,py,0,px,py,r);
+    g.addColorStop(0,`rgba(180,230,255,.06)`);
+    g.addColorStop(1,'rgba(0,0,0,0)');
+    cctx.fillStyle=g;
+    cctx.beginPath(); cctx.arc(px,py,r,0,Math.PI*2); cctx.fill();
   }
-  ctx.restore();
 }
 
-// Bubbles
-function makeBubble() {
-  const b = document.createElement('div');
-  b.className = 'bubble';
-  const size = 3 + Math.random() * 8;
-  b.style.cssText = `width:${size}px;height:${size}px;left:${20+Math.random()*(W-40)}px;bottom:${70+Math.random()*50}px;--drift:${(Math.random()-0.5)*40}px;animation-duration:${4+Math.random()*5}s;animation-delay:${Math.random()*6}s;`;
-  aquarium.appendChild(b);
-  setTimeout(() => b.remove(), 12000);
-}
-setInterval(makeBubble, 700);
-for(let i=0;i<8;i++) makeBubble();
-
-// Fish
-const FISH_DATA = [
-  { name:'Золотая рыбка',    emoji:'🐠', color1:'#ff9900', color2:'#ffcc44', fin:'#ff6600', scale:'#ffaa22', size:1.0,  y:130, speed:1.2 },
-  { name:'Синяя рыбка',      emoji:'🐟', color1:'#1166dd', color2:'#44aaff', fin:'#0044cc', scale:'#2288ff', size:0.85, y:220, speed:0.9 },
-  { name:'Тропическая рыба', emoji:'🐡', color1:'#ff4488', color2:'#ff88bb', fin:'#cc2266', scale:'#ff66aa', size:1.1,  y:170, speed:0.7 },
-  { name:'Изумрудная рыбка', emoji:'🦈', color1:'#22aa66', color2:'#44dd88', fin:'#118844', scale:'#33cc77', size:0.9,  y:300, speed:1.4 },
-  { name:'Фиолетовая рыба',  emoji:'🐠', color1:'#8833dd', color2:'#bb66ff', fin:'#6622bb', scale:'#9944ee', size:0.95, y:260, speed:0.8 },
-  { name:'Белая рыба',       emoji:'🐟', color1:'#aaccff', color2:'#ddeeff', fin:'#88aadd', scale:'#bbddff', size:0.75, y:180, speed:1.5 },
+// ── Seaweed ───────────────────────────────────
+const WEEDS = [
+  {x:.06,h:170,c:'#1a7a3a',w:5},{x:.09,h:120,c:'#229944',w:4},
+  {x:.18,h:140,c:'#1d8040',w:4},{x:.42,h:160,c:'#168038',w:5},
+  {x:.44,h:100,c:'#22aa4a',w:3},{x:.68,h:150,c:'#1a7a3a',w:4},
+  {x:.72,h:110,c:'#2a9a4a',w:3},{x:.88,h:130,c:'#1d8040',w:4},
+  {x:.91,h:90, c:'#20a045',w:3},
 ];
 
-function fishSVG(d, flip) {
-  const s = d.size * 70, sh = d.size * 40;
-  return `<svg width="${s}" height="${sh}" viewBox="0 0 70 40" style="transform:scaleX(${flip?-1:1})">
-    <polygon points="62,10 70,2 70,38 62,30 66,20" fill="${d.fin}" opacity="0.9"/>
-    <ellipse cx="32" cy="20" rx="32" ry="16" fill="${d.color1}"/>
-    <ellipse cx="28" cy="24" rx="22" ry="10" fill="${d.color2}" opacity="0.6"/>
-    <ellipse cx="22" cy="16" rx="9" ry="6" fill="${d.scale}" opacity="0.3"/>
-    <ellipse cx="34" cy="14" rx="8" ry="5" fill="${d.scale}" opacity="0.25"/>
-    <path d="M20,4 Q30,-6 44,4" fill="${d.fin}" opacity="0.85"/>
-    <circle cx="10" cy="17" r="5" fill="white"/>
-    <circle cx="9" cy="17" r="3" fill="#111"/>
-    <circle cx="8" cy="16" r="1" fill="white"/>
-    <path d="M2,20 Q5,22 4,24" fill="none" stroke="${d.fin}" stroke-width="1.2" stroke-linecap="round"/>
+function createWeed(wd) {
+  const el = document.createElement('div');
+  el.className='weed';
+  const bx = wd.x*100;
+  el.style.cssText=`left:${bx}%;animation:sway${Math.floor(Math.random()*3)} ${2.5+Math.random()*2}s ${Math.random()*2}s ease-in-out infinite;`;
+  const segs=5;
+  let path=`M${wd.w/2} ${wd.h}`;
+  for(let i=segs;i>=0;i--){
+    const y=(i/segs)*wd.h;
+    const ox=Math.sin(i*.8)*14;
+    path+=` Q${wd.w/2+ox+10} ${y+wd.h/segs/2} ${wd.w/2+ox} ${y}`;
+  }
+  const svg=`<svg width="${wd.w*3}" height="${wd.h}" viewBox="0 0 ${wd.w*3} ${wd.h}" style="overflow:visible">
+    <path d="${path}" fill="none" stroke="${wd.c}" stroke-width="${wd.w}" stroke-linecap="round"/>
   </svg>`;
+  el.innerHTML=svg;
+  return el;
 }
 
-const fishEls = FISH_DATA.map((d, i) => {
-  const el = document.createElement('div');
-  el.className = 'fish';
-  el.innerHTML = fishSVG(d, false);
-  el.style.top = d.y + 'px';
-  el.title = d.name;
-  el.onclick = () => openModal(d.emoji, d.name);
-  aquarium.appendChild(el);
-  return { el, d, flip: false, t: Math.random() * 100 };
-});
+const tank=document.getElementById('tank');
+// Inject sway keyframes
+const style=document.createElement('style');
+style.textContent=`
+@keyframes sway0{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(10deg)}}
+@keyframes sway1{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(13deg)}}
+@keyframes sway2{0%,100%{transform:rotate(-13deg)}50%{transform:rotate(7deg)}}
+`;
+document.head.appendChild(style);
+WEEDS.forEach(w=>tank.appendChild(createWeed(w)));
 
-// Stones
-const STONES = [
-  { x:90,  w:60, h:38, rx:28, ry:18, c1:'#5a5a6a', c2:'#7a7a8a', label:'🪨', name:'Серый валун' },
-  { x:200, w:44, h:28, rx:20, ry:13, c1:'#6a5a4a', c2:'#8a7a6a', label:'🪨', name:'Коричневый камень' },
-  { x:310, w:75, h:44, rx:36, ry:20, c1:'#4a6a5a', c2:'#6a8a7a', label:'🗿', name:'Мшистый булыжник' },
-  { x:430, w:50, h:32, rx:24, ry:15, c1:'#5a6a7a', c2:'#7a8a9a', label:'🪨', name:'Голубой сланец' },
-  { x:550, w:66, h:40, rx:30, ry:18, c1:'#7a6a5a', c2:'#9a8a7a', label:'🪨', name:'Песчаник' },
-  { x:670, w:42, h:26, rx:20, ry:12, c1:'#6a5a6a', c2:'#8a7a8a', label:'💎', name:'Кристалл' },
-  { x:750, w:55, h:35, rx:26, ry:16, c1:'#4a5a6a', c2:'#6a7a8a', label:'🪨', name:'Базальт' },
+// ── Stones ─────────────────────────────────────
+const STONE_DATA = [
+  {x:.05,size:90,c1:'#555566',c2:'#7a7a8a',flat:.45},
+  {x:.14,size:60,c1:'#6a5a4a',c2:'#8a7060',flat:.55},
+  {x:.28,size:110,c1:'#4a6555',c2:'#6a8570',flat:.40},
+  {x:.38,size:70,c1:'#5a6575',c2:'#7a859a',flat:.50},
+  {x:.52,size:95,c1:'#6a5a3a',c2:'#907055',flat:.45},
+  {x:.63,size:75,c1:'#656070',c2:'#858090',flat:.52},
+  {x:.75,size:105,c1:'#4a5560',c2:'#6a7580',flat:.42},
+  {x:.84,size:65,c1:'#706050',c2:'#907870',flat:.50},
+  {x:.93,size:80,c1:'#505a6a',c2:'#707a8a',flat:.48},
 ];
 
-STONES.forEach(s => {
+function createStone(sd, idx) {
+  const w = sd.size, h = sd.size * sd.flat;
   const el = document.createElement('div');
-  el.className = 'stone';
-  el.style.left = s.x + 'px';
-  el.innerHTML = `<svg width="${s.w}" height="${s.h}" viewBox="0 0 ${s.w} ${s.h}">
-    <defs><radialGradient id="sg${s.x}" cx="40%" cy="35%">
-      <stop offset="0%" stop-color="${s.c2}"/>
-      <stop offset="100%" stop-color="${s.c1}"/>
-    </radialGradient></defs>
-    <ellipse cx="${s.w/2}" cy="${s.h/2+2}" rx="${s.rx}" ry="${s.ry}" fill="rgba(0,0,0,0.3)"/>
-    <ellipse cx="${s.w/2}" cy="${s.h/2}" rx="${s.rx}" ry="${s.ry}" fill="url(#sg${s.x})"/>
-    <ellipse cx="${s.w/2-s.rx*0.2}" cy="${s.h/2-s.ry*0.2}" rx="${s.rx*0.5}" ry="${s.ry*0.4}" fill="rgba(255,255,255,0.08)"/>
+  el.className='stone';
+  el.style.left=(sd.x*100)+'%';
+  const id=`sg${idx}`;
+  el.innerHTML=`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="overflow:visible">
+    <defs>
+      <radialGradient id="${id}" cx="38%" cy="30%" r="65%">
+        <stop offset="0%" stop-color="${sd.c2}"/>
+        <stop offset="100%" stop-color="${sd.c1}"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="${w/2+3}" cy="${h/2+4}" rx="${w*.48}" ry="${h*.44}" fill="rgba(0,0,0,.35)"/>
+    <ellipse cx="${w/2}" cy="${h/2}" rx="${w*.48}" ry="${h*.44}" fill="url(#${id})"/>
+    <ellipse cx="${w*.35}" cy="${h*.3}" rx="${w*.25}" ry="${h*.2}" fill="rgba(255,255,255,.09)"/>
+    <ellipse cx="${w*.55}" cy="${h*.65}" rx="${w*.12}" ry="${h*.09}" fill="rgba(0,0,0,.12)"/>
   </svg>`;
-  el.title = s.name;
-  el.onclick = () => openModal(s.label, s.name);
-  aquarium.appendChild(el);
+  el.onclick=()=>openModal(el);
+  return el;
+}
+STONE_DATA.forEach((s,i)=>tank.appendChild(createStone(s,i)));
+
+// ── Bubbles ─────────────────────────────────────
+function spawnBubble(x,y) {
+  const b=document.createElement('div'); b.className='bubble';
+  const sz=2+Math.random()*7;
+  const dur=3+Math.random()*5;
+  b.style.cssText=`width:${sz}px;height:${sz}px;left:${x||Math.random()*100}%;bottom:${y||100+Math.random()*60}px;--drift:${(Math.random()-.5)*50}px;animation-duration:${dur}s;animation-delay:${Math.random()*3}s;`;
+  tank.appendChild(b);
+  setTimeout(()=>b.remove(),(dur+3)*1000);
+}
+setInterval(()=>spawnBubble(),600);
+for(let i=0;i<12;i++) spawnBubble();
+
+// ══════════════════════════════════════════════
+// FISH — canvas-based, realistic direction
+// ══════════════════════════════════════════════
+const fc = document.getElementById('fish-layer');
+const fctx = fc.getContext('2d');
+function resizeFish(){ fc.width=W(); fc.height=H(); }
+resizeFish();
+window.addEventListener('resize', resizeFish);
+
+// Hit areas (invisible divs over fish)
+const hitLayer = document.createElement('div');
+hitLayer.style.cssText='position:absolute;inset:0;z-index:9;pointer-events:none;';
+tank.appendChild(hitLayer);
+
+const FISH_TYPES = [
+  { name:'Золотая рыбка',   body:'#ff9900', belly:'#ffdd66', fin:'#e06000', tail:'#cc5500', eye:'#1a0a00', size:55 },
+  { name:'Синяя рыбка',     body:'#1a7acc', belly:'#66c0ff', fin:'#0055aa', tail:'#003d99', eye:'#001133', size:45 },
+  { name:'Тропическая рыба',body:'#ee3388', belly:'#ff99cc', fin:'#aa1166', tail:'#880044', eye:'#220011', size:50 },
+  { name:'Изумрудная рыба', body:'#22aa55', belly:'#66ee99', fin:'#117733', tail:'#0a5522', eye:'#001100', size:48 },
+  { name:'Фиолетовая рыба', body:'#8833cc', belly:'#cc88ff', fin:'#5511aa', tail:'#3d0088', eye:'#110022', size:44 },
+  { name:'Серебряная рыба', body:'#8899bb', belly:'#ccd8ee', fin:'#5566aa', tail:'#334466', eye:'#111122', size:42 },
+  { name:'Огненная рыба',   body:'#ff4400', belly:'#ffaa44', fin:'#cc2200', tail:'#991100', eye:'#1a0500', size:52 },
+];
+
+// Each fish has independent sinusoidal path
+const FISH = FISH_TYPES.map((type, i) => ({
+  ...type,
+  x: Math.random() * 0.7 + 0.1,      // 0..1 of W
+  y: 0.12 + Math.random() * 0.5,      // 0..1 of H (avoid bottom sand)
+  vx: (Math.random() > .5 ? 1 : -1) * (.6 + Math.random() * .6),
+  vy: 0,
+  phase: Math.random() * Math.PI * 2,
+  tailPhase: Math.random() * Math.PI * 2,
+  wobble: .2 + Math.random() * .3,
+  hit: null,  // assigned below
+}));
+
+// Create hit divs
+FISH.forEach((f,i) => {
+  const hit = document.createElement('div');
+  hit.style.cssText=`position:absolute;pointer-events:all;cursor:pointer;width:${f.size*1.4}px;height:${f.size*.7}px;border-radius:50%;`;
+  hit.title = f.name;
+  hit.onclick = () => openModal(hit);
+  hitLayer.appendChild(hit);
+  f.hit = hit;
 });
 
-// Modal
-function openModal(emoji, name) {
-  document.getElementById('modal-emoji').textContent = emoji;
-  document.getElementById('modal-fish').textContent = name + ' говорит:';
-  document.getElementById('modal').classList.add('show');
+function drawFish(f, t) {
+  const w = W(), h = H();
+  const px = f.x * w;
+  const py = f.y * h;
+  const s = f.size;
+  const facing = f.vx >= 0 ? 1 : -1; // 1=right, -1=left
+
+  fctx.save();
+  fctx.translate(px, py);
+  fctx.scale(facing, 1);
+
+  // Tail wag
+  const tailWag = Math.sin(t * 4 + f.tailPhase) * 0.35;
+
+  // Body (ellipse)
+  fctx.save();
+  fctx.beginPath();
+  fctx.ellipse(0, 0, s*.55, s*.28, 0, 0, Math.PI*2);
+  const bodyG = fctx.createRadialGradient(-s*.1,-s*.1,0,0,0,s*.55);
+  bodyG.addColorStop(0, f.belly);
+  bodyG.addColorStop(1, f.body);
+  fctx.fillStyle = bodyG;
+  fctx.fill();
+  fctx.restore();
+
+  // Tail (triangle, wagging)
+  fctx.save();
+  fctx.translate(s*.5, 0);
+  fctx.rotate(tailWag);
+  fctx.beginPath();
+  fctx.moveTo(0, 0);
+  fctx.lineTo(s*.4, -s*.3);
+  fctx.lineTo(s*.35, 0);
+  fctx.lineTo(s*.4, s*.3);
+  fctx.closePath();
+  fctx.fillStyle = f.tail;
+  fctx.fill();
+  fctx.restore();
+
+  // Dorsal fin
+  fctx.save();
+  fctx.beginPath();
+  fctx.moveTo(-s*.05, -s*.28);
+  fctx.quadraticCurveTo(s*.1, -s*.52, s*.3, -s*.3);
+  fctx.quadraticCurveTo(s*.2, -s*.28, -s*.05, -s*.28);
+  fctx.fillStyle = f.fin + 'cc';
+  fctx.fill();
+  fctx.restore();
+
+  // Pectoral fin
+  fctx.save();
+  fctx.beginPath();
+  fctx.moveTo(-s*.05, s*.05);
+  fctx.quadraticCurveTo(s*.08, s*.35, s*.22, s*.3);
+  fctx.quadraticCurveTo(s*.12, s*.1, -s*.05, s*.05);
+  fctx.fillStyle = f.fin + 'aa';
+  fctx.fill();
+  fctx.restore();
+
+  // Eye white
+  fctx.beginPath();
+  fctx.arc(-s*.3, -s*.06, s*.1, 0, Math.PI*2);
+  fctx.fillStyle='rgba(255,255,255,.9)';
+  fctx.fill();
+  // Pupil
+  fctx.beginPath();
+  fctx.arc(-s*.28, -s*.06, s*.055, 0, Math.PI*2);
+  fctx.fillStyle = f.eye;
+  fctx.fill();
+  // Eye shine
+  fctx.beginPath();
+  fctx.arc(-s*.31, -s*.09, s*.022, 0, Math.PI*2);
+  fctx.fillStyle='rgba(255,255,255,.8)';
+  fctx.fill();
+
+  // Mouth
+  fctx.beginPath();
+  fctx.moveTo(-s*.52, s*.03);
+  fctx.quadraticCurveTo(-s*.56, s*.08, -s*.52, s*.13);
+  fctx.strokeStyle = f.fin;
+  fctx.lineWidth = 1.5;
+  fctx.stroke();
+
+  // Scale lines (subtle)
+  fctx.globalAlpha=.15;
+  for(let sc=0;sc<3;sc++){
+    const sx = -s*.1 + sc*s*.15;
+    fctx.beginPath();
+    fctx.arc(sx, 0, s*.18, .3, Math.PI-.3);
+    fctx.strokeStyle='#fff';
+    fctx.lineWidth=1;
+    fctx.stroke();
+  }
+  fctx.globalAlpha=1;
+
+  fctx.restore();
+
+  // Update hit div
+  if(f.hit) {
+    f.hit.style.left = (px - f.size*.7*(facing>0?1:0.3)) + 'px';
+    f.hit.style.top  = (py - f.size*.35) + 'px';
+  }
+}
+
+// ── Animation loop ────────────────────────────
+let T = 0;
+function loop() {
+  const w=W(), h=H();
+  T += 0.016;
+  drawCaustics(T);
+  fctx.clearRect(0,0,w,h);
+
+  // Depth shadow under fish
+  FISH.forEach(f => {
+    const px=f.x*w, py=f.y*h;
+    const sh=fctx.createRadialGradient(px,h-115,0,px,h-115,f.size*.7);
+    sh.addColorStop(0,'rgba(0,0,0,.25)');
+    sh.addColorStop(1,'rgba(0,0,0,0)');
+    fctx.fillStyle=sh;
+    fctx.beginPath();
+    fctx.ellipse(px,h-115,f.size*.7,f.size*.2,0,0,Math.PI*2);
+    fctx.fill();
+  });
+
+  // Draw fish
+  FISH.forEach(f => {
+    const w=W(), h=H();
+    // Sinusoidal vertical drift
+    f.vy = Math.sin(T*0.5 + f.phase) * .4;
+    f.x += f.vx * 0.004;
+    f.y += f.vy * 0.003;
+
+    // Bounce off walls (with margin)
+    if(f.x < .04){ f.x=.04; f.vx=Math.abs(f.vx); }
+    if(f.x > .96){ f.x=.96; f.vx=-Math.abs(f.vx); }
+    // Stay out of sand
+    const maxY = (h-130)/h;
+    if(f.y<.07){ f.y=.07; }
+    if(f.y>maxY){ f.y=maxY; }
+
+    drawFish(f, T);
+  });
+
+  requestAnimationFrame(loop);
+}
+loop();
+
+// ── Modal ──────────────────────────────────────
+function openModal(el) {
+  document.getElementById('overlay').classList.add('on');
 }
 function closeModal() {
-  document.getElementById('modal').classList.remove('show');
+  document.getElementById('overlay').classList.remove('on');
 }
-document.getElementById('modal').addEventListener('click', e => {
-  if (e.target === e.currentTarget) closeModal();
+function goSite(type) {
+  window.open('https://alsat.asia','_blank');
+}
+document.getElementById('overlay').addEventListener('click', e=>{
+  if(e.target===e.currentTarget) closeModal();
 });
-
-// Animation
-let t = 0;
-function animate() {
-  t += 0.016;
-  drawWater(t);
-  fishEls.forEach((f, i) => {
-    f.t += f.d.speed * 0.012;
-    const yOffset = Math.sin(f.t * 0.7 + i) * 30;
-    const xRange = W - 140;
-    const xPos = ((f.t * 80 * f.d.speed) % (xRange * 2));
-    const x = xPos > xRange ? (xRange * 2 - xPos) : xPos;
-    const goRight = xPos <= xRange;
-    if (goRight !== !f.flip) {
-      f.flip = !goRight;
-      f.el.innerHTML = fishSVG(f.d, f.flip);
-    }
-    f.el.style.left = (x + 40) + 'px';
-    f.el.style.top  = (f.d.y + yOffset) + 'px';
-  });
-  requestAnimationFrame(animate);
-}
-animate();
 </script>
 </body>
 </html>
