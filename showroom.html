@@ -240,12 +240,49 @@ textarea{width:100%;min-height:90px;resize:vertical;margin-bottom:14px}
     <div class="scene-hint">👆 Кликни на юрту, дрон или солнечную панель</div>
   </div>
 
+  <!-- ══ SCENE 5: LIVE SITE ══ -->
+  <div id="scene-live" class="scene">
+    <div id="live-frame-wrap" style="position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;">
+      <!-- top bar -->
+      <div style="height:44px;background:rgba(10,15,30,.95);display:flex;align-items:center;padding:0 18px;gap:12px;border-bottom:1px solid rgba(56,182,255,.2);flex-shrink:0;z-index:3;">
+        <div style="display:flex;gap:6px;">
+          <span style="width:12px;height:12px;border-radius:50%;background:#ff5f56;display:block;"></span>
+          <span style="width:12px;height:12px;border-radius:50%;background:#ffbd2e;display:block;"></span>
+          <span style="width:12px;height:12px;border-radius:50%;background:#27c93f;display:block;"></span>
+        </div>
+        <div style="flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(56,182,255,.2);border-radius:8px;padding:4px 14px;color:rgba(150,200,255,.8);font-size:13px;letter-spacing:.3px;">🔒 alsat.asia</div>
+        <a href="https://alsat.asia" target="_blank" style="color:rgba(56,182,255,.8);font-size:12px;text-decoration:none;white-space:nowrap;padding:4px 12px;border:1px solid rgba(56,182,255,.3);border-radius:20px;transition:all .2s;" onmouseover="this.style.background='rgba(56,182,255,.1)'" onmouseout="this.style.background='transparent'">↗ Открыть</a>
+      </div>
+      <!-- iframe -->
+      <iframe
+        id="live-iframe"
+        src="https://alsat.asia"
+        style="flex:1;border:none;width:100%;"
+        allow="same-origin"
+        title="alsat.asia — действующий сайт">
+      </iframe>
+      <!-- iframe blocked fallback (hidden by default) -->
+      <div id="live-fallback" style="display:none;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:24px;background:radial-gradient(ellipse at center,#0d2040 0%,#050f1f 100%);">
+        <div style="font-size:72px;">🌐</div>
+        <div style="color:#fff;font-size:24px;font-weight:bold;">alsat.asia</div>
+        <div style="color:rgba(150,200,255,.7);font-size:14px;text-align:center;max-width:360px;line-height:1.7;">Сайт бесплатных объявлений Казахстана.<br>Маркетплейс, AI чат-бот, мультирегиональный охват.</div>
+        <a href="https://alsat.asia" target="_blank" style="padding:14px 36px;background:linear-gradient(135deg,#0077ff,#00c3ff);color:#fff;border-radius:50px;text-decoration:none;font-size:16px;font-weight:bold;box-shadow:0 4px 24px rgba(0,120,255,.4);">🚀 Открыть сайт</a>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+          <button onclick="openPanel('sites')" style="padding:10px 20px;background:rgba(255,255,255,.07);border:1px solid rgba(56,182,255,.3);color:rgba(150,200,255,.9);border-radius:30px;cursor:pointer;font-size:13px;">🌐 Создание сайтов</button>
+          <button onclick="openPanel('domains')" style="padding:10px 20px;background:rgba(255,255,255,.07);border:1px solid rgba(56,182,255,.3);color:rgba(150,200,255,.9);border-radius:30px;cursor:pointer;font-size:13px;">🌍 Домены</button>
+          <button onclick="openPanel('order')" style="padding:10px 20px;background:rgba(255,255,255,.07);border:1px solid rgba(56,182,255,.3);color:rgba(150,200,255,.9);border-radius:30px;cursor:pointer;font-size:13px;">✉️ Заявка</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ NAVIGATION ══ -->
   <nav id="nav">
     <button class="nav-btn active" data-scene="aquarium"><span class="icon">🐠</span>Аквариум</button>
     <button class="nav-btn" data-scene="space"><span class="icon">🚀</span>Космос</button>
     <button class="nav-btn" data-scene="city"><span class="icon">🌆</span>Неон-сити</button>
     <button class="nav-btn" data-scene="steppe"><span class="icon">🌾</span>Степь</button>
+    <button class="nav-btn" data-scene="live"><span class="icon">🌐</span>alsat.asia</button>
   </nav>
 </div>
 
@@ -430,7 +467,7 @@ textarea{width:100%;min-height:90px;resize:vertical;margin-bottom:14px}
 // ══════════════════════════════════════════════
 // SCENE MANAGER
 // ══════════════════════════════════════════════
-const scenes = ['aquarium','space','city','steppe'];
+const scenes = ['aquarium','space','city','steppe','live'];
 let currentScene = 'aquarium';
 let animFrames = {};
 
@@ -445,6 +482,25 @@ function switchScene(name) {
 document.querySelectorAll('.nav-btn').forEach(b=>{
   b.addEventListener('click',()=>switchScene(b.dataset.scene));
 });
+
+// Iframe fallback: if alsat.asia blocks embedding, show the fallback div
+const liveIframe = document.getElementById('live-iframe');
+const liveFallback = document.getElementById('live-fallback');
+liveIframe.addEventListener('error', () => {
+  liveIframe.style.display='none';
+  liveFallback.style.display='flex';
+});
+// Also detect X-Frame-Options block via load timeout
+setTimeout(()=>{
+  try {
+    const loaded = liveIframe.contentDocument || liveIframe.contentWindow.document;
+    if(!loaded || loaded.readyState==='loading') return;
+  } catch(e) {
+    // Cross-origin blocked — show fallback
+    liveIframe.style.display='none';
+    liveFallback.style.display='flex';
+  }
+}, 3000);
 
 // ══════════════════════════════════════════════
 // PANEL SYSTEM
