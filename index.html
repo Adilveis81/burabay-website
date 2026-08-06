@@ -2,1089 +2,1121 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Алсат Межгород — попутчики и водители по Казахстану</title>
-<meta name="description" content="Алсат Межгород: найдите водителя или пассажира между городами Казахстана. Астана, Алматы, Бурабай, Кокшетау, Шымкент и другие маршруты.">
-<meta name="keywords" content="Алсат, межгород, попутчики Казахстан, такси межгород, Астана Алматы, Бурабай Астана, пассажиры, водители">
-<meta name="author" content="Alsat.Asia">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://alsat.asia/">
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#FF5C00">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://alsat.asia/">
-<meta property="og:title" content="Алсат Межгород">
-<meta property="og:description" content="Водители и пассажиры между городами Казахстана. Бесплатные объявления маршрутов.">
-<meta property="og:site_name" content="Алсат">
-<meta name="twitter:card" content="summary">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>alsat.asia — Интерактивный шоурум</title>
 <style>
-:root {
-  --bg: #0b1019;
-  --panel: #121b29;
-  --panel2: #182434;
-  --panel3: #213148;
-  --line: #28384f;
-  --text: #eef4ff;
-  --muted: #91a1b8;
-  --faint: #66758b;
-  --brand: #ff5c00;
-  --brand2: #ff9a3d;
-  --blue: #29b6f6;
-  --green: #20c76a;
-  --red: #ff5656;
-  --shadow: 0 18px 60px rgba(0,0,0,.35);
-  --radius: 8px;
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", system-ui, sans-serif;
-}
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at 80% -10%, rgba(255,92,0,.22), transparent 30%),
-    linear-gradient(180deg, #0b1019 0%, #0e1623 42%, #0b1019 100%);
-  color: var(--text);
-}
-a { color: inherit; }
-button, input, select, textarea { font: inherit; }
-button { cursor: pointer; }
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  min-height: 60px;
-  padding: 10px 18px;
-  background: rgba(11,16,25,.88);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255,255,255,.07);
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 900;
-  letter-spacing: .2px;
-  white-space: nowrap;
-}
-.brand-mark {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg, var(--brand), #ffbd73);
-  color: #101010;
-  box-shadow: 0 6px 18px rgba(255,92,0,.35);
-}
-.nav {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.nav a, .ghost-btn {
-  border: 1px solid rgba(255,255,255,.11);
-  background: rgba(255,255,255,.04);
-  color: var(--muted);
-  text-decoration: none;
-  border-radius: 8px;
-  padding: 8px 11px;
-  font-size: 13px;
-  white-space: nowrap;
-}
-.nav a:hover, .ghost-btn:hover { color: var(--text); border-color: rgba(255,92,0,.5); }
-.lang-switch {
-  display: flex;
-  gap: 5px;
-  padding: 4px;
-  border: 1px solid rgba(255,255,255,.09);
-  border-radius: 8px;
-  background: rgba(255,255,255,.04);
-}
-.lang-btn {
-  border: 0;
-  border-radius: 6px;
-  background: transparent;
-  color: var(--muted);
-  padding: 6px 8px;
-  font-size: 12px;
-  font-weight: 850;
-}
-.lang-btn.active {
-  background: var(--brand);
-  color: #111;
-}
-.primary-btn {
-  border: 0;
-  border-radius: 8px;
-  padding: 11px 14px;
-  background: linear-gradient(135deg, var(--brand), var(--brand2));
-  color: #101010;
-  font-weight: 850;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: 0 8px 22px rgba(255,92,0,.32);
-}
-.wrap {
-  width: min(1160px, calc(100% - 28px));
-  margin: 0 auto;
-}
-.hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr);
-  gap: 18px;
-  align-items: stretch;
-  padding: 34px 0 18px;
-}
-.hero-main, .search-panel, .stat-card, .section-panel {
-  background: rgba(18,27,41,.82);
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-.hero-main {
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 360px;
-}
-.eyebrow {
-  color: var(--brand2);
-  font-weight: 850;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: .7px;
-}
-h1 {
-  margin: 12px 0 12px;
-  font-size: clamp(34px, 5vw, 64px);
-  line-height: .95;
-  letter-spacing: 0;
-}
-.lead {
-  color: #c5d1e2;
-  font-size: 18px;
-  max-width: 720px;
-  line-height: 1.55;
-  margin: 0 0 20px;
-}
-.hero-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 6px;
-}
-.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-top: 28px;
-}
-.stat-card {
-  padding: 13px;
-  box-shadow: none;
-}
-.stat-num {
-  font-size: 22px;
-  font-weight: 900;
-}
-.stat-label {
-  color: var(--muted);
-  font-size: 12px;
-  margin-top: 2px;
-}
-.search-panel {
-  padding: 18px;
-}
-.panel-title {
-  font-size: 18px;
-  font-weight: 900;
-  margin: 0 0 12px;
-}
-.field-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.field label {
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 750;
-}
-.field input, .field select, .field textarea {
-  width: 100%;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(11,16,25,.75);
-  color: var(--text);
-  padding: 11px 12px;
-  outline: none;
-}
-.field textarea {
-  min-height: 84px;
-  resize: vertical;
-}
-.field input:focus, .field select:focus, .field textarea:focus {
-  border-color: var(--brand);
-}
-.filter-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 12px;
-}
-.muted-note {
-  color: var(--faint);
-  font-size: 12px;
-  line-height: 1.45;
-  margin-top: 12px;
-}
-.tabs {
-  display: flex;
-  gap: 8px;
-  margin: 18px 0 12px;
-  overflow-x: auto;
-}
-.tab {
-  border: 1px solid var(--line);
-  background: var(--panel);
-  color: var(--muted);
-  border-radius: 8px;
-  padding: 10px 13px;
-  font-weight: 850;
-  white-space: nowrap;
-}
-.tab.active {
-  background: var(--brand);
-  border-color: var(--brand);
-  color: #111;
-}
-.layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
-  gap: 18px;
-  align-items: start;
-  padding-bottom: 34px;
-}
-.section-panel {
-  padding: 16px;
-}
-.section-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-.section-head h2 {
-  margin: 0;
-  font-size: 20px;
-}
-.count {
-  color: var(--muted);
-  font-size: 13px;
-}
-.cards {
-  display: grid;
-  gap: 10px;
-}
-.route-card {
-  background: linear-gradient(135deg, rgba(33,49,72,.92), rgba(18,27,41,.92));
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 8px;
-  padding: 14px;
-}
-.route-card.passenger {
-  background: linear-gradient(135deg, rgba(20,51,71,.9), rgba(18,27,41,.92));
-}
-.route-top {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-}
-.route-cities {
-  font-size: 18px;
-  font-weight: 900;
-  line-height: 1.25;
-}
-.arrow { color: var(--brand2); }
-.passenger .arrow { color: var(--blue); }
-.route-meta {
-  color: var(--muted);
-  font-size: 13px;
-  margin-top: 5px;
-}
-.price {
-  text-align: right;
-  color: var(--brand2);
-  font-size: 20px;
-  font-weight: 900;
-  white-space: nowrap;
-}
-.price small {
-  display: block;
-  color: var(--faint);
-  font-size: 10px;
-  font-weight: 600;
-}
-.comment {
-  color: #c8d5e6;
-  font-size: 13px;
-  margin-top: 9px;
-  line-height: 1.45;
-}
-.badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 10px;
-}
-.badge {
-  border-radius: 6px;
-  background: rgba(255,255,255,.06);
-  color: var(--muted);
-  padding: 4px 8px;
-  font-size: 12px;
-}
-.actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
-}
-.contact {
-  flex: 1;
-  min-width: 0;
-  border-radius: 8px;
-  padding: 10px 8px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 850;
-  background: rgba(255,255,255,.07);
-}
-.contact.whatsapp { background: #25d366; color: #082512; }
-.contact.telegram { background: #229ed9; color: #fff; }
-.contact.call { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.1); }
-.side-stack {
-  display: grid;
-  gap: 12px;
-}
-.form-panel {
-  background: var(--panel);
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 8px;
-  padding: 16px;
-}
-.form-tabs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-.form-tab {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 9px;
-  background: var(--panel2);
-  color: var(--muted);
-  font-weight: 850;
-}
-.form-tab.active {
-  background: var(--brand);
-  color: #111;
-  border-color: var(--brand);
-}
-.form-grid {
-  display: grid;
-  gap: 10px;
-}
-.checks {
-  display: grid;
-  gap: 7px;
-}
-.check {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  color: var(--muted);
-  font-size: 13px;
-}
-.check a { color: var(--brand2); }
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin: 0 0 34px;
-}
-.info-card {
-  background: rgba(18,27,41,.82);
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 8px;
-  padding: 16px;
-}
-.info-card h3 {
-  margin: 0 0 8px;
-  font-size: 16px;
-}
-.info-card p, .info-card li {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.5;
-}
-.info-card ul {
-  margin: 8px 0 0;
-  padding-left: 18px;
-}
-.empty, .loading {
-  color: var(--muted);
-  text-align: center;
-  padding: 40px 16px;
-  border: 1px dashed var(--line);
-  border-radius: 8px;
-}
-.toast {
-  position: fixed;
-  z-index: 50;
-  left: 50%;
-  bottom: 18px;
-  transform: translateX(-50%) translateY(20px);
-  opacity: 0;
-  pointer-events: none;
-  background: #123726;
-  border: 1px solid var(--green);
-  color: #8ff0b8;
-  border-radius: 8px;
-  padding: 11px 14px;
-  font-size: 14px;
-  font-weight: 800;
-  transition: .2s;
-  box-shadow: var(--shadow);
-}
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-.toast.error { background: #3a1616; border-color: var(--red); color: #ffb0b0; }
-footer {
-  color: var(--faint);
-  font-size: 12px;
-  text-align: center;
-  padding: 18px 0 28px;
-}
-@media (max-width: 900px) {
-  .hero, .layout { grid-template-columns: 1fr; }
-  .info-grid { grid-template-columns: 1fr; }
-  .side-stack { order: -1; }
-}
-@media (max-width: 640px) {
-  .topbar { align-items: flex-start; flex-direction: column; }
-  .nav { margin-left: 0; width: 100%; overflow-x: auto; padding-bottom: 2px; }
-  .hero { padding-top: 18px; }
-  .hero-main { min-height: auto; padding: 20px; }
-  .hero-stats, .field-grid { grid-template-columns: 1fr; }
-  .filter-actions, .actions { flex-direction: column; }
-  .contact { width: 100%; }
-}
+/* ══════════════════════════════════════════════
+   BASE
+══════════════════════════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+/* ── Scene container ── */
+#app{position:relative;width:100vw;height:100vh;overflow:hidden}
+.scene{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .8s}
+.scene.active{opacity:1;pointer-events:all}
+
+/* ── Scene nav ── */
+#nav{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  z-index:50;display:flex;gap:12px;
+  background:rgba(0,0,0,.45);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.12);border-radius:50px;
+  padding:10px 18px;
+}
+.nav-btn{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:8px 14px;border-radius:40px;transition:background .2s,transform .15s;
+  color:rgba(255,255,255,.55);font-size:11px;letter-spacing:.5px;cursor:pointer;
+}
+.nav-btn .icon{font-size:22px;line-height:1}
+.nav-btn:hover{background:rgba(255,255,255,.1);transform:translateY(-2px);color:#fff}
+.nav-btn.active{background:rgba(255,255,255,.18);color:#fff}
+
+/* ── Canvas base ── */
+.bg-canvas{position:absolute;inset:0;width:100%;height:100%}
+
+/* ── Clickable object base ── */
+.obj{
+  position:absolute;cursor:pointer;z-index:10;
+  transition:filter .2s,transform .2s;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5));
+}
+.obj:hover{transform:scale(1.12) translateY(-6px);filter:drop-shadow(0 0 18px rgba(255,220,80,.8))}
+
+/* ── Object labels ── */
+.obj-label{
+  position:absolute;bottom:105%;left:50%;transform:translateX(-50%);
+  white-space:nowrap;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);
+  color:#fff;font-size:11px;padding:4px 10px;border-radius:20px;
+  opacity:0;transition:opacity .2s;pointer-events:none;border:1px solid rgba(255,255,255,.15);
+}
+.obj:hover .obj-label{opacity:1}
+
+/* ══════════════════════════════════════════════
+   SCENE 1 — AQUARIUM
+══════════════════════════════════════════════ */
+#scene-aquarium{background:linear-gradient(180deg,#041830 0%,#072848 30%,#083560 65%,#041c35 100%)}
+
+#aq-surface{position:absolute;top:0;left:0;right:0;height:20px;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,rgba(120,200,255,.18) 0%,transparent 100%)}
+#aq-sand{position:absolute;bottom:0;left:0;right:0;height:100px;z-index:4;pointer-events:none;
+  background:linear-gradient(180deg,#6b5010 0%,#a07820 40%,#c49a2a 70%,#b8901e 100%);border-radius:0}
+#aq-sand::before{content:'';position:absolute;top:0;left:0;right:0;height:28px;
+  background:radial-gradient(ellipse 80px 18px at 10% 50%,rgba(0,0,0,.2) 0%,transparent 70%),
+    radial-gradient(ellipse 60px 15px at 35% 60%,rgba(0,0,0,.15) 0%,transparent 70%),
+    radial-gradient(ellipse 90px 20px at 65% 45%,rgba(0,0,0,.2) 0%,transparent 70%),
+    radial-gradient(ellipse 50px 14px at 88% 55%,rgba(0,0,0,.15) 0%,transparent 70%)}
+
+.weed{position:absolute;bottom:92px;z-index:3;transform-origin:bottom center;pointer-events:none}
+.bubble{position:absolute;border-radius:50%;border:1px solid rgba(180,220,255,.35);
+  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.25),rgba(100,180,255,.05));
+  pointer-events:none;z-index:8;animation:bubble-rise linear forwards}
+@keyframes bubble-rise{0%{transform:translateY(0) translateX(0);opacity:.8}100%{transform:translateY(-120vh) translateX(var(--drift));opacity:0}}
+@keyframes sway-a{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(10deg)}}
+@keyframes sway-b{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(13deg)}}
+@keyframes sway-c{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(6deg)}}
+
+/* ══════════════════════════════════════════════
+   SCENE 2 — SPACE STATION
+══════════════════════════════════════════════ */
+#scene-space{background:radial-gradient(ellipse at 30% 40%,#1a0840 0%,#080014 40%,#000008 100%)}
+
+/* ══════════════════════════════════════════════
+   SCENE 3 — NEON CITY
+══════════════════════════════════════════════ */
+#scene-city{background:linear-gradient(180deg,#050010 0%,#0a001a 30%,#050008 100%)}
+#city-ground{position:absolute;bottom:0;left:0;right:0;height:80px;z-index:4;pointer-events:none;
+  background:linear-gradient(180deg,#0a0018 0%,#060012 100%)}
+#city-road{position:absolute;bottom:0;left:0;right:0;height:28px;z-index:5;pointer-events:none;
+  background:#0d0d1a;border-top:1px solid rgba(100,50,200,.3)}
+#city-road::after{content:'';position:absolute;top:50%;left:0;right:0;height:2px;
+  background:repeating-linear-gradient(90deg,rgba(255,220,0,.4) 0px,rgba(255,220,0,.4) 40px,transparent 40px,transparent 80px)}
+@keyframes rain-fall{0%{transform:translateY(-100%)}100%{transform:translateY(120vh)}}
+
+/* ══════════════════════════════════════════════
+   SCENE 4 — STEPPE
+══════════════════════════════════════════════ */
+#scene-steppe{background:linear-gradient(180deg,#050a1a 0%,#0a1428 20%,#0d1f38 50%,#142840 100%)}
+#steppe-ground{position:absolute;bottom:0;left:0;right:0;height:130px;z-index:4;pointer-events:none;
+  background:linear-gradient(180deg,#1a3a18 0%,#0f2a10 50%,#0a1f0a 100%)}
+#steppe-ground::before{content:'';position:absolute;top:0;left:0;right:0;height:30px;
+  background:repeating-linear-gradient(90deg,rgba(50,120,40,.15) 0px,rgba(50,120,40,.15) 2px,transparent 2px,transparent 8px)}
+@keyframes aurora{0%,100%{opacity:.3;transform:scaleX(1)}50%{opacity:.6;transform:scaleX(1.05)}}
+
+/* ══════════════════════════════════════════════
+   SERVICE PANELS
+══════════════════════════════════════════════ */
+#panel-overlay{
+  position:fixed;inset:0;z-index:100;
+  background:rgba(0,5,20,.88);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .35s;
+}
+#panel-overlay.on{opacity:1;pointer-events:all}
+
+.panel{
+  display:none;max-width:860px;width:92%;max-height:88vh;overflow-y:auto;
+  background:linear-gradient(135deg,#060f22 0%,#08182e 100%);
+  border:1px solid rgba(80,160,255,.25);border-radius:22px;
+  padding:44px 48px;transform:translateY(20px);transition:transform .35s;
+  box-shadow:0 0 80px rgba(0,80,200,.2),0 40px 80px rgba(0,0,0,.7);
+}
+#panel-overlay.on .panel.active{display:block;transform:translateY(0)}
+
+.panel h2{color:#fff;font-size:26px;margin-bottom:8px}
+.panel h2 .accent{color:#38b6ff}
+.panel .sub{color:rgba(180,210,255,.6);font-size:14px;margin-bottom:32px;line-height:1.6}
+
+/* Cards grid */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:32px}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(80,160,255,.2);border-radius:14px;padding:22px 18px;transition:border-color .2s,background .2s}
+.card:hover{background:rgba(56,182,255,.08);border-color:rgba(56,182,255,.4)}
+.card .ci{font-size:34px;margin-bottom:10px}
+.card h3{color:#fff;font-size:15px;margin-bottom:6px}
+.card p{color:rgba(180,210,255,.6);font-size:12px;line-height:1.6}
+.card .price{color:#38b6ff;font-size:14px;font-weight:bold;margin-top:10px}
+
+/* Process steps */
+.steps{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
+.step{display:flex;align-items:flex-start;gap:16px}
+.step .num{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#0077ff,#00c3ff);
+  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:15px;flex-shrink:0}
+.step .txt h4{color:#fff;font-size:14px;margin-bottom:4px}
+.step .txt p{color:rgba(180,210,255,.65);font-size:13px;line-height:1.5}
+
+/* Pricing table */
+.price-table{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:32px}
+.price-col{background:rgba(255,255,255,.04);border:1px solid rgba(80,160,255,.2);border-radius:14px;padding:24px 18px;text-align:center}
+.price-col.featured{border-color:rgba(56,182,255,.5);background:rgba(56,182,255,.07)}
+.price-col .tier{color:rgba(180,210,255,.7);font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.price-col .amount{color:#fff;font-size:28px;font-weight:bold;margin-bottom:4px}
+.price-col .amount span{font-size:14px;color:rgba(180,210,255,.6)}
+.price-col ul{list-style:none;color:rgba(180,210,255,.65);font-size:12px;line-height:1.8;text-align:left;margin-top:14px}
+.price-col ul li::before{content:'✓ ';color:#38b6ff}
+
+/* Case cards */
+.cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:32px}
+.case-card{border-radius:14px;overflow:hidden;cursor:pointer;border:1px solid rgba(80,160,255,.2);transition:transform .2s,border-color .2s}
+.case-card:hover{transform:translateY(-4px);border-color:rgba(56,182,255,.5)}
+.case-img{height:130px;display:flex;align-items:center;justify-content:center;font-size:52px}
+.case-body{background:rgba(255,255,255,.04);padding:16px}
+.case-body h4{color:#fff;font-size:14px;margin-bottom:6px}
+.case-body p{color:rgba(180,210,255,.6);font-size:12px;line-height:1.5}
+
+/* Form */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.form-grid input,.form-grid select,textarea{
+  background:rgba(255,255,255,.06);border:1px solid rgba(80,160,255,.25);border-radius:10px;
+  color:#fff;font-size:14px;padding:12px 14px;outline:none;font-family:inherit;
+  transition:border-color .2s;width:100%;
+}
+.form-grid input:focus,.form-grid select:focus,textarea:focus{border-color:rgba(56,182,255,.6)}
+.form-grid input::placeholder,textarea::placeholder{color:rgba(180,210,255,.4)}
+.form-grid select option{background:#0a1a30;color:#fff}
+textarea{width:100%;min-height:90px;resize:vertical;margin-bottom:14px}
+.full{grid-column:1/-1}
+
+/* Buttons */
+.btn-primary{
+  width:100%;padding:15px;border-radius:50px;
+  background:linear-gradient(135deg,#0077ff,#00c3ff);
+  color:#fff;font-size:16px;font-weight:bold;letter-spacing:.5px;
+  box-shadow:0 4px 24px rgba(0,120,255,.4);transition:transform .15s,box-shadow .15s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,180,255,.5)}
+.btn-close{display:block;width:100%;margin-top:12px;padding:8px;color:rgba(150,180,220,.5);font-size:13px}
+.btn-close:hover{color:#aaa}
+
+/* Panel header emoji */
+.panel-icon{font-size:52px;margin-bottom:16px;display:block}
+
+/* ── scrollbar ── */
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(56,182,255,.3);border-radius:3px}
+
+/* ── hint ── */
+.scene-hint{position:absolute;bottom:95px;left:50%;transform:translateX(-50%);
+  color:rgba(255,255,255,.3);font-size:12px;letter-spacing:2px;z-index:15;pointer-events:none;
+  white-space:nowrap;animation:fadeHint 5s 1.5s forwards}
+@keyframes fadeHint{0%{opacity:1}80%{opacity:1}100%{opacity:0}}
 </style>
 </head>
 <body>
-<header class="topbar">
-  <div class="brand"><span class="brand-mark">A</span><span data-i18n="brand">Алсат Межгород</span></div>
-  <nav class="nav">
-    <a href="#routes" data-i18n="navRoutes">Маршруты</a>
-    <a href="#post" data-i18n="navPost">Добавить</a>
-    <a href="https://t.me/Alsat_Asia_bot" target="_blank" rel="noopener" data-i18n="navBot">Telegram бот</a>
-    <div class="lang-switch" aria-label="Language">
-      <button class="lang-btn active" type="button" data-lang-btn="ru" onclick="setLang('ru')">RU</button>
-      <button class="lang-btn" type="button" data-lang-btn="kz" onclick="setLang('kz')">KZ</button>
-      <button class="lang-btn" type="button" data-lang-btn="en" onclick="setLang('en')">EN</button>
-    </div>
-  </nav>
-</header>
+<div id="app">
 
-<main class="wrap">
-  <section class="hero">
-    <div class="hero-main">
-      <div>
-        <div class="eyebrow" data-i18n="eyebrow">Казахстан · Попутчики · Водители</div>
-        <h1 data-i18n="heroTitle">Междугородние поездки без лишних посредников</h1>
-        <p class="lead" data-i18n="heroLead">Найдите водителя, пассажира или опубликуйте свой маршрут. Алсат оставляет только нужную часть классифайда: поездки между городами.</p>
-        <div class="hero-actions">
-          <a class="primary-btn" href="#post" data-i18n="heroPost">＋ Добавить маршрут</a>
-          <a class="ghost-btn" href="#routes" data-i18n="heroView">Смотреть объявления</a>
-        </div>
-      </div>
-      <div class="hero-stats">
-        <div class="stat-card"><div class="stat-num" id="driversStat">...</div><div class="stat-label" data-i18n="statDrivers">водителей</div></div>
-        <div class="stat-card"><div class="stat-num" id="paxStat">...</div><div class="stat-label" data-i18n="statPax">заявок пассажиров</div></div>
-        <div class="stat-card"><div class="stat-num">0 ₸</div><div class="stat-label" data-i18n="statFee">комиссия сайта</div></div>
-      </div>
-    </div>
-
-    <aside class="search-panel">
-      <h2 class="panel-title" data-i18n="searchTitle">Быстрый поиск</h2>
-      <div class="field-grid">
-        <div class="field">
-          <label data-i18n="from">Откуда</label>
-          <input id="filterFrom" list="cityList" placeholder="Бурабай">
-        </div>
-        <div class="field">
-          <label data-i18n="to">Куда</label>
-          <input id="filterTo" list="cityList" placeholder="Астана">
-        </div>
-      </div>
-      <div class="filter-actions">
-        <button class="primary-btn" onclick="applyFilters()" data-i18n="find">Найти</button>
-        <button class="ghost-btn" onclick="clearFilters()" data-i18n="reset">Сбросить</button>
-      </div>
-      <p class="muted-note" data-i18n="searchNote">Контакты открываются напрямую: звонок, WhatsApp или Telegram. Новые объявления проходят модерацию ботом Алсат.</p>
-    </aside>
-  </section>
-
-  <datalist id="cityList">
-    <option>Астана</option><option>Алматы</option><option>Шымкент</option>
-    <option>Караганда</option><option>Актобе</option><option>Петропавловск</option>
-    <option>Костанай</option><option>Павлодар</option><option>Усть-Каменогорск</option>
-    <option>Семей</option><option>Кокшетау</option><option>Уральск</option>
-    <option>Атырау</option><option>Актау</option><option>Кызылорда</option>
-    <option>Туркестан</option><option>Талдыкорган</option><option>Бурабай</option>
-    <option>Щучинск</option><option>Степногорск</option><option>Рудный</option>
-  </datalist>
-
-  <div class="tabs" id="routes">
-    <button class="tab active" id="tabDrivers" onclick="switchTab('drivers')" data-i18n="driversTab">🚗 Водители</button>
-    <button class="tab" id="tabPax" onclick="switchTab('pax')" data-i18n="paxTab">🧳 Пассажиры</button>
-    <button class="tab" onclick="quickRoute('Бурабай','Астана')">Бурабай → Астана</button>
-    <button class="tab" onclick="quickRoute('Кокшетау','Астана')">Кокшетау → Астана</button>
-    <button class="tab" onclick="quickRoute('Алматы','Астана')">Алматы → Астана</button>
+  <!-- ══ SCENE 1: AQUARIUM ══ -->
+  <div id="scene-aquarium" class="scene active">
+    <canvas id="aq-canvas" class="bg-canvas"></canvas>
+    <div id="aq-surface"></div>
+    <canvas id="fish-canvas" class="bg-canvas" style="z-index:6"></canvas>
+    <div id="aq-sand"></div>
+    <div id="aq-weeds"></div>
+    <div id="aq-stones"></div>
+    <div id="fish-hits" style="position:absolute;inset:0;z-index:9;pointer-events:none"></div>
+    <div class="scene-hint">👆 Кликни на рыбку, камушек или коралл</div>
   </div>
 
-  <section class="layout">
-    <div class="section-panel">
-      <div class="section-head">
-        <h2 id="listTitle">Водители</h2>
-        <span class="count" id="listCount">загрузка...</span>
-      </div>
-      <div class="cards" id="cards"><div class="loading">Загружаю маршруты...</div></div>
-    </div>
+  <!-- ══ SCENE 2: SPACE ══ -->
+  <div id="scene-space" class="scene">
+    <canvas id="sp-canvas" class="bg-canvas"></canvas>
+    <div id="sp-objects" style="position:absolute;inset:0;z-index:5"></div>
+    <div class="scene-hint">👆 Кликни на планету, станцию или астероид</div>
+  </div>
 
-    <aside class="side-stack" id="post">
-      <div class="form-panel">
-        <h2 class="panel-title" data-i18n="postTitle">Добавить объявление</h2>
-        <div class="form-tabs">
-          <button class="form-tab active" id="formDriverTab" onclick="switchForm('driver')" data-i18n="formDriver">Я водитель</button>
-          <button class="form-tab" id="formPaxTab" onclick="switchForm('pax')" data-i18n="formPax">Ищу поездку</button>
+  <!-- ══ SCENE 3: CITY ══ -->
+  <div id="scene-city" class="scene">
+    <canvas id="ct-canvas" class="bg-canvas"></canvas>
+    <div id="ct-objects" style="position:absolute;inset:0;z-index:5"></div>
+    <div id="city-ground"></div>
+    <div id="city-road"></div>
+    <div class="scene-hint">👆 Кликни на здание, вывеску или голограмму</div>
+  </div>
+
+  <!-- ══ SCENE 4: STEPPE ══ -->
+  <div id="scene-steppe" class="scene">
+    <canvas id="st-canvas" class="bg-canvas"></canvas>
+    <div id="st-objects" style="position:absolute;inset:0;z-index:5"></div>
+    <div id="steppe-ground"></div>
+    <div class="scene-hint">👆 Кликни на юрту, дрон или солнечную панель</div>
+  </div>
+
+  <!-- ══ SCENE 5: LIVE SITE ══ -->
+  <div id="scene-live" class="scene">
+    <div id="live-frame-wrap" style="position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;">
+      <!-- top bar -->
+      <div style="height:44px;background:rgba(10,15,30,.95);display:flex;align-items:center;padding:0 18px;gap:12px;border-bottom:1px solid rgba(56,182,255,.2);flex-shrink:0;z-index:3;">
+        <div style="display:flex;gap:6px;">
+          <span style="width:12px;height:12px;border-radius:50%;background:#ff5f56;display:block;"></span>
+          <span style="width:12px;height:12px;border-radius:50%;background:#ffbd2e;display:block;"></span>
+          <span style="width:12px;height:12px;border-radius:50%;background:#27c93f;display:block;"></span>
         </div>
-        <div class="form-grid">
-          <div class="field-grid">
-            <div class="field">
-              <label data-i18n="from">Откуда</label>
-              <input id="fFrom" list="cityList" placeholder="Астана">
-            </div>
-            <div class="field">
-              <label data-i18n="to">Куда</label>
-              <input id="fTo" list="cityList" placeholder="Бурабай">
-            </div>
-          </div>
-
-          <div id="driverFields" class="form-grid">
-            <div class="field-grid">
-              <div class="field">
-                <label data-i18n="car">Авто</label>
-                <input id="fCar" placeholder="Toyota Camry 2020">
-              </div>
-              <div class="field">
-                <label data-i18n="price">Цена за место</label>
-                <input id="fPrice" type="number" inputmode="numeric" placeholder="5000">
-              </div>
-            </div>
-            <div class="field-grid">
-              <div class="field">
-                <label data-i18n="seats">Мест</label>
-                <select id="fSeats">
-                  <option value="1">1</option><option value="2">2</option>
-                  <option value="3" selected>3</option><option value="4">4</option>
-                </select>
-              </div>
-              <div class="field">
-                <label data-i18n="experience">Стаж</label>
-                <select id="fExp">
-                  <option value="1-3 года">1-3 года</option>
-                  <option value="3-7 лет" selected>3-7 лет</option>
-                  <option value="7-15 лет">7-15 лет</option>
-                  <option value="15+ лет">15+ лет</option>
-                </select>
-              </div>
-            </div>
-            <div class="checks">
-              <label class="check"><input type="checkbox" id="fAC"> <span data-i18n="ac">Кондиционер</span></label>
-              <label class="check"><input type="checkbox" id="fSeat"> <span data-i18n="childSeat">Детское кресло</span></label>
-              <label class="check"><input type="checkbox" id="fTrunk"> <span data-i18n="trunk">Багажник свободен</span></label>
-              <label class="check"><input type="checkbox" id="fParcel"> <span data-i18n="parcel">Беру посылки</span></label>
-            </div>
-          </div>
-
-          <div id="paxFields" class="form-grid" style="display:none">
-            <div class="field-grid">
-              <div class="field">
-                <label data-i18n="name">Имя</label>
-                <input id="pName" placeholder="Адил">
-              </div>
-              <div class="field">
-                <label data-i18n="date">Дата поездки</label>
-                <input id="pDate" type="date">
-              </div>
-            </div>
-            <div class="field">
-              <label data-i18n="neededSeats">Мест нужно</label>
-              <select id="pSeats">
-                <option value="1" selected>1</option><option value="2">2</option>
-                <option value="3">3</option><option value="4">4</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="field">
-            <label data-i18n="phone">Телефон</label>
-            <input id="fPhone" type="tel" inputmode="tel" placeholder="+7 700 000 00 00">
-          </div>
-          <div class="field-grid">
-            <div class="field">
-              <label>WhatsApp</label>
-              <input id="fWA" type="tel" inputmode="tel" placeholder="+7 700 000 00 00">
-            </div>
-            <div class="field">
-              <label>Telegram</label>
-              <input id="fTG" placeholder="@username">
-            </div>
-          </div>
-          <div class="field">
-            <label data-i18n="comment">Комментарий</label>
-            <textarea id="fComment" placeholder="Выезд утром, можно с багажом, без животных..."></textarea>
-          </div>
-          <label class="check"><input type="checkbox" id="fConsent"> <span data-i18n="consent">Я согласен с правилами сервиса и обработкой контактных данных для связи по поездке.</span></label>
-          <button class="primary-btn" onclick="submitPost()" data-i18n="publish">Опубликовать</button>
-          <p class="muted-note" data-i18n="postNote">Телефон нужен для связи по поездке. Публикации с подозрительным текстом может остановить модерация.</p>
+        <div style="flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(56,182,255,.2);border-radius:8px;padding:4px 14px;color:rgba(150,200,255,.8);font-size:13px;letter-spacing:.3px;">🔒 alsat.asia</div>
+        <a href="https://alsat.asia" target="_blank" style="color:rgba(56,182,255,.8);font-size:12px;text-decoration:none;white-space:nowrap;padding:4px 12px;border:1px solid rgba(56,182,255,.3);border-radius:20px;transition:all .2s;" onmouseover="this.style.background='rgba(56,182,255,.1)'" onmouseout="this.style.background='transparent'">↗ Открыть</a>
+      </div>
+      <!-- iframe -->
+      <iframe
+        id="live-iframe"
+        src="/marketplace.html"
+        style="flex:1;border:none;width:100%;"
+        allow="same-origin"
+        title="alsat.asia — действующий сайт">
+      </iframe>
+      <!-- iframe blocked fallback (hidden by default) -->
+      <div id="live-fallback" style="display:none;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:24px;background:radial-gradient(ellipse at center,#0d2040 0%,#050f1f 100%);">
+        <div style="font-size:72px;">🌐</div>
+        <div style="color:#fff;font-size:24px;font-weight:bold;">alsat.asia</div>
+        <div style="color:rgba(150,200,255,.7);font-size:14px;text-align:center;max-width:360px;line-height:1.7;">Сайт бесплатных объявлений Казахстана.<br>Маркетплейс, AI чат-бот, мультирегиональный охват.</div>
+        <a href="https://alsat.asia" target="_blank" style="padding:14px 36px;background:linear-gradient(135deg,#0077ff,#00c3ff);color:#fff;border-radius:50px;text-decoration:none;font-size:16px;font-weight:bold;box-shadow:0 4px 24px rgba(0,120,255,.4);">🚀 Открыть сайт</a>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+          <button onclick="openPanel('sites')" style="padding:10px 20px;background:rgba(255,255,255,.07);border:1px solid rgba(56,182,255,.3);color:rgba(150,200,255,.9);border-radius:30px;cursor:pointer;font-size:13px;">🌐 Создание сайтов</button>
+          <button onclick="openPanel('domains')" style="padding:10px 20px;background:rgba(255,255,255,.07);border:1px solid rgba(56,182,255,.3);color:rgba(150,200,255,.9);border-radius:30px;cursor:pointer;font-size:13px;">🌍 Домены</button>
+          <button onclick="openPanel('order')" style="padding:10px 20px;background:rgba(255,255,255,.07);border:1px solid rgba(56,182,255,.3);color:rgba(150,200,255,.9);border-radius:30px;cursor:pointer;font-size:13px;">✉️ Заявка</button>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div class="form-panel">
-        <h2 class="panel-title">Telegram</h2>
-        <p class="muted-note" data-i18n="botNote">Бот Алсат присылает совпадения по маршрутам и помогает получить контакт.</p>
-        <a class="primary-btn" href="https://t.me/Alsat_Asia_bot" target="_blank" rel="noopener" style="width:100%;margin-top:10px" data-i18n="openBot">Открыть бота</a>
+  <!-- ══ NAVIGATION ══ -->
+  <nav id="nav">
+    <button class="nav-btn active" data-scene="aquarium"><span class="icon">🐠</span>Аквариум</button>
+    <button class="nav-btn" data-scene="space"><span class="icon">🚀</span>Космос</button>
+    <button class="nav-btn" data-scene="city"><span class="icon">🌆</span>Неон-сити</button>
+    <button class="nav-btn" data-scene="steppe"><span class="icon">🌾</span>Степь</button>
+    <button class="nav-btn" data-scene="live"><span class="icon">🌐</span>alsat.asia</button>
+  </nav>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SERVICE PANELS
+══════════════════════════════════════════════ -->
+<div id="panel-overlay">
+  <div id="panels">
+
+    <!-- СОЗДАНИЕ САЙТОВ -->
+    <div class="panel" id="panel-sites">
+      <span class="panel-icon">🌐</span>
+      <h2>Создание <span class="accent">сайтов</span></h2>
+      <p class="sub">Разрабатываем от лендинга до маркетплейса. Современный дизайн, быстрая загрузка, мобильная версия. Работаем под ключ.</p>
+      <div class="cards">
+        <div class="card"><div class="ci">🚀</div><h3>Лендинг</h3><p>Продающая страница с CTA, формой заявки, SEO-оптимизацией</p><div class="price">от $300</div></div>
+        <div class="card"><div class="ci">🏢</div><h3>Корпоративный</h3><p>Многостраничный сайт компании с каталогом услуг и CRM</p><div class="price">от $700</div></div>
+        <div class="card"><div class="ci">🛒</div><h3>Интернет-магазин</h3><p>Каталог, корзина, оплата, доставка, личный кабинет</p><div class="price">от $1200</div></div>
+        <div class="card"><div class="ci">🤖</div><h3>Сайт + AI бот</h3><p>Умный чат-бот отвечает клиентам вместо менеджера 24/7</p><div class="price">от $900</div></div>
       </div>
-    </aside>
-  </section>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div class="txt"><h4>Бриф</h4><p>Обсуждаем цели, аудиторию, конкурентов. 30 минут — и всё ясно.</p></div></div>
+        <div class="step"><div class="num">2</div><div class="txt"><h4>Дизайн</h4><p>Прототип → дизайн в Figma → согласование. Без лишних правок.</p></div></div>
+        <div class="step"><div class="num">3</div><div class="txt"><h4>Разработка</h4><p>Верстка, бэкенд, тестирование на всех устройствах.</p></div></div>
+        <div class="step"><div class="num">4</div><div class="txt"><h4>Запуск</h4><p>Деплой, настройка аналитики, обучение. Сайт работает.</p></div></div>
+      </div>
+      <button class="btn-primary" onclick="openPanel('order')">📩 Заказать сайт</button>
+      <button class="btn-close" onclick="closePanel()">Закрыть</button>
+    </div>
 
-  <section class="info-grid" aria-label="Планы и безопасность">
-    <div class="info-card">
-      <h3 data-i18n="mapsTitle">Карты и маршруты</h3>
-      <p data-i18n="mapsText">Следующий шаг — показать точки отправления и прибытия через 2GIS или Яндекс Карты. Пока адреса вводятся текстом, без передачи геолокации.</p>
+    <!-- ДОМЕНЫ -->
+    <div class="panel" id="panel-domains">
+      <span class="panel-icon">🌍</span>
+      <h2>Регистрация <span class="accent">доменов</span></h2>
+      <p class="sub">Помогаем выбрать правильное имя для бизнеса и зарегистрировать домен в нужной зоне. Настраиваем DNS и привязываем к хостингу.</p>
+      <div class="cards">
+        <div class="card"><div class="ci">🇰🇿</div><h3>.kz домен</h3><p>Казахстанский домен — доверие местной аудитории, лучше в поиске</p><div class="price">от $25/год</div></div>
+        <div class="card"><div class="ci">🌐</div><h3>.com домен</h3><p>Международный стандарт. Подходит для любого бизнеса</p><div class="price">от $12/год</div></div>
+        <div class="card"><div class="ci">⚡</div><h3>.kz + .com</h3><p>Оба домена — защита бренда и полный охват аудитории</p><div class="price">от $35/год</div></div>
+        <div class="card"><div class="ci">🔒</div><h3>SSL сертификат</h3><p>HTTPS защита, замочек в браузере, доверие Google</p><div class="price">Бесплатно</div></div>
+      </div>
+      <button class="btn-primary" onclick="openPanel('order')">📩 Зарегистрировать домен</button>
+      <button class="btn-close" onclick="closePanel()">Закрыть</button>
     </div>
-    <div class="info-card">
-      <h3 data-i18n="payTitle">Оплата услуг сайта</h3>
-      <p data-i18n="payText">Базовое размещение остается бесплатным. Платными лучше делать только продвижение объявления или подписку водителя после подключения официального эквайринга.</p>
-    </div>
-    <div class="info-card">
-      <h3 data-i18n="safeTitle">Безопасность и законность</h3>
-      <ul>
-        <li data-i18n="safe1">Контакты публикуются только с согласия пользователя.</li>
-        <li data-i18n="safe2">Сайт не является перевозчиком и не принимает оплату за поездку.</li>
-        <li data-i18n="safe3">Водителям нужно соблюдать требования к пассажирским перевозкам.</li>
-      </ul>
-    </div>
-  </section>
-</main>
 
-<footer class="wrap" data-i18n="footer">Alsat.Asia · Междугородние поездки по Казахстану · Бесплатное размещение</footer>
-<div class="toast" id="toast"></div>
+    <!-- КОРПОРАТИВНАЯ ПОЧТА -->
+    <div class="panel" id="panel-mail">
+      <span class="panel-icon">📧</span>
+      <h2>Корпоративная <span class="accent">почта</span></h2>
+      <p class="sub">Email вида имя@вашакомпания.kz — это профессионально. Настраиваем почту на вашем домене за 1 день.</p>
+      <div class="cards">
+        <div class="card"><div class="ci">👤</div><h3>Стартер</h3><p>До 5 ящиков, 10 ГБ на ящик. Google Workspace или Yandex 360</p><div class="price">от $5/мес</div></div>
+        <div class="card"><div class="ci">👥</div><h3>Бизнес</h3><p>До 25 ящиков, 30 ГБ, общий календарь, видеозвонки</p><div class="price">от $12/мес</div></div>
+        <div class="card"><div class="ci">🏗</div><h3>Корпоратив</h3><p>Неограниченные ящики, своя почтовая система на сервере</p><div class="price">от $40/мес</div></div>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div class="txt"><h4>Выбираем платформу</h4><p>Google Workspace, Yandex 360 или собственный сервер</p></div></div>
+        <div class="step"><div class="num">2</div><div class="txt"><h4>Настраиваем DNS</h4><p>MX, SPF, DKIM, DMARC — почта не попадает в спам</p></div></div>
+        <div class="step"><div class="num">3</div><div class="txt"><h4>Создаём ящики</h4><p>info@, sales@, support@ — сколько нужно</p></div></div>
+      </div>
+      <button class="btn-primary" onclick="openPanel('order')">📩 Подключить почту</button>
+      <button class="btn-close" onclick="closePanel()">Закрыть</button>
+    </div>
+
+    <!-- ОБСЛУЖИВАНИЕ -->
+    <div class="panel" id="panel-support">
+      <span class="panel-icon">🛠</span>
+      <h2>Техническое <span class="accent">обслуживание</span></h2>
+      <p class="sub">Ваш сайт — это инструмент. Он должен работать без сбоев, загружаться быстро и защищать данные клиентов.</p>
+      <div class="cards">
+        <div class="card"><div class="ci">🔄</div><h3>Базовое</h3><p>Хостинг, обновления CMS, резервные копии раз в неделю</p><div class="price">от $30/мес</div></div>
+        <div class="card"><div class="ci">⚡</div><h3>Стандарт</h3><p>+ мониторинг 24/7, ежедневные бэкапы, правки контента</p><div class="price">от $60/мес</div></div>
+        <div class="card"><div class="ci">🛡</div><h3>Премиум</h3><p>+ приоритетная поддержка, SEO-мониторинг, аналитика</p><div class="price">от $120/мес</div></div>
+      </div>
+      <button class="btn-primary" onclick="openPanel('order')">📩 Подключить обслуживание</button>
+      <button class="btn-close" onclick="closePanel()">Закрыть</button>
+    </div>
+
+    <!-- ЦЕНЫ -->
+    <div class="panel" id="panel-prices">
+      <span class="panel-icon">💰</span>
+      <h2>Прозрачные <span class="accent">цены</span></h2>
+      <p class="sub">Никаких скрытых платежей. Вы знаете что покупаете и сколько это стоит.</p>
+      <div class="price-table">
+        <div class="price-col">
+          <div class="tier">Старт</div>
+          <div class="amount">$300<span>/проект</span></div>
+          <ul><li>Лендинг 1–3 страницы</li><li>Мобильная версия</li><li>Форма заявки</li><li>Хостинг 1 месяц</li><li>Срок: 7–10 дней</li></ul>
+        </div>
+        <div class="price-col featured">
+          <div class="tier">Бизнес ⭐</div>
+          <div class="amount">$800<span>/проект</span></div>
+          <ul><li>Корп. сайт до 10 стр.</li><li>Дизайн-система</li><li>Форма + CRM интеграция</li><li>SEO базовое</li><li>Хостинг 3 месяца</li><li>Срок: 2–3 недели</li></ul>
+        </div>
+        <div class="price-col">
+          <div class="tier">Магазин</div>
+          <div class="amount">$1500<span>/проект</span></div>
+          <ul><li>Интернет-магазин</li><li>Каталог + фильтры</li><li>Оплата Kaspi/Visa</li><li>Личный кабинет</li><li>Аналитика продаж</li><li>Срок: 3–5 недель</li></ul>
+        </div>
+        <div class="price-col">
+          <div class="tier">Enterprise</div>
+          <div class="amount">$3000+<span>/проект</span></div>
+          <ul><li>Маркетплейс / SaaS</li><li>AI функции</li><li>Мобильное приложение</li><li>Выделенный сервер</li><li>Индивидуально</li></ul>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="openPanel('order')">📩 Обсудить проект</button>
+      <button class="btn-close" onclick="closePanel()">Закрыть</button>
+    </div>
+
+    <!-- КЕЙСЫ -->
+    <div class="panel" id="panel-cases">
+      <span class="panel-icon">🏆</span>
+      <h2>Наши <span class="accent">кейсы</span></h2>
+      <p class="sub">Реальные проекты — реальные результаты. Работаем с бизнесом в Казахстане и СНГ.</p>
+      <div class="cases">
+        <div class="case-card">
+          <div class="case-img" style="background:linear-gradient(135deg,#1a3a6a,#0d5299)">🏠</div>
+          <div class="case-body"><h4>alsat.asia</h4><p>Доска объявлений КЗ — мультирегиональный маркетплейс, AI чат-бот, 50k+ объявлений</p></div>
+        </div>
+        <div class="case-card">
+          <div class="case-img" style="background:linear-gradient(135deg,#3a1a00,#995500)">🛒</div>
+          <div class="case-body"><h4>Интернет-магазин стройматериалов</h4><p>2500 SKU, интеграция с 1С, Kaspi оплата, рост продаж +140% за 3 месяца</p></div>
+        </div>
+        <div class="case-card">
+          <div class="case-img" style="background:linear-gradient(135deg,#003a1a,#009944)">🏥</div>
+          <div class="case-body"><h4>Медицинская клиника</h4><p>Запись онлайн, личный кабинет пациента, напоминания по WhatsApp</p></div>
+        </div>
+        <div class="case-card">
+          <div class="case-img" style="background:linear-gradient(135deg,#1a003a,#6600cc)">🎓</div>
+          <div class="case-body"><h4>Образовательная платформа</h4><p>LMS система, видеоуроки, тесты, сертификаты, 3000+ студентов</p></div>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="openPanel('order')">📩 Хочу такой же</button>
+      <button class="btn-close" onclick="closePanel()">Закрыть</button>
+    </div>
+
+    <!-- ЗАЯВКА -->
+    <div class="panel" id="panel-order">
+      <span class="panel-icon">✉️</span>
+      <h2>Оставить <span class="accent">заявку</span></h2>
+      <p class="sub">Расскажите о проекте — ответим в течение 2 часов и предложим решение под ваш бюджет.</p>
+      <div class="form-grid">
+        <input type="text" placeholder="Ваше имя *" required>
+        <input type="tel" placeholder="WhatsApp / телефон *" required>
+        <input type="text" placeholder="Название компании" class="full">
+        <select class="full">
+          <option value="" disabled selected>Что нужно сделать?</option>
+          <option>Лендинг</option>
+          <option>Корпоративный сайт</option>
+          <option>Интернет-магазин</option>
+          <option>Сайт + AI бот</option>
+          <option>Маркетплейс / доска объявлений</option>
+          <option>Корпоративная почта</option>
+          <option>Техническое обслуживание</option>
+          <option>Регистрация домена</option>
+          <option>Другое</option>
+        </select>
+        <select>
+          <option value="" disabled selected>Бюджет</option>
+          <option>до $500</option>
+          <option>$500–$1500</option>
+          <option>$1500–$5000</option>
+          <option>от $5000</option>
+        </select>
+        <select>
+          <option value="" disabled selected>Срок</option>
+          <option>Как можно быстрее</option>
+          <option>1–2 недели</option>
+          <option>1 месяц</option>
+          <option>Не горит</option>
+        </select>
+      </div>
+      <textarea placeholder="Расскажите о проекте: что продаёте, кто ваши клиенты, есть ли примеры сайтов которые нравятся?"></textarea>
+      <button class="btn-primary" onclick="submitForm()">🚀 Отправить заявку</button>
+      <button class="btn-close" onclick="closePanel()">Закрыть</button>
+    </div>
+
+  </div><!-- /panels -->
+</div><!-- /panel-overlay -->
 
 <script>
-var I18N = {
-  ru: {
-    brand:'Алсат Межгород', navRoutes:'Маршруты', navPost:'Добавить', navBot:'Telegram бот',
-    eyebrow:'Казахстан · Попутчики · Водители', heroTitle:'Междугородние поездки без лишних посредников',
-    heroLead:'Найдите водителя, пассажира или опубликуйте свой маршрут. Алсат оставляет только нужную часть классифайда: поездки между городами.',
-    heroPost:'＋ Добавить маршрут', heroView:'Смотреть объявления', statDrivers:'водителей', statPax:'заявок пассажиров', statFee:'комиссия сайта',
-    searchTitle:'Быстрый поиск', from:'Откуда', to:'Куда', find:'Найти', reset:'Сбросить',
-    searchNote:'Контакты открываются напрямую: звонок, WhatsApp или Telegram. Новые объявления проходят модерацию ботом Алсат.',
-    driversTab:'🚗 Водители', paxTab:'🧳 Пассажиры', listDrivers:'Водители', listPax:'Пассажиры ищут поездку', found:'найдено',
-    postTitle:'Добавить объявление', formDriver:'Я водитель', formPax:'Ищу поездку', car:'Авто', price:'Цена за место', seats:'Мест', experience:'Стаж',
-    ac:'Кондиционер', childSeat:'Детское кресло', trunk:'Багажник свободен', parcel:'Беру посылки', name:'Имя', date:'Дата поездки', neededSeats:'Мест нужно',
-    phone:'Телефон', comment:'Комментарий', consent:'Я согласен с правилами сервиса и обработкой контактных данных для связи по поездке.',
-    publish:'Опубликовать', postNote:'Телефон нужен для связи по поездке. Публикации с подозрительным текстом может остановить модерация.',
-    botNote:'Бот Алсат присылает совпадения по маршрутам и помогает получить контакт.', openBot:'Открыть бота',
-    mapsTitle:'Карты и маршруты', mapsText:'Следующий шаг — показать точки отправления и прибытия через 2GIS или Яндекс Карты. Пока адреса вводятся текстом, без передачи геолокации.',
-    payTitle:'Оплата услуг сайта', payText:'Базовое размещение остается бесплатным. Платными лучше делать только продвижение объявления или подписку водителя после подключения официального эквайринга.',
-    safeTitle:'Безопасность и законность', safe1:'Контакты публикуются только с согласия пользователя.', safe2:'Сайт не является перевозчиком и не принимает оплату за поездку.', safe3:'Водителям нужно соблюдать требования к пассажирским перевозкам.',
-    footer:'Alsat.Asia · Междугородние поездки по Казахстану · Бесплатное размещение',
-    empty:'Пока нет объявлений по этому маршруту. Добавьте первое объявление.', offline:'Онлайн-маршруты временно не загрузились. Добавление заявок останется доступным после восстановления связи с базой.',
-    dbUnavailable:'онлайн-база недоступна', loading:'Загружаю маршруты...', carMissing:'Авто не указано', call:'Позвонить', perSeat:'за место', passenger:'Пассажир', looking:'ищет',
-    exampleMeta:'Пример объявления · Haval M6 · 4 места', exampleComment:'Пример того, как будет выглядеть карточка водителя после загрузки базы.', routeTag:'Межгород', freeTag:'Бесплатно',
-    errFrom:'Укажите город отправления', errTo:'Укажите город назначения', errPhone:'Укажите телефон', errCar:'Укажите автомобиль', errPrice:'Укажите цену', errConsent:'Подтвердите согласие с правилами и обработкой данных',
-    saved:'Опубликовано. Модерация и уведомления включены.', saveFailed:'Не удалось сохранить. Проверьте интернет и попробуйте еще раз.'
-  },
-  kz: {
-    brand:'Алсат Қалааралық', navRoutes:'Бағыттар', navPost:'Қосу', navBot:'Telegram бот',
-    eyebrow:'Қазақстан · Жолаушылар · Жүргізушілер', heroTitle:'Қалааралық сапарлар делдалсыз',
-    heroLead:'Жүргізушіні, жолаушыны табыңыз немесе өз бағытыңызды жариялаңыз. Алсатта тек қалааралық сапарлар бөлігі қалды.',
-    heroPost:'＋ Бағыт қосу', heroView:'Хабарландыруларды көру', statDrivers:'жүргізуші', statPax:'жолаушы өтінімі', statFee:'сайт комиссиясы',
-    searchTitle:'Жылдам іздеу', from:'Қайдан', to:'Қайда', find:'Іздеу', reset:'Тазарту',
-    searchNote:'Байланыс тікелей ашылады: қоңырау, WhatsApp немесе Telegram. Жаңа хабарландыруларды Алсат боты тексереді.',
-    driversTab:'🚗 Жүргізушілер', paxTab:'🧳 Жолаушылар', listDrivers:'Жүргізушілер', listPax:'Жолаушылар сапар іздейді', found:'табылды',
-    postTitle:'Хабарландыру қосу', formDriver:'Мен жүргізушімін', formPax:'Сапар іздеймін', car:'Көлік', price:'Орын бағасы', seats:'Орын', experience:'Тәжірибе',
-    ac:'Кондиционер', childSeat:'Балалар орындығы', trunk:'Жүксалғыш бос', parcel:'Сәлемдеме аламын', name:'Аты', date:'Сапар күні', neededSeats:'Қажет орын',
-    phone:'Телефон', comment:'Пікір', consent:'Сервис ережелерімен және сапар бойынша байланысу үшін контакт деректерін өңдеумен келісемін.',
-    publish:'Жариялау', postNote:'Телефон сапар бойынша байланыс үшін қажет. Күмәнді мәтінді модерация тоқтатуы мүмкін.',
-    botNote:'Алсат боты бағыттар бойынша сәйкестіктерді жіберіп, контакт алуға көмектеседі.', openBot:'Ботты ашу',
-    mapsTitle:'Карталар және бағыттар', mapsText:'Келесі қадам — 2GIS немесе Яндекс Карталар арқылы жөнелту және келу нүктелерін көрсету. Әзірге мекенжайлар мәтінмен енгізіледі, геолокация берілмейді.',
-    payTitle:'Сайт қызметтерін төлеу', payText:'Негізгі жариялау тегін қалады. Ресми эквайринг қосылғаннан кейін тек хабарландыруды ілгерілету немесе жүргізуші жазылымын ақылы еткен дұрыс.',
-    safeTitle:'Қауіпсіздік және заңдылық', safe1:'Контактілер тек пайдаланушы келісімімен жарияланады.', safe2:'Сайт тасымалдаушы емес және сапар ақысын қабылдамайды.', safe3:'Жүргізушілер жолаушы тасымалы талаптарын сақтауы керек.',
-    footer:'Alsat.Asia · Қазақстан бойынша қалааралық сапарлар · Тегін жариялау',
-    empty:'Бұл бағытта хабарландыру жоқ. Бірінші хабарландыруды қосыңыз.', offline:'Онлайн бағыттар уақытша жүктелмеді. Дерекқормен байланыс қалпына келгенде өтінім қосу жұмыс істейді.',
-    dbUnavailable:'онлайн база қолжетімсіз', loading:'Бағыттар жүктелуде...', carMissing:'Көлік көрсетілмеген', call:'Қоңырау', perSeat:'орын үшін', passenger:'Жолаушы', looking:'іздейді',
-    exampleMeta:'Мысал хабарландыру · Haval M6 · 4 орын', exampleComment:'База жүктелгеннен кейін жүргізуші карточкасы осылай көрінеді.', routeTag:'Қалааралық', freeTag:'Тегін',
-    errFrom:'Жөнелту қаласын көрсетіңіз', errTo:'Баратын қаланы көрсетіңіз', errPhone:'Телефонды көрсетіңіз', errCar:'Көлікті көрсетіңіз', errPrice:'Бағаны көрсетіңіз', errConsent:'Ережелермен және деректерді өңдеумен келісімді растаңыз',
-    saved:'Жарияланды. Модерация және хабарламалар қосулы.', saveFailed:'Сақтау мүмкін болмады. Интернетті тексеріп, қайталап көріңіз.'
-  },
-  en: {
-    brand:'Alsat Intercity', navRoutes:'Routes', navPost:'Post', navBot:'Telegram bot',
-    eyebrow:'Kazakhstan · Passengers · Drivers', heroTitle:'Intercity rides without extra middlemen',
-    heroLead:'Find a driver, find a passenger, or publish your route. Alsat now keeps only the intercity rides part of the classifieds product.',
-    heroPost:'＋ Add route', heroView:'View listings', statDrivers:'drivers', statPax:'passenger requests', statFee:'site commission',
-    searchTitle:'Quick Search', from:'From', to:'To', find:'Search', reset:'Reset',
-    searchNote:'Contacts open directly: phone, WhatsApp, or Telegram. New listings are moderated by the Alsat bot.',
-    driversTab:'🚗 Drivers', paxTab:'🧳 Passengers', listDrivers:'Drivers', listPax:'Passengers looking for a ride', found:'found',
-    postTitle:'Add Listing', formDriver:'I am a driver', formPax:'I need a ride', car:'Car', price:'Price per seat', seats:'Seats', experience:'Experience',
-    ac:'Air conditioning', childSeat:'Child seat', trunk:'Free trunk space', parcel:'Can take parcels', name:'Name', date:'Travel date', neededSeats:'Seats needed',
-    phone:'Phone', comment:'Comment', consent:'I agree to the service rules and processing of contact data for ride communication.',
-    publish:'Publish', postNote:'Phone is needed for ride communication. Suspicious listings may be stopped by moderation.',
-    botNote:'The Alsat bot sends route matches and helps people request contacts.', openBot:'Open bot',
-    mapsTitle:'Maps and routes', mapsText:'Next step: show departure and arrival points with 2GIS or Yandex Maps. For now, addresses are typed as text without sharing geolocation.',
-    payTitle:'Payment for site services', payText:'Basic posting should stay free. Paid features should be listing promotion or driver subscription after official acquiring is connected.',
-    safeTitle:'Safety and legality', safe1:'Contacts are published only with user consent.', safe2:'The site is not a carrier and does not accept ride payments.', safe3:'Drivers must comply with passenger transport requirements.',
-    footer:'Alsat.Asia · Intercity rides in Kazakhstan · Free posting',
-    empty:'No listings for this route yet. Add the first one.', offline:'Online routes could not be loaded for now. Posting will work after the database connection is restored.',
-    dbUnavailable:'online database unavailable', loading:'Loading routes...', carMissing:'Car not specified', call:'Call', perSeat:'per seat', passenger:'Passenger', looking:'looking',
-    exampleMeta:'Example listing · Haval M6 · 4 seats', exampleComment:'This is how a driver card will look after the database loads.', routeTag:'Intercity', freeTag:'Free',
-    errFrom:'Enter departure city', errTo:'Enter destination city', errPhone:'Enter phone number', errCar:'Enter car', errPrice:'Enter price', errConsent:'Confirm agreement with rules and data processing',
-    saved:'Published. Moderation and notifications are enabled.', saveFailed:'Could not save. Check internet and try again.'
-  }
-};
+// ══════════════════════════════════════════════
+// SCENE MANAGER
+// ══════════════════════════════════════════════
+const scenes = ['aquarium','space','city','steppe','live'];
+let currentScene = 'aquarium';
+let animFrames = {};
 
-var currentLang = localStorage.getItem('alsat_lang') || 'ru';
-function tr(key) {
-  return (I18N[currentLang] && I18N[currentLang][key]) || I18N.ru[key] || key;
-}
-function setLang(lang) {
-  currentLang = I18N[lang] ? lang : 'ru';
-  localStorage.setItem('alsat_lang', currentLang);
-  document.documentElement.lang = currentLang === 'kz' ? 'kk' : currentLang;
-  document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
-    btn.classList.toggle('active', btn.dataset.langBtn === currentLang);
-  });
-  document.querySelectorAll('[data-i18n]').forEach(function(el) {
-    el.textContent = tr(el.dataset.i18n);
-  });
-  document.title = currentLang === 'en'
-    ? 'Alsat Intercity — drivers and passengers in Kazakhstan'
-    : currentLang === 'kz'
-      ? 'Алсат Қалааралық — Қазақстан бойынша жүргізушілер мен жолаушылар'
-      : 'Алсат Межгород — попутчики и водители по Казахстану';
-  render();
+function switchScene(name) {
+  if(name===currentScene) return;
+  document.getElementById('scene-'+currentScene).classList.remove('active');
+  document.getElementById('scene-'+name).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.scene===name));
+  currentScene = name;
 }
 
-var SB_URL = 'https://duscyiyxfmsriyhwlbqx.supabase.co';
-var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
+document.querySelectorAll('.nav-btn').forEach(b=>{
+  b.addEventListener('click',()=>switchScene(b.dataset.scene));
+});
 
-var state = {
-  tab: 'drivers',
-  form: 'driver',
-  drivers: [],
-  pax: [],
-  from: '',
-  to: ''
-};
-
-function sbFetch(path) {
-  return fetch(SB_URL + '/rest/v1/' + path, {
-    headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY }
-  }).then(function(r) {
-    if (!r.ok) throw new Error('Supabase ' + r.status);
-    return r.json();
-  });
-}
-
-function sbInsert(table, row) {
-  return fetch(SB_URL + '/rest/v1/' + table, {
-    method: 'POST',
-    headers: {
-      apikey: SB_KEY,
-      Authorization: 'Bearer ' + SB_KEY,
-      'Content-Type': 'application/json',
-      Prefer: 'return=minimal'
-    },
-    body: JSON.stringify(row)
-  });
-}
-
-function esc(s) {
-  return s == null ? '' : String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function digits(s) {
-  return String(s || '').replace(/\D/g, '');
-}
-
-function tgLink(t) {
-  if (!t) return '';
-  t = String(t).trim();
-  if (t.indexOf('http') === 0) return t;
-  if (t.charAt(0) === '@') return 'https://t.me/' + t.slice(1);
-  return 'https://t.me/+' + digits(t);
-}
-
-function showToast(msg, err) {
-  var el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = 'toast show' + (err ? ' error' : '');
-  setTimeout(function(){ el.className = 'toast'; }, 3000);
-}
-
-function normalize(s) {
-  return String(s || '').trim().toLowerCase();
-}
-
-function matchesRoute(row) {
-  var from = normalize(state.from);
-  var to = normalize(state.to);
-  if (from && normalize(row.from_city).indexOf(from) === -1) return false;
-  if (to && normalize(row.to_city).indexOf(to) === -1) return false;
-  return true;
-}
-
-function visibleRows() {
-  var rows = state.tab === 'drivers' ? state.drivers : state.pax;
-  return rows.filter(matchesRoute);
-}
-
-function switchTab(tab) {
-  state.tab = tab;
-  document.getElementById('tabDrivers').classList.toggle('active', tab === 'drivers');
-  document.getElementById('tabPax').classList.toggle('active', tab === 'pax');
-  render();
-}
-
-function switchForm(form) {
-  state.form = form;
-  document.getElementById('formDriverTab').classList.toggle('active', form === 'driver');
-  document.getElementById('formPaxTab').classList.toggle('active', form === 'pax');
-  document.getElementById('driverFields').style.display = form === 'driver' ? 'grid' : 'none';
-  document.getElementById('paxFields').style.display = form === 'pax' ? 'grid' : 'none';
-}
-
-function applyFilters() {
-  state.from = document.getElementById('filterFrom').value;
-  state.to = document.getElementById('filterTo').value;
-  render();
-}
-
-function clearFilters() {
-  document.getElementById('filterFrom').value = '';
-  document.getElementById('filterTo').value = '';
-  state.from = '';
-  state.to = '';
-  render();
-}
-
-function quickRoute(from, to) {
-  document.getElementById('filterFrom').value = from;
-  document.getElementById('filterTo').value = to;
-  state.from = from;
-  state.to = to;
-  render();
-  document.getElementById('routes').scrollIntoView({ behavior: 'smooth' });
-}
-
-function renderStats() {
-  document.getElementById('driversStat').textContent = state.drivers.length || '0';
-  document.getElementById('paxStat').textContent = state.pax.length || '0';
-}
-
-function render() {
-  renderStats();
-  var rows = visibleRows();
-  var isDrivers = state.tab === 'drivers';
-  document.getElementById('listTitle').textContent = isDrivers ? tr('listDrivers') : tr('listPax');
-  document.getElementById('listCount').textContent = rows.length + ' ' + tr('found');
-  var cards = document.getElementById('cards');
-  if (!rows.length) {
-    cards.innerHTML = '<div class="empty">' + esc(tr('empty')) + '</div>';
-    return;
-  }
-  cards.innerHTML = rows.map(isDrivers ? driverCard : paxCard).join('');
-}
-
-function renderOfflineState() {
-  document.getElementById('driversStat').textContent = '—';
-  document.getElementById('paxStat').textContent = '—';
-  document.getElementById('listCount').textContent = tr('dbUnavailable');
-  document.getElementById('cards').innerHTML =
-    '<div class="empty">' + esc(tr('offline')) + '</div>' +
-    '<article class="route-card">' +
-      '<div class="route-top"><div><div class="route-cities">Бурабай <span class="arrow">→</span> Астана</div>' +
-      '<div class="route-meta">' + esc(tr('exampleMeta')) + '</div></div>' +
-      '<div class="price">24 000 ₸<small>машина</small></div></div>' +
-      '<div class="comment">' + esc(tr('exampleComment')) + '</div>' +
-      '<div class="badges"><span class="badge">' + esc(tr('routeTag')) + '</span><span class="badge">WhatsApp</span><span class="badge">' + esc(tr('freeTag')) + '</span></div>' +
-    '</article>';
-}
-
-function driverCard(r) {
-  var phone = digits(r.phone);
-  var wa = digits(r.whatsapp) || phone;
-  var tg = tgLink(r.telegram);
-  var extras = [];
-  if (r.ac) extras.push(tr('ac'));
-  if (r.seat) extras.push(tr('childSeat'));
-  if (r.trunk) extras.push(tr('trunk'));
-  if (r.parcel) extras.push(tr('parcel'));
-  return '<article class="route-card">'
-    + '<div class="route-top"><div><div class="route-cities">' + esc(r.from_city) + ' <span class="arrow">→</span> ' + esc(r.to_city) + '</div>'
-    + '<div class="route-meta">' + esc(r.car || tr('carMissing')) + (r.exp ? ' · ' + esc(tr('experience').toLowerCase()) + ' ' + esc(r.exp) : '') + ' · ' + (r.seats || 1) + ' ' + esc(tr('seats').toLowerCase()) + '</div></div>'
-    + '<div class="price">' + (r.price ? Number(r.price).toLocaleString('ru-KZ') + ' ₸' : '—') + '<small>' + esc(tr('perSeat')) + '</small></div></div>'
-    + (r.desc ? '<div class="comment">' + esc(r.desc) + '</div>' : '')
-    + (extras.length ? '<div class="badges">' + extras.map(function(x){ return '<span class="badge">' + esc(x) + '</span>'; }).join('') + '</div>' : '')
-    + contactActions(phone, wa, tg)
-    + '</article>';
-}
-
-function paxCard(r) {
-  var phone = digits(r.phone);
-  var wa = digits(r.whatsapp) || phone;
-  var tg = tgLink(r.telegram);
-  var date = r.travel_date ? new Date(r.travel_date).toLocaleDateString(currentLang === 'en' ? 'en-US' : currentLang === 'kz' ? 'kk-KZ' : 'ru-RU', { day:'numeric', month:'short' }) : '';
-  return '<article class="route-card passenger">'
-    + '<div class="route-top"><div><div class="route-cities">' + esc(r.from_city) + ' <span class="arrow">→</span> ' + esc(r.to_city) + '</div>'
-    + '<div class="route-meta">' + esc(r.name || tr('passenger')) + (date ? ' · ' + date : '') + ' · ' + (r.seats || 1) + '</div></div>'
-    + '<div class="price" style="color:var(--blue)">🧳<small>' + esc(tr('looking')) + '</small></div></div>'
-    + (r.comment ? '<div class="comment">' + esc(r.comment) + '</div>' : '')
-    + contactActions(phone, wa, tg)
-    + '</article>';
-}
-
-function contactActions(phone, wa, tg) {
-  var html = '<div class="actions">';
-  if (phone) html += '<a class="contact call" href="tel:+' + phone + '">' + esc(tr('call')) + '</a>';
-  if (wa) html += '<a class="contact whatsapp" target="_blank" rel="noopener" href="https://wa.me/' + wa + '">WhatsApp</a>';
-  if (tg) html += '<a class="contact telegram" target="_blank" rel="noopener" href="' + tg + '">Telegram</a>';
-  html += '</div>';
-  return html;
-}
-
-function readCommonFields() {
-  var from = document.getElementById('fFrom').value.trim();
-  var to = document.getElementById('fTo').value.trim();
-  var phone = digits(document.getElementById('fPhone').value);
-  if (!from) throw new Error(tr('errFrom'));
-  if (!to) throw new Error(tr('errTo'));
-  if (!phone || phone.length < 10) throw new Error(tr('errPhone'));
-  return {
-    from_city: from,
-    to_city: to,
-    phone: phone,
-    whatsapp: digits(document.getElementById('fWA').value) || phone,
-    telegram: document.getElementById('fTG').value.trim(),
-  };
-}
-
-function submitPost() {
-  var row;
+// Iframe fallback: if alsat.asia blocks embedding, show the fallback div
+const liveIframe = document.getElementById('live-iframe');
+const liveFallback = document.getElementById('live-fallback');
+liveIframe.addEventListener('error', () => {
+  liveIframe.style.display='none';
+  liveFallback.style.display='flex';
+});
+// Also detect X-Frame-Options block via load timeout
+setTimeout(()=>{
   try {
-    row = readCommonFields();
+    const loaded = liveIframe.contentDocument || liveIframe.contentWindow.document;
+    if(!loaded || loaded.readyState==='loading') return;
   } catch(e) {
-    showToast(e.message, true);
-    return;
+    // Cross-origin blocked — show fallback
+    liveIframe.style.display='none';
+    liveFallback.style.display='flex';
+  }
+}, 3000);
+
+// ══════════════════════════════════════════════
+// PANEL SYSTEM
+// ══════════════════════════════════════════════
+const overlay = document.getElementById('panel-overlay');
+
+function openPanel(id) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  overlay.classList.add('on');
+}
+function closePanel() {
+  overlay.classList.remove('on');
+}
+overlay.addEventListener('click',e=>{ if(e.target===overlay) closePanel(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closePanel(); });
+
+function submitForm() {
+  alert('✅ Заявка принята! Свяжемся с вами в течение 2 часов.');
+  closePanel();
+}
+
+// ══════════════════════════════════════════════
+// UTILITIES
+// ══════════════════════════════════════════════
+const W=()=>window.innerWidth, H=()=>window.innerHeight;
+function makeObj(parent,{bottom,left,right,top,label,panel,children,style=''}){
+  const el=document.createElement('div');
+  el.className='obj';
+  let pos='';
+  if(bottom!==undefined) pos+=`bottom:${bottom};`;
+  if(left!==undefined) pos+=`left:${left};`;
+  if(right!==undefined) pos+=`right:${right};`;
+  if(top!==undefined) pos+=`top:${top};`;
+  el.style.cssText=pos+style;
+  el.innerHTML=`<div class="obj-label">${label}</div>`+children;
+  el.addEventListener('click',()=>openPanel(panel));
+  parent.appendChild(el);
+  return el;
+}
+
+// ══════════════════════════════════════════════
+// SCENE 1 — AQUARIUM
+// ══════════════════════════════════════════════
+(function initAquarium(){
+  const canvas=document.getElementById('aq-canvas');
+  const ctx=canvas.getContext('2d');
+  const fc=document.getElementById('fish-canvas');
+  const fctx=fc.getContext('2d');
+  const weedContainer=document.getElementById('aq-weeds');
+  const stoneContainer=document.getElementById('aq-stones');
+  const hitContainer=document.getElementById('fish-hits');
+
+  function resize(){canvas.width=fc.width=W();canvas.height=fc.height=H();}
+  resize(); window.addEventListener('resize',resize);
+
+  // Seaweeds
+  const WEED_POSITIONS=[.05,.08,.14,.35,.37,.62,.65,.80,.84,.92];
+  const WEED_STYLES=['sway-a','sway-b','sway-c'];
+  WEED_POSITIONS.forEach((x,i)=>{
+    const h=90+Math.random()*100, w=4+Math.random()*3;
+    const col=['#1a7a3a','#229944','#1d8040','#2a9a4a'][i%4];
+    const el=document.createElement('div');
+    el.className='weed';
+    el.style.cssText=`left:${x*100}%;animation:${WEED_STYLES[i%3]} ${2.5+Math.random()*2}s ${Math.random()*2}s ease-in-out infinite;`;
+    let path=`M${w} ${h}`;
+    for(let s=5;s>=0;s--){const y=(s/5)*h;const ox=Math.sin(s*.9)*12;path+=` Q${w+ox+8} ${y+h/10} ${w+ox} ${y}`;}
+    el.innerHTML=`<svg width="${w*4}" height="${h}" viewBox="0 0 ${w*4} ${h}" style="overflow:visible"><path d="${path}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/></svg>`;
+    weedContainer.appendChild(el);
+  });
+
+  // Stones
+  const STONES=[
+    {x:.04,size:95,c1:'#555566',c2:'#7a7a8b',panel:'domains'},
+    {x:.13,size:62,c1:'#6a5a4a',c2:'#8a7060',panel:'domains'},
+    {x:.25,size:110,c1:'#4a6555',c2:'#6a8570',panel:'domains'},
+    {x:.39,size:72,c1:'#5a6575',c2:'#7a85a0',panel:'domains'},
+    {x:.52,size:100,c1:'#6a5a3a',c2:'#907055',panel:'domains'},
+    {x:.66,size:78,c1:'#656070',c2:'#858090',panel:'domains'},
+    {x:.78,size:88,c1:'#4a5560',c2:'#6a7585',panel:'domains'},
+    {x:.88,size:65,c1:'#706050',c2:'#907870',panel:'domains'},
+  ];
+  STONES.forEach((s,i)=>{
+    const w=s.size, h=s.size*.45;
+    const el=document.createElement('div');
+    el.className='obj stone';
+    el.style.cssText=`position:absolute;bottom:92px;left:${s.x*100}%;z-index:5;cursor:pointer;filter:drop-shadow(0 6px 12px rgba(0,0,0,.6));transition:filter .2s,transform .2s`;
+    const id=`sg${i}`;
+    el.innerHTML=`<div class="obj-label">Домены</div><svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="overflow:visible">
+      <defs><radialGradient id="${id}" cx="38%" cy="30%"><stop offset="0%" stop-color="${s.c2}"/><stop offset="100%" stop-color="${s.c1}"/></radialGradient></defs>
+      <ellipse cx="${w/2+3}" cy="${h/2+4}" rx="${w*.48}" ry="${h*.44}" fill="rgba(0,0,0,.35)"/>
+      <ellipse cx="${w/2}" cy="${h/2}" rx="${w*.48}" ry="${h*.44}" fill="url(#${id})"/>
+      <ellipse cx="${w*.35}" cy="${h*.3}" rx="${w*.25}" ry="${h*.2}" fill="rgba(255,255,255,.09)"/>
+    </svg>`;
+    el.addEventListener('mouseenter',()=>el.style.cssText+=';transform:translateY(-8px) scale(1.08);filter:drop-shadow(0 0 16px rgba(80,200,255,.8))');
+    el.addEventListener('mouseleave',()=>{el.style.transform='';el.style.filter='drop-shadow(0 6px 12px rgba(0,0,0,.6))';});
+    el.addEventListener('click',()=>openPanel(s.panel));
+    stoneContainer.appendChild(el);
+  });
+
+  // Coral objects (for mail/support)
+  [{x:.2,panel:'mail',label:'📧 Почта',col:'#dd4488',svg:`<ellipse cx="15" cy="40" rx="6" ry="30" fill="%c"/><ellipse cx="30" cy="50" rx="6" ry="20" fill="%c"/><ellipse cx="8" cy="30" rx="5" ry="22" fill="%c"/><circle cx="15" cy="10" r="8" fill="%c2"/><circle cx="30" cy="30" r="7" fill="%c2"/><circle cx="8" cy="8" r="6" fill="%c2"/>`},
+   {x:.75,panel:'support',label:'🛠 Обслуживание',col:'#ff7700',svg:`<rect x="10" y="20" width="8" height="40" rx="4" fill="%c"/><rect x="20" y="30" width="8" height="30" rx="4" fill="%c"/><rect x="30" y="25" width="8" height="35" rx="4" fill="%c"/><circle cx="14" cy="18" r="6" fill="%c2"/><circle cx="24" cy="28" r="6" fill="%c2"/><circle cx="34" cy="23" r="6" fill="%c2"/>`}
+  ].forEach(c=>{
+    const el=document.createElement('div');
+    el.className='obj';
+    el.style.cssText=`position:absolute;bottom:95px;left:${c.x*100}%;z-index:5;cursor:pointer;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5));transition:filter .2s,transform .2s`;
+    const svg=c.svg.replace(/%c2/g,lighten(c.col)).replace(/%c/g,c.col);
+    el.innerHTML=`<div class="obj-label">${c.label}</div><svg width="44" height="65" viewBox="0 0 44 65" style="overflow:visible">${svg}</svg>`;
+    el.addEventListener('mouseenter',()=>{el.style.transform='translateY(-8px) scale(1.12)';el.style.filter='drop-shadow(0 0 16px gold)';});
+    el.addEventListener('mouseleave',()=>{el.style.transform='';el.style.filter='drop-shadow(0 4px 10px rgba(0,0,0,.5))';});
+    el.addEventListener('click',()=>openPanel(c.panel));
+    stoneContainer.appendChild(el);
+  });
+  function lighten(hex){return hex.replace(/[0-9a-f]{2}/gi,h=>Math.min(255,parseInt(h,16)+80).toString(16).padStart(2,'0'));}
+
+  // Fish
+  const FISH_TYPES=[
+    {name:'Создание сайтов',panel:'sites', body:'#ff9900',belly:'#ffdd66',fin:'#e06000',tail:'#cc5500',eye:'#1a0a00',size:55},
+    {name:'Домены',         panel:'domains',body:'#1a7acc',belly:'#66c0ff',fin:'#0055aa',tail:'#003d99',eye:'#001133',size:45},
+    {name:'Цены',           panel:'prices', body:'#ee3388',belly:'#ff99cc',fin:'#aa1166',tail:'#880044',eye:'#220011',size:50},
+    {name:'Кейсы',          panel:'cases',  body:'#22aa55',belly:'#66ee99',fin:'#117733',tail:'#0a5522',eye:'#001100',size:48},
+    {name:'Обслуживание',   panel:'support',body:'#8833cc',belly:'#cc88ff',fin:'#5511aa',tail:'#3d0088',eye:'#110022',size:44},
+    {name:'Заявка',         panel:'order',  body:'#ff6600',belly:'#ffcc66',fin:'#cc4400',tail:'#992200',eye:'#1a0800',size:52},
+    {name:'Корп. почта',    panel:'mail',   body:'#4499cc',belly:'#99ddff',fin:'#2266aa',tail:'#115599',eye:'#001122',size:42},
+  ];
+
+  const fish=FISH_TYPES.map((t,i)=>({
+    ...t,x:(.1+i*.12),y:.12+i*.07,
+    vx:(i%2?1:-1)*(.5+Math.random()*.7),
+    phase:Math.random()*Math.PI*2,tailPhase:Math.random()*Math.PI*2,
+    hit:null
+  }));
+
+  // Hit areas
+  fish.forEach(f=>{
+    const h=document.createElement('div');
+    h.style.cssText=`position:absolute;pointer-events:all;cursor:pointer;width:${f.size*1.6}px;height:${f.size*.8}px;border-radius:50%;`;
+    h.title=f.name;
+    const panel=f.panel;
+    h.addEventListener('click',()=>openPanel(panel));
+    hitContainer.appendChild(h);
+    f.hit=h;
+  });
+
+  function drawFish(f,t){
+    const px=f.x*W(), py=f.y*H(), s=f.size;
+    const facing=f.vx>=0?1:-1;
+    fctx.save();
+    fctx.translate(px,py);
+    fctx.scale(facing,1);
+    const tw=Math.sin(t*4+f.tailPhase)*.32;
+    // shadow
+    fctx.save();fctx.globalAlpha=.2;fctx.scale(1,.3);fctx.beginPath();fctx.ellipse(0,H()-py-50,s*.6,s*.4,0,0,Math.PI*2);fctx.fillStyle='#000';fctx.fill();fctx.restore();
+    // tail
+    fctx.save();fctx.translate(s*.5,0);fctx.rotate(tw);
+    fctx.beginPath();fctx.moveTo(0,0);fctx.lineTo(s*.42,-s*.32);fctx.lineTo(s*.36,0);fctx.lineTo(s*.42,s*.32);fctx.closePath();
+    fctx.fillStyle=f.tail;fctx.fill();fctx.restore();
+    // body
+    const bg=fctx.createRadialGradient(-s*.12,-s*.12,0,0,0,s*.55);
+    bg.addColorStop(0,f.belly);bg.addColorStop(1,f.body);
+    fctx.beginPath();fctx.ellipse(0,0,s*.55,s*.28,0,0,Math.PI*2);fctx.fillStyle=bg;fctx.fill();
+    // dorsal fin
+    fctx.beginPath();fctx.moveTo(-s*.05,-s*.28);fctx.quadraticCurveTo(s*.12,-s*.54,s*.32,-s*.3);fctx.quadraticCurveTo(s*.2,-s*.28,-s*.05,-s*.28);fctx.fillStyle=f.fin+'cc';fctx.fill();
+    // pectoral fin
+    fctx.beginPath();fctx.moveTo(s*.0,s*.05);fctx.quadraticCurveTo(s*.1,s*.38,s*.24,s*.32);fctx.quadraticCurveTo(s*.14,s*.1,s*.0,s*.05);fctx.fillStyle=f.fin+'aa';fctx.fill();
+    // eye
+    fctx.beginPath();fctx.arc(-s*.3,-s*.06,s*.1,0,Math.PI*2);fctx.fillStyle='rgba(255,255,255,.9)';fctx.fill();
+    fctx.beginPath();fctx.arc(-s*.28,-s*.06,s*.055,0,Math.PI*2);fctx.fillStyle=f.eye;fctx.fill();
+    fctx.beginPath();fctx.arc(-s*.31,-s*.09,s*.022,0,Math.PI*2);fctx.fillStyle='rgba(255,255,255,.8)';fctx.fill();
+    // scales
+    fctx.globalAlpha=.12;
+    for(let i=0;i<3;i++){fctx.beginPath();fctx.arc(-s*.1+i*s*.15,0,s*.18,.3,Math.PI-.3);fctx.strokeStyle='#fff';fctx.lineWidth=1;fctx.stroke();}
+    fctx.globalAlpha=1;
+    fctx.restore();
+    if(f.hit){f.hit.style.left=(px-s*(facing>0?0.8:.2))+'px';f.hit.style.top=(py-s*.4)+'px';}
   }
 
-  var table;
-  if (state.form === 'driver') {
-    var car = document.getElementById('fCar').value.trim();
-    var price = digits(document.getElementById('fPrice').value);
-    if (!car) return showToast(tr('errCar'), true);
-    if (!price) return showToast(tr('errPrice'), true);
-    if (!document.getElementById('fConsent').checked) return showToast(tr('errConsent'), true);
-    table = 'taxi_drivers';
-    Object.assign(row, {
-      car: car,
-      price: Number(price),
-      seats: Number(document.getElementById('fSeats').value || 1),
-      exp: document.getElementById('fExp').value,
-      ac: document.getElementById('fAC').checked,
-      seat: document.getElementById('fSeat').checked,
-      trunk: document.getElementById('fTrunk').checked,
-      parcel: document.getElementById('fParcel').checked,
-      desc: document.getElementById('fComment').value.trim(),
-      notified: false
+  function drawCaustics(t){
+    const w=W(),h=H();
+    ctx.clearRect(0,0,w,h);
+    for(let i=0;i<16;i++){
+      const x=(i/16)*w+Math.sin(t*.35+i*.7)*45;
+      const bw=10+Math.sin(t*.5+i*1.2)*7;
+      const g=ctx.createLinearGradient(0,0,0,h*.75);
+      g.addColorStop(0,`rgba(120,200,255,${.04+Math.sin(t*.4+i)*.015})`);
+      g.addColorStop(1,'rgba(80,160,255,0)');
+      ctx.fillStyle=g;ctx.beginPath();
+      ctx.moveTo(x-bw,0);ctx.lineTo(x+bw,0);ctx.lineTo(x+bw*2.5,h*.75);ctx.lineTo(x-bw*2.5,h*.75);ctx.fill();
+    }
+  }
+
+  function spawnBubble(){
+    const b=document.createElement('div');b.className='bubble';
+    const sz=2+Math.random()*7,dur=3+Math.random()*5;
+    b.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;bottom:${100+Math.random()*60}px;--drift:${(Math.random()-.5)*50}px;animation-duration:${dur}s;animation-delay:${Math.random()*3}s;`;
+    document.getElementById('scene-aquarium').appendChild(b);
+    setTimeout(()=>b.remove(),(dur+3)*1000);
+  }
+  setInterval(spawnBubble,700);for(let i=0;i<10;i++)spawnBubble();
+
+  let T=0;
+  function aqLoop(){
+    T+=.016;
+    drawCaustics(T);
+    fctx.clearRect(0,0,W(),H());
+    fish.forEach(f=>{
+      f.y+=Math.sin(T*.5+f.phase)*.003;
+      f.x+=f.vx*.0035;
+      if(f.x<.04){f.x=.04;f.vx=Math.abs(f.vx);}
+      if(f.x>.96){f.x=.96;f.vx=-Math.abs(f.vx);}
+      const maxY=(H()-130)/H();
+      if(f.y<.07)f.y=.07;if(f.y>maxY)f.y=maxY;
+      drawFish(f,T);
     });
-  } else {
-    if (!document.getElementById('fConsent').checked) return showToast(tr('errConsent'), true);
-    table = 'taxi_requests';
-    Object.assign(row, {
-      name: document.getElementById('pName').value.trim(),
-      travel_date: document.getElementById('pDate').value || null,
-      seats: Number(document.getElementById('pSeats').value || 1),
-      comment: document.getElementById('fComment').value.trim(),
-      notified: false
+    animFrames.aquarium=requestAnimationFrame(aqLoop);
+  }
+  aqLoop();
+})();
+
+// ══════════════════════════════════════════════
+// SCENE 2 — SPACE STATION
+// ══════════════════════════════════════════════
+(function initSpace(){
+  const canvas=document.getElementById('sp-canvas');
+  const ctx=canvas.getContext('2d');
+  const objs=document.getElementById('sp-objects');
+  function resize(){canvas.width=W();canvas.height=H();}
+  resize();window.addEventListener('resize',resize);
+
+  // Stars
+  const stars=Array.from({length:250},()=>({x:Math.random(),y:Math.random(),r:.5+Math.random()*1.8,phase:Math.random()*Math.PI*2,speed:.3+Math.random()*.7}));
+  // Shooting stars
+  const shoots=[];
+
+  function drawSpace(t){
+    const w=W(),h=H();
+    ctx.clearRect(0,0,w,h);
+    // Nebula clouds
+    [[.15,.3,'rgba(80,20,120,.08)'],[.7,.5,'rgba(20,60,120,.06)'],[.4,.7,'rgba(120,30,60,.07)']].forEach(([nx,ny,col])=>{
+      const g=ctx.createRadialGradient(nx*w,ny*h,0,nx*w,ny*h,350);
+      g.addColorStop(0,col);g.addColorStop(1,'transparent');
+      ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+    });
+    // Stars
+    stars.forEach(s=>{
+      const a=.4+Math.sin(t*s.speed+s.phase)*.35;
+      ctx.globalAlpha=a;
+      ctx.fillStyle='#fff';
+      ctx.beginPath();ctx.arc(s.x*w,s.y*h,s.r,0,Math.PI*2);ctx.fill();
+    });
+    ctx.globalAlpha=1;
+    // Occasional shooting star
+    if(Math.random()<.004){shoots.push({x:Math.random(),y:Math.random()*.4,dx:.02,dy:.01,life:1});}
+    shoots.forEach((s,i)=>{
+      s.x+=s.dx;s.y+=s.dy;s.life-=.05;
+      ctx.globalAlpha=s.life;
+      ctx.strokeStyle='#fff';ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.moveTo(s.x*w,s.y*h);ctx.lineTo((s.x-s.dx*8)*w,(s.y-s.dy*8)*h);ctx.stroke();
+      if(s.life<=0)shoots.splice(i,1);
+    });
+    ctx.globalAlpha=1;
+  }
+
+  // Space objects
+  const spaceObjs=[
+    {label:'🪐 Планеты', panel:'prices', x:'50%',y:'20%',
+     svg:`<svg width="140" height="140" viewBox="0 0 140 140">
+       <defs><radialGradient id="pg" cx="35%" cy="30%"><stop offset="0%" stop-color="#9966cc"/><stop offset="60%" stop-color="#6633aa"/><stop offset="100%" stop-color="#2a1144"/></radialGradient></defs>
+       <ellipse cx="50" cy="50" rx="44" ry="15" fill="rgba(180,140,255,.25)" transform="rotate(-25,50,50)" rx="44"/>
+       <circle cx="70" cy="70" r="44" fill="url(#pg)"/>
+       <ellipse cx="70" cy="70" rx="70" ry="18" fill="none" stroke="rgba(220,180,255,.4)" stroke-width="8" transform="rotate(-25,70,70)"/>
+       <ellipse cx="55" cy="58" rx="18" ry="10" fill="rgba(255,255,255,.07)"/>
+     </svg>`},
+    {label:'🛸 Станция', panel:'sites', x:'20%',y:'35%',
+     svg:`<svg width="130" height="80" viewBox="0 0 130 80">
+       <rect x="40" y="30" width="50" height="22" rx="8" fill="#446688"/>
+       <rect x="20" y="33" width="90" height="15" rx="6" fill="#5577aa"/>
+       <rect x="0" y="36" width="25" height="8" rx="3" fill="#334455"/>
+       <rect x="105" y="36" width="25" height="8" rx="3" fill="#334455"/>
+       <circle cx="65" cy="40" r="7" fill="#88aacc"/>
+       <rect x="58" y="20" width="14" height="12" rx="3" fill="#88aacc"/>
+       <circle cx="65" cy="40" r="3" fill="#aaccee"/>
+       <ellipse cx="65" cy="40" rx="10" ry="3" fill="none" stroke="rgba(100,200,255,.5)" stroke-width="1"/>
+     </svg>`},
+    {label:'🌍 Земля', panel:'domains', x:'78%',y:'55%',
+     svg:`<svg width="90" height="90" viewBox="0 0 90 90">
+       <defs><radialGradient id="eg" cx="35%" cy="30%"><stop offset="0%" stop-color="#2288ee"/><stop offset="100%" stop-color="#0044aa"/></radialGradient></defs>
+       <circle cx="45" cy="45" r="38" fill="url(#eg)"/>
+       <ellipse cx="35" cy="38" rx="12" ry="8" fill="#2a8a2a" opacity=".9"/>
+       <ellipse cx="55" cy="52" rx="10" ry="6" fill="#2a8a2a" opacity=".9"/>
+       <ellipse cx="30" cy="28" rx="14" ry="10" fill="rgba(255,255,255,.35)" transform="rotate(-30,30,28)"/>
+     </svg>`},
+    {label:'☄️ Астероид', panel:'cases', x:'10%',y:'65%',
+     svg:`<svg width="80" height="65" viewBox="0 0 80 65">
+       <ellipse cx="40" cy="35" rx="36" ry="28" fill="#665544" transform="rotate(20,40,35)"/>
+       <ellipse cx="30" cy="28" rx="28" ry="22" fill="#887766" transform="rotate(20,30,28)"/>
+       <circle cx="25" cy="30" r="5" fill="rgba(0,0,0,.3)"/>
+       <circle cx="42" cy="20" r="3" fill="rgba(0,0,0,.25)"/>
+       <circle cx="50" cy="38" r="4" fill="rgba(0,0,0,.2)"/>
+     </svg>`},
+    {label:'📡 Антенна', panel:'mail', x:'88%',y:'28%',
+     svg:`<svg width="70" height="90" viewBox="0 0 70 90">
+       <line x1="35" y1="90" x2="35" y2="50" stroke="#8899aa" stroke-width="3"/>
+       <ellipse cx="35" cy="40" rx="28" ry="18" fill="none" stroke="#aabbcc" stroke-width="3"/>
+       <ellipse cx="35" cy="40" rx="20" ry="12" fill="none" stroke="#8899aa" stroke-width="2"/>
+       <circle cx="35" cy="40" r="5" fill="#aabbcc"/>
+       <circle cx="35" cy="40" r="8" fill="none" stroke="rgba(100,200,255,.5)" stroke-width="1"/>
+     </svg>`},
+    {label:'🚀 Ракета', panel:'order', x:'38%',y:'60%',
+     svg:`<svg width="50" height="100" viewBox="0 0 50 100" style="transform:rotate(-20deg)">
+       <path d="M25,5 Q35,25 35,55 L15,55 Q15,25 25,5z" fill="#ccddee"/>
+       <ellipse cx="25" cy="55" rx="10" ry="5" fill="#aabbcc"/>
+       <rect x="15" y="55" width="20" height="22" rx="3" fill="#8899aa"/>
+       <path d="M15,70 L5,80 L15,75z" fill="#778899"/>
+       <path d="M35,70 L45,80 L35,75z" fill="#778899"/>
+       <ellipse cx="25" cy="28" rx="6" ry="8" fill="rgba(150,220,255,.4)"/>
+       <circle cx="22" cy="55" r="3" fill="#445566"/>
+       <circle cx="28" cy="55" r="3" fill="#445566"/>
+       <ellipse cx="25" cy="77" rx="8" ry="5" fill="#ff6600" opacity=".8"/>
+       <ellipse cx="25" cy="82" rx="5" ry="8" fill="#ffaa00" opacity=".6"/>
+     </svg>`},
+    {label:'⭐ Пульсар', panel:'support', x:'65%',y:'22%',
+     svg:`<svg width="60" height="60" viewBox="0 0 60 60">
+       <circle cx="30" cy="30" r="8" fill="#fff"/>
+       <circle cx="30" cy="30" r="12" fill="none" stroke="rgba(255,255,200,.4)" stroke-width="2"/>
+       <circle cx="30" cy="30" r="18" fill="none" stroke="rgba(255,255,200,.2)" stroke-width="1.5"/>
+       <circle cx="30" cy="30" r="24" fill="none" stroke="rgba(255,255,200,.1)" stroke-width="1"/>
+       <line x1="30" y1="0" x2="30" y2="60" stroke="rgba(255,255,200,.25)" stroke-width="1"/>
+       <line x1="0" y1="30" x2="60" y2="30" stroke="rgba(255,255,200,.25)" stroke-width="1"/>
+     </svg>`},
+  ];
+
+  spaceObjs.forEach(o=>{
+    const el=document.createElement('div');
+    el.className='obj';
+    el.style.cssText=`position:absolute;left:${o.x};top:${o.y};transform:translate(-50%,-50%);`;
+    el.innerHTML=`<div class="obj-label">${o.label}</div>${o.svg}`;
+    el.addEventListener('click',()=>openPanel(o.panel));
+    objs.appendChild(el);
+  });
+
+  let T=0;
+  function spaceLoop(){
+    T+=.012;
+    drawSpace(T);
+    // Rotate/float objects
+    objs.querySelectorAll('.obj').forEach((el,i)=>{
+      const offset=Math.sin(T*.4+i*.8)*8;
+      el.style.marginTop=offset+'px';
+    });
+    animFrames.space=requestAnimationFrame(spaceLoop);
+  }
+  spaceLoop();
+})();
+
+// ══════════════════════════════════════════════
+// SCENE 3 — NEON CITY
+// ══════════════════════════════════════════════
+(function initCity(){
+  const canvas=document.getElementById('ct-canvas');
+  const ctx=canvas.getContext('2d');
+  const objContainer=document.getElementById('ct-objects');
+  function resize(){canvas.width=W();canvas.height=H();}
+  resize();window.addEventListener('resize',resize);
+
+  const rainDrops=Array.from({length:120},()=>({x:Math.random(),y:Math.random(),speed:.8+Math.random()*1.2,len:8+Math.random()*20}));
+
+  function drawCity(t){
+    const w=W(),h=H();
+    ctx.clearRect(0,0,w,h);
+    // Moon
+    ctx.beginPath();ctx.arc(w*.85,h*.12,40,0,Math.PI*2);
+    const mg=ctx.createRadialGradient(w*.85,h*.12,0,w*.85,h*.12,40);
+    mg.addColorStop(0,'rgba(220,240,255,.95)');mg.addColorStop(.7,'rgba(180,210,250,.8)');mg.addColorStop(1,'transparent');
+    ctx.fillStyle=mg;ctx.fill();
+    ctx.beginPath();ctx.arc(w*.85,h*.12,50,0,Math.PI*2);
+    const halo=ctx.createRadialGradient(w*.85,h*.12,35,w*.85,h*.12,55);
+    halo.addColorStop(0,'rgba(180,210,255,.2)');halo.addColorStop(1,'transparent');
+    ctx.fillStyle=halo;ctx.fill();
+
+    // Neon reflections on wet ground
+    const refY=h-80;
+    ['#ff00ff','#00ffff','#ff6600','#00ff88'].forEach((col,i)=>{
+      const rx=(i+1)/5*w;
+      const rg=ctx.createLinearGradient(0,refY,0,h);
+      rg.addColorStop(0,col.replace('rgb','rgba').replace(')',',0.08)').replace('#','rgba(').replace(/([0-9a-f]{2})/gi,h=>parseInt(h,16)+',').slice(0,-1)+'0.08)');
+      // simpler:
+      ctx.globalAlpha=.06+Math.sin(t*1.2+i)*.03;
+      ctx.fillStyle=col;
+      ctx.fillRect(rx-15,refY,30,h-refY);
+    });
+    ctx.globalAlpha=1;
+
+    // Rain
+    ctx.strokeStyle='rgba(150,180,255,.25)';ctx.lineWidth=.8;
+    rainDrops.forEach(r=>{
+      r.y+=r.speed*.025;if(r.y>1)r.y=0;
+      ctx.beginPath();ctx.moveTo(r.x*w,r.y*h);ctx.lineTo(r.x*w-3,r.y*h+r.len);ctx.stroke();
     });
   }
 
-  sbInsert(table, row).then(function(res) {
-    if (!res.ok && res.status !== 201) throw new Error('save');
-    showToast(tr('saved'));
-    clearForm();
-    return loadData();
-  }).catch(function() {
-    showToast(tr('saveFailed'), true);
-  });
-}
+  // Buildings
+  const BUILDINGS=[
+    {x:.04,w:90,h:320,col:'#0a0018',neon:'#ff00ff',panel:'sites',label:'🌐 Сайты'},
+    {x:.12,w:70,h:220,col:'#040010',neon:'#00ffff',panel:'domains',label:'🌍 Домены'},
+    {x:.19,w:110,h:380,col:'#060014',neon:'#ff6600',panel:'prices',label:'💰 Цены'},
+    {x:.30,w:80,h:280,col:'#030010',neon:'#00ff88',panel:'cases',label:'🏆 Кейсы'},
+    {x:.55,w:75,h:260,col:'#040012',neon:'#ff00aa',panel:'mail',label:'📧 Почта'},
+    {x:.64,w:95,h:350,col:'#050014',neon:'#aaaaff',panel:'support',label:'🛠 Сервис'},
+    {x:.75,w:85,h:300,col:'#030010',neon:'#ffff00',panel:'order',label:'✉️ Заявка'},
+    {x:.85,w:100,h:420,col:'#060018',neon:'#00ccff',panel:'sites',label:'🌐 Сайты'},
+  ];
 
-function clearForm() {
-  ['fFrom','fTo','fCar','fPrice','fPhone','fWA','fTG','fComment','pName','pDate'].forEach(function(id) {
-    var el = document.getElementById(id);
-    if (el) el.value = '';
+  BUILDINGS.forEach(b=>{
+    const el=document.createElement('div');
+    el.className='obj';
+    const bw=b.w, bh=b.h;
+    // Windows pattern
+    let wins='';
+    const cols=Math.floor(bw/18), rows=Math.floor(bh/24);
+    for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+      const lit=Math.random()>.4;
+      if(lit) wins+=`<rect x="${c*18+5}" y="${r*24+5}" width="9" height="12" rx="1" fill="rgba(255,240,180,${.3+Math.random()*.5})"/>`;
+    }
+    // Neon sign
+    const neonText=b.label.split(' ')[1]||'ALSAT';
+    el.innerHTML=`<div class="obj-label">${b.label}</div>
+    <svg width="${bw}" height="${bh}" viewBox="0 0 ${bw} ${bh}" style="overflow:visible">
+      <rect width="${bw}" height="${bh}" fill="${b.col}"/>
+      <rect width="${bw}" height="${bh}" fill="none" stroke="${b.neon}" stroke-width="1.5" opacity=".6"/>
+      ${wins}
+      <rect x="${bw*.2}" y="${bh*.1}" width="${bw*.6}" height="20" rx="4" fill="${b.neon}" opacity=".85"/>
+      <text x="${bw/2}" y="${bh*.1+14}" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">${neonText}</text>
+    </svg>`;
+    el.style.cssText=`position:absolute;bottom:80px;left:${b.x*100}%;cursor:pointer;z-index:6;filter:drop-shadow(0 0 12px ${b.neon});transition:filter .2s,transform .2s`;
+    el.addEventListener('mouseenter',()=>{el.style.filter=`drop-shadow(0 0 24px ${b.neon})`;el.style.transform='scaleY(1.03) translateY(-4px)';});
+    el.addEventListener('mouseleave',()=>{el.style.filter=`drop-shadow(0 0 12px ${b.neon})`;el.style.transform='';});
+    el.addEventListener('click',()=>openPanel(b.panel));
+    objContainer.appendChild(el);
   });
-  ['fAC','fSeat','fTrunk','fParcel'].forEach(function(id) {
-    document.getElementById(id).checked = false;
-  });
-  document.getElementById('fConsent').checked = false;
-}
 
-function loadData() {
-  document.getElementById('cards').innerHTML = '<div class="loading">' + esc(tr('loading')) + '</div>';
-  return Promise.all([
-    sbFetch('taxi_drivers?select=*&blocked=neq.true&order=created_at.desc&limit=80'),
-    sbFetch('taxi_requests?select=*&blocked=neq.true&order=created_at.desc&limit=80')
-  ]).then(function(results) {
-    state.drivers = results[0] || [];
-    state.pax = results[1] || [];
-    render();
-  }).catch(function() {
-    renderOfflineState();
-  });
-}
+  // Holographic sign (floating)
+  const holoSign=document.createElement('div');
+  holoSign.style.cssText='position:absolute;top:15%;left:50%;transform:translateX(-50%);z-index:8;cursor:pointer;text-align:center;';
+  holoSign.innerHTML=`<div style="font-size:28px;color:#00ffff;text-shadow:0 0 20px #00ffff,0 0 40px #00ffff;letter-spacing:4px;font-weight:bold;animation:holo 3s ease-in-out infinite">ALSAT.ASIA</div>
+  <div style="color:rgba(0,255,255,.5);font-size:12px;letter-spacing:6px;margin-top:6px">ВЕБ · ДОМЕНЫ · AI</div>`;
+  document.head.querySelector('style').textContent+=`@keyframes holo{0%,100%{opacity:.7;text-shadow:0 0 20px #00ffff,0 0 40px #00ffff}50%{opacity:1;text-shadow:0 0 30px #00ffff,0 0 60px #00ffff,0 0 80px rgba(0,255,255,.3)}}`;
+  holoSign.addEventListener('click',()=>openPanel('sites'));
+  objContainer.appendChild(holoSign);
 
-setLang(currentLang);
-loadData();
+  let T=0;
+  function cityLoop(){
+    T+=.016;
+    drawCity(T);
+    animFrames.city=requestAnimationFrame(cityLoop);
+  }
+  cityLoop();
+})();
+
+// ══════════════════════════════════════════════
+// SCENE 4 — FUTURISTIC STEPPE
+// ══════════════════════════════════════════════
+(function initSteppe(){
+  const canvas=document.getElementById('st-canvas');
+  const ctx=canvas.getContext('2d');
+  const objContainer=document.getElementById('st-objects');
+  function resize(){canvas.width=W();canvas.height=H();}
+  resize();window.addEventListener('resize',resize);
+
+  const stars=Array.from({length:200},()=>({x:Math.random(),y:Math.random()*.6,r:.4+Math.random()*1.5,phase:Math.random()*Math.PI*2}));
+
+  function drawSteppe(t){
+    const w=W(),h=H();
+    ctx.clearRect(0,0,w,h);
+    // Aurora
+    [['rgba(0,200,120,.12)','rgba(0,100,200,.08)'],['rgba(100,0,200,.08)','rgba(200,0,100,.06)']].forEach(([c1,c2],i)=>{
+      const aur=ctx.createLinearGradient(0,h*.05+i*60,w,h*.25+i*60);
+      aur.addColorStop(0,c1);aur.addColorStop(.5,c2);aur.addColorStop(1,c1);
+      ctx.globalAlpha=.5+Math.sin(t*.3+i)*.3;
+      ctx.fillRect(0,h*.05+i*40,w,h*.2);
+    });
+    ctx.globalAlpha=1;
+    // Stars
+    stars.forEach(s=>{
+      ctx.globalAlpha=.3+Math.sin(t*.8+s.phase)*.3;
+      ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(s.x*w,s.y*h,s.r,0,Math.PI*2);ctx.fill();
+    });
+    ctx.globalAlpha=1;
+    // Moon
+    const mg=ctx.createRadialGradient(w*.15,h*.15,0,w*.15,h*.15,45);
+    mg.addColorStop(0,'rgba(240,250,255,.9)');mg.addColorStop(.7,'rgba(200,220,255,.7)');mg.addColorStop(1,'transparent');
+    ctx.fillStyle=mg;ctx.beginPath();ctx.arc(w*.15,h*.15,45,0,Math.PI*2);ctx.fill();
+    // Ground gradient
+    const gg=ctx.createLinearGradient(0,h-130,0,h);
+    gg.addColorStop(0,'rgba(20,60,20,.0)');gg.addColorStop(1,'rgba(10,30,10,.0)');
+    ctx.fillStyle=gg;ctx.fillRect(0,h-130,w,130);
+    // Wind lines
+    ctx.globalAlpha=.06;ctx.strokeStyle='rgba(200,255,200,1)';ctx.lineWidth=1;
+    for(let i=0;i<8;i++){
+      ctx.beginPath();
+      const y=h-.7*h+i*30;const ox=(t*60+i*120)%w;
+      ctx.moveTo(ox,y);ctx.lineTo(ox+100,y+5);ctx.stroke();
+    }
+    ctx.globalAlpha=1;
+  }
+
+  // Steppe objects
+  const steppeObjs=[
+    // Futuristic yurt
+    {x:'15%',y:'65%',panel:'order',label:'🏛 Заявка',
+     svg:`<svg width="130" height="100" viewBox="0 0 130 100">
+       <ellipse cx="65" cy="95" rx="60" ry="10" fill="rgba(0,0,0,.3)"/>
+       <path d="M10,80 Q65,10 120,80z" fill="#1a3a5a"/>
+       <path d="M10,80 Q65,10 120,80z" fill="none" stroke="rgba(0,200,255,.6)" stroke-width="2"/>
+       <path d="M20,80 Q65,25 110,80z" fill="none" stroke="rgba(0,200,255,.2)" stroke-width="1"/>
+       <ellipse cx="65" cy="80" rx="55" ry="8" fill="#243a5a"/>
+       <rect x="55" y="68" width="20" height="15" rx="3" fill="#1a2a3a"/>
+       <ellipse cx="65" cy="25" rx="4" ry="4" fill="rgba(0,255,200,.8)"/>
+       <path d="M65,5 L65,18" stroke="rgba(0,255,200,.6)" stroke-width="1.5"/>
+       <path d="M58,8 L65,5 L72,8" fill="none" stroke="rgba(0,255,200,.6)" stroke-width="1.5"/>
+     </svg>`},
+    // Solar panels
+    {x:'35%',y:'72%',panel:'support',label:'⚡ Обслуживание',
+     svg:`<svg width="100" height="80" viewBox="0 0 100 80">
+       <rect x="5" y="20" width="90" height="50" rx="4" fill="#1a2a4a" stroke="rgba(0,150,255,.4)" stroke-width="1.5"/>
+       <line x1="35" y1="20" x2="35" y2="70" stroke="rgba(0,150,255,.3)" stroke-width="1"/>
+       <line x1="65" y1="20" x2="65" y2="70" stroke="rgba(0,150,255,.3)" stroke-width="1"/>
+       <line x1="5" y1="45" x2="95" y2="45" stroke="rgba(0,150,255,.3)" stroke-width="1"/>
+       <rect x="5" y="20" width="90" height="50" rx="4" fill="rgba(0,100,255,.06)"/>
+       <rect x="43" y="68" width="14" height="12" rx="2" fill="#334455"/>
+       <ellipse cx="50" cy="80" rx="12" ry="3" fill="rgba(0,0,0,.3)"/>
+       <line x1="20" y1="20" x2="12" y2="4" stroke="rgba(255,200,0,.5)" stroke-width="1.5"/>
+       <line x1="50" y1="20" x2="50" y2="4" stroke="rgba(255,200,0,.5)" stroke-width="1.5"/>
+       <line x1="80" y1="20" x2="88" y2="4" stroke="rgba(255,200,0,.5)" stroke-width="1.5"/>
+     </svg>`},
+    // Drone
+    {x:'60%',y:'40%',panel:'mail',label:'📧 Почта',
+     svg:`<svg width="90" height="55" viewBox="0 0 90 55">
+       <ellipse cx="45" cy="28" rx="18" ry="8" fill="#334455"/>
+       <ellipse cx="45" cy="28" rx="14" ry="6" fill="#445566"/>
+       <rect x="10" y="24" width="70" height="3" rx="1" fill="#556677"/>
+       <rect x="10" y="22" width="3" height="7" rx="1" fill="#556677"/>
+       <rect x="77" y="22" width="3" height="7" rx="1" fill="#556677"/>
+       <ellipse cx="12" cy="22" rx="10" ry="5" fill="none" stroke="rgba(0,200,255,.5)" stroke-width="1.5"/>
+       <ellipse cx="78" cy="22" rx="10" ry="5" fill="none" stroke="rgba(0,200,255,.5)" stroke-width="1.5"/>
+       <circle cx="45" cy="28" r="3" fill="rgba(0,255,200,.8)"/>
+       <line x1="45" y1="34" x2="45" y2="50" stroke="rgba(0,200,255,.4)" stroke-width="1"/>
+       <circle cx="45" cy="50" r="2" fill="rgba(0,255,150,.6)"/>
+     </svg>`},
+    // Wind turbines
+    {x:'78%',y:'58%',panel:'cases',label:'🏆 Кейсы',
+     svg:`<svg width="80" height="120" viewBox="0 0 80 120">
+       <rect x="37" y="30" width="6" height="90" rx="2" fill="#445566"/>
+       <ellipse cx="40" cy="120" rx="14" ry="4" fill="rgba(0,0,0,.3)"/>
+       <g transform="rotate(0,40,30)" style="transform-origin:40px 30px;animation:spin 4s linear infinite">
+         <path d="M40,30 L40,2 Q45,16 40,30z" fill="rgba(100,180,220,.8)"/>
+         <path d="M40,30 L64,42 Q52,30 40,30z" fill="rgba(100,180,220,.7)"/>
+         <path d="M40,30 L16,42 Q28,30 40,30z" fill="rgba(100,180,220,.75)"/>
+       </g>
+       <circle cx="40" cy="30" r="4" fill="#aabbcc"/>
+     </svg>`},
+    // Data tower
+    {x:'88%',y:'55%',panel:'prices',label:'💰 Цены',
+     svg:`<svg width="50" height="110" viewBox="0 0 50 110">
+       <rect x="18" y="20" width="14" height="90" rx="2" fill="#223344"/>
+       <ellipse cx="25" cy="110" rx="12" ry="3" fill="rgba(0,0,0,.3)"/>
+       <rect x="5" y="40" width="40" height="5" rx="2" fill="#334455"/>
+       <rect x="5" y="60" width="40" height="5" rx="2" fill="#334455"/>
+       <rect x="5" y="80" width="40" height="5" rx="2" fill="#334455"/>
+       <circle cx="25" cy="20" r="8" fill="#446688" stroke="rgba(0,200,255,.5)" stroke-width="1.5"/>
+       <circle cx="25" cy="10" r="3" fill="rgba(0,255,200,.8)"/>
+       <line x1="25" y1="2" x2="25" y2="8" stroke="rgba(0,255,200,.6)" stroke-width="1.5"/>
+       <rect x="22" y="42" width="6" height="3" rx="1" fill="rgba(0,200,255,.6)"/>
+       <rect x="22" y="62" width="6" height="3" rx="1" fill="rgba(0,200,100,.6)"/>
+       <rect x="22" y="82" width="6" height="3" rx="1" fill="rgba(255,150,0,.6)"/>
+     </svg>`},
+    // Holographic horse (symbol of Kazakh steppe)
+    {x:'48%',y:'55%',panel:'sites',label:'🌐 Создание сайтов',
+     svg:`<svg width="110" height="90" viewBox="0 0 110 90">
+       <g opacity=".8" fill="none" stroke="rgba(0,255,200,.7)" stroke-width="1.5">
+         <path d="M55,20 Q65,15 70,25 Q75,35 65,40 Q60,42 55,38z"/>
+         <path d="M55,38 Q45,50 40,65 L38,85 L42,85 L44,68"/>
+         <path d="M55,38 Q60,48 62,62 L64,82 L60,82 L58,65"/>
+         <path d="M55,20 Q48,15 40,20 Q35,28 38,35 L55,38"/>
+         <path d="M55,38 Q48,42 42,48 L38,68 L42,68 L45,52"/>
+         <path d="M70,25 Q78,20 80,10"/>
+         <path d="M70,25 Q72,30 75,38 L78,55 L74,55 L72,40"/>
+       </g>
+       <g fill="rgba(0,255,200,.15)" stroke="rgba(0,255,200,.4)" stroke-width="1">
+         <path d="M55,20 Q65,15 70,25 Q75,35 65,40 Q60,42 55,38z"/>
+       </g>
+     </svg>`},
+  ];
+
+  document.head.querySelector('style').textContent+=`@keyframes spin{to{transform:rotate(360deg)}}`;
+
+  steppeObjs.forEach(o=>{
+    const el=document.createElement('div');
+    el.className='obj';
+    el.style.cssText=`position:absolute;left:${o.x};top:${o.y};transform:translate(-50%,-50%);cursor:pointer;z-index:6;filter:drop-shadow(0 0 10px rgba(0,200,150,.4));transition:filter .2s,transform .2s`;
+    el.innerHTML=`<div class="obj-label">${o.label}</div>${o.svg}`;
+    el.addEventListener('mouseenter',()=>{el.style.filter='drop-shadow(0 0 20px rgba(0,255,180,.8))';el.style.transform='translate(-50%,-60%) scale(1.1)';});
+    el.addEventListener('mouseleave',()=>{el.style.filter='drop-shadow(0 0 10px rgba(0,200,150,.4))';el.style.transform='translate(-50%,-50%)';});
+    el.addEventListener('click',()=>openPanel(o.panel));
+    objContainer.appendChild(el);
+  });
+
+  let T=0;
+  function steppeLoop(){
+    T+=.012;
+    drawSteppe(T);
+    animFrames.steppe=requestAnimationFrame(steppeLoop);
+  }
+  steppeLoop();
+})();
 </script>
 </body>
 </html>
