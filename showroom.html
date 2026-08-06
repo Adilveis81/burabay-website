@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>alsat.asia — Интерактивный шоурум</title>
+<style>
+/* ══════════════════════════════════════════════
+   BASE
+══════════════════════════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+/* ── Scene container ── */
+#app{position:relative;width:100vw;height:100vh;overflow:hidden}
+.scene{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .8s}
+.scene.active{opacity:1;pointer-events:all}
+
+/* ── Scene nav ── */
+#nav{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  z-index:50;display:flex;gap:12px;
+  background:rgba(0,0,0,.45);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.12);border-radius:50px;
+  padding:10px 18px;
+}
+.nav-btn{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:8px 14px;border-radius:40px;transition:background .2s,transform .15s;
+  color:rgba(255,255,255,.55);font-size:11px;letter-spacing:.5px;cursor:pointer;
+}
+.nav-btn .icon{font-size:22px;line-height:1}
+.nav-btn:hover{background:rgba(255,255,255,.1);transform:translateY(-2px);color:#fff}
+.nav-btn.active{background:rgba(255,255,255,.18);color:#fff}
+
+/* ── Canvas base ── */
+.bg-canvas{position:absolute;inset:0;width:100%;height:100%}
+
+/* ── Clickable object base ── */
+.obj{
+  position:absolute;cursor:pointer;z-index:10;
+  transition:filter .2s,transform .2s;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5));
+}
+.obj:hover{transform:scale(1.12) translateY(-6px);filter:drop-shadow(0 0 18px rgba(255,220,80,.8))}
+
+/* ── Object labels ── */
+.obj-label{
+  position:absolute;bottom:105%;left:50%;transform:translateX(-50%);
+  white-space:nowrap;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);
+  color:#fff;font-size:11px;padding:4px 10px;border-radius:20px;
+  opacity:0;transition:opacity .2s;pointer-events:none;border:1px solid rgba(255,255,255,.15);
+}
+.obj:hover .obj-label{opacity:1}
+
+/* ══════════════════════════════════════════════
+   SCENE 1 — AQUARIUM
+══════════════════════════════════════════════ */
+#scene-aquarium{background:linear-gradient(180deg,#041830 0%,#072848 30%,#083560 65%,#041c35 100%)}
+
+#aq-surface{position:absolute;top:0;left:0;right:0;height:20px;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,rgba(120,200,255,.18) 0%,transparent 100%)}
+#aq-sand{position:absolute;bottom:0;left:0;right:0;height:100px;z-index:4;pointer-events:none;
+  background:linear-gradient(180deg,#6b5010 0%,#a07820 40%,#c49a2a 70%,#b8901e 100%);border-radius:0}
+#aq-sand::before{content:'';position:absolute;top:0;left:0;right:0;height:28px;
+  background:radial-gradient(ellipse 80px 18px at 10% 50%,rgba(0,0,0,.2) 0%,transparent 70%),
+    radial-gradient(ellipse 60px 15px at 35% 60%,rgba(0,0,0,.15) 0%,transparent 70%),
+    radial-gradient(ellipse 90px 20px at 65% 45%,rgba(0,0,0,.2) 0%,transparent 70%),
+    radial-gradient(ellipse 50px 14px at 88% 55%,rgba(0,0,0,.15) 0%,transparent 70%)}
+
+.weed{position:absolute;bottom:92px;z-index:3;transform-origin:bottom center;pointer-events:none}
+.bubble{position:absolute;border-radius:50%;border:1px solid rgba(180,220,255,.35);
+  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.25),rgba(100,180,255,.05));
+  pointer-events:none;z-index:8;animation:bubble-rise linear forwards}
+@keyframes bubble-rise{0%{transform:translateY(0) translateX(0);opacity:.8}100%{transform:translateY(-120vh) translateX(var(--drift));opacity:0}}
+@keyframes sway-a{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(10deg)}}
+@keyframes sway-b{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(13deg)}}
+@keyframes sway-c{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(6deg)}}
+
+/* ══════════════════════════════════════════════
+   SCENE 2 — SPACE STATION
+══════════════════════════════════════════════ */
+#scene-space{background:radial-gradient(ellipse at 30% 40%,#1a0840 0%,#080014 40%,#000008 100%)}
+
+/* ══════════════════════════════════════════════
+   SCENE 3 — NEON CITY
+══════════════════════════════════════════════ */
+#scene-city{background:linear-gradient(180deg,#050010 0%,#0a001a 30%,#050008 100%)}
+#city-ground{position:absolute;bottom:0;left:0;right:0;height:80px;z-index:4;pointer-events:none;
+  background:linear-gradient(180deg,#0a0018 0%,#060012 100%)}
+#city-road{position:absolute;bottom:0;left:0;right:0;height:28px;z-index:5;pointer-events:none;
+  background:#0d0d1a;border-top:1px solid rgba(100,50,200,.3)}
+#city-road::after{content:'';position:absolute;top:50%;left:0;right:0;height:2px;
+  background:repeating-linear-gradient(90deg,rgba(255,220,0,.4) 0px,rgba(255,220,0,.4) 40px,transparent 40px,transparent 80px)}
+@keyframes rain-fall{0%{transform:translateY(-100%)}100%{transform:translateY(120vh)}}
+
+/* ══════════════════════════════════════════════
+   SCENE 4 — STEPPE
+══════════════════════════════════════════════ */
+#scene-steppe{background:linear-gradient(180deg,#050a1a 0%,#0a1428 20%,#0d1f38 50%,#142840 100%)}
+#steppe-ground{position:absolute;bottom:0;left:0;right:0;height:130px;z-index:4;pointer-events:none;
+  background:linear-gradient(180deg,#1a3a18 0%,#0f2a10 50%,#0a1f0a 100%)}
+#steppe-ground::before{content:'';position:absolute;top:0;left:0;right:0;height:30px;
+  background:repeating-linear-gradient(90deg,rgba(50,120,40,.15) 0px,rgba(50,120,40,.15) 2px,transparent 2px,transparent 8px)}
+@keyframes aurora{0%,100%{opacity:.3;transform:scaleX(1)}50%{opacity:.6;transform:scaleX(1.05)}}
+
+/* ══════════════════════════════════════════════
+   SERVICE PANELS
+══════════════════════════════════════════════ */
+#panel-overlay{
+  position:fixed;inset:0;z-index:100;
+  background:rgba(0,5,20,.88);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .35s;
+}
+#panel-overlay.on{opacity:1;pointer-events:all}
+
+.panel{
+  display:none;max-width:860px;width:92%;max-height:88vh;overflow-y:auto;
+  background:linear-gradient(135deg,#060f22 0%,#08182e 100%);
+  border:1px solid rgba(80,160,255,.25);border-radius:22px;
+  padding:44px 48px;transform:translateY(20px);transition:transform .35s;
+  box-shadow:0 0 80px rgba(0,80,200,.2),0 40px 80px rgba(0,0,0,.7);
+}
+#panel-overlay.on .panel.active{display:block;transform:translateY(0)}
+
+.panel h2{color:#fff;font-size:26px;margin-bottom:8px}
+.panel h2 .accent{color:#38b6ff}
+.panel .sub{color:rgba(180,210,255,.6);font-size:14px;margin-bottom:32px;line-height:1.6}
+
+/* Cards grid */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:32px}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(80,160,255,.2);border-radius:14px;padding:22px 18px;transition:border-color .2s,background .2s}
+.card:hover{background:rgba(56,182,255,.08);border-color:rgba(56,182,255,.4)}
+.card .ci{font-size:34px;margin-bottom:10px}
+.card h3{color:#fff;font-size:15px;margin-bottom:6px}
+.card p{color:rgba(180,210,255,.6);font-size:12px;line-height:1.6}
+.card .price{color:#38b6ff;font-size:14px;font-weight:bold;margin-top:10px}
+
+/* Process steps */
+.steps{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
+.step{display:flex;align-items:flex-start;gap:16px}
+.step .num{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#0077ff,#00c3ff);
+  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:15px;flex-shrink:0}
+.step .txt h4{color:#fff;font-size:14px;margin-bottom:4px}
+.step .txt p{color:rgba(180,210,255,.65);font-size:13px;line-height:1.5}
+
+/* Pricing table */
+.price-table{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:32px}
+.price-col{background:rgba(255,255,255,.04);border:1px solid rgba(80,160,255,.2);border-radius:14px;padding:24px 18px;text-align:center}
+.price-col.featured{border-color:rgba(56,182,255,.5);background:rgba(56,182,255,.07)}
+.price-col .tier{color:rgba(180,210,255,.7);font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.price-col .amount{color:#fff;font-size:28px;font-weight:bold;margin-bottom:4px}
+.price-col .amount span{font-size:14px;color:rgba(180,210,255,.6)}
+.price-col ul{list-style:none;color:rgba(180,210,255,.65);font-size:12px;line-height:1.8;text-align:left;margin-top:14px}
+.price-col ul li::before{content:'✓ ';color:#38b6ff}
+
+/* Case cards */
+.cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:32px}
+.case-card{border-radius:14px;overflow:hidden;cursor:pointer;border:1px solid rgba(80,160,255,.2);transition:transform .2s,border-color .2s}
+.case-card:hover{transform:translateY(-4px);border-color:rgba(56,182,255,.5)}
+.case-img{height:130px;display:flex;align-items:center;justify-content:center;font-size:52px}
+.case-body{background:rgba(255,255,255,.04);padding:16px}
+.case-body h4{color:#fff;font-size:14px;margin-bottom:6px}
+.case-body p{color:rgba(180,210,255,.6);font-size:12px;line-height:1.5}
+
+/* Form */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.form-grid input,.form-grid select,textarea{
+  background:rgba(255,255,255,.06);border:1px solid rgba(80,160,255,.25);border-radius:10px;
+  color:#fff;font-size:14px;padding:12px 14px;outline:none;font-family:inherit;
+  transition:border-color .2s;width:100%;
+}
+.form-grid input:focus,.form-grid select:focus,textarea:focus{border-color:rgba(56,182,255,.6)}
+.form-grid input::placeholder,textarea::placeholder{color:rgba(180,210,255,.4)}
+.form-grid select option{background:#0a1a30;color:#fff}
+textarea{width:100%;min-height:90px;resize:vertical;margin-bottom:14px}
+.full{grid-column:1/-1}
+
+/* Buttons */
+.btn-primary{
+  width:100%;padding:15px;border-radius:50px;
+  background:linear-gradient(135deg,#0077ff,#00c3ff);
+  color:#fff;font-size:16px;font-weight:bold;letter-spacing:.5px;
+  box-shadow:0 4px 24px rgba(0,120,255,.4);transition:transform .15s,box-shadow .15s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,180,255,.5)}
+.btn-close{display:block;width:100%;margin-top:12px;padding:8px;color:rgba(150,180,220,.5);font-size:13px}
+.btn-close:hover{color:#aaa}
+
+/* Panel header emoji */
+.panel-icon{font-size:52px;margin-bottom:16px;display:block}
+
+/* ── scrollbar ── */
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(56,182,255,.3);border-radius:3px}
+
+/* ── hint ── */
+.scene-hint{position:absolute;bottom:95px;left:50%;transform:translateX(-50%);
+  color:rgba(255,255,255,.3);font-size:12px;letter-spacing:2px;z-index:15;pointer-events:none;
+  white-space:nowrap;animation:fadeHint 5s 1.5s forwards}
+@keyframes fadeHint{0%{opacity:1}80%{opacity:1}100%{opacity:0}}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ══ SCENE 1: AQUARIUM ══ -->
+  <div id="scene-aquarium" class="scene active">
+    <canvas id="aq-canvas" class="bg-canvas"></canvas>
+    <div id="aq-surface"></div>
+    <canvas id="fish-canvas" class="bg-canvas" style="z-index:6"></canvas>
+    <div id="aq-sand"></div>
+    <div id="aq-weeds"></div>
+    <div id="aq-stones"></div>
+    <div id="fish-hits" style="position:absolute;inset:0;z-index:9;pointer-events:none"></div>
+    <div class="scene-hint">👆 Кликни на рыбку, камушек или коралл</div>
+  </div>
+
+  <!-- ══ SCENE 2: SPACE ══ -->
+  <div id="scene-space" class="scene">
+    <canvas id="sp-canvas" class="bg-canvas"></canvas>
+    <div id="sp-objects" style="position:absolute;inset:0;z-index:5"></div>
+    <div class="scene-hint">👆 Кликни на планету, станцию или астероид</div>
+  </div>
+
+  <!-- ══ SCENE 3: CITY ══ -->
+  <div id="scene-city" class="scene">
+    <canvas id="ct-canvas" class="bg-canvas"></canvas>
+    <div id="ct-objects" style="position:absolute;inset:0;z-index:5"></div>
+    <div id="city-ground"></div>
+    <div id="city-road"></div>
+    <div class="scene-hint">👆 Кликни на здание, вывеску или голограмму</div>
+  </div>
+
+  <!-- ══ SCENE 4: STEPPE ══ -->
+  <div id="scene-steppe" class="scene">
+    <canvas id="st-canvas" class="bg-canvas"></canvas>
+    <div id="st-objects" style="position:absolute;inset:0;z-index:5"></div>
+    <div id="steppe-ground"></div>
+    <div class="scene-hint">👆 Кликни на юрту, дрон или солнечную панель</div>
+  </div>
+
+  <!-- ══ NAVIGATION ══ -->
+  <nav id="nav">
+    <button class="nav-btn active" data-scene="aquarium"><span class="icon">🐠</span>Аквариум</button>
+    <button class="nav-btn" data-scene="space"><span class="icon">🚀</span>Космос</button>
+    <button class="nav-btn" data-scene="city"><span class="icon">🌆</span>Неон-сити</button>
+    <button class="nav-btn" data-scene="steppe"><span class="icon">🌾</span>Степь</button>
+  </nav>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SERVICE PANELS
+══════════════════════════════════════════════ -->
+<div id="panel-overlay">
+  <div id="panels">
+
+    <!-- СОЗДАНИЕ САЙТОВ -->
+    <div class="panel" id="panel-sites">
+      <span class="panel-icon">🌐</span>
+      <h2>Создание <span class="accent">сайтов</span></h2>
+      <p class="sub">Разрабатываем от лендинга до маркетплейса. Современный дизайн, быстрая загрузка, мобильная версия. Работаем под ключ.</p>
+      <div class="cards">
+        <div class="card"><div class="ci">🚀</div><h3>Лендинг</h3><p>Продающая страница с CTA, формой заявки, SEO-оптимизацией</p><div class="price">от $300</div></div>
+        <div class="card"><div class="ci">🏢</div><h3>Корпоративный</h3><p>Многостраничный сайт компании с каталогом услуг и CRM</p><div class="price">от $700</div></div>
+        <div class="card"><div class="ci">🛒</div><h3>Интернет-магазин</h3><p>Каталог, корзина, оплата, доставка, личный кабинет</p><div class="price">от $1200</div></div>
+        <div class="card"><div class="ci">🤖</div><h3>Сайт + AI бот</h3><p>Умный чат-бот отвечает клиентам вместо менеджера 24/7</p><div class="price">от $900</div></div>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div class="txt"><h4>Бриф</h4><p>Обсуждаем цели, аудиторию, конкурентов. 30 минут — и всё ясно.</p></div></div>
+        <div class="step"><div class="num">2</div><div class="txt"><h4>Дизайн</h4><p>Прототип → дизайн в Figma → согласование. Без лишних правок.</p></div></div>
+        <div class="step"><div class="num">3</div><div class="txt"><h4>Разработка</h4><p>Верстка, бэкенд, тестирование на всех устройствах.</p></div></div>
+        <div class="step"><div class="num">4</div><div class="txt"><h4>Запуск</h4><p>Деплой, настройка аналитики, обучение. Сайт работает.</p></div></div>
+      </div>
+      <button class="btn-primary" onclick="openPanel('order')">📩 Заказать сайт</button>
+      <button class="btn-close" onclick="closePanel()">Закрыть</button>
+    </div>
+
+    <!-- ДОМЕНЫ -->
+    <div class="panel" id="panel-domains">
+      <span class="panel-icon">🌍</span>
+      <h2>Регистрация <span class="accent">доменов</span></h2>
+      <p class="sub">Помогаем выбрать правильное имя для бизнеса и зарегистрировать домен в нужной зоне. Настраиваем DNS и привязываем к хостингу.</p>
+      <div class="cards">
+        <div class="card"><div class="ci">🇰🇿</div><h3>.kz домен</h3><p>Казахстанский домен — доверие местной аудитории, лучше в поиске</p><div class="price">от $25/год</div></div>
+        <div class="card"><div class="ci">🌐</div><h3>.com домен</h3><p>Международный стандарт. Подходит для любого бизнеса</p><div class="price">от $12/год</div></div>
+        <div class="card"><div class="ci">⚡</div><h3>.kz + .com</h3><p>Оба домена — защита бренда и полный охват аудитории</p><div class="price">от $35/год</div></div>
+        <div class="card"><div class="ci">🔒</div><h3>SSL сертификат</h3><p>HTTPS защита, замочек в браузере, доверие Google</p><div class="price">Бесплатно</div></div>
+      </div>
+      <button class="btn-primary" onclick="openPanel('order')">📩 Зарегистрировать домен</button>
+      <button class="btn-close" onclick="closePanel()">Закрыть</button>
+    </div>
+
+    <!-- КОРПОРАТИВНАЯ ПОЧТА -->
+    <div class="panel" id="panel-mail">
+      <span class="panel-icon">📧</span>
+      <h2>Корпоративная <span class="accent">почта</span></h2>
+      <p class="sub">Email вида имя@вашакомпания.kz — это профессионально. Настраиваем почту на вашем домене за 1 день.</p>
+      <div class="cards">
+        <div class="card"><div class="ci">👤</div><h3>Стартер</h3><p>До 5 ящиков, 10 ГБ на ящик. Google Workspace или Yandex 360</p><div class="price">от $5/мес</div></div>
+        <div class="card"><div class="ci">👥</div><h3>Бизнес</h3><p>До 25 ящиков, 30 ГБ, общий календарь, видеозвонки</p><div class="price">от $12/мес</div></div>
+        <div class="card"><div class="ci">🏗</div><h3>Корпоратив</h3><p>Неограниченные ящики, своя почтовая система на сервере</p><div class="price">от $40/мес</div></div>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div class="txt"><h4>Выбираем платформу</h4><p>Google Workspace, Yandex 360 или собственный сервер</p></div></div>
+        <div class="step"><div class="num">2</div><div class="txt"><h4>Настраиваем DNS</h4><p>MX, SPF, DKIM, DMARC — почта не попадает в спам</p></div></div>
+        <div class="step"><div class="num">3</div><div class="txt"><h4>Создаём ящики</h4><p>info@, sales@, support@ — сколько нужно</p></div></div>
+      </div>
+      <button class="btn-primary" onclick="openPanel('order')">📩 Подключить почту</button>
+      <button class="btn-close" onclick="closePanel()">Закрыть</button>
+    </div>
+
+    <!-- ОБСЛУЖИВАНИЕ -->
+    <div class="panel" id="panel-support">
+      <span class="panel-icon">🛠</span>
+      <h2>Техническое <span class="accent">обслуживание</span></h2>
+      <p class="sub">Ваш сайт — это инструмент. Он должен работать без сбоев, загружаться быстро и защищать данные клиентов.</p>
+      <div class="cards">
+        <div class="card"><div class="ci">🔄</div><h3>Базовое</h3><p>Хостинг, обновления CMS, резервные копии раз в неделю</p><div class="price">от $30/мес</div></div>
+        <div class="card"><div class="ci">⚡</div><h3>Стандарт</h3><p>+ мониторинг 24/7, ежедневные бэкапы, правки контента</p><div class="price">от $60/мес</div></div>
+        <div class="card"><div class="ci">🛡</div><h3>Премиум</h3><p>+ приоритетная поддержка, SEO-мониторинг, аналитика</p><div class="price">от $120/мес</div></div>
+      </div>
+      <button class="btn-primary" onclick="openPanel('order')">📩 Подключить обслуживание</button>
+      <button class="btn-close" onclick="closePanel()">Закрыть</button>
+    </div>
+
+    <!-- ЦЕНЫ -->
+    <div class="panel" id="panel-prices">
+      <span class="panel-icon">💰</span>
+      <h2>Прозрачные <span class="accent">цены</span></h2>
+      <p class="sub">Никаких скрытых платежей. Вы знаете что покупаете и сколько это стоит.</p>
+      <div class="price-table">
+        <div class="price-col">
+          <div class="tier">Старт</div>
+          <div class="amount">$300<span>/проект</span></div>
+          <ul><li>Лендинг 1–3 страницы</li><li>Мобильная версия</li><li>Форма заявки</li><li>Хостинг 1 месяц</li><li>Срок: 7–10 дней</li></ul>
+        </div>
+        <div class="price-col featured">
+          <div class="tier">Бизнес ⭐</div>
+          <div class="amount">$800<span>/проект</span></div>
+          <ul><li>Корп. сайт до 10 стр.</li><li>Дизайн-система</li><li>Форма + CRM интеграция</li><li>SEO базовое</li><li>Хостинг 3 месяца</li><li>Срок: 2–3 недели</li></ul>
+        </div>
+        <div class="price-col">
+          <div class="tier">Магазин</div>
+          <div class="amount">$1500<span>/проект</span></div>
+          <ul><li>Интернет-магазин</li><li>Каталог + фильтры</li><li>Оплата Kaspi/Visa</li><li>Личный кабинет</li><li>Аналитика продаж</li><li>Срок: 3–5 недель</li></ul>
+        </div>
+        <div class="price-col">
+          <div class="tier">Enterprise</div>
+          <div class="amount">$3000+<span>/проект</span></div>
+          <ul><li>Маркетплейс / SaaS</li><li>AI функции</li><li>Мобильное приложение</li><li>Выделенный сервер</li><li>Индивидуально</li></ul>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="openPanel('order')">📩 Обсудить проект</button>
+      <button class="btn-close" onclick="closePanel()">Закрыть</button>
+    </div>
+
+    <!-- КЕЙСЫ -->
+    <div class="panel" id="panel-cases">
+      <span class="panel-icon">🏆</span>
+      <h2>Наши <span class="accent">кейсы</span></h2>
+      <p class="sub">Реальные проекты — реальные результаты. Работаем с бизнесом в Казахстане и СНГ.</p>
+      <div class="cases">
+        <div class="case-card">
+          <div class="case-img" style="background:linear-gradient(135deg,#1a3a6a,#0d5299)">🏠</div>
+          <div class="case-body"><h4>alsat.asia</h4><p>Доска объявлений КЗ — мультирегиональный маркетплейс, AI чат-бот, 50k+ объявлений</p></div>
+        </div>
+        <div class="case-card">
+          <div class="case-img" style="background:linear-gradient(135deg,#3a1a00,#995500)">🛒</div>
+          <div class="case-body"><h4>Интернет-магазин стройматериалов</h4><p>2500 SKU, интеграция с 1С, Kaspi оплата, рост продаж +140% за 3 месяца</p></div>
+        </div>
+        <div class="case-card">
+          <div class="case-img" style="background:linear-gradient(135deg,#003a1a,#009944)">🏥</div>
+          <div class="case-body"><h4>Медицинская клиника</h4><p>Запись онлайн, личный кабинет пациента, напоминания по WhatsApp</p></div>
+        </div>
+        <div class="case-card">
+          <div class="case-img" style="background:linear-gradient(135deg,#1a003a,#6600cc)">🎓</div>
+          <div class="case-body"><h4>Образовательная платформа</h4><p>LMS система, видеоуроки, тесты, сертификаты, 3000+ студентов</p></div>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="openPanel('order')">📩 Хочу такой же</button>
+      <button class="btn-close" onclick="closePanel()">Закрыть</button>
+    </div>
+
+    <!-- ЗАЯВКА -->
+    <div class="panel" id="panel-order">
+      <span class="panel-icon">✉️</span>
+      <h2>Оставить <span class="accent">заявку</span></h2>
+      <p class="sub">Расскажите о проекте — ответим в течение 2 часов и предложим решение под ваш бюджет.</p>
+      <div class="form-grid">
+        <input type="text" placeholder="Ваше имя *" required>
+        <input type="tel" placeholder="WhatsApp / телефон *" required>
+        <input type="text" placeholder="Название компании" class="full">
+        <select class="full">
+          <option value="" disabled selected>Что нужно сделать?</option>
+          <option>Лендинг</option>
+          <option>Корпоративный сайт</option>
+          <option>Интернет-магазин</option>
+          <option>Сайт + AI бот</option>
+          <option>Маркетплейс / доска объявлений</option>
+          <option>Корпоративная почта</option>
+          <option>Техническое обслуживание</option>
+          <option>Регистрация домена</option>
+          <option>Другое</option>
+        </select>
+        <select>
+          <option value="" disabled selected>Бюджет</option>
+          <option>до $500</option>
+          <option>$500–$1500</option>
+          <option>$1500–$5000</option>
+          <option>от $5000</option>
+        </select>
+        <select>
+          <option value="" disabled selected>Срок</option>
+          <option>Как можно быстрее</option>
+          <option>1–2 недели</option>
+          <option>1 месяц</option>
+          <option>Не горит</option>
+        </select>
+      </div>
+      <textarea placeholder="Расскажите о проекте: что продаёте, кто ваши клиенты, есть ли примеры сайтов которые нравятся?"></textarea>
+      <button class="btn-primary" onclick="submitForm()">🚀 Отправить заявку</button>
+      <button class="btn-close" onclick="closePanel()">Закрыть</button>
+    </div>
+
+  </div><!-- /panels -->
+</div><!-- /panel-overlay -->
+
+<script>
+// ══════════════════════════════════════════════
+// SCENE MANAGER
+// ══════════════════════════════════════════════
+const scenes = ['aquarium','space','city','steppe'];
+let currentScene = 'aquarium';
+let animFrames = {};
+
+function switchScene(name) {
+  if(name===currentScene) return;
+  document.getElementById('scene-'+currentScene).classList.remove('active');
+  document.getElementById('scene-'+name).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.scene===name));
+  currentScene = name;
+}
+
+document.querySelectorAll('.nav-btn').forEach(b=>{
+  b.addEventListener('click',()=>switchScene(b.dataset.scene));
+});
+
+// ══════════════════════════════════════════════
+// PANEL SYSTEM
+// ══════════════════════════════════════════════
+const overlay = document.getElementById('panel-overlay');
+
+function openPanel(id) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  overlay.classList.add('on');
+}
+function closePanel() {
+  overlay.classList.remove('on');
+}
+overlay.addEventListener('click',e=>{ if(e.target===overlay) closePanel(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closePanel(); });
+
+function submitForm() {
+  alert('✅ Заявка принята! Свяжемся с вами в течение 2 часов.');
+  closePanel();
+}
+
+// ══════════════════════════════════════════════
+// UTILITIES
+// ══════════════════════════════════════════════
+const W=()=>window.innerWidth, H=()=>window.innerHeight;
+function makeObj(parent,{bottom,left,right,top,label,panel,children,style=''}){
+  const el=document.createElement('div');
+  el.className='obj';
+  let pos='';
+  if(bottom!==undefined) pos+=`bottom:${bottom};`;
+  if(left!==undefined) pos+=`left:${left};`;
+  if(right!==undefined) pos+=`right:${right};`;
+  if(top!==undefined) pos+=`top:${top};`;
+  el.style.cssText=pos+style;
+  el.innerHTML=`<div class="obj-label">${label}</div>`+children;
+  el.addEventListener('click',()=>openPanel(panel));
+  parent.appendChild(el);
+  return el;
+}
+
+// ══════════════════════════════════════════════
+// SCENE 1 — AQUARIUM
+// ══════════════════════════════════════════════
+(function initAquarium(){
+  const canvas=document.getElementById('aq-canvas');
+  const ctx=canvas.getContext('2d');
+  const fc=document.getElementById('fish-canvas');
+  const fctx=fc.getContext('2d');
+  const weedContainer=document.getElementById('aq-weeds');
+  const stoneContainer=document.getElementById('aq-stones');
+  const hitContainer=document.getElementById('fish-hits');
+
+  function resize(){canvas.width=fc.width=W();canvas.height=fc.height=H();}
+  resize(); window.addEventListener('resize',resize);
+
+  // Seaweeds
+  const WEED_POSITIONS=[.05,.08,.14,.35,.37,.62,.65,.80,.84,.92];
+  const WEED_STYLES=['sway-a','sway-b','sway-c'];
+  WEED_POSITIONS.forEach((x,i)=>{
+    const h=90+Math.random()*100, w=4+Math.random()*3;
+    const col=['#1a7a3a','#229944','#1d8040','#2a9a4a'][i%4];
+    const el=document.createElement('div');
+    el.className='weed';
+    el.style.cssText=`left:${x*100}%;animation:${WEED_STYLES[i%3]} ${2.5+Math.random()*2}s ${Math.random()*2}s ease-in-out infinite;`;
+    let path=`M${w} ${h}`;
+    for(let s=5;s>=0;s--){const y=(s/5)*h;const ox=Math.sin(s*.9)*12;path+=` Q${w+ox+8} ${y+h/10} ${w+ox} ${y}`;}
+    el.innerHTML=`<svg width="${w*4}" height="${h}" viewBox="0 0 ${w*4} ${h}" style="overflow:visible"><path d="${path}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/></svg>`;
+    weedContainer.appendChild(el);
+  });
+
+  // Stones
+  const STONES=[
+    {x:.04,size:95,c1:'#555566',c2:'#7a7a8b',panel:'domains'},
+    {x:.13,size:62,c1:'#6a5a4a',c2:'#8a7060',panel:'domains'},
+    {x:.25,size:110,c1:'#4a6555',c2:'#6a8570',panel:'domains'},
+    {x:.39,size:72,c1:'#5a6575',c2:'#7a85a0',panel:'domains'},
+    {x:.52,size:100,c1:'#6a5a3a',c2:'#907055',panel:'domains'},
+    {x:.66,size:78,c1:'#656070',c2:'#858090',panel:'domains'},
+    {x:.78,size:88,c1:'#4a5560',c2:'#6a7585',panel:'domains'},
+    {x:.88,size:65,c1:'#706050',c2:'#907870',panel:'domains'},
+  ];
+  STONES.forEach((s,i)=>{
+    const w=s.size, h=s.size*.45;
+    const el=document.createElement('div');
+    el.className='obj stone';
+    el.style.cssText=`position:absolute;bottom:92px;left:${s.x*100}%;z-index:5;cursor:pointer;filter:drop-shadow(0 6px 12px rgba(0,0,0,.6));transition:filter .2s,transform .2s`;
+    const id=`sg${i}`;
+    el.innerHTML=`<div class="obj-label">Домены</div><svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="overflow:visible">
+      <defs><radialGradient id="${id}" cx="38%" cy="30%"><stop offset="0%" stop-color="${s.c2}"/><stop offset="100%" stop-color="${s.c1}"/></radialGradient></defs>
+      <ellipse cx="${w/2+3}" cy="${h/2+4}" rx="${w*.48}" ry="${h*.44}" fill="rgba(0,0,0,.35)"/>
+      <ellipse cx="${w/2}" cy="${h/2}" rx="${w*.48}" ry="${h*.44}" fill="url(#${id})"/>
+      <ellipse cx="${w*.35}" cy="${h*.3}" rx="${w*.25}" ry="${h*.2}" fill="rgba(255,255,255,.09)"/>
+    </svg>`;
+    el.addEventListener('mouseenter',()=>el.style.cssText+=';transform:translateY(-8px) scale(1.08);filter:drop-shadow(0 0 16px rgba(80,200,255,.8))');
+    el.addEventListener('mouseleave',()=>{el.style.transform='';el.style.filter='drop-shadow(0 6px 12px rgba(0,0,0,.6))';});
+    el.addEventListener('click',()=>openPanel(s.panel));
+    stoneContainer.appendChild(el);
+  });
+
+  // Coral objects (for mail/support)
+  [{x:.2,panel:'mail',label:'📧 Почта',col:'#dd4488',svg:`<ellipse cx="15" cy="40" rx="6" ry="30" fill="%c"/><ellipse cx="30" cy="50" rx="6" ry="20" fill="%c"/><ellipse cx="8" cy="30" rx="5" ry="22" fill="%c"/><circle cx="15" cy="10" r="8" fill="%c2"/><circle cx="30" cy="30" r="7" fill="%c2"/><circle cx="8" cy="8" r="6" fill="%c2"/>`},
+   {x:.75,panel:'support',label:'🛠 Обслуживание',col:'#ff7700',svg:`<rect x="10" y="20" width="8" height="40" rx="4" fill="%c"/><rect x="20" y="30" width="8" height="30" rx="4" fill="%c"/><rect x="30" y="25" width="8" height="35" rx="4" fill="%c"/><circle cx="14" cy="18" r="6" fill="%c2"/><circle cx="24" cy="28" r="6" fill="%c2"/><circle cx="34" cy="23" r="6" fill="%c2"/>`}
+  ].forEach(c=>{
+    const el=document.createElement('div');
+    el.className='obj';
+    el.style.cssText=`position:absolute;bottom:95px;left:${c.x*100}%;z-index:5;cursor:pointer;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5));transition:filter .2s,transform .2s`;
+    const svg=c.svg.replace(/%c2/g,lighten(c.col)).replace(/%c/g,c.col);
+    el.innerHTML=`<div class="obj-label">${c.label}</div><svg width="44" height="65" viewBox="0 0 44 65" style="overflow:visible">${svg}</svg>`;
+    el.addEventListener('mouseenter',()=>{el.style.transform='translateY(-8px) scale(1.12)';el.style.filter='drop-shadow(0 0 16px gold)';});
+    el.addEventListener('mouseleave',()=>{el.style.transform='';el.style.filter='drop-shadow(0 4px 10px rgba(0,0,0,.5))';});
+    el.addEventListener('click',()=>openPanel(c.panel));
+    stoneContainer.appendChild(el);
+  });
+  function lighten(hex){return hex.replace(/[0-9a-f]{2}/gi,h=>Math.min(255,parseInt(h,16)+80).toString(16).padStart(2,'0'));}
+
+  // Fish
+  const FISH_TYPES=[
+    {name:'Создание сайтов',panel:'sites', body:'#ff9900',belly:'#ffdd66',fin:'#e06000',tail:'#cc5500',eye:'#1a0a00',size:55},
+    {name:'Домены',         panel:'domains',body:'#1a7acc',belly:'#66c0ff',fin:'#0055aa',tail:'#003d99',eye:'#001133',size:45},
+    {name:'Цены',           panel:'prices', body:'#ee3388',belly:'#ff99cc',fin:'#aa1166',tail:'#880044',eye:'#220011',size:50},
+    {name:'Кейсы',          panel:'cases',  body:'#22aa55',belly:'#66ee99',fin:'#117733',tail:'#0a5522',eye:'#001100',size:48},
+    {name:'Обслуживание',   panel:'support',body:'#8833cc',belly:'#cc88ff',fin:'#5511aa',tail:'#3d0088',eye:'#110022',size:44},
+    {name:'Заявка',         panel:'order',  body:'#ff6600',belly:'#ffcc66',fin:'#cc4400',tail:'#992200',eye:'#1a0800',size:52},
+    {name:'Корп. почта',    panel:'mail',   body:'#4499cc',belly:'#99ddff',fin:'#2266aa',tail:'#115599',eye:'#001122',size:42},
+  ];
+
+  const fish=FISH_TYPES.map((t,i)=>({
+    ...t,x:(.1+i*.12),y:.12+i*.07,
+    vx:(i%2?1:-1)*(.5+Math.random()*.7),
+    phase:Math.random()*Math.PI*2,tailPhase:Math.random()*Math.PI*2,
+    hit:null
+  }));
+
+  // Hit areas
+  fish.forEach(f=>{
+    const h=document.createElement('div');
+    h.style.cssText=`position:absolute;pointer-events:all;cursor:pointer;width:${f.size*1.6}px;height:${f.size*.8}px;border-radius:50%;`;
+    h.title=f.name;
+    const panel=f.panel;
+    h.addEventListener('click',()=>openPanel(panel));
+    hitContainer.appendChild(h);
+    f.hit=h;
+  });
+
+  function drawFish(f,t){
+    const px=f.x*W(), py=f.y*H(), s=f.size;
+    const facing=f.vx>=0?1:-1;
+    fctx.save();
+    fctx.translate(px,py);
+    fctx.scale(facing,1);
+    const tw=Math.sin(t*4+f.tailPhase)*.32;
+    // shadow
+    fctx.save();fctx.globalAlpha=.2;fctx.scale(1,.3);fctx.beginPath();fctx.ellipse(0,H()-py-50,s*.6,s*.4,0,0,Math.PI*2);fctx.fillStyle='#000';fctx.fill();fctx.restore();
+    // tail
+    fctx.save();fctx.translate(s*.5,0);fctx.rotate(tw);
+    fctx.beginPath();fctx.moveTo(0,0);fctx.lineTo(s*.42,-s*.32);fctx.lineTo(s*.36,0);fctx.lineTo(s*.42,s*.32);fctx.closePath();
+    fctx.fillStyle=f.tail;fctx.fill();fctx.restore();
+    // body
+    const bg=fctx.createRadialGradient(-s*.12,-s*.12,0,0,0,s*.55);
+    bg.addColorStop(0,f.belly);bg.addColorStop(1,f.body);
+    fctx.beginPath();fctx.ellipse(0,0,s*.55,s*.28,0,0,Math.PI*2);fctx.fillStyle=bg;fctx.fill();
+    // dorsal fin
+    fctx.beginPath();fctx.moveTo(-s*.05,-s*.28);fctx.quadraticCurveTo(s*.12,-s*.54,s*.32,-s*.3);fctx.quadraticCurveTo(s*.2,-s*.28,-s*.05,-s*.28);fctx.fillStyle=f.fin+'cc';fctx.fill();
+    // pectoral fin
+    fctx.beginPath();fctx.moveTo(s*.0,s*.05);fctx.quadraticCurveTo(s*.1,s*.38,s*.24,s*.32);fctx.quadraticCurveTo(s*.14,s*.1,s*.0,s*.05);fctx.fillStyle=f.fin+'aa';fctx.fill();
+    // eye
+    fctx.beginPath();fctx.arc(-s*.3,-s*.06,s*.1,0,Math.PI*2);fctx.fillStyle='rgba(255,255,255,.9)';fctx.fill();
+    fctx.beginPath();fctx.arc(-s*.28,-s*.06,s*.055,0,Math.PI*2);fctx.fillStyle=f.eye;fctx.fill();
+    fctx.beginPath();fctx.arc(-s*.31,-s*.09,s*.022,0,Math.PI*2);fctx.fillStyle='rgba(255,255,255,.8)';fctx.fill();
+    // scales
+    fctx.globalAlpha=.12;
+    for(let i=0;i<3;i++){fctx.beginPath();fctx.arc(-s*.1+i*s*.15,0,s*.18,.3,Math.PI-.3);fctx.strokeStyle='#fff';fctx.lineWidth=1;fctx.stroke();}
+    fctx.globalAlpha=1;
+    fctx.restore();
+    if(f.hit){f.hit.style.left=(px-s*(facing>0?0.8:.2))+'px';f.hit.style.top=(py-s*.4)+'px';}
+  }
+
+  function drawCaustics(t){
+    const w=W(),h=H();
+    ctx.clearRect(0,0,w,h);
+    for(let i=0;i<16;i++){
+      const x=(i/16)*w+Math.sin(t*.35+i*.7)*45;
+      const bw=10+Math.sin(t*.5+i*1.2)*7;
+      const g=ctx.createLinearGradient(0,0,0,h*.75);
+      g.addColorStop(0,`rgba(120,200,255,${.04+Math.sin(t*.4+i)*.015})`);
+      g.addColorStop(1,'rgba(80,160,255,0)');
+      ctx.fillStyle=g;ctx.beginPath();
+      ctx.moveTo(x-bw,0);ctx.lineTo(x+bw,0);ctx.lineTo(x+bw*2.5,h*.75);ctx.lineTo(x-bw*2.5,h*.75);ctx.fill();
+    }
+  }
+
+  function spawnBubble(){
+    const b=document.createElement('div');b.className='bubble';
+    const sz=2+Math.random()*7,dur=3+Math.random()*5;
+    b.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;bottom:${100+Math.random()*60}px;--drift:${(Math.random()-.5)*50}px;animation-duration:${dur}s;animation-delay:${Math.random()*3}s;`;
+    document.getElementById('scene-aquarium').appendChild(b);
+    setTimeout(()=>b.remove(),(dur+3)*1000);
+  }
+  setInterval(spawnBubble,700);for(let i=0;i<10;i++)spawnBubble();
+
+  let T=0;
+  function aqLoop(){
+    T+=.016;
+    drawCaustics(T);
+    fctx.clearRect(0,0,W(),H());
+    fish.forEach(f=>{
+      f.y+=Math.sin(T*.5+f.phase)*.003;
+      f.x+=f.vx*.0035;
+      if(f.x<.04){f.x=.04;f.vx=Math.abs(f.vx);}
+      if(f.x>.96){f.x=.96;f.vx=-Math.abs(f.vx);}
+      const maxY=(H()-130)/H();
+      if(f.y<.07)f.y=.07;if(f.y>maxY)f.y=maxY;
+      drawFish(f,T);
+    });
+    animFrames.aquarium=requestAnimationFrame(aqLoop);
+  }
+  aqLoop();
+})();
+
+// ══════════════════════════════════════════════
+// SCENE 2 — SPACE STATION
+// ══════════════════════════════════════════════
+(function initSpace(){
+  const canvas=document.getElementById('sp-canvas');
+  const ctx=canvas.getContext('2d');
+  const objs=document.getElementById('sp-objects');
+  function resize(){canvas.width=W();canvas.height=H();}
+  resize();window.addEventListener('resize',resize);
+
+  // Stars
+  const stars=Array.from({length:250},()=>({x:Math.random(),y:Math.random(),r:.5+Math.random()*1.8,phase:Math.random()*Math.PI*2,speed:.3+Math.random()*.7}));
+  // Shooting stars
+  const shoots=[];
+
+  function drawSpace(t){
+    const w=W(),h=H();
+    ctx.clearRect(0,0,w,h);
+    // Nebula clouds
+    [[.15,.3,'rgba(80,20,120,.08)'],[.7,.5,'rgba(20,60,120,.06)'],[.4,.7,'rgba(120,30,60,.07)']].forEach(([nx,ny,col])=>{
+      const g=ctx.createRadialGradient(nx*w,ny*h,0,nx*w,ny*h,350);
+      g.addColorStop(0,col);g.addColorStop(1,'transparent');
+      ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+    });
+    // Stars
+    stars.forEach(s=>{
+      const a=.4+Math.sin(t*s.speed+s.phase)*.35;
+      ctx.globalAlpha=a;
+      ctx.fillStyle='#fff';
+      ctx.beginPath();ctx.arc(s.x*w,s.y*h,s.r,0,Math.PI*2);ctx.fill();
+    });
+    ctx.globalAlpha=1;
+    // Occasional shooting star
+    if(Math.random()<.004){shoots.push({x:Math.random(),y:Math.random()*.4,dx:.02,dy:.01,life:1});}
+    shoots.forEach((s,i)=>{
+      s.x+=s.dx;s.y+=s.dy;s.life-=.05;
+      ctx.globalAlpha=s.life;
+      ctx.strokeStyle='#fff';ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.moveTo(s.x*w,s.y*h);ctx.lineTo((s.x-s.dx*8)*w,(s.y-s.dy*8)*h);ctx.stroke();
+      if(s.life<=0)shoots.splice(i,1);
+    });
+    ctx.globalAlpha=1;
+  }
+
+  // Space objects
+  const spaceObjs=[
+    {label:'🪐 Планеты', panel:'prices', x:'50%',y:'20%',
+     svg:`<svg width="140" height="140" viewBox="0 0 140 140">
+       <defs><radialGradient id="pg" cx="35%" cy="30%"><stop offset="0%" stop-color="#9966cc"/><stop offset="60%" stop-color="#6633aa"/><stop offset="100%" stop-color="#2a1144"/></radialGradient></defs>
+       <ellipse cx="50" cy="50" rx="44" ry="15" fill="rgba(180,140,255,.25)" transform="rotate(-25,50,50)" rx="44"/>
+       <circle cx="70" cy="70" r="44" fill="url(#pg)"/>
+       <ellipse cx="70" cy="70" rx="70" ry="18" fill="none" stroke="rgba(220,180,255,.4)" stroke-width="8" transform="rotate(-25,70,70)"/>
+       <ellipse cx="55" cy="58" rx="18" ry="10" fill="rgba(255,255,255,.07)"/>
+     </svg>`},
+    {label:'🛸 Станция', panel:'sites', x:'20%',y:'35%',
+     svg:`<svg width="130" height="80" viewBox="0 0 130 80">
+       <rect x="40" y="30" width="50" height="22" rx="8" fill="#446688"/>
+       <rect x="20" y="33" width="90" height="15" rx="6" fill="#5577aa"/>
+       <rect x="0" y="36" width="25" height="8" rx="3" fill="#334455"/>
+       <rect x="105" y="36" width="25" height="8" rx="3" fill="#334455"/>
+       <circle cx="65" cy="40" r="7" fill="#88aacc"/>
+       <rect x="58" y="20" width="14" height="12" rx="3" fill="#88aacc"/>
+       <circle cx="65" cy="40" r="3" fill="#aaccee"/>
+       <ellipse cx="65" cy="40" rx="10" ry="3" fill="none" stroke="rgba(100,200,255,.5)" stroke-width="1"/>
+     </svg>`},
+    {label:'🌍 Земля', panel:'domains', x:'78%',y:'55%',
+     svg:`<svg width="90" height="90" viewBox="0 0 90 90">
+       <defs><radialGradient id="eg" cx="35%" cy="30%"><stop offset="0%" stop-color="#2288ee"/><stop offset="100%" stop-color="#0044aa"/></radialGradient></defs>
+       <circle cx="45" cy="45" r="38" fill="url(#eg)"/>
+       <ellipse cx="35" cy="38" rx="12" ry="8" fill="#2a8a2a" opacity=".9"/>
+       <ellipse cx="55" cy="52" rx="10" ry="6" fill="#2a8a2a" opacity=".9"/>
+       <ellipse cx="30" cy="28" rx="14" ry="10" fill="rgba(255,255,255,.35)" transform="rotate(-30,30,28)"/>
+     </svg>`},
+    {label:'☄️ Астероид', panel:'cases', x:'10%',y:'65%',
+     svg:`<svg width="80" height="65" viewBox="0 0 80 65">
+       <ellipse cx="40" cy="35" rx="36" ry="28" fill="#665544" transform="rotate(20,40,35)"/>
+       <ellipse cx="30" cy="28" rx="28" ry="22" fill="#887766" transform="rotate(20,30,28)"/>
+       <circle cx="25" cy="30" r="5" fill="rgba(0,0,0,.3)"/>
+       <circle cx="42" cy="20" r="3" fill="rgba(0,0,0,.25)"/>
+       <circle cx="50" cy="38" r="4" fill="rgba(0,0,0,.2)"/>
+     </svg>`},
+    {label:'📡 Антенна', panel:'mail', x:'88%',y:'28%',
+     svg:`<svg width="70" height="90" viewBox="0 0 70 90">
+       <line x1="35" y1="90" x2="35" y2="50" stroke="#8899aa" stroke-width="3"/>
+       <ellipse cx="35" cy="40" rx="28" ry="18" fill="none" stroke="#aabbcc" stroke-width="3"/>
+       <ellipse cx="35" cy="40" rx="20" ry="12" fill="none" stroke="#8899aa" stroke-width="2"/>
+       <circle cx="35" cy="40" r="5" fill="#aabbcc"/>
+       <circle cx="35" cy="40" r="8" fill="none" stroke="rgba(100,200,255,.5)" stroke-width="1"/>
+     </svg>`},
+    {label:'🚀 Ракета', panel:'order', x:'38%',y:'60%',
+     svg:`<svg width="50" height="100" viewBox="0 0 50 100" style="transform:rotate(-20deg)">
+       <path d="M25,5 Q35,25 35,55 L15,55 Q15,25 25,5z" fill="#ccddee"/>
+       <ellipse cx="25" cy="55" rx="10" ry="5" fill="#aabbcc"/>
+       <rect x="15" y="55" width="20" height="22" rx="3" fill="#8899aa"/>
+       <path d="M15,70 L5,80 L15,75z" fill="#778899"/>
+       <path d="M35,70 L45,80 L35,75z" fill="#778899"/>
+       <ellipse cx="25" cy="28" rx="6" ry="8" fill="rgba(150,220,255,.4)"/>
+       <circle cx="22" cy="55" r="3" fill="#445566"/>
+       <circle cx="28" cy="55" r="3" fill="#445566"/>
+       <ellipse cx="25" cy="77" rx="8" ry="5" fill="#ff6600" opacity=".8"/>
+       <ellipse cx="25" cy="82" rx="5" ry="8" fill="#ffaa00" opacity=".6"/>
+     </svg>`},
+    {label:'⭐ Пульсар', panel:'support', x:'65%',y:'22%',
+     svg:`<svg width="60" height="60" viewBox="0 0 60 60">
+       <circle cx="30" cy="30" r="8" fill="#fff"/>
+       <circle cx="30" cy="30" r="12" fill="none" stroke="rgba(255,255,200,.4)" stroke-width="2"/>
+       <circle cx="30" cy="30" r="18" fill="none" stroke="rgba(255,255,200,.2)" stroke-width="1.5"/>
+       <circle cx="30" cy="30" r="24" fill="none" stroke="rgba(255,255,200,.1)" stroke-width="1"/>
+       <line x1="30" y1="0" x2="30" y2="60" stroke="rgba(255,255,200,.25)" stroke-width="1"/>
+       <line x1="0" y1="30" x2="60" y2="30" stroke="rgba(255,255,200,.25)" stroke-width="1"/>
+     </svg>`},
+  ];
+
+  spaceObjs.forEach(o=>{
+    const el=document.createElement('div');
+    el.className='obj';
+    el.style.cssText=`position:absolute;left:${o.x};top:${o.y};transform:translate(-50%,-50%);`;
+    el.innerHTML=`<div class="obj-label">${o.label}</div>${o.svg}`;
+    el.addEventListener('click',()=>openPanel(o.panel));
+    objs.appendChild(el);
+  });
+
+  let T=0;
+  function spaceLoop(){
+    T+=.012;
+    drawSpace(T);
+    // Rotate/float objects
+    objs.querySelectorAll('.obj').forEach((el,i)=>{
+      const offset=Math.sin(T*.4+i*.8)*8;
+      el.style.marginTop=offset+'px';
+    });
+    animFrames.space=requestAnimationFrame(spaceLoop);
+  }
+  spaceLoop();
+})();
+
+// ══════════════════════════════════════════════
+// SCENE 3 — NEON CITY
+// ══════════════════════════════════════════════
+(function initCity(){
+  const canvas=document.getElementById('ct-canvas');
+  const ctx=canvas.getContext('2d');
+  const objContainer=document.getElementById('ct-objects');
+  function resize(){canvas.width=W();canvas.height=H();}
+  resize();window.addEventListener('resize',resize);
+
+  const rainDrops=Array.from({length:120},()=>({x:Math.random(),y:Math.random(),speed:.8+Math.random()*1.2,len:8+Math.random()*20}));
+
+  function drawCity(t){
+    const w=W(),h=H();
+    ctx.clearRect(0,0,w,h);
+    // Moon
+    ctx.beginPath();ctx.arc(w*.85,h*.12,40,0,Math.PI*2);
+    const mg=ctx.createRadialGradient(w*.85,h*.12,0,w*.85,h*.12,40);
+    mg.addColorStop(0,'rgba(220,240,255,.95)');mg.addColorStop(.7,'rgba(180,210,250,.8)');mg.addColorStop(1,'transparent');
+    ctx.fillStyle=mg;ctx.fill();
+    ctx.beginPath();ctx.arc(w*.85,h*.12,50,0,Math.PI*2);
+    const halo=ctx.createRadialGradient(w*.85,h*.12,35,w*.85,h*.12,55);
+    halo.addColorStop(0,'rgba(180,210,255,.2)');halo.addColorStop(1,'transparent');
+    ctx.fillStyle=halo;ctx.fill();
+
+    // Neon reflections on wet ground
+    const refY=h-80;
+    ['#ff00ff','#00ffff','#ff6600','#00ff88'].forEach((col,i)=>{
+      const rx=(i+1)/5*w;
+      const rg=ctx.createLinearGradient(0,refY,0,h);
+      rg.addColorStop(0,col.replace('rgb','rgba').replace(')',',0.08)').replace('#','rgba(').replace(/([0-9a-f]{2})/gi,h=>parseInt(h,16)+',').slice(0,-1)+'0.08)');
+      // simpler:
+      ctx.globalAlpha=.06+Math.sin(t*1.2+i)*.03;
+      ctx.fillStyle=col;
+      ctx.fillRect(rx-15,refY,30,h-refY);
+    });
+    ctx.globalAlpha=1;
+
+    // Rain
+    ctx.strokeStyle='rgba(150,180,255,.25)';ctx.lineWidth=.8;
+    rainDrops.forEach(r=>{
+      r.y+=r.speed*.025;if(r.y>1)r.y=0;
+      ctx.beginPath();ctx.moveTo(r.x*w,r.y*h);ctx.lineTo(r.x*w-3,r.y*h+r.len);ctx.stroke();
+    });
+  }
+
+  // Buildings
+  const BUILDINGS=[
+    {x:.04,w:90,h:320,col:'#0a0018',neon:'#ff00ff',panel:'sites',label:'🌐 Сайты'},
+    {x:.12,w:70,h:220,col:'#040010',neon:'#00ffff',panel:'domains',label:'🌍 Домены'},
+    {x:.19,w:110,h:380,col:'#060014',neon:'#ff6600',panel:'prices',label:'💰 Цены'},
+    {x:.30,w:80,h:280,col:'#030010',neon:'#00ff88',panel:'cases',label:'🏆 Кейсы'},
+    {x:.55,w:75,h:260,col:'#040012',neon:'#ff00aa',panel:'mail',label:'📧 Почта'},
+    {x:.64,w:95,h:350,col:'#050014',neon:'#aaaaff',panel:'support',label:'🛠 Сервис'},
+    {x:.75,w:85,h:300,col:'#030010',neon:'#ffff00',panel:'order',label:'✉️ Заявка'},
+    {x:.85,w:100,h:420,col:'#060018',neon:'#00ccff',panel:'sites',label:'🌐 Сайты'},
+  ];
+
+  BUILDINGS.forEach(b=>{
+    const el=document.createElement('div');
+    el.className='obj';
+    const bw=b.w, bh=b.h;
+    // Windows pattern
+    let wins='';
+    const cols=Math.floor(bw/18), rows=Math.floor(bh/24);
+    for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+      const lit=Math.random()>.4;
+      if(lit) wins+=`<rect x="${c*18+5}" y="${r*24+5}" width="9" height="12" rx="1" fill="rgba(255,240,180,${.3+Math.random()*.5})"/>`;
+    }
+    // Neon sign
+    const neonText=b.label.split(' ')[1]||'ALSAT';
+    el.innerHTML=`<div class="obj-label">${b.label}</div>
+    <svg width="${bw}" height="${bh}" viewBox="0 0 ${bw} ${bh}" style="overflow:visible">
+      <rect width="${bw}" height="${bh}" fill="${b.col}"/>
+      <rect width="${bw}" height="${bh}" fill="none" stroke="${b.neon}" stroke-width="1.5" opacity=".6"/>
+      ${wins}
+      <rect x="${bw*.2}" y="${bh*.1}" width="${bw*.6}" height="20" rx="4" fill="${b.neon}" opacity=".85"/>
+      <text x="${bw/2}" y="${bh*.1+14}" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">${neonText}</text>
+    </svg>`;
+    el.style.cssText=`position:absolute;bottom:80px;left:${b.x*100}%;cursor:pointer;z-index:6;filter:drop-shadow(0 0 12px ${b.neon});transition:filter .2s,transform .2s`;
+    el.addEventListener('mouseenter',()=>{el.style.filter=`drop-shadow(0 0 24px ${b.neon})`;el.style.transform='scaleY(1.03) translateY(-4px)';});
+    el.addEventListener('mouseleave',()=>{el.style.filter=`drop-shadow(0 0 12px ${b.neon})`;el.style.transform='';});
+    el.addEventListener('click',()=>openPanel(b.panel));
+    objContainer.appendChild(el);
+  });
+
+  // Holographic sign (floating)
+  const holoSign=document.createElement('div');
+  holoSign.style.cssText='position:absolute;top:15%;left:50%;transform:translateX(-50%);z-index:8;cursor:pointer;text-align:center;';
+  holoSign.innerHTML=`<div style="font-size:28px;color:#00ffff;text-shadow:0 0 20px #00ffff,0 0 40px #00ffff;letter-spacing:4px;font-weight:bold;animation:holo 3s ease-in-out infinite">ALSAT.ASIA</div>
+  <div style="color:rgba(0,255,255,.5);font-size:12px;letter-spacing:6px;margin-top:6px">ВЕБ · ДОМЕНЫ · AI</div>`;
+  document.head.querySelector('style').textContent+=`@keyframes holo{0%,100%{opacity:.7;text-shadow:0 0 20px #00ffff,0 0 40px #00ffff}50%{opacity:1;text-shadow:0 0 30px #00ffff,0 0 60px #00ffff,0 0 80px rgba(0,255,255,.3)}}`;
+  holoSign.addEventListener('click',()=>openPanel('sites'));
+  objContainer.appendChild(holoSign);
+
+  let T=0;
+  function cityLoop(){
+    T+=.016;
+    drawCity(T);
+    animFrames.city=requestAnimationFrame(cityLoop);
+  }
+  cityLoop();
+})();
+
+// ══════════════════════════════════════════════
+// SCENE 4 — FUTURISTIC STEPPE
+// ══════════════════════════════════════════════
+(function initSteppe(){
+  const canvas=document.getElementById('st-canvas');
+  const ctx=canvas.getContext('2d');
+  const objContainer=document.getElementById('st-objects');
+  function resize(){canvas.width=W();canvas.height=H();}
+  resize();window.addEventListener('resize',resize);
+
+  const stars=Array.from({length:200},()=>({x:Math.random(),y:Math.random()*.6,r:.4+Math.random()*1.5,phase:Math.random()*Math.PI*2}));
+
+  function drawSteppe(t){
+    const w=W(),h=H();
+    ctx.clearRect(0,0,w,h);
+    // Aurora
+    [['rgba(0,200,120,.12)','rgba(0,100,200,.08)'],['rgba(100,0,200,.08)','rgba(200,0,100,.06)']].forEach(([c1,c2],i)=>{
+      const aur=ctx.createLinearGradient(0,h*.05+i*60,w,h*.25+i*60);
+      aur.addColorStop(0,c1);aur.addColorStop(.5,c2);aur.addColorStop(1,c1);
+      ctx.globalAlpha=.5+Math.sin(t*.3+i)*.3;
+      ctx.fillRect(0,h*.05+i*40,w,h*.2);
+    });
+    ctx.globalAlpha=1;
+    // Stars
+    stars.forEach(s=>{
+      ctx.globalAlpha=.3+Math.sin(t*.8+s.phase)*.3;
+      ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(s.x*w,s.y*h,s.r,0,Math.PI*2);ctx.fill();
+    });
+    ctx.globalAlpha=1;
+    // Moon
+    const mg=ctx.createRadialGradient(w*.15,h*.15,0,w*.15,h*.15,45);
+    mg.addColorStop(0,'rgba(240,250,255,.9)');mg.addColorStop(.7,'rgba(200,220,255,.7)');mg.addColorStop(1,'transparent');
+    ctx.fillStyle=mg;ctx.beginPath();ctx.arc(w*.15,h*.15,45,0,Math.PI*2);ctx.fill();
+    // Ground gradient
+    const gg=ctx.createLinearGradient(0,h-130,0,h);
+    gg.addColorStop(0,'rgba(20,60,20,.0)');gg.addColorStop(1,'rgba(10,30,10,.0)');
+    ctx.fillStyle=gg;ctx.fillRect(0,h-130,w,130);
+    // Wind lines
+    ctx.globalAlpha=.06;ctx.strokeStyle='rgba(200,255,200,1)';ctx.lineWidth=1;
+    for(let i=0;i<8;i++){
+      ctx.beginPath();
+      const y=h-.7*h+i*30;const ox=(t*60+i*120)%w;
+      ctx.moveTo(ox,y);ctx.lineTo(ox+100,y+5);ctx.stroke();
+    }
+    ctx.globalAlpha=1;
+  }
+
+  // Steppe objects
+  const steppeObjs=[
+    // Futuristic yurt
+    {x:'15%',y:'65%',panel:'order',label:'🏛 Заявка',
+     svg:`<svg width="130" height="100" viewBox="0 0 130 100">
+       <ellipse cx="65" cy="95" rx="60" ry="10" fill="rgba(0,0,0,.3)"/>
+       <path d="M10,80 Q65,10 120,80z" fill="#1a3a5a"/>
+       <path d="M10,80 Q65,10 120,80z" fill="none" stroke="rgba(0,200,255,.6)" stroke-width="2"/>
+       <path d="M20,80 Q65,25 110,80z" fill="none" stroke="rgba(0,200,255,.2)" stroke-width="1"/>
+       <ellipse cx="65" cy="80" rx="55" ry="8" fill="#243a5a"/>
+       <rect x="55" y="68" width="20" height="15" rx="3" fill="#1a2a3a"/>
+       <ellipse cx="65" cy="25" rx="4" ry="4" fill="rgba(0,255,200,.8)"/>
+       <path d="M65,5 L65,18" stroke="rgba(0,255,200,.6)" stroke-width="1.5"/>
+       <path d="M58,8 L65,5 L72,8" fill="none" stroke="rgba(0,255,200,.6)" stroke-width="1.5"/>
+     </svg>`},
+    // Solar panels
+    {x:'35%',y:'72%',panel:'support',label:'⚡ Обслуживание',
+     svg:`<svg width="100" height="80" viewBox="0 0 100 80">
+       <rect x="5" y="20" width="90" height="50" rx="4" fill="#1a2a4a" stroke="rgba(0,150,255,.4)" stroke-width="1.5"/>
+       <line x1="35" y1="20" x2="35" y2="70" stroke="rgba(0,150,255,.3)" stroke-width="1"/>
+       <line x1="65" y1="20" x2="65" y2="70" stroke="rgba(0,150,255,.3)" stroke-width="1"/>
+       <line x1="5" y1="45" x2="95" y2="45" stroke="rgba(0,150,255,.3)" stroke-width="1"/>
+       <rect x="5" y="20" width="90" height="50" rx="4" fill="rgba(0,100,255,.06)"/>
+       <rect x="43" y="68" width="14" height="12" rx="2" fill="#334455"/>
+       <ellipse cx="50" cy="80" rx="12" ry="3" fill="rgba(0,0,0,.3)"/>
+       <line x1="20" y1="20" x2="12" y2="4" stroke="rgba(255,200,0,.5)" stroke-width="1.5"/>
+       <line x1="50" y1="20" x2="50" y2="4" stroke="rgba(255,200,0,.5)" stroke-width="1.5"/>
+       <line x1="80" y1="20" x2="88" y2="4" stroke="rgba(255,200,0,.5)" stroke-width="1.5"/>
+     </svg>`},
+    // Drone
+    {x:'60%',y:'40%',panel:'mail',label:'📧 Почта',
+     svg:`<svg width="90" height="55" viewBox="0 0 90 55">
+       <ellipse cx="45" cy="28" rx="18" ry="8" fill="#334455"/>
+       <ellipse cx="45" cy="28" rx="14" ry="6" fill="#445566"/>
+       <rect x="10" y="24" width="70" height="3" rx="1" fill="#556677"/>
+       <rect x="10" y="22" width="3" height="7" rx="1" fill="#556677"/>
+       <rect x="77" y="22" width="3" height="7" rx="1" fill="#556677"/>
+       <ellipse cx="12" cy="22" rx="10" ry="5" fill="none" stroke="rgba(0,200,255,.5)" stroke-width="1.5"/>
+       <ellipse cx="78" cy="22" rx="10" ry="5" fill="none" stroke="rgba(0,200,255,.5)" stroke-width="1.5"/>
+       <circle cx="45" cy="28" r="3" fill="rgba(0,255,200,.8)"/>
+       <line x1="45" y1="34" x2="45" y2="50" stroke="rgba(0,200,255,.4)" stroke-width="1"/>
+       <circle cx="45" cy="50" r="2" fill="rgba(0,255,150,.6)"/>
+     </svg>`},
+    // Wind turbines
+    {x:'78%',y:'58%',panel:'cases',label:'🏆 Кейсы',
+     svg:`<svg width="80" height="120" viewBox="0 0 80 120">
+       <rect x="37" y="30" width="6" height="90" rx="2" fill="#445566"/>
+       <ellipse cx="40" cy="120" rx="14" ry="4" fill="rgba(0,0,0,.3)"/>
+       <g transform="rotate(0,40,30)" style="transform-origin:40px 30px;animation:spin 4s linear infinite">
+         <path d="M40,30 L40,2 Q45,16 40,30z" fill="rgba(100,180,220,.8)"/>
+         <path d="M40,30 L64,42 Q52,30 40,30z" fill="rgba(100,180,220,.7)"/>
+         <path d="M40,30 L16,42 Q28,30 40,30z" fill="rgba(100,180,220,.75)"/>
+       </g>
+       <circle cx="40" cy="30" r="4" fill="#aabbcc"/>
+     </svg>`},
+    // Data tower
+    {x:'88%',y:'55%',panel:'prices',label:'💰 Цены',
+     svg:`<svg width="50" height="110" viewBox="0 0 50 110">
+       <rect x="18" y="20" width="14" height="90" rx="2" fill="#223344"/>
+       <ellipse cx="25" cy="110" rx="12" ry="3" fill="rgba(0,0,0,.3)"/>
+       <rect x="5" y="40" width="40" height="5" rx="2" fill="#334455"/>
+       <rect x="5" y="60" width="40" height="5" rx="2" fill="#334455"/>
+       <rect x="5" y="80" width="40" height="5" rx="2" fill="#334455"/>
+       <circle cx="25" cy="20" r="8" fill="#446688" stroke="rgba(0,200,255,.5)" stroke-width="1.5"/>
+       <circle cx="25" cy="10" r="3" fill="rgba(0,255,200,.8)"/>
+       <line x1="25" y1="2" x2="25" y2="8" stroke="rgba(0,255,200,.6)" stroke-width="1.5"/>
+       <rect x="22" y="42" width="6" height="3" rx="1" fill="rgba(0,200,255,.6)"/>
+       <rect x="22" y="62" width="6" height="3" rx="1" fill="rgba(0,200,100,.6)"/>
+       <rect x="22" y="82" width="6" height="3" rx="1" fill="rgba(255,150,0,.6)"/>
+     </svg>`},
+    // Holographic horse (symbol of Kazakh steppe)
+    {x:'48%',y:'55%',panel:'sites',label:'🌐 Создание сайтов',
+     svg:`<svg width="110" height="90" viewBox="0 0 110 90">
+       <g opacity=".8" fill="none" stroke="rgba(0,255,200,.7)" stroke-width="1.5">
+         <path d="M55,20 Q65,15 70,25 Q75,35 65,40 Q60,42 55,38z"/>
+         <path d="M55,38 Q45,50 40,65 L38,85 L42,85 L44,68"/>
+         <path d="M55,38 Q60,48 62,62 L64,82 L60,82 L58,65"/>
+         <path d="M55,20 Q48,15 40,20 Q35,28 38,35 L55,38"/>
+         <path d="M55,38 Q48,42 42,48 L38,68 L42,68 L45,52"/>
+         <path d="M70,25 Q78,20 80,10"/>
+         <path d="M70,25 Q72,30 75,38 L78,55 L74,55 L72,40"/>
+       </g>
+       <g fill="rgba(0,255,200,.15)" stroke="rgba(0,255,200,.4)" stroke-width="1">
+         <path d="M55,20 Q65,15 70,25 Q75,35 65,40 Q60,42 55,38z"/>
+       </g>
+     </svg>`},
+  ];
+
+  document.head.querySelector('style').textContent+=`@keyframes spin{to{transform:rotate(360deg)}}`;
+
+  steppeObjs.forEach(o=>{
+    const el=document.createElement('div');
+    el.className='obj';
+    el.style.cssText=`position:absolute;left:${o.x};top:${o.y};transform:translate(-50%,-50%);cursor:pointer;z-index:6;filter:drop-shadow(0 0 10px rgba(0,200,150,.4));transition:filter .2s,transform .2s`;
+    el.innerHTML=`<div class="obj-label">${o.label}</div>${o.svg}`;
+    el.addEventListener('mouseenter',()=>{el.style.filter='drop-shadow(0 0 20px rgba(0,255,180,.8))';el.style.transform='translate(-50%,-60%) scale(1.1)';});
+    el.addEventListener('mouseleave',()=>{el.style.filter='drop-shadow(0 0 10px rgba(0,200,150,.4))';el.style.transform='translate(-50%,-50%)';});
+    el.addEventListener('click',()=>openPanel(o.panel));
+    objContainer.appendChild(el);
+  });
+
+  let T=0;
+  function steppeLoop(){
+    T+=.012;
+    drawSteppe(T);
+    animFrames.steppe=requestAnimationFrame(steppeLoop);
+  }
+  steppeLoop();
+})();
+</script>
+</body>
+</html>
