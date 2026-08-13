@@ -1,1122 +1,959 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>alsat.asia — Интерактивный шоурум</title>
-<style>
-/* ══════════════════════════════════════════════
-   BASE
-══════════════════════════════════════════════ */
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif}
-button{font-family:inherit;cursor:pointer;border:none;background:none}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Alsat Digital — сайты, домены и бизнес-системы под ключ</title>
+  <meta name="description" content="Создаём сайты, подключаем домены и корпоративную почту, разрабатываем задачники, CRM, Telegram-ботов и автоматизацию. Работаем удалённо по Казахстану и СНГ.">
+  <meta name="theme-color" content="#07111f">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://alsat.asia/">
+  <meta property="og:title" content="Alsat Digital — цифровые решения для бизнеса">
+  <meta property="og:description" content="Сайты, домены, задачники, CRM и автоматизация — от идеи до запуска и поддержки.">
+  <link rel="canonical" href="https://alsat.asia/">
+  <style>
+    :root {
+      --ink: #eaf2fb;
+      --muted: #9eb0c3;
+      --bg: #07111f;
+      --bg-2: #0b1727;
+      --card: rgba(14, 31, 51, .78);
+      --line: rgba(184, 213, 240, .14);
+      --blue: #5cb8ff;
+      --blue-2: #1685e6;
+      --mint: #63e4bd;
+      --amber: #ffc96b;
+      --shadow: 0 24px 80px rgba(0, 0, 0, .32);
+      --radius: 22px;
+      --max: 1180px;
+    }
 
-/* ── Scene container ── */
-#app{position:relative;width:100vw;height:100vh;overflow:hidden}
-.scene{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .8s}
-.scene.active{opacity:1;pointer-events:all}
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 80% 5%, rgba(22, 133, 230, .16), transparent 30rem),
+        radial-gradient(circle at 8% 34%, rgba(99, 228, 189, .08), transparent 24rem),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
 
-/* ── Scene nav ── */
-#nav{
-  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
-  z-index:50;display:flex;gap:12px;
-  background:rgba(0,0,0,.45);backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,.12);border-radius:50px;
-  padding:10px 18px;
-}
-.nav-btn{
-  display:flex;flex-direction:column;align-items:center;gap:4px;
-  padding:8px 14px;border-radius:40px;transition:background .2s,transform .15s;
-  color:rgba(255,255,255,.55);font-size:11px;letter-spacing:.5px;cursor:pointer;
-}
-.nav-btn .icon{font-size:22px;line-height:1}
-.nav-btn:hover{background:rgba(255,255,255,.1);transform:translateY(-2px);color:#fff}
-.nav-btn.active{background:rgba(255,255,255,.18);color:#fff}
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .22;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .025) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
 
-/* ── Canvas base ── */
-.bg-canvas{position:absolute;inset:0;width:100%;height:100%}
+    a { color: inherit; }
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+    img { max-width: 100%; }
 
-/* ── Clickable object base ── */
-.obj{
-  position:absolute;cursor:pointer;z-index:10;
-  transition:filter .2s,transform .2s;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5));
-}
-.obj:hover{transform:scale(1.12) translateY(-6px);filter:drop-shadow(0 0 18px rgba(255,220,80,.8))}
+    .container { width: min(calc(100% - 40px), var(--max)); margin-inline: auto; }
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--mint);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
 
-/* ── Object labels ── */
-.obj-label{
-  position:absolute;bottom:105%;left:50%;transform:translateX(-50%);
-  white-space:nowrap;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);
-  color:#fff;font-size:11px;padding:4px 10px;border-radius:20px;
-  opacity:0;transition:opacity .2s;pointer-events:none;border:1px solid rgba(255,255,255,.15);
-}
-.obj:hover .obj-label{opacity:1}
+    .section { padding: 104px 0; position: relative; }
+    .section-soft { background: rgba(255, 255, 255, .018); border-block: 1px solid var(--line); }
+    .section-head { max-width: 720px; margin-bottom: 42px; }
+    .section-head h2 {
+      margin: 0 0 16px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.04;
+      letter-spacing: -.045em;
+    }
+    .section-head p { margin: 0; color: var(--muted); font-size: 18px; }
 
-/* ══════════════════════════════════════════════
-   SCENE 1 — AQUARIUM
-══════════════════════════════════════════════ */
-#scene-aquarium{background:linear-gradient(180deg,#041830 0%,#072848 30%,#083560 65%,#041c35 100%)}
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid transparent;
+      transition: background .25s, border-color .25s;
+    }
+    .site-header.scrolled {
+      background: rgba(7, 17, 31, .86);
+      backdrop-filter: blur(18px);
+      border-color: var(--line);
+    }
+    .header-row { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; font-weight: 850; letter-spacing: -.03em; }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: #06111c;
+      background: linear-gradient(135deg, var(--mint), var(--blue));
+      box-shadow: 0 10px 32px rgba(60, 183, 255, .24);
+      font-size: 17px;
+    }
+    .brand small { display: block; color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+    .nav { display: flex; align-items: center; gap: 25px; }
+    .nav a { color: #bdcad7; text-decoration: none; font-size: 14px; transition: color .2s; }
+    .nav a:hover { color: white; }
+    .nav .nav-cta { color: white; border: 1px solid var(--line); border-radius: 999px; padding: 10px 16px; background: rgba(255, 255, 255, .04); }
+    .menu-button { display: none; color: white; background: transparent; border: 1px solid var(--line); border-radius: 11px; padding: 8px 11px; }
 
-#aq-surface{position:absolute;top:0;left:0;right:0;height:20px;z-index:2;pointer-events:none;
-  background:linear-gradient(180deg,rgba(120,200,255,.18) 0%,transparent 100%)}
-#aq-sand{position:absolute;bottom:0;left:0;right:0;height:100px;z-index:4;pointer-events:none;
-  background:linear-gradient(180deg,#6b5010 0%,#a07820 40%,#c49a2a 70%,#b8901e 100%);border-radius:0}
-#aq-sand::before{content:'';position:absolute;top:0;left:0;right:0;height:28px;
-  background:radial-gradient(ellipse 80px 18px at 10% 50%,rgba(0,0,0,.2) 0%,transparent 70%),
-    radial-gradient(ellipse 60px 15px at 35% 60%,rgba(0,0,0,.15) 0%,transparent 70%),
-    radial-gradient(ellipse 90px 20px at 65% 45%,rgba(0,0,0,.2) 0%,transparent 70%),
-    radial-gradient(ellipse 50px 14px at 88% 55%,rgba(0,0,0,.15) 0%,transparent 70%)}
+    .hero { min-height: calc(100vh - 76px); display: grid; align-items: center; padding: 76px 0 96px; position: relative; }
+    .hero-grid { display: grid; grid-template-columns: 1.04fr .96fr; gap: 76px; align-items: center; }
+    .availability {
+      display: inline-flex;
+      gap: 9px;
+      align-items: center;
+      margin-bottom: 25px;
+      padding: 8px 12px;
+      border: 1px solid rgba(99, 228, 189, .22);
+      border-radius: 999px;
+      color: #bdebdc;
+      background: rgba(99, 228, 189, .06);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .availability::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 5px rgba(99, 228, 189, .1); }
+    .hero h1 { margin: 0 0 24px; max-width: 760px; font-size: clamp(48px, 7.2vw, 88px); line-height: .96; letter-spacing: -.062em; }
+    .hero h1 span { color: transparent; background: linear-gradient(100deg, #fff 5%, #8fd1ff 52%, #8cf1d2); background-clip: text; -webkit-background-clip: text; }
+    .hero-copy { max-width: 620px; margin: 0 0 32px; color: var(--muted); font-size: clamp(17px, 2vw, 21px); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .button {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 21px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 14px;
+      transition: transform .2s, border-color .2s, background .2s;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: #06111c; background: linear-gradient(135deg, var(--mint), #7ed5ff); box-shadow: 0 15px 40px rgba(74, 206, 192, .16); }
+    .button-secondary { border-color: var(--line); color: white; background: rgba(255, 255, 255, .035); }
 
-.weed{position:absolute;bottom:92px;z-index:3;transform-origin:bottom center;pointer-events:none}
-.bubble{position:absolute;border-radius:50%;border:1px solid rgba(180,220,255,.35);
-  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.25),rgba(100,180,255,.05));
-  pointer-events:none;z-index:8;animation:bubble-rise linear forwards}
-@keyframes bubble-rise{0%{transform:translateY(0) translateX(0);opacity:.8}100%{transform:translateY(-120vh) translateX(var(--drift));opacity:0}}
-@keyframes sway-a{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(10deg)}}
-@keyframes sway-b{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(13deg)}}
-@keyframes sway-c{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(6deg)}}
+    .trust-row { display: flex; flex-wrap: wrap; gap: 19px; margin-top: 32px; color: #8498ab; font-size: 12px; }
+    .trust-row span { display: flex; align-items: center; gap: 7px; }
+    .trust-row span::before { content: "✓"; color: var(--mint); font-weight: 900; }
 
-/* ══════════════════════════════════════════════
-   SCENE 2 — SPACE STATION
-══════════════════════════════════════════════ */
-#scene-space{background:radial-gradient(ellipse at 30% 40%,#1a0840 0%,#080014 40%,#000008 100%)}
+    .hero-console {
+      position: relative;
+      min-height: 530px;
+      isolation: isolate;
+    }
+    .hero-console::before {
+      content: "";
+      position: absolute;
+      inset: 6% 0 0 8%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(53, 159, 255, .20), transparent 63%);
+      filter: blur(16px);
+      z-index: -1;
+    }
+    .browser {
+      position: absolute;
+      inset: 28px 0 auto 28px;
+      overflow: hidden;
+      min-height: 390px;
+      border: 1px solid rgba(170, 213, 249, .18);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(15, 35, 57, .96), rgba(8, 21, 37, .96));
+      box-shadow: var(--shadow);
+      transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+    }
+    .browser-top { height: 49px; display: flex; align-items: center; gap: 7px; padding: 0 16px; border-bottom: 1px solid var(--line); }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #31465b; }
+    .dot:nth-child(1) { background: #ff7a73; }
+    .dot:nth-child(2) { background: #ffd268; }
+    .dot:nth-child(3) { background: #6be0b5; }
+    .address { margin-left: 11px; flex: 1; height: 26px; display: flex; align-items: center; padding: 0 11px; border-radius: 8px; color: #7e94aa; background: rgba(255, 255, 255, .035); font-size: 10px; }
+    .browser-body { padding: 23px; }
+    .browser-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+    .mini-logo { width: 88px; height: 11px; border-radius: 6px; background: linear-gradient(90deg, var(--mint), var(--blue)); }
+    .mini-links { display: flex; gap: 8px; }
+    .mini-links i { width: 30px; height: 5px; border-radius: 5px; background: #2d4357; }
+    .browser-hero { width: 66%; height: 48px; border-radius: 12px; background: linear-gradient(90deg, #f7fbff 0 67%, #29445c 67%); opacity: .9; }
+    .browser-sub { width: 52%; height: 7px; margin-top: 15px; border-radius: 5px; background: #395168; }
+    .browser-sub.short { width: 38%; margin-top: 8px; }
+    .mini-button { width: 92px; height: 29px; margin-top: 20px; border-radius: 9px; background: var(--mint); }
+    .mini-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 34px; }
+    .mini-card { height: 112px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255, 255, 255, .025); padding: 12px; }
+    .mini-card::before { content: ""; display: block; width: 31px; height: 31px; border-radius: 9px; background: linear-gradient(135deg, rgba(92, 184, 255, .6), rgba(99, 228, 189, .35)); }
+    .mini-card::after { content: ""; display: block; width: 72%; height: 7px; margin-top: 18px; border-radius: 5px; background: #3c5267; box-shadow: 0 13px 0 #263b4e; }
 
-/* ══════════════════════════════════════════════
-   SCENE 3 — NEON CITY
-══════════════════════════════════════════════ */
-#scene-city{background:linear-gradient(180deg,#050010 0%,#0a001a 30%,#050008 100%)}
-#city-ground{position:absolute;bottom:0;left:0;right:0;height:80px;z-index:4;pointer-events:none;
-  background:linear-gradient(180deg,#0a0018 0%,#060012 100%)}
-#city-road{position:absolute;bottom:0;left:0;right:0;height:28px;z-index:5;pointer-events:none;
-  background:#0d0d1a;border-top:1px solid rgba(100,50,200,.3)}
-#city-road::after{content:'';position:absolute;top:50%;left:0;right:0;height:2px;
-  background:repeating-linear-gradient(90deg,rgba(255,220,0,.4) 0px,rgba(255,220,0,.4) 40px,transparent 40px,transparent 80px)}
-@keyframes rain-fall{0%{transform:translateY(-100%)}100%{transform:translateY(120vh)}}
+    .task-card {
+      position: absolute;
+      right: -22px;
+      bottom: 2px;
+      width: 290px;
+      padding: 19px;
+      border: 1px solid rgba(170, 213, 249, .20);
+      border-radius: 20px;
+      background: rgba(9, 25, 42, .92);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      animation: float 6s ease-in-out infinite;
+    }
+    .task-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 13px; font-weight: 800; }
+    .task-head b { color: var(--mint); font-size: 10px; }
+    .task { display: grid; grid-template-columns: 8px 1fr auto; gap: 10px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); font-size: 11px; color: #bbc9d5; }
+    .task i { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); }
+    .task:nth-child(3) i { background: var(--amber); }
+    .task:nth-child(4) i { background: var(--mint); }
+    .task em { color: #6e8498; font-style: normal; font-size: 9px; }
+    .domain-chip {
+      position: absolute;
+      left: -14px;
+      bottom: 52px;
+      padding: 14px 17px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: rgba(10, 27, 45, .93);
+      box-shadow: var(--shadow);
+      font-size: 12px;
+      animation: float 7s ease-in-out -2s infinite;
+    }
+    .domain-chip b { display: block; margin-top: 2px; color: var(--mint); font-size: 15px; }
+    @keyframes float { 50% { transform: translateY(-9px); } }
 
-/* ══════════════════════════════════════════════
-   SCENE 4 — STEPPE
-══════════════════════════════════════════════ */
-#scene-steppe{background:linear-gradient(180deg,#050a1a 0%,#0a1428 20%,#0d1f38 50%,#142840 100%)}
-#steppe-ground{position:absolute;bottom:0;left:0;right:0;height:130px;z-index:4;pointer-events:none;
-  background:linear-gradient(180deg,#1a3a18 0%,#0f2a10 50%,#0a1f0a 100%)}
-#steppe-ground::before{content:'';position:absolute;top:0;left:0;right:0;height:30px;
-  background:repeating-linear-gradient(90deg,rgba(50,120,40,.15) 0px,rgba(50,120,40,.15) 2px,transparent 2px,transparent 8px)}
-@keyframes aurora{0%,100%{opacity:.3;transform:scaleX(1)}50%{opacity:.6;transform:scaleX(1.05)}}
+    .proof-bar { border-block: 1px solid var(--line); background: rgba(255, 255, 255, .02); }
+    .proof-grid { min-height: 106px; display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; }
+    .proof { padding: 0 25px; border-right: 1px solid var(--line); }
+    .proof:first-child { padding-left: 0; }
+    .proof:last-child { border-right: 0; }
+    .proof strong { display: block; font-size: 21px; letter-spacing: -.03em; }
+    .proof span { color: var(--muted); font-size: 12px; }
 
-/* ══════════════════════════════════════════════
-   SERVICE PANELS
-══════════════════════════════════════════════ */
-#panel-overlay{
-  position:fixed;inset:0;z-index:100;
-  background:rgba(0,5,20,.88);backdrop-filter:blur(8px);
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .35s;
-}
-#panel-overlay.on{opacity:1;pointer-events:all}
+    .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .service-card {
+      position: relative;
+      min-height: 280px;
+      padding: 28px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      transition: transform .25s, border-color .25s, background .25s;
+    }
+    .service-card:hover { transform: translateY(-5px); border-color: rgba(99, 228, 189, .32); background: rgba(17, 39, 63, .92); }
+    .service-number { color: #6f8498; font-size: 11px; letter-spacing: .12em; }
+    .service-icon { width: 46px; height: 46px; display: grid; place-items: center; margin: 28px 0 20px; border-radius: 14px; color: #05121d; background: linear-gradient(135deg, var(--mint), var(--blue)); font-size: 20px; }
+    .service-card h3 { margin: 0 0 10px; font-size: 23px; letter-spacing: -.035em; }
+    .service-card p { margin: 0; color: var(--muted); font-size: 14px; }
+    .service-card ul { padding: 0; margin: 19px 0 0; list-style: none; color: #c3d0dc; font-size: 12px; }
+    .service-card li { margin-top: 7px; }
+    .service-card li::before { content: "—"; margin-right: 7px; color: var(--mint); }
+    .service-price { display: inline-block; margin-top: 22px; color: var(--mint); font-size: 13px; font-weight: 850; }
+    .depth-shell { margin-top: 48px; padding-top: 34px; border-top: 1px solid var(--line); }
+    .depth-head { display: flex; justify-content: space-between; gap: 30px; align-items: end; margin-bottom: 20px; }
+    .depth-head h3 { margin: 0; font-size: clamp(27px, 4vw, 40px); letter-spacing: -.04em; }
+    .depth-head p { max-width: 520px; margin: 0; color: var(--muted); font-size: 14px; }
+    .depth-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .depth-card { border: 1px solid var(--line); border-radius: 17px; background: rgba(255, 255, 255, .024); }
+    .depth-card[open] { border-color: rgba(99, 228, 189, .28); background: rgba(14, 34, 53, .82); }
+    .depth-card summary { display: flex; align-items: center; gap: 12px; padding: 18px 20px; cursor: pointer; list-style: none; font-size: 14px; font-weight: 800; }
+    .depth-card summary::-webkit-details-marker { display: none; }
+    .depth-card summary::before { content: "+"; width: 27px; height: 27px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 8px; color: var(--mint); background: rgba(99, 228, 189, .08); font-size: 17px; }
+    .depth-card[open] summary::before { content: "−"; }
+    .depth-card ul { display: grid; grid-template-columns: 1fr 1fr; gap: 9px 18px; margin: 0; padding: 0 20px 20px 59px; color: #aebfcd; list-style: none; font-size: 12px; }
+    .depth-card li::before { content: "✓"; margin-right: 7px; color: var(--mint); }
 
-.panel{
-  display:none;max-width:860px;width:92%;max-height:88vh;overflow-y:auto;
-  background:linear-gradient(135deg,#060f22 0%,#08182e 100%);
-  border:1px solid rgba(80,160,255,.25);border-radius:22px;
-  padding:44px 48px;transform:translateY(20px);transition:transform .35s;
-  box-shadow:0 0 80px rgba(0,80,200,.2),0 40px 80px rgba(0,0,0,.7);
-}
-#panel-overlay.on .panel.active{display:block;transform:translateY(0)}
+    .task-solution { display: grid; grid-template-columns: .88fr 1.12fr; gap: 65px; align-items: center; }
+    .task-solution h2 { margin: 0 0 20px; font-size: clamp(36px, 5vw, 64px); line-height: 1.02; letter-spacing: -.05em; }
+    .task-solution .lead { color: var(--muted); font-size: 18px; }
+    .feature-list { display: grid; gap: 14px; margin: 28px 0 0; }
+    .feature { display: flex; gap: 13px; align-items: flex-start; color: #d7e2ec; font-size: 14px; }
+    .feature b { width: 26px; height: 26px; flex: 0 0 26px; display: grid; place-items: center; border-radius: 8px; color: var(--mint); background: rgba(99, 228, 189, .08); }
 
-.panel h2{color:#fff;font-size:26px;margin-bottom:8px}
-.panel h2 .accent{color:#38b6ff}
-.panel .sub{color:rgba(180,210,255,.6);font-size:14px;margin-bottom:32px;line-height:1.6}
+    .kanban {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: #0a192a;
+      box-shadow: var(--shadow);
+    }
+    .kanban-top { display: flex; justify-content: space-between; align-items: center; padding: 5px 5px 18px; font-size: 13px; font-weight: 800; }
+    .kanban-top span { color: var(--muted); font-size: 10px; font-weight: 600; }
+    .kanban-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .column { min-height: 325px; padding: 12px; border-radius: 15px; background: rgba(255, 255, 255, .025); }
+    .column-head { display: flex; justify-content: space-between; margin-bottom: 13px; color: #9bb0c4; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+    .column-head i { font-style: normal; color: #536b81; }
+    .ticket { margin-bottom: 9px; padding: 13px; border: 1px solid var(--line); border-radius: 12px; background: #10243a; box-shadow: 0 7px 22px rgba(0, 0, 0, .14); }
+    .ticket-label { display: inline-block; margin-bottom: 10px; padding: 3px 6px; border-radius: 5px; color: #8fe4c9; background: rgba(99, 228, 189, .09); font-size: 8px; font-weight: 800; }
+    .ticket-label.amber { color: #ffd98e; background: rgba(255, 201, 107, .08); }
+    .ticket p { margin: 0 0 12px; color: #d8e4ee; font-size: 11px; line-height: 1.4; }
+    .ticket-foot { display: flex; justify-content: space-between; color: #71879b; font-size: 8px; }
 
-/* Cards grid */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:32px}
-.card{background:rgba(255,255,255,.04);border:1px solid rgba(80,160,255,.2);border-radius:14px;padding:22px 18px;transition:border-color .2s,background .2s}
-.card:hover{background:rgba(56,182,255,.08);border-color:rgba(56,182,255,.4)}
-.card .ci{font-size:34px;margin-bottom:10px}
-.card h3{color:#fff;font-size:15px;margin-bottom:6px}
-.card p{color:rgba(180,210,255,.6);font-size:12px;line-height:1.6}
-.card .price{color:#38b6ff;font-size:14px;font-weight:bold;margin-top:10px}
+    .case-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 16px; }
+    .case {
+      position: relative;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 30px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 25px;
+      background: linear-gradient(145deg, #0d2034, #091727);
+      text-decoration: none;
+    }
+    .case::before { content: ""; position: absolute; width: 330px; height: 330px; right: -90px; top: -110px; border-radius: 50%; background: radial-gradient(circle, rgba(92, 184, 255, .22), transparent 65%); }
+    .case-secondary::before { background: radial-gradient(circle, rgba(99, 228, 189, .17), transparent 65%); }
+    .case-visual { position: absolute; inset: 32px 32px auto; height: 205px; border: 1px solid var(--line); border-radius: 17px; background: #0c1a29; transform: rotate(-2deg); box-shadow: 0 25px 45px rgba(0, 0, 0, .26); }
+    .case-secondary .case-visual { transform: rotate(2deg); }
+    .route { position: absolute; inset: 25px; border-radius: 12px; background: linear-gradient(150deg, #112d48, #102239); }
+    .route::before { content: "Астана"; position: absolute; left: 18px; top: 35px; color: white; font-size: 11px; font-weight: 800; }
+    .route::after { content: "Бурабай"; position: absolute; right: 18px; bottom: 38px; color: white; font-size: 11px; font-weight: 800; }
+    .route-line { position: absolute; left: 25%; top: 48%; width: 52%; height: 2px; background: linear-gradient(90deg, var(--mint), var(--blue)); transform: rotate(18deg); box-shadow: 0 0 15px var(--blue); }
+    .route-line::before, .route-line::after { content: ""; position: absolute; top: -4px; width: 9px; height: 9px; border-radius: 50%; background: white; box-shadow: 0 0 0 5px rgba(92, 184, 255, .14); }
+    .route-line::before { left: -2px; }
+    .route-line::after { right: -2px; }
+    .bot-lines { position: absolute; inset: 25px; padding: 25px 17px; border-radius: 12px; background: #0d1d2f; }
+    .bubble { width: 78%; min-height: 35px; margin-bottom: 10px; padding: 9px; border-radius: 10px 10px 10px 2px; background: #183750; color: #9fb6c9; font-size: 8px; }
+    .bubble.me { margin-left: auto; border-radius: 10px 10px 2px 10px; background: rgba(99, 228, 189, .18); color: #bfeadc; }
+    .case-content { position: relative; z-index: 2; }
+    .case-tag { display: inline-block; margin-bottom: 10px; color: var(--mint); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .case h3 { margin: 0 0 8px; font-size: 27px; letter-spacing: -.04em; }
+    .case p { margin: 0; max-width: 580px; color: var(--muted); font-size: 13px; }
+    .case-link { display: inline-block; margin-top: 16px; color: white; font-size: 12px; font-weight: 800; }
 
-/* Process steps */
-.steps{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
-.step{display:flex;align-items:flex-start;gap:16px}
-.step .num{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#0077ff,#00c3ff);
-  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:15px;flex-shrink:0}
-.step .txt h4{color:#fff;font-size:14px;margin-bottom:4px}
-.step .txt p{color:rgba(180,210,255,.65);font-size:13px;line-height:1.5}
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; counter-reset: steps; }
+    .process-step { min-height: 235px; padding: 24px; border-top: 1px solid rgba(99, 228, 189, .55); background: linear-gradient(180deg, rgba(99, 228, 189, .045), transparent); }
+    .process-step::before { counter-increment: steps; content: "0" counter(steps); display: block; margin-bottom: 55px; color: var(--mint); font-size: 11px; font-weight: 900; letter-spacing: .08em; }
+    .process-step h3 { margin: 0 0 9px; font-size: 20px; }
+    .process-step p { margin: 0; color: var(--muted); font-size: 13px; }
 
-/* Pricing table */
-.price-table{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:32px}
-.price-col{background:rgba(255,255,255,.04);border:1px solid rgba(80,160,255,.2);border-radius:14px;padding:24px 18px;text-align:center}
-.price-col.featured{border-color:rgba(56,182,255,.5);background:rgba(56,182,255,.07)}
-.price-col .tier{color:rgba(180,210,255,.7);font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
-.price-col .amount{color:#fff;font-size:28px;font-weight:bold;margin-bottom:4px}
-.price-col .amount span{font-size:14px;color:rgba(180,210,255,.6)}
-.price-col ul{list-style:none;color:rgba(180,210,255,.65);font-size:12px;line-height:1.8;text-align:left;margin-top:14px}
-.price-col ul li::before{content:'✓ ';color:#38b6ff}
+    .price-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .price-card { padding: 30px; border: 1px solid var(--line); border-radius: 23px; background: var(--card); }
+    .price-card.featured { border-color: rgba(99, 228, 189, .45); background: linear-gradient(145deg, rgba(24, 58, 75, .86), rgba(11, 30, 48, .90)); transform: translateY(-8px); }
+    .price-name { color: var(--mint); font-size: 11px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+    .price-card h3 { margin: 12px 0 4px; font-size: 25px; }
+    .price { margin: 22px 0; font-size: 30px; font-weight: 900; letter-spacing: -.04em; }
+    .price small { color: var(--muted); font-size: 12px; font-weight: 500; }
+    .price-card ul { min-height: 165px; margin: 0 0 25px; padding: 0; list-style: none; color: #bdcad6; font-size: 13px; }
+    .price-card li { margin: 10px 0; }
+    .price-card li::before { content: "✓"; margin-right: 9px; color: var(--mint); }
 
-/* Case cards */
-.cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:32px}
-.case-card{border-radius:14px;overflow:hidden;cursor:pointer;border:1px solid rgba(80,160,255,.2);transition:transform .2s,border-color .2s}
-.case-card:hover{transform:translateY(-4px);border-color:rgba(56,182,255,.5)}
-.case-img{height:130px;display:flex;align-items:center;justify-content:center;font-size:52px}
-.case-body{background:rgba(255,255,255,.04);padding:16px}
-.case-body h4{color:#fff;font-size:14px;margin-bottom:6px}
-.case-body p{color:rgba(180,210,255,.6);font-size:12px;line-height:1.5}
+    .faq { display: grid; grid-template-columns: .75fr 1.25fr; gap: 80px; align-items: start; }
+    .faq h2 { margin: 0; font-size: clamp(36px, 5vw, 58px); letter-spacing: -.05em; line-height: 1.02; }
+    .questions { border-top: 1px solid var(--line); }
+    .question { border-bottom: 1px solid var(--line); }
+    .question button { width: 100%; display: flex; justify-content: space-between; gap: 25px; padding: 22px 0; color: white; background: transparent; border: 0; text-align: left; font-weight: 750; }
+    .question button span:last-child { color: var(--mint); font-size: 20px; transition: transform .2s; }
+    .answer { max-height: 0; overflow: hidden; color: var(--muted); font-size: 14px; transition: max-height .3s ease; }
+    .answer p { margin: 0; padding: 0 35px 22px 0; }
+    .question.open .answer { max-height: 180px; }
+    .question.open button span:last-child { transform: rotate(45deg); }
 
-/* Form */
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
-.form-grid input,.form-grid select,textarea{
-  background:rgba(255,255,255,.06);border:1px solid rgba(80,160,255,.25);border-radius:10px;
-  color:#fff;font-size:14px;padding:12px 14px;outline:none;font-family:inherit;
-  transition:border-color .2s;width:100%;
-}
-.form-grid input:focus,.form-grid select:focus,textarea:focus{border-color:rgba(56,182,255,.6)}
-.form-grid input::placeholder,textarea::placeholder{color:rgba(180,210,255,.4)}
-.form-grid select option{background:#0a1a30;color:#fff}
-textarea{width:100%;min-height:90px;resize:vertical;margin-bottom:14px}
-.full{grid-column:1/-1}
+    .contact-shell { position: relative; overflow: hidden; padding: 48px; border: 1px solid rgba(124, 206, 255, .25); border-radius: 31px; background: linear-gradient(135deg, #102a43, #0a1d31 66%); box-shadow: var(--shadow); }
+    .contact-shell::after { content: ""; position: absolute; width: 400px; height: 400px; right: -150px; top: -180px; border-radius: 50%; background: radial-gradient(circle, rgba(99, 228, 189, .18), transparent 66%); }
+    .contact-grid { position: relative; z-index: 2; display: grid; grid-template-columns: .78fr 1.22fr; gap: 65px; }
+    .contact-copy h2 { margin: 0 0 18px; font-size: clamp(38px, 5vw, 62px); line-height: 1; letter-spacing: -.055em; }
+    .contact-copy p { color: #a8bbcc; }
+    .contact-links { display: grid; gap: 8px; margin-top: 25px; }
+    .contact-links a { color: white; text-decoration: none; font-size: 13px; }
+    .contact-links span { display: inline-block; width: 26px; color: var(--mint); }
+    .contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field { display: grid; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { color: #9eb1c2; font-size: 11px; font-weight: 750; }
+    .field input, .field select, .field textarea { width: 100%; border: 1px solid rgba(186, 216, 240, .17); border-radius: 12px; outline: 0; color: white; background: rgba(4, 15, 27, .48); padding: 13px 14px; transition: border-color .2s; }
+    .field textarea { min-height: 92px; resize: vertical; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--mint); }
+    .field select option { color: #091522; background: white; }
+    .submit { grid-column: 1 / -1; min-height: 52px; border: 0; border-radius: 13px; color: #05121d; background: linear-gradient(135deg, var(--mint), #82d6ff); font-weight: 900; }
+    .form-note { grid-column: 1 / -1; margin: 0; color: #7890a4; font-size: 10px; }
 
-/* Buttons */
-.btn-primary{
-  width:100%;padding:15px;border-radius:50px;
-  background:linear-gradient(135deg,#0077ff,#00c3ff);
-  color:#fff;font-size:16px;font-weight:bold;letter-spacing:.5px;
-  box-shadow:0 4px 24px rgba(0,120,255,.4);transition:transform .15s,box-shadow .15s;
-}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,180,255,.5)}
-.btn-close{display:block;width:100%;margin-top:12px;padding:8px;color:rgba(150,180,220,.5);font-size:13px}
-.btn-close:hover{color:#aaa}
+    footer { padding: 36px 0; border-top: 1px solid var(--line); }
+    .footer-row { display: flex; justify-content: space-between; gap: 25px; align-items: center; color: #708599; font-size: 11px; }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a { text-decoration: none; }
 
-/* Panel header emoji */
-.panel-icon{font-size:52px;margin-bottom:16px;display:block}
+    .ai-launcher {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 90;
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 0 18px 0 11px;
+      border: 1px solid rgba(139, 233, 214, .46);
+      border-radius: 999px;
+      color: #06111c;
+      background: linear-gradient(135deg, #83efd0, #73c7ff);
+      box-shadow: 0 18px 55px rgba(0, 0, 0, .42), 0 0 35px rgba(99, 228, 189, .15);
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .ai-launcher-icon { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: rgba(5, 18, 29, .12); font-size: 17px; }
+    .ai-panel {
+      position: fixed;
+      right: 22px;
+      bottom: 94px;
+      z-index: 91;
+      width: min(390px, calc(100vw - 28px));
+      height: min(610px, calc(100vh - 125px));
+      display: none;
+      grid-template-rows: auto 1fr auto;
+      overflow: hidden;
+      border: 1px solid rgba(170, 213, 249, .22);
+      border-radius: 24px;
+      background: rgba(7, 20, 34, .98);
+      box-shadow: 0 28px 90px rgba(0, 0, 0, .55);
+      backdrop-filter: blur(22px);
+    }
+    .ai-panel.open { display: grid; animation: chatIn .22s ease-out; }
+    @keyframes chatIn { from { opacity: 0; transform: translateY(12px) scale(.98); } }
+    .ai-head { display: flex; align-items: center; gap: 12px; padding: 16px 17px; border-bottom: 1px solid var(--line); background: linear-gradient(120deg, rgba(99, 228, 189, .1), rgba(92, 184, 255, .07)); }
+    .ai-avatar { width: 42px; height: 42px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 14px; color: #06111c; background: linear-gradient(135deg, var(--mint), var(--blue)); font-weight: 950; }
+    .ai-title { flex: 1; }
+    .ai-title strong { display: block; font-size: 14px; }
+    .ai-title span { display: flex; align-items: center; gap: 6px; color: #93a9bb; font-size: 10px; }
+    .ai-title span::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 8px var(--mint); }
+    .ai-close { width: 34px; height: 34px; border: 0; border-radius: 10px; color: #9eb0c3; background: rgba(255,255,255,.05); font-size: 19px; }
+    .ai-messages { overflow-y: auto; padding: 18px 15px; scroll-behavior: smooth; }
+    .ai-message { max-width: 87%; margin: 0 0 11px; padding: 11px 13px; border-radius: 14px 14px 14px 4px; color: #d9e5ee; background: #142b43; font-size: 13px; line-height: 1.45; white-space: pre-wrap; }
+    .ai-message.user { margin-left: auto; border-radius: 14px 14px 4px 14px; color: #092015; background: linear-gradient(135deg, #7ce7c7, #90d4ff); }
+    .ai-message.typing { width: 54px; color: #8da4b7; letter-spacing: 3px; }
+    .ai-chips { display: flex; gap: 7px; overflow-x: auto; padding: 0 15px 11px; scrollbar-width: none; }
+    .ai-chip { flex: 0 0 auto; padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; color: #b9c9d6; background: rgba(255,255,255,.035); font-size: 10px; }
+    .ai-form { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 12px; border-top: 1px solid var(--line); background: #091827; }
+    .ai-form input { min-width: 0; height: 44px; padding: 0 13px; border: 1px solid var(--line); border-radius: 12px; outline: 0; color: white; background: rgba(255,255,255,.035); font-size: 13px; }
+    .ai-form input:focus { border-color: var(--mint); }
+    .ai-send { width: 44px; height: 44px; border: 0; border-radius: 12px; color: #06111c; background: linear-gradient(135deg, var(--mint), var(--blue)); font-weight: 950; }
+    .ai-send:disabled { opacity: .45; cursor: wait; }
+    .ai-fallback { display: block; grid-column: 1 / -1; margin-top: -1px; color: #71889c; text-align: center; font-size: 9px; text-decoration: none; }
 
-/* ── scrollbar ── */
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(56,182,255,.3);border-radius:3px}
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
 
-/* ── hint ── */
-.scene-hint{position:absolute;bottom:95px;left:50%;transform:translateX(-50%);
-  color:rgba(255,255,255,.3);font-size:12px;letter-spacing:2px;z-index:15;pointer-events:none;
-  white-space:nowrap;animation:fadeHint 5s 1.5s forwards}
-@keyframes fadeHint{0%{opacity:1}80%{opacity:1}100%{opacity:0}}
-</style>
+    @media (max-width: 980px) {
+      .nav { display: none; position: absolute; left: 20px; right: 20px; top: 70px; padding: 18px; align-items: stretch; flex-direction: column; border: 1px solid var(--line); border-radius: 18px; background: rgba(7, 17, 31, .97); box-shadow: var(--shadow); }
+      .nav.open { display: flex; }
+      .menu-button { display: block; }
+      .hero { min-height: auto; }
+      .hero-grid, .task-solution, .faq, .contact-grid { grid-template-columns: 1fr; }
+      .hero-grid { gap: 40px; }
+      .hero-console { min-height: 500px; max-width: 680px; width: 100%; margin: auto; }
+      .service-grid { grid-template-columns: repeat(2, 1fr); }
+      .price-grid { grid-template-columns: repeat(2, 1fr); }
+      .proof-grid { grid-template-columns: repeat(2, 1fr); }
+      .proof { min-height: 80px; display: flex; flex-direction: column; justify-content: center; border-bottom: 1px solid var(--line); }
+      .proof:nth-child(2) { border-right: 0; }
+      .proof:nth-child(3), .proof:nth-child(4) { border-bottom: 0; }
+      .case-grid { grid-template-columns: 1fr 1fr; }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-grid { gap: 40px; }
+      .depth-head { align-items: start; flex-direction: column; }
+    }
+
+    @media (max-width: 680px) {
+      .container { width: min(calc(100% - 28px), var(--max)); }
+      .section { padding: 76px 0; }
+      .header-row { min-height: 68px; }
+      .hero { padding: 54px 0 76px; }
+      .hero h1 { font-size: clamp(45px, 14vw, 67px); }
+      .hero-copy { font-size: 17px; }
+      .actions { display: grid; }
+      .button { width: 100%; }
+      .hero-console { min-height: 410px; }
+      .browser { inset: 12px 0 auto; min-height: 330px; transform: none; }
+      .browser-body { padding: 16px; }
+      .mini-cards { margin-top: 25px; }
+      .mini-card { height: 94px; }
+      .task-card { right: -5px; width: 255px; bottom: -5px; }
+      .domain-chip { left: -4px; bottom: 28px; }
+      .proof-grid { grid-template-columns: 1fr; padding: 9px 0; }
+      .proof { min-height: 68px; padding: 0; border-right: 0; border-bottom: 1px solid var(--line) !important; }
+      .proof:last-child { border-bottom: 0 !important; }
+      .service-grid, .case-grid, .price-grid, .process-grid, .depth-grid { grid-template-columns: 1fr; }
+      .depth-card ul { grid-template-columns: 1fr; }
+      .service-card { min-height: auto; }
+      .kanban { overflow-x: auto; }
+      .kanban-grid { min-width: 600px; }
+      .case { min-height: 400px; }
+      .price-card.featured { transform: none; }
+      .faq { gap: 35px; }
+      .contact-shell { padding: 28px 20px; border-radius: 23px; }
+      .contact-form { grid-template-columns: 1fr; }
+      .field.full, .submit, .form-note { grid-column: auto; }
+      .footer-row { flex-direction: column; align-items: flex-start; }
+      .ai-launcher { right: 14px; bottom: 14px; min-height: 54px; }
+      .ai-panel { right: 14px; bottom: 78px; height: min(590px, calc(100vh - 94px)); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
 <body>
-<div id="app">
+  <header class="site-header" id="header">
+    <div class="container header-row">
+      <a class="brand" href="#top" aria-label="Alsat Digital — на главную">
+        <span class="brand-mark">A</span>
+        <span>Alsat <small>digital systems</small></span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Основная навигация">
+        <a href="#services">Услуги</a>
+        <a href="#tasks">Задачники</a>
+        <a href="#cases">Проекты</a>
+        <a href="#process">Как работаем</a>
+        <a href="#prices">Стоимость</a>
+        <a class="nav-cta" href="#contact">Обсудить проект</a>
+      </nav>
+      <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="nav">Меню</button>
+    </div>
+  </header>
 
-  <!-- ══ SCENE 1: AQUARIUM ══ -->
-  <div id="scene-aquarium" class="scene active">
-    <canvas id="aq-canvas" class="bg-canvas"></canvas>
-    <div id="aq-surface"></div>
-    <canvas id="fish-canvas" class="bg-canvas" style="z-index:6"></canvas>
-    <div id="aq-sand"></div>
-    <div id="aq-weeds"></div>
-    <div id="aq-stones"></div>
-    <div id="fish-hits" style="position:absolute;inset:0;z-index:9;pointer-events:none"></div>
-    <div class="scene-hint">👆 Кликни на рыбку, камушек или коралл</div>
-  </div>
-
-  <!-- ══ SCENE 2: SPACE ══ -->
-  <div id="scene-space" class="scene">
-    <canvas id="sp-canvas" class="bg-canvas"></canvas>
-    <div id="sp-objects" style="position:absolute;inset:0;z-index:5"></div>
-    <div class="scene-hint">👆 Кликни на планету, станцию или астероид</div>
-  </div>
-
-  <!-- ══ SCENE 3: CITY ══ -->
-  <div id="scene-city" class="scene">
-    <canvas id="ct-canvas" class="bg-canvas"></canvas>
-    <div id="ct-objects" style="position:absolute;inset:0;z-index:5"></div>
-    <div id="city-ground"></div>
-    <div id="city-road"></div>
-    <div class="scene-hint">👆 Кликни на здание, вывеску или голограмму</div>
-  </div>
-
-  <!-- ══ SCENE 4: STEPPE ══ -->
-  <div id="scene-steppe" class="scene">
-    <canvas id="st-canvas" class="bg-canvas"></canvas>
-    <div id="st-objects" style="position:absolute;inset:0;z-index:5"></div>
-    <div id="steppe-ground"></div>
-    <div class="scene-hint">👆 Кликни на юрту, дрон или солнечную панель</div>
-  </div>
-
-  <!-- ══ SCENE 5: LIVE SITE ══ -->
-  <div id="scene-live" class="scene">
-    <div id="live-frame-wrap" style="position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;">
-      <!-- top bar -->
-      <div style="height:44px;background:rgba(10,15,30,.95);display:flex;align-items:center;padding:0 18px;gap:12px;border-bottom:1px solid rgba(56,182,255,.2);flex-shrink:0;z-index:3;">
-        <div style="display:flex;gap:6px;">
-          <span style="width:12px;height:12px;border-radius:50%;background:#ff5f56;display:block;"></span>
-          <span style="width:12px;height:12px;border-radius:50%;background:#ffbd2e;display:block;"></span>
-          <span style="width:12px;height:12px;border-radius:50%;background:#27c93f;display:block;"></span>
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="availability">Берём проекты удалённо</div>
+          <h1>Цифровые системы, которые <span>работают на бизнес</span></h1>
+          <p class="hero-copy">Создаём сайты, подключаем домены и почту, разрабатываем задачники, CRM и автоматизацию. Один исполнитель — от первой схемы до запуска и поддержки.</p>
+          <div class="actions">
+            <a class="button button-primary" href="#contact">Рассчитать проект <span>→</span></a>
+            <a class="button button-secondary" href="#cases">Посмотреть работы</a>
+          </div>
+          <div class="trust-row">
+            <span>Работа по этапам</span>
+            <span>Связь в Telegram</span>
+            <span>Передача всех доступов</span>
+          </div>
         </div>
-        <div style="flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(56,182,255,.2);border-radius:8px;padding:4px 14px;color:rgba(150,200,255,.8);font-size:13px;letter-spacing:.3px;">🔒 alsat.asia</div>
-        <a href="https://alsat.asia" target="_blank" style="color:rgba(56,182,255,.8);font-size:12px;text-decoration:none;white-space:nowrap;padding:4px 12px;border:1px solid rgba(56,182,255,.3);border-radius:20px;transition:all .2s;" onmouseover="this.style.background='rgba(56,182,255,.1)'" onmouseout="this.style.background='transparent'">↗ Открыть</a>
+
+        <div class="hero-console" aria-label="Пример сайта и системы управления задачами">
+          <div class="browser">
+            <div class="browser-top">
+              <i class="dot"></i><i class="dot"></i><i class="dot"></i>
+              <div class="address">https://ваш-бизнес.kz</div>
+            </div>
+            <div class="browser-body">
+              <div class="browser-nav"><div class="mini-logo"></div><div class="mini-links"><i></i><i></i><i></i></div></div>
+              <div class="browser-hero"></div>
+              <div class="browser-sub"></div>
+              <div class="browser-sub short"></div>
+              <div class="mini-button"></div>
+              <div class="mini-cards"><div class="mini-card"></div><div class="mini-card"></div><div class="mini-card"></div></div>
+            </div>
+          </div>
+          <div class="domain-chip">Домен и SSL <b>подключены ✓</b></div>
+          <div class="task-card">
+            <div class="task-head">Задачи проекта <b>6 из 8 готово</b></div>
+            <div class="task"><i></i><span>Утвердить структуру</span><em>готово</em></div>
+            <div class="task"><i></i><span>Подключить домен</span><em>сегодня</em></div>
+            <div class="task"><i></i><span>Запустить рекламу</span><em>следом</em></div>
+          </div>
+        </div>
       </div>
-      <!-- iframe -->
-      <iframe
-        id="live-iframe"
-        src="/marketplace.html"
-        style="flex:1;border:none;width:100%;"
-        allow="same-origin"
-        title="alsat.asia — действующий сайт">
-      </iframe>
-      <!-- iframe blocked fallback (hidden by default) -->
-      <div id="live-fallback" style="display:none;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:24px;background:radial-gradient(ellipse at center,#0d2040 0%,#050f1f 100%);">
-        <div style="font-size:72px;">🌐</div>
-        <div style="color:#fff;font-size:24px;font-weight:bold;">alsat.asia</div>
-        <div style="color:rgba(150,200,255,.7);font-size:14px;text-align:center;max-width:360px;line-height:1.7;">Сайт бесплатных объявлений Казахстана.<br>Маркетплейс, AI чат-бот, мультирегиональный охват.</div>
-        <a href="https://alsat.asia" target="_blank" style="padding:14px 36px;background:linear-gradient(135deg,#0077ff,#00c3ff);color:#fff;border-radius:50px;text-decoration:none;font-size:16px;font-weight:bold;box-shadow:0 4px 24px rgba(0,120,255,.4);">🚀 Открыть сайт</a>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
-          <button onclick="openPanel('sites')" style="padding:10px 20px;background:rgba(255,255,255,.07);border:1px solid rgba(56,182,255,.3);color:rgba(150,200,255,.9);border-radius:30px;cursor:pointer;font-size:13px;">🌐 Создание сайтов</button>
-          <button onclick="openPanel('domains')" style="padding:10px 20px;background:rgba(255,255,255,.07);border:1px solid rgba(56,182,255,.3);color:rgba(150,200,255,.9);border-radius:30px;cursor:pointer;font-size:13px;">🌍 Домены</button>
-          <button onclick="openPanel('order')" style="padding:10px 20px;background:rgba(255,255,255,.07);border:1px solid rgba(56,182,255,.3);color:rgba(150,200,255,.9);border-radius:30px;cursor:pointer;font-size:13px;">✉️ Заявка</button>
-        </div>
+    </section>
+
+    <div class="proof-bar">
+      <div class="container proof-grid">
+        <div class="proof"><strong>100% онлайн</strong><span>Созвоны, согласования и запуск</span></div>
+        <div class="proof"><strong>1 точка связи</strong><span>Без передачи между подрядчиками</span></div>
+        <div class="proof"><strong>Понятные этапы</strong><span>Видно, что готово и что дальше</span></div>
+        <div class="proof"><strong>После запуска</strong><span>Поддержка и развитие проекта</span></div>
       </div>
     </div>
-  </div>
 
-  <!-- ══ NAVIGATION ══ -->
-  <nav id="nav">
-    <button class="nav-btn active" data-scene="aquarium"><span class="icon">🐠</span>Аквариум</button>
-    <button class="nav-btn" data-scene="space"><span class="icon">🚀</span>Космос</button>
-    <button class="nav-btn" data-scene="city"><span class="icon">🌆</span>Неон-сити</button>
-    <button class="nav-btn" data-scene="steppe"><span class="icon">🌾</span>Степь</button>
-    <button class="nav-btn" data-scene="live"><span class="icon">🌐</span>alsat.asia</button>
-  </nav>
-</div>
-
-<!-- ══════════════════════════════════════════════
-     SERVICE PANELS
-══════════════════════════════════════════════ -->
-<div id="panel-overlay">
-  <div id="panels">
-
-    <!-- СОЗДАНИЕ САЙТОВ -->
-    <div class="panel" id="panel-sites">
-      <span class="panel-icon">🌐</span>
-      <h2>Создание <span class="accent">сайтов</span></h2>
-      <p class="sub">Разрабатываем от лендинга до маркетплейса. Современный дизайн, быстрая загрузка, мобильная версия. Работаем под ключ.</p>
-      <div class="cards">
-        <div class="card"><div class="ci">🚀</div><h3>Лендинг</h3><p>Продающая страница с CTA, формой заявки, SEO-оптимизацией</p><div class="price">от $300</div></div>
-        <div class="card"><div class="ci">🏢</div><h3>Корпоративный</h3><p>Многостраничный сайт компании с каталогом услуг и CRM</p><div class="price">от $700</div></div>
-        <div class="card"><div class="ci">🛒</div><h3>Интернет-магазин</h3><p>Каталог, корзина, оплата, доставка, личный кабинет</p><div class="price">от $1200</div></div>
-        <div class="card"><div class="ci">🤖</div><h3>Сайт + AI бот</h3><p>Умный чат-бот отвечает клиентам вместо менеджера 24/7</p><div class="price">от $900</div></div>
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Четыре основных продукта</p>
+          <h2>Выберите результат, а не набор технологий</h2>
+          <p>Начинаем с понятного решения под ключ. Затем его можно углублять и развивать по мере роста бизнеса.</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card reveal">
+            <span class="service-number">01</span><div class="service-icon">◫</div>
+            <h3>Бизнес онлайн</h3>
+            <p>Сайт, домен, корпоративная почта, аналитика и основные площадки — всё необходимое для полноценного запуска компании в интернете.</p>
+            <ul><li>Единое оформление и контакты</li><li>Запуск полностью удалённо</li><li>Все доступы принадлежат клиенту</li></ul>
+            <span class="service-price">от 250 000 ₸</span>
+          </article>
+          <article class="service-card reveal">
+            <span class="service-number">02</span><div class="service-icon">AI</div>
+            <h3>ИИ-консультант + Telegram</h3>
+            <p>Помощник отвечает клиентам на сайте круглосуточно, уточняет задачу и передаёт готовую заявку владельцу в Telegram.</p>
+            <ul><li>Ответы на трёх языках</li><li>Обучение на данных компании</li><li>Передача диалога человеку</li></ul>
+            <span class="service-price">от 150 000 ₸</span>
+          </article>
+          <article class="service-card reveal">
+            <span class="service-number">03</span><div class="service-icon">✓</div>
+            <h3>Задачник / мини-CRM</h3>
+            <p>Простой рабочий кабинет для клиентов, заявок, сотрудников и сроков — без перегруженной универсальной CRM.</p>
+            <ul><li>Под реальный процесс компании</li><li>Работа с телефона</li><li>Отчёты и уведомления</li></ul>
+            <span class="service-price">от 350 000 ₸</span>
+          </article>
+          <article class="service-card reveal">
+            <span class="service-number">04</span><div class="service-icon">∞</div>
+            <h3>Удалённый техотдел</h3>
+            <p>Берём на себя сайты, домены, почту, ботов, резервные копии и небольшие доработки вместо отдельного специалиста в штате.</p>
+            <ul><li>Одна точка связи</li><li>Регулярный контроль систем</li><li>Постепенное развитие</li></ul>
+            <span class="service-price">от 300 000 ₸ / месяц</span>
+          </article>
+        </div>
+        <div class="depth-shell reveal">
+          <div class="depth-head">
+            <div><p class="eyebrow">Можно углубиться</p><h3>Дополняем основу нужными возможностями</h3></div>
+            <p>Не обязательно заказывать всё сразу. Откройте направление, чтобы увидеть, какие функции можно подключить следующим этапом.</p>
+          </div>
+          <div class="depth-grid">
+            <details class="depth-card">
+              <summary>Развитие присутствия в интернете</summary>
+              <ul><li>Лендинги и сайты компаний</li><li>Каталоги и интернет-магазины</li><li>Домены, SSL и корпоративная почта</li><li>Онлайн-запись и бронирование</li><li>Google Maps, 2GIS и Яндекс Карты</li><li>SEO и технический аудит</li><li>Аналитика заявок и рекламы</li><li>Готовые цифровые решения</li></ul>
+            </details>
+            <details class="depth-card">
+              <summary>ИИ, Telegram и документы</summary>
+              <ul><li>ИИ-консультант на сайте</li><li>Telegram-боты для бизнеса</li><li>Корпоративная база знаний</li><li>ИИ-поиск по документам</li><li>Договоры и счета из формы</li><li>Коммерческие предложения и PDF</li></ul>
+            </details>
+            <details class="depth-card">
+              <summary>Продажи и внутренние процессы</summary>
+              <ul><li>Мини-CRM под компанию</li><li>Задачи, роли и сроки</li><li>Сбор заявок из разных каналов</li><li>Напоминания сотрудникам</li><li>Автоматизация обработки заказов</li><li>Отчёты руководителю</li></ul>
+            </details>
+            <details class="depth-card">
+              <summary>Поддержка и безопасность</summary>
+              <ul><li>Ежемесячный удалённый техотдел</li><li>Перенос сайтов и почты</li><li>Восстановление после сбоев</li><li>Резервные копии и мониторинг</li><li>Контроль доменов и сертификатов</li><li>Регулярные правки и развитие</li></ul>
+            </details>
+          </div>
+        </div>
       </div>
-      <div class="steps">
-        <div class="step"><div class="num">1</div><div class="txt"><h4>Бриф</h4><p>Обсуждаем цели, аудиторию, конкурентов. 30 минут — и всё ясно.</p></div></div>
-        <div class="step"><div class="num">2</div><div class="txt"><h4>Дизайн</h4><p>Прототип → дизайн в Figma → согласование. Без лишних правок.</p></div></div>
-        <div class="step"><div class="num">3</div><div class="txt"><h4>Разработка</h4><p>Верстка, бэкенд, тестирование на всех устройствах.</p></div></div>
-        <div class="step"><div class="num">4</div><div class="txt"><h4>Запуск</h4><p>Деплой, настройка аналитики, обучение. Сайт работает.</p></div></div>
+    </section>
+
+    <section class="section section-soft" id="tasks">
+      <div class="container task-solution">
+        <div class="reveal">
+          <p class="eyebrow">Задачники под процесс</p>
+          <h2>Порядок вместо таблиц и сообщений</h2>
+          <p class="lead">Создадим простой рабочий кабинет, где заявки не теряются, сотрудники видят задачи, а руководитель — сроки и результат.</p>
+          <div class="feature-list">
+            <div class="feature"><b>1</b><span><strong>Под ваш сценарий.</strong> Не заставляем бизнес подстраиваться под чужую CRM.</span></div>
+            <div class="feature"><b>2</b><span><strong>Доступ с телефона.</strong> Работает в браузере без сложной установки.</span></div>
+            <div class="feature"><b>3</b><span><strong>Можно развивать.</strong> Начинаем с главного и добавляем функции по мере необходимости.</span></div>
+          </div>
+        </div>
+        <div class="kanban reveal" aria-label="Пример задачника">
+          <div class="kanban-top">Проект клиента <span>Последнее обновление: сейчас</span></div>
+          <div class="kanban-grid">
+            <div class="column">
+              <div class="column-head"><span>Новые</span><i>2</i></div>
+              <div class="ticket"><span class="ticket-label">Заявка</span><p>Рассчитать сайт для логистической компании</p><div class="ticket-foot"><span>Сегодня</span><span>АК</span></div></div>
+              <div class="ticket"><span class="ticket-label amber">Контент</span><p>Получить фотографии продукции</p><div class="ticket-foot"><span>Пт</span><span>МТ</span></div></div>
+            </div>
+            <div class="column">
+              <div class="column-head"><span>В работе</span><i>2</i></div>
+              <div class="ticket"><span class="ticket-label">Дизайн</span><p>Главная страница и каталог услуг</p><div class="ticket-foot"><span>2 дня</span><span>АК</span></div></div>
+              <div class="ticket"><span class="ticket-label amber">Домен</span><p>Настроить почту и DNS</p><div class="ticket-foot"><span>Сегодня</span><span>АК</span></div></div>
+            </div>
+            <div class="column">
+              <div class="column-head"><span>Готово</span><i>3</i></div>
+              <div class="ticket"><span class="ticket-label">Бриф</span><p>Структура и цели проекта согласованы</p><div class="ticket-foot"><span>✓</span><span>АК</span></div></div>
+              <div class="ticket"><span class="ticket-label">Аналитика</span><p>Изучены конкуренты и аудитория</p><div class="ticket-foot"><span>✓</span><span>АК</span></div></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <button class="btn-primary" onclick="openPanel('order')">📩 Заказать сайт</button>
-      <button class="btn-close" onclick="closePanel()">Закрыть</button>
+    </section>
+
+    <section class="section" id="cases">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Готовые решения</p>
+          <h2>Посмотрите демонстрации перед заказом</h2>
+          <p>Готовые сайты показывают возможную основу проекта. Их можно приобрести, изменить дизайн, дополнить функциями и адаптировать под задачи покупателя.</p>
+        </div>
+        <div class="case-grid">
+          <a class="case reveal" href="/marketplace.html">
+            <div class="case-visual"><div class="route"><i class="route-line"></i></div></div>
+            <div class="case-content"><span class="case-tag">Готовый сайт · демонстрация</span><h3>Алсат Межгород</h3><p>Демонстрационный сайт для междугороднего такси: готовая основа, которую можно купить, изменить и дополнить по пожеланиям заказчика.</p><span class="case-link">Посмотреть демонстрацию →</span></div>
+          </a>
+          <a class="case case-secondary reveal" href="https://t.me/Alsat_Asia_bot" target="_blank" rel="noopener">
+            <div class="case-visual"><div class="bot-lines"><div class="bubble">Новая заявка с сайта</div><div class="bubble me">Принято в работу ✓</div><div class="bubble">Напомнить завтра в 10:00?</div></div></div>
+            <div class="case-content"><span class="case-tag">Автоматизация</span><h3>Telegram-помощник</h3><p>Приём заявок, уведомления и быстрый доступ к сервисам прямо в мессенджере.</p><span class="case-link">Открыть Telegram →</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="process">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Удалённая работа</p>
+          <h2>Понятный процесс без ежедневных созвонов</h2>
+          <p>Вы участвуете только там, где нужно принять решение. Остальное берём на себя и показываем по этапам.</p>
+        </div>
+        <div class="process-grid">
+          <article class="process-step reveal"><h3>Короткий бриф</h3><p>Разбираемся, кому и что вы продаёте, какие процессы нужно упростить.</p></article>
+          <article class="process-step reveal"><h3>План и стоимость</h3><p>Фиксируем состав первой версии, сроки, цену и критерии готовности.</p></article>
+          <article class="process-step reveal"><h3>Разработка</h3><p>Показываем промежуточный результат по ссылке и собираем правки.</p></article>
+          <article class="process-step reveal"><h3>Запуск</h3><p>Подключаем домен, аналитику, передаём доступы и остаёмся на связи.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="prices">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Ориентиры по стоимости</p>
+          <h2>Четыре понятных способа начать</h2>
+          <p>Выбираем основной продукт, фиксируем первую версию и только затем добавляем необходимые возможности.</p>
+        </div>
+        <div class="price-grid">
+          <article class="price-card reveal">
+            <span class="price-name">Запуск компании</span><h3>Бизнес онлайн</h3>
+            <div class="price">от 250 000 ₸</div>
+            <ul><li>Сайт или лендинг</li><li>Домен, SSL и почта</li><li>Формы и аналитика</li><li>Подключение основных площадок</li></ul>
+            <a class="button button-secondary" href="#contact">Обсудить запуск</a>
+          </article>
+          <article class="price-card featured reveal">
+            <span class="price-name">Работает 24/7</span><h3>ИИ + Telegram</h3>
+            <div class="price">от 150 000 ₸</div>
+            <ul><li>Консультант на сайте</li><li>Знания о вашей компании</li><li>Сбор контактов</li><li>Заявки владельцу в Telegram</li></ul>
+            <a class="button button-primary" href="#contact">Подключить ИИ</a>
+          </article>
+          <article class="price-card reveal">
+            <span class="price-name">Под процесс</span><h3>Задачник / CRM</h3>
+            <div class="price">от 350 000 ₸</div>
+            <ul><li>Роли и кабинеты</li><li>Заявки и задачи</li><li>Уведомления</li><li>Отчёты и интеграции</li></ul>
+            <a class="button button-secondary" href="#contact">Описать задачу</a>
+          </article>
+          <article class="price-card reveal">
+            <span class="price-name">По подписке</span><h3>Техотдел</h3>
+            <div class="price">от 300 000 ₸ <small>/ месяц</small></div>
+            <ul><li>Контроль сайта и домена</li><li>Резервные копии</li><li>Небольшие доработки</li><li>Одна точка технической связи</li></ul>
+            <a class="button button-secondary" href="#contact">Узнать условия</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft">
+      <div class="container faq">
+        <div class="reveal"><p class="eyebrow">Вопросы</p><h2>До начала работы</h2></div>
+        <div class="questions reveal">
+          <div class="question"><button type="button"><span>Можно работать полностью удалённо?</span><span>+</span></button><div class="answer"><p>Да. Бриф, демонстрации, согласования и передача проекта проходят онлайн. Общаемся в Telegram, WhatsApp или по видеосвязи.</p></div></div>
+          <div class="question"><button type="button"><span>Кому будут принадлежать сайт и домен?</span><span>+</span></button><div class="answer"><p>Вам. Домены и основные сервисы оформляем на данные владельца бизнеса, а после запуска передаём все доступы.</p></div></div>
+          <div class="question"><button type="button"><span>Можно начать с небольшой версии?</span><span>+</span></button><div class="answer"><p>Это предпочтительный подход. Сначала запускаем функции, которые дают пользу, затем развиваем проект на основе обратной связи.</p></div></div>
+          <div class="question"><button type="button"><span>Что нужно предоставить для старта?</span><span>+</span></button><div class="answer"><p>Краткое описание бизнеса, список услуг или товаров, контакты и примеры, которые вам нравятся. Если материалов нет, поможем собрать структуру и тексты.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact-shell reveal">
+          <div class="contact-grid">
+            <div class="contact-copy">
+              <p class="eyebrow">Начать проект</p>
+              <h2>Расскажите, что нужно улучшить</h2>
+              <p>Ответим, предложим первый рабочий вариант и назовём ориентир по срокам и стоимости.</p>
+              <div class="contact-links">
+                <a href="https://t.me/alsat_kz" target="_blank" rel="noopener"><span>↗</span> Telegram: @alsat_kz</a>
+                <a href="https://wa.me/77064244277" target="_blank" rel="noopener"><span>↗</span> WhatsApp: +7 706 424 42 77</a>
+                <a href="mailto:adilkurmanov9@gmail.com"><span>↗</span> adilkurmanov9@gmail.com</a>
+              </div>
+            </div>
+            <form class="contact-form" id="contactForm">
+              <div class="field"><label for="name">Ваше имя</label><input id="name" name="name" autocomplete="name" required placeholder="Как к вам обращаться"></div>
+              <div class="field"><label for="phone">Телефон или WhatsApp</label><input id="phone" name="phone" autocomplete="tel" required placeholder="+7 ..."></div>
+              <div class="field full"><label for="service">Что нужно сделать</label><select id="service" name="service" required><option value="">Выберите основной продукт</option><option>Бизнес онлайн</option><option>ИИ-консультант + Telegram</option><option>Задачник / мини-CRM</option><option>Удалённый техотдел</option><option>Дополнительная возможность</option><option>Нужна консультация</option></select></div>
+              <div class="field full"><label for="message">Коротко о задаче</label><textarea id="message" name="message" placeholder="Например: нужен сайт компании и кабинет для обработки заявок"></textarea></div>
+              <button class="submit" type="submit">Отправить в WhatsApp →</button>
+              <p class="form-note">Форма откроет WhatsApp с готовым сообщением. Ничего не отправляется без вашего подтверждения.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div>© 2026 Alsat Digital · Казахстан · Работаем удалённо</div>
+      <div class="footer-links"><a href="#services">Услуги</a><a href="#cases">Проекты</a><a href="#contact">Контакты</a></div>
     </div>
+  </footer>
 
-    <!-- ДОМЕНЫ -->
-    <div class="panel" id="panel-domains">
-      <span class="panel-icon">🌍</span>
-      <h2>Регистрация <span class="accent">доменов</span></h2>
-      <p class="sub">Помогаем выбрать правильное имя для бизнеса и зарегистрировать домен в нужной зоне. Настраиваем DNS и привязываем к хостингу.</p>
-      <div class="cards">
-        <div class="card"><div class="ci">🇰🇿</div><h3>.kz домен</h3><p>Казахстанский домен — доверие местной аудитории, лучше в поиске</p><div class="price">от $25/год</div></div>
-        <div class="card"><div class="ci">🌐</div><h3>.com домен</h3><p>Международный стандарт. Подходит для любого бизнеса</p><div class="price">от $12/год</div></div>
-        <div class="card"><div class="ci">⚡</div><h3>.kz + .com</h3><p>Оба домена — защита бренда и полный охват аудитории</p><div class="price">от $35/год</div></div>
-        <div class="card"><div class="ci">🔒</div><h3>SSL сертификат</h3><p>HTTPS защита, замочек в браузере, доверие Google</p><div class="price">Бесплатно</div></div>
-      </div>
-      <button class="btn-primary" onclick="openPanel('order')">📩 Зарегистрировать домен</button>
-      <button class="btn-close" onclick="closePanel()">Закрыть</button>
+  <button class="ai-launcher" id="aiLauncher" type="button" aria-expanded="false" aria-controls="aiPanel">
+    <span class="ai-launcher-icon">AI</span><span>Спросить консультанта</span>
+  </button>
+  <section class="ai-panel" id="aiPanel" aria-label="Онлайн-консультант" aria-hidden="true">
+    <header class="ai-head">
+      <div class="ai-avatar">A</div>
+      <div class="ai-title"><strong>Консультант Alsat</strong><span>ИИ отвечает сейчас</span></div>
+      <button class="ai-close" id="aiClose" type="button" aria-label="Закрыть чат">×</button>
+    </header>
+    <div class="ai-messages" id="aiMessages" role="log" aria-live="polite">
+      <div class="ai-message">Здравствуйте! Помогу подобрать сайт, CRM, бота или автоматизацию. Расскажите коротко, чем занимается ваш бизнес?</div>
     </div>
-
-    <!-- КОРПОРАТИВНАЯ ПОЧТА -->
-    <div class="panel" id="panel-mail">
-      <span class="panel-icon">📧</span>
-      <h2>Корпоративная <span class="accent">почта</span></h2>
-      <p class="sub">Email вида имя@вашакомпания.kz — это профессионально. Настраиваем почту на вашем домене за 1 день.</p>
-      <div class="cards">
-        <div class="card"><div class="ci">👤</div><h3>Стартер</h3><p>До 5 ящиков, 10 ГБ на ящик. Google Workspace или Yandex 360</p><div class="price">от $5/мес</div></div>
-        <div class="card"><div class="ci">👥</div><h3>Бизнес</h3><p>До 25 ящиков, 30 ГБ, общий календарь, видеозвонки</p><div class="price">от $12/мес</div></div>
-        <div class="card"><div class="ci">🏗</div><h3>Корпоратив</h3><p>Неограниченные ящики, своя почтовая система на сервере</p><div class="price">от $40/мес</div></div>
+    <div>
+      <div class="ai-chips" id="aiChips">
+        <button class="ai-chip" type="button">Сколько стоит сайт?</button>
+        <button class="ai-chip" type="button">Нужен задачник</button>
+        <button class="ai-chip" type="button">Хочу Telegram-бота</button>
       </div>
-      <div class="steps">
-        <div class="step"><div class="num">1</div><div class="txt"><h4>Выбираем платформу</h4><p>Google Workspace, Yandex 360 или собственный сервер</p></div></div>
-        <div class="step"><div class="num">2</div><div class="txt"><h4>Настраиваем DNS</h4><p>MX, SPF, DKIM, DMARC — почта не попадает в спам</p></div></div>
-        <div class="step"><div class="num">3</div><div class="txt"><h4>Создаём ящики</h4><p>info@, sales@, support@ — сколько нужно</p></div></div>
-      </div>
-      <button class="btn-primary" onclick="openPanel('order')">📩 Подключить почту</button>
-      <button class="btn-close" onclick="closePanel()">Закрыть</button>
+      <form class="ai-form" id="aiForm">
+        <input id="aiInput" name="message" maxlength="1200" autocomplete="off" placeholder="Напишите вопрос…" aria-label="Ваш вопрос" required>
+        <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+        <button class="ai-send" type="submit" aria-label="Отправить">→</button>
+        <a class="ai-fallback" href="https://wa.me/77064244277" target="_blank" rel="noopener">Нужен человек? Написать в WhatsApp</a>
+      </form>
     </div>
+  </section>
 
-    <!-- ОБСЛУЖИВАНИЕ -->
-    <div class="panel" id="panel-support">
-      <span class="panel-icon">🛠</span>
-      <h2>Техническое <span class="accent">обслуживание</span></h2>
-      <p class="sub">Ваш сайт — это инструмент. Он должен работать без сбоев, загружаться быстро и защищать данные клиентов.</p>
-      <div class="cards">
-        <div class="card"><div class="ci">🔄</div><h3>Базовое</h3><p>Хостинг, обновления CMS, резервные копии раз в неделю</p><div class="price">от $30/мес</div></div>
-        <div class="card"><div class="ci">⚡</div><h3>Стандарт</h3><p>+ мониторинг 24/7, ежедневные бэкапы, правки контента</p><div class="price">от $60/мес</div></div>
-        <div class="card"><div class="ci">🛡</div><h3>Премиум</h3><p>+ приоритетная поддержка, SEO-мониторинг, аналитика</p><div class="price">от $120/мес</div></div>
-      </div>
-      <button class="btn-primary" onclick="openPanel('order')">📩 Подключить обслуживание</button>
-      <button class="btn-close" onclick="closePanel()">Закрыть</button>
-    </div>
+  <script>
+    (() => {
+      const header = document.querySelector('#header');
+      const nav = document.querySelector('#nav');
+      const menuButton = document.querySelector('#menuButton');
 
-    <!-- ЦЕНЫ -->
-    <div class="panel" id="panel-prices">
-      <span class="panel-icon">💰</span>
-      <h2>Прозрачные <span class="accent">цены</span></h2>
-      <p class="sub">Никаких скрытых платежей. Вы знаете что покупаете и сколько это стоит.</p>
-      <div class="price-table">
-        <div class="price-col">
-          <div class="tier">Старт</div>
-          <div class="amount">$300<span>/проект</span></div>
-          <ul><li>Лендинг 1–3 страницы</li><li>Мобильная версия</li><li>Форма заявки</li><li>Хостинг 1 месяц</li><li>Срок: 7–10 дней</li></ul>
-        </div>
-        <div class="price-col featured">
-          <div class="tier">Бизнес ⭐</div>
-          <div class="amount">$800<span>/проект</span></div>
-          <ul><li>Корп. сайт до 10 стр.</li><li>Дизайн-система</li><li>Форма + CRM интеграция</li><li>SEO базовое</li><li>Хостинг 3 месяца</li><li>Срок: 2–3 недели</li></ul>
-        </div>
-        <div class="price-col">
-          <div class="tier">Магазин</div>
-          <div class="amount">$1500<span>/проект</span></div>
-          <ul><li>Интернет-магазин</li><li>Каталог + фильтры</li><li>Оплата Kaspi/Visa</li><li>Личный кабинет</li><li>Аналитика продаж</li><li>Срок: 3–5 недель</li></ul>
-        </div>
-        <div class="price-col">
-          <div class="tier">Enterprise</div>
-          <div class="amount">$3000+<span>/проект</span></div>
-          <ul><li>Маркетплейс / SaaS</li><li>AI функции</li><li>Мобильное приложение</li><li>Выделенный сервер</li><li>Индивидуально</li></ul>
-        </div>
-      </div>
-      <button class="btn-primary" onclick="openPanel('order')">📩 Обсудить проект</button>
-      <button class="btn-close" onclick="closePanel()">Закрыть</button>
-    </div>
+      const updateHeader = () => header.classList.toggle('scrolled', scrollY > 12);
+      updateHeader();
+      addEventListener('scroll', updateHeader, { passive: true });
 
-    <!-- КЕЙСЫ -->
-    <div class="panel" id="panel-cases">
-      <span class="panel-icon">🏆</span>
-      <h2>Наши <span class="accent">кейсы</span></h2>
-      <p class="sub">Реальные проекты — реальные результаты. Работаем с бизнесом в Казахстане и СНГ.</p>
-      <div class="cases">
-        <div class="case-card">
-          <div class="case-img" style="background:linear-gradient(135deg,#1a3a6a,#0d5299)">🏠</div>
-          <div class="case-body"><h4>alsat.asia</h4><p>Доска объявлений КЗ — мультирегиональный маркетплейс, AI чат-бот, 50k+ объявлений</p></div>
-        </div>
-        <div class="case-card">
-          <div class="case-img" style="background:linear-gradient(135deg,#3a1a00,#995500)">🛒</div>
-          <div class="case-body"><h4>Интернет-магазин стройматериалов</h4><p>2500 SKU, интеграция с 1С, Kaspi оплата, рост продаж +140% за 3 месяца</p></div>
-        </div>
-        <div class="case-card">
-          <div class="case-img" style="background:linear-gradient(135deg,#003a1a,#009944)">🏥</div>
-          <div class="case-body"><h4>Медицинская клиника</h4><p>Запись онлайн, личный кабинет пациента, напоминания по WhatsApp</p></div>
-        </div>
-        <div class="case-card">
-          <div class="case-img" style="background:linear-gradient(135deg,#1a003a,#6600cc)">🎓</div>
-          <div class="case-body"><h4>Образовательная платформа</h4><p>LMS система, видеоуроки, тесты, сертификаты, 3000+ студентов</p></div>
-        </div>
-      </div>
-      <button class="btn-primary" onclick="openPanel('order')">📩 Хочу такой же</button>
-      <button class="btn-close" onclick="closePanel()">Закрыть</button>
-    </div>
+      menuButton.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        menuButton.setAttribute('aria-expanded', String(open));
+      });
+      nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+        nav.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+      }));
 
-    <!-- ЗАЯВКА -->
-    <div class="panel" id="panel-order">
-      <span class="panel-icon">✉️</span>
-      <h2>Оставить <span class="accent">заявку</span></h2>
-      <p class="sub">Расскажите о проекте — ответим в течение 2 часов и предложим решение под ваш бюджет.</p>
-      <div class="form-grid">
-        <input type="text" placeholder="Ваше имя *" required>
-        <input type="tel" placeholder="WhatsApp / телефон *" required>
-        <input type="text" placeholder="Название компании" class="full">
-        <select class="full">
-          <option value="" disabled selected>Что нужно сделать?</option>
-          <option>Лендинг</option>
-          <option>Корпоративный сайт</option>
-          <option>Интернет-магазин</option>
-          <option>Сайт + AI бот</option>
-          <option>Маркетплейс / доска объявлений</option>
-          <option>Корпоративная почта</option>
-          <option>Техническое обслуживание</option>
-          <option>Регистрация домена</option>
-          <option>Другое</option>
-        </select>
-        <select>
-          <option value="" disabled selected>Бюджет</option>
-          <option>до $500</option>
-          <option>$500–$1500</option>
-          <option>$1500–$5000</option>
-          <option>от $5000</option>
-        </select>
-        <select>
-          <option value="" disabled selected>Срок</option>
-          <option>Как можно быстрее</option>
-          <option>1–2 недели</option>
-          <option>1 месяц</option>
-          <option>Не горит</option>
-        </select>
-      </div>
-      <textarea placeholder="Расскажите о проекте: что продаёте, кто ваши клиенты, есть ли примеры сайтов которые нравятся?"></textarea>
-      <button class="btn-primary" onclick="submitForm()">🚀 Отправить заявку</button>
-      <button class="btn-close" onclick="closePanel()">Закрыть</button>
-    </div>
+      document.querySelectorAll('.question button').forEach(button => {
+        button.addEventListener('click', () => button.closest('.question').classList.toggle('open'));
+      });
 
-  </div><!-- /panels -->
-</div><!-- /panel-overlay -->
+      const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        document.querySelectorAll('.reveal').forEach(item => item.classList.add('visible'));
+      } else {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: .1 });
+        document.querySelectorAll('.reveal').forEach(item => observer.observe(item));
+      }
 
-<script>
-// ══════════════════════════════════════════════
-// SCENE MANAGER
-// ══════════════════════════════════════════════
-const scenes = ['aquarium','space','city','steppe','live'];
-let currentScene = 'aquarium';
-let animFrames = {};
+      document.querySelector('#contactForm').addEventListener('submit', event => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        const text = [
+          'Здравствуйте! Хочу обсудить проект.',
+          '',
+          `Имя: ${data.get('name')}`,
+          `Телефон: ${data.get('phone')}`,
+          `Услуга: ${data.get('service')}`,
+          `Задача: ${data.get('message') || 'Расскажу при общении'}`
+        ].join('\n');
+        window.open(`https://wa.me/77064244277?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+      });
 
-function switchScene(name) {
-  if(name===currentScene) return;
-  document.getElementById('scene-'+currentScene).classList.remove('active');
-  document.getElementById('scene-'+name).classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.scene===name));
-  currentScene = name;
-}
+      const aiLauncher = document.querySelector('#aiLauncher');
+      const aiPanel = document.querySelector('#aiPanel');
+      const aiClose = document.querySelector('#aiClose');
+      const aiMessages = document.querySelector('#aiMessages');
+      const aiForm = document.querySelector('#aiForm');
+      const aiInput = document.querySelector('#aiInput');
+      const aiSend = aiForm.querySelector('.ai-send');
+      const aiHistory = [];
+      const aiSessionId = sessionStorage.getItem('alsat-ai-session') || crypto.randomUUID();
+      sessionStorage.setItem('alsat-ai-session', aiSessionId);
 
-document.querySelectorAll('.nav-btn').forEach(b=>{
-  b.addEventListener('click',()=>switchScene(b.dataset.scene));
-});
+      const toggleChat = open => {
+        aiPanel.classList.toggle('open', open);
+        aiPanel.setAttribute('aria-hidden', String(!open));
+        aiLauncher.setAttribute('aria-expanded', String(open));
+        if (open) setTimeout(() => aiInput.focus(), 120);
+      };
+      aiLauncher.addEventListener('click', () => toggleChat(!aiPanel.classList.contains('open')));
+      aiClose.addEventListener('click', () => toggleChat(false));
 
-// Iframe fallback: if alsat.asia blocks embedding, show the fallback div
-const liveIframe = document.getElementById('live-iframe');
-const liveFallback = document.getElementById('live-fallback');
-liveIframe.addEventListener('error', () => {
-  liveIframe.style.display='none';
-  liveFallback.style.display='flex';
-});
-// Also detect X-Frame-Options block via load timeout
-setTimeout(()=>{
-  try {
-    const loaded = liveIframe.contentDocument || liveIframe.contentWindow.document;
-    if(!loaded || loaded.readyState==='loading') return;
-  } catch(e) {
-    // Cross-origin blocked — show fallback
-    liveIframe.style.display='none';
-    liveFallback.style.display='flex';
-  }
-}, 3000);
+      const addAiMessage = (text, role = 'assistant', extraClass = '') => {
+        const item = document.createElement('div');
+        item.className = `ai-message ${role === 'user' ? 'user' : ''} ${extraClass}`.trim();
+        item.textContent = text;
+        aiMessages.appendChild(item);
+        aiMessages.scrollTop = aiMessages.scrollHeight;
+        return item;
+      };
 
-// ══════════════════════════════════════════════
-// PANEL SYSTEM
-// ══════════════════════════════════════════════
-const overlay = document.getElementById('panel-overlay');
+      const sendAiMessage = async message => {
+        const cleanMessage = message.trim();
+        if (!cleanMessage || aiSend.disabled) return;
+        addAiMessage(cleanMessage, 'user');
+        const previousHistory = aiHistory.slice(-8);
+        aiHistory.push({ role: 'user', content: cleanMessage });
+        aiInput.value = '';
+        aiSend.disabled = true;
+        const typing = addAiMessage('•••', 'assistant', 'typing');
 
-function openPanel(id) {
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('panel-'+id).classList.add('active');
-  overlay.classList.add('on');
-}
-function closePanel() {
-  overlay.classList.remove('on');
-}
-overlay.addEventListener('click',e=>{ if(e.target===overlay) closePanel(); });
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') closePanel(); });
+        try {
+          const response = await fetch('/api/consult', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              message: cleanMessage,
+              history: previousHistory,
+              sessionId: aiSessionId,
+              website: aiForm.elements.website.value,
+            }),
+          });
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.error || 'Ошибка соединения');
+          typing.remove();
+          addAiMessage(data.reply);
+          aiHistory.push({ role: 'assistant', content: data.reply });
+        } catch (error) {
+          typing.remove();
+          addAiMessage(`${error.message}. Напишите нам в WhatsApp: +7 706 424 42 77`);
+        } finally {
+          aiSend.disabled = false;
+          aiInput.focus();
+        }
+      };
 
-function submitForm() {
-  alert('✅ Заявка принята! Свяжемся с вами в течение 2 часов.');
-  closePanel();
-}
-
-// ══════════════════════════════════════════════
-// UTILITIES
-// ══════════════════════════════════════════════
-const W=()=>window.innerWidth, H=()=>window.innerHeight;
-function makeObj(parent,{bottom,left,right,top,label,panel,children,style=''}){
-  const el=document.createElement('div');
-  el.className='obj';
-  let pos='';
-  if(bottom!==undefined) pos+=`bottom:${bottom};`;
-  if(left!==undefined) pos+=`left:${left};`;
-  if(right!==undefined) pos+=`right:${right};`;
-  if(top!==undefined) pos+=`top:${top};`;
-  el.style.cssText=pos+style;
-  el.innerHTML=`<div class="obj-label">${label}</div>`+children;
-  el.addEventListener('click',()=>openPanel(panel));
-  parent.appendChild(el);
-  return el;
-}
-
-// ══════════════════════════════════════════════
-// SCENE 1 — AQUARIUM
-// ══════════════════════════════════════════════
-(function initAquarium(){
-  const canvas=document.getElementById('aq-canvas');
-  const ctx=canvas.getContext('2d');
-  const fc=document.getElementById('fish-canvas');
-  const fctx=fc.getContext('2d');
-  const weedContainer=document.getElementById('aq-weeds');
-  const stoneContainer=document.getElementById('aq-stones');
-  const hitContainer=document.getElementById('fish-hits');
-
-  function resize(){canvas.width=fc.width=W();canvas.height=fc.height=H();}
-  resize(); window.addEventListener('resize',resize);
-
-  // Seaweeds
-  const WEED_POSITIONS=[.05,.08,.14,.35,.37,.62,.65,.80,.84,.92];
-  const WEED_STYLES=['sway-a','sway-b','sway-c'];
-  WEED_POSITIONS.forEach((x,i)=>{
-    const h=90+Math.random()*100, w=4+Math.random()*3;
-    const col=['#1a7a3a','#229944','#1d8040','#2a9a4a'][i%4];
-    const el=document.createElement('div');
-    el.className='weed';
-    el.style.cssText=`left:${x*100}%;animation:${WEED_STYLES[i%3]} ${2.5+Math.random()*2}s ${Math.random()*2}s ease-in-out infinite;`;
-    let path=`M${w} ${h}`;
-    for(let s=5;s>=0;s--){const y=(s/5)*h;const ox=Math.sin(s*.9)*12;path+=` Q${w+ox+8} ${y+h/10} ${w+ox} ${y}`;}
-    el.innerHTML=`<svg width="${w*4}" height="${h}" viewBox="0 0 ${w*4} ${h}" style="overflow:visible"><path d="${path}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/></svg>`;
-    weedContainer.appendChild(el);
-  });
-
-  // Stones
-  const STONES=[
-    {x:.04,size:95,c1:'#555566',c2:'#7a7a8b',panel:'domains'},
-    {x:.13,size:62,c1:'#6a5a4a',c2:'#8a7060',panel:'domains'},
-    {x:.25,size:110,c1:'#4a6555',c2:'#6a8570',panel:'domains'},
-    {x:.39,size:72,c1:'#5a6575',c2:'#7a85a0',panel:'domains'},
-    {x:.52,size:100,c1:'#6a5a3a',c2:'#907055',panel:'domains'},
-    {x:.66,size:78,c1:'#656070',c2:'#858090',panel:'domains'},
-    {x:.78,size:88,c1:'#4a5560',c2:'#6a7585',panel:'domains'},
-    {x:.88,size:65,c1:'#706050',c2:'#907870',panel:'domains'},
-  ];
-  STONES.forEach((s,i)=>{
-    const w=s.size, h=s.size*.45;
-    const el=document.createElement('div');
-    el.className='obj stone';
-    el.style.cssText=`position:absolute;bottom:92px;left:${s.x*100}%;z-index:5;cursor:pointer;filter:drop-shadow(0 6px 12px rgba(0,0,0,.6));transition:filter .2s,transform .2s`;
-    const id=`sg${i}`;
-    el.innerHTML=`<div class="obj-label">Домены</div><svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="overflow:visible">
-      <defs><radialGradient id="${id}" cx="38%" cy="30%"><stop offset="0%" stop-color="${s.c2}"/><stop offset="100%" stop-color="${s.c1}"/></radialGradient></defs>
-      <ellipse cx="${w/2+3}" cy="${h/2+4}" rx="${w*.48}" ry="${h*.44}" fill="rgba(0,0,0,.35)"/>
-      <ellipse cx="${w/2}" cy="${h/2}" rx="${w*.48}" ry="${h*.44}" fill="url(#${id})"/>
-      <ellipse cx="${w*.35}" cy="${h*.3}" rx="${w*.25}" ry="${h*.2}" fill="rgba(255,255,255,.09)"/>
-    </svg>`;
-    el.addEventListener('mouseenter',()=>el.style.cssText+=';transform:translateY(-8px) scale(1.08);filter:drop-shadow(0 0 16px rgba(80,200,255,.8))');
-    el.addEventListener('mouseleave',()=>{el.style.transform='';el.style.filter='drop-shadow(0 6px 12px rgba(0,0,0,.6))';});
-    el.addEventListener('click',()=>openPanel(s.panel));
-    stoneContainer.appendChild(el);
-  });
-
-  // Coral objects (for mail/support)
-  [{x:.2,panel:'mail',label:'📧 Почта',col:'#dd4488',svg:`<ellipse cx="15" cy="40" rx="6" ry="30" fill="%c"/><ellipse cx="30" cy="50" rx="6" ry="20" fill="%c"/><ellipse cx="8" cy="30" rx="5" ry="22" fill="%c"/><circle cx="15" cy="10" r="8" fill="%c2"/><circle cx="30" cy="30" r="7" fill="%c2"/><circle cx="8" cy="8" r="6" fill="%c2"/>`},
-   {x:.75,panel:'support',label:'🛠 Обслуживание',col:'#ff7700',svg:`<rect x="10" y="20" width="8" height="40" rx="4" fill="%c"/><rect x="20" y="30" width="8" height="30" rx="4" fill="%c"/><rect x="30" y="25" width="8" height="35" rx="4" fill="%c"/><circle cx="14" cy="18" r="6" fill="%c2"/><circle cx="24" cy="28" r="6" fill="%c2"/><circle cx="34" cy="23" r="6" fill="%c2"/>`}
-  ].forEach(c=>{
-    const el=document.createElement('div');
-    el.className='obj';
-    el.style.cssText=`position:absolute;bottom:95px;left:${c.x*100}%;z-index:5;cursor:pointer;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5));transition:filter .2s,transform .2s`;
-    const svg=c.svg.replace(/%c2/g,lighten(c.col)).replace(/%c/g,c.col);
-    el.innerHTML=`<div class="obj-label">${c.label}</div><svg width="44" height="65" viewBox="0 0 44 65" style="overflow:visible">${svg}</svg>`;
-    el.addEventListener('mouseenter',()=>{el.style.transform='translateY(-8px) scale(1.12)';el.style.filter='drop-shadow(0 0 16px gold)';});
-    el.addEventListener('mouseleave',()=>{el.style.transform='';el.style.filter='drop-shadow(0 4px 10px rgba(0,0,0,.5))';});
-    el.addEventListener('click',()=>openPanel(c.panel));
-    stoneContainer.appendChild(el);
-  });
-  function lighten(hex){return hex.replace(/[0-9a-f]{2}/gi,h=>Math.min(255,parseInt(h,16)+80).toString(16).padStart(2,'0'));}
-
-  // Fish
-  const FISH_TYPES=[
-    {name:'Создание сайтов',panel:'sites', body:'#ff9900',belly:'#ffdd66',fin:'#e06000',tail:'#cc5500',eye:'#1a0a00',size:55},
-    {name:'Домены',         panel:'domains',body:'#1a7acc',belly:'#66c0ff',fin:'#0055aa',tail:'#003d99',eye:'#001133',size:45},
-    {name:'Цены',           panel:'prices', body:'#ee3388',belly:'#ff99cc',fin:'#aa1166',tail:'#880044',eye:'#220011',size:50},
-    {name:'Кейсы',          panel:'cases',  body:'#22aa55',belly:'#66ee99',fin:'#117733',tail:'#0a5522',eye:'#001100',size:48},
-    {name:'Обслуживание',   panel:'support',body:'#8833cc',belly:'#cc88ff',fin:'#5511aa',tail:'#3d0088',eye:'#110022',size:44},
-    {name:'Заявка',         panel:'order',  body:'#ff6600',belly:'#ffcc66',fin:'#cc4400',tail:'#992200',eye:'#1a0800',size:52},
-    {name:'Корп. почта',    panel:'mail',   body:'#4499cc',belly:'#99ddff',fin:'#2266aa',tail:'#115599',eye:'#001122',size:42},
-  ];
-
-  const fish=FISH_TYPES.map((t,i)=>({
-    ...t,x:(.1+i*.12),y:.12+i*.07,
-    vx:(i%2?1:-1)*(.5+Math.random()*.7),
-    phase:Math.random()*Math.PI*2,tailPhase:Math.random()*Math.PI*2,
-    hit:null
-  }));
-
-  // Hit areas
-  fish.forEach(f=>{
-    const h=document.createElement('div');
-    h.style.cssText=`position:absolute;pointer-events:all;cursor:pointer;width:${f.size*1.6}px;height:${f.size*.8}px;border-radius:50%;`;
-    h.title=f.name;
-    const panel=f.panel;
-    h.addEventListener('click',()=>openPanel(panel));
-    hitContainer.appendChild(h);
-    f.hit=h;
-  });
-
-  function drawFish(f,t){
-    const px=f.x*W(), py=f.y*H(), s=f.size;
-    const facing=f.vx>=0?1:-1;
-    fctx.save();
-    fctx.translate(px,py);
-    fctx.scale(facing,1);
-    const tw=Math.sin(t*4+f.tailPhase)*.32;
-    // shadow
-    fctx.save();fctx.globalAlpha=.2;fctx.scale(1,.3);fctx.beginPath();fctx.ellipse(0,H()-py-50,s*.6,s*.4,0,0,Math.PI*2);fctx.fillStyle='#000';fctx.fill();fctx.restore();
-    // tail
-    fctx.save();fctx.translate(s*.5,0);fctx.rotate(tw);
-    fctx.beginPath();fctx.moveTo(0,0);fctx.lineTo(s*.42,-s*.32);fctx.lineTo(s*.36,0);fctx.lineTo(s*.42,s*.32);fctx.closePath();
-    fctx.fillStyle=f.tail;fctx.fill();fctx.restore();
-    // body
-    const bg=fctx.createRadialGradient(-s*.12,-s*.12,0,0,0,s*.55);
-    bg.addColorStop(0,f.belly);bg.addColorStop(1,f.body);
-    fctx.beginPath();fctx.ellipse(0,0,s*.55,s*.28,0,0,Math.PI*2);fctx.fillStyle=bg;fctx.fill();
-    // dorsal fin
-    fctx.beginPath();fctx.moveTo(-s*.05,-s*.28);fctx.quadraticCurveTo(s*.12,-s*.54,s*.32,-s*.3);fctx.quadraticCurveTo(s*.2,-s*.28,-s*.05,-s*.28);fctx.fillStyle=f.fin+'cc';fctx.fill();
-    // pectoral fin
-    fctx.beginPath();fctx.moveTo(s*.0,s*.05);fctx.quadraticCurveTo(s*.1,s*.38,s*.24,s*.32);fctx.quadraticCurveTo(s*.14,s*.1,s*.0,s*.05);fctx.fillStyle=f.fin+'aa';fctx.fill();
-    // eye
-    fctx.beginPath();fctx.arc(-s*.3,-s*.06,s*.1,0,Math.PI*2);fctx.fillStyle='rgba(255,255,255,.9)';fctx.fill();
-    fctx.beginPath();fctx.arc(-s*.28,-s*.06,s*.055,0,Math.PI*2);fctx.fillStyle=f.eye;fctx.fill();
-    fctx.beginPath();fctx.arc(-s*.31,-s*.09,s*.022,0,Math.PI*2);fctx.fillStyle='rgba(255,255,255,.8)';fctx.fill();
-    // scales
-    fctx.globalAlpha=.12;
-    for(let i=0;i<3;i++){fctx.beginPath();fctx.arc(-s*.1+i*s*.15,0,s*.18,.3,Math.PI-.3);fctx.strokeStyle='#fff';fctx.lineWidth=1;fctx.stroke();}
-    fctx.globalAlpha=1;
-    fctx.restore();
-    if(f.hit){f.hit.style.left=(px-s*(facing>0?0.8:.2))+'px';f.hit.style.top=(py-s*.4)+'px';}
-  }
-
-  function drawCaustics(t){
-    const w=W(),h=H();
-    ctx.clearRect(0,0,w,h);
-    for(let i=0;i<16;i++){
-      const x=(i/16)*w+Math.sin(t*.35+i*.7)*45;
-      const bw=10+Math.sin(t*.5+i*1.2)*7;
-      const g=ctx.createLinearGradient(0,0,0,h*.75);
-      g.addColorStop(0,`rgba(120,200,255,${.04+Math.sin(t*.4+i)*.015})`);
-      g.addColorStop(1,'rgba(80,160,255,0)');
-      ctx.fillStyle=g;ctx.beginPath();
-      ctx.moveTo(x-bw,0);ctx.lineTo(x+bw,0);ctx.lineTo(x+bw*2.5,h*.75);ctx.lineTo(x-bw*2.5,h*.75);ctx.fill();
-    }
-  }
-
-  function spawnBubble(){
-    const b=document.createElement('div');b.className='bubble';
-    const sz=2+Math.random()*7,dur=3+Math.random()*5;
-    b.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;bottom:${100+Math.random()*60}px;--drift:${(Math.random()-.5)*50}px;animation-duration:${dur}s;animation-delay:${Math.random()*3}s;`;
-    document.getElementById('scene-aquarium').appendChild(b);
-    setTimeout(()=>b.remove(),(dur+3)*1000);
-  }
-  setInterval(spawnBubble,700);for(let i=0;i<10;i++)spawnBubble();
-
-  let T=0;
-  function aqLoop(){
-    T+=.016;
-    drawCaustics(T);
-    fctx.clearRect(0,0,W(),H());
-    fish.forEach(f=>{
-      f.y+=Math.sin(T*.5+f.phase)*.003;
-      f.x+=f.vx*.0035;
-      if(f.x<.04){f.x=.04;f.vx=Math.abs(f.vx);}
-      if(f.x>.96){f.x=.96;f.vx=-Math.abs(f.vx);}
-      const maxY=(H()-130)/H();
-      if(f.y<.07)f.y=.07;if(f.y>maxY)f.y=maxY;
-      drawFish(f,T);
-    });
-    animFrames.aquarium=requestAnimationFrame(aqLoop);
-  }
-  aqLoop();
-})();
-
-// ══════════════════════════════════════════════
-// SCENE 2 — SPACE STATION
-// ══════════════════════════════════════════════
-(function initSpace(){
-  const canvas=document.getElementById('sp-canvas');
-  const ctx=canvas.getContext('2d');
-  const objs=document.getElementById('sp-objects');
-  function resize(){canvas.width=W();canvas.height=H();}
-  resize();window.addEventListener('resize',resize);
-
-  // Stars
-  const stars=Array.from({length:250},()=>({x:Math.random(),y:Math.random(),r:.5+Math.random()*1.8,phase:Math.random()*Math.PI*2,speed:.3+Math.random()*.7}));
-  // Shooting stars
-  const shoots=[];
-
-  function drawSpace(t){
-    const w=W(),h=H();
-    ctx.clearRect(0,0,w,h);
-    // Nebula clouds
-    [[.15,.3,'rgba(80,20,120,.08)'],[.7,.5,'rgba(20,60,120,.06)'],[.4,.7,'rgba(120,30,60,.07)']].forEach(([nx,ny,col])=>{
-      const g=ctx.createRadialGradient(nx*w,ny*h,0,nx*w,ny*h,350);
-      g.addColorStop(0,col);g.addColorStop(1,'transparent');
-      ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
-    });
-    // Stars
-    stars.forEach(s=>{
-      const a=.4+Math.sin(t*s.speed+s.phase)*.35;
-      ctx.globalAlpha=a;
-      ctx.fillStyle='#fff';
-      ctx.beginPath();ctx.arc(s.x*w,s.y*h,s.r,0,Math.PI*2);ctx.fill();
-    });
-    ctx.globalAlpha=1;
-    // Occasional shooting star
-    if(Math.random()<.004){shoots.push({x:Math.random(),y:Math.random()*.4,dx:.02,dy:.01,life:1});}
-    shoots.forEach((s,i)=>{
-      s.x+=s.dx;s.y+=s.dy;s.life-=.05;
-      ctx.globalAlpha=s.life;
-      ctx.strokeStyle='#fff';ctx.lineWidth=1.5;
-      ctx.beginPath();ctx.moveTo(s.x*w,s.y*h);ctx.lineTo((s.x-s.dx*8)*w,(s.y-s.dy*8)*h);ctx.stroke();
-      if(s.life<=0)shoots.splice(i,1);
-    });
-    ctx.globalAlpha=1;
-  }
-
-  // Space objects
-  const spaceObjs=[
-    {label:'🪐 Планеты', panel:'prices', x:'50%',y:'20%',
-     svg:`<svg width="140" height="140" viewBox="0 0 140 140">
-       <defs><radialGradient id="pg" cx="35%" cy="30%"><stop offset="0%" stop-color="#9966cc"/><stop offset="60%" stop-color="#6633aa"/><stop offset="100%" stop-color="#2a1144"/></radialGradient></defs>
-       <ellipse cx="50" cy="50" rx="44" ry="15" fill="rgba(180,140,255,.25)" transform="rotate(-25,50,50)" rx="44"/>
-       <circle cx="70" cy="70" r="44" fill="url(#pg)"/>
-       <ellipse cx="70" cy="70" rx="70" ry="18" fill="none" stroke="rgba(220,180,255,.4)" stroke-width="8" transform="rotate(-25,70,70)"/>
-       <ellipse cx="55" cy="58" rx="18" ry="10" fill="rgba(255,255,255,.07)"/>
-     </svg>`},
-    {label:'🛸 Станция', panel:'sites', x:'20%',y:'35%',
-     svg:`<svg width="130" height="80" viewBox="0 0 130 80">
-       <rect x="40" y="30" width="50" height="22" rx="8" fill="#446688"/>
-       <rect x="20" y="33" width="90" height="15" rx="6" fill="#5577aa"/>
-       <rect x="0" y="36" width="25" height="8" rx="3" fill="#334455"/>
-       <rect x="105" y="36" width="25" height="8" rx="3" fill="#334455"/>
-       <circle cx="65" cy="40" r="7" fill="#88aacc"/>
-       <rect x="58" y="20" width="14" height="12" rx="3" fill="#88aacc"/>
-       <circle cx="65" cy="40" r="3" fill="#aaccee"/>
-       <ellipse cx="65" cy="40" rx="10" ry="3" fill="none" stroke="rgba(100,200,255,.5)" stroke-width="1"/>
-     </svg>`},
-    {label:'🌍 Земля', panel:'domains', x:'78%',y:'55%',
-     svg:`<svg width="90" height="90" viewBox="0 0 90 90">
-       <defs><radialGradient id="eg" cx="35%" cy="30%"><stop offset="0%" stop-color="#2288ee"/><stop offset="100%" stop-color="#0044aa"/></radialGradient></defs>
-       <circle cx="45" cy="45" r="38" fill="url(#eg)"/>
-       <ellipse cx="35" cy="38" rx="12" ry="8" fill="#2a8a2a" opacity=".9"/>
-       <ellipse cx="55" cy="52" rx="10" ry="6" fill="#2a8a2a" opacity=".9"/>
-       <ellipse cx="30" cy="28" rx="14" ry="10" fill="rgba(255,255,255,.35)" transform="rotate(-30,30,28)"/>
-     </svg>`},
-    {label:'☄️ Астероид', panel:'cases', x:'10%',y:'65%',
-     svg:`<svg width="80" height="65" viewBox="0 0 80 65">
-       <ellipse cx="40" cy="35" rx="36" ry="28" fill="#665544" transform="rotate(20,40,35)"/>
-       <ellipse cx="30" cy="28" rx="28" ry="22" fill="#887766" transform="rotate(20,30,28)"/>
-       <circle cx="25" cy="30" r="5" fill="rgba(0,0,0,.3)"/>
-       <circle cx="42" cy="20" r="3" fill="rgba(0,0,0,.25)"/>
-       <circle cx="50" cy="38" r="4" fill="rgba(0,0,0,.2)"/>
-     </svg>`},
-    {label:'📡 Антенна', panel:'mail', x:'88%',y:'28%',
-     svg:`<svg width="70" height="90" viewBox="0 0 70 90">
-       <line x1="35" y1="90" x2="35" y2="50" stroke="#8899aa" stroke-width="3"/>
-       <ellipse cx="35" cy="40" rx="28" ry="18" fill="none" stroke="#aabbcc" stroke-width="3"/>
-       <ellipse cx="35" cy="40" rx="20" ry="12" fill="none" stroke="#8899aa" stroke-width="2"/>
-       <circle cx="35" cy="40" r="5" fill="#aabbcc"/>
-       <circle cx="35" cy="40" r="8" fill="none" stroke="rgba(100,200,255,.5)" stroke-width="1"/>
-     </svg>`},
-    {label:'🚀 Ракета', panel:'order', x:'38%',y:'60%',
-     svg:`<svg width="50" height="100" viewBox="0 0 50 100" style="transform:rotate(-20deg)">
-       <path d="M25,5 Q35,25 35,55 L15,55 Q15,25 25,5z" fill="#ccddee"/>
-       <ellipse cx="25" cy="55" rx="10" ry="5" fill="#aabbcc"/>
-       <rect x="15" y="55" width="20" height="22" rx="3" fill="#8899aa"/>
-       <path d="M15,70 L5,80 L15,75z" fill="#778899"/>
-       <path d="M35,70 L45,80 L35,75z" fill="#778899"/>
-       <ellipse cx="25" cy="28" rx="6" ry="8" fill="rgba(150,220,255,.4)"/>
-       <circle cx="22" cy="55" r="3" fill="#445566"/>
-       <circle cx="28" cy="55" r="3" fill="#445566"/>
-       <ellipse cx="25" cy="77" rx="8" ry="5" fill="#ff6600" opacity=".8"/>
-       <ellipse cx="25" cy="82" rx="5" ry="8" fill="#ffaa00" opacity=".6"/>
-     </svg>`},
-    {label:'⭐ Пульсар', panel:'support', x:'65%',y:'22%',
-     svg:`<svg width="60" height="60" viewBox="0 0 60 60">
-       <circle cx="30" cy="30" r="8" fill="#fff"/>
-       <circle cx="30" cy="30" r="12" fill="none" stroke="rgba(255,255,200,.4)" stroke-width="2"/>
-       <circle cx="30" cy="30" r="18" fill="none" stroke="rgba(255,255,200,.2)" stroke-width="1.5"/>
-       <circle cx="30" cy="30" r="24" fill="none" stroke="rgba(255,255,200,.1)" stroke-width="1"/>
-       <line x1="30" y1="0" x2="30" y2="60" stroke="rgba(255,255,200,.25)" stroke-width="1"/>
-       <line x1="0" y1="30" x2="60" y2="30" stroke="rgba(255,255,200,.25)" stroke-width="1"/>
-     </svg>`},
-  ];
-
-  spaceObjs.forEach(o=>{
-    const el=document.createElement('div');
-    el.className='obj';
-    el.style.cssText=`position:absolute;left:${o.x};top:${o.y};transform:translate(-50%,-50%);`;
-    el.innerHTML=`<div class="obj-label">${o.label}</div>${o.svg}`;
-    el.addEventListener('click',()=>openPanel(o.panel));
-    objs.appendChild(el);
-  });
-
-  let T=0;
-  function spaceLoop(){
-    T+=.012;
-    drawSpace(T);
-    // Rotate/float objects
-    objs.querySelectorAll('.obj').forEach((el,i)=>{
-      const offset=Math.sin(T*.4+i*.8)*8;
-      el.style.marginTop=offset+'px';
-    });
-    animFrames.space=requestAnimationFrame(spaceLoop);
-  }
-  spaceLoop();
-})();
-
-// ══════════════════════════════════════════════
-// SCENE 3 — NEON CITY
-// ══════════════════════════════════════════════
-(function initCity(){
-  const canvas=document.getElementById('ct-canvas');
-  const ctx=canvas.getContext('2d');
-  const objContainer=document.getElementById('ct-objects');
-  function resize(){canvas.width=W();canvas.height=H();}
-  resize();window.addEventListener('resize',resize);
-
-  const rainDrops=Array.from({length:120},()=>({x:Math.random(),y:Math.random(),speed:.8+Math.random()*1.2,len:8+Math.random()*20}));
-
-  function drawCity(t){
-    const w=W(),h=H();
-    ctx.clearRect(0,0,w,h);
-    // Moon
-    ctx.beginPath();ctx.arc(w*.85,h*.12,40,0,Math.PI*2);
-    const mg=ctx.createRadialGradient(w*.85,h*.12,0,w*.85,h*.12,40);
-    mg.addColorStop(0,'rgba(220,240,255,.95)');mg.addColorStop(.7,'rgba(180,210,250,.8)');mg.addColorStop(1,'transparent');
-    ctx.fillStyle=mg;ctx.fill();
-    ctx.beginPath();ctx.arc(w*.85,h*.12,50,0,Math.PI*2);
-    const halo=ctx.createRadialGradient(w*.85,h*.12,35,w*.85,h*.12,55);
-    halo.addColorStop(0,'rgba(180,210,255,.2)');halo.addColorStop(1,'transparent');
-    ctx.fillStyle=halo;ctx.fill();
-
-    // Neon reflections on wet ground
-    const refY=h-80;
-    ['#ff00ff','#00ffff','#ff6600','#00ff88'].forEach((col,i)=>{
-      const rx=(i+1)/5*w;
-      const rg=ctx.createLinearGradient(0,refY,0,h);
-      rg.addColorStop(0,col.replace('rgb','rgba').replace(')',',0.08)').replace('#','rgba(').replace(/([0-9a-f]{2})/gi,h=>parseInt(h,16)+',').slice(0,-1)+'0.08)');
-      // simpler:
-      ctx.globalAlpha=.06+Math.sin(t*1.2+i)*.03;
-      ctx.fillStyle=col;
-      ctx.fillRect(rx-15,refY,30,h-refY);
-    });
-    ctx.globalAlpha=1;
-
-    // Rain
-    ctx.strokeStyle='rgba(150,180,255,.25)';ctx.lineWidth=.8;
-    rainDrops.forEach(r=>{
-      r.y+=r.speed*.025;if(r.y>1)r.y=0;
-      ctx.beginPath();ctx.moveTo(r.x*w,r.y*h);ctx.lineTo(r.x*w-3,r.y*h+r.len);ctx.stroke();
-    });
-  }
-
-  // Buildings
-  const BUILDINGS=[
-    {x:.04,w:90,h:320,col:'#0a0018',neon:'#ff00ff',panel:'sites',label:'🌐 Сайты'},
-    {x:.12,w:70,h:220,col:'#040010',neon:'#00ffff',panel:'domains',label:'🌍 Домены'},
-    {x:.19,w:110,h:380,col:'#060014',neon:'#ff6600',panel:'prices',label:'💰 Цены'},
-    {x:.30,w:80,h:280,col:'#030010',neon:'#00ff88',panel:'cases',label:'🏆 Кейсы'},
-    {x:.55,w:75,h:260,col:'#040012',neon:'#ff00aa',panel:'mail',label:'📧 Почта'},
-    {x:.64,w:95,h:350,col:'#050014',neon:'#aaaaff',panel:'support',label:'🛠 Сервис'},
-    {x:.75,w:85,h:300,col:'#030010',neon:'#ffff00',panel:'order',label:'✉️ Заявка'},
-    {x:.85,w:100,h:420,col:'#060018',neon:'#00ccff',panel:'sites',label:'🌐 Сайты'},
-  ];
-
-  BUILDINGS.forEach(b=>{
-    const el=document.createElement('div');
-    el.className='obj';
-    const bw=b.w, bh=b.h;
-    // Windows pattern
-    let wins='';
-    const cols=Math.floor(bw/18), rows=Math.floor(bh/24);
-    for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
-      const lit=Math.random()>.4;
-      if(lit) wins+=`<rect x="${c*18+5}" y="${r*24+5}" width="9" height="12" rx="1" fill="rgba(255,240,180,${.3+Math.random()*.5})"/>`;
-    }
-    // Neon sign
-    const neonText=b.label.split(' ')[1]||'ALSAT';
-    el.innerHTML=`<div class="obj-label">${b.label}</div>
-    <svg width="${bw}" height="${bh}" viewBox="0 0 ${bw} ${bh}" style="overflow:visible">
-      <rect width="${bw}" height="${bh}" fill="${b.col}"/>
-      <rect width="${bw}" height="${bh}" fill="none" stroke="${b.neon}" stroke-width="1.5" opacity=".6"/>
-      ${wins}
-      <rect x="${bw*.2}" y="${bh*.1}" width="${bw*.6}" height="20" rx="4" fill="${b.neon}" opacity=".85"/>
-      <text x="${bw/2}" y="${bh*.1+14}" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">${neonText}</text>
-    </svg>`;
-    el.style.cssText=`position:absolute;bottom:80px;left:${b.x*100}%;cursor:pointer;z-index:6;filter:drop-shadow(0 0 12px ${b.neon});transition:filter .2s,transform .2s`;
-    el.addEventListener('mouseenter',()=>{el.style.filter=`drop-shadow(0 0 24px ${b.neon})`;el.style.transform='scaleY(1.03) translateY(-4px)';});
-    el.addEventListener('mouseleave',()=>{el.style.filter=`drop-shadow(0 0 12px ${b.neon})`;el.style.transform='';});
-    el.addEventListener('click',()=>openPanel(b.panel));
-    objContainer.appendChild(el);
-  });
-
-  // Holographic sign (floating)
-  const holoSign=document.createElement('div');
-  holoSign.style.cssText='position:absolute;top:15%;left:50%;transform:translateX(-50%);z-index:8;cursor:pointer;text-align:center;';
-  holoSign.innerHTML=`<div style="font-size:28px;color:#00ffff;text-shadow:0 0 20px #00ffff,0 0 40px #00ffff;letter-spacing:4px;font-weight:bold;animation:holo 3s ease-in-out infinite">ALSAT.ASIA</div>
-  <div style="color:rgba(0,255,255,.5);font-size:12px;letter-spacing:6px;margin-top:6px">ВЕБ · ДОМЕНЫ · AI</div>`;
-  document.head.querySelector('style').textContent+=`@keyframes holo{0%,100%{opacity:.7;text-shadow:0 0 20px #00ffff,0 0 40px #00ffff}50%{opacity:1;text-shadow:0 0 30px #00ffff,0 0 60px #00ffff,0 0 80px rgba(0,255,255,.3)}}`;
-  holoSign.addEventListener('click',()=>openPanel('sites'));
-  objContainer.appendChild(holoSign);
-
-  let T=0;
-  function cityLoop(){
-    T+=.016;
-    drawCity(T);
-    animFrames.city=requestAnimationFrame(cityLoop);
-  }
-  cityLoop();
-})();
-
-// ══════════════════════════════════════════════
-// SCENE 4 — FUTURISTIC STEPPE
-// ══════════════════════════════════════════════
-(function initSteppe(){
-  const canvas=document.getElementById('st-canvas');
-  const ctx=canvas.getContext('2d');
-  const objContainer=document.getElementById('st-objects');
-  function resize(){canvas.width=W();canvas.height=H();}
-  resize();window.addEventListener('resize',resize);
-
-  const stars=Array.from({length:200},()=>({x:Math.random(),y:Math.random()*.6,r:.4+Math.random()*1.5,phase:Math.random()*Math.PI*2}));
-
-  function drawSteppe(t){
-    const w=W(),h=H();
-    ctx.clearRect(0,0,w,h);
-    // Aurora
-    [['rgba(0,200,120,.12)','rgba(0,100,200,.08)'],['rgba(100,0,200,.08)','rgba(200,0,100,.06)']].forEach(([c1,c2],i)=>{
-      const aur=ctx.createLinearGradient(0,h*.05+i*60,w,h*.25+i*60);
-      aur.addColorStop(0,c1);aur.addColorStop(.5,c2);aur.addColorStop(1,c1);
-      ctx.globalAlpha=.5+Math.sin(t*.3+i)*.3;
-      ctx.fillRect(0,h*.05+i*40,w,h*.2);
-    });
-    ctx.globalAlpha=1;
-    // Stars
-    stars.forEach(s=>{
-      ctx.globalAlpha=.3+Math.sin(t*.8+s.phase)*.3;
-      ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(s.x*w,s.y*h,s.r,0,Math.PI*2);ctx.fill();
-    });
-    ctx.globalAlpha=1;
-    // Moon
-    const mg=ctx.createRadialGradient(w*.15,h*.15,0,w*.15,h*.15,45);
-    mg.addColorStop(0,'rgba(240,250,255,.9)');mg.addColorStop(.7,'rgba(200,220,255,.7)');mg.addColorStop(1,'transparent');
-    ctx.fillStyle=mg;ctx.beginPath();ctx.arc(w*.15,h*.15,45,0,Math.PI*2);ctx.fill();
-    // Ground gradient
-    const gg=ctx.createLinearGradient(0,h-130,0,h);
-    gg.addColorStop(0,'rgba(20,60,20,.0)');gg.addColorStop(1,'rgba(10,30,10,.0)');
-    ctx.fillStyle=gg;ctx.fillRect(0,h-130,w,130);
-    // Wind lines
-    ctx.globalAlpha=.06;ctx.strokeStyle='rgba(200,255,200,1)';ctx.lineWidth=1;
-    for(let i=0;i<8;i++){
-      ctx.beginPath();
-      const y=h-.7*h+i*30;const ox=(t*60+i*120)%w;
-      ctx.moveTo(ox,y);ctx.lineTo(ox+100,y+5);ctx.stroke();
-    }
-    ctx.globalAlpha=1;
-  }
-
-  // Steppe objects
-  const steppeObjs=[
-    // Futuristic yurt
-    {x:'15%',y:'65%',panel:'order',label:'🏛 Заявка',
-     svg:`<svg width="130" height="100" viewBox="0 0 130 100">
-       <ellipse cx="65" cy="95" rx="60" ry="10" fill="rgba(0,0,0,.3)"/>
-       <path d="M10,80 Q65,10 120,80z" fill="#1a3a5a"/>
-       <path d="M10,80 Q65,10 120,80z" fill="none" stroke="rgba(0,200,255,.6)" stroke-width="2"/>
-       <path d="M20,80 Q65,25 110,80z" fill="none" stroke="rgba(0,200,255,.2)" stroke-width="1"/>
-       <ellipse cx="65" cy="80" rx="55" ry="8" fill="#243a5a"/>
-       <rect x="55" y="68" width="20" height="15" rx="3" fill="#1a2a3a"/>
-       <ellipse cx="65" cy="25" rx="4" ry="4" fill="rgba(0,255,200,.8)"/>
-       <path d="M65,5 L65,18" stroke="rgba(0,255,200,.6)" stroke-width="1.5"/>
-       <path d="M58,8 L65,5 L72,8" fill="none" stroke="rgba(0,255,200,.6)" stroke-width="1.5"/>
-     </svg>`},
-    // Solar panels
-    {x:'35%',y:'72%',panel:'support',label:'⚡ Обслуживание',
-     svg:`<svg width="100" height="80" viewBox="0 0 100 80">
-       <rect x="5" y="20" width="90" height="50" rx="4" fill="#1a2a4a" stroke="rgba(0,150,255,.4)" stroke-width="1.5"/>
-       <line x1="35" y1="20" x2="35" y2="70" stroke="rgba(0,150,255,.3)" stroke-width="1"/>
-       <line x1="65" y1="20" x2="65" y2="70" stroke="rgba(0,150,255,.3)" stroke-width="1"/>
-       <line x1="5" y1="45" x2="95" y2="45" stroke="rgba(0,150,255,.3)" stroke-width="1"/>
-       <rect x="5" y="20" width="90" height="50" rx="4" fill="rgba(0,100,255,.06)"/>
-       <rect x="43" y="68" width="14" height="12" rx="2" fill="#334455"/>
-       <ellipse cx="50" cy="80" rx="12" ry="3" fill="rgba(0,0,0,.3)"/>
-       <line x1="20" y1="20" x2="12" y2="4" stroke="rgba(255,200,0,.5)" stroke-width="1.5"/>
-       <line x1="50" y1="20" x2="50" y2="4" stroke="rgba(255,200,0,.5)" stroke-width="1.5"/>
-       <line x1="80" y1="20" x2="88" y2="4" stroke="rgba(255,200,0,.5)" stroke-width="1.5"/>
-     </svg>`},
-    // Drone
-    {x:'60%',y:'40%',panel:'mail',label:'📧 Почта',
-     svg:`<svg width="90" height="55" viewBox="0 0 90 55">
-       <ellipse cx="45" cy="28" rx="18" ry="8" fill="#334455"/>
-       <ellipse cx="45" cy="28" rx="14" ry="6" fill="#445566"/>
-       <rect x="10" y="24" width="70" height="3" rx="1" fill="#556677"/>
-       <rect x="10" y="22" width="3" height="7" rx="1" fill="#556677"/>
-       <rect x="77" y="22" width="3" height="7" rx="1" fill="#556677"/>
-       <ellipse cx="12" cy="22" rx="10" ry="5" fill="none" stroke="rgba(0,200,255,.5)" stroke-width="1.5"/>
-       <ellipse cx="78" cy="22" rx="10" ry="5" fill="none" stroke="rgba(0,200,255,.5)" stroke-width="1.5"/>
-       <circle cx="45" cy="28" r="3" fill="rgba(0,255,200,.8)"/>
-       <line x1="45" y1="34" x2="45" y2="50" stroke="rgba(0,200,255,.4)" stroke-width="1"/>
-       <circle cx="45" cy="50" r="2" fill="rgba(0,255,150,.6)"/>
-     </svg>`},
-    // Wind turbines
-    {x:'78%',y:'58%',panel:'cases',label:'🏆 Кейсы',
-     svg:`<svg width="80" height="120" viewBox="0 0 80 120">
-       <rect x="37" y="30" width="6" height="90" rx="2" fill="#445566"/>
-       <ellipse cx="40" cy="120" rx="14" ry="4" fill="rgba(0,0,0,.3)"/>
-       <g transform="rotate(0,40,30)" style="transform-origin:40px 30px;animation:spin 4s linear infinite">
-         <path d="M40,30 L40,2 Q45,16 40,30z" fill="rgba(100,180,220,.8)"/>
-         <path d="M40,30 L64,42 Q52,30 40,30z" fill="rgba(100,180,220,.7)"/>
-         <path d="M40,30 L16,42 Q28,30 40,30z" fill="rgba(100,180,220,.75)"/>
-       </g>
-       <circle cx="40" cy="30" r="4" fill="#aabbcc"/>
-     </svg>`},
-    // Data tower
-    {x:'88%',y:'55%',panel:'prices',label:'💰 Цены',
-     svg:`<svg width="50" height="110" viewBox="0 0 50 110">
-       <rect x="18" y="20" width="14" height="90" rx="2" fill="#223344"/>
-       <ellipse cx="25" cy="110" rx="12" ry="3" fill="rgba(0,0,0,.3)"/>
-       <rect x="5" y="40" width="40" height="5" rx="2" fill="#334455"/>
-       <rect x="5" y="60" width="40" height="5" rx="2" fill="#334455"/>
-       <rect x="5" y="80" width="40" height="5" rx="2" fill="#334455"/>
-       <circle cx="25" cy="20" r="8" fill="#446688" stroke="rgba(0,200,255,.5)" stroke-width="1.5"/>
-       <circle cx="25" cy="10" r="3" fill="rgba(0,255,200,.8)"/>
-       <line x1="25" y1="2" x2="25" y2="8" stroke="rgba(0,255,200,.6)" stroke-width="1.5"/>
-       <rect x="22" y="42" width="6" height="3" rx="1" fill="rgba(0,200,255,.6)"/>
-       <rect x="22" y="62" width="6" height="3" rx="1" fill="rgba(0,200,100,.6)"/>
-       <rect x="22" y="82" width="6" height="3" rx="1" fill="rgba(255,150,0,.6)"/>
-     </svg>`},
-    // Holographic horse (symbol of Kazakh steppe)
-    {x:'48%',y:'55%',panel:'sites',label:'🌐 Создание сайтов',
-     svg:`<svg width="110" height="90" viewBox="0 0 110 90">
-       <g opacity=".8" fill="none" stroke="rgba(0,255,200,.7)" stroke-width="1.5">
-         <path d="M55,20 Q65,15 70,25 Q75,35 65,40 Q60,42 55,38z"/>
-         <path d="M55,38 Q45,50 40,65 L38,85 L42,85 L44,68"/>
-         <path d="M55,38 Q60,48 62,62 L64,82 L60,82 L58,65"/>
-         <path d="M55,20 Q48,15 40,20 Q35,28 38,35 L55,38"/>
-         <path d="M55,38 Q48,42 42,48 L38,68 L42,68 L45,52"/>
-         <path d="M70,25 Q78,20 80,10"/>
-         <path d="M70,25 Q72,30 75,38 L78,55 L74,55 L72,40"/>
-       </g>
-       <g fill="rgba(0,255,200,.15)" stroke="rgba(0,255,200,.4)" stroke-width="1">
-         <path d="M55,20 Q65,15 70,25 Q75,35 65,40 Q60,42 55,38z"/>
-       </g>
-     </svg>`},
-  ];
-
-  document.head.querySelector('style').textContent+=`@keyframes spin{to{transform:rotate(360deg)}}`;
-
-  steppeObjs.forEach(o=>{
-    const el=document.createElement('div');
-    el.className='obj';
-    el.style.cssText=`position:absolute;left:${o.x};top:${o.y};transform:translate(-50%,-50%);cursor:pointer;z-index:6;filter:drop-shadow(0 0 10px rgba(0,200,150,.4));transition:filter .2s,transform .2s`;
-    el.innerHTML=`<div class="obj-label">${o.label}</div>${o.svg}`;
-    el.addEventListener('mouseenter',()=>{el.style.filter='drop-shadow(0 0 20px rgba(0,255,180,.8))';el.style.transform='translate(-50%,-60%) scale(1.1)';});
-    el.addEventListener('mouseleave',()=>{el.style.filter='drop-shadow(0 0 10px rgba(0,200,150,.4))';el.style.transform='translate(-50%,-50%)';});
-    el.addEventListener('click',()=>openPanel(o.panel));
-    objContainer.appendChild(el);
-  });
-
-  let T=0;
-  function steppeLoop(){
-    T+=.012;
-    drawSteppe(T);
-    animFrames.steppe=requestAnimationFrame(steppeLoop);
-  }
-  steppeLoop();
-})();
-</script>
+      aiForm.addEventListener('submit', event => {
+        event.preventDefault();
+        sendAiMessage(aiInput.value);
+      });
+      document.querySelectorAll('.ai-chip').forEach(chip => chip.addEventListener('click', () => {
+        toggleChat(true);
+        sendAiMessage(chip.textContent);
+        document.querySelector('#aiChips').hidden = true;
+      }));
+    })();
+  </script>
 </body>
 </html>
