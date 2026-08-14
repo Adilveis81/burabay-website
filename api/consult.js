@@ -35,6 +35,9 @@ const SYSTEM_PROMPT = `Ты — сильный консультант-прода
 12. В конце ответа задавай ровно один вопрос. Если нужно выяснить несколько параметров, выбирай самый важный сейчас, остальные уточняй позже.
 13. Ответ показывается как обычный текст. Не используй Markdown: никаких **звёздочек**, заголовков, таблиц и ссылок в разметке. Делай текст читаемым с помощью коротких абзацев и нумерации обычными цифрами.
 14. Перед отправкой молча проверь ответ на фактическую точность. Запрещено самостоятельно упоминать хостинг, продвижение в поиске, Google, Яндекс, гарантированный поток клиентов или функции сверх указанного состава. Если клиент прямо спрашивает о такой возможности, скажи, что она не входит в подтверждённый базовый состав и оценивается отдельно либо требует уточнения.
+15. Четыре продукта — это точки входа, а не границы наших возможностей. Никогда не говори «это не входит в наши продукты», «это совсем другая инфраструктура» или «обсудите с командой». Любой нестандартный запрос разложи на продаваемое индивидуальное решение на основе одного или нескольких продуктов и продолжай проектировать его вместе с клиентом.
+16. Для партнёрских и сетевых компаний предлагай «Индивидуальную партнёрскую систему» на основе «Задачника / мини-CRM» от 350 000 ₸. Возможный первый этап: регистрация и приглашения партнёров, личные кабинеты, дерево структуры, роли, задачи и панель администратора. Расчёт бонусов, документы, выплаты, интеграции и расширенная аналитика — отдельные модули, состав и цена которых уточняются последовательно. Предлагай запуск по этапам, чтобы сначала проверить процесс на первой рабочей версии.
+17. Не прогнозируй количество партнёров, доход, окупаемость или рост сети и не подтверждай математические обещания клиента. Объясняй, что система помогает управлять процессом, но результат зависит от бизнес-модели и работы команды. Для партнёрской системы сначала уточни один самый важный параметр: как начисляются бонусы, какие роли нужны или что должно войти в первую версию.
 
 Твоя цель — не собрать лид как можно быстрее, а заинтересовать, помочь увидеть ценность, снять сомнения и довести клиента до осознанного решения купить.`;
 
@@ -108,31 +111,34 @@ export default async function handler(req, res) {
   const messages = [...history, { role: 'user', content: message }];
 
   if (process.env.ANTHROPIC_API_KEY) {
-    try {
-      const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'x-api-key': process.env.ANTHROPIC_API_KEY,
-          'anthropic-version': '2023-06-01',
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'claude-haiku-4-5-20251001',
-          system: SYSTEM_PROMPT,
-          temperature: 0.25,
-          max_tokens: 650,
-          messages,
-        }),
-        signal: AbortSignal.timeout(20000),
-      });
-      if (anthropicResponse.ok) {
-        const anthropicData = await anthropicResponse.json();
-        reply = cleanText(anthropicData?.content?.find(item => item.type === 'text')?.text, 2000);
-      } else {
-        console.error('Anthropic error', anthropicResponse.status);
+    for (const model of ['claude-sonnet-4-20250514', 'claude-haiku-4-5-20251001']) {
+      if (reply) break;
+      try {
+        const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: {
+            'x-api-key': process.env.ANTHROPIC_API_KEY,
+            'anthropic-version': '2023-06-01',
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            model,
+            system: SYSTEM_PROMPT,
+            temperature: 0.25,
+            max_tokens: 650,
+            messages,
+          }),
+          signal: AbortSignal.timeout(model.includes('sonnet') ? 20000 : 15000),
+        });
+        if (anthropicResponse.ok) {
+          const anthropicData = await anthropicResponse.json();
+          reply = cleanText(anthropicData?.content?.find(item => item.type === 'text')?.text, 2000);
+        } else {
+          console.error('Anthropic error', model, anthropicResponse.status);
+        }
+      } catch (error) {
+        console.error('Anthropic request error', model, error instanceof Error ? error.message : 'unknown');
       }
-    } catch (error) {
-      console.error('Anthropic request error', error instanceof Error ? error.message : 'unknown');
     }
   }
 
