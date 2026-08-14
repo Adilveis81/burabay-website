@@ -83,7 +83,7 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return ALLOWED_ORIGINS.has(origin) ? res.status(204).end() : res.status(403).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (!ALLOWED_ORIGINS.has(origin)) return res.status(403).json({ error: 'Forbidden' });
-  if (!process.env.DEEPSEEK_API_KEY) return res.status(503).json({ error: 'Консультант временно недоступен' });
+  if (!process.env.ANTHROPIC_API_KEY && !process.env.DEEPSEEK_API_KEY) return res.status(503).json({ error: 'Консультант временно недоступен' });
   if (isRateLimited(req)) return res.status(429).json({ error: 'Слишком много сообщений. Попробуйте позже или напишите в WhatsApp.' });
 
   const body = req.body || {};
@@ -99,30 +99,64 @@ export default async function handler(req, res) {
       })).filter(item => item.content)
     : [];
 
-  let aiResponse;
-  let aiData;
-  try {
-    aiResponse = await fetch('https://api.deepseek.com/chat/completions', {
-      method: 'POST',
-      headers: { authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}`, 'content-type': 'application/json' },
-      body: JSON.stringify({
-        model: 'deepseek-v4-flash',
-        thinking: { type: 'disabled' },
-        temperature: 0.62,
-        max_tokens: 650,
-        messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...history, { role: 'user', content: message }],
-      }),
-      signal: AbortSignal.timeout(50000),
-    });
-    if (!aiResponse.ok) return res.status(502).json({ error: 'Не удалось получить ответ. Попробуйте ещё раз.' });
-    aiData = await aiResponse.json();
-  } catch (error) {
-    console.error('DeepSeek request error', error instanceof Error ? error.message : 'unknown');
-    return res.status(504).json({ error: 'Ответ занял слишком много времени. Повторите вопрос — я продолжу диалог.' });
+  let reply = '';
+  const messages = [...history, { role: 'user', content: message }];
+
+  if (process.env.ANTHROPIC_API_KEY) {
+    try {
+      const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'x-api-key': process.env.ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01',
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'claude-haiku-4-5-20251001',
+          system: SYSTEM_PROMPT,
+          temperature: 0.62,
+          max_tokens: 650,
+          messages,
+        }),
+        signal: AbortSignal.timeout(20000),
+      });
+      if (anthropicResponse.ok) {
+        const anthropicData = await anthropicResponse.json();
+        reply = cleanText(anthropicData?.content?.find(item => item.type === 'text')?.text, 2000);
+      } else {
+        console.error('Anthropic error', anthropicResponse.status);
+      }
+    } catch (error) {
+      console.error('Anthropic request error', error instanceof Error ? error.message : 'unknown');
+    }
   }
 
-  const reply = cleanText(aiData?.choices?.[0]?.message?.content, 2000);
-  if (!reply) return res.status(502).json({ error: 'Не удалось получить ответ. Попробуйте ещё раз.' });
+  if (!reply && process.env.DEEPSEEK_API_KEY) {
+    try {
+      const deepseekResponse = await fetch('https://api.deepseek.com/chat/completions', {
+        method: 'POST',
+        headers: { authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}`, 'content-type': 'application/json' },
+        body: JSON.stringify({
+          model: 'deepseek-v4-flash',
+          thinking: { type: 'disabled' },
+          temperature: 0.62,
+          max_tokens: 650,
+          messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
+        }),
+        signal: AbortSignal.timeout(30000),
+      });
+      if (deepseekResponse.ok) {
+        const deepseekData = await deepseekResponse.json();
+        reply = cleanText(deepseekData?.choices?.[0]?.message?.content, 2000);
+      } else {
+        console.error('DeepSeek error', deepseekResponse.status);
+      }
+    } catch (error) {
+      console.error('DeepSeek request error', error instanceof Error ? error.message : 'unknown');
+    }
+  }
+
+  if (!reply) return res.status(504).json({ error: 'Ответ занял слишком много времени. Повторите вопрос — я продолжу диалог.' });
 
   let leadCaptured = false;
   const leadKind = getLeadKind(message);
