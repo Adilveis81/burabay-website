@@ -408,6 +408,8 @@
       font-weight: 900;
     }
     .ai-launcher-icon { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: rgba(5, 18, 29, .12); font-size: 17px; }
+    .ai-launcher-icon img { width: 100%; height: 100%; border-radius: inherit; object-fit: cover; }
+    .ai-launcher::before { content: ""; position: absolute; inset: -5px; z-index: -1; border: 1px solid rgba(116,222,255,.28); border-radius: inherit; animation: hostPulse 2.8s ease-out infinite; }
     .ai-panel {
       position: fixed;
       right: 22px;
@@ -416,7 +418,7 @@
       width: min(390px, calc(100vw - 28px));
       height: min(610px, calc(100vh - 125px));
       display: none;
-      grid-template-rows: auto 1fr auto;
+      grid-template-rows: auto auto 1fr auto;
       overflow: hidden;
       border: 1px solid rgba(170, 213, 249, .22);
       border-radius: 24px;
@@ -426,6 +428,7 @@
     }
     .ai-panel.open { display: grid; animation: chatIn .22s ease-out; }
     @keyframes chatIn { from { opacity: 0; transform: translateY(12px) scale(.98); } }
+    @keyframes hostPulse { 0%,45% { opacity:.15; transform:scale(1) } 75% { opacity:.65 } 100% { opacity:0; transform:scale(1.08) } }
     .ai-head { display: flex; align-items: center; gap: 12px; padding: 16px 17px; border-bottom: 1px solid var(--line); background: linear-gradient(120deg, rgba(99, 228, 189, .1), rgba(92, 184, 255, .07)); }
     .ai-avatar { width: 42px; height: 42px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 14px; color: #06111c; background: linear-gradient(135deg, var(--mint), var(--blue)); font-weight: 950; }
     .ai-title { flex: 1; }
@@ -433,18 +436,33 @@
     .ai-title span { display: flex; align-items: center; gap: 6px; color: #93a9bb; font-size: 10px; }
     .ai-title span::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 8px var(--mint); }
     .ai-close { width: 34px; height: 34px; border: 0; border-radius: 10px; color: #9eb0c3; background: rgba(255,255,255,.05); font-size: 19px; }
+    .ai-host { position: relative; min-height: 132px; display: grid; grid-template-columns: 108px 1fr; gap: 15px; align-items: center; padding: 12px 16px; overflow: hidden; border-bottom: 1px solid var(--line); background: radial-gradient(circle at 17% 40%, rgba(63,207,212,.22), transparent 34%), #081522; }
+    .ai-host::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg,transparent 45%,rgba(69,214,226,.05) 46%,transparent 47%); background-size:18px 100%; opacity:.4 }
+    .ai-host-portrait { position: relative; z-index: 1; width: 104px; height: 104px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(114,236,224,.55); box-shadow: 0 0 0 5px rgba(80,219,213,.07), 0 0 32px rgba(74,221,215,.24); transition: filter .25s, transform .25s; }
+    .ai-panel.thinking .ai-host-portrait { filter: saturate(1.25) brightness(1.08); animation: portraitThink 1.3s ease-in-out infinite; }
+    .ai-panel.speaking .ai-host-portrait { animation: portraitSpeak .55s ease-in-out infinite alternate; box-shadow:0 0 0 5px rgba(80,219,213,.12),0 0 42px rgba(74,221,215,.5) }
+    @keyframes portraitThink { 50% { transform:scale(1.025); filter:saturate(1.35) brightness(1.12) } }
+    @keyframes portraitSpeak { to { transform:scale(1.018); filter:brightness(1.1) } }
+    .ai-host-copy { position: relative; z-index: 1; }.ai-host-copy small { display:block; color:#6fe3da; font-size:9px; font-weight:800; letter-spacing:.15em; text-transform:uppercase }.ai-host-copy strong { display:block; margin:6px 0 5px; font-size:16px }.ai-host-copy p { margin:0; color:#8da4b7; font-size:10px; line-height:1.45 }
+    .ai-wave { height:18px; display:flex; gap:3px; align-items:center; margin-top:8px }.ai-wave i { width:2px; height:4px; border-radius:4px; background:#6fe3da }.ai-panel.speaking .ai-wave i { animation:wave .6s ease-in-out infinite alternate }.ai-panel.speaking .ai-wave i:nth-child(2){animation-delay:.12s}.ai-panel.speaking .ai-wave i:nth-child(3){animation-delay:.24s}.ai-panel.speaking .ai-wave i:nth-child(4){animation-delay:.36s}.ai-panel.speaking .ai-wave i:nth-child(5){animation-delay:.48s}@keyframes wave{to{height:16px}}
     .ai-messages { overflow-y: auto; padding: 18px 15px; scroll-behavior: smooth; }
     .ai-message { max-width: 87%; margin: 0 0 11px; padding: 11px 13px; border-radius: 14px 14px 14px 4px; color: #d9e5ee; background: #142b43; font-size: 13px; line-height: 1.45; white-space: pre-wrap; }
     .ai-message.user { margin-left: auto; border-radius: 14px 14px 4px 14px; color: #092015; background: linear-gradient(135deg, #7ce7c7, #90d4ff); }
     .ai-message.typing { width: 54px; color: #8da4b7; letter-spacing: 3px; }
+    .ai-demo { display: block; max-width: 92%; margin: -2px 0 12px; padding: 14px; border: 1px solid rgba(124,231,199,.35); border-radius: 15px; color: #eafdf8; background: linear-gradient(135deg, rgba(27,78,77,.92), rgba(22,48,77,.94)); text-decoration: none; }
+    .ai-demo small { display: block; margin-bottom: 5px; color: #8ce9d0; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .ai-demo strong { display: block; font-size: 13px; line-height: 1.35; }
+    .ai-demo span { display: block; margin-top: 8px; color: #b8cbd2; font-size: 11px; }
     .ai-chips { display: flex; gap: 7px; overflow-x: auto; padding: 0 15px 11px; scrollbar-width: none; }
     .ai-chip { flex: 0 0 auto; padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; color: #b9c9d6; background: rgba(255,255,255,.035); font-size: 10px; }
-    .ai-form { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 12px; border-top: 1px solid var(--line); background: #091827; }
+    .ai-form { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; padding: 12px; border-top: 1px solid var(--line); background: #091827; }
     .ai-form input { min-width: 0; height: 44px; padding: 0 13px; border: 1px solid var(--line); border-radius: 12px; outline: 0; color: white; background: rgba(255,255,255,.035); font-size: 13px; }
     .ai-form input:focus { border-color: var(--mint); }
     .ai-send { width: 44px; height: 44px; border: 0; border-radius: 12px; color: #06111c; background: linear-gradient(135deg, var(--mint), var(--blue)); font-weight: 950; }
+    .ai-mic { width: 44px; height: 44px; border:1px solid var(--line); border-radius:12px; color:#9fb5c5; background:rgba(255,255,255,.035); font-size:17px }.ai-mic.listening{color:#06111c;background:var(--mint);box-shadow:0 0 18px rgba(99,228,189,.35)}
     .ai-send:disabled { opacity: .45; cursor: wait; }
     .ai-fallback { display: block; grid-column: 1 / -1; margin-top: -1px; color: #71889c; text-align: center; font-size: 9px; text-decoration: none; }
+    .ai-stage { position:fixed; inset:0; z-index:88; display:none; padding:18px; background:rgba(2,8,14,.82); backdrop-filter:blur(18px) }.ai-stage.open{display:block;animation:stageIn .35s ease-out}@keyframes stageIn{from{opacity:0;transform:scale(.985)}}.ai-stage-shell{width:calc(100% - 430px);height:100%;overflow:hidden;border:1px solid rgba(111,227,218,.28);border-radius:24px;background:#07101a;box-shadow:0 30px 100px rgba(0,0,0,.62)}.ai-stage-head{height:58px;display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid #1d3142;color:#d8e5ee}.ai-stage-head strong{font-size:13px}.ai-stage-head span{color:#7990a3;font-size:10px}.ai-stage-actions{margin-left:auto;display:flex;gap:7px}.ai-stage-actions a,.ai-stage-actions button{border:1px solid #294356;border-radius:10px;padding:8px 11px;color:#bdd0dc;background:#0c1d2c;text-decoration:none;font:600 10px Manrope}.ai-stage iframe{width:100%;height:calc(100% - 58px);border:0;background:white}
 
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
@@ -502,6 +520,7 @@
       .footer-row { flex-direction: column; align-items: flex-start; }
       .ai-launcher { right: 14px; bottom: 14px; min-height: 54px; }
       .ai-panel { right: 14px; bottom: 78px; height: min(590px, calc(100vh - 94px)); }
+      .ai-stage{padding:8px 8px 86px}.ai-stage-shell{width:100%;border-radius:16px}.ai-panel{z-index:92}.ai-host{grid-template-columns:78px 1fr;min-height:105px}.ai-host-portrait{width:76px;height:76px}
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -690,6 +709,10 @@
           <p>Готовые сайты показывают возможную основу проекта. Их можно приобрести, изменить дизайн, дополнить функциями и адаптировать под задачи покупателя.</p>
         </div>
         <div class="case-grid">
+          <a class="case case-secondary reveal" href="/showrooms.html">
+            <div class="case-visual"><div class="bot-lines"><div class="bubble">20 нишевых сайтов</div><div class="bubble me">5 современных стилей</div><div class="bubble">Живое демо за секунды</div></div></div>
+            <div class="case-content"><span class="case-tag">Новая коллекция · 2026</span><h3>Сайты-шоурумы</h3><p>Откройте готовые варианты для торговли, услуг, туризма, недвижимости и партнёрских проектов. Любой вариант адаптируется под бренд покупателя.</p><span class="case-link">Смотреть 20 вариантов →</span></div>
+          </a>
           <a class="case reveal" href="/marketplace.html">
             <div class="case-visual"><div class="route"><i class="route-line"></i></div></div>
             <div class="case-content"><span class="case-tag">Готовый сайт · демонстрация</span><h3>Алсат Межгород</h3><p>Демонстрационный сайт для междугороднего такси: готовая основа, которую можно купить, изменить и дополнить по пожеланиям заказчика.</p><span class="case-link">Посмотреть демонстрацию →</span></div>
@@ -801,17 +824,25 @@
     </div>
   </footer>
 
+  <section class="ai-stage" id="aiStage" aria-hidden="true">
+    <div class="ai-stage-shell">
+      <header class="ai-stage-head"><strong id="aiStageTitle">Демонстрация Alsat</strong><span>Консультант управляет экраном</span><div class="ai-stage-actions"><a id="aiStageOpen" href="#" target="_blank" rel="noopener">Открыть отдельно ↗</a><button id="aiStageClose" type="button">Закрыть</button></div></header>
+      <iframe id="aiStageFrame" title="Живая демонстрация сайта" loading="eager"></iframe>
+    </div>
+  </section>
   <button class="ai-launcher" id="aiLauncher" type="button" aria-expanded="false" aria-controls="aiPanel">
-    <span class="ai-launcher-icon">AI</span><span>Спросить консультанта</span>
+    <span class="ai-launcher-icon"><img src="/alsat-consultant-avatar.jpg" alt=""></span><span>Спросить Амира</span>
   </button>
   <section class="ai-panel" id="aiPanel" aria-label="Онлайн-консультант" aria-hidden="true">
     <header class="ai-head">
       <div class="ai-avatar">A</div>
-      <div class="ai-title"><strong>Консультант Alsat</strong><span>ИИ отвечает сейчас</span></div>
+      <div class="ai-title"><strong>Амир · консультант Alsat</strong><span>ИИ отвечает сейчас</span></div>
+      <button class="ai-close" id="aiVoice" type="button" aria-label="Включить голос" title="Голос">◉</button>
       <button class="ai-close" id="aiClose" type="button" aria-label="Закрыть чат">×</button>
     </header>
+    <div class="ai-host"><img class="ai-host-portrait" src="/alsat-consultant-avatar.jpg" alt="Амир, цифровой консультант Alsat"><div class="ai-host-copy"><small>Digital host online</small><strong>Я покажу, а не просто расскажу</strong><p>Задайте вопрос — я открою подходящий сайт на большом экране.</p><div class="ai-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div></div>
     <div class="ai-messages" id="aiMessages" role="log" aria-live="polite">
-      <div class="ai-message">Здравствуйте! Помогу подобрать сайт, CRM, бота или автоматизацию. Расскажите коротко, чем занимается ваш бизнес?</div>
+      <div class="ai-message">Здравствуйте, я Амир. Могу не только подобрать решение, но и прямо здесь показать живой сайт для вашей ниши. Что вы хотите продавать или автоматизировать?</div>
     </div>
     <div>
       <div class="ai-chips" id="aiChips">
@@ -820,6 +851,7 @@
         <button class="ai-chip" type="button">Хочу Telegram-бота</button>
       </div>
       <form class="ai-form" id="aiForm">
+        <button class="ai-mic" id="aiMic" type="button" aria-label="Сказать голосом" title="Сказать голосом">●</button>
         <input id="aiInput" name="message" maxlength="1200" autocomplete="off" placeholder="Напишите вопрос…" aria-label="Ваш вопрос" required>
         <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
         <button class="ai-send" type="submit" aria-label="Отправить">→</button>
@@ -887,9 +919,54 @@
       const aiForm = document.querySelector('#aiForm');
       const aiInput = document.querySelector('#aiInput');
       const aiSend = aiForm.querySelector('.ai-send');
+      const aiMic = document.querySelector('#aiMic');
+      const aiVoice = document.querySelector('#aiVoice');
+      const aiStage = document.querySelector('#aiStage');
+      const aiStageFrame = document.querySelector('#aiStageFrame');
+      const aiStageTitle = document.querySelector('#aiStageTitle');
+      const aiStageOpen = document.querySelector('#aiStageOpen');
+      const aiStageClose = document.querySelector('#aiStageClose');
       const aiHistory = [];
       const aiSessionId = sessionStorage.getItem('alsat-ai-session') || crypto.randomUUID();
+      let voiceEnabled = localStorage.getItem('alsat-ai-voice') === 'on';
       sessionStorage.setItem('alsat-ai-session', aiSessionId);
+
+      const updateVoiceButton = () => {
+        aiVoice.textContent = voiceEnabled ? '◉' : '○';
+        aiVoice.title = voiceEnabled ? 'Выключить голос' : 'Включить голос';
+        aiVoice.setAttribute('aria-label', aiVoice.title);
+      };
+      updateVoiceButton();
+
+      const speak = text => {
+        if (!voiceEnabled || !('speechSynthesis' in window)) return;
+        speechSynthesis.cancel();
+        const speech = new SpeechSynthesisUtterance(text.slice(0, 650));
+        speech.lang = 'ru-RU';
+        speech.rate = .96;
+        speech.pitch = .92;
+        const voices = speechSynthesis.getVoices();
+        speech.voice = voices.find(voice => voice.lang.toLowerCase().startsWith('ru')) || null;
+        speech.onstart = () => aiPanel.classList.add('speaking');
+        speech.onend = speech.onerror = () => aiPanel.classList.remove('speaking');
+        speechSynthesis.speak(speech);
+      };
+
+      const closeStage = () => {
+        aiStage.classList.remove('open');
+        aiStage.setAttribute('aria-hidden', 'true');
+        aiStageFrame.src = 'about:blank';
+      };
+
+      const presentDemo = demo => {
+        if (!demo || !demo.url) return;
+        aiStageTitle.textContent = demo.title || 'Демонстрация Alsat';
+        aiStageFrame.src = demo.url;
+        aiStageOpen.href = demo.url;
+        aiStage.classList.add('open');
+        aiStage.setAttribute('aria-hidden', 'false');
+        toggleChat(true);
+      };
 
       const toggleChat = open => {
         aiPanel.classList.toggle('open', open);
@@ -898,7 +975,15 @@
         if (open) setTimeout(() => aiInput.focus(), 120);
       };
       aiLauncher.addEventListener('click', () => toggleChat(!aiPanel.classList.contains('open')));
-      aiClose.addEventListener('click', () => toggleChat(false));
+      aiClose.addEventListener('click', () => { toggleChat(false); if ('speechSynthesis' in window) speechSynthesis.cancel(); });
+      aiStageClose.addEventListener('click', closeStage);
+      aiVoice.addEventListener('click', () => {
+        voiceEnabled = !voiceEnabled;
+        localStorage.setItem('alsat-ai-voice', voiceEnabled ? 'on' : 'off');
+        updateVoiceButton();
+        if (voiceEnabled) speak('Голос включён. Покажите, что вы хотите создать.');
+        else if ('speechSynthesis' in window) speechSynthesis.cancel();
+      });
 
       const addAiMessage = (text, role = 'assistant', extraClass = '') => {
         const item = document.createElement('div');
@@ -909,6 +994,23 @@
         return item;
       };
 
+      const addAiDemo = demo => {
+        if (!demo || !demo.url || !demo.title) return;
+        const card = document.createElement('a');
+        card.className = 'ai-demo';
+        card.href = demo.url;
+        const label = document.createElement('small');
+        label.textContent = 'Живое демо';
+        const title = document.createElement('strong');
+        title.textContent = demo.title;
+        const action = document.createElement('span');
+        action.textContent = 'Показать на большом экране →';
+        card.append(label, title, action);
+        card.addEventListener('click', event => { event.preventDefault(); presentDemo(demo); });
+        aiMessages.appendChild(card);
+        aiMessages.scrollTop = aiMessages.scrollHeight;
+      };
+
       const sendAiMessage = async message => {
         const cleanMessage = message.trim();
         if (!cleanMessage || aiSend.disabled) return;
@@ -917,6 +1019,7 @@
         aiHistory.push({ role: 'user', content: cleanMessage });
         aiInput.value = '';
         aiSend.disabled = true;
+        aiPanel.classList.add('thinking');
         const typing = addAiMessage('•••', 'assistant', 'typing');
 
         const requestConsultant = async endpoint => {
@@ -949,15 +1052,35 @@
           }
           typing.remove();
           addAiMessage(data.reply);
+          addAiDemo(data.demo);
+          if (data.demo) presentDemo(data.demo);
+          speak(data.reply);
           aiHistory.push({ role: 'assistant', content: data.reply });
         } catch (error) {
           typing.remove();
           addAiMessage(`${error.message}. Напишите нам в WhatsApp: +7 706 424 42 77`);
         } finally {
+          aiPanel.classList.remove('thinking');
           aiSend.disabled = false;
           aiInput.focus();
         }
       };
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'ru-RU';
+        recognition.interimResults = false;
+        recognition.onstart = () => aiMic.classList.add('listening');
+        recognition.onend = recognition.onerror = () => aiMic.classList.remove('listening');
+        recognition.onresult = event => {
+          aiInput.value = event.results[0][0].transcript;
+          sendAiMessage(aiInput.value);
+        };
+        aiMic.addEventListener('click', () => recognition.start());
+      } else {
+        aiMic.hidden = true;
+      }
 
       aiForm.addEventListener('submit', event => {
         event.preventDefault();
