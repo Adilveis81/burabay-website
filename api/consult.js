@@ -151,7 +151,10 @@ export default async function handler(req, res) {
   const demo = getShowroomDemo(message, history);
 
   let reply = '';
-  const messages = [...history, { role: 'user', content: message }];
+  const demoConstraint = demo
+    ? '\n\nСИСТЕМНЫЙ КОНТЕКСТ ДЕМО: интерфейс сейчас сам покажет клиенту визуальную демонстрацию. Не называй её реальным работающим сайтом. Не перечисляй непроверенные разделы или подключённые бизнес-функции. Если клиент спрашивает, что уже работает, прямо скажи: «Это интерактивная визуальная демонстрация дизайна и пользовательского пути. Реальная запись, оплата, уведомления, кабинеты и интеграции подключаются отдельно после согласования состава». После этого задай один вопрос только о персонализации или нужной бизнес-функции.'
+    : '';
+  const messages = [...history, { role: 'user', content: message + demoConstraint }];
 
   if (process.env.ANTHROPIC_API_KEY) {
     for (const model of ['claude-sonnet-4-20250514', 'claude-haiku-4-5-20251001']) {

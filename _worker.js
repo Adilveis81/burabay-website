@@ -200,6 +200,9 @@ async function handleConsult(request, env) {
     : [];
 
   const demo = getShowroomDemo(message, history);
+  const demoConstraint = demo
+    ? '\n\nСИСТЕМНЫЙ КОНТЕКСТ ДЕМО: интерфейс сейчас сам покажет клиенту визуальную демонстрацию. Не называй её реальным работающим сайтом. Не перечисляй непроверенные разделы или подключённые бизнес-функции. Если клиент спрашивает, что уже работает, прямо скажи: «Это интерактивная визуальная демонстрация дизайна и пользовательского пути. Реальная запись, оплата, уведомления, кабинеты и интеграции подключаются отдельно после согласования состава». После этого задай один вопрос только о персонализации или нужной бизнес-функции.'
+    : '';
 
   let aiResponse;
   let aiData;
@@ -218,7 +221,7 @@ async function handleConsult(request, env) {
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
           ...history,
-          { role: 'user', content: contact ? `${message}\nКонтакт клиента: ${contact}` : message },
+          { role: 'user', content: `${contact ? `${message}\nКонтакт клиента: ${contact}` : message}${demoConstraint}` },
         ],
       }),
       signal: AbortSignal.timeout(50000),
