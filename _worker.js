@@ -92,7 +92,29 @@ async function handleConsult(request, env) {
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
   const origin = request.headers.get('Origin');
   if (origin && origin !== new URL(request.url).origin) return json({ error: 'Forbidden' }, 403);
-  if (!env.DEEPSEEK_API_KEY) return json({ error: 'Консультант временно недоступен' }, 503);
+  if (!env.DEEPSEEK_API_KEY) {
+    try {
+      const upstream = await fetch('https://burabay-website.vercel.app/api/consult', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          origin: 'https://alsat.asia',
+        },
+        body: await request.text(),
+        signal: AbortSignal.timeout(30000),
+      });
+      return new Response(upstream.body, {
+        status: upstream.status,
+        headers: {
+          'content-type': 'application/json; charset=utf-8',
+          'cache-control': 'no-store',
+          'x-content-type-options': 'nosniff',
+        },
+      });
+    } catch {
+      return json({ error: 'Консультант не успел ответить. Попробуйте ещё раз.' }, 504);
+    }
+  }
   if (isRateLimited(request)) return json({ error: 'Слишком много сообщений. Попробуйте позже или напишите в WhatsApp.' }, 429);
 
   let body;
