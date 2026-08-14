@@ -920,7 +920,7 @@
         const typing = addAiMessage('•••', 'assistant', 'typing');
 
         try {
-          const response = await fetch('/api/consult', {
+          const response = await fetch('https://burabay-website.vercel.app/api/consult', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({
