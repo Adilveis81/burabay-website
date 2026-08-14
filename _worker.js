@@ -113,7 +113,6 @@ async function handleConsult(request, env) {
           origin: 'https://alsat.asia',
         },
         body: await request.text(),
-        signal: AbortSignal.timeout(30000),
       });
       return new Response(upstream.body, {
         status: upstream.status,
@@ -152,6 +151,7 @@ async function handleConsult(request, env) {
     : [];
 
   let aiResponse;
+  let aiData;
   try {
     aiResponse = await fetch('https://api.deepseek.com/chat/completions', {
       method: 'POST',
@@ -170,21 +170,20 @@ async function handleConsult(request, env) {
           { role: 'user', content: contact ? `${message}\nКонтакт клиента: ${contact}` : message },
         ],
       }),
-      signal: AbortSignal.timeout(25000),
+      signal: AbortSignal.timeout(50000),
     });
+    if (!aiResponse.ok) {
+      console.error('DeepSeek error', aiResponse.status);
+      return json({ error: 'Не удалось получить ответ. Попробуйте ещё раз.' }, 502);
+    }
+    aiData = await aiResponse.json();
   } catch (error) {
-    console.error('DeepSeek network error', error);
-    return json({ error: 'Консультант не успел ответить. Напишите нам в WhatsApp.' }, 504);
+    console.error('DeepSeek request error', error instanceof Error ? error.message : 'unknown');
+    return json({ error: 'Ответ занял слишком много времени. Повторите вопрос — я продолжу диалог.' }, 504);
   }
 
-  if (!aiResponse.ok) {
-    console.error('DeepSeek error', aiResponse.status);
-    return json({ error: 'Не удалось получить ответ. Напишите нам в WhatsApp.' }, 502);
-  }
-
-  const aiData = await aiResponse.json();
   const reply = cleanText(aiData?.choices?.[0]?.message?.content, 2000);
-  if (!reply) return json({ error: 'Не удалось получить ответ. Напишите нам в WhatsApp.' }, 502);
+  if (!reply) return json({ error: 'Не удалось получить ответ. Попробуйте ещё раз.' }, 502);
 
   let leadCaptured = false;
   const leadKind = getLeadKind(message, contact);

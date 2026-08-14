@@ -100,6 +100,7 @@ export default async function handler(req, res) {
     : [];
 
   let aiResponse;
+  let aiData;
   try {
     aiResponse = await fetch('https://api.deepseek.com/chat/completions', {
       method: 'POST',
@@ -111,16 +112,17 @@ export default async function handler(req, res) {
         max_tokens: 650,
         messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...history, { role: 'user', content: message }],
       }),
-      signal: AbortSignal.timeout(25000),
+      signal: AbortSignal.timeout(50000),
     });
-  } catch {
-    return res.status(504).json({ error: 'Консультант не успел ответить. Напишите нам в WhatsApp.' });
+    if (!aiResponse.ok) return res.status(502).json({ error: 'Не удалось получить ответ. Попробуйте ещё раз.' });
+    aiData = await aiResponse.json();
+  } catch (error) {
+    console.error('DeepSeek request error', error instanceof Error ? error.message : 'unknown');
+    return res.status(504).json({ error: 'Ответ занял слишком много времени. Повторите вопрос — я продолжу диалог.' });
   }
 
-  if (!aiResponse.ok) return res.status(502).json({ error: 'Не удалось получить ответ. Напишите нам в WhatsApp.' });
-  const aiData = await aiResponse.json();
   const reply = cleanText(aiData?.choices?.[0]?.message?.content, 2000);
-  if (!reply) return res.status(502).json({ error: 'Не удалось получить ответ. Напишите нам в WhatsApp.' });
+  if (!reply) return res.status(502).json({ error: 'Не удалось получить ответ. Попробуйте ещё раз.' });
 
   let leadCaptured = false;
   const leadKind = getLeadKind(message);
