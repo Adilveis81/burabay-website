@@ -409,6 +409,7 @@
     }
     .ai-launcher-icon { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: rgba(5, 18, 29, .12); font-size: 17px; }
     .ai-launcher-icon img { width: 100%; height: 100%; border-radius: inherit; object-fit: cover; }
+    .ai-launcher.hidden { opacity: 0; pointer-events: none; transform: translateY(10px); }
     .ai-launcher::before { content: ""; position: absolute; inset: -5px; z-index: -1; border: 1px solid rgba(116,222,255,.28); border-radius: inherit; animation: hostPulse 2.8s ease-out infinite; }
     .ai-panel {
       position: fixed;
@@ -519,8 +520,29 @@
       .field.full, .submit, .form-note { grid-column: auto; }
       .footer-row { flex-direction: column; align-items: flex-start; }
       .ai-launcher { right: 14px; bottom: 14px; min-height: 54px; }
-      .ai-panel { right: 14px; bottom: 78px; height: min(590px, calc(100vh - 94px)); }
-      .ai-stage{padding:8px 8px 86px}.ai-stage-shell{width:100%;border-radius:16px}.ai-panel{z-index:92}.ai-host{grid-template-columns:78px 1fr;min-height:105px}.ai-host-portrait{width:76px;height:76px}
+      .ai-panel { right: 14px; bottom: 78px; height: min(590px, calc(100dvh - 94px)); max-height: calc(100dvh - 16px); }
+      .ai-stage{height:100dvh;padding:8px 8px 86px}.ai-stage-shell{width:100%;border-radius:16px}.ai-panel{z-index:92}.ai-host{grid-template-columns:78px 1fr;min-height:105px}.ai-host-portrait{width:76px;height:76px}
+      body.ai-demo-open .ai-panel.open{height:min(46dvh,430px)}
+      body.ai-demo-open .ai-host{display:none}
+      body.ai-demo-open .ai-panel{grid-template-rows:auto 1fr auto}
+      html.keyboard-open .ai-stage.open{visibility:hidden;pointer-events:none}
+      html.keyboard-open .ai-panel.open{top:calc(var(--visual-top, 0px) + 6px);left:8px;right:8px;bottom:auto;width:auto;height:calc(var(--visual-height, 100dvh) - 12px);max-height:none;border-radius:16px;grid-template-rows:auto 1fr auto}
+      html.keyboard-open .ai-host,html.keyboard-open .ai-chips{display:none}
+      html.keyboard-open .ai-head{padding:10px 12px}
+      html.keyboard-open .ai-avatar{width:34px;height:34px;border-radius:10px}
+      html.keyboard-open .ai-messages{padding:10px 12px}
+      html.keyboard-open .ai-form{padding:8px 10px max(8px,env(safe-area-inset-bottom))}
+    }
+
+    @media (max-width: 680px) {
+      .ai-panel.open{top:8px;left:8px;right:8px;bottom:auto;width:auto;height:calc(100dvh - 16px);max-height:none;border-radius:18px}
+      body.ai-demo-open .ai-panel.open{top:auto;bottom:8px;height:min(44dvh,370px)}
+      body.ai-demo-open .ai-stage{padding-bottom:calc(min(44dvh,370px) + 16px)}
+      .ai-stage-head span{display:none}
+      .ai-stage-head{padding:0 10px}
+      .ai-stage-actions a,.ai-stage-actions button{padding:8px;font-size:9px}
+      .ai-form{padding-bottom:max(12px,env(safe-area-inset-bottom))}
+      html.keyboard-open body.ai-demo-open .ai-panel.open{top:calc(var(--visual-top, 0px) + 6px);bottom:auto;height:calc(var(--visual-height, 100dvh) - 12px)}
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -931,6 +953,29 @@
       let voiceEnabled = localStorage.getItem('alsat-ai-voice') === 'on';
       sessionStorage.setItem('alsat-ai-session', aiSessionId);
 
+      const syncAiViewport = () => {
+        const viewport = window.visualViewport;
+        const visibleHeight = viewport ? viewport.height : window.innerHeight;
+        const visibleTop = viewport ? viewport.offsetTop : 0;
+        const inputActive = document.activeElement === aiInput;
+        const keyboardOpen = inputActive && (
+          window.innerHeight - visibleHeight > 120 ||
+          (matchMedia('(max-width: 980px)').matches && visibleHeight < 560)
+        );
+        document.documentElement.style.setProperty('--visual-height', `${Math.round(visibleHeight)}px`);
+        document.documentElement.style.setProperty('--visual-top', `${Math.round(visibleTop)}px`);
+        document.documentElement.classList.toggle('keyboard-open', keyboardOpen);
+        if (keyboardOpen) requestAnimationFrame(() => { aiMessages.scrollTop = aiMessages.scrollHeight; });
+      };
+      syncAiViewport();
+      window.addEventListener('resize', syncAiViewport, { passive: true });
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', syncAiViewport, { passive: true });
+        window.visualViewport.addEventListener('scroll', syncAiViewport, { passive: true });
+      }
+      aiInput.addEventListener('focus', () => setTimeout(syncAiViewport, 60));
+      aiInput.addEventListener('blur', () => setTimeout(syncAiViewport, 180));
+
       const updateVoiceButton = () => {
         aiVoice.textContent = voiceEnabled ? '◉' : '○';
         aiVoice.title = voiceEnabled ? 'Выключить голос' : 'Включить голос';
@@ -956,6 +1001,7 @@
         aiStage.classList.remove('open');
         aiStage.setAttribute('aria-hidden', 'true');
         aiStageFrame.src = 'about:blank';
+        document.body.classList.remove('ai-demo-open');
       };
 
       const presentDemo = demo => {
@@ -965,6 +1011,7 @@
         aiStageOpen.href = demo.url;
         aiStage.classList.add('open');
         aiStage.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('ai-demo-open');
         toggleChat(true);
       };
 
@@ -972,7 +1019,12 @@
         aiPanel.classList.toggle('open', open);
         aiPanel.setAttribute('aria-hidden', String(!open));
         aiLauncher.setAttribute('aria-expanded', String(open));
-        if (open) setTimeout(() => aiInput.focus(), 120);
+        aiLauncher.classList.toggle('hidden', open);
+        if (open && matchMedia('(min-width: 981px)').matches) setTimeout(() => aiInput.focus(), 120);
+        if (!open) {
+          aiInput.blur();
+          document.documentElement.classList.remove('keyboard-open');
+        }
       };
       aiLauncher.addEventListener('click', () => toggleChat(!aiPanel.classList.contains('open')));
       aiClose.addEventListener('click', () => { toggleChat(false); if ('speechSynthesis' in window) speechSynthesis.cancel(); });
