@@ -232,6 +232,7 @@
     #prices { background:radial-gradient(circle at 50% 0,rgba(38,166,221,.16),transparent 33rem); }
     .case { transition:transform .4s cubic-bezier(.2,.8,.2,1), border-color .35s; }
     .case:hover { transform:translateY(-8px) rotateX(1deg); border-color:rgba(113,220,207,.38); }
+    .ai-launcher, .ai-panel, .ai-stage { display:none !important; }
 
     .hero-console {
       position: relative;
@@ -672,7 +673,7 @@
 
         <div class="hero-ai-shell" id="aiLab" aria-label="Амир — основной ИИ-консультант Alsat">
           <div class="hero-ai-head"><strong>Alsat Intelligence Studio</strong><span>Амир готов к разговору</span></div>
-          <iframe src="/amir" title="Амир — ИИ-консультант с живой визуализацией" loading="eager"></iframe>
+          <iframe src="/amir?embed=1" title="Амир — ИИ-консультант с живой визуализацией" loading="eager"></iframe>
         </div>
       </div>
     </section>

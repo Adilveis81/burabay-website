@@ -94,9 +94,18 @@ html,body{height:100%;font-family:'Segoe UI',Arial,sans-serif;background:#070d1a
   #chat-panel{height:100dvh}
   #quick-prompts{display:none}
 }
+
+@media(min-width:600px){
+  body.embed #app{flex-direction:row}
+  body.embed #canvas-panel{display:block;flex:0 0 56%;width:auto;border-right:1px solid rgba(56,182,255,.14);border-bottom:0}
+  body.embed #chat-panel{height:auto;min-height:0}
+  body.embed #scenario-tabs{display:flex}
+  body.embed #quick-prompts{display:flex}
+}
 </style>
 </head>
 <body>
+<script>if(new URLSearchParams(location.search).has('embed'))document.body.classList.add('embed')</script>
 <div id="app">
   <div id="canvas-panel">
     <div id="canvas-title">ВИЗУАЛЬНАЯ СХЕМА</div>
