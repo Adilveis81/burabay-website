@@ -67,6 +67,33 @@ html,body{height:100%;font-family:'Segoe UI',Arial,sans-serif;background:#070d1a
 
 .fade-in-el{opacity:0;animation:elFade .4s ease forwards}
 @keyframes elFade{to{opacity:1}}
+
+@media(max-width:760px){
+  html,body{height:100dvh;min-height:100dvh}
+  #app{height:100dvh;flex-direction:column}
+  #canvas-panel{flex:0 0 39%;width:100%;border-right:0;border-bottom:1px solid rgba(56,182,255,.14)}
+  #chat-panel{flex:1;min-height:0}
+  #canvas-title{top:10px;left:12px;font-size:8px;letter-spacing:2px}
+  #canvas-subtitle{top:25px;left:12px;font-size:8px}
+  #scenario-tabs{top:7px;right:7px;max-width:62%}
+  .s-tab{padding:3px 7px;font-size:8px}
+  #canvas-hint{bottom:7px;font-size:7px;letter-spacing:1px}
+  #main-svg{height:100%;transform:scale(.94)}
+  #chat-header{padding:9px 11px}
+  #amir-avatar{width:34px;height:34px;font-size:16px}
+  #messages{padding:10px 9px;gap:8px}
+  .msg-bubble{font-size:12px;line-height:1.48;padding:8px 10px}
+  #quick-prompts{padding:6px 9px;overflow-x:auto;flex-wrap:nowrap}
+  .qp{font-size:9px;padding:5px 8px}
+  #input-area{padding:8px 9px max(8px,env(safe-area-inset-bottom))}
+  #user-input{min-height:38px;font-size:12px}
+}
+
+@media(max-width:760px) and (max-height:590px){
+  #canvas-panel{display:none}
+  #chat-panel{height:100dvh}
+  #quick-prompts{display:none}
+}
 </style>
 </head>
 <body>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Alsat Digital — сайты, домены и бизнес-системы под ключ</title>
-  <meta name="description" content="Создаём сайты, подключаем домены и корпоративную почту, разрабатываем задачники, CRM, Telegram-ботов и автоматизацию. Работаем удалённо по Казахстану и СНГ.">
+  <meta name="description" content="Проектируем сайты, приложения, ИИ-системы и автоматизацию теплиц, гаражей, строительства, цехов, складов и оборудования. Работаем удалённо по Казахстану и СНГ.">
   <meta name="theme-color" content="#07111f">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://alsat.asia/">
@@ -54,6 +54,21 @@
       background-size: 56px 56px;
       mask-image: linear-gradient(to bottom, black, transparent 78%);
     }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: -25%;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 20% 25%, rgba(0, 213, 255, .22), transparent 26%),
+        radial-gradient(circle at 76% 24%, rgba(134, 89, 255, .22), transparent 28%),
+        radial-gradient(circle at 54% 78%, rgba(255, 157, 74, .13), transparent 25%);
+      filter: blur(45px);
+      animation: ambientDrift 18s ease-in-out infinite alternate;
+    }
+    @keyframes ambientDrift { to { transform: translate3d(4%, -3%, 0) scale(1.08) rotate(3deg); } }
 
     a { color: inherit; }
     button, input, textarea, select { font: inherit; }
@@ -114,7 +129,7 @@
     .menu-button { display: none; color: white; background: transparent; border: 1px solid var(--line); border-radius: 11px; padding: 8px 11px; }
 
     .hero { min-height: calc(100vh - 76px); display: grid; align-items: center; padding: 76px 0 96px; position: relative; }
-    .hero-grid { display: grid; grid-template-columns: 1.04fr .96fr; gap: 76px; align-items: center; }
+    .hero-grid { display: grid; grid-template-columns: minmax(330px, .72fr) minmax(650px, 1.28fr); gap: 42px; align-items: center; }
     .availability {
       display: inline-flex;
       gap: 9px;
@@ -129,7 +144,7 @@
       font-weight: 700;
     }
     .availability::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 5px rgba(99, 228, 189, .1); }
-    .hero h1 { margin: 0 0 24px; max-width: 760px; font-size: clamp(48px, 7.2vw, 88px); line-height: .96; letter-spacing: -.062em; }
+    .hero h1 { margin: 0 0 24px; max-width: 760px; font-size: clamp(48px, 6vw, 76px); line-height: .96; letter-spacing: -.062em; }
     .hero h1 span { color: transparent; background: linear-gradient(100deg, #fff 5%, #8fd1ff 52%, #8cf1d2); background-clip: text; -webkit-background-clip: text; }
     .hero-copy { max-width: 620px; margin: 0 0 32px; color: var(--muted); font-size: clamp(17px, 2vw, 21px); }
     .actions { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -154,6 +169,69 @@
     .trust-row { display: flex; flex-wrap: wrap; gap: 19px; margin-top: 32px; color: #8498ab; font-size: 12px; }
     .trust-row span { display: flex; align-items: center; gap: 7px; }
     .trust-row span::before { content: "✓"; color: var(--mint); font-weight: 900; }
+
+    .hero-ai-shell {
+      position: relative;
+      height: min(720px, calc(100vh - 112px));
+      min-height: 610px;
+      overflow: hidden;
+      border: 1px solid rgba(164, 222, 255, .26);
+      border-radius: 28px;
+      background: rgba(4, 13, 27, .82);
+      box-shadow: 0 38px 120px rgba(0, 0, 0, .46), 0 0 80px rgba(55, 176, 255, .13);
+      isolation: isolate;
+      animation: consoleFloat 7s ease-in-out infinite;
+    }
+    .hero-ai-shell::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      z-index: -1;
+      border-radius: inherit;
+      padding: 1px;
+      background: conic-gradient(from var(--spin, 0deg), #55e7c2, #5cb8ff, #9b6cff, #ffad69, #55e7c2);
+      animation: borderSpin 12s linear infinite;
+      opacity: .72;
+    }
+    .hero-ai-shell::after { content:""; position:absolute; inset:1px; z-index:-1; border-radius:27px; background:#07111f; }
+    .hero-ai-head { height: 46px; display:flex; align-items:center; gap:10px; padding:0 16px; border-bottom:1px solid rgba(166,214,245,.14); color:#a9bfd0; background:rgba(255,255,255,.025); font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
+    .hero-ai-head strong { color:#f4fbff; font-size:12px; }
+    .hero-ai-head span { margin-left:auto; display:flex; align-items:center; gap:7px; color:#80e4c8; }
+    .hero-ai-head span::before { content:""; width:7px; height:7px; border-radius:50%; background:#58e1ad; box-shadow:0 0 12px #58e1ad; animation:statusPulse 1.8s ease-in-out infinite; }
+    .hero-ai-shell iframe { width:100%; height:calc(100% - 46px); border:0; display:block; background:#07111f; }
+    @property --spin { syntax:"<angle>"; inherits:false; initial-value:0deg; }
+    @keyframes borderSpin { to { --spin: 360deg; } }
+    @keyframes consoleFloat { 50% { transform:translateY(-7px); } }
+    @keyframes statusPulse { 50% { opacity:.45; transform:scale(.75); } }
+
+    .capability-marquee { overflow:hidden; border-block:1px solid rgba(185,218,241,.15); background:linear-gradient(90deg,rgba(24,128,231,.15),rgba(124,75,220,.16),rgba(23,180,144,.14)); }
+    .capability-track { width:max-content; display:flex; gap:34px; padding:16px 0; color:#c9d9e5; font-size:11px; font-weight:850; letter-spacing:.16em; text-transform:uppercase; animation:marquee 28s linear infinite; }
+    .capability-track span::after { content:"✦"; margin-left:34px; color:#76e4c6; }
+    @keyframes marquee { to { transform:translateX(-50%); } }
+
+    #services { color:#102236; background:linear-gradient(145deg,#eff8ff 0%,#f8f4ff 52%,#eefbf7 100%); }
+    #services .eyebrow { color:#176ea9; }
+    #services .section-head p, #services .depth-head p { color:#52687b; }
+    #services .service-card, #services .depth-shell { border-color:rgba(28,84,126,.14); background:rgba(255,255,255,.78); box-shadow:0 20px 55px rgba(44,87,123,.09); }
+    #services .service-card { transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease; }
+    #services .service-card:hover { transform:translateY(-10px); border-color:rgba(33,135,190,.34); box-shadow:0 28px 70px rgba(38,100,145,.16); }
+    #services .service-card:nth-child(2) { background:linear-gradient(145deg,#ffffff,#eef1ff); }
+    #services .service-card:nth-child(3) { background:linear-gradient(145deg,#ffffff,#fff6e9); }
+    #services .service-card:nth-child(4) { background:linear-gradient(145deg,#ffffff,#eafbf5); }
+    #services .service-card p, #services .service-card li, #services .depth-card ul { color:#52687b; }
+    #services .depth-card { border-color:rgba(28,84,126,.13); background:rgba(247,251,255,.82); }
+    #services .depth-card summary { color:#102236; }
+    #services .service-price, #services .case-tag { color:#087f77; }
+    #tasks { background:radial-gradient(circle at 90% 15%,rgba(125,91,255,.2),transparent 30rem),linear-gradient(135deg,#0a1730,#10254a 55%,#102c36); }
+    #cases { background:radial-gradient(circle at 8% 35%,rgba(255,155,79,.12),transparent 26rem),#07111f; }
+    #process { color:#13243a; background:linear-gradient(140deg,#f5f8fc,#eaf6ff); }
+    #process .eyebrow { color:#7d45d8; }
+    #process .section-head p, #process .process-step p { color:#5c6d7f; }
+    #process .process-step { border-color:rgba(107,70,200,.3); background:linear-gradient(180deg,rgba(117,77,210,.07),transparent); }
+    #process .process-step::before { color:#7950cf; }
+    #prices { background:radial-gradient(circle at 50% 0,rgba(38,166,221,.16),transparent 33rem); }
+    .case { transition:transform .4s cubic-bezier(.2,.8,.2,1), border-color .35s; }
+    .case:hover { transform:translateY(-8px) rotateX(1deg); border-color:rgba(113,220,207,.38); }
 
     .hero-console {
       position: relative;
@@ -475,7 +553,7 @@
       .hero { min-height: auto; }
       .hero-grid, .task-solution, .faq, .contact-grid { grid-template-columns: 1fr; }
       .hero-grid { gap: 40px; }
-      .hero-console { min-height: 500px; max-width: 680px; width: 100%; margin: auto; }
+      .hero-ai-shell { width:100%; max-width:900px; height:680px; min-height:0; margin:auto; }
       .service-grid { grid-template-columns: repeat(2, 1fr); }
       .price-grid { grid-template-columns: repeat(2, 1fr); }
       .proof-grid { grid-template-columns: repeat(2, 1fr); }
@@ -497,7 +575,10 @@
       .hero-copy { font-size: 17px; }
       .actions { display: grid; }
       .button { width: 100%; }
-      .hero-console { min-height: 410px; }
+      .hero-ai-shell { height:720px; border-radius:20px; animation:none; }
+      .hero-ai-shell::after { border-radius:19px; }
+      .hero-ai-head { padding:0 11px; font-size:9px; }
+      .hero-ai-head strong { font-size:10px; }
       .browser { inset: 12px 0 auto; min-height: 330px; transform: none; }
       .browser-body { padding: 16px; }
       .mini-cards { margin-top: 25px; }
@@ -589,31 +670,19 @@
           </div>
         </div>
 
-        <div class="hero-console" aria-label="Пример сайта и системы управления задачами">
-          <div class="browser">
-            <div class="browser-top">
-              <i class="dot"></i><i class="dot"></i><i class="dot"></i>
-              <div class="address">https://ваш-бизнес.kz</div>
-            </div>
-            <div class="browser-body">
-              <div class="browser-nav"><div class="mini-logo"></div><div class="mini-links"><i></i><i></i><i></i></div></div>
-              <div class="browser-hero"></div>
-              <div class="browser-sub"></div>
-              <div class="browser-sub short"></div>
-              <div class="mini-button"></div>
-              <div class="mini-cards"><div class="mini-card"></div><div class="mini-card"></div><div class="mini-card"></div></div>
-            </div>
-          </div>
-          <div class="domain-chip">Домен и SSL <b>подключены ✓</b></div>
-          <div class="task-card">
-            <div class="task-head">Задачи проекта <b>6 из 8 готово</b></div>
-            <div class="task"><i></i><span>Утвердить структуру</span><em>готово</em></div>
-            <div class="task"><i></i><span>Подключить домен</span><em>сегодня</em></div>
-            <div class="task"><i></i><span>Запустить рекламу</span><em>следом</em></div>
-          </div>
+        <div class="hero-ai-shell" id="aiLab" aria-label="Амир — основной ИИ-консультант Alsat">
+          <div class="hero-ai-head"><strong>Alsat Intelligence Studio</strong><span>Амир готов к разговору</span></div>
+          <iframe src="/amir" title="Амир — ИИ-консультант с живой визуализацией" loading="eager"></iframe>
         </div>
       </div>
     </section>
+
+    <div class="capability-marquee" aria-label="Направления автоматизации">
+      <div class="capability-track">
+        <span>Сайты и приложения</span><span>Теплицы и фермы</span><span>Гаражи и дома</span><span>Строительство</span><span>Цеха и склады</span><span>ИИ и роботы</span><span>CRM и задачники</span>
+        <span>Сайты и приложения</span><span>Теплицы и фермы</span><span>Гаражи и дома</span><span>Строительство</span><span>Цеха и склады</span><span>ИИ и роботы</span><span>CRM и задачники</span>
+      </div>
+    </div>
 
     <div class="proof-bar">
       <div class="container proof-grid">
