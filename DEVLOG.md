@@ -48,6 +48,18 @@ git push origin main → Cloudflare Pages автодеплой
 Commit: 1d06f80 — Connect Amir to live DeepSeek API with SSE streaming
 ```
 
+### 2026-08-16 — Два параллельных AI для схем
+
+**Архитектура изменена**: вместо встроенных тегов в ответе чата — два отдельных AI вызова:
+- `/api/amir` → SSE стриминг чат-ответа (DeepSeek, без системы тегов)
+- `/api/diagram` → JSON схема от второго AI (DeepSeek, специализированный промпт)
+
+Оба запроса стартуют **одновременно** при отправке сообщения. Пока чат печатает текст — второй AI уже строит схему. Анимация загрузки на холсте пока идёт запрос.
+
+`DIAGRAM_PROMPT` — минималистичный промпт только для JSON: тип (flow/map), title, nodes/branches с emoji. Никакого лишнего текста в ответе.
+
+Файлы: `_worker.js` (добавлены `DIAGRAM_PROMPT` + `handleDiagram()` + route `/api/diagram`), `amir.html` (параллельный fetch, `showCanvasLoading()`)
+
 ---
 
 ## Предыдущие сессии (Кодекс и Клод)

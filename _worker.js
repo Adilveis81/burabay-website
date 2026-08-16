@@ -262,33 +262,78 @@ async function handleConsult(request, env) {
 
 const AMIR_PROMPT = `Ты — Амир, универсальный AI-консультант. Помогаешь с любыми вопросами: бизнес, технологии, автоматизация, сельское хозяйство, медицина, образование, строительство, финансы и всё остальное.
 
-ВАЖНО: В самом начале ответа (отдельной первой строкой) добавляй ровно ОДИН тег схемы:
+Отвечай полезно и конкретно: факты, цифры, шаги. 4-8 предложений без воды.
+Не используй Markdown. Отвечай на языке клиента: русском, казахском или английском.`;
 
-Вариант А — для известных тем:
-[SCHEMA:irrigation] — полив, теплицы, IoT, капельный, датчики, ферма
-[SCHEMA:club] — компьютерный клуб, монетизация ПК, майнинг, рендер-ферма
-[SCHEMA:site] — сайт, домен, интернет-магазин, CRM, лендинг, веб
-[SCHEMA:agent] — AI агент, автоматизация, pipeline, workflow, бот
+const DIAGRAM_PROMPT = `You generate visual diagram specs as JSON. Given a user question and AI answer, return ONLY a single valid JSON object — no markdown, no explanation, no extra text.
 
-Вариант Б — для всех остальных тем, добавляй динамическую диаграмму:
-Для процессов/шагов/цепочек:
-[DIAGRAM:{"type":"flow","title":"Короткий заголовок","nodes":[{"icon":"🔵","label":"Шаг 1","sub":"подпись"},{"icon":"⚡","label":"Шаг 2","sub":"подпись"},{"icon":"✅","label":"Шаг 3","sub":"подпись"}]}]
+Choose type based on content:
+- "flow" for processes, steps, chains, workflows, instructions (how to do X)
+- "map" for topics with multiple aspects, options, or components (what is X)
 
-Для тем с несколькими аспектами/возможностями:
-[DIAGRAM:{"type":"map","title":"Тема","center":{"icon":"🧠","label":"Центр"},"branches":[{"icon":"🌿","label":"Ветка 1","sub":"деталь"},{"icon":"🔧","label":"Ветка 2","sub":"деталь"},{"icon":"💰","label":"Ветка 3","sub":"деталь"}]}]
+Flow format:
+{"type":"flow","title":"Short title 3-5 words","nodes":[{"icon":"emoji","label":"Step label","sub":"2-4 word detail"},{"icon":"emoji","label":"Step label","sub":"2-4 word detail"},{"icon":"emoji","label":"Step label","sub":"2-4 word detail"}]}
 
-Правила:
-- nodes или branches: 3-6 элементов, НЕ больше
-- icon: ровно один emoji
-- label: 2-4 слова
-- sub: 2-5 слов
-- title: 3-6 слов
-- JSON должен быть строго валидным, без лишних запятых
+Map format:
+{"type":"map","title":"Short title 3-5 words","center":{"icon":"emoji","label":"2-3 words"},"branches":[{"icon":"emoji","label":"Branch label","sub":"2-4 word detail"},{"icon":"emoji","label":"Branch label","sub":"2-4 word detail"},{"icon":"emoji","label":"Branch label","sub":"2-4 word detail"}]}
 
-Если вопрос разговорный или слишком короткий (приветствие, уточнение) — тег не нужен.
+Rules:
+- 3 to 5 nodes/branches (never more than 6)
+- Each icon: exactly one emoji relevant to content
+- label: 2-4 words
+- sub: 2-5 words
+- All text in the same language as the question
+- Return ONLY the JSON object, nothing else`;
 
-После тега сразу пиши ответ. Без Markdown. 4-8 предложений.
-Отвечай на языке клиента: русском, казахском или английском.`;
+async function handleDiagram(request, env) {
+  if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
+  if (!env.DEEPSEEK_API_KEY) return json({ error: 'no key' }, 503);
+
+  let body;
+  try { body = await request.json(); } catch { return json({ error: 'bad request' }, 400); }
+
+  const question = cleanText(body.question, 600);
+  const answer = cleanText(body.answer, 800);
+  if (!question) return json({ error: 'empty' }, 400);
+
+  const userContent = answer
+    ? `Question: ${question}\n\nAI answer summary: ${answer}`
+    : `Question: ${question}`;
+
+  let aiResp, aiData;
+  try {
+    aiResp = await fetch('https://api.deepseek.com/chat/completions', {
+      method: 'POST',
+      headers: { authorization: `Bearer ${env.DEEPSEEK_API_KEY}`, 'content-type': 'application/json' },
+      body: JSON.stringify({
+        model: 'deepseek-v4-flash',
+        thinking: { type: 'disabled' },
+        temperature: 0.1,
+        max_tokens: 400,
+        messages: [
+          { role: 'system', content: DIAGRAM_PROMPT },
+          { role: 'user', content: userContent },
+        ],
+      }),
+      signal: AbortSignal.timeout(20000),
+    });
+    aiData = await aiResp.json();
+  } catch {
+    return json({ error: 'timeout' }, 504);
+  }
+
+  const raw = aiData?.choices?.[0]?.message?.content?.trim() || '';
+  // Extract JSON from response (strip possible markdown fences)
+  const jsonMatch = raw.match(/\{[\s\S]*\}/);
+  if (!jsonMatch) return json({ error: 'no json' }, 502);
+
+  try {
+    const spec = JSON.parse(jsonMatch[0]);
+    return json({ spec });
+  } catch {
+    return json({ error: 'invalid json' }, 502);
+  }
+}
 
 async function handleAmir(request, env) {
   if (request.method === 'OPTIONS') {
@@ -355,6 +400,10 @@ export default {
 
     if (url.pathname === '/api/amir') {
       return handleAmir(request, env);
+    }
+
+    if (url.pathname === '/api/diagram') {
+      return handleDiagram(request, env);
     }
 
     const subdomainMap = {
