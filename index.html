@@ -26,12 +26,14 @@
       --shadow: 0 24px 80px rgba(0, 0, 0, .32);
       --radius: 22px;
       --max: 1180px;
+      --chat-rail: clamp(350px, 30vw, 430px);
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
+      padding-right: var(--chat-rail);
       color: var(--ink);
       background:
         radial-gradient(circle at 80% 5%, rgba(22, 133, 230, .16), transparent 30rem),
@@ -128,8 +130,9 @@
     .nav .nav-cta { color: white; border: 1px solid var(--line); border-radius: 999px; padding: 10px 16px; background: rgba(255, 255, 255, .04); }
     .menu-button { display: none; color: white; background: transparent; border: 1px solid var(--line); border-radius: 11px; padding: 8px 11px; }
 
-    .hero { min-height: calc(100vh - 76px); display: grid; align-items: center; padding: 76px 0 96px; position: relative; }
-    .hero-grid { display: grid; grid-template-columns: minmax(330px, .72fr) minmax(650px, 1.28fr); gap: 42px; align-items: center; }
+    .hero { min-height: calc(100dvh - 76px); display: grid; align-items: stretch; padding: 16px 0 22px; position: relative; }
+    .hero .container { width:min(calc(100% - 28px),1500px); }
+    .hero-grid { display: block; height:100%; }
     .availability {
       display: inline-flex;
       gap: 9px;
@@ -172,8 +175,9 @@
 
     .hero-ai-shell {
       position: relative;
-      height: min(720px, calc(100vh - 112px));
-      min-height: 610px;
+      width:100%;
+      height: calc(100dvh - 114px);
+      min-height: 620px;
       overflow: hidden;
       border: 1px solid rgba(164, 222, 255, .26);
       border-radius: 28px;
@@ -233,6 +237,20 @@
     .case { transition:transform .4s cubic-bezier(.2,.8,.2,1), border-color .35s; }
     .case:hover { transform:translateY(-8px) rotateX(1deg); border-color:rgba(113,220,207,.38); }
     .ai-launcher, .ai-panel, .ai-stage { display:none !important; }
+
+    .site-chat-rail {
+      position:fixed;
+      top:0;
+      right:0;
+      z-index:70;
+      width:var(--chat-rail);
+      height:100dvh;
+      border-left:1px solid rgba(139,207,240,.22);
+      background:#07111f;
+      box-shadow:-24px 0 70px rgba(0,0,0,.24);
+    }
+    .site-chat-rail::before { content:"Амир · постоянный консультант"; height:42px; display:flex; align-items:center; padding:0 15px; color:#8ce9d0; border-bottom:1px solid rgba(139,207,240,.14); background:linear-gradient(90deg,rgba(30,137,214,.12),rgba(101,75,210,.12)); font-size:10px; font-weight:850; letter-spacing:.12em; text-transform:uppercase; }
+    .site-chat-rail iframe { width:100%; height:calc(100% - 42px); display:block; border:0; background:#07111f; }
 
     .hero-console {
       position: relative;
@@ -554,7 +572,7 @@
       .hero { min-height: auto; }
       .hero-grid, .task-solution, .faq, .contact-grid { grid-template-columns: 1fr; }
       .hero-grid { gap: 40px; }
-      .hero-ai-shell { width:100%; max-width:900px; height:680px; min-height:0; margin:auto; }
+      .hero-ai-shell { width:100%; height:calc(100dvh - 108px); min-height:560px; margin:auto; }
       .service-grid { grid-template-columns: repeat(2, 1fr); }
       .price-grid { grid-template-columns: repeat(2, 1fr); }
       .proof-grid { grid-template-columns: repeat(2, 1fr); }
@@ -568,6 +586,10 @@
     }
 
     @media (max-width: 680px) {
+      body { padding-right:0; padding-bottom:54dvh; }
+      .site-chat-rail { top:auto; bottom:0; left:0; width:100%; height:54dvh; border-left:0; border-top:1px solid rgba(139,207,240,.22); box-shadow:0 -20px 60px rgba(0,0,0,.28); }
+      .site-chat-rail::before { height:34px; padding:0 11px; font-size:8px; }
+      .site-chat-rail iframe { height:calc(100% - 34px); }
       .container { width: min(calc(100% - 28px), var(--max)); }
       .section { padding: 76px 0; }
       .header-row { min-height: 68px; }
@@ -576,7 +598,7 @@
       .hero-copy { font-size: 17px; }
       .actions { display: grid; }
       .button { width: 100%; }
-      .hero-ai-shell { height:720px; border-radius:20px; animation:none; }
+      .hero-ai-shell { height:calc(46dvh - 76px); min-height:300px; border-radius:20px; animation:none; }
       .hero-ai-shell::after { border-radius:19px; }
       .hero-ai-head { padding:0 11px; font-size:9px; }
       .hero-ai-head strong { font-size:10px; }
@@ -653,27 +675,16 @@
     </div>
   </header>
 
+  <aside class="site-chat-rail" aria-label="Постоянный чат с Амиром">
+    <iframe src="/amir?mode=chat" title="Чат с ИИ-консультантом Амиром" loading="eager"></iframe>
+  </aside>
+
   <main id="top">
     <section class="hero">
       <div class="container hero-grid">
-        <div>
-          <div class="availability">Берём проекты удалённо</div>
-          <h1>Цифровые системы, которые <span>работают на бизнес</span></h1>
-          <p class="hero-copy">Создаём сайты, приложения и ИИ-системы, автоматизируем теплицы, гаражи, стройку, цеха, склады, оборудование и любые бизнес-процессы. От первой схемы до запуска и поддержки.</p>
-          <div class="actions">
-            <a class="button button-primary" href="/amir">Обсудить идею с Амиром <span>→</span></a>
-            <a class="button button-secondary" href="/showrooms.html">Посмотреть работы</a>
-          </div>
-          <div class="trust-row">
-            <span>Работа по этапам</span>
-            <span>Связь в Telegram</span>
-            <span>Передача всех доступов</span>
-          </div>
-        </div>
-
         <div class="hero-ai-shell" id="aiLab" aria-label="Амир — основной ИИ-консультант Alsat">
-          <div class="hero-ai-head"><strong>Alsat Intelligence Studio</strong><span>Амир готов к разговору</span></div>
-          <iframe src="/amir?embed=1" title="Амир — ИИ-консультант с живой визуализацией" loading="eager"></iframe>
+          <div class="hero-ai-head"><strong>Основной экран · визуализация решения</strong><span>Синхронизирован с чатом</span></div>
+          <iframe src="/amir?mode=canvas" title="Основной экран визуализации Амира" loading="eager"></iframe>
         </div>
       </div>
     </section>

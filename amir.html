@@ -102,10 +102,17 @@ html,body{height:100%;font-family:'Segoe UI',Arial,sans-serif;background:#070d1a
   body.embed #scenario-tabs{display:flex}
   body.embed #quick-prompts{display:flex}
 }
+
+body.mode-canvas #app{display:block}
+body.mode-canvas #canvas-panel{display:block;width:100%;height:100%;border:0}
+body.mode-canvas #chat-panel{display:none}
+body.mode-chat #app{display:block}
+body.mode-chat #canvas-panel{display:none}
+body.mode-chat #chat-panel{display:flex;width:100%;height:100%}
 </style>
 </head>
 <body>
-<script>if(new URLSearchParams(location.search).has('embed'))document.body.classList.add('embed')</script>
+<script>{const p=new URLSearchParams(location.search);if(p.has('embed'))document.body.classList.add('embed');if(p.get('mode'))document.body.classList.add('mode-'+p.get('mode'))}</script>
 <div id="app">
   <div id="canvas-panel">
     <div id="canvas-title">ВИЗУАЛЬНАЯ СХЕМА</div>
@@ -309,6 +316,7 @@ ${arrow(628,521,628,546,'#ffdd00')}
 };
 
 // ── Dynamic diagram renderer ───────────────────
+const diagramSync = 'BroadcastChannel' in window ? new BroadcastChannel('alsat-amir-diagram-v1') : null;
 function renderFlow(spec) {
   const nodes = spec.nodes || [];
   const n = Math.min(nodes.length, 6);
@@ -355,7 +363,7 @@ function renderMap(spec) {
 }
 
 
-function showDiagram(diag) {
+function showDiagram(diag, fromSync=false) {
   if(!diag) return;
   const root=document.getElementById('diagram-root');
   if(diag.kind==='preset'){
@@ -375,6 +383,7 @@ function showDiagram(diag) {
     document.getElementById('canvas-subtitle').textContent=title;
     updateTabs('');
   }
+  if(!fromSync && diagramSync) diagramSync.postMessage({type:'diagram',diag});
 }
 
 function showPreset(name) {
@@ -388,9 +397,13 @@ function updateTabs(active) {
 }
 
 showDiagram({kind:'preset',name:'welcome'});
+if(diagramSync) diagramSync.onmessage=event=>{
+  if(event.data?.type==='diagram') showDiagram(event.data.diag,true);
+  if(event.data?.type==='loading') showCanvasLoading(true);
+};
 
 // ── Canvas loading state ───────────────────────
-function showCanvasLoading() {
+function showCanvasLoading(fromSync=false) {
   const root = document.getElementById('diagram-root');
   root.innerHTML = `
     <circle cx="400" cy="280" r="38" fill="none" stroke="rgba(56,182,255,.15)" stroke-width="2"/>
@@ -399,6 +412,7 @@ function showCanvasLoading() {
     </circle>
     <text x="400" y="340" text-anchor="middle" fill="rgba(56,182,255,.4)" font-size="11" letter-spacing="2">ГЕНЕРИРУЮ СХЕМУ...</text>`;
   document.getElementById('canvas-subtitle').textContent = 'Второй AI строит диаграмму...';
+  if(!fromSync && diagramSync) diagramSync.postMessage({type:'loading'});
 }
 
 // ── Chat ───────────────────────────────────────
