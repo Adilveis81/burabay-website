@@ -22,13 +22,19 @@
 
   function loadSupabase() {
     if (window.supabase?.createClient) return Promise.resolve();
-    return new Promise((resolve, reject) => {
+    const sources = [
+      'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js',
+      'https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js',
+    ];
+    const trySource = index => new Promise((resolve, reject) => {
+      if (!sources[index]) return reject(new Error('Не удалось загрузить модуль входа'));
       const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
-      script.onload = resolve;
-      script.onerror = () => reject(new Error('Не удалось загрузить модуль входа'));
+      script.src = sources[index];
+      script.onload = () => window.supabase?.createClient ? resolve() : trySource(index + 1).then(resolve, reject);
+      script.onerror = () => trySource(index + 1).then(resolve, reject);
       document.head.appendChild(script);
     });
+    return trySource(0);
   }
 
   function createGate() {
