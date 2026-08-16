@@ -260,10 +260,13 @@ async function handleConsult(request, env) {
   return json({ reply, leadCaptured, demo });
 }
 
-const AMIR_PROMPT = `Ты — Амир, универсальный AI-консультант. Помогаешь с любыми вопросами: бизнес, технологии, автоматизация, сельское хозяйство, медицина, образование, строительство, финансы и всё остальное.
+const AMIR_PROMPT = `Ты — Амир, главный AI-консультант и архитектор решений Alsat. Твоя задача — понять идею клиента, заинтересовать его возможностями и сразу собрать понятную концепцию решения.
 
-Отвечай полезно и конкретно: факты, цифры, шаги. 4-8 предложений без воды.
-Не используй Markdown. Отвечай на языке клиента: русском, казахском или английском.`;
+Alsat не ограничивается сайтами. Компания проектирует сайты, приложения, Telegram-ботов, CRM и задачники, а также автоматизацию теплиц, гаражей, домов, стройплощадок, цехов, складов, оборудования, датчиков, видеонаблюдения и любых повторяющихся процессов. Если готового решения нет, предложи спроектировать новое под задачу клиента.
+
+Сначала коротко покажи, что понял замысел. Затем предложи конкретную систему: из каких частей она состоит, как работает, что увидит владелец и какую пользу получит. Задавай только один полезный уточняющий вопрос за раз. Не отправляй клиента к менеджеру, не требуй бриф и не завершай разговор контактами: веди консультацию до ясной концепции, ориентировочной комплектации и следующего понятного шага. Менеджер нужен только для оплаты и запуска согласованного решения.
+
+Отвечай живо, уверенно и конкретно, 5-9 короткими предложениями без Markdown. Не выдумывай точную цену без достаточных данных. Отвечай на языке клиента: русском, казахском или английском.`;
 
 const DIAGRAM_PROMPT = `You generate visual diagram specs as JSON. Given a user question and AI answer, return ONLY a single valid JSON object — no markdown, no explanation, no extra text.
 
@@ -368,7 +371,7 @@ async function handleAmir(request, env) {
     return new Response(null, { headers: { 'access-control-allow-origin': '*', 'access-control-allow-methods': 'POST', 'access-control-allow-headers': 'content-type' } });
   }
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
-  if (!env.DEEPSEEK_API_KEY) return json({ error: 'API not configured' }, 503);
+  if (!env.ANTHROPIC_API_KEY && !env.DEEPSEEK_API_KEY) return json({ error: 'API not configured' }, 503);
 
   let body;
   try { body = await request.json(); } catch { return json({ error: 'Bad request' }, 400); }
@@ -384,28 +387,54 @@ async function handleAmir(request, env) {
     : [];
 
   let aiResponse;
-  try {
-    aiResponse = await fetch('https://api.deepseek.com/chat/completions', {
-      method: 'POST',
-      headers: { authorization: `Bearer ${env.DEEPSEEK_API_KEY}`, 'content-type': 'application/json' },
-      body: JSON.stringify({
-        model: 'deepseek-v4-flash',
-        stream: true,
-        thinking: { type: 'disabled' },
-        temperature: 0.3,
-        max_tokens: 600,
-        messages: [
-          { role: 'system', content: AMIR_PROMPT },
-          ...history,
-          { role: 'user', content: message },
-        ],
-      }),
-      signal: AbortSignal.timeout(45000),
-    });
-  } catch (e) {
-    return json({ error: 'Timeout' }, 504);
+
+  // Primary consultant: Claude Sonnet. The same request streams text while
+  // the independent diagram request builds the visual in parallel.
+  if (env.ANTHROPIC_API_KEY) {
+    try {
+      aiResponse = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'x-api-key': env.ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01',
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-5',
+          stream: true,
+          max_tokens: 800,
+          system: AMIR_PROMPT,
+          messages: [...history, { role: 'user', content: message }],
+        }),
+        signal: AbortSignal.timeout(45000),
+      });
+    } catch { aiResponse = null; }
   }
 
+  // Fallback keeps the consultant available if the Anthropic service fails.
+  if ((!aiResponse || !aiResponse.ok) && env.DEEPSEEK_API_KEY) {
+    try {
+      aiResponse = await fetch('https://api.deepseek.com/chat/completions', {
+        method: 'POST',
+        headers: { authorization: `Bearer ${env.DEEPSEEK_API_KEY}`, 'content-type': 'application/json' },
+        body: JSON.stringify({
+          model: 'deepseek-v4-flash',
+          stream: true,
+          thinking: { type: 'disabled' },
+          temperature: 0.3,
+          max_tokens: 800,
+          messages: [
+            { role: 'system', content: AMIR_PROMPT },
+            ...history,
+            { role: 'user', content: message },
+          ],
+        }),
+        signal: AbortSignal.timeout(45000),
+      });
+    } catch { aiResponse = null; }
+  }
+
+  if (!aiResponse) return json({ error: 'Timeout' }, 504);
   if (!aiResponse.ok) return json({ error: 'AI error' }, 502);
 
   return new Response(aiResponse.body, {

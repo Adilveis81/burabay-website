@@ -434,7 +434,7 @@ async function streamAmir(userText){
         if(!line.startsWith('data: '))continue;
         const raw=line.slice(6).trim();if(raw==='[DONE]')continue;
         let chunk;try{chunk=JSON.parse(raw);}catch{continue;}
-        const delta=chunk?.choices?.[0]?.delta?.content||'';
+        const delta=chunk?.choices?.[0]?.delta?.content||chunk?.delta?.text||'';
         if(!delta)continue;
         fullText+=delta;
         bubble.textContent=fullText.trim();

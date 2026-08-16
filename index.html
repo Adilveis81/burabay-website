@@ -577,10 +577,10 @@
         <div>
           <div class="availability">Берём проекты удалённо</div>
           <h1>Цифровые системы, которые <span>работают на бизнес</span></h1>
-          <p class="hero-copy">Создаём сайты, подключаем домены и почту, разрабатываем задачники, CRM и автоматизацию. Один исполнитель — от первой схемы до запуска и поддержки.</p>
+          <p class="hero-copy">Создаём сайты, приложения и ИИ-системы, автоматизируем теплицы, гаражи, стройку, цеха, склады, оборудование и любые бизнес-процессы. От первой схемы до запуска и поддержки.</p>
           <div class="actions">
-            <a class="button button-primary" href="#contact">Рассчитать проект <span>→</span></a>
-            <a class="button button-secondary" href="#cases">Посмотреть работы</a>
+            <a class="button button-primary" href="/amir">Обсудить идею с Амиром <span>→</span></a>
+            <a class="button button-secondary" href="/showrooms.html">Посмотреть работы</a>
           </div>
           <div class="trust-row">
             <span>Работа по этапам</span>
@@ -1026,12 +1026,7 @@
           document.documentElement.classList.remove('keyboard-open');
         }
       };
-      // Open by default on first visit (desktop)
-      if (matchMedia('(min-width: 981px)').matches) {
-        setTimeout(() => toggleChat(true), 600);
-      }
-
-      aiLauncher.addEventListener('click', () => toggleChat(!aiPanel.classList.contains('open')));
+      aiLauncher.addEventListener('click', () => { window.location.href = '/amir'; });
       aiClose.addEventListener('click', () => { toggleChat(false); if ('speechSynthesis' in window) speechSynthesis.cancel(); });
       aiStageClose.addEventListener('click', closeStage);
       aiVoice.addEventListener('click', () => {
