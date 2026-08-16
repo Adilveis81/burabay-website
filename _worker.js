@@ -341,7 +341,7 @@ function sanitizeDemoAnswer(text) {
   const parts = String(text || '').match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [];
   let clean = parts
     .filter(part => !part.includes('?'))
-    .filter(part => !/(расскажите|подскажите|уточните|опишите|ответьте|выберите|напишите)/i.test(part))
+    .filter(part => !/(расскажи(?:те)?|подскажи(?:те)?|уточни(?:те)?|опиши(?:те)?|ответ(?:ь|ьте)|выбери(?:те)?|напиши(?:те)?)/i.test(part))
     .join(' ')
     .replace(/\s+/g, ' ')
     .trim();
