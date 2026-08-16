@@ -287,7 +287,6 @@ Rules:
 
 async function handleDiagram(request, env) {
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
-  if (!env.DEEPSEEK_API_KEY) return json({ error: 'no key' }, 503);
 
   let body;
   try { body = await request.json(); } catch { return json({ error: 'bad request' }, 400); }
@@ -297,39 +296,68 @@ async function handleDiagram(request, env) {
   if (!question) return json({ error: 'empty' }, 400);
 
   const userContent = answer
-    ? `Question: ${question}\n\nAI answer summary: ${answer}`
+    ? `Question: ${question}\n\nContext from chat answer: ${answer}`
     : `Question: ${question}`;
 
-  let aiResp, aiData;
-  try {
-    aiResp = await fetch('https://api.deepseek.com/chat/completions', {
-      method: 'POST',
-      headers: { authorization: `Bearer ${env.DEEPSEEK_API_KEY}`, 'content-type': 'application/json' },
-      body: JSON.stringify({
-        model: 'deepseek-v4-flash',
-        thinking: { type: 'disabled' },
-        temperature: 0.1,
-        max_tokens: 400,
-        messages: [
-          { role: 'system', content: DIAGRAM_PROMPT },
-          { role: 'user', content: userContent },
-        ],
-      }),
-      signal: AbortSignal.timeout(20000),
-    });
-    aiData = await aiResp.json();
-  } catch {
-    return json({ error: 'timeout' }, 504);
+  let raw = '';
+  let model = '';
+
+  // ── Primary: Claude Sonnet (visual AI) ────────
+  if (env.ANTHROPIC_API_KEY) {
+    try {
+      model = 'claude-sonnet-5';
+      const resp = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'x-api-key': env.ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01',
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          model,
+          max_tokens: 500,
+          system: DIAGRAM_PROMPT,
+          messages: [{ role: 'user', content: userContent }],
+        }),
+        signal: AbortSignal.timeout(25000),
+      });
+      const data = await resp.json();
+      raw = data?.content?.[0]?.text?.trim() || '';
+    } catch { raw = ''; }
   }
 
-  const raw = aiData?.choices?.[0]?.message?.content?.trim() || '';
-  // Extract JSON from response (strip possible markdown fences)
+  // ── Fallback: DeepSeek ─────────────────────────
+  if (!raw && env.DEEPSEEK_API_KEY) {
+    try {
+      model = 'deepseek-v4-flash';
+      const resp = await fetch('https://api.deepseek.com/chat/completions', {
+        method: 'POST',
+        headers: { authorization: `Bearer ${env.DEEPSEEK_API_KEY}`, 'content-type': 'application/json' },
+        body: JSON.stringify({
+          model,
+          thinking: { type: 'disabled' },
+          temperature: 0.1,
+          max_tokens: 400,
+          messages: [
+            { role: 'system', content: DIAGRAM_PROMPT },
+            { role: 'user', content: userContent },
+          ],
+        }),
+        signal: AbortSignal.timeout(20000),
+      });
+      const data = await resp.json();
+      raw = data?.choices?.[0]?.message?.content?.trim() || '';
+    } catch { raw = ''; }
+  }
+
+  if (!raw) return json({ error: 'no ai available' }, 503);
+
   const jsonMatch = raw.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) return json({ error: 'no json' }, 502);
+  if (!jsonMatch) return json({ error: 'no json', raw }, 502);
 
   try {
     const spec = JSON.parse(jsonMatch[0]);
-    return json({ spec });
+    return json({ spec, model });
   } catch {
     return json({ error: 'invalid json' }, 502);
   }

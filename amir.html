@@ -381,7 +381,7 @@ function showTyping(){
 }
 function removeTyping(){const t=document.getElementById('typing-ind');if(t)t.remove();}
 
-// Fetch diagram from second AI in parallel
+// Fetch diagram from second AI (Claude Sonnet) in parallel
 async function fetchDiagram(question, answer) {
   try {
     const resp = await fetch('/api/diagram', {
@@ -391,7 +391,8 @@ async function fetchDiagram(question, answer) {
     });
     if (!resp.ok) return null;
     const data = await resp.json();
-    return data.spec || null;
+    if (!data.spec) return null;
+    return { spec: data.spec, model: data.model || '' };
   } catch { return null; }
 }
 
@@ -446,17 +447,20 @@ async function streamAmir(userText){
     bubble.textContent=display;
 
     // Wait for diagram AI and render
-    const spec = await diagPromise;
-    if (spec) {
-      showDiagram({kind:'dynamic', spec});
+    const diagResult = await diagPromise;
+    if (diagResult && diagResult.spec) {
+      showDiagram({kind:'dynamic', spec: diagResult.spec});
+      const modelLabel = diagResult.model && diagResult.model.includes('claude')
+        ? '✦ Claude Sonnet'
+        : '⚡ DeepSeek';
       const tag=document.createElement('div');tag.className='diagram-tag';
-      tag.textContent='📊 Схема от AI';
-      tag.onclick=()=>showDiagram({kind:'dynamic', spec});
+      tag.textContent=`📊 Схема · ${modelLabel}`;
+      tag.onclick=()=>showDiagram({kind:'dynamic', spec: diagResult.spec});
       inner.appendChild(tag);
     } else {
-      // Fallback: try again with full answer context
-      fetchDiagram(userText, display).then(s2 => {
-        if(s2) showDiagram({kind:'dynamic', spec:s2});
+      // Fallback: retry with full answer context
+      fetchDiagram(userText, display).then(r2 => {
+        if(r2 && r2.spec) showDiagram({kind:'dynamic', spec: r2.spec});
       });
     }
 
