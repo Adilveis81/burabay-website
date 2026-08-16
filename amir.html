@@ -45,6 +45,9 @@ html,body{height:100%;font-family:'Segoe UI',Arial,sans-serif;background:#070d1a
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 .diagram-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(56,182,255,.08);border:1px solid rgba(56,182,255,.2);border-radius:16px;padding:3px 9px;font-size:10.5px;color:#38b6ff;margin-top:6px;cursor:pointer;transition:background .2s}
 .diagram-tag:hover{background:rgba(56,182,255,.16)}
+.demo-remaining{display:inline-flex;margin-top:6px;padding:3px 8px;border:1px solid rgba(255,190,85,.2);border-radius:14px;background:rgba(255,170,55,.07);color:#ffc978;font-size:9.5px}
+.paywall-card{margin:3px 0 4px 36px;padding:14px;border:1px solid rgba(255,187,80,.28);border-radius:16px;background:linear-gradient(145deg,rgba(255,164,46,.11),rgba(56,182,255,.07));box-shadow:0 14px 35px rgba(0,0,0,.2)}
+.paywall-card small{display:block;color:#ffc56f;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}.paywall-card b{display:block;margin-top:6px;font-size:13px}.paywall-card p{margin-top:6px;color:#b9cbe0;font-size:11px;line-height:1.5}.paywall-actions{display:flex;gap:7px;margin-top:10px}.paywall-actions a{padding:7px 10px;border-radius:10px;text-decoration:none;font-size:10px;font-weight:700}.paywall-actions a:first-child{background:linear-gradient(135deg,#25d366,#16a957);color:#04150a}.paywall-actions a:last-child{border:1px solid rgba(56,182,255,.3);color:#78d6ff;background:rgba(56,182,255,.07)}
 
 #quick-prompts{padding:8px 13px;display:flex;gap:6px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.05)}
 .qp{padding:5px 11px;border-radius:16px;font-size:11px;cursor:pointer;background:rgba(255,255,255,.04);border:1px solid rgba(56,182,255,.16);color:rgba(200,215,255,.7);transition:all .2s;white-space:nowrap}
@@ -137,14 +140,14 @@ body.mode-chat #chat-panel{display:flex;width:100%;height:100%}
   <div id="chat-panel">
     <div id="chat-header">
       <div id="amir-avatar">🤖</div>
-      <div id="amir-info"><h3>Мансур</h3><p>AI-консультант · alsat.asia</p></div>
+      <div id="amir-info"><h3>Мансур</h3><p id="usage-label">Демо · 5 бесплатных вопросов</p></div>
       <div id="status-dot"></div>
     </div>
     <div id="messages">
       <div class="msg amir">
         <div class="msg-avatar">🤖</div>
         <div>
-          <div class="msg-bubble">Привет! Я Мансур — универсальный AI-консультант. Пока мы разговариваем, схема слева меняется в зависимости от темы. Спросите про что угодно: автоматизацию, бизнес, технологии, стройку или что-то другое.</div>
+          <div class="msg-bubble">Здравствуйте! Я Мансур — демонстрационный ИИ-консультант Alsat. Бесплатно доступны 5 компактных ответов, показывающих возможности системы. Полный персональный разбор и продвинутый режим активируются после приобретения консультации.</div>
           <div class="diagram-tag" onclick="showPreset('welcome')">📊 Что умею показывать</div>
         </div>
       </div>
@@ -265,7 +268,7 @@ ${box(558,128,152,52,'#004488','📊 Аналитика','Google Analytics',.3)}
 ${box(196,238,184,56,'#003355','🖥️ Фронтенд','HTML/CSS/JS · React',.6)}
 ${box(420,238,184,56,'#003355','📱 Мобильная','версия / PWA',.6)}
 ${box(196,338,184,56,'#330033','⚙️ Бэкенд API','Node.js / Python',1.0)}
-${box(420,338,184,56,'#330033','🤖 AI чат-бот','Claude / DeepSeek',1.0)}
+${box(420,338,184,56,'#330033','🤖 AI чат-бот','Alsat AI',1.0)}
 ${box(96,438,162,56,'#1a1100','🗄️ База данных','PostgreSQL / Mongo',1.4)}
 ${box(296,438,162,56,'#1a1100','📁 Файлы','Cloudflare R2 / S3',1.4)}
 ${box(496,438,162,56,'#001a00','📧 Email / SMS','Уведомления',1.4)}
@@ -289,11 +292,11 @@ ${arrow(324,283,388,283)}
 <text x="441" y="278" text-anchor="middle" fill="#cc88ff" font-size="13" font-weight="bold" class="fade-in-el" style="animation-delay:.6s">🚀 Триггер</text>
 <text x="441" y="296" text-anchor="middle" fill="rgba(220,200,255,.55)" font-size="10" class="fade-in-el" style="animation-delay:.6s">Webhook</text>
 ${arrow(494,283,556,283,'#ff9900')}
-${box(556,148,144,65,'#330066','🧠 Claude','ТЗ + план',.9)}
+${box(556,148,144,65,'#330066','🧠 Анализ','ТЗ + план',.9)}
 ${arrow(628,213,628,258,'#aa44ff')}
-${box(556,258,144,65,'#003366','⚡ Codex','Пишет код',1.2)}
+${box(556,258,144,65,'#003366','⚡ Разработка','Собирает систему',1.2)}
 ${arrow(628,323,628,368,'#38b6ff')}
-${box(556,368,144,65,'#003300','🔍 DeepSeek','Тест + ревью',1.5)}
+${box(556,368,144,65,'#003300','🔍 Проверка','Тест + ревью',1.5)}
 ${arrow(628,433,628,456,'#22dd66')}
 ${box(556,456,144,65,'#334400','🚀 Deploy','Cloudflare',1.8)}
 ${arrow(628,521,628,546,'#ffdd00')}
@@ -411,17 +414,55 @@ function showCanvasLoading(fromSync=false) {
       <animateTransform attributeName="transform" type="rotate" from="0 400 280" to="360 400 280" dur="1.1s" repeatCount="indefinite"/>
     </circle>
     <text x="400" y="340" text-anchor="middle" fill="rgba(56,182,255,.4)" font-size="11" letter-spacing="2">ГЕНЕРИРУЮ СХЕМУ...</text>`;
-  document.getElementById('canvas-subtitle').textContent = 'Второй AI строит диаграмму...';
+  document.getElementById('canvas-subtitle').textContent = 'Строю наглядную схему...';
   if(!fromSync && diagramSync) diagramSync.postMessage({type:'loading'});
 }
 
 // ── Chat ───────────────────────────────────────
 const msgsEl=document.getElementById('messages');
-let chatHistory=[], busy=false;
+const DEMO_LIMIT=5;
+const USAGE_KEY='alsat_ai_demo_usage_v2';
+const SESSION_KEY='alsat_ai_demo_session_v2';
+const ACCESS_KEY='alsat_consultation_access_v1';
+let chatHistory=[], busy=false, gated=false, fullAccess=false;
+
+function storageGet(key){try{return localStorage.getItem(key)||''}catch{return ''}}
+function storageSet(key,value){try{localStorage.setItem(key,String(value))}catch{}}
+function getUsed(){return Math.max(0,Math.min(DEMO_LIMIT,Number(storageGet(USAGE_KEY))||0))}
+function setUsed(value){storageSet(USAGE_KEY,Math.max(0,Math.min(DEMO_LIMIT,value)));updateUsageLabel()}
+function getSessionId(){
+  let id=storageGet(SESSION_KEY);
+  if(!id){id=crypto.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`;storageSet(SESSION_KEY,id)}
+  return id;
+}
+const activationParam=new URLSearchParams(location.search).get('consultation');
+if(activationParam)storageSet(ACCESS_KEY,activationParam.slice(0,160));
+const accessCode=storageGet(ACCESS_KEY);
+
+function updateUsageLabel(){
+  const label=document.getElementById('usage-label');
+  if(fullAccess)label.textContent='Полная консультация · активна';
+  else label.textContent=`Демо · осталось ${Math.max(0,DEMO_LIMIT-getUsed())} из ${DEMO_LIMIT}`;
+}
+
+function showPurchaseGate(){
+  if(document.querySelector('.paywall-card'))return;
+  gated=true;
+  const card=document.createElement('div');card.className='paywall-card';
+  card.innerHTML='<small>Демонстрация завершена</small><b>Активируйте полную AI-консультацию</b><p>Пять бесплатных вопросов показали принцип работы. После приобретения консультации мы включим продвинутый режим для глубокого персонального разбора и подготовки решения.</p><div class="paywall-actions"><a href="https://wa.me/77064244277?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BA%D1%83%D0%BF%D0%B8%D1%82%D1%8C%20AI-%D0%BA%D0%BE%D0%BD%D1%81%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%86%D0%B8%D1%8E%20Alsat." target="_blank" rel="noopener">Купить консультацию</a><a href="https://t.me/alsat_kz" target="_blank" rel="noopener">Написать в Telegram</a></div>';
+  msgsEl.appendChild(card);msgsEl.scrollTop=msgsEl.scrollHeight;
+  document.getElementById('user-input').disabled=true;
+  document.getElementById('user-input').placeholder='Лимит демоверсии использован';
+  document.getElementById('send-btn').disabled=true;
+  document.getElementById('quick-prompts').style.display='none';
+}
+
+updateUsageLabel();
+if(getUsed()>=DEMO_LIMIT&&!accessCode)setTimeout(showPurchaseGate,250);
 
 function setBusy(v){
   busy=v;
-  document.getElementById('send-btn').disabled=v;
+  document.getElementById('send-btn').disabled=v||gated;
 }
 
 function showTyping(){
@@ -431,7 +472,7 @@ function showTyping(){
 }
 function removeTyping(){const t=document.getElementById('typing-ind');if(t)t.remove();}
 
-// Fetch diagram from second AI (Claude Sonnet) in parallel
+// Fetch a customer-facing visual diagram in parallel.
 async function fetchDiagram(question, answer) {
   try {
     const resp = await fetch('/api/diagram', {
@@ -442,11 +483,12 @@ async function fetchDiagram(question, answer) {
     if (!resp.ok) return null;
     const data = await resp.json();
     if (!data.spec) return null;
-    return { spec: data.spec, model: data.model || '' };
+    return { spec: data.spec };
   } catch { return null; }
 }
 
 async function streamAmir(userText){
+  if(!accessCode&&getUsed()>=DEMO_LIMIT){showPurchaseGate();return}
   setBusy(true);showTyping();
   // Start diagram request in parallel immediately
   const diagPromise = fetchDiagram(userText, '');
@@ -457,14 +499,21 @@ async function streamAmir(userText){
     const resp=await fetch('/api/amir',{
       method:'POST',
       headers:{'content-type':'application/json'},
-      body:JSON.stringify({message:userText,history:chatHistory.slice(-8)})
+      body:JSON.stringify({message:userText,history:chatHistory.slice(-8),sessionId:getSessionId(),accessCode})
     });
     removeTyping();
     if(!resp.ok||!resp.body){
       const e=await resp.json().catch(()=>({}));
+      if(resp.status===402||e.error==='consultation_required'){
+        setUsed(DEMO_LIMIT);showPurchaseGate();setBusy(false);return;
+      }
       appendMsg('amir',e.error||'Ошибка. Попробуйте ещё раз.');
       setBusy(false);return;
     }
+    const tier=resp.headers.get('x-consultation-tier');
+    const remainingHeader=resp.headers.get('x-demo-remaining');
+    if(tier==='full'){fullAccess=true;gated=false;updateUsageLabel()}
+    else if(/^\d+$/.test(remainingHeader||''))setUsed(DEMO_LIMIT-Number(remainingHeader));
     // Build streaming bubble
     const wrap=document.createElement('div');wrap.className='msg amir';
     wrap.innerHTML='<div class="msg-avatar">🤖</div>';
@@ -500,11 +549,8 @@ async function streamAmir(userText){
     const diagResult = await diagPromise;
     if (diagResult && diagResult.spec) {
       showDiagram({kind:'dynamic', spec: diagResult.spec});
-      const modelLabel = diagResult.model && diagResult.model.includes('claude')
-        ? '✦ Claude Visual'
-        : '⚡ DeepSeek';
       const tag=document.createElement('div');tag.className='diagram-tag';
-      tag.textContent=`📊 Схема · ${modelLabel}`;
+      tag.textContent='📊 Визуальная схема';
       tag.onclick=()=>showDiagram({kind:'dynamic', spec: diagResult.spec});
       inner.appendChild(tag);
     } else {
@@ -516,6 +562,13 @@ async function streamAmir(userText){
 
     chatHistory.push({role:'user',content:userText});
     chatHistory.push({role:'assistant',content:display});
+    if(!fullAccess){
+      const remaining=Math.max(0,DEMO_LIMIT-getUsed());
+      const note=document.createElement('div');note.className='demo-remaining';
+      note.textContent=remaining?`Демо: осталось ${remaining} из ${DEMO_LIMIT}`:'Бесплатный лимит использован';
+      inner.appendChild(note);
+      if(!remaining)setTimeout(showPurchaseGate,200);
+    }
   }catch(e){
     removeTyping();
     if(bubble)bubble.textContent='Ошибка соединения. Попробуйте ещё раз.';
@@ -532,7 +585,7 @@ function appendMsg(role,text){
 }
 
 function sendMsg(){
-  if(busy)return;
+  if(busy||gated)return;
   const inp=document.getElementById('user-input');
   const text=inp.value.trim();if(!text)return;
   inp.value='';inp.style.height='auto';
