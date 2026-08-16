@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Амир — AI Консультант · alsat.asia</title>
+<title>Мансур — AI Консультант · alsat.asia</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;font-family:'Segoe UI',Arial,sans-serif;background:#070d1a;color:#fff;overflow:hidden}
@@ -137,14 +137,14 @@ body.mode-chat #chat-panel{display:flex;width:100%;height:100%}
   <div id="chat-panel">
     <div id="chat-header">
       <div id="amir-avatar">🤖</div>
-      <div id="amir-info"><h3>Амир</h3><p>AI-консультант · alsat.asia</p></div>
+      <div id="amir-info"><h3>Мансур</h3><p>AI-консультант · alsat.asia</p></div>
       <div id="status-dot"></div>
     </div>
     <div id="messages">
       <div class="msg amir">
         <div class="msg-avatar">🤖</div>
         <div>
-          <div class="msg-bubble">Привет! Я Амир — универсальный AI-консультант. Пока мы разговариваем, схема слева меняется в зависимости от темы. Спросите про что угодно: автоматизацию, бизнес, технологии, стройку или что-то другое.</div>
+          <div class="msg-bubble">Привет! Я Мансур — универсальный AI-консультант. Пока мы разговариваем, схема слева меняется в зависимости от темы. Спросите про что угодно: автоматизацию, бизнес, технологии, стройку или что-то другое.</div>
           <div class="diagram-tag" onclick="showPreset('welcome')">📊 Что умею показывать</div>
         </div>
       </div>
@@ -185,10 +185,10 @@ function spoke(cx,cy,x,y,col,icon,l1,l2,delay=0){
 
 // ── Preset diagrams ────────────────────────────
 const PRESETS = {
-welcome:{title:'Что умеет Амир',svg:()=>`
+welcome:{title:'Что умеет Мансур',svg:()=>`
 <circle cx="400" cy="300" r="52" fill="rgba(0,119,255,.13)" stroke="#0077ff" stroke-width="2" filter="url(#glow)" class="fade-in-el"/>
 <text x="400" y="295" text-anchor="middle" fill="#38b6ff" font-size="24" class="fade-in-el">🤖</text>
-<text x="400" y="315" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el">АМИР AI</text>
+<text x="400" y="315" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el">МАНСУР AI</text>
 ${spoke(400,300,200,155,'#22dd66','🌿','Автоматизация','IoT, полив, датчики',0)}
 ${spoke(400,300,600,155,'#ff9900','🖥️','Бизнес-идеи','клубы, монетизация',.2)}
 ${spoke(400,300,650,325,'#ff4488','🌐','Сайты и CRM','лендинг, магазин',.4)}
