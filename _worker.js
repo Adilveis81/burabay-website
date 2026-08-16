@@ -337,6 +337,45 @@ function sanitizeDiagramValue(value) {
   return value;
 }
 
+function createPublicAiStream(providerResponse) {
+  const reader = providerResponse.body.getReader();
+  const decoder = new TextDecoder();
+  const encoder = new TextEncoder();
+
+  return new ReadableStream({
+    async start(controller) {
+      let buffer = '';
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() || '';
+
+          for (const line of lines) {
+            if (!line.startsWith('data:')) continue;
+            const raw = line.slice(5).trim();
+            if (!raw || raw === '[DONE]') continue;
+            try {
+              const chunk = JSON.parse(raw);
+              const text = chunk?.choices?.[0]?.delta?.content || chunk?.delta?.text || '';
+              if (text) controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { text } })}\n\n`));
+            } catch {}
+          }
+        }
+      } finally {
+        controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+        controller.close();
+        reader.releaseLock();
+      }
+    },
+    cancel(reason) {
+      return reader.cancel(reason);
+    },
+  });
+}
+
 async function handleDiagram(request, env) {
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
 
@@ -550,7 +589,7 @@ async function handleAmir(request, env) {
     }
   }
 
-  return new Response(aiResponse.body, {
+  return new Response(createPublicAiStream(aiResponse), {
     headers: {
       'content-type': 'text/event-stream',
       'cache-control': 'no-cache',
