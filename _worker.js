@@ -614,7 +614,7 @@ export default {
       return new HTMLRewriter()
         .on('body', {
           element(element) {
-            element.append('<script src="/demo-assistant.js" defer></script>', { html: true });
+            element.append('<script src="/demo-assistant.js?v=7190d93" defer></script>', { html: true });
           },
         })
         .transform(assetResponse);
