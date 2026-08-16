@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Амир — AI Консультант · alsat.asia</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;font-family:'Segoe UI',Arial,sans-serif;background:#070d1a;color:#fff;overflow:hidden}
+
+/* ── Layout ── */
+#app{display:flex;height:100vh;gap:0}
+
+/* ── Visual Canvas (left 55%) ── */
+#canvas-panel{
+  flex:0 0 58%;position:relative;background:linear-gradient(135deg,#060e1e 0%,#0a1628 100%);
+  border-right:1px solid rgba(56,182,255,.15);overflow:hidden;
+}
+#canvas-title{
+  position:absolute;top:20px;left:24px;z-index:10;
+  font-size:12px;letter-spacing:3px;color:rgba(56,182,255,.5);text-transform:uppercase;
+}
+#canvas-subtitle{
+  position:absolute;top:40px;left:24px;z-index:10;
+  font-size:11px;color:rgba(255,255,255,.25);letter-spacing:1px;
+}
+#main-svg{width:100%;height:100%;display:block}
+#canvas-hint{
+  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+  color:rgba(255,255,255,.2);font-size:12px;letter-spacing:2px;
+  animation:pulse 3s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:.7}}
+
+/* ── Chat Panel (right 42%) ── */
+#chat-panel{
+  flex:1;display:flex;flex-direction:column;background:#08111f;
+}
+
+/* Header */
+#chat-header{
+  padding:18px 22px;border-bottom:1px solid rgba(56,182,255,.12);
+  display:flex;align-items:center;gap:14px;flex-shrink:0;
+}
+#amir-avatar{
+  width:44px;height:44px;border-radius:50%;
+  background:linear-gradient(135deg,#0077ff,#00c3ff);
+  display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;
+  box-shadow:0 0 20px rgba(0,120,255,.4);
+}
+#amir-info h3{font-size:15px;font-weight:600;color:#fff}
+#amir-info p{font-size:12px;color:rgba(56,182,255,.7);margin-top:2px}
+#status-dot{width:8px;height:8px;border-radius:50%;background:#22dd66;margin-left:auto;box-shadow:0 0 8px #22dd66}
+
+/* Messages */
+#messages{flex:1;overflow-y:auto;padding:20px 16px;display:flex;flex-direction:column;gap:14px}
+#messages::-webkit-scrollbar{width:4px}
+#messages::-webkit-scrollbar-thumb{background:rgba(56,182,255,.2);border-radius:2px}
+
+.msg{display:flex;gap:10px;max-width:92%;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.msg-avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px}
+.msg.amir .msg-avatar{background:linear-gradient(135deg,#0055cc,#0099ff)}
+.msg.user .msg-avatar{background:rgba(255,255,255,.1)}
+.msg-bubble{padding:11px 14px;border-radius:14px;font-size:14px;line-height:1.6}
+.msg.amir .msg-bubble{background:rgba(255,255,255,.06);border:1px solid rgba(56,182,255,.15);border-top-left-radius:4px;color:#e0eaff}
+.msg.user .msg-bubble{background:linear-gradient(135deg,#0055cc,#0077ff);border-top-right-radius:4px;color:#fff}
+
+/* Diagram indicator */
+.diagram-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(56,182,255,.1);border:1px solid rgba(56,182,255,.25);
+  border-radius:20px;padding:4px 10px;font-size:11px;color:#38b6ff;
+  margin-top:8px;cursor:pointer;transition:background .2s;
+}
+.diagram-tag:hover{background:rgba(56,182,255,.2)}
+
+/* Quick prompts */
+#quick-prompts{padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.06)}
+.qp{
+  padding:7px 13px;border-radius:20px;font-size:12px;cursor:pointer;
+  background:rgba(255,255,255,.05);border:1px solid rgba(56,182,255,.2);color:rgba(200,220,255,.8);
+  transition:all .2s;white-space:nowrap;
+}
+.qp:hover{background:rgba(56,182,255,.12);border-color:rgba(56,182,255,.4);color:#fff}
+
+/* Input */
+#input-area{padding:14px 16px;border-top:1px solid rgba(255,255,255,.06);display:flex;gap:10px;flex-shrink:0}
+#user-input{
+  flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(56,182,255,.2);
+  border-radius:24px;padding:10px 16px;color:#fff;font-size:14px;outline:none;
+  font-family:inherit;transition:border-color .2s;resize:none;max-height:100px;
+}
+#user-input:focus{border-color:rgba(56,182,255,.5)}
+#user-input::placeholder{color:rgba(255,255,255,.3)}
+#send-btn{
+  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#0077ff,#00c3ff);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+  transition:transform .15s,box-shadow .15s;box-shadow:0 4px 16px rgba(0,120,255,.35);
+}
+#send-btn:hover{transform:scale(1.08);box-shadow:0 6px 20px rgba(0,180,255,.5)}
+
+/* Typing indicator */
+.typing{display:flex;gap:4px;padding:12px 14px;align-items:center}
+.typing span{width:6px;height:6px;border-radius:50%;background:rgba(56,182,255,.6);animation:bounce .9s infinite}
+.typing span:nth-child(2){animation-delay:.15s}
+.typing span:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+
+/* SVG draw animation */
+.draw-path{stroke-dasharray:2000;stroke-dashoffset:2000;animation:draw 1.5s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.fade-in-el{opacity:0;animation:elFade .5s ease forwards}
+@keyframes elFade{to{opacity:1}}
+
+/* ── Scenarios quick-tags ── */
+#scenario-tabs{
+  position:absolute;top:16px;right:16px;z-index:10;
+  display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;
+}
+.s-tab{
+  padding:5px 10px;border-radius:16px;font-size:10px;cursor:pointer;letter-spacing:.5px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);
+  transition:all .2s;
+}
+.s-tab:hover,.s-tab.active{background:rgba(56,182,255,.15);border-color:rgba(56,182,255,.4);color:#38b6ff}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ═══ VISUAL CANVAS ═══ -->
+  <div id="canvas-panel">
+    <div id="canvas-title">ВИЗУАЛЬНАЯ СХЕМА</div>
+    <div id="canvas-subtitle" id="canvas-subtitle">Задайте вопрос Амиру →</div>
+    <div id="scenario-tabs">
+      <div class="s-tab active" onclick="showDiagram('welcome')">Главная</div>
+      <div class="s-tab" onclick="showDiagram('irrigation')">Полив</div>
+      <div class="s-tab" onclick="showDiagram('club')">Клуб</div>
+      <div class="s-tab" onclick="showDiagram('site')">Сайт</div>
+      <div class="s-tab" onclick="showDiagram('agent')">Агент</div>
+    </div>
+    <svg id="main-svg" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3z" fill="#38b6ff" opacity=".7"/>
+        </marker>
+        <marker id="arr-g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3z" fill="#22dd66" opacity=".7"/>
+        </marker>
+      </defs>
+      <g id="diagram-root"></g>
+    </svg>
+    <div id="canvas-hint">● ИНТЕРАКТИВНАЯ СХЕМА</div>
+  </div>
+
+  <!-- ═══ CHAT PANEL ═══ -->
+  <div id="chat-panel">
+    <div id="chat-header">
+      <div id="amir-avatar">🤖</div>
+      <div id="amir-info">
+        <h3>Амир</h3>
+        <p>AI-консультант · alsat.asia</p>
+      </div>
+      <div id="status-dot"></div>
+    </div>
+
+    <div id="messages">
+      <div class="msg amir">
+        <div class="msg-avatar">🤖</div>
+        <div>
+          <div class="msg-bubble">Привет! Я Амир — ваш AI-консультант. Помогу с любым вопросом: автоматизация, сайты, бизнес-идеи, оборудование. Что вас интересует?</div>
+          <div class="diagram-tag" onclick="showDiagram('welcome')">📊 Что я умею показывать</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="quick-prompts">
+      <div class="qp" onclick="askQuick('Хочу автоматизировать полив теплицы')">🌿 Полив теплицы</div>
+      <div class="qp" onclick="askQuick('Как монетизировать компьютерный клуб')">🖥️ Компьютерный клуб</div>
+      <div class="qp" onclick="askQuick('Нужен сайт для бизнеса')">🌐 Создать сайт</div>
+      <div class="qp" onclick="askQuick('Как работает автономный AI агент')">🤖 AI агент</div>
+    </div>
+
+    <div id="input-area">
+      <textarea id="user-input" placeholder="Спросите что угодно..." rows="1"></textarea>
+      <button id="send-btn" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+// DIAGRAMS
+// ══════════════════════════════════════════════
+const DIAGRAMS = {
+
+welcome: {
+  title: 'Что умеет Амир',
+  render: (svg) => `
+    <rect x="50" y="40" width="700" height="520" rx="16" fill="rgba(56,182,255,.04)" stroke="rgba(56,182,255,.1)" stroke-width="1"/>
+    <!-- Center brain -->
+    <circle cx="400" cy="300" r="55" fill="rgba(0,119,255,.15)" stroke="#0077ff" stroke-width="2" filter="url(#glow)" class="fade-in-el"/>
+    <text x="400" y="295" text-anchor="middle" fill="#38b6ff" font-size="28" class="fade-in-el">🤖</text>
+    <text x="400" y="318" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" class="fade-in-el">АМИР AI</text>
+
+    ${spoke(400,300, 200,150, '#22dd66', '🌿', 'Автоматизация', '(теплицы, IoT, датчики)', 0)}
+    ${spoke(400,300, 600,150, '#ff9900', '🖥️', 'Компьютерные', 'клубы и монетизация', 0.2)}
+    ${spoke(400,300, 650,320, '#ff4488', '🌐', 'Создание сайтов', 'и цифровых систем', 0.4)}
+    ${spoke(400,300, 550,470, '#aa44ff', '💳', 'Автономное', 'выполнение после оплаты', 0.6)}
+    ${spoke(400,300, 250,470, '#38b6ff', '📊', 'Бизнес-анализ', 'и стратегия', 0.8)}
+    ${spoke(400,300, 150,320, '#ffdd00', '🚀', 'Любые вопросы', 'от клиентов', 1.0)}
+  `
+},
+
+irrigation: {
+  title: 'Система автоматизации полива теплицы',
+  render: (svg) => `
+    <!-- Water source -->
+    ${box(60, 50, 130, 60, '#0066aa', '#003366', '💧 Водоснабжение', 'Скважина / бак', 0)}
+    <!-- Pump -->
+    ${box(250, 50, 110, 60, '#0088cc', '#004488', '⚡ Насос', '220В / 380В', 0.3)}
+    <!-- Controller -->
+    ${box(430, 50, 130, 60, '#0044aa', '#002266', '🧠 Контроллер', 'Arduino / ESP32', 0.6)}
+    <!-- Valve block -->
+    ${box(620, 50, 120, 60, '#005588', '#002244', '🔧 Клапаны', '4-8 зон', 0.9)}
+
+    <!-- Sensors row -->
+    ${box(80, 220, 110, 55, '#116611', '#0a3310', '💧 Влажность', 'почвы', 1.2)}
+    ${box(240, 220, 110, 55, '#116611', '#0a3310', '🌡️ Температура', 'воздуха', 1.4)}
+    ${box(400, 220, 110, 55, '#116611', '#0a3310', '☀️ Освещение', 'LDR сенсор', 1.6)}
+    ${box(560, 220, 110, 55, '#116611', '#0a3310', '💦 Расход', 'воды', 1.8)}
+
+    <!-- Zones -->
+    ${box(80,370,100,50,'#115511','#0a2a0a','🌱 Зона 1','Томаты',2.2)}
+    ${box(220,370,100,50,'#115511','#0a2a0a','🌱 Зона 2','Огурцы',2.4)}
+    ${box(360,370,100,50,'#115511','#0a2a0a','🌱 Зона 3','Перец',2.6)}
+    ${box(500,370,100,50,'#115511','#0a2a0a','🌱 Зона 4','Зелень',2.8)}
+    ${box(640,370,100,50,'#115511','#0a2a0a','🌱 Зона 5','Ягоды',3.0)}
+
+    <!-- Phone -->
+    ${box(320,480,160,60,'#333366','#111133','📱 Мобильное','приложение Tuya',3.2)}
+
+    <!-- Arrows top row -->
+    ${arrow(190,80, 250,80)}
+    ${arrow(360,80, 430,80)}
+    ${arrow(560,80, 620,80)}
+
+    <!-- Sensors to controller -->
+    ${arrow(135,220, 135,180)}
+    ${arrow(295,220, 295,180)}
+    ${arrow(455,220, 490,110)}
+    ${arrow(615,220, 660,110)}
+
+    <!-- Valves to zones -->
+    ${arrow(680,110, 130,370, '#22dd66')}
+    ${arrow(680,110, 270,370, '#22dd66')}
+    ${arrow(680,110, 410,370, '#22dd66')}
+    ${arrow(680,110, 550,370, '#22dd66')}
+    ${arrow(680,110, 690,370, '#22dd66')}
+
+    <!-- Phone to controller -->
+    ${arrow(400,480, 490,110)}
+
+    <!-- Cost label -->
+    <rect x="50" y="540" width="700" height="40" rx="8" fill="rgba(56,182,255,.06)" stroke="rgba(56,182,255,.15)" stroke-width="1" class="fade-in-el" style="animation-delay:3.5s"/>
+    <text x="400" y="556" text-anchor="middle" fill="rgba(56,182,255,.7)" font-size="11" class="fade-in-el" style="animation-delay:3.6s">💰 Бюджет: контроллер $50, насос $80, клапаны $60, датчики $40, трубы $100 = ~$330</text>
+    <text x="400" y="572" text-anchor="middle" fill="rgba(100,255,100,.6)" font-size="11" class="fade-in-el" style="animation-delay:3.7s">✅ Экономия воды -40% · Урожай +25% · Окупаемость ~6 месяцев</text>
+  `
+},
+
+club: {
+  title: 'Монетизация компьютерного клуба',
+  render: () => `
+    <!-- Central PCs -->
+    <rect x="280" y="220" width="240" height="120" rx="12" fill="rgba(100,50,200,.1)" stroke="#8833cc" stroke-width="2" class="fade-in-el"/>
+    <text x="400" y="255" text-anchor="middle" fill="#cc88ff" font-size="14" font-weight="bold" class="fade-in-el">🖥️ Парк ПК</text>
+    <text x="400" y="274" text-anchor="middle" fill="rgba(200,180,255,.7)" font-size="12" class="fade-in-el">20-50 компьютеров</text>
+    <text x="400" y="292" text-anchor="middle" fill="rgba(200,180,255,.6)" font-size="11" class="fade-in-el">GTX 1660+ / RX 580+</text>
+    <text x="400" y="310" text-anchor="middle" fill="rgba(200,180,255,.6)" font-size="11" class="fade-in-el">i5/i7 · 16-32GB RAM</text>
+    <text x="400" y="328" text-anchor="middle" fill="rgba(200,180,255,.6)" font-size="11" class="fade-in-el">SSD 512GB</text>
+
+    <!-- Revenue streams -->
+    ${revBox(60,60,140,65, '#0066aa','💰','Аренда','по часам','100-200₸/ч', 0)}
+    ${revBox(300,60,160,65, '#006633','🎮','Турниры','и соревнования','призовой фонд', 0.2)}
+    ${revBox(580,60,140,65, '#664400','☕','Бар и снеки','кофе + еда','+30% выручки', 0.4)}
+    ${revBox(60,370,140,65, '#550066','⛏️','Майнинг','ночное время','Kaspa / Raven', 0.6)}
+    ${revBox(260,390,160,65, '#003366','🖥️','Рендер-ферма','по запросу','$0.5-2/GPU·ч', 0.8)}
+    ${revBox(470,390,140,65, '#336600','🎓','Курсы','киберспорт/IT','абонементы', 1.0)}
+    ${revBox(640,370,120,65, '#663300','📺','Стриминг','VIP-стрим-стол','+₸₸₸', 1.2)}
+
+    <!-- Arrows from PCs to streams -->
+    ${arrow(400,220, 130,125, '#22dd66')}
+    ${arrow(400,220, 380,125, '#22dd66')}
+    ${arrow(400,220, 650,125, '#22dd66')}
+    ${arrow(400,340, 130,370, '#aa44ff')}
+    ${arrow(400,340, 340,390, '#aa44ff')}
+    ${arrow(400,340, 540,390, '#aa44ff')}
+    ${arrow(400,340, 700,370, '#aa44ff')}
+
+    <!-- Total -->
+    <rect x="200" y="490" width="400" height="60" rx="10" fill="rgba(56,182,255,.06)" stroke="rgba(56,182,255,.2)" stroke-width="1" class="fade-in-el" style="animation-delay:1.5s"/>
+    <text x="400" y="516" text-anchor="middle" fill="#38b6ff" font-size="13" font-weight="bold" class="fade-in-el" style="animation-delay:1.6s">📊 Потенциал: 20 ПК × 200₸/ч × 12ч + майнинг + курсы</text>
+    <text x="400" y="538" text-anchor="middle" fill="#22dd66" font-size="14" font-weight="bold" class="fade-in-el" style="animation-delay:1.7s">= 500 000 — 1 200 000 ₸ / месяц</text>
+  `
+},
+
+site: {
+  title: 'Архитектура веб-сайта',
+  render: () => `
+    <!-- Browser -->
+    ${box(310,30,180,50,'#003366','#001133','🌐 Пользователь','Chrome / Safari / App',0)}
+    <!-- CDN -->
+    ${box(100,130,150,50,'#004488','#002244','⚡ Cloudflare CDN','Кэш + SSL + DDoS',0.3)}
+    ${box(340,130,120,50,'#333300','#111100','🌍 Домен','alsat.asia / .kz',0.3)}
+    ${box(560,130,150,50,'#004488','#001122','📊 Аналитика','Google / Yandex',0.3)}
+    <!-- Frontend -->
+    ${box(200,240,180,55,'#003355','#001a33','🖥️ Фронтенд','HTML/CSS/JS · React',0.6)}
+    ${box(420,240,180,55,'#003355','#001a33','📱 Мобильная','версия / PWA',0.6)}
+    <!-- Backend -->
+    ${box(200,340,180,55,'#330033','#1a001a','⚙️ Бэкенд API','Node.js / Python',1.0)}
+    ${box(420,340,180,55,'#330033','#1a001a','🤖 AI чат-бот','Claude / DeepSeek',1.0)}
+    <!-- DB & Storage -->
+    ${box(100,440,160,55,'#1a1100','#0a0800','🗄️ База данных','PostgreSQL / Mongo',1.4)}
+    ${box(300,440,160,55,'#1a1100','#0a0800','📁 Файлы','Cloudflare R2 / S3',1.4)}
+    ${box(500,440,160,55,'#001a00','#000a00','📧 Email / SMS','Отправка уведомл.',1.4)}
+    <!-- Telegram -->
+    ${box(290,530,220,45,'#002244','#001122','📲 Telegram боты','Уведомления · CRM',1.8)}
+
+    ${arrow(400,80,175,130)}
+    ${arrow(400,80,400,130)}
+    ${arrow(400,80,635,130)}
+    ${arrow(175,180,290,240)}
+    ${arrow(460,180,510,240)}
+    ${arrow(290,295,290,340)}
+    ${arrow(510,295,510,340)}
+    ${arrow(290,395,180,440)}
+    ${arrow(290,395,380,440)}
+    ${arrow(510,395,580,440)}
+    ${arrow(180,495,400,530)}
+    ${arrow(460,495,400,530)}
+  `
+},
+
+agent: {
+  title: 'Автономный AI агент — от оплаты до результата',
+  render: () => `
+    <!-- Flow: Client → Payment → Agent Chain → Result -->
+    ${flowBox(40,260,100,60,'#004400','#002200','👤 Клиент','Заявка',0)}
+    ${arrow(140,290, 200,290)}
+    ${flowBox(200,260,120,60,'#004488','#002244','💳 Оплата','Kaspi / Visa',0.3)}
+    ${arrow(320,290, 380,290)}
+    ${flowBox(380,260,100,60,'#440044','#220022','🚀 Триггер','Webhook',0.6)}
+    ${arrow(480,290, 540,290, '#ff9900')}
+
+    <!-- Agent chain vertically -->
+    ${flowBox(540,150,140,65,'#330066','#1a0033','🧠 Claude','ТЗ + план',0.9)}
+    ${arrow(610,215, 610,260, '#aa44ff')}
+    ${flowBox(540,260,140,65,'#003366','#001a33','⚡ Codex','Пишет код',1.2)}
+    ${arrow(610,325, 610,370, '#38b6ff')}
+    ${flowBox(540,370,140,65,'#003300','#001a00','🔍 DeepSeek','Тест + ревью',1.5)}
+    ${arrow(610,435, 610,460, '#22dd66')}
+    ${flowBox(540,460,140,65,'#334400','#1a2200','🚀 Deploy','Cloudflare',1.8)}
+    ${arrow(610,525, 610,550, '#ffdd00')}
+
+    <!-- Result -->
+    ${flowBox(480,550,260,60,'#442200','#221100','✅ Готово! Клиент получает','Сайт + Бот + Доступы',2.1)}
+
+    <!-- Parallel tools -->
+    <text x="400" y="120" text-anchor="middle" fill="rgba(255,255,255,.3)" font-size="11" class="fade-in-el" style="animation-delay:2.5s">ИНСТРУМЕНТЫ АГЕНТА</text>
+    ${miniTool(80,80,'🌐','Браузер')}
+    ${miniTool(170,80,'📁','Файлы')}
+    ${miniTool(260,80,'🔧','Терминал')}
+    ${miniTool(350,80,'📊','Аналитика')}
+    ${miniTool(440,80,'📧','Email')}
+
+    <!-- Time label -->
+    <rect x="40" y="540" width="440" height="35" rx="8" fill="rgba(255,200,0,.05)" stroke="rgba(255,200,0,.15)" stroke-width="1" class="fade-in-el" style="animation-delay:2.8s"/>
+    <text x="260" y="563" text-anchor="middle" fill="rgba(255,200,100,.7)" font-size="12" class="fade-in-el" style="animation-delay:2.9s">⏱ Среднее время выполнения: 2–8 часов · без участия человека</text>
+  `
+}
+
+};
+
+// ── SVG helpers ────────────────────────────────
+function box(x,y,w,h,stroke,fill,line1,line2,delay=0){
+  return `
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" fill="${fill}" stroke="${stroke}" stroke-width="1.5" class="fade-in-el" style="animation-delay:${delay}s"/>
+    <text x="${x+w/2}" y="${y+h/2-6}" text-anchor="middle" fill="rgba(255,255,255,.9)" font-size="12" font-weight="bold" class="fade-in-el" style="animation-delay:${delay+.1}s">${line1}</text>
+    <text x="${x+w/2}" y="${y+h/2+10}" text-anchor="middle" fill="rgba(200,220,255,.55)" font-size="10" class="fade-in-el" style="animation-delay:${delay+.2}s">${line2}</text>
+  `;
+}
+function flowBox(x,y,w,h,stroke,fill,line1,line2,delay=0){return box(x,y,w,h,stroke,fill,line1,line2,delay);}
+function arrow(x1,y1,x2,y2,col='#38b6ff'){
+  return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="1.5" opacity=".6" marker-end="url(#arr)" class="fade-in-el" style="animation-delay:.1s"/>`;
+}
+function spoke(cx,cy,x,y,col,icon,l1,l2,delay){
+  const bx=x-70,by=y-35;
+  return `
+    <line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="${col}" stroke-width="1.5" opacity=".4" class="fade-in-el" style="animation-delay:${delay}s"/>
+    <rect x="${bx}" y="${by}" width="140" height="70" rx="10" fill="${col}18" stroke="${col}55" stroke-width="1" class="fade-in-el" style="animation-delay:${delay+.1}s"/>
+    <text x="${bx+70}" y="${by+22}" text-anchor="middle" font-size="16" class="fade-in-el" style="animation-delay:${delay+.2}s">${icon}</text>
+    <text x="${bx+70}" y="${by+40}" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el" style="animation-delay:${delay+.3}s">${l1}</text>
+    <text x="${bx+70}" y="${by+56}" text-anchor="middle" fill="rgba(200,220,255,.6)" font-size="9" class="fade-in-el" style="animation-delay:${delay+.4}s">${l2}</text>
+  `;
+}
+function revBox(x,y,w,h,col,icon,l1,l2,l3,delay){
+  return `
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="${col}22" stroke="${col}66" stroke-width="1.5" class="fade-in-el" style="animation-delay:${delay}s"/>
+    <text x="${x+w/2}" y="${y+16}" text-anchor="middle" font-size="16" class="fade-in-el" style="animation-delay:${delay+.1}s">${icon}</text>
+    <text x="${x+w/2}" y="${y+32}" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el" style="animation-delay:${delay+.2}s">${l1}</text>
+    <text x="${x+w/2}" y="${y+46}" text-anchor="middle" fill="rgba(200,220,255,.65)" font-size="10" class="fade-in-el" style="animation-delay:${delay+.3}s">${l2}</text>
+    <text x="${x+w/2}" y="${y+60}" text-anchor="middle" fill="#22dd66" font-size="10" class="fade-in-el" style="animation-delay:${delay+.4}s">${l3}</text>
+  `;
+}
+function miniTool(x,y,icon,label){
+  return `
+    <rect x="${x}" y="${y}" width="70" height="50" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)" stroke-width="1" class="fade-in-el" style="animation-delay:2.3s"/>
+    <text x="${x+35}" y="${y+22}" text-anchor="middle" font-size="16" class="fade-in-el" style="animation-delay:2.4s">${icon}</text>
+    <text x="${x+35}" y="${y+40}" text-anchor="middle" fill="rgba(200,220,255,.5)" font-size="9" class="fade-in-el" style="animation-delay:2.4s">${label}</text>
+  `;
+}
+
+// ── Diagram renderer ───────────────────────────
+let currentDiagram = 'welcome';
+function showDiagram(name, animate=true) {
+  currentDiagram = name;
+  const d = DIAGRAMS[name];
+  if(!d) return;
+  const root = document.getElementById('diagram-root');
+  root.innerHTML = d.render(root);
+  document.getElementById('canvas-subtitle').textContent = d.title;
+  // Update tab highlights
+  document.querySelectorAll('.s-tab').forEach(t => {
+    t.classList.toggle('active', t.getAttribute('onclick').includes(`'${name}'`));
+  });
+}
+showDiagram('welcome');
+
+// ── AI Responses ───────────────────────────────
+const AI_RESPONSES = {
+  'полив': {
+    text: `Отличный выбор! Автоматизация полива теплицы — это быстрая окупаемость и экономия ресурсов.\n\n**Что нужно:**\n• Контроллер ESP32 или Arduino (~$50)\n• Датчики влажности почвы DHT22 (~$3 каждый)\n• Электромагнитные клапаны на каждую зону (~$8-15 шт)\n• Насос 220В с реле (~$80)\n• Мобильное приложение Tuya\n\n**Принцип:** Датчик замерил → контроллер обработал → клапан открылся → зона полита → отчёт на телефон.\n\n**Экономия воды:** до 40% · **Прибавка урожая:** до 25%`,
+    diagram: 'irrigation'
+  },
+  'клуб': {
+    text: `Компьютерный клуб — это многослойный бизнес! Ошибка большинства — зарабатывать только на почасовой аренде.\n\n**5 потоков дохода:**\n1. **Аренда** — 100-200₸/час (основа)\n2. **Майнинг ночью** — когда клуб закрыт, видеокарты майнят Kaspa/Raven\n3. **Рендер-ферма** — сдавать мощности для анимации/архвиза\n4. **Курсы** — киберспорт, программирование\n5. **Стриминг** — VIP-место с профи-оборудованием\n\nС 20 ПК можно выйти на **500 000 — 1 200 000 ₸/месяц**`,
+    diagram: 'club'
+  },
+  'сайт': {
+    text: `Создание сайта — это не просто "нарисовать страницу". Нужна правильная архитектура.\n\n**Из чего состоит:**\n• **Домен** — ваш адрес в интернете (.kz / .com)\n• **CDN** — Cloudflare ускоряет и защищает\n• **Фронтенд** — то что видит пользователь\n• **Бэкенд** — логика и база данных\n• **AI чат-бот** — отвечает вместо менеджера\n• **Telegram боты** — уведомления + CRM\n\n**Срок:** 7-30 дней\n**Бюджет:** от $300 (лендинг) до $3000+ (маркетплейс)`,
+    diagram: 'site'
+  },
+  'агент': {
+    text: `Автономный AI агент — будущее уже сегодня!\n\n**Как это работает:**\n1. Клиент платит → система получает webhook\n2. Claude составляет ТЗ и план за 5 минут\n3. Codex/GPT-4o пишет код автоматически\n4. DeepSeek тестирует и исправляет ошибки\n5. Система деплоит на Cloudflare Pages\n6. Клиент получает готовый сайт + доступы по email\n\n**Без единого звонка менеджера!**\nВремя выполнения: 2-8 часов`,
+    diagram: 'agent'
+  },
+  'default': {
+    text: `Хороший вопрос! Я могу помочь с любым проектом — от автоматизации производства до создания цифровых продуктов.\n\nВыберите тему слева или опишите свою задачу подробнее, и я покажу подробную схему решения.`,
+    diagram: 'welcome'
+  }
+};
+
+function getResponse(text) {
+  const t = text.toLowerCase();
+  if(t.includes('полив') || t.includes('теплиц') || t.includes('iot') || t.includes('датч')) return AI_RESPONSES['полив'];
+  if(t.includes('клуб') || t.includes('компьютер') || t.includes('майнинг') || t.includes('монетиз')) return AI_RESPONSES['клуб'];
+  if(t.includes('сайт') || t.includes('web') || t.includes('лендинг') || t.includes('магазин')) return AI_RESPONSES['сайт'];
+  if(t.includes('агент') || t.includes('автоном') || t.includes('автоматич') || t.includes('бот')) return AI_RESPONSES['агент'];
+  return AI_RESPONSES['default'];
+}
+
+// ── Chat logic ─────────────────────────────────
+const msgs = document.getElementById('messages');
+let isTyping = false;
+
+function addMsg(text, role='amir', diagramName=null) {
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  const avatarIcon = role === 'amir' ? '🤖' : '👤';
+  const formatted = text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+  div.innerHTML = `
+    <div class="msg-avatar">${avatarIcon}</div>
+    <div>
+      <div class="msg-bubble">${formatted}</div>
+      ${diagramName ? `<div class="diagram-tag" onclick="showDiagram('${diagramName}')">📊 Смотреть схему</div>` : ''}
+    </div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping() {
+  const div = document.createElement('div');
+  div.className = 'msg amir';
+  div.id = 'typing-indicator';
+  div.innerHTML = `<div class="msg-avatar">🤖</div><div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function removeTyping() {
+  const t = document.getElementById('typing-indicator');
+  if(t) t.remove();
+}
+
+function sendMsg() {
+  const input = document.getElementById('user-input');
+  const text = input.value.trim();
+  if(!text || isTyping) return;
+  input.value = '';
+  addMsg(text, 'user');
+  isTyping = true;
+  showTyping();
+  // Simulate thinking delay
+  const resp = getResponse(text);
+  setTimeout(() => {
+    removeTyping();
+    addMsg(resp.text, 'amir', resp.diagram);
+    // Show diagram with slight delay
+    setTimeout(() => showDiagram(resp.diagram), 300);
+    isTyping = false;
+  }, 1200 + Math.random() * 800);
+}
+
+function askQuick(text) {
+  document.getElementById('user-input').value = text;
+  sendMsg();
+}
+
+// Input handlers
+document.getElementById('user-input').addEventListener('keydown', e => {
+  if(e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); }
+});
+document.getElementById('user-input').addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+});
+</script>
+</body>
+</html>
