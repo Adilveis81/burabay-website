@@ -10,124 +10,108 @@ html,body{height:100%;font-family:'Segoe UI',Arial,sans-serif;background:#070d1a
 #app{display:flex;height:100vh}
 
 /* ── Canvas Panel ── */
-#canvas-panel{
-  flex:0 0 58%;position:relative;
-  background:linear-gradient(135deg,#060e1e 0%,#0a1628 100%);
-  border-right:1px solid rgba(56,182,255,.13);overflow:hidden;
-}
-#canvas-title{position:absolute;top:18px;left:22px;z-index:10;font-size:11px;letter-spacing:3px;color:rgba(56,182,255,.45);text-transform:uppercase}
-#canvas-subtitle{position:absolute;top:36px;left:22px;z-index:10;font-size:11px;color:rgba(255,255,255,.22);letter-spacing:.5px}
+#canvas-panel{flex:0 0 58%;position:relative;background:linear-gradient(135deg,#060e1e 0%,#0a1628 100%);border-right:1px solid rgba(56,182,255,.12);overflow:hidden}
+#canvas-title{position:absolute;top:16px;left:20px;z-index:10;font-size:10px;letter-spacing:3px;color:rgba(56,182,255,.4);text-transform:uppercase}
+#canvas-subtitle{position:absolute;top:33px;left:20px;z-index:10;font-size:10.5px;color:rgba(255,255,255,.2);letter-spacing:.4px;max-width:60%}
 #main-svg{width:100%;height:100%;display:block}
-#canvas-hint{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.17);font-size:11px;letter-spacing:2px;animation:pulse 3s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:.3}50%{opacity:.7}}
-#scenario-tabs{position:absolute;top:14px;right:14px;z-index:10;display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
-.s-tab{padding:4px 10px;border-radius:14px;font-size:10px;cursor:pointer;letter-spacing:.4px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);transition:all .2s}
-.s-tab:hover,.s-tab.active{background:rgba(56,182,255,.14);border-color:rgba(56,182,255,.4);color:#38b6ff}
+#canvas-hint{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.15);font-size:10px;letter-spacing:2px;animation:pulse 3s ease-in-out infinite;white-space:nowrap}
+@keyframes pulse{0%,100%{opacity:.25}50%{opacity:.6}}
+#scenario-tabs{position:absolute;top:12px;right:12px;z-index:10;display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.s-tab{padding:4px 9px;border-radius:12px;font-size:10px;cursor:pointer;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.38);transition:all .2s}
+.s-tab:hover,.s-tab.active{background:rgba(56,182,255,.13);border-color:rgba(56,182,255,.38);color:#38b6ff}
 
 /* ── Chat Panel ── */
 #chat-panel{flex:1;display:flex;flex-direction:column;background:#08111f;min-width:0}
-#chat-header{padding:16px 20px;border-bottom:1px solid rgba(56,182,255,.1);display:flex;align-items:center;gap:12px;flex-shrink:0}
-#amir-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#0055cc,#00aaff);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;box-shadow:0 0 18px rgba(0,120,255,.4)}
-#amir-info h3{font-size:14px;font-weight:600}
-#amir-info p{font-size:11px;color:rgba(56,182,255,.65);margin-top:2px}
-#status-dot{width:8px;height:8px;border-radius:50%;background:#22dd66;margin-left:auto;box-shadow:0 0 8px #22dd66}
+#chat-header{padding:14px 18px;border-bottom:1px solid rgba(56,182,255,.1);display:flex;align-items:center;gap:11px;flex-shrink:0}
+#amir-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#0055cc,#00aaff);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 0 16px rgba(0,120,255,.38)}
+#amir-info h3{font-size:13.5px;font-weight:600}
+#amir-info p{font-size:10.5px;color:rgba(56,182,255,.6);margin-top:2px}
+#status-dot{width:7px;height:7px;border-radius:50%;background:#22dd66;margin-left:auto;box-shadow:0 0 7px #22dd66}
 
-#messages{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:12px}
+#messages{flex:1;overflow-y:auto;padding:14px 13px;display:flex;flex-direction:column;gap:11px}
 #messages::-webkit-scrollbar{width:3px}
-#messages::-webkit-scrollbar-thumb{background:rgba(56,182,255,.18);border-radius:2px}
+#messages::-webkit-scrollbar-thumb{background:rgba(56,182,255,.16);border-radius:2px}
 
-.msg{display:flex;gap:9px;max-width:94%;animation:fadeIn .25s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.msg{display:flex;gap:8px;max-width:95%;animation:fadeIn .22s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 .msg.user{align-self:flex-end;flex-direction:row-reverse}
-.msg-avatar{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.msg-avatar{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px}
 .msg.amir .msg-avatar{background:linear-gradient(135deg,#0055cc,#0099ff)}
-.msg.user .msg-avatar{background:rgba(255,255,255,.09)}
-.msg-bubble{padding:10px 13px;border-radius:13px;font-size:13.5px;line-height:1.65;white-space:pre-wrap;word-break:break-word}
-.msg.amir .msg-bubble{background:rgba(255,255,255,.055);border:1px solid rgba(56,182,255,.13);border-top-left-radius:3px;color:#ddeaff}
+.msg.user .msg-avatar{background:rgba(255,255,255,.08)}
+.msg-bubble{padding:9px 12px;border-radius:12px;font-size:13px;line-height:1.65;white-space:pre-wrap;word-break:break-word}
+.msg.amir .msg-bubble{background:rgba(255,255,255,.052);border:1px solid rgba(56,182,255,.12);border-top-left-radius:3px;color:#ddeaff}
 .msg.user .msg-bubble{background:linear-gradient(135deg,#0055cc,#0077ff);border-top-right-radius:3px;color:#fff}
-.cursor{display:inline-block;width:2px;height:1em;background:#38b6ff;vertical-align:text-bottom;animation:blink .7s infinite}
+.cursor{display:inline-block;width:2px;height:.9em;background:#38b6ff;vertical-align:text-bottom;animation:blink .65s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.diagram-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(56,182,255,.08);border:1px solid rgba(56,182,255,.2);border-radius:16px;padding:3px 9px;font-size:10.5px;color:#38b6ff;margin-top:6px;cursor:pointer;transition:background .2s}
+.diagram-tag:hover{background:rgba(56,182,255,.16)}
 
-.diagram-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(56,182,255,.09);border:1px solid rgba(56,182,255,.22);border-radius:18px;padding:3px 10px;font-size:11px;color:#38b6ff;margin-top:7px;cursor:pointer;transition:background .2s}
-.diagram-tag:hover{background:rgba(56,182,255,.18)}
+#quick-prompts{padding:8px 13px;display:flex;gap:6px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.05)}
+.qp{padding:5px 11px;border-radius:16px;font-size:11px;cursor:pointer;background:rgba(255,255,255,.04);border:1px solid rgba(56,182,255,.16);color:rgba(200,215,255,.7);transition:all .2s;white-space:nowrap}
+.qp:hover{background:rgba(56,182,255,.1);border-color:rgba(56,182,255,.35);color:#fff}
 
-#quick-prompts{padding:9px 14px;display:flex;gap:7px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.055)}
-.qp{padding:6px 12px;border-radius:18px;font-size:11.5px;cursor:pointer;background:rgba(255,255,255,.045);border:1px solid rgba(56,182,255,.18);color:rgba(200,215,255,.75);transition:all .2s;white-space:nowrap}
-.qp:hover{background:rgba(56,182,255,.11);border-color:rgba(56,182,255,.38);color:#fff}
+#input-area{padding:11px 13px;border-top:1px solid rgba(255,255,255,.05);display:flex;gap:8px;flex-shrink:0}
+#user-input{flex:1;background:rgba(255,255,255,.052);border:1px solid rgba(56,182,255,.16);border-radius:20px;padding:8px 14px;color:#fff;font-size:13px;outline:none;font-family:inherit;transition:border-color .2s;resize:none;max-height:88px}
+#user-input:focus{border-color:rgba(56,182,255,.42)}
+#user-input::placeholder{color:rgba(255,255,255,.26)}
+#send-btn{width:38px;height:38px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#0077ff,#00bbff);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 12px rgba(0,120,255,.32)}
+#send-btn:hover{transform:scale(1.08);box-shadow:0 6px 16px rgba(0,180,255,.45)}
+#send-btn:disabled{opacity:.35;cursor:default;transform:none}
 
-#input-area{padding:12px 14px;border-top:1px solid rgba(255,255,255,.055);display:flex;gap:9px;flex-shrink:0}
-#user-input{flex:1;background:rgba(255,255,255,.055);border:1px solid rgba(56,182,255,.18);border-radius:22px;padding:9px 15px;color:#fff;font-size:13.5px;outline:none;font-family:inherit;transition:border-color .2s;resize:none;max-height:90px}
-#user-input:focus{border-color:rgba(56,182,255,.45)}
-#user-input::placeholder{color:rgba(255,255,255,.28)}
-#send-btn{width:40px;height:40px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#0077ff,#00bbff);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 14px rgba(0,120,255,.35)}
-#send-btn:hover{transform:scale(1.08);box-shadow:0 6px 18px rgba(0,180,255,.5)}
-#send-btn:disabled{opacity:.4;cursor:default;transform:none}
-
-.typing-row{display:flex;gap:9px}
-.typing{display:flex;gap:4px;padding:11px 14px;align-items:center;background:rgba(255,255,255,.055);border:1px solid rgba(56,182,255,.13);border-radius:13px;border-top-left-radius:3px}
-.typing span{width:5px;height:5px;border-radius:50%;background:rgba(56,182,255,.55);animation:bounce .8s infinite}
+.typing-row{display:flex;gap:8px}
+.typing{display:flex;gap:4px;padding:10px 13px;align-items:center;background:rgba(255,255,255,.052);border:1px solid rgba(56,182,255,.12);border-radius:12px;border-top-left-radius:3px}
+.typing span{width:5px;height:5px;border-radius:50%;background:rgba(56,182,255,.5);animation:bounce .8s infinite}
 .typing span:nth-child(2){animation-delay:.13s}
 .typing span:nth-child(3){animation-delay:.26s}
 @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
 
-/* SVG */
 .fade-in-el{opacity:0;animation:elFade .4s ease forwards}
 @keyframes elFade{to{opacity:1}}
 </style>
 </head>
 <body>
 <div id="app">
-
-  <!-- ═══ VISUAL CANVAS ═══ -->
   <div id="canvas-panel">
     <div id="canvas-title">ВИЗУАЛЬНАЯ СХЕМА</div>
-    <div id="canvas-subtitle">Задайте вопрос Амиру →</div>
+    <div id="canvas-subtitle">Задайте вопрос — схема появится здесь</div>
     <div id="scenario-tabs">
-      <div class="s-tab active" onclick="showDiagram('welcome')">Главная</div>
-      <div class="s-tab" onclick="showDiagram('irrigation')">Полив</div>
-      <div class="s-tab" onclick="showDiagram('club')">Клуб</div>
-      <div class="s-tab" onclick="showDiagram('site')">Сайт</div>
-      <div class="s-tab" onclick="showDiagram('agent')">Агент</div>
+      <div class="s-tab active" onclick="showPreset('welcome')">Главная</div>
+      <div class="s-tab" onclick="showPreset('irrigation')">Полив</div>
+      <div class="s-tab" onclick="showPreset('club')">Клуб</div>
+      <div class="s-tab" onclick="showPreset('site')">Сайт</div>
+      <div class="s-tab" onclick="showPreset('agent')">Агент</div>
     </div>
     <svg id="main-svg" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#38b6ff" opacity=".6"/></marker>
-        <marker id="arr-g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#22dd66" opacity=".7"/></marker>
       </defs>
       <g id="diagram-root"></g>
     </svg>
-    <div id="canvas-hint">● ИНТЕРАКТИВНАЯ СХЕМА</div>
+    <div id="canvas-hint">● СХЕМА ГЕНЕРИРУЕТСЯ ПО ТЕМЕ РАЗГОВОРА</div>
   </div>
 
-  <!-- ═══ CHAT PANEL ═══ -->
   <div id="chat-panel">
     <div id="chat-header">
       <div id="amir-avatar">🤖</div>
-      <div id="amir-info">
-        <h3>Амир</h3>
-        <p>AI-консультант · alsat.asia</p>
-      </div>
+      <div id="amir-info"><h3>Амир</h3><p>AI-консультант · alsat.asia</p></div>
       <div id="status-dot"></div>
     </div>
-
     <div id="messages">
       <div class="msg amir">
         <div class="msg-avatar">🤖</div>
         <div>
-          <div class="msg-bubble">Привет! Я Амир — универсальный AI-консультант. Помогу с любым вопросом: автоматизация, бизнес, технологии, сельское хозяйство, строительство и многое другое. Пока вы пишете, я показываю схемы и чертежи на экране слева. Что вас интересует?</div>
-          <div class="diagram-tag" onclick="showDiagram('welcome')">📊 Что умею показывать</div>
+          <div class="msg-bubble">Привет! Я Амир — универсальный AI-консультант. Пока мы разговариваем, схема слева меняется в зависимости от темы. Спросите про что угодно: автоматизацию, бизнес, технологии, стройку или что-то другое.</div>
+          <div class="diagram-tag" onclick="showPreset('welcome')">📊 Что умею показывать</div>
         </div>
       </div>
     </div>
-
     <div id="quick-prompts">
       <div class="qp" onclick="askQuick('Хочу автоматизировать полив теплицы')">🌿 Полив теплицы</div>
       <div class="qp" onclick="askQuick('Как монетизировать компьютерный клуб')">🖥️ Компьютерный клуб</div>
       <div class="qp" onclick="askQuick('Нужен сайт для бизнеса')">🌐 Создать сайт</div>
-      <div class="qp" onclick="askQuick('Как работает автономный AI агент')">🤖 AI агент</div>
+      <div class="qp" onclick="askQuick('Как открыть кофейню с нуля')">☕ Кофейня</div>
     </div>
-
     <div id="input-area">
       <textarea id="user-input" placeholder="Спросите что угодно..." rows="1"></textarea>
       <button id="send-btn" onclick="sendMsg()">➤</button>
@@ -136,341 +120,360 @@ html,body{height:100%;font-family:'Segoe UI',Arial,sans-serif;background:#070d1a
 </div>
 
 <script>
-// ── SVG helpers ────────────────────────────────
-function box(x,y,w,h,stroke,fill,line1,line2,delay=0){
-  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" fill="${fill}" stroke="${stroke}" stroke-width="1.5" class="fade-in-el" style="animation-delay:${delay}s"/>
-<text x="${x+w/2}" y="${y+h/2-6}" text-anchor="middle" fill="rgba(255,255,255,.9)" font-size="12" font-weight="bold" class="fade-in-el" style="animation-delay:${delay+.1}s">${line1}</text>
-<text x="${x+w/2}" y="${y+h/2+10}" text-anchor="middle" fill="rgba(200,220,255,.55)" font-size="10" class="fade-in-el" style="animation-delay:${delay+.2}s">${line2}</text>`;
+// ── Helpers ────────────────────────────────────
+const COLORS = ['#22dd66','#38b6ff','#ff9900','#ff4488','#aa44ff','#ffdd00','#00ddcc'];
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function box(x,y,w,h,col,l1,l2,delay=0){
+  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" fill="${col}1a" stroke="${col}55" stroke-width="1.5" class="fade-in-el" style="animation-delay:${delay}s"/>
+<text x="${x+w/2}" y="${y+h/2-7}" text-anchor="middle" fill="rgba(255,255,255,.9)" font-size="12" font-weight="bold" class="fade-in-el" style="animation-delay:${delay+.1}s">${esc(l1)}</text>
+<text x="${x+w/2}" y="${y+h/2+10}" text-anchor="middle" fill="rgba(200,220,255,.52)" font-size="10" class="fade-in-el" style="animation-delay:${delay+.2}s">${esc(l2)}</text>`;
 }
-function arrow(x1,y1,x2,y2,col='#38b6ff'){
-  return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="1.5" opacity=".55" marker-end="url(#arr)" class="fade-in-el" style="animation-delay:.05s"/>`;
+function arrow(x1,y1,x2,y2,col='#38b6ff',delay=.05){
+  return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="1.5" opacity=".52" marker-end="url(#arr)" class="fade-in-el" style="animation-delay:${delay}s"/>`;
 }
-function spoke(cx,cy,x,y,col,icon,l1,l2,delay){
-  const bx=x-70,by=y-35;
-  return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="${col}" stroke-width="1.5" opacity=".35" class="fade-in-el" style="animation-delay:${delay}s"/>
-<rect x="${bx}" y="${by}" width="140" height="70" rx="10" fill="${col}18" stroke="${col}55" stroke-width="1" class="fade-in-el" style="animation-delay:${delay+.1}s"/>
-<text x="${bx+70}" y="${by+22}" text-anchor="middle" font-size="16" class="fade-in-el" style="animation-delay:${delay+.2}s">${icon}</text>
-<text x="${bx+70}" y="${by+40}" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el" style="animation-delay:${delay+.3}s">${l1}</text>
-<text x="${bx+70}" y="${by+56}" text-anchor="middle" fill="rgba(200,220,255,.6)" font-size="9" class="fade-in-el" style="animation-delay:${delay+.4}s">${l2}</text>`;
-}
-function revBox(x,y,w,h,col,icon,l1,l2,l3,delay){
-  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="${col}22" stroke="${col}66" stroke-width="1.5" class="fade-in-el" style="animation-delay:${delay}s"/>
-<text x="${x+w/2}" y="${y+16}" text-anchor="middle" font-size="16" class="fade-in-el" style="animation-delay:${delay+.1}s">${icon}</text>
-<text x="${x+w/2}" y="${y+32}" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el" style="animation-delay:${delay+.2}s">${l1}</text>
-<text x="${x+w/2}" y="${y+46}" text-anchor="middle" fill="rgba(200,220,255,.65)" font-size="10" class="fade-in-el" style="animation-delay:${delay+.3}s">${l2}</text>
-<text x="${x+w/2}" y="${y+60}" text-anchor="middle" fill="#22dd66" font-size="10" class="fade-in-el" style="animation-delay:${delay+.4}s">${l3}</text>`;
-}
-function miniTool(x,y,icon,label){
-  return `<rect x="${x}" y="${y}" width="70" height="50" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)" stroke-width="1" class="fade-in-el" style="animation-delay:2.3s"/>
-<text x="${x+35}" y="${y+22}" text-anchor="middle" font-size="16" class="fade-in-el" style="animation-delay:2.4s">${icon}</text>
-<text x="${x+35}" y="${y+40}" text-anchor="middle" fill="rgba(200,220,255,.5)" font-size="9" class="fade-in-el" style="animation-delay:2.4s">${label}</text>`;
+function spoke(cx,cy,x,y,col,icon,l1,l2,delay=0){
+  return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="${col}" stroke-width="1.5" opacity=".32" class="fade-in-el" style="animation-delay:${delay}s"/>
+<rect x="${x-65}" y="${y-30}" width="130" height="60" rx="8" fill="${col}1a" stroke="${col}52" stroke-width="1" class="fade-in-el" style="animation-delay:${delay+.1}s"/>
+<text x="${x}" y="${y-8}" text-anchor="middle" font-size="16" class="fade-in-el" style="animation-delay:${delay+.2}s">${icon}</text>
+<text x="${x}" y="${y+10}" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el" style="animation-delay:${delay+.3}s">${esc(l1)}</text>
+<text x="${x}" y="${y+24}" text-anchor="middle" fill="rgba(200,220,255,.55)" font-size="9" class="fade-in-el" style="animation-delay:${delay+.4}s">${esc(l2)}</text>`;
 }
 
-// ── Diagrams ───────────────────────────────────
-const DIAGRAMS = {
-welcome:{title:'Что умеет Амир',render:()=>`
-  <rect x="50" y="40" width="700" height="520" rx="16" fill="rgba(56,182,255,.03)" stroke="rgba(56,182,255,.08)" stroke-width="1"/>
-  <circle cx="400" cy="300" r="52" fill="rgba(0,119,255,.14)" stroke="#0077ff" stroke-width="2" filter="url(#glow)" class="fade-in-el"/>
-  <text x="400" y="295" text-anchor="middle" fill="#38b6ff" font-size="26" class="fade-in-el">🤖</text>
-  <text x="400" y="316" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el">АМИР AI</text>
-  ${spoke(400,300,200,155,'#22dd66','🌿','Автоматизация','IoT, полив, датчики',0)}
-  ${spoke(400,300,600,155,'#ff9900','🖥️','Бизнес-идеи','клубы, монетизация',.2)}
-  ${spoke(400,300,650,325,'#ff4488','🌐','Цифровые системы','сайты, боты, CRM',.4)}
-  ${spoke(400,300,550,475,'#aa44ff','💳','Автономный агент','оплата → выполнение',.6)}
-  ${spoke(400,300,250,475,'#38b6ff','📊','Бизнес-анализ','стратегия, цифры',.8)}
-  ${spoke(400,300,150,325,'#ffdd00','❓','Любые вопросы','Спросите — отвечу',1)}
-`},
+// ── Preset diagrams ────────────────────────────
+const PRESETS = {
+welcome:{title:'Что умеет Амир',svg:()=>`
+<circle cx="400" cy="300" r="52" fill="rgba(0,119,255,.13)" stroke="#0077ff" stroke-width="2" filter="url(#glow)" class="fade-in-el"/>
+<text x="400" y="295" text-anchor="middle" fill="#38b6ff" font-size="24" class="fade-in-el">🤖</text>
+<text x="400" y="315" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el">АМИР AI</text>
+${spoke(400,300,200,155,'#22dd66','🌿','Автоматизация','IoT, полив, датчики',0)}
+${spoke(400,300,600,155,'#ff9900','🖥️','Бизнес-идеи','клубы, монетизация',.2)}
+${spoke(400,300,650,325,'#ff4488','🌐','Сайты и CRM','лендинг, магазин',.4)}
+${spoke(400,300,550,475,'#aa44ff','🤖','AI агенты','автономные системы',.6)}
+${spoke(400,300,250,475,'#38b6ff','📊','Бизнес-анализ','стратегия, цифры',.8)}
+${spoke(400,300,150,325,'#ffdd00','☕','Любые вопросы','от кофейни до завода',1)}`},
 
-irrigation:{title:'Система автоматизации полива теплицы',render:()=>`
-  ${box(55,45,130,60,'#0066aa','#003366','💧 Водоснабжение','Скважина / бак',0)}
-  ${box(245,45,110,60,'#0088cc','#004488','⚡ Насос','220В / 380В',.3)}
-  ${box(420,45,130,60,'#0044aa','#002266','🧠 Контроллер','Arduino / ESP32',.6)}
-  ${box(615,45,120,60,'#005588','#002244','🔧 Клапаны','4-8 зон',.9)}
-  ${box(75,215,110,55,'#116611','#0a3310','💧 Влажность','почвы',1.2)}
-  ${box(232,215,110,55,'#116611','#0a3310','🌡️ Температура','воздуха',1.4)}
-  ${box(390,215,110,55,'#116611','#0a3310','☀️ Освещение','LDR',1.6)}
-  ${box(548,215,110,55,'#116611','#0a3310','💦 Расход','воды',1.8)}
-  ${box(65,365,100,50,'#115511','#0a2a0a','🌱 Зона 1','Томаты',2.2)}
-  ${box(205,365,100,50,'#115511','#0a2a0a','🌱 Зона 2','Огурцы',2.4)}
-  ${box(345,365,100,50,'#115511','#0a2a0a','🌱 Зона 3','Перец',2.6)}
-  ${box(485,365,100,50,'#115511','#0a2a0a','🌱 Зона 4','Зелень',2.8)}
-  ${box(625,365,100,50,'#115511','#0a2a0a','🌱 Зона 5','Ягоды',3.0)}
-  ${box(310,475,180,58,'#333366','#111133','📱 Приложение','Tuya / собственное',3.2)}
-  ${arrow(185,75,245,75)}${arrow(355,75,420,75)}${arrow(550,75,615,75)}
-  ${arrow(130,215,130,175)}${arrow(287,215,287,175)}${arrow(445,215,485,105)}${arrow(603,215,650,105)}
-  ${arrow(675,105,115,365,'#22dd66')}${arrow(675,105,255,365,'#22dd66')}${arrow(675,105,395,365,'#22dd66')}${arrow(675,105,535,365,'#22dd66')}${arrow(675,105,675,365,'#22dd66')}
-  ${arrow(400,475,485,105)}
-  <rect x="45" y="537" width="710" height="38" rx="8" fill="rgba(56,182,255,.05)" stroke="rgba(56,182,255,.12)" stroke-width="1" class="fade-in-el" style="animation-delay:3.5s"/>
-  <text x="400" y="552" text-anchor="middle" fill="rgba(56,182,255,.7)" font-size="11" class="fade-in-el" style="animation-delay:3.6s">💰 Бюджет ~$330: контроллер $50 · насос $80 · клапаны $60 · датчики $40 · трубы $100</text>
-  <text x="400" y="568" text-anchor="middle" fill="rgba(100,255,100,.6)" font-size="11" class="fade-in-el" style="animation-delay:3.7s">✅ Экономия воды -40% · Урожай +25% · Окупаемость 6 мес.</text>
-`},
+irrigation:{title:'Автоматизация полива теплицы',svg:()=>`
+${box(55,42,130,62,'#0066aa','💧 Водоснабжение','Скважина / бак',0)}
+${box(240,42,110,62,'#0088cc','⚡ Насос','220В / 380В',.3)}
+${box(415,42,130,62,'#0044aa','🧠 Контроллер','Arduino / ESP32',.6)}
+${box(608,42,120,62,'#005588','🔧 Клапаны','4-8 зон',.9)}
+${box(70,215,110,55,'#116611','💧 Влажность','почвы',1.2)}
+${box(230,215,110,55,'#116611','🌡️ Температура','воздуха',1.4)}
+${box(390,215,110,55,'#116611','☀️ Освещение','LDR',1.6)}
+${box(550,215,110,55,'#116611','💦 Расход','воды',1.8)}
+${box(60,368,100,50,'#115511','🌱 Зона 1','Томаты',2.2)}
+${box(200,368,100,50,'#115511','🌱 Зона 2','Огурцы',2.4)}
+${box(340,368,100,50,'#115511','🌱 Зона 3','Перец',2.6)}
+${box(480,368,100,50,'#115511','🌱 Зона 4','Зелень',2.8)}
+${box(620,368,100,50,'#115511','🌱 Зона 5','Ягоды',3.0)}
+${box(307,478,186,58,'#333366','📱 Приложение','Tuya / собственное',3.2)}
+${arrow(185,73,240,73)}${arrow(350,73,415,73)}${arrow(545,73,608,73)}
+${arrow(125,215,125,172)}${arrow(285,215,285,172)}${arrow(445,215,480,104)}${arrow(605,215,648,104)}
+${arrow(668,104,110,368,'#22dd66')}${arrow(668,104,250,368,'#22dd66')}${arrow(668,104,390,368,'#22dd66')}${arrow(668,104,530,368,'#22dd66')}${arrow(668,104,670,368,'#22dd66')}
+${arrow(400,478,480,104)}
+<rect x="45" y="540" width="710" height="36" rx="8" fill="rgba(56,182,255,.05)" stroke="rgba(56,182,255,.1)" stroke-width="1" class="fade-in-el" style="animation-delay:3.5s"/>
+<text x="400" y="563" text-anchor="middle" fill="rgba(56,182,255,.65)" font-size="11" class="fade-in-el" style="animation-delay:3.6s">💰 ~$330 · Экономия воды -40% · Урожай +25% · Окупаемость 6 мес.</text>`},
 
-club:{title:'Монетизация компьютерного клуба',render:()=>`
-  <rect x="278" y="218" width="244" height="120" rx="12" fill="rgba(100,50,200,.1)" stroke="#8833cc" stroke-width="2" class="fade-in-el"/>
-  <text x="400" y="253" text-anchor="middle" fill="#cc88ff" font-size="14" font-weight="bold" class="fade-in-el">🖥️ Парк ПК</text>
-  <text x="400" y="272" text-anchor="middle" fill="rgba(200,180,255,.7)" font-size="12" class="fade-in-el">20-50 компьютеров</text>
-  <text x="400" y="290" text-anchor="middle" fill="rgba(200,180,255,.6)" font-size="11" class="fade-in-el">GTX 1660+ · i5/i7 · 16-32GB RAM</text>
-  <text x="400" y="308" text-anchor="middle" fill="rgba(200,180,255,.55)" font-size="10" class="fade-in-el">SSD 512GB · UPS · быстрый интернет</text>
-  ${revBox(55,58,140,65,'#0066aa','💰','Аренда','по часам','100-200₸/ч',0)}
-  ${revBox(298,58,162,65,'#006633','🎮','Турниры','и соревнования','призы + билеты',.2)}
-  ${revBox(578,58,140,65,'#664400','☕','Бар','кофе + снеки','+30% выручки',.4)}
-  ${revBox(55,368,140,65,'#550066','⛏️','Майнинг','ночное время','Kaspa / Raven',.6)}
-  ${revBox(256,388,162,65,'#003366','🖥️','Рендер-ферма','по запросу','$0.5-2/GPU·ч',.8)}
-  ${revBox(468,388,140,65,'#336600','🎓','Курсы','IT и киберспорт','абонементы',1.0)}
-  ${revBox(638,368,122,65,'#663300','📺','Стриминг','VIP-стол','+₸₸₸',1.2)}
-  ${arrow(400,218,125,123,'#22dd66')}${arrow(400,218,379,123,'#22dd66')}${arrow(400,218,648,123,'#22dd66')}
-  ${arrow(400,338,125,368,'#aa44ff')}${arrow(400,338,337,388,'#aa44ff')}${arrow(400,338,538,388,'#aa44ff')}${arrow(400,338,699,368,'#aa44ff')}
-  <rect x="196" y="490" width="408" height="60" rx="10" fill="rgba(56,182,255,.05)" stroke="rgba(56,182,255,.18)" stroke-width="1" class="fade-in-el" style="animation-delay:1.5s"/>
-  <text x="400" y="516" text-anchor="middle" fill="#38b6ff" font-size="12" font-weight="bold" class="fade-in-el" style="animation-delay:1.6s">📊 20 ПК × 200₸/ч × 12ч + майнинг + курсы</text>
-  <text x="400" y="536" text-anchor="middle" fill="#22dd66" font-size="14" font-weight="bold" class="fade-in-el" style="animation-delay:1.7s">= 500 000 — 1 200 000 ₸ / месяц</text>
-`},
+club:{title:'Монетизация компьютерного клуба',svg:()=>`
+<rect x="278" y="218" width="244" height="118" rx="12" fill="rgba(100,50,200,.1)" stroke="#8833cc" stroke-width="2" class="fade-in-el"/>
+<text x="400" y="253" text-anchor="middle" fill="#cc88ff" font-size="14" font-weight="bold" class="fade-in-el">🖥️ Парк ПК</text>
+<text x="400" y="272" text-anchor="middle" fill="rgba(200,180,255,.7)" font-size="12" class="fade-in-el">20-50 компьютеров</text>
+<text x="400" y="290" text-anchor="middle" fill="rgba(200,180,255,.6)" font-size="11" class="fade-in-el">GTX 1660+ · i5/i7 · 16-32GB</text>
+<rect x="55" y="58" width="138" height="65" rx="10" fill="#0066aa22" stroke="#0066aa66" stroke-width="1.5" class="fade-in-el"/>
+<text x="124" y="80" text-anchor="middle" font-size="16" class="fade-in-el">💰</text>
+<text x="124" y="97" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el">Аренда</text>
+<text x="124" y="113" text-anchor="middle" fill="rgba(200,220,255,.65)" font-size="10" class="fade-in-el">100-200₸/ч</text>
+<rect x="298" y="58" width="162" height="65" rx="10" fill="#00663322" stroke="#00663366" stroke-width="1.5" class="fade-in-el" style="animation-delay:.2s"/>
+<text x="379" y="80" text-anchor="middle" font-size="16" class="fade-in-el" style="animation-delay:.2s">🎮</text>
+<text x="379" y="97" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el" style="animation-delay:.2s">Турниры</text>
+<text x="379" y="113" text-anchor="middle" fill="rgba(200,220,255,.65)" font-size="10" class="fade-in-el" style="animation-delay:.2s">призы + билеты</text>
+<rect x="578" y="58" width="138" height="65" rx="10" fill="#66440022" stroke="#66440066" stroke-width="1.5" class="fade-in-el" style="animation-delay:.4s"/>
+<text x="647" y="80" text-anchor="middle" font-size="16" class="fade-in-el" style="animation-delay:.4s">☕</text>
+<text x="647" y="97" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el" style="animation-delay:.4s">Бар</text>
+<text x="647" y="113" text-anchor="middle" fill="#22dd66" font-size="10" class="fade-in-el" style="animation-delay:.4s">+30% выручки</text>
+<rect x="55" y="370" width="138" height="65" rx="10" fill="#55006622" stroke="#55006666" stroke-width="1.5" class="fade-in-el" style="animation-delay:.6s"/>
+<text x="124" y="392" text-anchor="middle" font-size="16" class="fade-in-el" style="animation-delay:.6s">⛏️</text>
+<text x="124" y="409" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el" style="animation-delay:.6s">Майнинг</text>
+<text x="124" y="424" text-anchor="middle" fill="rgba(200,220,255,.65)" font-size="10" class="fade-in-el" style="animation-delay:.6s">Kaspa / Raven</text>
+<rect x="256" y="390" width="162" height="65" rx="10" fill="#00336622" stroke="#00336666" stroke-width="1.5" class="fade-in-el" style="animation-delay:.8s"/>
+<text x="337" y="412" text-anchor="middle" font-size="16" class="fade-in-el" style="animation-delay:.8s">🖥️</text>
+<text x="337" y="429" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el" style="animation-delay:.8s">Рендер-ферма</text>
+<text x="337" y="444" text-anchor="middle" fill="#22dd66" font-size="10" class="fade-in-el" style="animation-delay:.8s">$0.5-2/GPU·ч</text>
+<rect x="468" y="390" width="140" height="65" rx="10" fill="#33660022" stroke="#33660066" stroke-width="1.5" class="fade-in-el" style="animation-delay:1s"/>
+<text x="538" y="412" text-anchor="middle" font-size="16" class="fade-in-el" style="animation-delay:1s">🎓</text>
+<text x="538" y="429" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el" style="animation-delay:1s">Курсы IT</text>
+<text x="538" y="444" text-anchor="middle" fill="rgba(200,220,255,.65)" font-size="10" class="fade-in-el" style="animation-delay:1s">абонементы</text>
+<rect x="640" y="370" width="122" height="65" rx="10" fill="#66330022" stroke="#66330066" stroke-width="1.5" class="fade-in-el" style="animation-delay:1.2s"/>
+<text x="701" y="392" text-anchor="middle" font-size="16" class="fade-in-el" style="animation-delay:1.2s">📺</text>
+<text x="701" y="409" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el" style="animation-delay:1.2s">Стриминг</text>
+<text x="701" y="424" text-anchor="middle" fill="#22dd66" font-size="10" class="fade-in-el" style="animation-delay:1.2s">VIP-стол</text>
+${arrow(400,218,124,123,'#22dd66')}${arrow(400,218,379,123,'#22dd66')}${arrow(400,218,647,123,'#22dd66')}
+${arrow(400,336,124,370,'#aa44ff')}${arrow(400,336,337,390,'#aa44ff')}${arrow(400,336,538,390,'#aa44ff')}${arrow(400,336,701,370,'#aa44ff')}
+<rect x="196" y="492" width="408" height="56" rx="10" fill="rgba(56,182,255,.05)" stroke="rgba(56,182,255,.16)" stroke-width="1" class="fade-in-el" style="animation-delay:1.5s"/>
+<text x="400" y="516" text-anchor="middle" fill="#38b6ff" font-size="12" font-weight="bold" class="fade-in-el" style="animation-delay:1.6s">📊 20 ПК × 200₸/ч × 12ч + майнинг + курсы</text>
+<text x="400" y="534" text-anchor="middle" fill="#22dd66" font-size="13" font-weight="bold" class="fade-in-el" style="animation-delay:1.7s">= 500 000 — 1 200 000 ₸ / месяц</text>`},
 
-site:{title:'Архитектура веб-сайта',render:()=>`
-  ${box(308,28,184,52,'#003366','#001133','🌐 Пользователь','Chrome / Safari / PWA',0)}
-  ${box(95,128,152,52,'#004488','#002244','⚡ Cloudflare CDN','Кэш + SSL + DDoS',.3)}
-  ${box(336,128,128,52,'#333300','#111100','🌍 Домен','.kz / .asia / .com',.3)}
-  ${box(558,128,152,52,'#004488','#001122','📊 Аналитика','Google Analytics',.3)}
-  ${box(196,238,184,56,'#003355','#001a33','🖥️ Фронтенд','HTML/CSS/JS · React',.6)}
-  ${box(420,238,184,56,'#003355','#001a33','📱 Мобильная','версия / PWA',.6)}
-  ${box(196,338,184,56,'#330033','#1a001a','⚙️ Бэкенд API','Node.js / Python',1.0)}
-  ${box(420,338,184,56,'#330033','#1a001a','🤖 AI чат-бот','Claude / DeepSeek',1.0)}
-  ${box(96,438,162,56,'#1a1100','#0a0800','🗄️ База данных','PostgreSQL / Mongo',1.4)}
-  ${box(296,438,162,56,'#1a1100','#0a0800','📁 Файлы','Cloudflare R2 / S3',1.4)}
-  ${box(496,438,162,56,'#001a00','#000a00','📧 Email / SMS','Уведомления',1.4)}
-  ${box(286,528,228,46,'#002244','#001122','📲 Telegram боты','CRM · уведомления · лиды',1.8)}
-  ${arrow(400,80,171,128)}${arrow(400,80,400,128)}${arrow(400,80,634,128)}
-  ${arrow(171,180,288,238)}${arrow(462,180,512,238)}
-  ${arrow(288,294,288,338)}${arrow(512,294,512,338)}
-  ${arrow(288,394,177,438)}${arrow(288,394,377,438)}${arrow(512,394,577,438)}
-  ${arrow(177,494,400,528)}${arrow(462,494,400,528)}
-`},
+site:{title:'Архитектура веб-сайта',svg:()=>`
+${box(308,28,184,52,'#003366','🌐 Пользователь','Chrome · Safari · PWA',0)}
+${box(95,128,152,52,'#004488','⚡ Cloudflare CDN','Кэш + SSL + DDoS',.3)}
+${box(336,128,128,52,'#333300','🌍 Домен','.kz · .asia · .com',.3)}
+${box(558,128,152,52,'#004488','📊 Аналитика','Google Analytics',.3)}
+${box(196,238,184,56,'#003355','🖥️ Фронтенд','HTML/CSS/JS · React',.6)}
+${box(420,238,184,56,'#003355','📱 Мобильная','версия / PWA',.6)}
+${box(196,338,184,56,'#330033','⚙️ Бэкенд API','Node.js / Python',1.0)}
+${box(420,338,184,56,'#330033','🤖 AI чат-бот','Claude / DeepSeek',1.0)}
+${box(96,438,162,56,'#1a1100','🗄️ База данных','PostgreSQL / Mongo',1.4)}
+${box(296,438,162,56,'#1a1100','📁 Файлы','Cloudflare R2 / S3',1.4)}
+${box(496,438,162,56,'#001a00','📧 Email / SMS','Уведомления',1.4)}
+${box(286,528,228,46,'#002244','📲 Telegram боты','CRM · лиды · уведомления',1.8)}
+${arrow(400,80,171,128)}${arrow(400,80,400,128)}${arrow(400,80,634,128)}
+${arrow(171,180,288,238)}${arrow(462,180,512,238)}
+${arrow(288,294,288,338)}${arrow(512,294,512,338)}
+${arrow(288,394,177,438)}${arrow(288,394,377,438)}${arrow(512,394,577,438)}
+${arrow(177,494,400,528)}${arrow(462,494,400,528)}`},
 
-agent:{title:'Автономный AI агент — от оплаты до результата',render:()=>`
-  <rect x="32" y="252" width="102" height="62" rx="8" fill="rgba(0,68,0,.2)" stroke="#22dd66" stroke-width="1.5" class="fade-in-el"/>
-  <text x="83" y="278" text-anchor="middle" fill="#22dd66" font-size="13" font-weight="bold" class="fade-in-el">👤 Клиент</text>
-  <text x="83" y="296" text-anchor="middle" fill="rgba(200,255,200,.6)" font-size="10" class="fade-in-el">Заявка</text>
-  ${arrow(134,283,198,283)}
-  <rect x="198" y="252" width="126" height="62" rx="8" fill="rgba(0,50,100,.2)" stroke="#0077ff" stroke-width="1.5" class="fade-in-el" style="animation-delay:.3s"/>
-  <text x="261" y="278" text-anchor="middle" fill="#38b6ff" font-size="13" font-weight="bold" class="fade-in-el" style="animation-delay:.3s">💳 Оплата</text>
-  <text x="261" y="296" text-anchor="middle" fill="rgba(200,220,255,.6)" font-size="10" class="fade-in-el" style="animation-delay:.3s">Kaspi · Visa · Click</text>
-  ${arrow(324,283,388,283)}
-  <rect x="388" y="252" width="106" height="62" rx="8" fill="rgba(80,0,80,.2)" stroke="#aa44ff" stroke-width="1.5" class="fade-in-el" style="animation-delay:.6s"/>
-  <text x="441" y="278" text-anchor="middle" fill="#cc88ff" font-size="13" font-weight="bold" class="fade-in-el" style="animation-delay:.6s">🚀 Триггер</text>
-  <text x="441" y="296" text-anchor="middle" fill="rgba(220,200,255,.6)" font-size="10" class="fade-in-el" style="animation-delay:.6s">Webhook</text>
-  ${arrow(494,283,558,283,'#ff9900')}
-  ${box(556,148,144,66,'#330066','#1a0033','🧠 Claude','ТЗ + план',.9)}
-  ${arrow(628,214,628,258,'#aa44ff')}
-  ${box(556,258,144,66,'#003366','#001a33','⚡ Codex / GPT','Пишет код',1.2)}
-  ${arrow(628,324,628,368,'#38b6ff')}
-  ${box(556,368,144,66,'#003300','#001a00','🔍 DeepSeek','Тест + ревью',1.5)}
-  ${arrow(628,434,628,458,'#22dd66')}
-  ${box(556,458,144,66,'#334400','#1a2200','🚀 Deploy','Cloudflare Pages',1.8)}
-  ${arrow(628,524,628,548,'#ffdd00')}
-  <rect x="476" y="548" width="264" height="62" rx="10" fill="rgba(60,40,0,.2)" stroke="#ffdd00" stroke-width="1.5" class="fade-in-el" style="animation-delay:2.1s"/>
-  <text x="608" y="575" text-anchor="middle" fill="#ffdd00" font-size="12" font-weight="bold" class="fade-in-el" style="animation-delay:2.1s">✅ Готово! Клиент получает</text>
-  <text x="608" y="594" text-anchor="middle" fill="rgba(255,240,180,.7)" font-size="10" class="fade-in-el" style="animation-delay:2.2s">Сайт + Бот + Доступы + Документация</text>
-  <text x="290" y="120" text-anchor="middle" fill="rgba(255,255,255,.25)" font-size="11" class="fade-in-el" style="animation-delay:2.5s">ИНСТРУМЕНТЫ АГЕНТА</text>
-  ${miniTool(60,72,'🌐','Браузер')}${miniTool(152,72,'📁','Файлы')}${miniTool(244,72,'🔧','Terminal')}${miniTool(336,72,'📊','API')}${miniTool(428,72,'📧','Email')}
-  <rect x="32" y="538" width="438" height="36" rx="8" fill="rgba(255,200,0,.04)" stroke="rgba(255,200,0,.13)" stroke-width="1" class="fade-in-el" style="animation-delay:2.8s"/>
-  <text x="251" y="561" text-anchor="middle" fill="rgba(255,200,100,.65)" font-size="11" class="fade-in-el" style="animation-delay:2.9s">⏱ Среднее время: 2–8 часов · без участия человека</text>
-`}
+agent:{title:'Автономный AI агент — от оплаты до результата',svg:()=>`
+<rect x="32" y="252" width="102" height="62" rx="8" fill="rgba(0,68,0,.2)" stroke="#22dd66" stroke-width="1.5" class="fade-in-el"/>
+<text x="83" y="278" text-anchor="middle" fill="#22dd66" font-size="13" font-weight="bold" class="fade-in-el">👤 Клиент</text>
+<text x="83" y="296" text-anchor="middle" fill="rgba(200,255,200,.55)" font-size="10" class="fade-in-el">Заявка</text>
+${arrow(134,283,198,283)}
+<rect x="198" y="252" width="126" height="62" rx="8" fill="rgba(0,50,100,.2)" stroke="#0077ff" stroke-width="1.5" class="fade-in-el" style="animation-delay:.3s"/>
+<text x="261" y="278" text-anchor="middle" fill="#38b6ff" font-size="13" font-weight="bold" class="fade-in-el" style="animation-delay:.3s">💳 Оплата</text>
+<text x="261" y="296" text-anchor="middle" fill="rgba(200,220,255,.55)" font-size="10" class="fade-in-el" style="animation-delay:.3s">Kaspi · Visa</text>
+${arrow(324,283,388,283)}
+<rect x="388" y="252" width="106" height="62" rx="8" fill="rgba(80,0,80,.2)" stroke="#aa44ff" stroke-width="1.5" class="fade-in-el" style="animation-delay:.6s"/>
+<text x="441" y="278" text-anchor="middle" fill="#cc88ff" font-size="13" font-weight="bold" class="fade-in-el" style="animation-delay:.6s">🚀 Триггер</text>
+<text x="441" y="296" text-anchor="middle" fill="rgba(220,200,255,.55)" font-size="10" class="fade-in-el" style="animation-delay:.6s">Webhook</text>
+${arrow(494,283,556,283,'#ff9900')}
+${box(556,148,144,65,'#330066','🧠 Claude','ТЗ + план',.9)}
+${arrow(628,213,628,258,'#aa44ff')}
+${box(556,258,144,65,'#003366','⚡ Codex','Пишет код',1.2)}
+${arrow(628,323,628,368,'#38b6ff')}
+${box(556,368,144,65,'#003300','🔍 DeepSeek','Тест + ревью',1.5)}
+${arrow(628,433,628,456,'#22dd66')}
+${box(556,456,144,65,'#334400','🚀 Deploy','Cloudflare',1.8)}
+${arrow(628,521,628,546,'#ffdd00')}
+<rect x="476" y="546" width="264" height="56" rx="10" fill="rgba(60,40,0,.2)" stroke="#ffdd00" stroke-width="1.5" class="fade-in-el" style="animation-delay:2.1s"/>
+<text x="608" y="570" text-anchor="middle" fill="#ffdd00" font-size="12" font-weight="bold" class="fade-in-el" style="animation-delay:2.1s">✅ Сайт + Бот + Доступы</text>
+<text x="608" y="588" text-anchor="middle" fill="rgba(255,240,180,.65)" font-size="10" class="fade-in-el" style="animation-delay:2.2s">за 2-8 часов без участия человека</text>
+<text x="280" y="118" text-anchor="middle" fill="rgba(255,255,255,.22)" font-size="11" class="fade-in-el" style="animation-delay:2.5s">ИНСТРУМЕНТЫ АГЕНТА</text>
+<rect x="60" y="70" width="68" height="46" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)" stroke-width="1" class="fade-in-el" style="animation-delay:2.3s"/>
+<text x="94" y="92" text-anchor="middle" font-size="15" class="fade-in-el" style="animation-delay:2.4s">🌐</text>
+<text x="94" y="107" text-anchor="middle" fill="rgba(200,220,255,.45)" font-size="9" class="fade-in-el" style="animation-delay:2.4s">Браузер</text>
+<rect x="148" y="70" width="68" height="46" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)" stroke-width="1" class="fade-in-el" style="animation-delay:2.35s"/>
+<text x="182" y="92" text-anchor="middle" font-size="15" class="fade-in-el" style="animation-delay:2.45s">📁</text>
+<text x="182" y="107" text-anchor="middle" fill="rgba(200,220,255,.45)" font-size="9" class="fade-in-el" style="animation-delay:2.45s">Файлы</text>
+<rect x="236" y="70" width="68" height="46" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)" stroke-width="1" class="fade-in-el" style="animation-delay:2.4s"/>
+<text x="270" y="92" text-anchor="middle" font-size="15" class="fade-in-el" style="animation-delay:2.5s">🔧</text>
+<text x="270" y="107" text-anchor="middle" fill="rgba(200,220,255,.45)" font-size="9" class="fade-in-el" style="animation-delay:2.5s">Terminal</text>
+<rect x="324" y="70" width="68" height="46" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)" stroke-width="1" class="fade-in-el" style="animation-delay:2.45s"/>
+<text x="358" y="92" text-anchor="middle" font-size="15" class="fade-in-el" style="animation-delay:2.55s">📧</text>
+<text x="358" y="107" text-anchor="middle" fill="rgba(200,220,255,.45)" font-size="9" class="fade-in-el" style="animation-delay:2.55s">Email</text>`}
 };
 
-// ── Renderer ───────────────────────────────────
-let currentDiagram = 'welcome';
-function showDiagram(name) {
-  const d = DIAGRAMS[name];
-  if(!d) return;
-  currentDiagram = name;
-  document.getElementById('diagram-root').innerHTML = d.render();
-  document.getElementById('canvas-subtitle').textContent = d.title;
-  document.querySelectorAll('.s-tab').forEach(t => {
-    t.classList.toggle('active', t.getAttribute('onclick').includes(`'${name}'`));
+// ── Dynamic diagram renderer ───────────────────
+function renderFlow(spec) {
+  const nodes = spec.nodes || [];
+  const n = Math.min(nodes.length, 6);
+  if(!n) return '';
+  const boxH=64, boxW=230, gap=20;
+  const totalH = n*boxH+(n-1)*gap;
+  const startY = Math.max(48, (600-totalH)/2);
+  const cx=400;
+  let svg='';
+  nodes.slice(0,n).forEach((nd,i)=>{
+    const y=startY+i*(boxH+gap), col=COLORS[i%COLORS.length], delay=i*.28;
+    svg+=`<rect x="${cx-boxW/2}" y="${y}" width="${boxW}" height="${boxH}" rx="10" fill="${col}1a" stroke="${col}55" stroke-width="1.5" class="fade-in-el" style="animation-delay:${delay}s"/>`;
+    svg+=`<text x="${cx}" y="${y+21}" text-anchor="middle" font-size="18" class="fade-in-el" style="animation-delay:${delay+.1}s">${nd.icon||'●'}</text>`;
+    svg+=`<text x="${cx}" y="${y+41}" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" class="fade-in-el" style="animation-delay:${delay+.2}s">${esc(nd.label||'')}</text>`;
+    svg+=`<text x="${cx}" y="${y+56}" text-anchor="middle" fill="rgba(200,220,255,.52)" font-size="10" class="fade-in-el" style="animation-delay:${delay+.3}s">${esc(nd.sub||'')}</text>`;
+    if(i<n-1){
+      const nc=COLORS[(i+1)%COLORS.length];
+      svg+=`<line x1="${cx}" y1="${y+boxH}" x2="${cx}" y2="${y+boxH+gap-2}" stroke="${nc}" stroke-width="2" opacity=".5" marker-end="url(#arr)" class="fade-in-el" style="animation-delay:${delay+.35}s"/>`;
+    }
+  });
+  return svg;
+}
+
+function renderMap(spec) {
+  const branches=(spec.branches||[]).slice(0,6);
+  const n=branches.length; if(!n) return '';
+  const center=spec.center||{icon:'🧠',label:'Центр'};
+  const cx=400,cy=318,r=182;
+  let svg='';
+  svg+=`<circle cx="${cx}" cy="${cy}" r="50" fill="rgba(0,100,255,.12)" stroke="#0077ff" stroke-width="2" filter="url(#glow)" class="fade-in-el"/>`;
+  svg+=`<text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="22" class="fade-in-el">${center.icon||'🧠'}</text>`;
+  svg+=`<text x="${cx}" y="${cy+14}" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el">${esc(center.label||'')}</text>`;
+  branches.forEach((b,i)=>{
+    const angle=(i/n)*2*Math.PI-Math.PI/2;
+    const bx=cx+Math.cos(angle)*r, by=cy+Math.sin(angle)*r;
+    const col=COLORS[i%COLORS.length], delay=i*.2;
+    svg+=`<line x1="${cx}" y1="${cy}" x2="${bx}" y2="${by}" stroke="${col}" stroke-width="1.5" opacity=".32" class="fade-in-el" style="animation-delay:${delay}s"/>`;
+    svg+=`<rect x="${bx-63}" y="${by-29}" width="126" height="58" rx="8" fill="${col}1a" stroke="${col}50" stroke-width="1" class="fade-in-el" style="animation-delay:${delay+.1}s"/>`;
+    svg+=`<text x="${bx}" y="${by-8}" text-anchor="middle" font-size="16" class="fade-in-el" style="animation-delay:${delay+.2}s">${b.icon||'●'}</text>`;
+    svg+=`<text x="${bx}" y="${by+8}" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" class="fade-in-el" style="animation-delay:${delay+.3}s">${esc(b.label||'')}</text>`;
+    svg+=`<text x="${bx}" y="${by+22}" text-anchor="middle" fill="rgba(200,220,255,.52)" font-size="9" class="fade-in-el" style="animation-delay:${delay+.4}s">${esc(b.sub||'')}</text>`;
+  });
+  return svg;
+}
+
+function parseDiag(text) {
+  // Try [SCHEMA:type]
+  const sm=text.match(/\[SCHEMA:(\w+)\]/);
+  if(sm) return {kind:'preset', name:sm[1]};
+  // Try [DIAGRAM:{...}]
+  const di=text.indexOf('[DIAGRAM:');
+  if(di===-1) return null;
+  let depth=0, i=di+9, start=i;
+  while(i<text.length){
+    if(text[i]==='{')depth++;
+    else if(text[i]==='}'){depth--;if(depth===0){i++;break;}}
+    i++;
+  }
+  try{return {kind:'dynamic', spec:JSON.parse(text.slice(start,i))};}catch{return null;}
+}
+
+function showDiagram(diag) {
+  if(!diag) return;
+  const root=document.getElementById('diagram-root');
+  if(diag.kind==='preset'){
+    const p=PRESETS[diag.name];
+    if(!p) return;
+    root.innerHTML=p.svg();
+    document.getElementById('canvas-subtitle').textContent=p.title;
+    updateTabs(diag.name);
+  } else if(diag.kind==='dynamic'){
+    const sp=diag.spec;
+    let inner='';
+    const title=sp.title||'';
+    inner+=`<text x="400" y="26" text-anchor="middle" fill="rgba(56,182,255,.52)" font-size="13" font-weight="bold" letter-spacing=".5" class="fade-in-el">${esc(title)}</text>`;
+    if(sp.type==='flow') inner+=renderFlow(sp);
+    else if(sp.type==='map') inner+=renderMap(sp);
+    root.innerHTML=inner;
+    document.getElementById('canvas-subtitle').textContent=title;
+    updateTabs('');
+  }
+}
+
+function showPreset(name) {
+  showDiagram({kind:'preset', name});
+}
+
+function updateTabs(active) {
+  document.querySelectorAll('.s-tab').forEach(t=>{
+    t.classList.toggle('active', t.getAttribute('onclick').includes(`'${active}'`));
   });
 }
-showDiagram('welcome');
 
-// ── Chat state ─────────────────────────────────
-const msgsEl = document.getElementById('messages');
-let chatHistory = [];
-let busy = false;
+showDiagram({kind:'preset',name:'welcome'});
 
-function addMsg(text, role, schemaName) {
-  const div = document.createElement('div');
-  div.className = `msg ${role}`;
-  const avatarIcon = role === 'amir' ? '🤖' : '👤';
-  const bubble = document.createElement('div');
-  bubble.className = 'msg-bubble';
-  bubble.textContent = text;
-  const inner = document.createElement('div');
-  inner.appendChild(bubble);
-  if(schemaName && DIAGRAMS[schemaName]) {
-    const tag = document.createElement('div');
-    tag.className = 'diagram-tag';
-    tag.textContent = '📊 Смотреть схему';
-    tag.onclick = () => showDiagram(schemaName);
-    inner.appendChild(tag);
-  }
-  div.innerHTML = `<div class="msg-avatar">${avatarIcon}</div>`;
-  div.appendChild(inner);
-  msgsEl.appendChild(div);
-  msgsEl.scrollTop = msgsEl.scrollHeight;
-  return bubble;
+// ── Chat ───────────────────────────────────────
+const msgsEl=document.getElementById('messages');
+let chatHistory=[], busy=false, lastDiag=null;
+
+function setBusy(v){
+  busy=v;
+  document.getElementById('send-btn').disabled=v;
 }
 
-function showTypingIndicator() {
-  const div = document.createElement('div');
-  div.className = 'msg amir';
-  div.id = 'typing-ind';
-  div.innerHTML = `<div class="msg-avatar">🤖</div><div class="typing-row"><div class="typing"><span></span><span></span><span></span></div></div>`;
-  msgsEl.appendChild(div);
-  msgsEl.scrollTop = msgsEl.scrollHeight;
+function showTyping(){
+  const d=document.createElement('div');d.className='msg amir';d.id='typing-ind';
+  d.innerHTML='<div class="msg-avatar">🤖</div><div class="typing-row"><div class="typing"><span></span><span></span><span></span></div></div>';
+  msgsEl.appendChild(d);msgsEl.scrollTop=msgsEl.scrollHeight;
 }
-function removeTypingIndicator() {
-  const t = document.getElementById('typing-ind');
-  if(t) t.remove();
-}
+function removeTyping(){const t=document.getElementById('typing-ind');if(t)t.remove();}
 
-function setBusy(v) {
-  busy = v;
-  document.getElementById('send-btn').disabled = v;
-  document.getElementById('user-input').style.opacity = v ? '.6' : '1';
-}
-
-// ── Stream from /api/amir ──────────────────────
-async function streamAmir(userText) {
-  setBusy(true);
-  showTypingIndicator();
-
-  let fullText = '';
-  let schemaDetected = null;
-  let bubble = null;
-  let cursorEl = null;
-
-  try {
-    const resp = await fetch('/api/amir', {
-      method: 'POST',
-      headers: {'content-type': 'application/json'},
-      body: JSON.stringify({
-        message: userText,
-        history: chatHistory.slice(-8)
-      })
+async function streamAmir(userText){
+  setBusy(true);showTyping();
+  let fullText='',diag=null,bubble=null,cursorEl=null,inner=null;
+  try{
+    const resp=await fetch('/api/amir',{
+      method:'POST',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify({message:userText,history:chatHistory.slice(-8)})
     });
-
-    removeTypingIndicator();
-
-    if(!resp.ok || !resp.body) {
-      const errData = await resp.json().catch(() => ({}));
-      addMsg(errData.error || 'Ошибка соединения. Попробуйте ещё раз.', 'amir');
-      setBusy(false);
-      return;
+    removeTyping();
+    if(!resp.ok||!resp.body){
+      const e=await resp.json().catch(()=>({}));
+      appendMsg('amir',e.error||'Ошибка. Попробуйте ещё раз.');
+      setBusy(false);return;
     }
+    // Build streaming bubble
+    const wrap=document.createElement('div');wrap.className='msg amir';
+    wrap.innerHTML='<div class="msg-avatar">🤖</div>';
+    inner=document.createElement('div');
+    bubble=document.createElement('div');bubble.className='msg-bubble';
+    cursorEl=document.createElement('span');cursorEl.className='cursor';
+    bubble.appendChild(cursorEl);inner.appendChild(bubble);wrap.appendChild(inner);
+    msgsEl.appendChild(wrap);
 
-    // Create streaming bubble
-    const div = document.createElement('div');
-    div.className = 'msg amir';
-    div.innerHTML = '<div class="msg-avatar">🤖</div>';
-    const inner = document.createElement('div');
-    bubble = document.createElement('div');
-    bubble.className = 'msg-bubble';
-    cursorEl = document.createElement('span');
-    cursorEl.className = 'cursor';
-    bubble.appendChild(cursorEl);
-    inner.appendChild(bubble);
-    div.appendChild(inner);
-    msgsEl.appendChild(div);
-
-    // SSE stream reading
-    const reader = resp.body.getReader();
-    const decoder = new TextDecoder();
-    let buf = '';
-
-    while(true) {
-      const {done, value} = await reader.read();
-      if(done) break;
-      buf += decoder.decode(value, {stream:true});
-      const lines = buf.split('\n');
-      buf = lines.pop();
-
-      for(const line of lines) {
-        if(!line.startsWith('data: ')) continue;
-        const raw = line.slice(6).trim();
-        if(raw === '[DONE]') continue;
-        let chunk;
-        try { chunk = JSON.parse(raw); } catch { continue; }
-        const delta = chunk?.choices?.[0]?.delta?.content || '';
-        if(!delta) continue;
-        fullText += delta;
-
-        // Detect schema tag early
-        if(!schemaDetected) {
-          const m = fullText.match(/\[SCHEMA:(\w+)\]/);
-          if(m && DIAGRAMS[m[1]]) {
-            schemaDetected = m[1];
-            showDiagram(schemaDetected);
-          }
+    const reader=resp.body.getReader(),dec=new TextDecoder();
+    let buf='';
+    while(true){
+      const{done,value}=await reader.read();if(done)break;
+      buf+=dec.decode(value,{stream:true});
+      const lines=buf.split('\n');buf=lines.pop();
+      for(const line of lines){
+        if(!line.startsWith('data: '))continue;
+        const raw=line.slice(6).trim();if(raw==='[DONE]')continue;
+        let chunk;try{chunk=JSON.parse(raw);}catch{continue;}
+        const delta=chunk?.choices?.[0]?.delta?.content||'';
+        if(!delta)continue;
+        fullText+=delta;
+        if(!diag){
+          diag=parseDiag(fullText);
+          if(diag)showDiagram(diag);
         }
-
-        // Display clean text (remove schema tag)
-        const displayText = fullText.replace(/\[SCHEMA:\w+\]\s*/g, '').trim();
-        bubble.textContent = displayText;
+        const display=fullText.replace(/\[SCHEMA:\w+\]\s*/g,'').replace(/\[DIAGRAM:\{.*?\}\]\s*/gs,'').trim();
+        bubble.textContent=display;
         bubble.appendChild(cursorEl);
-        msgsEl.scrollTop = msgsEl.scrollHeight;
+        msgsEl.scrollTop=msgsEl.scrollHeight;
       }
     }
-
     // Finalize
-    const displayText = fullText.replace(/\[SCHEMA:\w+\]\s*/g, '').trim();
-    bubble.textContent = displayText;
-
-    if(schemaDetected) {
-      const tag = document.createElement('div');
-      tag.className = 'diagram-tag';
-      tag.textContent = '📊 Смотреть схему';
-      tag.onclick = () => showDiagram(schemaDetected);
+    const display=fullText.replace(/\[SCHEMA:\w+\]\s*/g,'').replace(/\[DIAGRAM:\{.*?\}\]\s*/gs,'').trim();
+    bubble.textContent=display;
+    if(diag&&inner){
+      const tag=document.createElement('div');tag.className='diagram-tag';
+      tag.textContent='📊 Смотреть схему';
+      const dCopy=diag;tag.onclick=()=>showDiagram(dCopy);
       inner.appendChild(tag);
     }
-
-    // Save to history
-    chatHistory.push({role:'user', content: userText});
-    chatHistory.push({role:'assistant', content: displayText});
-
-  } catch(e) {
-    removeTypingIndicator();
-    if(bubble) bubble.textContent = 'Ошибка соединения. Попробуйте ещё раз.';
-    else addMsg('Ошибка соединения. Попробуйте ещё раз.', 'amir');
+    chatHistory.push({role:'user',content:userText});
+    chatHistory.push({role:'assistant',content:display});
+    lastDiag=diag;
+  }catch(e){
+    removeTyping();
+    if(bubble)bubble.textContent='Ошибка соединения. Попробуйте ещё раз.';
+    else appendMsg('amir','Ошибка соединения. Попробуйте ещё раз.');
   }
-
-  setBusy(false);
-  msgsEl.scrollTop = msgsEl.scrollHeight;
+  setBusy(false);msgsEl.scrollTop=msgsEl.scrollHeight;
 }
 
-// ── Send message ───────────────────────────────
-function sendMsg() {
-  if(busy) return;
-  const input = document.getElementById('user-input');
-  const text = input.value.trim();
-  if(!text) return;
-  input.value = '';
-  input.style.height = 'auto';
-  addMsg(text, 'user');
-  chatHistory.push({role:'user', content: text});
-  // pop the last user msg — streamAmir will re-add it
-  chatHistory.pop();
+function appendMsg(role,text){
+  const d=document.createElement('div');d.className=`msg ${role}`;
+  const icon=role==='amir'?'🤖':'👤';
+  d.innerHTML=`<div class="msg-avatar">${icon}</div><div><div class="msg-bubble">${esc(text)}</div></div>`;
+  msgsEl.appendChild(d);msgsEl.scrollTop=msgsEl.scrollHeight;
+}
+
+function sendMsg(){
+  if(busy)return;
+  const inp=document.getElementById('user-input');
+  const text=inp.value.trim();if(!text)return;
+  inp.value='';inp.style.height='auto';
+  appendMsg('user',text);
   streamAmir(text);
 }
+function askQuick(text){document.getElementById('user-input').value=text;sendMsg();}
 
-function askQuick(text) {
-  document.getElementById('user-input').value = text;
-  sendMsg();
-}
-
-document.getElementById('user-input').addEventListener('keydown', e => {
-  if(e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); }
+document.getElementById('user-input').addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}
 });
-document.getElementById('user-input').addEventListener('input', function() {
-  this.style.height = 'auto';
-  this.style.height = Math.min(this.scrollHeight, 90) + 'px';
+document.getElementById('user-input').addEventListener('input',function(){
+  this.style.height='auto';
+  this.style.height=Math.min(this.scrollHeight,88)+'px';
 });
 </script>
 </body>

@@ -1026,6 +1026,11 @@
           document.documentElement.classList.remove('keyboard-open');
         }
       };
+      // Open by default on first visit (desktop)
+      if (matchMedia('(min-width: 981px)').matches) {
+        setTimeout(() => toggleChat(true), 600);
+      }
+
       aiLauncher.addEventListener('click', () => toggleChat(!aiPanel.classList.contains('open')));
       aiClose.addEventListener('click', () => { toggleChat(false); if ('speechSynthesis' in window) speechSynthesis.cancel(); });
       aiStageClose.addEventListener('click', closeStage);
