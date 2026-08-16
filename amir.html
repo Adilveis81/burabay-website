@@ -451,7 +451,7 @@ async function streamAmir(userText){
     if (diagResult && diagResult.spec) {
       showDiagram({kind:'dynamic', spec: diagResult.spec});
       const modelLabel = diagResult.model && diagResult.model.includes('claude')
-        ? '✦ Claude Sonnet'
+        ? '✦ Claude Visual'
         : '⚡ DeepSeek';
       const tag=document.createElement('div');tag.className='diagram-tag';
       tag.textContent=`📊 Схема · ${modelLabel}`;

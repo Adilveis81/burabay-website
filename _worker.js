@@ -305,10 +305,10 @@ async function handleDiagram(request, env) {
   let raw = '';
   let model = '';
 
-  // ── Primary: Claude Sonnet (visual AI) ────────
+  // ── Primary: Claude Haiku (fast visual AI) ────
   if (env.ANTHROPIC_API_KEY) {
     try {
-      model = 'claude-sonnet-5';
+      model = 'claude-haiku-4-5-20251001';
       const resp = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: {
