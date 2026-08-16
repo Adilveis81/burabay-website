@@ -337,7 +337,23 @@ function sanitizeDiagramValue(value) {
   return value;
 }
 
-function createPublicAiStream(providerResponse) {
+function sanitizeDemoAnswer(text) {
+  const parts = String(text || '').match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [];
+  let clean = parts
+    .filter(part => !part.includes('?'))
+    .filter(part => !/(расскажите|подскажите|уточните|опишите|ответьте|выберите|напишите)/i.test(part))
+    .join(' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (!clean) clean = 'Я — демонстрационный ИИ-консультант Alsat и показываю общий принцип подбора цифрового решения.';
+  if (!/(?:приобрест|купить|платн).{0,40}консультац/i.test(clean)) {
+    clean += ' Это ограниченная демонстрация; для глубокого персонального разбора и продвинутого режима можно приобрести консультацию Alsat.';
+  }
+  return clean;
+}
+
+function createPublicAiStream(providerResponse, demoMode) {
   const reader = providerResponse.body.getReader();
   const decoder = new TextDecoder();
   const encoder = new TextEncoder();
@@ -345,6 +361,7 @@ function createPublicAiStream(providerResponse) {
   return new ReadableStream({
     async start(controller) {
       let buffer = '';
+      let completeText = '';
       try {
         while (true) {
           const { done, value } = await reader.read();
@@ -360,11 +377,17 @@ function createPublicAiStream(providerResponse) {
             try {
               const chunk = JSON.parse(raw);
               const text = chunk?.choices?.[0]?.delta?.content || chunk?.delta?.text || '';
-              if (text) controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { text } })}\n\n`));
+              if (!text) continue;
+              if (demoMode) completeText += text;
+              else controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { text } })}\n\n`));
             } catch {}
           }
         }
       } finally {
+        if (demoMode) {
+          const text = sanitizeDemoAnswer(completeText);
+          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { text } })}\n\n`));
+        }
         controller.enqueue(encoder.encode('data: [DONE]\n\n'));
         controller.close();
         reader.releaseLock();
@@ -589,7 +612,7 @@ async function handleAmir(request, env) {
     }
   }
 
-  return new Response(createPublicAiStream(aiResponse), {
+  return new Response(createPublicAiStream(aiResponse, !premium), {
     headers: {
       'content-type': 'text/event-stream',
       'cache-control': 'no-cache',
