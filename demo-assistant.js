@@ -163,7 +163,8 @@
 
   async function getDiagram(question) {
     try {
-      const response = await fetch('/api/diagram', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ question: `${niche}: ${question}` }) });
+      const authHeaders = await window.AlsatAuth?.getHeaders?.() || {};
+      const response = await fetch('/api/diagram', { method: 'POST', headers: { 'content-type': 'application/json', ...authHeaders }, body: JSON.stringify({ question: `${niche}: ${question}` }) });
       if (!response.ok) return null;
       return (await response.json()).spec || null;
     } catch { return null; }
@@ -184,8 +185,9 @@
     const diagramPromise = getDiagram(text);
 
     try {
+      const authHeaders = await window.AlsatAuth?.getHeaders?.() || {};
       const response = await fetch('/api/amir', {
-        method: 'POST', headers: { 'content-type': 'application/json' },
+        method: 'POST', headers: { 'content-type': 'application/json', ...authHeaders },
         body: JSON.stringify({ message: text, history: history.slice(-6), persona: personaKey, site: siteTitle, niche, sessionId: getSessionId(), accessCode }),
       });
       pending.classList.remove('typing');

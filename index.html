@@ -1156,9 +1156,10 @@
         const typing = addAiMessage('•••', 'assistant', 'typing');
 
         const requestConsultant = async endpoint => {
+          const authHeaders = await window.AlsatAuth?.getHeaders?.() || {};
           const response = await fetch(endpoint, {
             method: 'POST',
-            headers: { 'content-type': 'application/json' },
+            headers: { 'content-type': 'application/json', ...authHeaders },
             body: JSON.stringify({
               message: cleanMessage,
               history: previousHistory,

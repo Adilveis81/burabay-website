@@ -3,10 +3,13 @@
 const rateLimits = new Map();
 const notifiedSessions = new Map();
 const demoUsage = new Map();
+const registeredLeads = new Map();
 const RATE_WINDOW_MS = 60 * 60 * 1000;
 const RATE_LIMIT = 20;
 const DEMO_QUESTION_LIMIT = 5;
 const DEMO_SESSION_TTL = 30 * 24 * 60 * 60 * 1000;
+const SUPABASE_URL = 'https://duscyiyxfmsriyhwlbqx.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1c2N5aXl4Zm1zcml5aHdsYnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTMxMjYsImV4cCI6MjA5NDE2OTEyNn0.5A7EN-yzzbkNpPOQYIg8wpo0tcXa_NDDmBwclixpAgw';
 
 const SYSTEM_PROMPT = `Ты — Мансур, сильный цифровой консультант-продавец Alsat Digital, студии из Казахстана. В интерфейсе ты выглядишь как живой цифровой ведущий и можешь сам открывать подходящие сайты на большом экране. Ты самостоятельно ведёшь клиента от первого вопроса до выбора решения и готовности оплатить. Менеджер нужен только на финальном шаге: принять оплату и передать согласованный заказ в работу.
 
@@ -103,6 +106,64 @@ function cleanText(value, maxLength) {
     : '';
 }
 
+async function verifySupabaseUser(request, env) {
+  const auth = request.headers.get('authorization') || '';
+  if (!auth.startsWith('Bearer ')) return null;
+  const token = auth.slice(7).trim();
+  if (!token) return null;
+  try {
+    const response = await fetch(`${env.SUPABASE_URL || SUPABASE_URL}/auth/v1/user`, {
+      headers: {
+        apikey: env.SUPABASE_ANON_KEY || env.SUPABASE_KEY || SUPABASE_ANON_KEY,
+        authorization: `Bearer ${token}`,
+      },
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!response.ok) return null;
+    const user = await response.json();
+    return user?.id ? user : null;
+  } catch {
+    return null;
+  }
+}
+
+function registrationRequired() {
+  return json({
+    error: 'registration_required',
+    message: 'Чтобы открыть предложения и ИИ-консультанта, пройдите бесплатную регистрацию через Google.',
+  }, 401);
+}
+
+async function notifyRegisteredLead(request, env, user) {
+  if (!user?.id || registeredLeads.has(user.id)) return;
+  registeredLeads.set(user.id, Date.now());
+  const token = env.ADMIN_BOT_TOKEN || env.TELEGRAM_BOT_TOKEN;
+  const chatId = env.ADMIN_CHAT_ID || env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) return;
+  const meta = user.user_metadata || {};
+  const name = cleanText(meta.full_name || meta.name, 120) || 'Не указано';
+  const email = cleanText(user.email, 180) || 'Не указан';
+  const country = cleanText(request.headers.get('CF-IPCountry'), 8) || '—';
+  const text = ['🆕 Новый зарегистрированный лид с alsat.asia', '', `Имя: ${name}`, `Email: ${email}`, `Страна: ${country}`].join('\n');
+  try {
+    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ chat_id: chatId, text }),
+      signal: AbortSignal.timeout(8000),
+    });
+  } catch {}
+}
+
+async function handleAuthMe(request, env) {
+  if (request.method !== 'GET') return json({ error: 'Method not allowed' }, 405);
+  const user = await verifySupabaseUser(request, env);
+  if (!user) return registrationRequired();
+  await notifyRegisteredLead(request, env, user);
+  const meta = user.user_metadata || {};
+  return json({ user: { id: user.id, email: user.email || '', name: meta.full_name || meta.name || '', avatar: meta.avatar_url || meta.picture || '' } });
+}
+
 function isRateLimited(request) {
   const now = Date.now();
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
@@ -156,6 +217,9 @@ async function handleConsult(request, env) {
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
   const origin = request.headers.get('Origin');
   if (origin && origin !== new URL(request.url).origin) return json({ error: 'Forbidden' }, 403);
+  const user = await verifySupabaseUser(request, env);
+  if (!user) return registrationRequired();
+  await notifyRegisteredLead(request, env, user);
   if (!env.DEEPSEEK_API_KEY) {
     try {
       const upstream = await fetch('https://burabay-website.vercel.app/api/consult', {
@@ -401,6 +465,8 @@ function createPublicAiStream(providerResponse, demoMode) {
 
 async function handleDiagram(request, env) {
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
+  const user = await verifySupabaseUser(request, env);
+  if (!user) return registrationRequired();
 
   let body;
   try { body = await request.json(); } catch { return json({ error: 'bad request' }, 400); }
@@ -493,6 +559,9 @@ async function handleAmir(request, env) {
     return new Response(null, { headers: { 'access-control-allow-origin': '*', 'access-control-allow-methods': 'POST', 'access-control-allow-headers': 'content-type' } });
   }
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
+  const user = await verifySupabaseUser(request, env);
+  if (!user) return registrationRequired();
+  await notifyRegisteredLead(request, env, user);
   if (!env.ANTHROPIC_API_KEY && !env.DEEPSEEK_API_KEY) return json({ error: 'API not configured' }, 503);
 
   let body;
@@ -505,9 +574,7 @@ async function handleAmir(request, env) {
   const paidCodes = String(env.CONSULTATION_ACCESS_CODES || env.CONSULTATION_ACCESS_TOKEN || '')
     .split(',').map(code => code.trim()).filter(Boolean);
   const premium = Boolean(accessCode && paidCodes.includes(accessCode));
-  const sessionId = cleanText(body.sessionId, 100) || 'anonymous';
-  const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
-  const usageKey = `${ip}:${sessionId}`;
+  const usageKey = user.id;
   const now = Date.now();
   const current = demoUsage.get(usageKey);
   const count = current && now - current.updatedAt < DEMO_SESSION_TTL ? current.count : 0;
@@ -632,6 +699,10 @@ export default {
       return handleConsult(request, env);
     }
 
+    if (url.pathname === '/api/auth/me') {
+      return handleAuthMe(request, env);
+    }
+
     if (url.pathname === '/api/amir') {
       return handleAmir(request, env);
     }
@@ -672,14 +743,20 @@ export default {
     const assetResponse = await env.ASSETS.fetch(request);
     const contentType = assetResponse.headers.get('content-type') || '';
     const excluded = new Set(['/', '/index.html', '/amir', '/amir.html', '/404.html', '/notice.html']);
-    if (contentType.includes('text/html') && !excluded.has(url.pathname)) {
-      return new HTMLRewriter()
-        .on('body', {
+    if (contentType.includes('text/html')) {
+      const rewriter = new HTMLRewriter().on('head', {
+        element(element) {
+          element.append('<script src="/auth-gate.js?v=1" defer></script>', { html: true });
+        },
+      });
+      if (!excluded.has(url.pathname)) {
+        rewriter.on('body', {
           element(element) {
             element.append('<script src="/demo-assistant.js?v=7190d93" defer></script>', { html: true });
           },
-        })
-        .transform(assetResponse);
+        });
+      }
+      return rewriter.transform(assetResponse);
     }
     return assetResponse;
   },

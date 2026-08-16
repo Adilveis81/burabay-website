@@ -475,9 +475,10 @@ function removeTyping(){const t=document.getElementById('typing-ind');if(t)t.rem
 // Fetch a customer-facing visual diagram in parallel.
 async function fetchDiagram(question, answer) {
   try {
+    const authHeaders = await window.AlsatAuth?.getHeaders?.() || {};
     const resp = await fetch('/api/diagram', {
       method: 'POST',
-      headers: {'content-type': 'application/json'},
+      headers: {'content-type': 'application/json', ...authHeaders},
       body: JSON.stringify({ question, answer })
     });
     if (!resp.ok) return null;
@@ -496,9 +497,10 @@ async function streamAmir(userText){
 
   let fullText='',bubble=null,cursorEl=null,inner=null;
   try{
+    const authHeaders=await window.AlsatAuth?.getHeaders?.()||{};
     const resp=await fetch('/api/amir',{
       method:'POST',
-      headers:{'content-type':'application/json'},
+      headers:{'content-type':'application/json',...authHeaders},
       body:JSON.stringify({message:userText,history:chatHistory.slice(-8),sessionId:getSessionId(),accessCode})
     });
     removeTyping();
