@@ -260,6 +260,73 @@ async function handleConsult(request, env) {
   return json({ reply, leadCaptured, demo });
 }
 
+const AMIR_PROMPT = `Ты — Амир, универсальный AI-консультант. Помогаешь с любыми вопросами: бизнес, технологии, автоматизация, сельское хозяйство, медицина, образование, строительство, финансы и всё остальное.
+
+ВАЖНО: В самом начале ответа (отдельной первой строкой) добавляй тег схемы если тема соответствует одной из:
+- [SCHEMA:irrigation] — полив, орошение, теплицы, датчики влажности, IoT, сельское хозяйство, ферма, капельный
+- [SCHEMA:club] — компьютерный клуб, киберспорт, игровая зона, монетизация ПК, майнинг, рендер-ферма
+- [SCHEMA:site] — сайт, веб-сайт, домен, интернет-магазин, лендинг, CRM, онлайн-сервис, Cloudflare
+- [SCHEMA:agent] — AI агент, автоматизация процессов, бот, автономная система, pipeline, workflow
+Если ни одна тема не подходит точно — не добавляй тег схемы.
+
+После тега (или сразу, если тега нет) пиши полезный ответ. Будь конкретным: факты, цифры, шаги. 4-8 предложений без лишней воды.
+Не используй Markdown: никаких звёздочек, заголовков, таблиц или ссылок в разметке.
+Отвечай на языке клиента: русском, казахском или английском.`;
+
+async function handleAmir(request, env) {
+  if (request.method === 'OPTIONS') {
+    return new Response(null, { headers: { 'access-control-allow-origin': '*', 'access-control-allow-methods': 'POST', 'access-control-allow-headers': 'content-type' } });
+  }
+  if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
+  if (!env.DEEPSEEK_API_KEY) return json({ error: 'API not configured' }, 503);
+
+  let body;
+  try { body = await request.json(); } catch { return json({ error: 'Bad request' }, 400); }
+
+  const message = cleanText(body.message, 1200);
+  if (!message) return json({ error: 'Empty message' }, 400);
+
+  const history = Array.isArray(body.history)
+    ? body.history.slice(-6).map(item => ({
+        role: item?.role === 'assistant' ? 'assistant' : 'user',
+        content: cleanText(item?.content, 800),
+      })).filter(item => item.content)
+    : [];
+
+  let aiResponse;
+  try {
+    aiResponse = await fetch('https://api.deepseek.com/chat/completions', {
+      method: 'POST',
+      headers: { authorization: `Bearer ${env.DEEPSEEK_API_KEY}`, 'content-type': 'application/json' },
+      body: JSON.stringify({
+        model: 'deepseek-v4-flash',
+        stream: true,
+        thinking: { type: 'disabled' },
+        temperature: 0.3,
+        max_tokens: 600,
+        messages: [
+          { role: 'system', content: AMIR_PROMPT },
+          ...history,
+          { role: 'user', content: message },
+        ],
+      }),
+      signal: AbortSignal.timeout(45000),
+    });
+  } catch (e) {
+    return json({ error: 'Timeout' }, 504);
+  }
+
+  if (!aiResponse.ok) return json({ error: 'AI error' }, 502);
+
+  return new Response(aiResponse.body, {
+    headers: {
+      'content-type': 'text/event-stream',
+      'cache-control': 'no-cache',
+      'x-accel-buffering': 'no',
+    },
+  });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -267,6 +334,10 @@ export default {
 
     if (url.pathname === '/api/consult') {
       return handleConsult(request, env);
+    }
+
+    if (url.pathname === '/api/amir') {
+      return handleAmir(request, env);
     }
 
     const subdomainMap = {
