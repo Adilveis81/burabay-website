@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Оплата ИИ-консультации — Alsat Digital</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f5f7fa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px;
+    color: #1a1a2e;
+  }
+  .logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 32px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px 24px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+  }
+  .amount-block {
+    text-align: center;
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .amount-label { font-size: 13px; color: #9ca3af; margin-bottom: 6px; }
+  .amount { font-size: 38px; font-weight: 800; color: #1a1a2e; }
+  .amount span { font-size: 22px; font-weight: 600; color: #6b7280; }
+  .what-included {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+  .what-included b { color: #374151; }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+  }
+  .pay-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: transform 0.15s, box-shadow 0.15s;
+    text-decoration: none;
+    margin-bottom: 12px;
+  }
+  .pay-btn:active { transform: scale(0.98); }
+  .pay-btn .icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .pay-btn .btn-text { text-align: left; }
+  .pay-btn .btn-title { display: block; }
+  .pay-btn .btn-sub { display: block; font-size: 12px; font-weight: 400; opacity: 0.75; margin-top: 2px; }
+
+  .kaspi-btn {
+    background: #f3f4f6;
+    color: #1a1a2e;
+    border: 2px solid #e5e7eb;
+  }
+  .kaspi-btn:hover { background: #fef3c7; border-color: #f59e0b; box-shadow: 0 4px 16px rgba(245,158,11,0.15); }
+  .kaspi-btn .icon { background: #fef3c7; }
+
+  .halyk-btn {
+    background: #f3f4f6;
+    color: #1a1a2e;
+    border: 2px solid #e5e7eb;
+  }
+  .halyk-btn:hover { background: #d1fae5; border-color: #10b981; box-shadow: 0 4px 16px rgba(16,185,129,0.15); }
+  .halyk-btn .icon { background: #d1fae5; }
+
+  .qr-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .qr-modal.active { display: flex; }
+  .qr-box {
+    background: #fff;
+    border-radius: 24px;
+    padding: 32px 24px 24px;
+    width: 100%;
+    max-width: 340px;
+    text-align: center;
+    position: relative;
+  }
+  .qr-box h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .qr-box p { font-size: 13px; color: #6b7280; margin-bottom: 20px; }
+  #qr-canvas { display: block; margin: 0 auto 16px; border-radius: 12px; }
+  .qr-amount {
+    font-size: 24px;
+    font-weight: 800;
+    color: #2563eb;
+    margin-bottom: 8px;
+  }
+  .qr-hint {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .close-btn {
+    background: #f3f4f6;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #374151;
+    width: 100%;
+  }
+  .close-btn:hover { background: #e5e7eb; }
+
+  .divider {
+    text-align: center;
+    font-size: 13px;
+    color: #9ca3af;
+    margin: 4px 0 12px;
+  }
+
+  .footer-note {
+    font-size: 12px;
+    color: #9ca3af;
+    text-align: center;
+    max-width: 420px;
+    line-height: 1.6;
+  }
+  .footer-note a { color: #2563eb; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="logo">Alsat Digital</div>
+<div class="subtitle">Безопасная оплата через банковское приложение</div>
+
+<div class="card">
+  <div class="amount-block">
+    <div class="amount-label">К оплате</div>
+    <div class="amount">29 900 <span>₸</span></div>
+    <div class="what-included">
+      <b>ИИ-консультация:</b> до 100 вопросов или 7 дней · продвинутая модель · схемы решений · итоговая концепция
+    </div>
+  </div>
+
+  <div class="section-title">Выберите способ оплаты</div>
+
+  <button class="pay-btn kaspi-btn" onclick="openQR('kaspi')">
+    <div class="icon">🟡</div>
+    <div class="btn-text">
+      <span class="btn-title">Kaspi Pay</span>
+      <span class="btn-sub">Kaspi Gold · любая карта</span>
+    </div>
+  </button>
+
+  <div class="divider">или</div>
+
+  <button class="pay-btn halyk-btn" onclick="openQR('halyk')">
+    <div class="icon">🟢</div>
+    <div class="btn-text">
+      <span class="btn-title">Народный Банк (Halyk)</span>
+      <span class="btn-sub">Через приложение Halyk</span>
+    </div>
+  </button>
+</div>
+
+<div class="footer-note">
+  После оплаты напишите нам в Telegram <a href="https://t.me/alsat_kz">@alsat_kz</a> или WhatsApp
+  <a href="https://wa.me/77064244277">+7 706 424 42 77</a> — укажите имя и дату платежа.
+</div>
+
+<!-- QR Modal -->
+<div class="qr-modal" id="qr-modal">
+  <div class="qr-box">
+    <h3 id="qr-title">Оплата через Kaspi</h3>
+    <p id="qr-desc">Отсканируйте QR-код в приложении</p>
+    <canvas id="qr-canvas" width="220" height="220"></canvas>
+    <div class="qr-amount">29 900 ₸</div>
+    <div class="qr-hint" id="qr-hint">Укажите назначение платежа:<br><b>ИИ-консультация Alsat</b></div>
+    <button class="close-btn" onclick="closeQR()">Закрыть</button>
+  </div>
+</div>
+
+<script>
+// Минималистичный QR генератор (встроенный, без CDN)
+// Используем qrcode-generator library inline
+(function(){
+// Номер телефона для Kaspi
+const KASPI_PHONE = "87064244277";
+const HALYK_PHONE = "87064244277"; // Заменить на номер счёта Халык если другой
+const AMOUNT = 29900;
+
+// Kaspi deep link format
+const KASPI_URL = `https://kaspi.kz/pay?phone=${KASPI_PHONE}&amount=${AMOUNT}`;
+// Halyk / ePay format
+const HALYK_URL = `https://ib.halykbank.kz/transfer/byPhone?phone=${HALYK_PHONE}&amount=${AMOUNT}`;
+
+window.openQR = function(bank) {
+  const modal = document.getElementById('qr-modal');
+  const title = document.getElementById('qr-title');
+  const desc = document.getElementById('qr-desc');
+  const hint = document.getElementById('qr-hint');
+
+  let url;
+  if (bank === 'kaspi') {
+    title.textContent = 'Оплата через Kaspi Pay';
+    desc.textContent = 'Откройте Kaspi — Оплата — QR и отсканируйте';
+    hint.innerHTML = 'Укажите назначение: <b>ИИ-консультация Alsat</b>';
+    url = KASPI_URL;
+  } else {
+    title.textContent = 'Оплата через Народный Банк';
+    desc.textContent = 'Откройте Halyk — Перевод по QR и отсканируйте';
+    hint.innerHTML = 'Укажите назначение: <b>ИИ-консультация Alsat</b>';
+    url = HALYK_URL;
+  }
+
+  drawQR(url);
+  modal.classList.add('active');
+};
+
+window.closeQR = function() {
+  document.getElementById('qr-modal').classList.remove('active');
+};
+
+// Закрыть по клику на фон
+document.getElementById('qr-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeQR();
+});
+
+function drawQR(text) {
+  const canvas = document.getElementById('qr-canvas');
+  const ctx = canvas.getContext('2d');
+  const size = 220;
+  canvas.width = size;
+  canvas.height = size;
+
+  // Используем внешний API для генерации QR (только запрос на svg)
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  // quickchart.io — бесплатный QR API
+  img.src = `https://quickchart.io/qr?text=${encodeURIComponent(text)}&size=220&margin=2&ecLevel=M`;
+  img.onload = () => {
+    ctx.clearRect(0, 0, size, size);
+    ctx.drawImage(img, 0, 0, size, size);
+  };
+  img.onerror = () => {
+    // Fallback текст если нет сети
+    ctx.fillStyle = '#f3f4f6';
+    ctx.fillRect(0, 0, size, size);
+    ctx.fillStyle = '#374151';
+    ctx.font = '13px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('QR недоступен', size/2, size/2 - 10);
+    ctx.fillText('Используйте ссылку:', size/2, size/2 + 10);
+    ctx.font = '11px sans-serif';
+    ctx.fillStyle = '#2563eb';
+    ctx.fillText(text.substring(0, 35), size/2, size/2 + 30);
+  };
+}
+})();
+</script>
+
+</body>
+</html>
