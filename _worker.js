@@ -281,7 +281,7 @@ async function handleConsult(request, env) {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'deepseek-chat',
+        model: 'deepseek-v4-flash',
         thinking: { type: 'disabled' },
         temperature: 0.25,
         max_tokens: 650,
@@ -631,7 +631,7 @@ async function handleAmir(request, env) {
         method: 'POST',
         headers: { authorization: `Bearer ${env.DEEPSEEK_API_KEY}`, 'content-type': 'application/json' },
         body: JSON.stringify({
-          model: 'deepseek-chat',
+          model: 'deepseek-v4-flash',
           stream: true,
           thinking: { type: 'disabled' },
           temperature: 0.3,
