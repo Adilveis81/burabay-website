@@ -449,7 +449,7 @@ function showPurchaseGate(){
   if(document.querySelector('.paywall-card'))return;
   gated=true;
   const card=document.createElement('div');card.className='paywall-card';
-  card.innerHTML='<small>Демонстрация завершена</small><b>Активируйте полную AI-консультацию</b><p>Пять бесплатных вопросов показали принцип работы. После приобретения консультации мы включим продвинутый режим для глубокого персонального разбора и подготовки решения.</p><div class="paywall-actions"><a href="https://wa.me/77064244277?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BA%D1%83%D0%BF%D0%B8%D1%82%D1%8C%20AI-%D0%BA%D0%BE%D0%BD%D1%81%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%86%D0%B8%D1%8E%20Alsat." target="_blank" rel="noopener">Купить консультацию</a><a href="https://t.me/alsat_kz" target="_blank" rel="noopener">Написать в Telegram</a></div>';
+  card.innerHTML='<small>Демонстрация завершена</small><b>Активируйте полную AI-консультацию</b><p>Пять бесплатных вопросов показали принцип работы. После приобретения консультации мы включим продвинутый режим для глубокого персонального разбора и подготовки решения.</p><div class="paywall-actions"><a href="https://alsat.asia/pay" target="_blank" rel="noopener">Купить консультацию</a><a href="https://t.me/alsat_kz" target="_blank" rel="noopener">Написать в Telegram</a></div>';
   msgsEl.appendChild(card);msgsEl.scrollTop=msgsEl.scrollHeight;
   document.getElementById('user-input').disabled=true;
   document.getElementById('user-input').placeholder='Лимит демоверсии использован';
