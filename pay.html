@@ -199,13 +199,13 @@
 
   <div class="divider">или</div>
 
-  <button class="pay-btn halyk-btn" onclick="openQR('halyk')">
+  <a class="pay-btn halyk-btn" href="https://wa.me/77064244277?text=%D0%9E%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20%D0%BA%D0%BE%D0%BD%D1%81%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%86%D0%B8%D0%B8%20Alsat%2029900%20%E2%82%B8%20%E2%80%94%20%D0%9D%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B9%20%D0%B1%D0%B0%D0%BD%D0%BA" target="_blank" rel="noopener">
     <div class="icon">🟢</div>
     <div class="btn-text">
       <span class="btn-title">Народный Банк (Halyk)</span>
-      <span class="btn-sub">Через приложение Halyk</span>
+      <span class="btn-sub">Напишем реквизиты в WhatsApp</span>
     </div>
-  </button>
+  </a>
 </div>
 
 <div class="footer-note">
@@ -218,7 +218,7 @@
   <div class="qr-box">
     <h3 id="qr-title">Оплата через Kaspi</h3>
     <p id="qr-desc">Отсканируйте QR-код в приложении</p>
-    <canvas id="qr-canvas" width="220" height="220"></canvas>
+    <img id="qr-img" src="/kaspi-qr.png" alt="Kaspi QR" style="width:220px;height:220px;object-fit:contain;border-radius:12px;display:block;margin:0 auto 0;">
     <div class="qr-amount">29 900 ₸</div>
     <div class="qr-hint" id="qr-hint">Укажите назначение платежа:<br><b>ИИ-консультация Alsat</b></div>
     <button class="close-btn" onclick="closeQR()">Закрыть</button>
@@ -226,82 +226,19 @@
 </div>
 
 <script>
-// Минималистичный QR генератор (встроенный, без CDN)
-// Используем qrcode-generator library inline
-(function(){
-// Номер телефона для Kaspi
-const KASPI_PHONE = "87064244277";
-const HALYK_PHONE = "87064244277"; // Заменить на номер счёта Халык если другой
-const AMOUNT = 29900;
-
-// Kaspi deep link format
-const KASPI_URL = `https://kaspi.kz/pay?phone=${KASPI_PHONE}&amount=${AMOUNT}`;
-// Halyk / ePay format
-const HALYK_URL = `https://ib.halykbank.kz/transfer/byPhone?phone=${HALYK_PHONE}&amount=${AMOUNT}`;
-
 window.openQR = function(bank) {
-  const modal = document.getElementById('qr-modal');
-  const title = document.getElementById('qr-title');
-  const desc = document.getElementById('qr-desc');
-  const hint = document.getElementById('qr-hint');
-
-  let url;
-  if (bank === 'kaspi') {
-    title.textContent = 'Оплата через Kaspi Pay';
-    desc.textContent = 'Откройте Kaspi — Оплата — QR и отсканируйте';
-    hint.innerHTML = 'Укажите назначение: <b>ИИ-консультация Alsat</b>';
-    url = KASPI_URL;
-  } else {
-    title.textContent = 'Оплата через Народный Банк';
-    desc.textContent = 'Откройте Halyk — Перевод по QR и отсканируйте';
-    hint.innerHTML = 'Укажите назначение: <b>ИИ-консультация Alsat</b>';
-    url = HALYK_URL;
-  }
-
-  drawQR(url);
-  modal.classList.add('active');
+  if (bank !== 'kaspi') return;
+  document.getElementById('qr-title').textContent = 'Оплата через Kaspi Pay';
+  document.getElementById('qr-desc').textContent = 'Откройте Kaspi → Оплата → Сканировать QR';
+  document.getElementById('qr-hint').innerHTML = 'Укажите назначение: <b>ИИ-консультация Alsat</b>';
+  document.getElementById('qr-modal').classList.add('active');
 };
-
 window.closeQR = function() {
   document.getElementById('qr-modal').classList.remove('active');
 };
-
-// Закрыть по клику на фон
 document.getElementById('qr-modal').addEventListener('click', function(e) {
   if (e.target === this) closeQR();
 });
-
-function drawQR(text) {
-  const canvas = document.getElementById('qr-canvas');
-  const ctx = canvas.getContext('2d');
-  const size = 220;
-  canvas.width = size;
-  canvas.height = size;
-
-  // Используем внешний API для генерации QR (только запрос на svg)
-  const img = new Image();
-  img.crossOrigin = 'anonymous';
-  // quickchart.io — бесплатный QR API
-  img.src = `https://quickchart.io/qr?text=${encodeURIComponent(text)}&size=220&margin=2&ecLevel=M`;
-  img.onload = () => {
-    ctx.clearRect(0, 0, size, size);
-    ctx.drawImage(img, 0, 0, size, size);
-  };
-  img.onerror = () => {
-    // Fallback текст если нет сети
-    ctx.fillStyle = '#f3f4f6';
-    ctx.fillRect(0, 0, size, size);
-    ctx.fillStyle = '#374151';
-    ctx.font = '13px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('QR недоступен', size/2, size/2 - 10);
-    ctx.fillText('Используйте ссылку:', size/2, size/2 + 10);
-    ctx.font = '11px sans-serif';
-    ctx.fillStyle = '#2563eb';
-    ctx.fillText(text.substring(0, 35), size/2, size/2 + 30);
-  };
-}
-})();
 </script>
 
 </body>
