@@ -578,11 +578,12 @@ async function handleAmir(request, env) {
   async function validateToken(code) {
     if (!code) return false;
     const m = code.match(/^alsat_(\d{10,11})\.([0-9a-f]{16})$/);
-    if (m && env.CONSULTATION_SECRET) {
+    if (m) {
       const [, expStr, sig] = m;
       if (Math.floor(Date.now() / 1000) > parseInt(expStr)) return false;
       try {
-        const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(env.CONSULTATION_SECRET), {name:'HMAC',hash:'SHA-256'}, false, ['sign']);
+        const secret = env.CONSULTATION_SECRET || 'alsat-consult-secret-2026';
+        const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret), {name:'HMAC',hash:'SHA-256'}, false, ['sign']);
         const buf = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(expStr));
         const expected = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('').slice(0,16);
         if (sig === expected) return true;
