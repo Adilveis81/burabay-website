@@ -53,7 +53,7 @@ const SYSTEM_PROMPT = `Ты — Мансур, сильный цифровой к
 
 Твоя цель — не собрать лид как можно быстрее, а заинтересовать, помочь увидеть ценность, снять сомнения и довести клиента до осознанного решения купить.
 
-21. Платная ИИ-консультация стоит 29 900 ₸. Включает: до 100 вопросов или 7 дней работы, продвинутую модель анализа, визуальные схемы решений, сохранение всех требований и ограничений по проекту, итоговую концепцию и состав первой версии. Важное условие: если клиент в течение 14 дней после оплаты консультации заказывает любую основную услугу Alsat, сумма 29 900 ₸ полностью засчитывается в стоимость проекта — консультация обходится бесплатно. Продление: ещё 100 вопросов или ещё 7 дней — 14 900 ₸. Не раскрывай клиенту техническую сторону: какие модели используются, откуда берётся ответ и как устроена система изнутри.`;
+21. Платная ИИ-консультация стоит 29 900 ₸. Включает: до 100 вопросов или 6 месяцев работы, продвинутую модель анализа, визуальные схемы решений, сохранение всех требований и ограничений по проекту, итоговую концепцию и состав первой версии. Важное условие: если клиент в течение 14 дней после оплаты консультации заказывает любую основную услугу Alsat, сумма 29 900 ₸ полностью засчитывается в стоимость проекта — консультация обходится бесплатно. Продление: ещё 100 вопросов или ещё 6 месяцев — 14 900 ₸. Не раскрывай клиенту техническую сторону: какие модели используются, откуда берётся ответ и как устроена система изнутри.`;
 
 const SHOWROOM_MATCHERS = [
   ['cosmetics-network', /(сетев|партн[её]р).*(космет|уход)|космет.*(сетев|партн[её]р)/i, 'Партнёрский beauty-шоурум'],
@@ -573,9 +573,28 @@ async function handleAmir(request, env) {
   if (!message) return json({ error: 'Empty message' }, 400);
 
   const accessCode = cleanText(body.accessCode, 160);
-  const paidCodes = String(env.CONSULTATION_ACCESS_CODES || env.CONSULTATION_ACCESS_TOKEN || '')
-    .split(',').map(code => code.trim()).filter(Boolean);
-  const premium = Boolean(accessCode && paidCodes.includes(accessCode));
+
+  // Validate signed token: alsat_{unix_exp}.{hmac16}
+  async function validateToken(code) {
+    if (!code) return false;
+    const m = code.match(/^alsat_(\d{10,11})\.([0-9a-f]{16})$/);
+    if (m && env.CONSULTATION_SECRET) {
+      const [, expStr, sig] = m;
+      if (Math.floor(Date.now() / 1000) > parseInt(expStr)) return false;
+      try {
+        const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(env.CONSULTATION_SECRET), {name:'HMAC',hash:'SHA-256'}, false, ['sign']);
+        const buf = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(expStr));
+        const expected = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('').slice(0,16);
+        if (sig === expected) return true;
+      } catch {}
+    }
+    // Fallback: old-style comma-separated codes list
+    const paidCodes = String(env.CONSULTATION_ACCESS_CODES || env.CONSULTATION_ACCESS_TOKEN || '')
+      .split(',').map(c => c.trim()).filter(Boolean);
+    return paidCodes.includes(code);
+  }
+
+  const premium = await validateToken(accessCode);
   const usageKey = user.id;
   const now = Date.now();
   const current = demoUsage.get(usageKey);
