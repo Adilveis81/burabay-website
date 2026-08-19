@@ -508,10 +508,9 @@ async function handleDiagram(request, env) {
           'content-type': 'application/json',
         },
         body: JSON.stringify({
-          model: 'claude-haiku-4-5-20251001',
+          model: 'deepseek-chat',
           max_tokens: 500,
-          system: DIAGRAM_PROMPT,
-          messages: [{ role: 'user', content: userContent }],
+          messages: [{ role: 'system', content: DIAGRAM_PROMPT }, { role: 'user', content: userContent }],
         }),
         signal: AbortSignal.timeout(25000),
       });
