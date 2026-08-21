@@ -14,6 +14,20 @@ html,body{height:100%;font-family:'Segoe UI',Arial,sans-serif;background:#070d1a
 #canvas-title{position:absolute;top:16px;left:20px;z-index:10;font-size:10px;letter-spacing:3px;color:rgba(56,182,255,.4);text-transform:uppercase}
 #canvas-subtitle{position:absolute;top:33px;left:20px;z-index:10;font-size:10.5px;color:rgba(255,255,255,.2);letter-spacing:.4px;max-width:60%}
 #main-svg{width:100%;height:100%;display:block}
+#project-sidebar{display:none;position:absolute;z-index:6;right:12px;top:64px;bottom:44px;width:27%;padding:14px;overflow:auto;border:1px solid rgba(56,182,255,.18);border-radius:16px;background:linear-gradient(155deg,rgba(12,28,48,.94),rgba(7,15,29,.96));box-shadow:0 18px 45px rgba(0,0,0,.28)}
+#canvas-panel.project-mode #main-svg{width:73%}
+#canvas-panel.project-mode #project-sidebar{display:block}
+#project-sidebar small{display:block;color:#62d5ff;font-size:8px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase}
+#project-sidebar h3{margin-top:7px;font-size:15px;line-height:1.25;color:#eef9ff}
+.project-summary{margin-top:7px;color:#8faac2;font-size:10px;line-height:1.45}
+.project-section{margin-top:14px;color:#607e99;font-size:8px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+.project-offer{margin-top:7px;padding:8px;border-radius:10px;background:rgba(56,182,255,.065);border:1px solid rgba(56,182,255,.12);color:#d7edff;font-size:10px;line-height:1.3}
+.project-offer span{display:block;margin-top:2px;color:#7794ad;font-size:8.5px}
+.project-assumption{margin-top:7px;color:#e4b86f;font-size:9px;line-height:1.35}
+#canvas-panel.refining{box-shadow:inset 0 0 0 1px rgba(56,182,255,.22)}
+#canvas-panel.refining #canvas-title:after{content:'  •  ОБНОВЛЯЮ';color:#6ee7ff;animation:pulse 1.1s ease-in-out infinite}
+.project-node-updated{animation:nodeUpdate 1.6s ease both}
+@keyframes nodeUpdate{0%{opacity:.35;filter:drop-shadow(0 0 0 transparent)}35%{opacity:1;filter:drop-shadow(0 0 10px #38b6ff)}100%{opacity:1;filter:none}}
 #canvas-hint{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.15);font-size:10px;letter-spacing:2px;animation:pulse 3s ease-in-out infinite;white-space:nowrap}
 @keyframes pulse{0%,100%{opacity:.25}50%{opacity:.6}}
 #scenario-tabs{position:absolute;top:12px;right:12px;z-index:10;display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
@@ -82,6 +96,9 @@ html,body{height:100%;font-family:'Segoe UI',Arial,sans-serif;background:#070d1a
   .s-tab{padding:3px 7px;font-size:8px}
   #canvas-hint{bottom:7px;font-size:7px;letter-spacing:1px}
   #main-svg{height:100%;transform:scale(.94)}
+  #canvas-panel.project-mode #main-svg{width:64%;transform:none}
+  #project-sidebar{right:5px;top:42px;bottom:22px;width:35%;padding:8px;border-radius:10px}
+  #project-sidebar h3{font-size:10px;margin-top:4px}.project-summary{font-size:7.5px;margin-top:4px}.project-section{font-size:6.5px;margin-top:7px}.project-offer{font-size:7px;padding:5px;margin-top:4px}.project-offer span,.project-assumption{font-size:6.5px}
   #chat-header{padding:9px 11px}
   #amir-avatar{width:34px;height:34px;font-size:16px}
   #messages{padding:10px 9px;gap:8px}
@@ -123,7 +140,7 @@ body.mode-chat #chat-panel{display:flex;width:100%;height:100%}
     <div id="scenario-tabs">
       <div class="s-tab active" onclick="showPreset('welcome')">Главная</div>
       <div class="s-tab" onclick="showPreset('irrigation')">Полив</div>
-      <div class="s-tab" onclick="showPreset('club')">Клуб</div>
+      <div class="s-tab" onclick="showProjectSeed('computer-club')">Клуб</div>
       <div class="s-tab" onclick="showPreset('site')">Сайт</div>
       <div class="s-tab" onclick="showPreset('agent')">Агент</div>
     </div>
@@ -134,6 +151,15 @@ body.mode-chat #chat-panel{display:flex;width:100%;height:100%}
       </defs>
       <g id="diagram-root"></g>
     </svg>
+    <aside id="project-sidebar" aria-live="polite">
+      <small id="project-revision">ЖИВОЙ ПРОЕКТ</small>
+      <h3 id="project-name">Проект</h3>
+      <div class="project-summary" id="project-summary"></div>
+      <div class="project-section">Что можно предложить</div>
+      <div id="project-offers"></div>
+      <div class="project-section" id="assumptions-title">Нужно уточнить</div>
+      <div id="project-assumptions"></div>
+    </aside>
     <div id="canvas-hint">● СХЕМА ГЕНЕРИРУЕТСЯ ПО ТЕМЕ РАЗГОВОРА</div>
   </div>
 
@@ -412,11 +438,113 @@ function renderMap(spec) {
   return svg;
 }
 
+// ── Persistent live project ───────────────────
+const PROJECT_KEY='alsat_visual_project_v1';
+const PROJECT_SLOTS={
+  infrastructure:[[90,145],[90,290],[90,435]],
+  core:[[300,190],[300,335],[300,480]],
+  operations:[[505,150],[505,300],[505,450]],
+  digital:[[300,68],[475,68],[130,535]],
+  optional:[[470,535],[220,535],[505,535]]
+};
+let projectState={project:null,nodes:[],edges:[],offers:[],assumptions:[],positions:{},revision:0,revisionSummary:''};
+
+function loadProject(){
+  try{
+    const saved=JSON.parse(localStorage.getItem(PROJECT_KEY)||'null');
+    if(saved?.project&&Array.isArray(saved.nodes))projectState={...projectState,...saved};
+  }catch{}
+}
+function saveProject(){try{localStorage.setItem(PROJECT_KEY,JSON.stringify(projectState))}catch{}}
+function detectProject(text=''){
+  if(/компьютерн.*клуб|игров.*клуб|кибер/i.test(text))return'computer-club';
+  if(/теплиц|полив|ферм/i.test(text))return'greenhouse';
+  if(/строител|стройк|ремонт/i.test(text))return'construction';
+  if(/цех|производств|склад/i.test(text))return'workshop';
+  if(/сайт|магазин|лендинг/i.test(text))return'website';
+  return projectState.project?.id||'business-system';
+}
+function projectSeed(kind){
+  const seeds={
+    'computer-club':{project:{id:'computer-club',title:'Компьютерный клуб',icon:'🖥️'},nodes:[
+      {id:'internet',icon:'🌐',label:'Интернет',sub:'Основной + резервный',group:'infrastructure',status:'suggested'},
+      {id:'router',icon:'🛡️',label:'Роутер / Firewall',sub:'Сегментация сети',group:'infrastructure',status:'suggested'},
+      {id:'server',icon:'🗄️',label:'Сервер клуба',sub:'Управление сессиями',group:'core',status:'suggested'},
+      {id:'pc-zone',icon:'🎮',label:'Игровая зона',sub:'Рабочие места',group:'core',status:'suggested'},
+      {id:'admin',icon:'👤',label:'Администратор',sub:'Касса и контроль',group:'operations',status:'suggested'},
+      {id:'booking',icon:'📱',label:'Сайт и бронь',sub:'Запись и оплата',group:'digital',status:'suggested'},
+      {id:'cameras',icon:'📹',label:'Видеонаблюдение',sub:'Безопасность клуба',group:'operations',status:'suggested'}],edges:[
+      {id:'internet-router',from:'internet',to:'router',label:''},{id:'router-server',from:'router',to:'server',label:''},{id:'router-pc',from:'router',to:'pc-zone',label:''},{id:'server-admin',from:'server',to:'admin',label:''},{id:'server-booking',from:'server',to:'booking',label:''},{id:'router-cameras',from:'router',to:'cameras',label:''}],offers:[
+      {label:'Сайт и бронирование',sub:'Свободные места и онлайн-оплата'},{label:'Управление местами',sub:'Сессии, тарифы и загрузка'},{label:'Telegram-уведомления',sub:'События владельцу и персоналу'},{label:'Контроль сети',sub:'Разделение гостей, кассы и камер'}],assumptions:['Количество компьютеров и залов пока не указано']},
+    greenhouse:{project:{id:'greenhouse',title:'Умная теплица',icon:'🌿'},nodes:[{id:'sensors',icon:'🌡️',label:'Датчики',sub:'Температура и влажность',group:'infrastructure',status:'suggested'},{id:'controller',icon:'🧠',label:'Контроллер',sub:'Сценарии автоматики',group:'core',status:'suggested'},{id:'irrigation',icon:'💧',label:'Полив',sub:'Клапаны и насосы',group:'core',status:'suggested'},{id:'climate',icon:'🌬️',label:'Климат',sub:'Вентиляция и обогрев',group:'operations',status:'suggested'},{id:'dashboard',icon:'📱',label:'Панель владельца',sub:'Контроль со смартфона',group:'digital',status:'suggested'}],edges:[{id:'s-c',from:'sensors',to:'controller'},{id:'c-i',from:'controller',to:'irrigation'},{id:'c-cl',from:'controller',to:'climate'},{id:'c-d',from:'controller',to:'dashboard'}],offers:[{label:'Автополив',sub:'По датчикам и расписанию'},{label:'Удалённый контроль',sub:'Панель и уведомления'}],assumptions:['Площадь и число зон пока не указаны']},
+    website:{project:{id:'website',title:'Цифровая платформа',icon:'🌐'},nodes:[{id:'visitor',icon:'👥',label:'Посетители',sub:'Целевая аудитория',group:'infrastructure',status:'suggested'},{id:'site',icon:'🌐',label:'Сайт',sub:'Предложение и каталог',group:'core',status:'suggested'},{id:'crm',icon:'🗂️',label:'CRM',sub:'Лиды и сделки',group:'operations',status:'suggested'},{id:'assistant',icon:'🤖',label:'ИИ-консультант',sub:'Ответы и продажи',group:'digital',status:'suggested'},{id:'payments',icon:'💳',label:'Оплата',sub:'Онлайн-заказы',group:'operations',status:'suggested'}],edges:[{id:'v-s',from:'visitor',to:'site'},{id:'s-c',from:'site',to:'crm'},{id:'s-a',from:'site',to:'assistant'},{id:'s-p',from:'site',to:'payments'}],offers:[{label:'Сайт под ключ',sub:'Дизайн, запуск и аналитика'},{label:'ИИ-консультант',sub:'Прогрев и сбор обращений'}],assumptions:['Ниша и цель сайта уточняются']},
+    construction:{project:{id:'construction',title:'Управление строительством',icon:'🏗️'},nodes:[{id:'objects',icon:'🏢',label:'Объекты',sub:'Этапы и участки',group:'infrastructure',status:'suggested'},{id:'control',icon:'🧠',label:'Центр управления',sub:'План и факты',group:'core',status:'suggested'},{id:'teams',icon:'👷',label:'Бригады',sub:'Задачи и отчёты',group:'operations',status:'suggested'},{id:'materials',icon:'📦',label:'Материалы',sub:'Заказы и остатки',group:'operations',status:'suggested'},{id:'dashboard',icon:'📱',label:'Панель заказчика',sub:'Прогресс и документы',group:'digital',status:'suggested'}],edges:[{id:'o-c',from:'objects',to:'control'},{id:'c-t',from:'control',to:'teams'},{id:'c-m',from:'control',to:'materials'},{id:'c-d',from:'control',to:'dashboard'}],offers:[{label:'Контроль объектов',sub:'Сроки, задачи и фотоотчёты'},{label:'Учёт материалов',sub:'Поставки и остатки'}],assumptions:['Масштаб проекта пока не указан']},
+    workshop:{project:{id:'workshop',title:'Автоматизация производства',icon:'🏭'},nodes:[{id:'orders',icon:'📋',label:'Заказы',sub:'План производства',group:'infrastructure',status:'suggested'},{id:'control',icon:'🧠',label:'Диспетчеризация',sub:'Единый центр',group:'core',status:'suggested'},{id:'equipment',icon:'⚙️',label:'Оборудование',sub:'Статусы и загрузка',group:'core',status:'suggested'},{id:'warehouse',icon:'📦',label:'Склад',sub:'Сырьё и продукция',group:'operations',status:'suggested'},{id:'dashboard',icon:'📊',label:'Панель руководителя',sub:'Показатели и тревоги',group:'digital',status:'suggested'}],edges:[{id:'o-c',from:'orders',to:'control'},{id:'c-e',from:'control',to:'equipment'},{id:'c-w',from:'control',to:'warehouse'},{id:'c-d',from:'control',to:'dashboard'}],offers:[{label:'Диспетчеризация',sub:'Загрузка и контроль оборудования'},{label:'Производственный учёт',sub:'Заказы, материалы и выпуск'}],assumptions:['Процесс и оборудование уточняются']},
+    'business-system':{project:{id:'business-system',title:'Система под задачу',icon:'✨'},nodes:[{id:'client',icon:'👤',label:'Клиент',sub:'Потребность',group:'infrastructure',status:'suggested'},{id:'solution',icon:'🧠',label:'Решение Alsat',sub:'Логика проекта',group:'core',status:'suggested'},{id:'automation',icon:'⚙️',label:'Автоматизация',sub:'Процессы и интеграции',group:'operations',status:'suggested'},{id:'interface',icon:'📱',label:'Интерфейс',sub:'Сайт или приложение',group:'digital',status:'suggested'}],edges:[{id:'c-s',from:'client',to:'solution'},{id:'s-a',from:'solution',to:'automation'},{id:'s-i',from:'solution',to:'interface'}],offers:[{label:'Концепция решения',sub:'Состав и логика проекта'},{label:'Рабочий прототип',sub:'Наглядная первая версия'}],assumptions:['Отрасль и главная цель уточняются']}
+  };
+  return JSON.parse(JSON.stringify(seeds[kind]||seeds['business-system']));
+}
+function ensurePositions(state){
+  state.positions=state.positions||{};
+  const used=new Set(Object.values(state.positions).map(p=>`${p.x}:${p.y}`));
+  state.nodes.forEach((node,i)=>{
+    if(state.positions[node.id])return;
+    const slots=PROJECT_SLOTS[node.group]||PROJECT_SLOTS.optional;
+    const slot=slots.find(p=>!used.has(`${p[0]}:${p[1]}`))||[120+(i%3)*190,120+Math.floor(i/3)*145];
+    state.positions[node.id]={x:slot[0],y:slot[1]};used.add(`${slot[0]}:${slot[1]}`);
+  });
+}
+function mergeProjectPatch(patch){
+  if(!patch?.project)return[];
+  const changed=[];
+  if(!projectState.project||projectState.project.id!==patch.project.id){
+    projectState={project:{...patch.project},nodes:[],edges:[],offers:[],assumptions:[],positions:{},revision:0,revisionSummary:''};
+  }else projectState.project={...projectState.project,...patch.project};
+  const removeNodes=new Set(patch.removeNodeIds||[]),removeEdges=new Set(patch.removeEdgeIds||[]);
+  projectState.nodes=projectState.nodes.filter(n=>!removeNodes.has(n.id));
+  projectState.edges=projectState.edges.filter(e=>!removeEdges.has(e.id)&&!removeNodes.has(e.from)&&!removeNodes.has(e.to));
+  (patch.upsertNodes||[]).forEach(node=>{const i=projectState.nodes.findIndex(n=>n.id===node.id);if(i<0)projectState.nodes.push(node);else projectState.nodes[i]={...projectState.nodes[i],...node};changed.push(node.id)});
+  (patch.upsertEdges||[]).forEach(edge=>{const i=projectState.edges.findIndex(e=>e.id===edge.id);if(i<0)projectState.edges.push(edge);else projectState.edges[i]={...projectState.edges[i],...edge}});
+  if(Array.isArray(patch.offers))projectState.offers=patch.offers;
+  if(Array.isArray(patch.assumptions))projectState.assumptions=patch.assumptions;
+  projectState.revision=(projectState.revision||0)+1;
+  projectState.revisionSummary=patch.revisionSummary||'Схема уточнена по диалогу';
+  ensurePositions(projectState);saveProject();return changed;
+}
+function seedProjectFromText(text,force=false){
+  const kind=detectProject(text);
+  if(force||!projectState.project||projectState.project.id!==kind){
+    const seed=projectSeed(kind);
+    projectState={...seed,positions:{},revision:1,revisionSummary:'Базовая архитектура собрана по теме разговора'};
+    ensurePositions(projectState);saveProject();
+    showDiagram({kind:'project',state:projectState,changedIds:projectState.nodes.map(n=>n.id)});
+  }
+}
+function renderProject(state,changedIds=[]){
+  ensurePositions(state);
+  const changed=new Set(changedIds),nodes=new Map(state.nodes.map(n=>[n.id,n]));let svg='';
+  state.edges.forEach(edge=>{const a=state.positions[edge.from],b=state.positions[edge.to];if(!a||!b||!nodes.has(edge.from)||!nodes.has(edge.to))return;svg+=`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="rgba(74,194,255,.42)" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#arr)"><animate attributeName="stroke-dashoffset" from="0" to="-28" dur="2.6s" repeatCount="indefinite"/></line>`;if(edge.label)svg+=`<text x="${(a.x+b.x)/2}" y="${(a.y+b.y)/2-6}" text-anchor="middle" fill="#7396b4" font-size="8">${esc(edge.label)}</text>`});
+  state.nodes.forEach((node,i)=>{const p=state.positions[node.id],suggested=node.status!=='confirmed',col=suggested?'#d8a552':'#38b6ff',cls=changed.has(node.id)?'project-node-updated':'';svg+=`<g transform="translate(${p.x},${p.y})" class="${cls}"><rect x="-70" y="-31" width="140" height="62" rx="12" fill="${suggested?'rgba(96,67,20,.22)':'rgba(20,103,150,.22)'}" stroke="${col}" stroke-width="1.4" ${suggested?'stroke-dasharray="5 4"':''}/><text x="0" y="-9" text-anchor="middle" font-size="17">${node.icon||'●'}</text><text x="0" y="9" text-anchor="middle" fill="#edf8ff" font-size="10" font-weight="bold">${esc(node.label||'')}</text><text x="0" y="23" text-anchor="middle" fill="#7897b2" font-size="8">${esc(node.sub||'')}</text></g>`});
+  return svg;
+}
+function renderProjectSidebar(state){
+  document.getElementById('project-revision').textContent=`ЖИВОЙ ПРОЕКТ · ВЕРСИЯ ${state.revision||1}`;
+  document.getElementById('project-name').textContent=`${state.project?.icon||'✨'} ${state.project?.title||'Проект'}`;
+  document.getElementById('project-summary').textContent=state.revisionSummary||'Схема развивается вместе с разговором';
+  document.getElementById('project-offers').innerHTML=(state.offers||[]).map(o=>`<div class="project-offer">${esc(o.label||'')}<span>${esc(o.sub||'')}</span></div>`).join('');
+  document.getElementById('project-assumptions').innerHTML=(state.assumptions||[]).map(a=>`<div class="project-assumption">• ${esc(a)}</div>`).join('');
+  document.getElementById('assumptions-title').style.display=state.assumptions?.length?'block':'none';
+}
+function showProjectSeed(kind){projectState={project:null,nodes:[],edges:[],offers:[],assumptions:[],positions:{},revision:0,revisionSummary:''};seedProjectFromText(kind==='computer-club'?'компьютерный клуб':kind,true)}
+
 
 function showDiagram(diag, fromSync=false) {
   if(!diag) return;
   const root=document.getElementById('diagram-root');
+  const panel=document.getElementById('canvas-panel');
   if(diag.kind==='preset'){
+    panel.classList.remove('project-mode','refining');
+    document.getElementById('main-svg').setAttribute('viewBox','0 0 800 600');
     const p=PRESETS[diag.name];
     if(!p) return;
     root.innerHTML=p.svg();
@@ -432,6 +560,15 @@ function showDiagram(diag, fromSync=false) {
     root.innerHTML=inner;
     document.getElementById('canvas-subtitle').textContent=title;
     updateTabs('');
+  } else if(diag.kind==='project'){
+    projectState={...projectState,...diag.state};
+    panel.classList.add('project-mode');panel.classList.remove('refining');
+    document.getElementById('main-svg').setAttribute('viewBox','0 0 600 600');
+    root.innerHTML=renderProject(projectState,diag.changedIds||[]);
+    renderProjectSidebar(projectState);
+    document.getElementById('canvas-subtitle').textContent='Схема сохраняется и уточняется после каждого ответа';
+    document.getElementById('canvas-hint').textContent=`● ЖИВОЙ ПРОЕКТ · ВЕРСИЯ ${projectState.revision||1}`;
+    updateTabs('');
   }
   if(!fromSync && diagramSync) diagramSync.postMessage({type:'diagram',diag});
 }
@@ -446,23 +583,25 @@ function updateTabs(active) {
   });
 }
 
-showDiagram({kind:'preset',name:'welcome'});
+loadProject();
+if(projectState.project)showDiagram({kind:'project',state:projectState},true);
+else showDiagram({kind:'preset',name:'welcome'});
 if(diagramSync) diagramSync.onmessage=event=>{
   if(event.data?.type==='diagram') showDiagram(event.data.diag,true);
   if(event.data?.type==='loading') showCanvasLoading(true);
+  if(event.data?.type==='loading-stop') stopCanvasLoading(true);
 };
 
 // ── Canvas loading state ───────────────────────
 function showCanvasLoading(fromSync=false) {
-  const root = document.getElementById('diagram-root');
-  root.innerHTML = `
-    <circle cx="400" cy="280" r="38" fill="none" stroke="rgba(56,182,255,.15)" stroke-width="2"/>
-    <circle cx="400" cy="280" r="38" fill="none" stroke="#38b6ff" stroke-width="2" stroke-dasharray="60 180" stroke-linecap="round">
-      <animateTransform attributeName="transform" type="rotate" from="0 400 280" to="360 400 280" dur="1.1s" repeatCount="indefinite"/>
-    </circle>
-    <text x="400" y="340" text-anchor="middle" fill="rgba(56,182,255,.4)" font-size="11" letter-spacing="2">ГЕНЕРИРУЮ СХЕМУ...</text>`;
-  document.getElementById('canvas-subtitle').textContent = 'Строю наглядную схему...';
+  document.getElementById('canvas-panel').classList.add('refining');
+  document.getElementById('canvas-subtitle').textContent = 'Уточняю проект — существующая схема сохранена';
   if(!fromSync && diagramSync) diagramSync.postMessage({type:'loading'});
+}
+function stopCanvasLoading(fromSync=false){
+  document.getElementById('canvas-panel').classList.remove('refining');
+  if(projectState.project)document.getElementById('canvas-subtitle').textContent='Схема сохраняется и уточняется после каждого ответа';
+  if(!fromSync&&diagramSync)diagramSync.postMessage({type:'loading-stop'});
 }
 
 // ── Chat ───────────────────────────────────────
@@ -526,19 +665,20 @@ async function fetchDiagram(question, answer) {
     const resp = await fetch('/api/diagram', {
       method: 'POST',
       headers: {'content-type': 'application/json', ...authHeaders},
-      body: JSON.stringify({ question, answer })
+      body: JSON.stringify({ question, answer, state: projectState })
     });
     if (!resp.ok) return null;
     const data = await resp.json();
-    if (!data.spec) return null;
-    return { spec: data.spec };
+    if (!data.patch) return null;
+    return { patch: data.patch };
   } catch { return null; }
 }
 
 async function streamAmir(userText){
   if(!accessCode&&getUsed()>=DEMO_LIMIT){showPurchaseGate();return}
   setBusy(true);showTyping();
-  // Start diagram request in parallel immediately
+  // Build a useful local draft instantly; AI then refines it without erasing it.
+  seedProjectFromText(userText);
   const diagPromise = fetchDiagram(userText, '');
   showCanvasLoading();
 
@@ -596,18 +736,21 @@ async function streamAmir(userText){
 
     // Wait for diagram AI and render
     const diagResult = await diagPromise;
-    if (diagResult && diagResult.spec) {
-      showDiagram({kind:'dynamic', spec: diagResult.spec});
+    if (diagResult && diagResult.patch) {
+      const changedIds=mergeProjectPatch(diagResult.patch);
+      showDiagram({kind:'project',state:projectState,changedIds});
       const tag=document.createElement('div');tag.className='diagram-tag';
-      tag.textContent='📊 Визуальная схема';
-      tag.onclick=()=>showDiagram({kind:'dynamic', spec: diagResult.spec});
+      tag.textContent='🧩 Живой проект обновлён';
+      tag.onclick=()=>showDiagram({kind:'project',state:projectState});
       inner.appendChild(tag);
     } else {
       // Fallback: retry with full answer context
       fetchDiagram(userText, display).then(r2 => {
-        if(r2 && r2.spec) showDiagram({kind:'dynamic', spec: r2.spec});
+        if(r2?.patch){const changedIds=mergeProjectPatch(r2.patch);showDiagram({kind:'project',state:projectState,changedIds})}
+        stopCanvasLoading();
       });
     }
+    stopCanvasLoading();
 
     chatHistory.push({role:'user',content:userText});
     chatHistory.push({role:'assistant',content:display});
@@ -622,6 +765,7 @@ async function streamAmir(userText){
     removeTyping();
     if(bubble)bubble.textContent='Ошибка соединения. Попробуйте ещё раз.';
     else appendMsg('amir','Ошибка соединения. Попробуйте ещё раз.');
+    stopCanvasLoading();
   }
   setBusy(false);msgsEl.scrollTop=msgsEl.scrollHeight;
 }
