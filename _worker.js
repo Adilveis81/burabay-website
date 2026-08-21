@@ -766,7 +766,7 @@ export default {
     if (contentType.includes('text/html')) {
       const rewriter = new HTMLRewriter().on('head', {
         element(element) {
-          element.append('<script src="/auth-gate.js?v=2" defer></script>', { html: true });
+          element.append('<script src="/auth-gate.js?v=3" defer></script>', { html: true });
         },
       });
       if (!excluded.has(url.pathname)) {

@@ -72,6 +72,37 @@
     return gate;
   }
 
+  function directGoogleUrl(redirectTo) {
+    const url = new URL(`${SUPABASE_URL}/auth/v1/authorize`);
+    url.searchParams.set('provider', 'google');
+    url.searchParams.set('redirect_to', redirectTo);
+    return url.toString();
+  }
+
+  function bindGoogleButton(gate) {
+    if (!gate) return;
+    const button = gate.querySelector('.alsat-google');
+    const error = gate.querySelector('.alsat-auth-error');
+    if (!button || button.dataset.authBound) return;
+    button.dataset.authBound = '1';
+    button.addEventListener('click', async () => {
+      button.disabled = true;
+      error.textContent = 'Открываю безопасный вход Google…';
+      const redirectTo = `${location.origin}${location.pathname}${location.search}`;
+      const fallbackUrl = directGoogleUrl(redirectTo);
+      if (!client) {
+        location.assign(fallbackUrl);
+        return;
+      }
+      try {
+        const authResult = await client.auth.signInWithOAuth({ provider: 'google', options: { redirectTo } });
+        if (authResult.error) throw authResult.error;
+      } catch {
+        location.assign(fallbackUrl);
+      }
+    });
+  }
+
   function showUser(user) {
     if (!isTopLevel || !user || document.getElementById('alsat-auth-user')) return;
     const meta = user.user_metadata || {};
@@ -100,6 +131,7 @@
     let gate;
     try {
       gate = createGate();
+      bindGoogleButton(gate);
       await loadSupabase();
       client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
         auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
@@ -116,19 +148,6 @@
         if (gate) gate.hidden = true;
         document.documentElement.classList.remove('alsat-auth-locked');
         showUser(session.user);
-      } else if (gate) {
-        const button = gate.querySelector('.alsat-google');
-        const error = gate.querySelector('.alsat-auth-error');
-        button.addEventListener('click', async () => {
-          button.disabled = true;
-          error.textContent = '';
-          const redirectTo = `${location.origin}${location.pathname}${location.search}`;
-          const authResult = await client.auth.signInWithOAuth({ provider: 'google', options: { redirectTo } });
-          if (authResult.error) {
-            error.textContent = 'Не удалось открыть вход Google. Попробуйте ещё раз.';
-            button.disabled = false;
-          }
-        });
       }
     } catch (error) {
       resolveReady(null);
