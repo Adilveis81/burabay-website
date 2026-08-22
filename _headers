@@ -7,3 +7,9 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; connect-src 'self' https://burabay-website.vercel.app https://duscyiyxfmsriyhwlbqx.supabase.co wss://duscyiyxfmsriyhwlbqx.supabase.co https://api.anthropic.com https://api.telegram.org https://open.er-api.com https://accounts.google.com; font-src 'self' data: https://fonts.gstatic.com; frame-src 'self'; frame-ancestors 'self'
   Cache-Control: public, max-age=0, must-revalidate
+
+/vendor/supabase-2.112.3.min.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/vendor/SUPABASE-LICENSE.txt
+  Cache-Control: public, max-age=31536000, immutable

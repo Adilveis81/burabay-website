@@ -23,6 +23,7 @@
   function loadSupabase() {
     if (window.supabase?.createClient) return Promise.resolve();
     const sources = [
+      '/vendor/supabase-2.112.3.min.js',
       'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js',
       'https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js',
     ];
