@@ -4,6 +4,7 @@ const rateLimits = new Map();
 const notifiedSessions = new Map();
 const demoUsage = new Map();
 const registeredLeads = new Map();
+const safetyLeadLimits = new Map();
 const RATE_WINDOW_MS = 60 * 60 * 1000;
 const RATE_LIMIT = 20;
 const DEMO_QUESTION_LIMIT = 5;
@@ -106,6 +107,139 @@ function cleanText(value, maxLength) {
   return typeof value === 'string'
     ? value.replace(/[\u0000-\u001f\u007f]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, maxLength)
     : '';
+}
+
+const SAFETY_EMPLOYEE_RANGES = new Set(['до 50', '51–200', '201–500', '501–1000', 'более 1000']);
+const SAFETY_INDUSTRIES = new Set(['Промышленность', 'Строительство', 'Нефтегазовая', 'Горнодобывающая', 'Логистика', 'Подрядная организация', 'Другое']);
+const SAFETY_INTERESTS = new Set(['Охрана труда', 'Промышленная безопасность', 'Пожарная безопасность', 'Другие программы']);
+
+function validateSafetyLead(input) {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) return { error: 'Некорректный формат заявки.' };
+  if (cleanText(input.website, 100)) return { error: 'Заявка отклонена системой защиты.' };
+  const startedAt = Number(input.startedAt);
+  const elapsed = Date.now() - startedAt;
+  if (!Number.isFinite(startedAt) || elapsed < 2000 || elapsed > 24 * 60 * 60 * 1000) {
+    return { error: 'Обновите страницу и заполните форму ещё раз.' };
+  }
+
+  const lead = {
+    name: cleanText(input.name, 80),
+    company: cleanText(input.company, 120),
+    phone: cleanText(input.phone, 30),
+    contact: cleanText(input.contact, 120),
+    employees: cleanText(input.employees, 30),
+    industry: cleanText(input.industry, 60),
+    interests: Array.isArray(input.interests)
+      ? [...new Set(input.interests.map(item => cleanText(item, 60)))].filter(Boolean)
+      : [],
+    comment: cleanText(input.comment, 1500),
+    intent: input.intent === 'price' ? 'Расчёт стоимости' : 'Демонстрация',
+  };
+
+  if (lead.name.length < 2 || lead.company.length < 2) return { error: 'Укажите имя и компанию.' };
+  if (!/^\+?[0-9()\s-]{10,25}$/.test(lead.phone)) return { error: 'Проверьте номер телефона.' };
+  const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.contact);
+  const isTelegram = /^@[A-Za-z0-9_]{5,32}$/.test(lead.contact);
+  if (!isEmail && !isTelegram) return { error: 'Укажите корректный email или Telegram в формате @username.' };
+  if (!SAFETY_EMPLOYEE_RANGES.has(lead.employees) || !SAFETY_INDUSTRIES.has(lead.industry)) {
+    return { error: 'Выберите количество сотрудников и отрасль из списка.' };
+  }
+  if (!lead.interests.length || lead.interests.some(item => !SAFETY_INTERESTS.has(item))) {
+    return { error: 'Выберите хотя бы одно направление.' };
+  }
+  if (input.consent !== 'yes') return { error: 'Для отправки нужно согласие на обработку данных.' };
+  return { lead };
+}
+
+async function safetyRateLimited(request, env) {
+  const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+  const bucket = Math.floor(Date.now() / (60 * 60 * 1000));
+  const key = `safety-lead:${ip}:${bucket}`;
+  if (env.SAFETY_LEADS_KV) {
+    const count = Number(await env.SAFETY_LEADS_KV.get(key)) || 0;
+    if (count >= 5) return true;
+    await env.SAFETY_LEADS_KV.put(key, String(count + 1), { expirationTtl: 3660 });
+    return false;
+  }
+  const count = safetyLeadLimits.get(key) || 0;
+  safetyLeadLimits.set(key, count + 1);
+  if (safetyLeadLimits.size > 1000) safetyLeadLimits.clear();
+  return count >= 5;
+}
+
+async function storeSafetyLead(env, id, lead, deliveryStatus) {
+  if (!env.SAFETY_LEADS_KV) return;
+  await env.SAFETY_LEADS_KV.put(`safety-submission:${id}`, JSON.stringify({
+    ...lead,
+    deliveryStatus,
+    updatedAt: new Date().toISOString(),
+  }), { expirationTtl: 90 * 24 * 60 * 60 });
+}
+
+async function handleSafetyLead(request, env) {
+  if (request.method === 'GET') return json({ ok: true, service: 'alsat-safety-leads' });
+  if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
+  const contentLength = Number(request.headers.get('content-length')) || 0;
+  if (contentLength > 20000) return json({ error: 'Заявка слишком большая.' }, 413);
+  const origin = request.headers.get('origin');
+  if (origin && origin !== 'https://safety.alsat.asia') return json({ error: 'Источник запроса не разрешён.' }, 403);
+  if (await safetyRateLimited(request, env)) return json({ error: 'Слишком много попыток. Попробуйте через час.' }, 429);
+
+  const input = await request.json().catch(() => null);
+  const validated = validateSafetyLead(input);
+  if (validated.error) return json({ error: validated.error }, 400);
+  const id = crypto.randomUUID();
+  const token = env.ADMIN_BOT_TOKEN || env.TELEGRAM_BOT_TOKEN;
+  const chatId = env.ADMIN_CHAT_ID || env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) return json({ error: 'Сервис уведомлений временно недоступен.' }, 503);
+
+  const lead = validated.lead;
+  const message = [
+    '🦺 Новая B2B-заявка Alsat Safety',
+    `Заявка: ${id}`,
+    `Цель: ${lead.intent}`,
+    '',
+    `Имя: ${lead.name}`,
+    `Компания: ${lead.company}`,
+    `Телефон: ${lead.phone}`,
+    `Email / Telegram: ${lead.contact}`,
+    `Сотрудников: ${lead.employees}`,
+    `Отрасль: ${lead.industry}`,
+    `Направления: ${lead.interests.join(', ')}`,
+    lead.comment ? `Комментарий: ${lead.comment}` : '',
+  ].filter(Boolean).join('\n').slice(0, 3900);
+
+  try {
+    await storeSafetyLead(env, id, lead, 'pending');
+    const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ chat_id: chatId, text: message, disable_web_page_preview: true }),
+      signal: AbortSignal.timeout(8000),
+    });
+    const result = await response.json().catch(() => null);
+    if (!response.ok || !result?.ok) throw new Error('notification_failed');
+    await storeSafetyLead(env, id, lead, 'delivered');
+    return json({ ok: true, id });
+  } catch {
+    await storeSafetyLead(env, id, lead, 'delivery_failed').catch(() => {});
+    return json({ error: 'Не удалось подтвердить доставку. Попробуйте ещё раз или напишите на info@alsat.asia.' }, 502);
+  }
+}
+
+async function serveSafetyAsset(request, env) {
+  const url = new URL(request.url);
+  const assetUrl = new URL(request.url);
+  assetUrl.pathname = `/safety${url.pathname === '/' ? '/index.html' : url.pathname}`;
+  const response = await env.ASSETS.fetch(new Request(assetUrl.toString(), request));
+  const headers = new Headers(response.headers);
+  headers.set('x-content-type-options', 'nosniff');
+  headers.set('x-frame-options', 'DENY');
+  headers.set('referrer-policy', 'strict-origin-when-cross-origin');
+  headers.set('permissions-policy', 'camera=(), microphone=(), geolocation=(), payment=()');
+  headers.set('content-security-policy', "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests");
+  if (url.pathname === '/dashboard.html') headers.set('x-robots-tag', 'noindex, nofollow');
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
 }
 
 async function verifySupabaseUser(request, env) {
@@ -580,7 +714,7 @@ async function handleAmir(request, env) {
       const [, expStr, sig] = m;
       if (Math.floor(Date.now() / 1000) > parseInt(expStr)) return false;
       try {
-        const secret = env.CONSULTATION_SECRET || 'alsat-consult-secret-2026';
+        const secret = env.CONSULTATION_SECRET || '';
         const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret), {name:'HMAC',hash:'SHA-256'}, false, ['sign']);
         const buf = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(expStr));
         const expected = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('').slice(0,16);
@@ -714,6 +848,11 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const host = url.hostname;
+
+    if (host === 'safety.alsat.asia') {
+      if (url.pathname === '/api/lead') return handleSafetyLead(request, env);
+      return serveSafetyAsset(request, env);
+    }
 
     if (url.pathname === '/api/consult') {
       return handleConsult(request, env);

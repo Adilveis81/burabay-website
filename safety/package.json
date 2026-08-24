@@ -1,0 +1,11 @@
+{
+  "name": "alsat-safety",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check assets/app.js && node --check assets/dashboard.js && node --check functions/api/lead.js",
+    "verify": "npm run check && npm test"
+  }
+}
