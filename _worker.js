@@ -229,10 +229,23 @@ async function handleSafetyLead(request, env) {
 
 async function serveSafetyAsset(request, env) {
   const url = new URL(request.url);
+  if (url.pathname === '/safety' || url.pathname.startsWith('/safety/')) {
+    const publicUrl = new URL(request.url);
+    publicUrl.pathname = url.pathname.slice('/safety'.length) || '/';
+    return Response.redirect(publicUrl.toString(), 308);
+  }
   const assetUrl = new URL(request.url);
-  assetUrl.pathname = `/safety${url.pathname === '/' ? '/index.html' : url.pathname}`;
+  assetUrl.pathname = url.pathname === '/' ? '/safety/' : `/safety${url.pathname}`;
   const response = await env.ASSETS.fetch(new Request(assetUrl.toString(), request));
   const headers = new Headers(response.headers);
+  const location = headers.get('location');
+  if (response.status >= 300 && response.status < 400 && location) {
+    const redirectUrl = new URL(location, assetUrl);
+    if (redirectUrl.pathname.startsWith('/safety/')) {
+      redirectUrl.pathname = redirectUrl.pathname.slice('/safety'.length) || '/';
+      headers.set('location', `${redirectUrl.pathname}${redirectUrl.search}${redirectUrl.hash}`);
+    }
+  }
   headers.set('x-content-type-options', 'nosniff');
   headers.set('x-frame-options', 'DENY');
   headers.set('referrer-policy', 'strict-origin-when-cross-origin');
