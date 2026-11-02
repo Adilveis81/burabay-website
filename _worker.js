@@ -1,5 +1,15 @@
 // Cloudflare Pages Worker — routing + AI consultant for alsat.asia
 
+// Табличка «Сайт на реконструкции» на всех HTML-страницах.
+const RECONSTRUCTION_NOTICE = true;
+const RECONSTRUCTION_BANNER =
+  '<div id="reconstruction-notice" style="position:sticky;top:0;z-index:2147483000;box-sizing:border-box;' +
+  'width:100%;padding:12px 16px;background:#111827;color:#fbbf24;' +
+  "font:600 15px/1.45 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;" +
+  'text-align:center;border-bottom:2px solid #fbbf24;letter-spacing:.2px">' +
+  '🚧 Сайт на реконструкции — скоро вернёмся. Спасибо за понимание.' +
+  '</div>';
+
 const rateLimits = new Map();
 const notifiedSessions = new Map();
 const demoUsage = new Map();
@@ -926,6 +936,14 @@ export default {
           }
         },
       });
+      // Табличка «сайт на реконструкции». Выключить: RECONSTRUCTION_NOTICE = false + push.
+      if (RECONSTRUCTION_NOTICE) {
+        rewriter.on('body', {
+          element(element) {
+            element.prepend(RECONSTRUCTION_BANNER, { html: true });
+          },
+        });
+      }
       if (!excluded.has(url.pathname)) {
         rewriter.on('body', {
           element(element) {
