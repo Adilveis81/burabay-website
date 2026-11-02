@@ -918,7 +918,12 @@ export default {
     if (contentType.includes('text/html')) {
       const rewriter = new HTMLRewriter().on('head', {
         element(element) {
-          element.append('<script src="/auth-gate.js?v=4" defer></script>', { html: true });
+          // Стену входа отключили: Supabase-проект недоступен, вход через Google
+          // не работает и блокировал весь сайт. Включается обратно:
+          //   wrangler pages secret put AUTH_GATE --project-name burabay-website  (значение "on")
+          if (env.AUTH_GATE === 'on') {
+            element.append('<script src="/auth-gate.js?v=4" defer></script>', { html: true });
+          }
         },
       });
       if (!excluded.has(url.pathname)) {
