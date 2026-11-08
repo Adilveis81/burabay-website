@@ -717,8 +717,9 @@ async function handleAmir(request, env) {
   }
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
   const user = await verifySupabaseUser(request, env);
-  if (!user) return registrationRequired();
-  await notifyRegisteredLead(request, env, user);
+  if (!user && env.AUTH_GATE === 'on') return registrationRequired();
+  if (!user && isRateLimited(request)) return json({ error: 'Слишком много сообщений. Попробуйте позже.' }, 429);
+  if (user) await notifyRegisteredLead(request, env, user);
   if (!env.ANTHROPIC_API_KEY && !env.DEEPSEEK_API_KEY && !env.OPENROUTER_API_KEY) return json({ error: 'API not configured' }, 503);
 
   let body;
@@ -751,7 +752,7 @@ async function handleAmir(request, env) {
   }
 
   const premium = await validateToken(accessCode);
-  const usageKey = user.id;
+  const usageKey = user ? user.id : `guest:${request.headers.get('CF-Connecting-IP') || 'unknown'}`;
   const now = Date.now();
   const current = demoUsage.get(usageKey);
   const count = current && now - current.updatedAt < DEMO_SESSION_TTL ? current.count : 0;
