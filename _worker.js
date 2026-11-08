@@ -1,7 +1,7 @@
 // Cloudflare Pages Worker — routing + AI consultant for alsat.asia
 
 // Табличка «Сайт на реконструкции» на всех HTML-страницах.
-const RECONSTRUCTION_NOTICE = true;
+const RECONSTRUCTION_NOTICE = false;
 const RECONSTRUCTION_BANNER =
   '<div id="reconstruction-notice" style="position:sticky;top:0;z-index:2147483000;box-sizing:border-box;' +
   'width:100%;padding:12px 16px;background:#111827;color:#fbbf24;' +
