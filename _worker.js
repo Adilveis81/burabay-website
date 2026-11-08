@@ -719,7 +719,7 @@ async function handleAmir(request, env) {
   const user = await verifySupabaseUser(request, env);
   if (!user) return registrationRequired();
   await notifyRegisteredLead(request, env, user);
-  if (!env.ANTHROPIC_API_KEY && !env.DEEPSEEK_API_KEY) return json({ error: 'API not configured' }, 503);
+  if (!env.ANTHROPIC_API_KEY && !env.DEEPSEEK_API_KEY && !env.OPENROUTER_API_KEY) return json({ error: 'API not configured' }, 503);
 
   let body;
   try { body = await request.json(); } catch { return json({ error: 'Bad request' }, 400); }
@@ -795,6 +795,25 @@ async function handleAmir(request, env) {
           max_tokens: 800,
           system: assistantPrompt,
           messages: [...history, { role: 'user', content: message }],
+        }),
+        signal: AbortSignal.timeout(45000),
+      });
+    } catch { aiResponse = null; }
+  }
+
+  // OpenRouter powers the free Mansur consultation when configured.
+  if (!premium && env.OPENROUTER_API_KEY) {
+    try {
+      aiResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: { authorization: `Bearer ${env.OPENROUTER_API_KEY}`, 'content-type': 'application/json' },
+        body: JSON.stringify({
+          model: 'deepseek/deepseek-v4.1-flash-1017',
+          stream: true,
+          reasoning: { enabled: false },
+          temperature: 0.3,
+          max_tokens: 800,
+          messages: [{ role: 'system', content: assistantPrompt }, ...history, { role: 'user', content: message }],
         }),
         signal: AbortSignal.timeout(45000),
       });
