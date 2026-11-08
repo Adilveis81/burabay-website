@@ -171,6 +171,7 @@
     .nav a { color: #bdcad7; text-decoration: none; font-size: 14px; transition: color .2s; }
     .nav a:hover { color: white; }
     .nav .nav-cta { color: white; border: 1px solid var(--line); border-radius: 999px; padding: 10px 16px; background: rgba(255, 255, 255, .04); }
+    .nav .auth-button { color: white; border: 1px solid var(--line); border-radius: 999px; padding: 10px 16px; background: transparent; font: inherit; cursor: pointer; }
     .menu-button { display: none; color: white; background: transparent; border: 1px solid var(--line); border-radius: 11px; padding: 8px 11px; }
 
     .hero { min-height: calc(100dvh - 76px); display: grid; align-items: stretch; padding: 16px 0 22px; position: relative; }
@@ -722,6 +723,7 @@
         <a href="#process">Как работаем</a>
         <a href="#prices">Стоимость</a>
         <a class="nav-cta" href="#contact">Обсудить проект</a>
+        <button class="auth-button" id="authButton" type="button">Войти / Регистрация</button>
       </nav>
       <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="nav">Меню</button>
     </div>
@@ -1284,5 +1286,6 @@
       }));
     })();
   </script>
+  <script src="/optional-auth.js" defer></script>
 </body>
 </html>
