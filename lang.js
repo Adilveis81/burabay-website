@@ -325,6 +325,17 @@
 
     document.documentElement.lang = lang === 'kz' ? 'kk' : lang;
 
+    const alsatIntro = {
+      ru: {eyebrow:'ALSAT DIGITAL · РЕШЕНИЯ ДЛЯ РАЗВИТИЯ',title:'Цифровые решения для проектов, которые строят будущее',lead:'Сайты, ИИ-консультанты и инструменты для бизнеса в строительстве, транспорте и социальной инфраструктуре.',sector1:'Жильё и строительство',sector1p:'Представьте проект и помогите клиентам легко связаться с вами.',sector2:'Дороги и транспорт',sector2p:'Расскажите о решениях и возможностях вашей компании.',sector3:'Социальная инфраструктура',sector3p:'Создайте понятный онлайн-образ медицинских и общественных проектов.',image_note:'Иллюстрации созданы ИИ и не изображают конкретные проекты Alsat.',domain_title:'Домен и хостинг для вашего сайта',domain_desc:'Выберите адрес и тариф самостоятельно или обратитесь к нам за помощью с подключением.',domain_note:'Проверка, оформление и оплата проходят на сайте Hoster.KZ. Условия и цены уточняйте у провайдера.',domain_btn:'Выбрать домен ↗',hosting_btn:'Выбрать хостинг ↗',help_btn:'Помощь с запуском'},
+      kz: {eyebrow:'ALSAT DIGITAL · ДАМУҒА АРНАЛҒАН ШЕШІМДЕР',title:'Болашақты құратын жобаларға арналған цифрлық шешімдер',lead:'Құрылыс, көлік және әлеуметтік инфрақұрылым салаларындағы бизнеске арналған сайттар, ЖИ-кеңесшілер және құралдар.',sector1:'Тұрғын үй және құрылыс',sector1p:'Жобаңызды таныстырып, клиенттерге сізбен оңай байланысуға мүмкіндік беріңіз.',sector2:'Жолдар және көлік',sector2p:'Компанияңыздың шешімдері мен мүмкіндіктері туралы баяндаңыз.',sector3:'Әлеуметтік инфрақұрылым',sector3p:'Медициналық және қоғамдық жобаларға түсінікті онлайн-бейне жасаңыз.',image_note:'Иллюстрациялар ЖИ арқылы жасалған және Alsat-тың нақты жобаларын бейнелемейді.',domain_title:'Сайтыңызға арналған домен және хостинг',domain_desc:'Мекенжай мен тарифті өзіңіз таңдаңыз немесе қосуға көмектесу үшін бізге хабарласыңыз.',domain_note:'Тексеру, рәсімдеу және төлем Hoster.KZ сайтында жүргізіледі. Шарттар мен бағаларды провайдерден нақтылаңыз.',domain_btn:'Домен таңдау ↗',hosting_btn:'Хостинг таңдау ↗',help_btn:'Іске қосуға көмек'},
+      en: {eyebrow:'ALSAT DIGITAL · SOLUTIONS FOR GROWTH',title:'Digital solutions for projects building the future',lead:'Websites, AI assistants and business tools for construction, transport and social infrastructure.',sector1:'Housing and construction',sector1p:'Present your project and make it easy for clients to contact you.',sector2:'Roads and transport',sector2p:'Showcase your company’s solutions and capabilities.',sector3:'Social infrastructure',sector3p:'Build a clear online presence for healthcare and community projects.',image_note:'AI-generated illustrations; these do not depict actual Alsat projects.',domain_title:'A domain and hosting for your website',domain_desc:'Choose an address and hosting plan yourself, or ask us for help getting connected.',domain_note:'Availability checks, ordering and payment take place on Hoster.KZ. Check current terms and prices with the provider.',domain_btn:'Choose a domain ↗',hosting_btn:'Choose hosting ↗',help_btn:'Get launch support'}
+    };
+    document.querySelectorAll('[data-alsat-text]').forEach(el => {
+      const value = alsatIntro[lang][el.dataset.alsatText];
+      if (value) el.textContent = value;
+    });
+
+
     // Helpers
     const set = (el, text) => { if (el) el.textContent = text; };
     const setHTML = (el, html) => { if (el) el.innerHTML = html; };
