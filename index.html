@@ -295,6 +295,7 @@
     }
     .site-chat-rail::before { content:"Мансур · постоянный консультант"; height:42px; display:flex; align-items:center; padding:0 15px; color:#8ce9d0; border-bottom:1px solid rgba(139,207,240,.14); background:linear-gradient(90deg,rgba(30,137,214,.12),rgba(101,75,210,.12)); font-size:10px; font-weight:850; letter-spacing:.12em; text-transform:uppercase; }
     .site-chat-rail iframe { width:100%; height:calc(100% - 42px); display:block; border:0; background:#07111f; }
+    .site-chat-toggle { display:none; }
 
     .hero-console {
       position: relative;
@@ -639,10 +640,13 @@
     }
 
     @media (max-width: 680px) {
-      body { padding-right:0; padding-bottom:54dvh; }
-      .site-chat-rail { top:auto; bottom:0; left:0; width:100%; height:54dvh; border-left:0; border-top:1px solid rgba(139,207,240,.22); box-shadow:0 -20px 60px rgba(0,0,0,.28); }
-      .site-chat-rail::before { height:34px; padding:0 11px; font-size:8px; }
-      .site-chat-rail iframe { height:calc(100% - 34px); }
+      body { padding-right:0; padding-bottom:56px; }
+      .site-chat-rail { top:auto; bottom:0; left:0; width:100%; height:56px; border-left:0; border-top:1px solid rgba(139,207,240,.22); box-shadow:0 -20px 60px rgba(0,0,0,.28); }
+      .site-chat-rail.is-open { height:54dvh; }
+      .site-chat-rail::before { display:none; }
+      .site-chat-toggle { display:flex; width:100%; height:56px; align-items:center; justify-content:space-between; padding:0 16px; border:0; background:#0c1c2c; color:#8ce9d0; font:inherit; font-size:14px; font-weight:800; cursor:pointer; }
+      .site-chat-rail iframe { height:calc(100% - 56px); visibility:hidden; }
+      .site-chat-rail.is-open iframe { visibility:visible; }
       .container { width: min(calc(100% - 28px), var(--max)); }
       .section { padding: 76px 0; }
       .header-row { min-height: 68px; }
@@ -733,8 +737,16 @@
   </header>
 
   <aside class="site-chat-rail" aria-label="Постоянный чат с Мансуром">
-    <iframe src="/amir?mode=chat" title="Чат с ИИ-консультантом Мансуром" loading="eager"></iframe>
+    <button class="site-chat-toggle" type="button" aria-expanded="false" aria-controls="site-chat-frame"><span data-alsat-text="chat_toggle">Мансур · открыть чат</span><span aria-hidden="true">↕</span></button>
+    <iframe id="site-chat-frame" src="/amir?mode=chat" title="Чат с ИИ-консультантом Мансуром" loading="eager"></iframe>
   </aside>
+
+  <script>
+    document.querySelector('.site-chat-toggle').addEventListener('click', function () {
+      const open = this.closest('.site-chat-rail').classList.toggle('is-open');
+      this.setAttribute('aria-expanded', String(open));
+    });
+  </script>
 
   <main id="top">
     <section class="alsat-intro" aria-labelledby="alsat-intro-title"><div class="container">
