@@ -380,7 +380,7 @@
     if (svc) {
       set(svc.querySelector('.eyebrow'), t.services_eyebrow);
       set(svc.querySelector('.section-head h2'), t.services_h2);
-      set(svc.querySelector('.section-head p'), t.services_p);
+      set(svc.querySelector('.section-head p:last-child'), t.services_p);
       const cards = svc.querySelectorAll('.service-card');
       const sd = [[t.s1_h3,t.s1_p],[t.s2_h3,t.s2_p],[t.s3_h3,t.s3_p],[t.s4_h3,t.s4_p]];
       cards.forEach((c, i) => {
@@ -392,7 +392,7 @@
       if (dh) {
         set(dh.querySelector('.eyebrow'), t.depth_eyebrow);
         set(dh.querySelector('h3'), t.depth_h3);
-        set(dh.querySelector('p'), t.depth_p);
+        set(dh.querySelector('p:last-child'), t.depth_p);
       }
       const details = svc.querySelectorAll('.depth-card summary');
       [t.depth1,t.depth2,t.depth3,t.depth4].forEach((txt, i) => set(details[i], txt));
@@ -411,7 +411,7 @@
     if (cases) {
       set(cases.querySelector('.eyebrow'), t.cases_eyebrow);
       set(cases.querySelector('.section-head h2'), t.cases_h2);
-      set(cases.querySelector('.section-head p'), t.cases_p);
+      set(cases.querySelector('.section-head p:last-child'), t.cases_p);
     }
 
     // ── Process ──
@@ -419,7 +419,7 @@
     if (proc) {
       set(proc.querySelector('.eyebrow'), t.proc_eyebrow);
       set(proc.querySelector('.section-head h2'), t.proc_h2);
-      set(proc.querySelector('.section-head p'), t.proc_p);
+      set(proc.querySelector('.section-head p:last-child'), t.proc_p);
       const steps = proc.querySelectorAll('.process-step');
       const sd = [[t.proc1_h3,t.proc1_p],[t.proc2_h3,t.proc2_p],[t.proc3_h3,t.proc3_p],[t.proc4_h3,t.proc4_p]];
       steps.forEach((s, i) => {
@@ -434,7 +434,7 @@
     if (prices) {
       set(prices.querySelector('.eyebrow'), t.prices_eyebrow);
       set(prices.querySelector('.section-head h2'), t.prices_h2);
-      set(prices.querySelector('.section-head p'), t.prices_p);
+      set(prices.querySelector('.section-head p:last-child'), t.prices_p);
       const cards = prices.querySelectorAll('.price-card');
       const pd = [
         [t.p1_name,t.p1_btn],[t.p2_name,t.p2_btn],
@@ -471,7 +471,7 @@
     if (contact) {
       set(contact.querySelector('.eyebrow'), t.contact_eyebrow);
       set(contact.querySelector('.contact-copy h2'), t.contact_h2);
-      set(contact.querySelector('.contact-copy > p'), t.contact_p);
+      set(contact.querySelector('.contact-copy > p:last-of-type'), t.contact_p);
       const lbl = (id) => contact.querySelector(`label[for="${id}"]`);
       const inp = (id) => contact.querySelector(`#${id}`);
       set(lbl('name'), t.form_name);   if (inp('name')) inp('name').placeholder = t.form_name_ph;
