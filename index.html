@@ -941,25 +941,25 @@
             <span class="price-name">Запуск компании</span><h3>Бизнес онлайн</h3>
             <div class="price">от 250 000 ₸</div>
             <ul><li>Сайт или лендинг</li><li>Домен, SSL и почта</li><li>Формы и аналитика</li><li>Подключение основных площадок</li></ul>
-            <a class="button button-secondary" href="#contact">Обсудить запуск</a>
+            <a class="button button-secondary" href="#contact" data-select-service="Бизнес онлайн">Обсудить запуск</a>
           </article>
           <article class="price-card featured reveal">
             <span class="price-name">Работает 24/7</span><h3>ИИ + Telegram</h3>
             <div class="price">от 150 000 ₸</div>
             <ul><li>Консультант на сайте</li><li>Знания о вашей компании</li><li>Сбор контактов</li><li>Заявки владельцу в Telegram</li></ul>
-            <a class="button button-primary" href="#contact">Подключить ИИ</a>
+            <a class="button button-primary" href="#contact" data-select-service="ИИ-консультант + Telegram">Подключить ИИ</a>
           </article>
           <article class="price-card reveal">
             <span class="price-name">Под процесс</span><h3>Задачник / CRM</h3>
             <div class="price">от 350 000 ₸</div>
             <ul><li>Роли и кабинеты</li><li>Заявки и задачи</li><li>Уведомления</li><li>Отчёты и интеграции</li></ul>
-            <a class="button button-secondary" href="#contact">Описать задачу</a>
+            <a class="button button-secondary" href="#contact" data-select-service="Задачник / мини-CRM">Описать задачу</a>
           </article>
           <article class="price-card reveal">
             <span class="price-name">По подписке</span><h3>Техотдел</h3>
             <div class="price">от 300 000 ₸ <small>/ месяц</small></div>
             <ul><li>Контроль сайта и домена</li><li>Резервные копии</li><li>Небольшие доработки</li><li>Одна точка технической связи</li></ul>
-            <a class="button button-secondary" href="#contact">Узнать условия</a>
+            <a class="button button-secondary" href="#contact" data-select-service="Удалённый техотдел">Узнать условия</a>
           </article>
         </div>
       </div>
@@ -994,7 +994,7 @@
             <form class="contact-form" id="contactForm">
               <div class="field"><label for="name">Ваше имя</label><input id="name" name="name" autocomplete="name" required placeholder="Как к вам обращаться"></div>
               <div class="field"><label for="phone">Телефон или WhatsApp</label><input id="phone" name="phone" autocomplete="tel" required placeholder="+7 ..."></div>
-              <div class="field full"><label for="service">Что нужно сделать</label><select id="service" name="service" required><option value="">Выберите основной продукт</option><option>Бизнес онлайн</option><option>ИИ-консультант + Telegram</option><option>Задачник / мини-CRM</option><option>Удалённый техотдел</option><option>Дополнительная возможность</option><option>Нужна консультация</option></select></div>
+              <div class="field full"><label for="service">Что нужно сделать</label><select id="service" name="service" required><option value="">Выберите основной продукт</option><option value="Бизнес онлайн">Бизнес онлайн</option><option value="ИИ-консультант + Telegram">ИИ-консультант + Telegram</option><option value="Задачник / мини-CRM">Задачник / мини-CRM</option><option value="Удалённый техотдел">Удалённый техотдел</option><option value="Дополнительная возможность">Дополнительная возможность</option><option value="Нужна консультация">Нужна консультация</option></select></div>
               <div class="field full"><label for="message">Коротко о задаче</label><textarea id="message" name="message" placeholder="Например: нужен сайт компании и кабинет для обработки заявок"></textarea></div>
               <button class="submit" type="submit">Отправить в WhatsApp →</button>
               <p class="form-note">Форма откроет WhatsApp с готовым сообщением. Ничего не отправляется без вашего подтверждения.</p>
@@ -1085,6 +1085,12 @@
         }, { threshold: .1 });
         document.querySelectorAll('.reveal').forEach(item => observer.observe(item));
       }
+
+      document.querySelectorAll('[data-select-service]').forEach(link => {
+        link.addEventListener('click', () => {
+          document.querySelector('#service').value = link.dataset.selectService;
+        });
+      });
 
       document.querySelector('#contactForm').addEventListener('submit', event => {
         event.preventDefault();

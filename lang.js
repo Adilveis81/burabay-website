@@ -478,6 +478,14 @@
       set(lbl('service'), t.form_service);
       const svc = inp('service');
       if (svc && svc.options[0]) svc.options[0].textContent = t.form_service_ph;
+
+      const serviceLabels = {
+        ru: ['Бизнес онлайн', 'ИИ-консультант + Telegram', 'Задачник / мини-CRM', 'Удалённый техотдел', 'Дополнительная возможность', 'Нужна консультация'],
+        kz: ['Бизнес онлайн', 'ЖИ-кеңесші + Telegram', 'Тапсырмалар / шағын CRM', 'Қашықтағы техникалық бөлім', 'Қосымша мүмкіндік', 'Кеңес қажет'],
+        en: ['Business online', 'AI assistant + Telegram', 'Task manager / mini CRM', 'Remote technical support', 'Additional feature', 'Consultation needed']
+      };
+      if (svc) serviceLabels[lang].forEach((label, i) => { if (svc.options[i + 1]) svc.options[i + 1].textContent = label; });
+
       set(lbl('message'), t.form_msg); if (inp('message')) inp('message').placeholder = t.form_msg_ph;
       set(contact.querySelector('.submit'), t.form_submit);
       set(contact.querySelector('.form-note'), t.form_note);
