@@ -35,7 +35,7 @@ html,body{height:100%;font-family:'Segoe UI',Arial,sans-serif;background:#070d1a
 .project-offer span{display:block;margin-top:2px;color:#7794ad;font-size:8.5px}
 .project-assumption{margin-top:7px;color:#e4b86f;font-size:9px;line-height:1.35}
 #canvas-panel.refining{box-shadow:inset 0 0 0 1px rgba(56,182,255,.22)}
-#canvas-panel.refining #canvas-title:after{content:'  •  ОБНОВЛЯЮ';color:#6ee7ff;animation:pulse 1.1s ease-in-out infinite}
+#canvas-panel.refining #canvas-title:after{content:var(--amir-updating, '  •  ОБНОВЛЯЮ');color:#6ee7ff;animation:pulse 1.1s ease-in-out infinite}
 .project-node-updated{animation:nodeUpdate 1.6s ease both}
 @keyframes nodeUpdate{0%{opacity:.35;filter:drop-shadow(0 0 0 transparent)}35%{opacity:1;filter:drop-shadow(0 0 10px #38b6ff)}100%{opacity:1;filter:none}}
 #canvas-hint{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.15);font-size:10px;letter-spacing:2px;animation:pulse 3s ease-in-out infinite;white-space:nowrap}
@@ -189,10 +189,10 @@ body.mode-chat #chat-panel{display:flex;width:100%;height:100%}
       </div>
     </div>
     <div id="quick-prompts">
-      <div class="qp" onclick="askQuick('Хочу автоматизировать полив теплицы')">🌿 Полив теплицы</div>
-      <div class="qp" onclick="askQuick('Как монетизировать компьютерный клуб')">🖥️ Компьютерный клуб</div>
-      <div class="qp" onclick="askQuick('Нужен сайт для бизнеса')">🌐 Создать сайт</div>
-      <div class="qp" onclick="askQuick('Как открыть кофейню с нуля')">☕ Кофейня</div>
+      <div class="qp" onclick="askQuick(amirT('questions')[0])">🌿 Полив теплицы</div>
+      <div class="qp" onclick="askQuick(amirT('questions')[1])">🖥️ Компьютерный клуб</div>
+      <div class="qp" onclick="askQuick(amirT('questions')[2])">🌐 Создать сайт</div>
+      <div class="qp" onclick="askQuick(amirT('questions')[3])">☕ Кофейня</div>
     </div>
     <div id="input-area">
       <textarea id="user-input" placeholder="Спросите что угодно..." rows="1"></textarea>
@@ -201,6 +201,7 @@ body.mode-chat #chat-panel{display:flex;width:100%;height:100%}
   </div>
 </div>
 
+<script src="/amir-i18n.js"></script>
 <script>
 // ── Helpers ────────────────────────────────────
 const COLORS = ['#22dd66','#38b6ff','#ff9900','#ff4488','#aa44ff','#ffdd00','#00ddcc'];
@@ -538,9 +539,9 @@ function renderProject(state,changedIds=[]){
   return svg;
 }
 function renderProjectSidebar(state){
-  document.getElementById('project-revision').textContent=`ЖИВОЙ ПРОЕКТ · ВЕРСИЯ ${state.revision||1}`;
-  document.getElementById('project-name').textContent=`${state.project?.icon||'✨'} ${state.project?.title||'Проект'}`;
-  document.getElementById('project-summary').textContent=state.revisionSummary||'Схема развивается вместе с разговором';
+  document.getElementById('project-revision').textContent=amirT('revision',state.revision||1);
+  document.getElementById('project-name').textContent=`${state.project?.icon||'✨'} ${state.project?.title||amirT('project')}`;
+  document.getElementById('project-summary').textContent=state.revisionSummary||amirT('summary');
   document.getElementById('project-offers').innerHTML=(state.offers||[]).map(o=>`<div class="project-offer">${esc(o.label||'')}<span>${esc(o.sub||'')}</span></div>`).join('');
   document.getElementById('project-assumptions').innerHTML=(state.assumptions||[]).map(a=>`<div class="project-assumption">• ${esc(a)}</div>`).join('');
   document.getElementById('assumptions-title').style.display=state.assumptions?.length?'block':'none';
@@ -553,14 +554,16 @@ function showDiagram(diag, fromSync=false) {
   const root=document.getElementById('diagram-root');
   const panel=document.getElementById('canvas-panel');
   if(diag.kind==='preset'){
+    window.currentAmirPreset=diag.name;
     panel.classList.remove('project-mode','refining');
     document.getElementById('main-svg').setAttribute('viewBox','0 0 800 600');
     const p=PRESETS[diag.name];
     if(!p) return;
     root.innerHTML=p.svg();
-    document.getElementById('canvas-subtitle').textContent=p.title;
+    document.getElementById('canvas-subtitle').textContent=amirPresetTitle(diag.name)||p.title;
     updateTabs(diag.name);
   } else if(diag.kind==='dynamic'){
+    window.currentAmirPreset=null;
     const sp=diag.spec;
     let inner='';
     const title=sp.title||'';
@@ -571,13 +574,14 @@ function showDiagram(diag, fromSync=false) {
     document.getElementById('canvas-subtitle').textContent=title;
     updateTabs('');
   } else if(diag.kind==='project'){
+    window.currentAmirPreset=null;
     projectState={...projectState,...diag.state};
     panel.classList.add('project-mode');panel.classList.remove('refining');
     document.getElementById('main-svg').setAttribute('viewBox','0 0 600 600');
     root.innerHTML=renderProject(projectState,diag.changedIds||[]);
     renderProjectSidebar(projectState);
-    document.getElementById('canvas-subtitle').textContent='Схема сохраняется и уточняется после каждого ответа';
-    document.getElementById('canvas-hint').textContent=`● ЖИВОЙ ПРОЕКТ · ВЕРСИЯ ${projectState.revision||1}`;
+    document.getElementById('canvas-subtitle').textContent=amirT('saved');
+    document.getElementById('canvas-hint').textContent='● '+amirT('revision',projectState.revision||1);
     updateTabs('');
   }
   if(!fromSync && diagramSync) diagramSync.postMessage({type:'diagram',diag});
@@ -605,12 +609,12 @@ if(diagramSync) diagramSync.onmessage=event=>{
 // ── Canvas loading state ───────────────────────
 function showCanvasLoading(fromSync=false) {
   document.getElementById('canvas-panel').classList.add('refining');
-  document.getElementById('canvas-subtitle').textContent = 'Уточняю проект — существующая схема сохранена';
+  document.getElementById('canvas-subtitle').textContent = amirT('loading');
   if(!fromSync && diagramSync) diagramSync.postMessage({type:'loading'});
 }
 function stopCanvasLoading(fromSync=false){
   document.getElementById('canvas-panel').classList.remove('refining');
-  if(projectState.project)document.getElementById('canvas-subtitle').textContent='Схема сохраняется и уточняется после каждого ответа';
+  if(projectState.project)document.getElementById('canvas-subtitle').textContent=amirT('saved');
   if(!fromSync&&diagramSync)diagramSync.postMessage({type:'loading-stop'});
 }
 
@@ -637,8 +641,8 @@ const accessCode=storageGet(ACCESS_KEY);
 
 function updateUsageLabel(){
   const label=document.getElementById('usage-label');
-  if(fullAccess)label.textContent='Полная консультация · активна';
-  else label.textContent=`Демо · осталось ${Math.max(0,DEMO_LIMIT-getUsed())} из ${DEMO_LIMIT}`;
+  if(fullAccess)label.textContent=amirT('full');
+  else label.textContent=amirT('usage',Math.max(0,DEMO_LIMIT-getUsed()),DEMO_LIMIT);
 }
 
 function showPurchaseGate(){
@@ -648,9 +652,10 @@ function showPurchaseGate(){
   card.innerHTML='<small>Демонстрация завершена</small><b>Активируйте полную AI-консультацию</b><p>Пять бесплатных вопросов показали принцип работы. После приобретения консультации мы включим продвинутый режим для глубокого персонального разбора и подготовки решения.</p><div class="paywall-actions"><a href="https://alsat.asia/pay" target="_blank" rel="noopener">Купить консультацию</a><a href="https://t.me/alsat_kz" target="_blank" rel="noopener">Написать в Telegram</a></div>';
   msgsEl.appendChild(card);msgsEl.scrollTop=msgsEl.scrollHeight;
   document.getElementById('user-input').disabled=true;
-  document.getElementById('user-input').placeholder='Лимит демоверсии использован';
+  document.getElementById('user-input').placeholder=amirT('gatePlaceholder');
   document.getElementById('send-btn').disabled=true;
   document.getElementById('quick-prompts').style.display='none';
+  applyAmirLanguage(amirLanguage());
 }
 
 updateUsageLabel();
@@ -706,7 +711,7 @@ async function streamAmir(userText){
       if(resp.status===402||e.error==='consultation_required'){
         setUsed(DEMO_LIMIT);showPurchaseGate();setBusy(false);return;
       }
-      appendMsg('amir',e.error||'Ошибка. Попробуйте ещё раз.');
+      appendSystemMsg(e.error==='registration_required'?'registration':resp.status===429?'rate':'error');
       setBusy(false);return;
     }
     const tier=resp.headers.get('x-consultation-tier');
@@ -750,7 +755,7 @@ async function streamAmir(userText){
       const changedIds=mergeProjectPatch(diagResult.patch);
       showDiagram({kind:'project',state:projectState,changedIds});
       const tag=document.createElement('div');tag.className='diagram-tag';
-      tag.textContent='🧩 Живой проект обновлён';
+      tag.dataset.amirSystem='updated';tag.textContent=amirT('updated');
       tag.onclick=()=>showDiagram({kind:'project',state:projectState});
       inner.appendChild(tag);
     } else {
@@ -767,14 +772,14 @@ async function streamAmir(userText){
     if(!fullAccess){
       const remaining=Math.max(0,DEMO_LIMIT-getUsed());
       const note=document.createElement('div');note.className='demo-remaining';
-      note.textContent=remaining?`Демо: осталось ${remaining} из ${DEMO_LIMIT}`:'Бесплатный лимит использован';
+      note.dataset.amirSystem='remaining';note.dataset.remaining=remaining;note.textContent=amirT('remaining',remaining,DEMO_LIMIT);
       inner.appendChild(note);
       if(!remaining)setTimeout(showPurchaseGate,200);
     }
   }catch(e){
     removeTyping();
-    if(bubble)bubble.textContent='Ошибка соединения. Попробуйте ещё раз.';
-    else appendMsg('amir','Ошибка соединения. Попробуйте ещё раз.');
+    if(bubble){bubble.dataset.amirSystem='network';bubble.textContent=amirT('network')}
+    else appendSystemMsg('network');
     stopCanvasLoading();
   }
   setBusy(false);msgsEl.scrollTop=msgsEl.scrollHeight;
@@ -786,6 +791,7 @@ function appendMsg(role,text){
   d.innerHTML=`<div class="msg-avatar">${icon}</div><div><div class="msg-bubble">${esc(text)}</div></div>`;
   msgsEl.appendChild(d);msgsEl.scrollTop=msgsEl.scrollHeight;
 }
+function appendSystemMsg(key){appendMsg('amir',amirT(key));msgsEl.lastElementChild.querySelector('.msg-bubble').dataset.amirSystem=key}
 
 function sendMsg(){
   if(busy||gated)return;
@@ -804,6 +810,7 @@ document.getElementById('user-input').addEventListener('input',function(){
   this.style.height='auto';
   this.style.height=Math.min(this.scrollHeight,88)+'px';
 });
+applyAmirLanguage(amirLanguage());
 </script>
 <script src="/optional-auth.js" defer></script>
 </body>

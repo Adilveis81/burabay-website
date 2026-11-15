@@ -311,8 +311,12 @@
   }
 
   function setLang(lang) {
+    if (!LANGS.includes(lang)) return;
     localStorage.setItem('alsat_lang', lang);
     applyLang(lang);
+    document.querySelectorAll('iframe[data-amir-language]').forEach(frame => {
+      frame.contentWindow?.postMessage({type:'alsat:language',lang}, location.origin);
+    });
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
@@ -621,6 +625,9 @@
   // ─── Инициализация ─────────────────────────────────────────────────────
   function init() {
     injectSwitcher();
+    document.querySelectorAll('iframe[data-amir-language]').forEach(frame => {
+      frame.addEventListener('load', () => frame.contentWindow?.postMessage({type:'alsat:language',lang:getLang()}, location.origin));
+    });
     const lang = getLang();
     setLang(lang);
   }
