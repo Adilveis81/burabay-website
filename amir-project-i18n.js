@@ -1,0 +1,29 @@
+// New built-in project drafts only; never translate stored user projects.
+const AMIR_PROJECT_TRANSLATIONS={
+ en:{
+  'computer-club':{title:'Computer club',nodes:[['Internet','Primary + backup'],['Router / Firewall','Network segmentation'],['Club server','Session management'],['Gaming area','Workstations'],['Administrator','Checkout and control'],['Website and booking','Booking and payment'],['CCTV','Club security']],offers:[['Website and booking','Available seats and online payment'],['Seat management','Sessions, rates and occupancy'],['Telegram alerts','Events for owner and staff'],['Network control','Separate guests, checkout and cameras']],assumptions:['Number of computers and rooms not yet specified']},
+  greenhouse:{title:'Smart greenhouse',nodes:[['Sensors','Temperature and humidity'],['Controller','Automation scenarios'],['Irrigation','Valves and pumps'],['Climate','Ventilation and heating'],['Owner dashboard','Smartphone monitoring']],offers:[['Automatic irrigation','Sensors and schedules'],['Remote monitoring','Dashboard and alerts']],assumptions:['Area and number of zones not yet specified']},
+  website:{title:'Digital platform',nodes:[['Visitors','Target audience'],['Website','Offer and catalog'],['CRM','Leads and deals'],['AI consultant','Answers and sales'],['Payment','Online orders']],offers:[['Turnkey website','Design, launch and analytics'],['AI consultant','Engagement and lead capture']],assumptions:['Website niche and goal to be clarified']},
+  construction:{title:'Construction management',nodes:[['Sites','Stages and areas'],['Control center','Plans and actuals'],['Teams','Tasks and reports'],['Materials','Orders and inventory'],['Client dashboard','Progress and documents']],offers:[['Site monitoring','Deadlines, tasks and photo reports'],['Materials tracking','Deliveries and inventory']],assumptions:['Project scale not yet specified']},
+  workshop:{title:'Production automation',nodes:[['Orders','Production plan'],['Dispatch','Central control'],['Equipment','Status and utilization'],['Warehouse','Materials and products'],['Manager dashboard','Metrics and alerts']],offers:[['Dispatch','Equipment utilization and monitoring'],['Production tracking','Orders, materials and output']],assumptions:['Process and equipment to be clarified']},
+  'business-system':{title:'System for your needs',nodes:[['Customer','Need'],['Alsat solution','Project logic'],['Automation','Processes and integrations'],['Interface','Website or app']],offers:[['Solution concept','Project components and logic'],['Working prototype','A visual first version']],assumptions:['Industry and main goal to be clarified']}
+ },
+ kz:{
+  'computer-club':{title:'Компьютер клубы',nodes:[['Интернет','Негізгі және резервтік'],['Роутер / Firewall','Желіні сегменттеу'],['Клуб сервері','Сеанстарды басқару'],['Ойын аймағы','Жұмыс орындары'],['Әкімші','Касса және бақылау'],['Сайт және брондау','Тіркелу және төлем'],['Бейнебақылау','Клуб қауіпсіздігі']],offers:[['Сайт және брондау','Бос орындар мен онлайн төлем'],['Орындарды басқару','Сеанстар, тарифтер және жүктеме'],['Telegram хабарламалары','Иесі мен қызметкерлерге оқиғалар'],['Желіні бақылау','Қонақтар, касса және камераларды бөлу']],assumptions:['Компьютерлер мен залдар саны әлі көрсетілмеген']},
+  greenhouse:{title:'Ақылды жылыжай',nodes:[['Датчиктер','Температура және ылғалдылық'],['Контроллер','Автоматтандыру сценарийлері'],['Суару','Клапандар мен сорғылар'],['Климат','Желдету және жылыту'],['Иесінің панелі','Смартфоннан бақылау']],offers:[['Автоматты суару','Датчиктер мен кесте бойынша'],['Қашықтан бақылау','Панель және хабарламалар']],assumptions:['Аудан мен аймақтар саны әлі көрсетілмеген']},
+  website:{title:'Цифрлық платформа',nodes:[['Келушілер','Мақсатты аудитория'],['Сайт','Ұсыныс және каталог'],['CRM','Өтінімдер мен мәмілелер'],['ЖИ-кеңесші','Жауаптар мен сатылым'],['Төлем','Онлайн тапсырыстар']],offers:[['Дайын сайт','Дизайн, іске қосу және аналитика'],['ЖИ-кеңесші','Қызықтыру және өтінім жинау']],assumptions:['Сайттың саласы мен мақсаты нақтыланады']},
+  construction:{title:'Құрылысты басқару',nodes:[['Нысандар','Кезеңдер мен учаскелер'],['Басқару орталығы','Жоспар және нақты деректер'],['Бригадалар','Тапсырмалар мен есептер'],['Материалдар','Тапсырыстар мен қалдықтар'],['Тапсырыс беруші панелі','Барыс және құжаттар']],offers:[['Нысандарды бақылау','Мерзімдер, тапсырмалар және фотоесептер'],['Материалдарды есепке алу','Жеткізілімдер мен қалдықтар']],assumptions:['Жоба ауқымы әлі көрсетілмеген']},
+  workshop:{title:'Өндірісті автоматтандыру',nodes:[['Тапсырыстар','Өндіріс жоспары'],['Диспетчерлеу','Бірыңғай орталық'],['Жабдықтар','Күйі және жүктемесі'],['Қойма','Шикізат пен өнім'],['Басшы панелі','Көрсеткіштер мен ескертулер']],offers:[['Диспетчерлеу','Жабдық жүктемесі мен бақылау'],['Өндірістік есеп','Тапсырыстар, материалдар және өнім']],assumptions:['Процесс пен жабдық нақтыланады']},
+  'business-system':{title:'Міндетке арналған жүйе',nodes:[['Клиент','Қажеттілік'],['Alsat шешімі','Жоба логикасы'],['Автоматтандыру','Процестер мен интеграциялар'],['Интерфейс','Сайт немесе қосымша']],offers:[['Шешім тұжырымдамасы','Жобаның құрамы мен логикасы'],['Жұмыс прототипі','Көрнекі алғашқы нұсқа']],assumptions:['Сала мен басты мақсат нақтыланады']}
+ }
+};
+function localizeNewProject(seed,kind,lang){
+ const t=AMIR_PROJECT_TRANSLATIONS[lang]?.[kind];
+ if(!t)return seed;
+ seed.project.title=t.title;
+ seed.nodes.forEach((n,i)=>{[n.label,n.sub]=t.nodes[i]});
+ seed.offers.forEach((o,i)=>{[o.label,o.sub]=t.offers[i]});
+ seed.assumptions=t.assumptions.slice();
+ return seed;
+}
+function newProjectSummary(lang){return {ru:'Базовая архитектура собрана по теме разговора',kz:'Негізгі архитектура әңгіме тақырыбы бойынша жасалды',en:'The initial architecture was built from the conversation topic'}[lang]}

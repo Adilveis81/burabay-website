@@ -189,10 +189,10 @@ body.mode-chat #chat-panel{display:flex;width:100%;height:100%}
       </div>
     </div>
     <div id="quick-prompts">
-      <div class="qp" onclick="askQuick(amirT('questions')[0])">🌿 Полив теплицы</div>
-      <div class="qp" onclick="askQuick(amirT('questions')[1])">🖥️ Компьютерный клуб</div>
-      <div class="qp" onclick="askQuick(amirT('questions')[2])">🌐 Создать сайт</div>
-      <div class="qp" onclick="askQuick(amirT('questions')[3])">☕ Кофейня</div>
+      <div class="qp" onclick="askQuick(amirT('questions')[0],'greenhouse')">🌿 Полив теплицы</div>
+      <div class="qp" onclick="askQuick(amirT('questions')[1],'computer-club')">🖥️ Компьютерный клуб</div>
+      <div class="qp" onclick="askQuick(amirT('questions')[2],'website')">🌐 Создать сайт</div>
+      <div class="qp" onclick="askQuick(amirT('questions')[3],'business-system')">☕ Кофейня</div>
     </div>
     <div id="input-area">
       <textarea id="user-input" placeholder="Спросите что угодно..." rows="1"></textarea>
@@ -203,6 +203,7 @@ body.mode-chat #chat-panel{display:flex;width:100%;height:100%}
 
 <script src="/amir-i18n.js"></script>
 <script src="/amir-preset-i18n.js"></script>
+<script src="/amir-project-i18n.js"></script>
 <script>
 // ── Helpers ────────────────────────────────────
 const COLORS = ['#22dd66','#38b6ff','#ff9900','#ff4488','#aa44ff','#ffdd00','#00ddcc'];
@@ -494,7 +495,8 @@ function projectSeed(kind){
     workshop:{project:{id:'workshop',title:'Автоматизация производства',icon:'🏭'},nodes:[{id:'orders',icon:'📋',label:'Заказы',sub:'План производства',group:'infrastructure',status:'suggested'},{id:'control',icon:'🧠',label:'Диспетчеризация',sub:'Единый центр',group:'core',status:'suggested'},{id:'equipment',icon:'⚙️',label:'Оборудование',sub:'Статусы и загрузка',group:'core',status:'suggested'},{id:'warehouse',icon:'📦',label:'Склад',sub:'Сырьё и продукция',group:'operations',status:'suggested'},{id:'dashboard',icon:'📊',label:'Панель руководителя',sub:'Показатели и тревоги',group:'digital',status:'suggested'}],edges:[{id:'o-c',from:'orders',to:'control'},{id:'c-e',from:'control',to:'equipment'},{id:'c-w',from:'control',to:'warehouse'},{id:'c-d',from:'control',to:'dashboard'}],offers:[{label:'Диспетчеризация',sub:'Загрузка и контроль оборудования'},{label:'Производственный учёт',sub:'Заказы, материалы и выпуск'}],assumptions:['Процесс и оборудование уточняются']},
     'business-system':{project:{id:'business-system',title:'Система под задачу',icon:'✨'},nodes:[{id:'client',icon:'👤',label:'Клиент',sub:'Потребность',group:'infrastructure',status:'suggested'},{id:'solution',icon:'🧠',label:'Решение Alsat',sub:'Логика проекта',group:'core',status:'suggested'},{id:'automation',icon:'⚙️',label:'Автоматизация',sub:'Процессы и интеграции',group:'operations',status:'suggested'},{id:'interface',icon:'📱',label:'Интерфейс',sub:'Сайт или приложение',group:'digital',status:'suggested'}],edges:[{id:'c-s',from:'client',to:'solution'},{id:'s-a',from:'solution',to:'automation'},{id:'s-i',from:'solution',to:'interface'}],offers:[{label:'Концепция решения',sub:'Состав и логика проекта'},{label:'Рабочий прототип',sub:'Наглядная первая версия'}],assumptions:['Отрасль и главная цель уточняются']}
   };
-  return JSON.parse(JSON.stringify(seeds[kind]||seeds['business-system']));
+  kind=Object.hasOwn(seeds,kind)?kind:'business-system';
+  return localizeNewProject(JSON.parse(JSON.stringify(seeds[kind])),kind,amirLanguage());
 }
 function ensurePositions(state){
   state.positions=state.positions||{};
@@ -523,11 +525,11 @@ function mergeProjectPatch(patch){
   projectState.revisionSummary=patch.revisionSummary||'Схема уточнена по диалогу';
   ensurePositions(projectState);saveProject();return changed;
 }
-function seedProjectFromText(text,force=false){
-  const kind=detectProject(text);
+function seedProjectFromText(text,force=false,explicitKind=null){
+  const kind=explicitKind||detectProject(text);
   if(force||!projectState.project||projectState.project.id!==kind){
     const seed=projectSeed(kind);
-    projectState={...seed,positions:{},revision:1,revisionSummary:'Базовая архитектура собрана по теме разговора'};
+    projectState={...seed,positions:{},revision:1,revisionSummary:newProjectSummary(amirLanguage())};
     ensurePositions(projectState);saveProject();
     showDiagram({kind:'project',state:projectState,changedIds:projectState.nodes.map(n=>n.id)});
   }
@@ -691,11 +693,11 @@ async function fetchDiagram(question, answer) {
   } catch { return null; }
 }
 
-async function streamAmir(userText){
+async function streamAmir(userText,explicitKind=null){
   if(!accessCode&&getUsed()>=DEMO_LIMIT){showPurchaseGate();return}
   setBusy(true);showTyping();
   // Build a useful local draft instantly; AI then refines it without erasing it.
-  seedProjectFromText(userText);
+  seedProjectFromText(userText,false,explicitKind);
   const diagPromise = fetchDiagram(userText, '');
   showCanvasLoading();
 
@@ -795,15 +797,15 @@ function appendMsg(role,text){
 }
 function appendSystemMsg(key){appendMsg('amir',amirT(key));msgsEl.lastElementChild.querySelector('.msg-bubble').dataset.amirSystem=key}
 
-function sendMsg(){
+function sendMsg(explicitKind=null){
   if(busy||gated)return;
   const inp=document.getElementById('user-input');
   const text=inp.value.trim();if(!text)return;
   inp.value='';inp.style.height='auto';
   appendMsg('user',text);
-  streamAmir(text);
+  streamAmir(text,explicitKind);
 }
-function askQuick(text){document.getElementById('user-input').value=text;sendMsg();}
+function askQuick(text,kind){if(busy||gated)return;document.getElementById('user-input').value=text;sendMsg(kind);}
 
 document.getElementById('user-input').addEventListener('keydown',e=>{
   if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}
