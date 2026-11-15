@@ -202,6 +202,7 @@ body.mode-chat #chat-panel{display:flex;width:100%;height:100%}
 </div>
 
 <script src="/amir-i18n.js"></script>
+<script src="/amir-preset-i18n.js"></script>
 <script>
 // ── Helpers ────────────────────────────────────
 const COLORS = ['#22dd66','#38b6ff','#ff9900','#ff4488','#aa44ff','#ffdd00','#00ddcc'];
@@ -560,6 +561,7 @@ function showDiagram(diag, fromSync=false) {
     const p=PRESETS[diag.name];
     if(!p) return;
     root.innerHTML=p.svg();
+    translateAmirPreset();
     document.getElementById('canvas-subtitle').textContent=amirPresetTitle(diag.name)||p.title;
     updateTabs(diag.name);
   } else if(diag.kind==='dynamic'){

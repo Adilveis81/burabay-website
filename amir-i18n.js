@@ -27,6 +27,7 @@
   document.querySelectorAll('[data-amir-system]').forEach(e=>{let k=e.dataset.amirSystem; e.textContent=k==='remaining'?amirT(k,Number(e.dataset.remaining),5):amirT(k)});
   const card=document.querySelector('.paywall-card');if(card){card.querySelector('small').textContent=amirT('gateSmall');card.querySelector('b').textContent=amirT('gateTitle');card.querySelector('p').textContent=amirT('gateText');const links=card.querySelectorAll('a');links[0].textContent=amirT('buy');links[1].textContent=amirT('telegram')}
   updateUsageLabel();
+  window.translateAmirPreset?.();
   if(projectState.project){text('#project-revision',amirT('revision',projectState.revision||1));text('#canvas-hint','● '+amirT('revision',projectState.revision||1));text('#canvas-subtitle',amirT(document.getElementById('canvas-panel').classList.contains('refining')?'loading':'saved'))}
   else {text('#canvas-hint',amirT('hint'));if(window.currentAmirPreset)text('#canvas-subtitle',amirPresetTitle(window.currentAmirPreset))}
  };
