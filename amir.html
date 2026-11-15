@@ -470,11 +470,11 @@ function loadProject(){
 }
 function saveProject(){try{localStorage.setItem(PROJECT_KEY,JSON.stringify(projectState))}catch{}}
 function detectProject(text=''){
-  if(/компьютерн.*клуб|игров.*клуб|кибер/i.test(text))return'computer-club';
-  if(/теплиц|полив|ферм/i.test(text))return'greenhouse';
-  if(/строител|стройк|ремонт/i.test(text))return'construction';
-  if(/цех|производств|склад/i.test(text))return'workshop';
-  if(/сайт|магазин|лендинг/i.test(text))return'website';
+  if(/компьютер.*клуб|игров.*клуб|кибер|\b(?:computer|gaming)\s+(?:club|cent(?:er|re))\b/i.test(text))return'computer-club';
+  if(/теплиц|полив|ферм|жылыжай|суару|\b(?:greenhouse|irrigation|farm(?:s|ing)?)\b/i.test(text))return'greenhouse';
+  if(/строител|стройк|ремонт|құрылыс|\bconstruction\b/i.test(text))return'construction';
+  if(/цех|производств|склад|өндіріс|қойма|\b(?:workshop|manufacturing|warehouse)\b/i.test(text))return'workshop';
+  if(/сайт|магазин|лендинг|дүкен|\b(?:website|web\s+site|landing\s+page|online\s+store)\b/i.test(text))return'website';
   return projectState.project?.id||'business-system';
 }
 function projectSeed(kind){
